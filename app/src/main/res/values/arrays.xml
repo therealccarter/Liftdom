@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exercises1">
+        <item>Bench Press</item>
+        <item>Squat</item>
+        <item>Dead-Lift</item>
+        <item>OHP</item>
+        <item>Pull Ups</item>
+        <item>DB Row</item>
+        <item>BB Row</item>
+        <item>DB Curls</item>
+        <item>BB Curls</item>
+        <item>Skull-Crushers</item>
+    </string-array>
+</resources>

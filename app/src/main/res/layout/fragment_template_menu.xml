@@ -1,0 +1,101 @@
+<LinearLayout
+        android:id="@+id/templateMenuFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        tools:context="com.liftdom.template_housing.TemplateMenuFrag"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/backgroundgrey1"
+    >
+
+        <LinearLayout
+                android:id="@+id/templateChartFragContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/templateMenuContainer"
+                android:layout_marginTop="150dp"
+        >
+
+            <Button
+                    android:id="@+id/button_my_templates"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/file_multiple"
+                    android:textAllCaps="false"
+                    android:text="@string/my_templates"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <Button
+                    android:id="@+id/button_new_template"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:drawableTop="@drawable/note_plus"
+                    android:textAllCaps="false"
+                    android:text="@string/new_template"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+            />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/createTemplateLinearLayout"
+                android:background="@color/darkerGrey"
+                android:layout_marginBottom="40dp"
+        >
+            <Button
+                    android:id="@+id/button_premade_templates"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/note_plus_gold"
+                    android:textAllCaps="false"
+                    android:text="@string/premade_templates"
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="15sp"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <Button
+                    android:id="@+id/button_from_scratch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/note_plus_gold"
+                    android:textAllCaps="false"
+                    android:text="@string/fromScratch1"
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="15sp"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

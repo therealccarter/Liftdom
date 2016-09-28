@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "710482914931",
+    "firebase_url": "https://liftdom-27d9d.firebaseio.com",
+    "project_id": "liftdom-27d9d",
+    "storage_bucket": "liftdom-27d9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710482914931:android:8b2776b4506c83bc",
+        "android_client_info": {
+          "package_name": "com.liftdom.liftdom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710482914931-fgko8l2u0v5n331p462ofqre303e4trr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8OKFXPNBBnEWO8Icp96wnzSCQ6jsEZ2o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center_horizontal"
+             android:orientation="horizontal"
+             tools:context="com.liftdom.template_editor.SetsLevelChildFrag">
+
+
+    <EditText
+            android:id="@+id/sets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/set"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="22sp"
+    />
+
+    <TextView
+            android:id="@+id/by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/x"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+    />
+
+    <EditText
+            android:id="@+id/reps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/reps"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="22sp"
+    />
+
+
+    <TextView
+            android:id="@+id/at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/at"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+    />
+
+    <EditText
+            android:id="@+id/weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/weight"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="22sp"
+    />
+
+
+
+</LinearLayout>

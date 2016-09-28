@@ -1,0 +1,154 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#E3E3E3"
+                  android:orientation="vertical"
+                  android:id="@+id/ParentLinearLayout1"
+                  tools:context="com.liftdom.template_editor.DayOfWeekChildFrag"
+                  android:layout_marginBottom="30dp"
+    >
+
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:showDividers="middle"
+                android:background="@color/black"
+                android:id="@+id/buttonBar"
+        >
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/M"
+                    android:textOff="@string/M"
+                    android:textOn="@string/M"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_margin="0dp"
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tu"
+                    android:textOff="@string/Tu"
+                    android:textOn="@string/Tu"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/W"
+                    android:textOff="@string/W"
+                    android:textOn="@string/W"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Th"
+                    android:textOff="@string/Th"
+                    android:textOn="@string/Th"
+                    style="?android:attr/borderlessButtonStyle"
+
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/F"
+                    android:textOff="@string/F"
+                    android:textOn="@string/F"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Sa"
+                    android:textOff="@string/Sa"
+                    android:textOn="@string/Sa"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+            <ToggleButton
+                    android:textColor="#FFFFFF"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Su"
+                    android:textOff="@string/Su"
+                    android:textOn="@string/Su"
+                    style="?android:attr/borderlessButtonStyle"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/exerciseFragmentLayout"
+                android:orientation="vertical"
+        >
+
+        </LinearLayout>
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/LinearLayoutChild2"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+        >
+
+
+
+            <Button
+                    android:id="@+id/addExercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:text="@string/addExercise"
+                    android:layout_gravity="start|bottom"
+                    android:textSize="14sp"
+                    android:background="@color/darkerGrey"
+                    android:textColor="@color/white"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:layout_marginEnd="10dp"
+
+            />
+
+            <Button
+                    android:id="@+id/removeExercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:text="@string/removeExercise"
+                    android:layout_gravity="end|bottom"
+                    android:textSize="14sp"
+                    android:background="@color/darkerGrey"
+                    android:textColor="@color/white"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:layout_marginStart="10dp"
+            />
+        </LinearLayout>
+
+
+</LinearLayout>
+
+
