@@ -259,7 +259,7 @@
     <!-- TEMPLATE LANDER TEXT -->
     <string name="new_template">New Template</string>
     <string name="premade_templates">Pre-made Templates</string>
-    <string name="my_templates">My Templates</string>
+    <string name="my_templates">Saved Templates</string>
 
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>

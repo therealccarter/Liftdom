@@ -44,6 +44,20 @@ public class TemplateMenuFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        templateOptions.setVisibility(View.GONE);
+
+        myTemplatesButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v){
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         newTemplateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
@@ -76,28 +90,11 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
-
-        myTemplatesButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(final View v){
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                //fragmentTransaction1.remove(templateChartFrag);
-
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
         premadeTemplatesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                //fragmentTransaction1.remove(templateChartFrag);
 
                 fragmentTransaction.replace(R.id.templateMenuFragContainer, new PremadeTemplatesFrag(),
                         "premadeTemplatesTag");

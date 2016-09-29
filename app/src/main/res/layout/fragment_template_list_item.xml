@@ -1,13 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.liftdom.template_housing.TemplateListItem">
-
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/liftrGold1"
+        android:gravity="center_horizontal"
+        android:id="@+id/templateListItemLinear"
+>
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/templateName"
+            android:textColor="@color/black"
+            android:text="fail"
+            android:textSize="26sp"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+    />
 
-</FrameLayout>
+
+</LinearLayout>

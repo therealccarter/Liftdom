@@ -21,6 +21,9 @@
     <item name="white" type="color">#FFFFFF</item>
     <color name="darkerGrey" type="color">#1d1d1d</color>
     <color name="darkgrey" type="color">#282828</color>
+    <color name="verylightgrey" type="color">#EBEBEB</color>
+
+
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>

@@ -13,6 +13,7 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_housing.TemplateHousingActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(MainActivity.this, TemplateEditorActivity.class);
+                                intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
                             }
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);

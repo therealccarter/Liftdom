@@ -43,14 +43,14 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
     String email = "error";
 
-    @BindView(R.id.templateMenuFragContainer) LinearLayout fragContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_housing);
 
-        ButterKnife.bind(this);
+
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -146,7 +146,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //add a fragment
         TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
-        fragmentTransaction.add(fragContainer, templateMenuFrag);
+        fragmentTransaction.add(R.id.templateMenuFragContainer, templateMenuFrag);
         fragmentTransaction.commit();
 
 

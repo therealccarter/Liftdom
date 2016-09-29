@@ -39,6 +39,8 @@
                     android:textAllCaps="false"
                     android:text="@string/my_templates"
                     style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
             />
 
             <Button
@@ -53,6 +55,8 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
             />
 
 
@@ -77,8 +81,9 @@
                     android:textAllCaps="false"
                     android:text="@string/premade_templates"
                     android:textColor="@color/liftrGold1"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     style="?android:attr/borderlessButtonStyle"
+
             />
 
             <Button
@@ -90,8 +95,9 @@
                     android:textAllCaps="false"
                     android:text="@string/fromScratch1"
                     android:textColor="@color/liftrGold1"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     style="?android:attr/borderlessButtonStyle"
+
             />
 
     </LinearLayout>
