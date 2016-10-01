@@ -47,6 +47,8 @@ public class TemplateSaved extends AppCompatActivity {
     @BindView(R.id.goBackHome) Button goHome;
     @BindView(R.id.goBackToTemplates) Button goToTemplates;
 
+    String templateName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +169,9 @@ public class TemplateSaved extends AppCompatActivity {
 
         // BEGIN UPLOAD OF TEMPLATE
 
+        Intent intent = getIntent();
+        templateName = intent.getStringExtra("key1");
+
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -175,7 +180,9 @@ public class TemplateSaved extends AppCompatActivity {
 
         ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
 
-        mTemplateRef.child("template1").setValue(masterListTemplate);
+        mTemplateRef.child(templateName).setValue(masterListTemplate);
+
+        EditTemplateAssemblerClass.getInstance().clearAllLists();
 
         // END UPLOAD OF TEMPLATE
 
