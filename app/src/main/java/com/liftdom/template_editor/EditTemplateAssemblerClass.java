@@ -16,7 +16,7 @@ class EditTemplateAssemblerClass {
     }
 
     // DoW ArrayLists!
-    private ArrayList<ArrayList> MasterEditTemplateAL = new ArrayList<>();
+    public ArrayList<ArrayList> MasterEditTemplateAL = new ArrayList<>();
     private ArrayList<String> DoWAL1 = new ArrayList<>();
     private ArrayList<String> DoWAL2 = new ArrayList<>();
     private ArrayList<String> DoWAL3 = new ArrayList<>();

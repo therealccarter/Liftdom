@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     // declare_auth
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -47,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
-        mAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null) {
+            // Not signed in, launch the Sign In activity
+            startActivity(new Intent(this, SignInActivity.class));
+        }
 
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // create the drawer
-        Drawer drawer = new DrawerBuilder()
+         Drawer drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
@@ -144,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        //mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
     // [END on_start_add_listener]
 
@@ -153,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+            mFirebaseAuth.removeAuthStateListener(mAuthListener);
         }
     }
     // [END on_stop_remove_listener]

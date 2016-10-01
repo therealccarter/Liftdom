@@ -40,6 +40,8 @@ public class SaveTemplateDialog extends Activity {
                 Intent intent = new Intent(v.getContext(), TemplateSaved.class);
                 intent.putExtra("key1", templateName.getText().toString());
                 startActivity(intent);
+
+                EditTemplateAssemblerClass.getInstance().assembleMasterList();
             }
         });
 
