@@ -40,7 +40,7 @@
                     android:text="@string/my_templates"
                     style="?android:attr/borderlessButtonStyle"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
             />
 
             <Button

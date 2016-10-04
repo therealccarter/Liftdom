@@ -17,6 +17,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.template_housing.TemplateHousingActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -155,8 +156,8 @@ public class TemplateSaved extends AppCompatActivity {
         goToTemplates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(), TemplateMenu.class);
-                //startActivity(intent);
+                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -175,7 +176,6 @@ public class TemplateSaved extends AppCompatActivity {
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // location of condition under the root. sunny or foggy
         DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates");
 
         ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
@@ -185,34 +185,6 @@ public class TemplateSaved extends AppCompatActivity {
         EditTemplateAssemblerClass.getInstance().clearAllLists();
 
         // END UPLOAD OF TEMPLATE
-
-
-        /**
-        mTemplateRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                // text view var mConditionTextView.setText(text);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        view.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mConditionRef.setValue("Sunny");
-            }
-        });
-
-        view.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mConditionRef.setValue("Foggy");
-            }
-        });
-         **/
 
     }
 }

@@ -4,20 +4,32 @@ package com.liftdom.template_housing;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import org.w3c.dom.Comment;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.google.android.gms.internal.zzs.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyTemplatesFrag extends Fragment {
+
+    // declare_auth
+    private FirebaseAuth mAuth;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     public MyTemplatesFrag() {
@@ -30,46 +42,40 @@ public class MyTemplatesFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_templates, container, false);
 
-        /**
-        ArrayList<String> templateListWithNum = new ArrayList<>();
-        ArrayList<String> templateNamesListSansNum = new ArrayList<>();
-
-        File myDir = getContext().getFilesDir();
-        File[] templateFiles = myDir.listFiles();
-
-        int length = templateFiles.length;
-
-
-        for(int i = 0; i < length; i++){
-            templateListWithNum.add(templateFiles[i].getName());
-        }
-
-        for(String withNum : templateListWithNum){
-            String sansNum = lastCharRemover(withNum);
-            if(!templateNamesListSansNum.contains(sansNum) && !sansNum.equals("instant-ru") && !s3Check(sansNum)){
-                templateNamesListSansNum.add(sansNum);
-            }
-
-        }
-
-        for(String template : templateNamesListSansNum){
-
-            TemplateListItemFrag templateListItem = new TemplateListItemFrag();
-
-            templateListItem.templateName = template;
-
-            FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-            android.support.v4.app.FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-            fragmentTransaction1.add(R.id.myTemplatesList, templateListItem);
-            fragmentTransaction1.addToBackStack(null);
-            fragmentTransaction1.commit();
-
-        }**/
-
         //TODO: Retrieve user's list of templates
 
 
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // We need to get the name of each template in a user's collection
+
+        DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference mTemplateRef = mDatabase.child("users").child(uid).child("templates");
+
+        final ArrayList<String> savedTemplatesAL = new ArrayList<>();
+
+        mTemplateRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
     }
 
 }
