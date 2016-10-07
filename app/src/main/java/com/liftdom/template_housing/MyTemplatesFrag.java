@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -14,10 +15,14 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.HashMapFoo;
+import com.liftdom.template_editor.MasterListTemplateClass;
 import org.w3c.dom.Comment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.gms.internal.zzs.TAG;
 
@@ -44,8 +49,6 @@ public class MyTemplatesFrag extends Fragment {
 
         //TODO: Retrieve user's list of templates
 
-
-
         return view;
     }
 
@@ -67,7 +70,10 @@ public class MyTemplatesFrag extends Fragment {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        
+
+                        for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
+
+                        }
                     }
 
                     @Override

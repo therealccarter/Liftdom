@@ -53,103 +53,104 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
+        //if (savedInstanceState == null) {
 
-        mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();
 
-        // [START auth_state_listener]
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    email = user.getEmail();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(TemplateHousingActivity.this, SignInActivity.class));
+            // [START auth_state_listener]
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
+                        // User is signed in
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        email = user.getEmail();
+                    } else {
+                        // User is signed out
+                        Log.d(TAG, "onAuthStateChanged:signed_out");
+                        startActivity(new Intent(TemplateHousingActivity.this, SignInActivity.class));
+                    }
+
                 }
+            };
+            // [END auth_state_listener]
 
-            }
-        };
-        // [END auth_state_listener]
+            // TODO: Get user basic info
+            /**
+             FirebaseUser user = mAuth.getCurrentUser();
+             String name = user.getDisplayName();
+             String email = user.getEmail();
+             Uri photoUrl = user.getPhotoUrl();
+             **/
 
-        // TODO: Get user basic info
-        /**
-         FirebaseUser user = mAuth.getCurrentUser();
-         String name = user.getDisplayName();
-         String email = user.getEmail();
-         Uri photoUrl = user.getPhotoUrl();
-         **/
+            //FirebaseUser user = mAuth.getCurrentUser();
+            //String email = user.getEmail();
 
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //String email = user.getEmail();
+            // Handle Toolbar
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            toolbar.setTitle("Liftdom");
 
-        // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Liftdom");
-
-        AccountHeader header = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        //Handle Profile changes
-                        return false;
-                    }
-                })
-                .build();
-
-        // create the drawer
-        Drawer drawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(header)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(1),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("test1"),
-                        new SecondaryDrawerItem().withName("test2")
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // Handle clicks
-
-                        if (drawerItem != null) {
-                            Intent intent = null;
-                            if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(TemplateHousingActivity.this, TemplateEditorActivity.class);
-                            }
-                            if (intent != null) {
-                                TemplateHousingActivity.this.startActivity(intent);
-                            }
+            AccountHeader header = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.header)
+                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                        @Override
+                        public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+                            //Handle Profile changes
+                            return false;
                         }
-                        return true;
-                    }
-                })
-                .build();
+                    })
+                    .build();
 
-        // Later
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                        .withName
-                                ("Username").withEmail(email),
-                0);
+            // create the drawer
+            Drawer drawer = new DrawerBuilder()
+                    .withActivity(this)
+                    .withToolbar(toolbar)
+                    .withAccountHeader(header)
+                    .addDrawerItems(
+                            new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(1),
+                            new DividerDrawerItem(),
+                            new SecondaryDrawerItem().withName("test1"),
+                            new SecondaryDrawerItem().withName("test2")
+                    )
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                            // Handle clicks
 
-        // [END AUTH AND NAV-DRAWER BOILERPLATE]
+                            if (drawerItem != null) {
+                                Intent intent = null;
+                                if (drawerItem.getIdentifier() == 1) {
+                                    intent = new Intent(TemplateHousingActivity.this, TemplateEditorActivity.class);
+                                }
+                                if (intent != null) {
+                                    TemplateHousingActivity.this.startActivity(intent);
+                                }
+                            }
+                            return true;
+                        }
+                    })
+                    .build();
 
-        // get an instance of FragmentTransaction from your Activity
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //add a fragment
-        TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
-        fragmentTransaction.add(R.id.templateMenuFragContainer, templateMenuFrag);
-        fragmentTransaction.commit();
+            // Later
+            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
+                            .withName
+                                    ("Username").withEmail(email),
+                    0);
 
+            // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
+            // get an instance of FragmentTransaction from your Activity
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            //add a fragment
+            TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
+            fragmentTransaction.add(R.id.templateMenuFragContainer, templateMenuFrag);
+            fragmentTransaction.commit();
+
+        //}
     }
 
 
