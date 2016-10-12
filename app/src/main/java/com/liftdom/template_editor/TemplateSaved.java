@@ -30,6 +30,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TemplateSaved extends AppCompatActivity {
 
@@ -178,7 +180,7 @@ public class TemplateSaved extends AppCompatActivity {
 
         DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates");
 
-        ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+        LinkedList<LinkedList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
 
         mTemplateRef.child(templateName).setValue(masterListTemplate);
 

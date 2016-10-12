@@ -2,27 +2,18 @@ package com.liftdom.template_housing;
 
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.LinearLayout;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_editor.HashMapFoo;
 import com.liftdom.template_editor.MasterListTemplateClass;
-import org.w3c.dom.Comment;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.google.android.gms.internal.zzs.TAG;
 
@@ -64,14 +55,14 @@ public class MyTemplatesFrag extends Fragment {
 
         DatabaseReference mTemplateRef = mDatabase.child("users").child(uid).child("templates");
 
-        final ArrayList<String> savedTemplatesAL = new ArrayList<>();
-
         mTemplateRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
+
+                           MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
 
                         }
                     }

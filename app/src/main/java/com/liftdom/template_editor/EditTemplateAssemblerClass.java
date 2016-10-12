@@ -2,7 +2,9 @@ package com.liftdom.template_editor;
 // Created: 9/20/2016
 
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.LinkedList;
+import java.util.List;
 
 class EditTemplateAssemblerClass {
 
@@ -15,15 +17,15 @@ class EditTemplateAssemblerClass {
         return controller;
     }
 
-    // DoW ArrayLists!
-    public ArrayList<ArrayList> MasterEditTemplateAL = new ArrayList<>();
-    private ArrayList<String> DoWAL1 = new ArrayList<>();
-    private ArrayList<String> DoWAL2 = new ArrayList<>();
-    private ArrayList<String> DoWAL3 = new ArrayList<>();
-    private ArrayList<String> DoWAL4 = new ArrayList<>();
-    private ArrayList<String> DoWAL5 = new ArrayList<>();
-    private ArrayList<String> DoWAL6 = new ArrayList<>();
-    private ArrayList<String> DoWAL7 = new ArrayList<>();
+    // DoW LinkedLists!
+    public LinkedList<LinkedList> MasterEditTemplateAL = new LinkedList<>();
+    private LinkedList<String> DoWAL1 = new LinkedList<>();
+    private LinkedList<String> DoWAL2 = new LinkedList<>();
+    private LinkedList<String> DoWAL3 = new LinkedList<>();
+    private LinkedList<String> DoWAL4 = new LinkedList<>();
+    private LinkedList<String> DoWAL5 = new LinkedList<>();
+    private LinkedList<String> DoWAL6 = new LinkedList<>();
+    private LinkedList<String> DoWAL7 = new LinkedList<>();
 
     // DoW Setter
     void setDoW(String doWValue){

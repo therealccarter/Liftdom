@@ -45,7 +45,6 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:visibility="gone"
                 android:text="Main Activity"
                 android:id="@+id/go_to_main"
@@ -54,6 +53,7 @@
 
 
     </LinearLayout>
+
 
 
     <RelativeLayout
