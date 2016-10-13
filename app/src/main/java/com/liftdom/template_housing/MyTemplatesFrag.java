@@ -13,7 +13,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.MasterListTemplateClass;
 
-import java.util.ArrayList;
+
 
 import static com.google.android.gms.internal.zzs.TAG;
 

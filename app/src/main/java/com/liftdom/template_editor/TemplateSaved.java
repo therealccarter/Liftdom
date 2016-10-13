@@ -29,9 +29,10 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class TemplateSaved extends AppCompatActivity {
 
@@ -180,9 +181,23 @@ public class TemplateSaved extends AppCompatActivity {
 
         DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates");
 
-        LinkedList<LinkedList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+        ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
 
-        mTemplateRef.child(templateName).setValue(masterListTemplate);
+        /**
+         * So, we need to first create a node with the template name
+         * Next, we need to create a node for each day/days
+         * After that, we need to add each set/reps/weights to the appropriate day/days
+         */
+
+        //mTemplateRef.child(templateName).setValue(masterListTemplate);
+
+        DatabaseReference templateSpecific = mTemplateRef.child(templateName);
+
+        for(ArrayList<String> doWAL : masterListTemplate){
+            int doWInc = 0;
+            String doWString = doWAL.get(doWInc);
+            DatabaseReference daySpecific = templateSpecific.child(doWString);
+        }
 
         EditTemplateAssemblerClass.getInstance().clearAllLists();
 

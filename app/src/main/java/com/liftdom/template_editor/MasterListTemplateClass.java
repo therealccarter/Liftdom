@@ -10,22 +10,22 @@ import java.util.LinkedList;
 public class MasterListTemplateClass {
 
     public String templateName;
-    public LinkedList LinkedList;
+    //public LinkedList LinkedList;
 
     public MasterListTemplateClass() {
     }
 
-    public MasterListTemplateClass(String templateName, LinkedList LinkedList) {
+    public MasterListTemplateClass(String templateName) {
         this.templateName = templateName;
-        this.LinkedList = LinkedList;
+        //this.LinkedList = LinkedList;, LinkedList LinkedList
     }
 
     public String getTemplateName() {
         return templateName;
     }
 
-    public LinkedList getLinkedList() {
-        return LinkedList;
-    }
+    //public LinkedList getLinkedList() {
+     //   return LinkedList;
+    //}
 
 }
