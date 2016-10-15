@@ -1,19 +1,22 @@
-package com.liftdom.liftdom;
+package com.liftdom.template_editor;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.template_editor.TemplateEditorActivity;
+import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
+import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -27,26 +30,36 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class MainActivity extends AppCompatActivity {
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class TemplateSavedActivity extends AppCompatActivity {
+
+    private static final String FIREBASE_URL = "https://liftdom-27d9d.firebaseio.com/";
 
     private static final String TAG = "EmailPassword";
-
     // declare_auth
-    private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    // butterknife
+    // declare_auth
+    private FirebaseUser mFirebaseUser;
 
-    String email = "error";
+    // Butterknife binds
+    @BindView(R.id.goBackHome) Button goHome;
+    @BindView(R.id.goBackToTemplates) Button goToTemplates;
 
-
+    String templateName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_template_saved);
+
+        ButterKnife.bind(this);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -66,21 +79,24 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    email = user.getEmail();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    startActivity(new Intent(TemplateSavedActivity.this, SignInActivity.class));
                 }
 
             }
         };
         // [END auth_state_listener]
 
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
+
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Liftdom");
+        toolbar.setTitle("Saved Templates");
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -95,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // create the drawer
-         Drawer drawer = new DrawerBuilder()
+        Drawer drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
@@ -115,16 +131,16 @@ public class MainActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(MainActivity.this, MainActivity.class);
+                                intent = new Intent(TemplateSavedActivity.this, MainActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
+                                intent = new Intent(TemplateSavedActivity.this, TemplateHousingActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(MainActivity.this, WorkoutAssistorActivity.class);
+                                intent = new Intent(TemplateSavedActivity.this, WorkoutAssistorActivity.class);
                             }
                             if (intent != null) {
-                                MainActivity.this.startActivity(intent);
+                                TemplateSavedActivity.this.startActivity(intent);
                             }
                         }
                         return true;
@@ -134,34 +150,72 @@ public class MainActivity extends AppCompatActivity {
 
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                .withName
-                ("Username").withEmail(email),
+                        .withName
+                                ("Username").withEmail(email),
                 0);
 
-        // [END AUTH AND NAV-DRAWER BOILERPLATE]
+        // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
+
+
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        goToTemplates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-
-
-
-
-    // [START on_start_add_listener]
     @Override
-    public void onStart() {
+    protected void onStart(){
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    // [END on_start_add_listener]
 
-    // [START on_stop_remove_listener]
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+        // BEGIN UPLOAD OF TEMPLATE
+
+        Intent intent = getIntent();
+        templateName = intent.getStringExtra("key1");
+
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates"); // creates /templates
+
+        ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+
+        /**
+         * So, we need to first create a node with the template name
+         * Next, we need to create a node for each day/days
+         * After that, we need to add each set/reps/weights to the appropriate day/days
+         */
+
+        DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
+
+        for(ArrayList<String> doWAL : masterListTemplate){
+            // for each entry in a specific day's list
+
+            int childInc = doWAL.size(); // size = 3 in this case
+            List<String> list = new ArrayList<>(); //
+
+            for(int i = 1; i < childInc; i++){
+                list.add(doWAL.get(i));
+            }
+
+            templateSpecific.child(doWAL.get(0)).setValue(list);
         }
-    }
-    // [END on_stop_remove_listener]
-}
 
+        EditTemplateAssemblerClass.getInstance().clearAllLists();
+
+        // END UPLOAD OF TEMPLATE
+
+    }
+}

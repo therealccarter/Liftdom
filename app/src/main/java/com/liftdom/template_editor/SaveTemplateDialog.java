@@ -2,7 +2,6 @@ package com.liftdom.template_editor;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -37,7 +36,7 @@ public class SaveTemplateDialog extends Activity {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                Intent intent = new Intent(v.getContext(), TemplateSaved.class);
+                Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
                 intent.putExtra("key1", templateName.getText().toString());
                 startActivity(intent);
 

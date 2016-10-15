@@ -19,6 +19,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -76,21 +77,14 @@ public class TemplateHousingActivity extends AppCompatActivity {
             };
             // [END auth_state_listener]
 
-            // TODO: Get user basic info
-            /**
-             FirebaseUser user = mAuth.getCurrentUser();
-             String name = user.getDisplayName();
-             String email = user.getEmail();
-             Uri photoUrl = user.getPhotoUrl();
-             **/
 
-            //FirebaseUser user = mAuth.getCurrentUser();
-            //String email = user.getEmail();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
 
             // Handle Toolbar
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            toolbar.setTitle("Liftdom");
+            toolbar.setTitle("Workout Templates");
 
             AccountHeader header = new AccountHeaderBuilder()
                     .withActivity(this)
@@ -105,34 +99,42 @@ public class TemplateHousingActivity extends AppCompatActivity {
                     .build();
 
             // create the drawer
-            Drawer drawer = new DrawerBuilder()
-                    .withActivity(this)
-                    .withToolbar(toolbar)
-                    .withAccountHeader(header)
-                    .addDrawerItems(
-                            new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(1),
-                            new DividerDrawerItem(),
-                            new SecondaryDrawerItem().withName("test1"),
-                            new SecondaryDrawerItem().withName("test2")
-                    )
-                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                        @Override
-                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                            // Handle clicks
+        Drawer drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(header)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName("Home").withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("test1"),
+                        new SecondaryDrawerItem().withName("test2")
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // Handle clicks
 
-                            if (drawerItem != null) {
-                                Intent intent = null;
-                                if (drawerItem.getIdentifier() == 1) {
-                                    intent = new Intent(TemplateHousingActivity.this, TemplateEditorActivity.class);
-                                }
-                                if (intent != null) {
-                                    TemplateHousingActivity.this.startActivity(intent);
-                                }
+                        if (drawerItem != null) {
+                            Intent intent = null;
+                            if (drawerItem.getIdentifier() == 1) {
+                                intent = new Intent(TemplateHousingActivity.this, MainActivity.class);
                             }
-                            return true;
+                            if (drawerItem.getIdentifier() == 2) {
+                                intent = new Intent(TemplateHousingActivity.this, TemplateHousingActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 3) {
+                                intent = new Intent(TemplateHousingActivity.this, WorkoutAssistorActivity.class);
+                            }
+                            if (intent != null) {
+                                TemplateHousingActivity.this.startActivity(intent);
+                            }
                         }
-                    })
-                    .build();
+                        return true;
+                    }
+                })
+                .build();
 
             // Later
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))

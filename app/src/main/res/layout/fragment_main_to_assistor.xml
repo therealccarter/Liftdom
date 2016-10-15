@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:context="com.liftdom.liftdom.MainToAssistorFrag"
+             android:orientation="horizontal"
+             android:background="@color/liftrGold1"
+             android:gravity="center"
+             android:id="@+id/todaysWorkoutLayout"
+             android:paddingTop="10dp"
+>
+
+    <ImageView
+            android:layout_width="125dp"
+            android:layout_height="39dp"
+            android:paddingEnd="20dp"
+            android:src="@drawable/right_chevron"
+            android:layout_gravity="end"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/TodaysWorkout"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:paddingStart="40dp"
+    />
+
+</FrameLayout>

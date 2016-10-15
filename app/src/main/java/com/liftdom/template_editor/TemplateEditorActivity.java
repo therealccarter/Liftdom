@@ -15,8 +15,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -80,19 +83,10 @@ public class TemplateEditorActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String email = user.getEmail();
 
-        // TODO: Get user basic info
-        /**
-         FirebaseUser user = mAuth.getCurrentUser();
-         String name = user.getDisplayName();
-         String email = user.getEmail();
-         Uri photoUrl = user.getPhotoUrl();
-         **/
-
-
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Liftdom");
+        toolbar.setTitle("Template Editor");
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -112,7 +106,9 @@ public class TemplateEditorActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Home").withIdentifier(1),
+                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("test1"),
                         new SecondaryDrawerItem().withName("test2")
@@ -121,9 +117,21 @@ public class TemplateEditorActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // Handle clicks
-                        Intent intent = null;
-                        if (drawerItem.getIdentifier() == 1) {
-                            intent = new Intent(TemplateEditorActivity.this, TemplateEditorActivity.class);
+
+                        if (drawerItem != null) {
+                            Intent intent = null;
+                            if (drawerItem.getIdentifier() == 1) {
+                                intent = new Intent(TemplateEditorActivity.this, MainActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 2) {
+                                intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 3) {
+                                intent = new Intent(TemplateEditorActivity.this, WorkoutAssistorActivity.class);
+                            }
+                            if (intent != null) {
+                                TemplateEditorActivity.this.startActivity(intent);
+                            }
                         }
                         return true;
                     }
