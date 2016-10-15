@@ -2,6 +2,7 @@ package com.liftdom.template_editor;
 
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Chris on 10/5/2016.
@@ -10,22 +11,22 @@ import java.util.LinkedList;
 public class MasterListTemplateClass {
 
     public String templateName;
-    //public LinkedList LinkedList;
+    public List<String> testList;
 
     public MasterListTemplateClass() {
     }
 
-    public MasterListTemplateClass(String templateName) {
+    public MasterListTemplateClass(String templateName, List<String> testList) {
         this.templateName = templateName;
-        //this.LinkedList = LinkedList;, LinkedList LinkedList
+        this.testList = testList;
     }
 
     public String getTemplateName() {
         return templateName;
     }
 
-    //public LinkedList getLinkedList() {
-     //   return LinkedList;
-    //}
+    public LinkedList testList() {
+        return testList();
+    }
 
 }

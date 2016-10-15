@@ -226,19 +226,19 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
         String doWConstructor = "";
 
         if(isMon != null){
-            doWConstructor = doWConstructor + "Monday//";
+            doWConstructor = doWConstructor + "Monday_";
         }if(isTues != null){
-            doWConstructor = doWConstructor + "Tuesday//";
+            doWConstructor = doWConstructor + "Tuesday_";
         }if(isWed != null){
-            doWConstructor = doWConstructor + "Wednesday//";
+            doWConstructor = doWConstructor + "Wednesday_";
         }if(isThur != null){
-            doWConstructor = doWConstructor + "Thursday//";
+            doWConstructor = doWConstructor + "Thursday_";
         }if(isFri != null){
-            doWConstructor = doWConstructor + "Friday//";
+            doWConstructor = doWConstructor + "Friday_";
         }if(isSat != null){
-            doWConstructor = doWConstructor + "Saturday//";
+            doWConstructor = doWConstructor + "Saturday_";
         }if(isSun != null){
-            doWConstructor = doWConstructor + "Sunday//";
+            doWConstructor = doWConstructor + "Sunday_";
         }
 
         return doWConstructor;

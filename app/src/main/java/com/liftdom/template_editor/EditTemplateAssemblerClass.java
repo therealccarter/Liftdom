@@ -32,17 +32,22 @@ class EditTemplateAssemblerClass {
         if(doWValue != null){
             if(DoWAL1.isEmpty()){
                 DoWAL1.add(0, doWValue);
-            } else if(DoWAL2.isEmpty()){
+            } else if(DoWAL2.isEmpty() && !DoWAL1.contains(doWValue)){
                 DoWAL2.add(0, doWValue);
-            } else if(DoWAL3.isEmpty()){
+            } else if(DoWAL3.isEmpty() && !DoWAL1.contains(doWValue) && !DoWAL2.contains(doWValue)){
                 DoWAL3.add(0, doWValue);
-            } else if(DoWAL4.isEmpty()){
+            } else if(DoWAL4.isEmpty() && !DoWAL1.contains(doWValue) && !DoWAL2.contains(doWValue) && !DoWAL3.contains
+                    (doWValue)){
                 DoWAL4.add(0, doWValue);
-            } else if(DoWAL5.isEmpty()){
+            } else if(DoWAL5.isEmpty() && !DoWAL1.contains(doWValue) && !DoWAL2.contains(doWValue)&& !DoWAL3.contains
+                    (doWValue) && !DoWAL4.contains(doWValue)){
                 DoWAL5.add(0, doWValue);
-            } else if(DoWAL6.isEmpty()){
+            } else if(DoWAL6.isEmpty() && !DoWAL1.contains(doWValue) && !DoWAL2.contains(doWValue)&& !DoWAL3.contains
+                    (doWValue)&& !DoWAL4.contains(doWValue) && !DoWAL5.contains(doWValue)){
                 DoWAL6.add(0, doWValue);
-            } else if(DoWAL7.isEmpty()){
+            } else if(DoWAL7.isEmpty() && !DoWAL1.contains(doWValue) && !DoWAL2.contains(doWValue)&& !DoWAL3.contains
+                    (doWValue)&& !DoWAL4.contains(doWValue) && !DoWAL5.contains(doWValue) && !DoWAL6.contains
+                    (doWValue)){
                 DoWAL7.add(0, doWValue);
             }
         }
@@ -51,9 +56,6 @@ class EditTemplateAssemblerClass {
     /**
      *  Add spinner values indiscriminately, and later, when adding setsXreps, search for a matching spinner value
      * and add onto that. Thinking of the way to make sure sXr is in order...
-     *
-     *
-     *
      */
 
     // Exercise spinner setters

@@ -32,6 +32,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class TemplateSaved extends AppCompatActivity {
@@ -179,7 +180,7 @@ public class TemplateSaved extends AppCompatActivity {
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates");
+        DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates"); // creates /templates
 
         ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
 
@@ -189,14 +190,19 @@ public class TemplateSaved extends AppCompatActivity {
          * After that, we need to add each set/reps/weights to the appropriate day/days
          */
 
-        //mTemplateRef.child(templateName).setValue(masterListTemplate);
-
-        DatabaseReference templateSpecific = mTemplateRef.child(templateName);
+        DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
 
         for(ArrayList<String> doWAL : masterListTemplate){
-            int doWInc = 0;
-            String doWString = doWAL.get(doWInc);
-            DatabaseReference daySpecific = templateSpecific.child(doWString);
+            // for each entry in a specific day's list
+
+            int childInc = doWAL.size(); // size = 3 in this case
+            List<String> list = new ArrayList<>(); //
+
+            for(int i = 1; i < childInc; i++){
+                list.add(doWAL.get(i));
+            }
+
+            templateSpecific.child(doWAL.get(0)).setValue(list);
         }
 
         EditTemplateAssemblerClass.getInstance().clearAllLists();
