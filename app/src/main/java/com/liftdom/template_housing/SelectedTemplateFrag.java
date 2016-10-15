@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import org.w3c.dom.Text;
@@ -67,15 +70,6 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onClick(final View v){
 
-                /**
-                File dir = getContext().getFilesDir();
-                for(int i = 1; i < 8; i++) {
-                    String inc = Integer.toString(i);
-                    File file = new File(dir, templateName + inc);
-                    boolean deleted = file.delete();
-                }
-                 **/
-
                 // TODO: Delete selected template from Firebase. Also, look into popping backstack
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -86,33 +80,33 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
         setAsActiveTemplate.setOnClickListener(new View.OnClickListener(){
             int colorIncrement = 0;
             @Override
             public void onClick(final View v){
 
                 if (colorIncrement == 0) {
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedPrefs", Context
-                            .MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("activeTemplateName", templateName);
-                    editor.apply();
 
-                    setAsActiveTemplate.setTextColor(Color.parseColor("#D1B91D"));
+                    activeTemplateRef.setValue(templateName);
+
+                    setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
+                    setAsActiveTemplate.setBackgroundColor(Color.parseColor("D1B91D"));
                     setAsActiveTemplate.setText("Unselect As Active Template");
                     colorIncrement = 1;
-                } else if(colorIncrement == 1){
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("sharedPrefs", Context
-                            .MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("activeTemplateName", null);
-                    editor.apply();
 
-                    setAsActiveTemplate.setTextColor(Color.parseColor("#ffffff"));
+                } else if(colorIncrement == 1){
+
+                    activeTemplateRef.setValue(null);
+
+                    setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
+                    setAsActiveTemplate.setBackgroundColor(Color.parseColor("388e3c"));
                     setAsActiveTemplate.setText("Select As Active Template");
                     colorIncrement = 0;
                 }
-
             }
         });
 

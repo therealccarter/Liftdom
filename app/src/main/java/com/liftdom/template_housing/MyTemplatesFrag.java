@@ -47,8 +47,7 @@ public class MyTemplatesFrag extends Fragment {
 
         final DatabaseReference mTemplateRef = mDatabase.child("users").child(uid).child("templates");
 
-
-
+        //TODO loading symbol until it loads...
 
         mTemplateRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
