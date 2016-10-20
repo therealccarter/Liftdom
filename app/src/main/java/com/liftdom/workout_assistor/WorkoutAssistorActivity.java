@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -25,6 +26,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorkoutAssistorActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -36,6 +40,11 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     String email = "error";
+
+    String activeTemplateName = null;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,5 +144,60 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
+
+        // Get the name of the active template
+
+
+        final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                activeTemplateName = dataSnapshot.getValue(String.class);
+
+                DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates").child(activeTemplateName);
+
+                activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
+                            //List what = new List<ArrayList>();
+
+
+                                    templateSnapshot.getValue(String.class);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    // [END on_stop_remove_listener]
 }
