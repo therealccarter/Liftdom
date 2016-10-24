@@ -26,7 +26,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WorkoutAssistorActivity extends AppCompatActivity {
@@ -42,6 +44,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     String email = "error";
 
     String activeTemplateName = null;
+    String activeTemplateDayValue = null;
+    String activeTemplateToday = null;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -145,25 +149,33 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
+
+
         // Get the name of the active template
-
-
+        // child is "yeee"
         final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 activeTemplateName = dataSnapshot.getValue(String.class);
 
-                DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates").child(activeTemplateName);
+                // now we're in "yeee."
+                final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates").child(activeTemplateName);
 
+                // find the matching day
                 activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
-                            //List what = new List<ArrayList>();
+                            // Here we're looking at each DoW entry ("Monday_Thursday", "Tuesday_Saturday", etc)
 
+                            activeTemplateDayValue = templateSnapshot.getKey();
 
-                                    templateSnapshot.getValue(String.class);
+                            if(isToday(activeTemplateDayValue)){
+                                // see if any DoW entries match the
+                                activeTemplateToday = activeTemplateDayValue;
+                            }
                         }
                     }
 
@@ -180,6 +192,40 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             }
         });
 
+
+        DatabaseReference dayLevelRef = activeTemplateRef.child(activeTemplateDayValue);
+
+        dayLevelRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    boolean isToday(String dayString){
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String currentDoW  = sdf.format(d);
+
+        boolean today = false;
+
+        String delims = "[_]";
+        String[] tokens = dayString.split(delims);
+
+        for(String day : tokens){
+            if(day.equals(currentDoW)){
+                today = true;
+            }
+        }
+
+        return today;
 
     }
 
