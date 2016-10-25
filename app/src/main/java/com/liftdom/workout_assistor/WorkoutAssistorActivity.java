@@ -46,6 +46,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     String activeTemplateName = null;
     String activeTemplateDayValue = null;
     String activeTemplateToday = null;
+    ArrayList<String> todayList = new ArrayList<>();
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -161,7 +162,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                 activeTemplateName = dataSnapshot.getValue(String.class);
 
                 // now we're in "yeee."
-                final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates").child(activeTemplateName);
+                final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
+                        .child(activeTemplateName);
 
                 // find the matching day
                 activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
@@ -175,6 +177,30 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                             if(isToday(activeTemplateDayValue)){
                                 // see if any DoW entries match the
                                 activeTemplateToday = activeTemplateDayValue;
+
+                                long childCount = templateSnapshot.getChildrenCount();
+
+                                DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateDayValue);
+                                    activeDayRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+                                                String string = daySnapshot.getValue(String.class);
+
+                                                // TODO: Check if string is an exercise or sets/reps/weight
+                                                // TODO: Then add frags as necessary
+
+
+                                                WorkoutAssistorAssemblerClass.getInstance().DoWAL1.add(string);
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                             }
                         }
                     }
@@ -190,22 +216,12 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
 
 
-        DatabaseReference dayLevelRef = activeTemplateRef.child(activeTemplateDayValue);
 
-        dayLevelRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -234,6 +250,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
     }
     // [END on_start_add_listener]
 
