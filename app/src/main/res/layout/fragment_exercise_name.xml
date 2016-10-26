@@ -1,13 +1,19 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.liftdom.workout_assistor.ExerciseNameFrag">
+             android:layout_height="wrap_content"
+             tools:context="com.liftdom.workout_assistor.ExerciseNameFrag"
+              android:orientation="horizontal"
+              android:background="@color/black"
+>
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:text="@string/hello_blank_fragment"
+            android:textSize="30sp"
+            android:id="@+id/exerciseName"
+            android:textColor="@color/white"
+    />
 
-</FrameLayout>
+</LinearLayout>

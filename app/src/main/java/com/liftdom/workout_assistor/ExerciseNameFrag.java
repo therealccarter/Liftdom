@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
 /**
@@ -19,12 +22,23 @@ public class ExerciseNameFrag extends Fragment {
         // Required empty public constructor
     }
 
+    public String exerciseName = "fail";
+
+    @BindView(R.id.exerciseName) TextView exerciseNameView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise_name, container, false);
+        View view = inflater.inflate(R.layout.fragment_exercise_name, container, false);
+
+        ButterKnife.bind(this, view);
+
+        exerciseNameView.setText(exerciseName);
+
+
+        return view;
     }
 
 }
