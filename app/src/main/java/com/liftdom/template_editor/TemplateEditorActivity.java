@@ -15,10 +15,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.workout_assistor.ExerciseNameFrag;
+import com.liftdom.workout_assistor.RepsWeightFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -42,6 +45,15 @@ public class TemplateEditorActivity extends AppCompatActivity {
 
     int fragIdCount = 0;
 
+
+    String activeTemplateName = null;
+    String selectedTemplateDayValue = null;
+    String activeTemplateToday = null;
+
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     // butterknife
     @BindView(R.id.addDay)
     Button addDay;
@@ -54,6 +66,7 @@ public class TemplateEditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_editor);
+
 
         ButterKnife.bind(this);
 
@@ -146,6 +159,61 @@ public class TemplateEditorActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
+        if (getIntent().getExtras().getString("isEdit") != null) {
+            if (getIntent().getExtras().getString("isEdit").equals("yes")) {
+
+
+
+                final String templateName = getIntent().getExtras().getString("templateName");
+
+                /**
+                 * Alright, this is what we have to do:
+                 * 1. Get a path to the selected template
+                 * 2. Get a path to each DayGroup
+                 * 3. For each DayGroup, create a DoWLevel frag, passing in its selected days and each exercise/value
+                 */
+
+                // 1. Get a path to the selected template
+                // "realll"
+                final DatabaseReference selectedTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
+                        .child(templateName);
+
+                // find the matching day
+                selectedTemplateDataRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
+                            // Here we're looking at each DoW entry ("Monday_Thursday", "Tuesday_Saturday", etc)
+                            // Thursday_
+                            selectedTemplateDayValue = templateSnapshot.getKey();
+
+                            String[] dayStringArray = selectedTemplateDayValue.split("_");
+
+                            ++fragIdCount;
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            String fragString = Integer.toString(fragIdCount);
+
+                            DayOfWeekChildFrag dayOfWeekChildFrag = new DayOfWeekChildFrag();
+                            dayOfWeekChildFrag.isEdit = true;
+                            dayOfWeekChildFrag.daysArray = dayStringArray.clone();
+                            dayOfWeekChildFrag.selectedDaysReference = selectedTemplateDayValue;
+                            dayOfWeekChildFrag.templateName = templateName;
+
+                            fragmentTransaction.add(R.id.templateFragmentLayout, dayOfWeekChildFrag, fragString);
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+
+
 
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +245,18 @@ public class TemplateEditorActivity extends AppCompatActivity {
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
-                startActivity(intent);
+
+                if(getIntent().getExtras().getString("isEdit") != null) {
+                    if(getIntent().getExtras().getString("isEdit").equals("yes")) {
+                        String templateName = getIntent().getExtras().getString("templateName");
+                        intent.putExtra("isEdit", "yes");
+                        intent.putExtra("templateName", templateName);
+                        startActivity(intent);
+                    }
+                }else{
+                    intent.putExtra("isEdit", "no");
+                    startActivity(intent);
+                }
             }
         });
 

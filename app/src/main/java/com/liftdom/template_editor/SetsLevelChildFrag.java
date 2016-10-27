@@ -26,6 +26,9 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         // Required empty public constructor
     }
 
+    Boolean isEdit = false;
+    String setSchemeEdited;
+
 
     // Callback
     public interface setSchemesCallback{
@@ -47,6 +50,41 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         return view;
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        String delims = "[x,@]";
+
+        EditText setsEditText = (EditText) getView().findViewById(R.id.sets);
+        EditText repsEditText = (EditText) getView().findViewById(R.id.reps);
+        EditText weightEditText = (EditText) getView().findViewById(R.id.weight);
+
+
+        if(isEdit){
+            String[] setSchemesEachArray = setSchemeEdited.split(delims);
+
+            // sets
+            String setsWithSpaces = setSchemesEachArray[0];
+            String setsWithoutSpaces = setsWithSpaces.replaceAll("\\s+","");
+            //int setsInt = Integer.parseInt(setsWithoutSpaces);
+            setsEditText.setText(setsWithoutSpaces);
+
+            // reps
+            String repsWithSpaces = setSchemesEachArray[1];
+            String repsWithoutSpaces = repsWithSpaces.replaceAll("\\s+","");
+            //int repsInt = Integer.parseInt(repsWithoutSpaces);
+            repsEditText.setText(repsWithoutSpaces);
+
+            String weightWithSpaces = setSchemesEachArray[2];
+            String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+            //int weightInt = Integer.parseInt(weightWithoutSpaces);
+            weightEditText.setText(weightWithoutSpaces);
+        }
+
+    }
+
 
     @Override
     public void onPause(){

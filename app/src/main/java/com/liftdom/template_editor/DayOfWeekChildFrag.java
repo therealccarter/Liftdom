@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 /**
@@ -28,6 +32,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     private OnFragmentInteractionListener mListener;
 
     int fragIdCount1 = 0;
+
     String isMon = null;
     String isTues = null;
     String isWed = null;
@@ -35,6 +40,15 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     String isFri = null;
     String isSat = null;
     String isSun = null;
+
+    Boolean isEdit = false;
+    String[] daysArray;
+    String[][] doWArray1;
+    String selectedDaysReference;
+    String templateName;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     // Butterknife
     @BindView(R.id.M) ToggleButton monToggle;
@@ -185,7 +199,104 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             }
         });
 
+        if(!isEdit){
+            ++fragIdCount1;
+            String fragString1 = Integer.toString(fragIdCount1);
+            ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+            fragmentTransaction.commit();
+        }
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        // BEGINS BUTTON BAR TOGGLE
+        final ToggleButton monToggle = (ToggleButton) getView().findViewById(R.id.M);
+        final ToggleButton tuesToggle = (ToggleButton) getView().findViewById(R.id.Tu);
+        final ToggleButton wedToggle = (ToggleButton) getView().findViewById(R.id.W);
+        final ToggleButton thurToggle = (ToggleButton) getView().findViewById(R.id.Th);
+        final ToggleButton friToggle = (ToggleButton) getView().findViewById(R.id.F);
+        final ToggleButton satToggle = (ToggleButton) getView().findViewById(R.id.Sa);
+        final ToggleButton sunToggle = (ToggleButton) getView().findViewById(R.id.Su);
+
+
+        if(isEdit){
+            for(String day : daysArray){
+                if(day.equals("Monday")){
+                    monToggle.setChecked(true);
+                }else if(day.equals("Tuesday")){
+                    tuesToggle.setChecked(true);
+                }else if(day.equals("Wednesday")){
+                    wedToggle.setChecked(true);
+                }else if(day.equals("Thursday")){
+                    thurToggle.setChecked(true);
+                }else if(day.equals("Friday")){
+                    friToggle.setChecked(true);
+                }else if(day.equals("Saturday")){
+                    satToggle.setChecked(true);
+                }else if(day.equals("Sunday")){
+                    sunToggle.setChecked(true);
+                }
+            }
+
+
+
+            DatabaseReference selectedDayRef = mRootRef.child("users").child(uid).child("templates").child
+                    (templateName).child(selectedDaysReference);
+
+            selectedDayRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+                        String snapshotString = daySnapshot.getValue(String.class);
+
+                        if(isExerciseName(snapshotString)){
+                            ++fragIdCount1;
+                            String fragString1 = Integer.toString(fragIdCount1);
+                            ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+
+                            frag1.isEdit = true;
+                            frag1.spinnerValue = snapshotString;
+                            frag1.exerciseName = snapshotString;
+                            frag1.selectedDaysReference = selectedDaysReference;
+                            frag1.templateName = templateName;
+
+                            fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }
+
+    }
+
+    boolean isExerciseName(String input){
+        String[] tokens = input.split("");
+
+        boolean isExercise = true;
+
+        char c = tokens[1].charAt(0);
+        if(Character.isDigit(c)){
+            isExercise = false;
+        }
+
+        return isExercise;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

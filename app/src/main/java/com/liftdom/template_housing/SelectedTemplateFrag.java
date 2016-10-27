@@ -18,8 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import org.w3c.dom.Text;
@@ -43,6 +42,8 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.deleteThisTemplate) Button deleteTemplate;
     @BindView(R.id.setActiveTemplate) Button setAsActiveTemplate;
 
+    int colorIncrement = 0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +52,10 @@ public class SelectedTemplateFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_selected_template, container, false);
 
         ButterKnife.bind(this, view);
+
+
+        final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         selectedTemplateNameView.setText(templateName);
 
@@ -70,7 +75,12 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onClick(final View v){
 
-                // TODO: Delete selected template from Firebase. Also, look into popping backstack
+                DatabaseReference selectedTemplateRef = mRootRef.child("users").child(uid).child("templates")
+                        .child(templateName);
+                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
+                selectedTemplateRef.setValue(null);
+                activeTemplateRef.setValue(null);
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -80,12 +90,30 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String activeTemplate = dataSnapshot.getValue(String.class);
+                if(activeTemplate != null && templateName != null) {
+                    if (templateName.equals(activeTemplate)) {
+                        setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
+                        setAsActiveTemplate.setBackgroundColor(Color.parseColor("#D1B91D"));
+                        setAsActiveTemplate.setText("Unselect As Active Template");
+                        colorIncrement = 1;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         setAsActiveTemplate.setOnClickListener(new View.OnClickListener(){
-            int colorIncrement = 0;
             @Override
             public void onClick(final View v){
 

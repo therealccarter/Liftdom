@@ -6,6 +6,7 @@
             android:orientation="horizontal"
 >
 
+
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -13,11 +14,29 @@
             android:id="@+id/repsEditText"
     />
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reps "
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="of"
+    />
+
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/weightEditText"
-            android:text="135lbs"
+            android:text="135"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lbs"
     />
 
 </LinearLayout>

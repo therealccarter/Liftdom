@@ -2,6 +2,8 @@ package com.liftdom.workout_assistor;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -185,15 +187,39 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
-                                                String string = daySnapshot.getValue(String.class);
+                                                String snapshotString = daySnapshot.getValue(String.class);
 
-                                                // TODO: Check if string is an exercise or sets/reps/weight
-                                                // TODO: Then add frags as necessary
+                                                if(isExerciseName(snapshotString)){
+                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                    FragmentTransaction fragmentTransaction = fragmentManager
+                                                            .beginTransaction();
+                                                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
+                                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                                            exerciseNameFrag);
+                                                    fragmentTransaction.commit();
+                                                    exerciseNameFrag.exerciseName = snapshotString;
+                                                } else {
+                                                    String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
 
+                                                    String delims = "[x,@]";
 
-                                                WorkoutAssistorAssemblerClass.getInstance().DoWAL1.add(string);
+                                                    String[] tokens = stringSansSpaces.split(delims);
+
+                                                    int setAmount = Integer.parseInt(tokens[0]);
+
+                                                    for(int i = 0; i < setAmount; i++) {
+                                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                                .beginTransaction();
+                                                        RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
+                                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                                                repsWeightFrag);
+                                                        fragmentTransaction.commit();
+                                                        repsWeightFrag.reps = tokens[1];
+                                                        repsWeightFrag.weight = tokens[2];
+                                                    }
+                                                }
                                             }
-
                                         }
 
                                         @Override
@@ -216,13 +242,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
-
-
-
-
-
     }
 
     boolean isToday(String dayString){
@@ -244,6 +264,21 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         return today;
 
     }
+
+    boolean isExerciseName(String input){
+        String[] tokens = input.split("");
+
+        boolean isExercise = true;
+
+        char c = tokens[1].charAt(0);
+        if(Character.isDigit(c)){
+            isExercise = false;
+        }
+
+        return isExercise;
+
+    }
+
 
     // [START on_start_add_listener]
     @Override

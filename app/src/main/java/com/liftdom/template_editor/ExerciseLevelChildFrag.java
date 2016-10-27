@@ -15,7 +15,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +32,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     int fragIdCount2 = 0;
 
     private OnFragmentInteractionListener mListener;
+
+    Boolean isEdit = false;
+    String spinnerValue;
+    ArrayList<String> setSchemeAList = new ArrayList<String>();
+    String exerciseName;
+    String templateName;
+    String selectedDaysReference;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     // Butterknife
     @BindView(R.id.movementName) Spinner exerciseSpinner;
@@ -63,6 +77,58 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         exerciseSpinner.setAdapter(exerciseAdapter);
 
+        final ArrayList<String> stringSnapshotAL = new ArrayList<>();
+
+        if(isEdit){
+
+            exerciseSpinner.setSelection(exerciseAdapter.getPosition(spinnerValue));
+
+            DatabaseReference selectedDayRef = mRootRef.child("users").child(uid).child("templates").child
+                    (templateName).child(selectedDaysReference);
+
+            selectedDayRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+                        String stringSnapshot = daySnapshot.getValue(String.class);
+
+                        stringSnapshotAL.add(stringSnapshot);
+
+                    }
+
+                    int specificExerciseIndex = stringSnapshotAL.indexOf(exerciseName);
+                    // we need to somehow get the index of the next occurring exercise name
+                    int arrayListLength = stringSnapshotAL.size();
+                    for(int i = specificExerciseIndex; i < arrayListLength; i++){
+                        if(!isExerciseName(stringSnapshotAL.get(i))){
+                            ++fragIdCount2;
+                            String fragString2 = Integer.toString(fragIdCount2);
+                            SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                            frag1.isEdit = true;
+                            frag1.setSchemeEdited = stringSnapshotAL.get(i);
+                            fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        if(!isEdit){
+            String fragString2 = Integer.toString(fragIdCount2);
+            SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
+            fragmentTransaction.commit();
+        }
+
         addSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,10 +146,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         removeSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                FragmentManager fragmentManager = getFragmentManager();
                 String fragString2 = Integer.toString(fragIdCount2);
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                //Fragment f = getFragmentManager().findFragmentByTag(fragString);
                 if(fragIdCount2 != 0){
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString2)).commit();
                     --fragIdCount2;
@@ -94,6 +158,20 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         callback = (doWCallback) getParentFragment();
 
         return view;
+    }
+
+    boolean isExerciseName(String input){
+        String[] tokens = input.split("");
+
+        boolean isExercise = true;
+
+        char c = tokens[1].charAt(0);
+        if(Character.isDigit(c)){
+            isExercise = false;
+        }
+
+        return isExercise;
+
     }
 
     public String getDoWValue(){

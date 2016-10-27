@@ -25,6 +25,10 @@ public class SaveTemplateDialog extends Activity {
 
         ButterKnife.bind(this);
 
+        if(getIntent().getExtras().getString("isEdit").equals("yes")){
+            String templateName1 = getIntent().getExtras().getString("templateName");
+            templateName.setText(templateName1);
+        }
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
