@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:context="com.liftdom.workout_assistor.NoActiveTemplateFrag"
+            android:orientation="vertical"
+              android:gravity="center_horizontal"
+>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No active template!"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="10dp"
+    />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to Templates"
+            android:background="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:padding="10dp"
+            android:id="@+id/toTemplatesButton"
+    />
+
+</LinearLayout>

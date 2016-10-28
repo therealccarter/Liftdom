@@ -233,6 +233,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                         }
                                     });
+                                } else {
+                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager
+                                            .beginTransaction();
+                                    RestDayFrag exerciseNameFrag = new RestDayFrag();
+                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                            exerciseNameFrag);
+                                    fragmentTransaction.commit();
                                 }
                             }
                         }
@@ -242,6 +250,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                         }
                     });
+                } else{
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager
+                            .beginTransaction();
+                    NoActiveTemplateFrag exerciseNameFrag = new NoActiveTemplateFrag();
+                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                            exerciseNameFrag);
+                    fragmentTransaction.commit();
                 }
             }
 

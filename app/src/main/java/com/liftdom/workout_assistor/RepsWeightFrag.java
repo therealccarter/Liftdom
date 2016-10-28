@@ -49,9 +49,9 @@ public class RepsWeightFrag extends Fragment {
         checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(checkBox.isChecked()){
-                    mainLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                } else{
                     mainLayout.setBackgroundColor(Color.parseColor("#EBEBEB"));
+                } else{
+                    mainLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 }
             }
         });

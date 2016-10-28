@@ -5,8 +5,8 @@
             tools:context="com.liftdom.workout_assistor.RepsWeightFrag"
             android:orientation="horizontal"
             android:weightSum="1"
-              android:background="#EBEBEB"
-
+              android:background="#FFFFFF"
+              android:id="@+id/main_layout"
 >
 
 
