@@ -9,13 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 
 public class SaveTemplateDialog extends Activity {
 
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     @BindView(R.id.saveButtonCancel) Button cancel;
     @BindView(R.id.saveButtonSave) Button save;
     @BindView(R.id.templateName) EditText templateName;
+
+    String templateName1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +35,7 @@ public class SaveTemplateDialog extends Activity {
         ButterKnife.bind(this);
 
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
-            String templateName1 = getIntent().getExtras().getString("templateName");
+            templateName1 = getIntent().getExtras().getString("templateName");
             templateName.setText(templateName1);
         }
 
@@ -40,10 +49,11 @@ public class SaveTemplateDialog extends Activity {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
+                String isEdit = "yes";
                 Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
                 intent.putExtra("key1", templateName.getText().toString());
+                intent.putExtra("isEdit", isEdit );
                 startActivity(intent);
-
                 EditTemplateAssemblerClass.getInstance().assembleMasterList();
             }
         });

@@ -1,13 +1,15 @@
 package com.liftdom.workout_assistor;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -29,6 +31,8 @@ public class RepsWeightFrag extends Fragment {
 
     @BindView(R.id.repsEditText) EditText repsEditText;
     @BindView(R.id.weightEditText) EditText weightEditText;
+    @BindView(R.id.checkBox) CheckBox checkBox;
+    @BindView(R.id.main_layout) LinearLayout mainLayout;
 
 
     @Override
@@ -39,10 +43,18 @@ public class RepsWeightFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
-
         repsEditText.setText(reps);
         weightEditText.setText(weight);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(checkBox.isChecked()){
+                    mainLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                } else{
+                    mainLayout.setBackgroundColor(Color.parseColor("#EBEBEB"));
+                }
+            }
+        });
 
         return view;
     }

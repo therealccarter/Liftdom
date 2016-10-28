@@ -162,7 +162,7 @@ public class TemplateEditorActivity extends AppCompatActivity {
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")) {
 
-
+                EditTemplateAssemblerClass.getInstance().clearAllLists();
 
                 final String templateName = getIntent().getExtras().getString("templateName");
 

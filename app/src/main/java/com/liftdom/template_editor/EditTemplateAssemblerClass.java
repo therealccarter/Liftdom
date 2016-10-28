@@ -63,17 +63,18 @@ class EditTemplateAssemblerClass {
         if(doWValue != null){
             if(doWValue.equals(DoWAL1.get(0)) && !DoWAL1.contains(spinnerValue)){
                 DoWAL1.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL2.get(0)) && !DoWAL2.contains(spinnerValue)){
+            } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !DoWAL2.contains
+                    (spinnerValue)){
                 DoWAL2.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL3.get(0)) && !DoWAL3.contains(spinnerValue)){
+            } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !DoWAL3.contains(spinnerValue)){
                 DoWAL3.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL4.get(0)) && !DoWAL4.contains(spinnerValue)){
+            } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !DoWAL4.contains(spinnerValue)){
                 DoWAL4.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL5.get(0)) && !DoWAL5.contains(spinnerValue)){
+            } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !DoWAL5.contains(spinnerValue)){
                 DoWAL5.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL6.get(0)) && !DoWAL6.contains(spinnerValue)){
+            } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !DoWAL6.contains(spinnerValue)){
                 DoWAL6.add(spinnerValue);
-            } else if(doWValue.equals(DoWAL7.get(0)) && !DoWAL7.contains(spinnerValue)){
+            } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !DoWAL7.contains(spinnerValue)){
                 DoWAL7.add(spinnerValue);
             }
         }

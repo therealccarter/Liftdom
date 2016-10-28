@@ -158,38 +158,44 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         // child is "yeee"
         final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
+
+
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
                 activeTemplateName = dataSnapshot.getValue(String.class);
 
-                // now we're in "yeee."
-                final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
-                        .child(activeTemplateName);
+                if(activeTemplateName != null) {
 
-                // find the matching day
-                activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
-                            // Here we're looking at each DoW entry ("Monday_Thursday", "Tuesday_Saturday", etc)
+                    // now we're in "yeee."
+                    final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
+                            .child(activeTemplateName);
 
-                            activeTemplateDayValue = templateSnapshot.getKey();
+                    // find the matching day
+                    activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
+                                // Here we're looking at each DoW entry ("Monday_Thursday", "Tuesday_Saturday", etc)
 
-                            if(isToday(activeTemplateDayValue)){
-                                // see if any DoW entries match the
-                                activeTemplateToday = activeTemplateDayValue;
+                                activeTemplateDayValue = templateSnapshot.getKey();
 
-                                long childCount = templateSnapshot.getChildrenCount();
+                                if (isToday(activeTemplateDayValue)) {
+                                    // see if any DoW entries match the
+                                    activeTemplateToday = activeTemplateDayValue;
 
-                                DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateDayValue);
+                                    long childCount = templateSnapshot.getChildrenCount();
+
+                                    DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateDayValue);
                                     activeDayRef.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+                                            for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
                                                 String snapshotString = daySnapshot.getValue(String.class);
 
-                                                if(isExerciseName(snapshotString)){
+                                                if (isExerciseName(snapshotString)) {
                                                     FragmentManager fragmentManager = getSupportFragmentManager();
                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                             .beginTransaction();
@@ -207,7 +213,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                     int setAmount = Integer.parseInt(tokens[0]);
 
-                                                    for(int i = 0; i < setAmount; i++) {
+                                                    for (int i = 0; i < setAmount; i++) {
                                                         FragmentManager fragmentManager = getSupportFragmentManager();
                                                         FragmentTransaction fragmentTransaction = fragmentManager
                                                                 .beginTransaction();
@@ -227,15 +233,16 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                         }
                                     });
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
 
             @Override

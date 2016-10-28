@@ -54,6 +54,9 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
     String templateName;
 
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +160,9 @@ public class TemplateSavedActivity extends AppCompatActivity {
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
 
+
+
+
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,12 +191,20 @@ public class TemplateSavedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         templateName = intent.getStringExtra("key1");
 
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates"); // creates /templates
 
         ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+
+        DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
+
+        DatabaseReference selectedTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
+                .child(templateName);
+
+        if (getIntent().getExtras().getString("isEdit") != null) {
+            if (getIntent().getExtras().getString("isEdit").equals("yes")) {
+                selectedTemplateDataRef.setValue(null);
+            }
+        }
 
         /**
          * So, we need to first create a node with the template name
@@ -198,7 +212,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
          * After that, we need to add each set/reps/weights to the appropriate day/days
          */
 
-        DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
+        /**
+         * What appears to be happening...
+         * When we open up a template asEdit, it's adding replica sets to the template Editor
+         */
+
+
 
         for(ArrayList<String> doWAL : masterListTemplate){
             // for each entry in a specific day's list
