@@ -43,11 +43,37 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+            >
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:hint="Private Workout Journal"
+                />
 
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save"
+                        android:textSize="24sp"
+                        android:background="@color/confirmgreen"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:id="@+id/saveButton"
+                />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-
 
     </ScrollView>
 

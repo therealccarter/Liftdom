@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:layout_gravity="center_horizontal"
+              android:background="?android:attr/dividerHorizontal"
+              tools:context="com.liftdom.workout_assistor.SaveAssistorDialog"
+>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FINISH TODAY'S WORKOUT?"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:gravity="center_horizontal"
+    />
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    >
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:text="CANCEL"
+                android:id="@+id/saveButtonCancel"
+                android:textColor="@color/liftrGold1"
+                android:background="@color/black"
+
+        />
+
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:text="FINISH"
+                android:id="@+id/saveButtonSave"
+                android:textColor="@color/liftrGold1"
+                android:background="@color/black"
+
+        />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
