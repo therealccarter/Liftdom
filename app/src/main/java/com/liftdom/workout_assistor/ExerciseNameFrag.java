@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +26,7 @@ public class ExerciseNameFrag extends Fragment {
     public String exerciseName = "fail";
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
-
+    @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,5 +41,6 @@ public class ExerciseNameFrag extends Fragment {
 
         return view;
     }
+
 
 }

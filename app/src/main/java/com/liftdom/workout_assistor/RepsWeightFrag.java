@@ -28,6 +28,8 @@ public class RepsWeightFrag extends Fragment {
 
     String reps = "fail";
     String weight = "fail";
+    String parentExercise = "failed";
+    String fullString = "failed";
 
     @BindView(R.id.repsEditText) EditText repsEditText;
     @BindView(R.id.weightEditText) EditText weightEditText;
@@ -57,6 +59,17 @@ public class RepsWeightFrag extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
+
+        if(checkBox.isChecked()){
+            WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, fullString);
+        }
     }
 
 }

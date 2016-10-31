@@ -52,6 +52,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     String activeTemplateDayValue = null;
     String activeTemplateToday = null;
     ArrayList<String> todayList = new ArrayList<>();
+    String exerciseString = "fail";
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -65,6 +66,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
         ButterKnife.bind(this);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -193,14 +196,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                     // see if any DoW entries match the
                                     activeTemplateToday = activeTemplateDayValue;
 
-                                    long childCount = templateSnapshot.getChildrenCount();
-
                                     DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateDayValue);
                                     activeDayRef.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
                                                 String snapshotString = daySnapshot.getValue(String.class);
+
 
                                                 if (isExerciseName(snapshotString)) {
                                                     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -211,6 +213,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                             exerciseNameFrag);
                                                     fragmentTransaction.commit();
                                                     exerciseNameFrag.exerciseName = snapshotString;
+                                                    exerciseString = snapshotString;
                                                 } else {
                                                     String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
 
@@ -228,8 +231,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                         fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                 repsWeightFrag);
                                                         fragmentTransaction.commit();
+                                                        repsWeightFrag.parentExercise = exerciseString;
                                                         repsWeightFrag.reps = tokens[1];
                                                         repsWeightFrag.weight = tokens[2];
+                                                        repsWeightFrag.fullString = snapshotString;
                                                     }
                                                 }
                                             }
