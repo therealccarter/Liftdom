@@ -23,9 +23,9 @@
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"
                 android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
-        <activity android:name="com.liftdom.workout_assistor.SaveAssistorDialog"
-                  android:theme="@android:style/Theme.Holo.Dialog">
-
+        <activity
+                android:name="com.liftdom.workout_assistor.SaveAssistorDialog"
+                android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
         <activity android:name="com.liftdom.template_editor.TemplateSavedActivity">
         </activity>
@@ -34,6 +34,10 @@
         <activity android:name="com.liftdom.workout_assistor.WorkoutAssistorActivity">
         </activity>
         <activity android:name="com.liftdom.workout_assistor.AssistorSavedActivity">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.CurrentUserProfile">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.WorkoutHistoryActivity">
         </activity>
     </application>
 

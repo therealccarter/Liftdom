@@ -1,24 +1,25 @@
 package com.liftdom.user_profile;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.workout_assistor.ExerciseNameFrag;
+import com.liftdom.workout_assistor.RepsWeightFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -31,8 +32,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class CurrentUserProfile extends AppCompatActivity {
-
+public class WorkoutHistoryActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
 
@@ -47,12 +47,10 @@ public class CurrentUserProfile extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.historyButton) Button historyButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_user_profile);
+        setContentView(R.layout.activity_workout_history);
 
         ButterKnife.bind(this);
 
@@ -78,7 +76,7 @@ public class CurrentUserProfile extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(CurrentUserProfile.this, SignInActivity.class));
+                    startActivity(new Intent(WorkoutHistoryActivity.this, SignInActivity.class));
                 }
             }
         };
@@ -125,16 +123,16 @@ public class CurrentUserProfile extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(CurrentUserProfile.this, MainActivity.class);
+                                intent = new Intent(WorkoutHistoryActivity.this, MainActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(CurrentUserProfile.this, TemplateHousingActivity.class);
+                                intent = new Intent(WorkoutHistoryActivity.this, TemplateHousingActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(CurrentUserProfile.this, WorkoutAssistorActivity.class);
+                                intent = new Intent(WorkoutHistoryActivity.this, WorkoutAssistorActivity.class);
                             }
                             if (intent != null) {
-                                CurrentUserProfile.this.startActivity(intent);
+                                WorkoutHistoryActivity.this.startActivity(intent);
                             }
                         }
                         return true;
@@ -150,33 +148,86 @@ public class CurrentUserProfile extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
+        final DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
 
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), WorkoutHistoryActivity.class);
-                startActivity(intent);
+        workoutHistoryRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot historySnapshot : dataSnapshot.getChildren()) {
+
+                    String snapshotString = historySnapshot.getKey();
+
+                    DatabaseReference daySpecificRef = workoutHistoryRef.child(snapshotString);
+
+                    daySpecificRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+
+                                String itemString = dateSnapshot.getValue(String.class);
+
+                                if (isExerciseName(itemString)) {
+                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager
+                                            .beginTransaction();
+                                    HistoryExerciseNameFrag exerciseNameFrag = new HistoryExerciseNameFrag();
+                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                            exerciseNameFrag);
+                                    fragmentTransaction.commit();
+                                    exerciseNameFrag.exerciseName = itemString;
+                                } else {
+                                    String stringSansSpaces = itemString.replaceAll("\\s+", "");
+
+                                    String delims = "[x,@]";
+
+                                    String[] tokens = stringSansSpaces.split(delims);
+
+
+
+                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HistoryRepsWeightFrag repsWeightFrag = new HistoryRepsWeightFrag();
+                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                                repsWeightFrag);
+                                        fragmentTransaction.commit();
+                                        repsWeightFrag.reps = tokens[0];
+                                        repsWeightFrag.weight = tokens[1];
+
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
-    }
-
-
-    // [START on_start_add_listener]
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
 
     }
-    // [END on_start_add_listener]
 
-    // [START on_stop_remove_listener]
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+
+    boolean isExerciseName(String input) {
+        String[] tokens = input.split("");
+
+        boolean isExercise = true;
+
+        char c = tokens[1].charAt(0);
+        if (Character.isDigit(c)) {
+            isExercise = false;
         }
+
+        return isExercise;
+
     }
-    // [END on_stop_remove_listener]
 }

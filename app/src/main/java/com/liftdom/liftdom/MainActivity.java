@@ -1,20 +1,17 @@
 package com.liftdom.liftdom;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import butterknife.BindView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -103,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("User Profile").withIdentifier(4),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("test1"),
                         new SecondaryDrawerItem().withName("test2")
@@ -123,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(MainActivity.this, WorkoutAssistorActivity.class);
                             }
+                            if (drawerItem.getIdentifier() == 4) {
+                                intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                            }
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
                             }
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 .withName
                 ("Username").withEmail(email),
                 0);
+
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
