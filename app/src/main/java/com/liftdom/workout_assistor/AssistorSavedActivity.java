@@ -13,6 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -29,6 +31,12 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
 public class AssistorSavedActivity extends AppCompatActivity {
 
     @BindView(R.id.goBackHome) Button goHome;
@@ -44,6 +52,9 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +158,24 @@ public class AssistorSavedActivity extends AppCompatActivity {
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
+
+        DateFormat df = DateFormat.getTimeInstance();
+        df.setTimeZone(TimeZone.getTimeZone("gmt"));
+        String gmtTime = df.format(new Date());
+
+        DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
+
+        DatabaseReference specificDate = workoutHistoryRef.child(gmtTime); // should create userid -> dateTime
+
+        ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
+
+        List<String> list = new ArrayList<>();
+
+        for(String item : assistorArrayList){
+            list.add(item);
+        }
+
+        specificDate.setValue(list);
 
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override

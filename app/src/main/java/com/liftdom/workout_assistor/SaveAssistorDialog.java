@@ -1,5 +1,6 @@
 package com.liftdom.workout_assistor;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
-public class SaveAssistorDialog extends AppCompatActivity {
+public class SaveAssistorDialog extends Activity {
 
     @BindView(R.id.saveButtonSave) Button saveButton;
     @BindView(R.id.saveButtonCancel) Button cancelButton;

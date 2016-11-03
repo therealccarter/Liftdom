@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,13 +52,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     String activeTemplateName = null;
     String activeTemplateDayValue = null;
     String activeTemplateToday = null;
-    ArrayList<String> todayList = new ArrayList<>();
     String exerciseString = "fail";
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.saveButton) Button saveButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,12 +169,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         // child is "yeee"
         final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
-
-
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
 
                 activeTemplateName = dataSnapshot.getValue(String.class);
 
@@ -202,7 +200,6 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
                                                 String snapshotString = daySnapshot.getValue(String.class);
-
 
                                                 if (isExerciseName(snapshotString)) {
                                                     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -245,15 +242,15 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                         }
                                     });
-                                } else {
-                                    FragmentManager fragmentManager = getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager
-                                            .beginTransaction();
-                                    RestDayFrag exerciseNameFrag = new RestDayFrag();
-                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                            exerciseNameFrag);
-                                    fragmentTransaction.commit();
                                 }
+                            } if(isToday(activeTemplateDayValue) == false){
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                RestDayFrag exerciseNameFrag = new RestDayFrag();
+                                fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                        exerciseNameFrag);
+                                fragmentTransaction.commit();
                             }
                         }
                         @Override
@@ -261,7 +258,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                         }
                     });
-                } else{
+                } else {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager
                             .beginTransaction();
@@ -277,6 +274,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
             }
         });
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

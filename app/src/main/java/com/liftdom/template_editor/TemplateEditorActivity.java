@@ -67,6 +67,8 @@ public class TemplateEditorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_editor);
 
+        //TODO: Edit template adds setScheme from other exercise...
+
 
         ButterKnife.bind(this);
 

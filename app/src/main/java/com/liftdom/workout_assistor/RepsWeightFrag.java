@@ -66,9 +66,12 @@ public class RepsWeightFrag extends Fragment {
         super.onPause();
 
         CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
+        EditText repsEditText = (EditText) getView().findViewById(R.id.repsEditText);
+        EditText weightEditText = (EditText) getView().findViewById(R.id.weightEditText);
 
         if(checkBox.isChecked()){
-            WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, fullString);
+            String compiledString = repsEditText.getText() + "@" + weightEditText.getText();
+            WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, compiledString);
         }
     }
 

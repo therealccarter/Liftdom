@@ -26,8 +26,8 @@ public class WorkoutAssistorAssemblerClass {
             indexIncrementor++;
         }else{
             DoWAL1.add(exercise);
-            indexIncrementor = 1;
+            DoWAL1.add(repsWeight);
+            indexIncrementor = 2;
         }
     }
-
 }
