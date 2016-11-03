@@ -59,6 +59,7 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
                         android:hint="Private Workout Journal"
+                        android:id="@+id/privateJournal"
                 />
 
                 <Button

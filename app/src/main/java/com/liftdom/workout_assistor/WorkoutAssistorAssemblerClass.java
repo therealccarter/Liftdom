@@ -19,6 +19,8 @@ public class WorkoutAssistorAssemblerClass {
 
     private int indexIncrementor = 1;
 
+    String privateJournal = null;
+
     public void setRepsWeight(String exercise, String repsWeight){
         if(DoWAL1.contains(exercise)){
             int exIndex = DoWAL1.indexOf(exercise);

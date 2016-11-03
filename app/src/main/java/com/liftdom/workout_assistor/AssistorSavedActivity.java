@@ -32,6 +32,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -159,13 +160,18 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
-        DateFormat df = DateFormat.getTimeInstance();
-        df.setTimeZone(TimeZone.getTimeZone("gmt"));
-        String gmtTime = df.format(new Date());
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("gmt"));
+        String gmtTime = dateFormat.format(new Date());
 
         DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
 
-        DatabaseReference specificDate = workoutHistoryRef.child(gmtTime); // should create userid -> dateTime
+        DatabaseReference specificDate = workoutHistoryRef.child(gmtTime);
+
+        DatabaseReference journalRef = specificDate.child("private_journal");
+
+        String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
 
         ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
 
@@ -176,6 +182,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
         }
 
         specificDate.setValue(list);
+
+        if(privateJournalString != null){
+            journalRef.setValue(privateJournalString);
+        }
 
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override

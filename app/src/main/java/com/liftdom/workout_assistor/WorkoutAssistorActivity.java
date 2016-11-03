@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -318,6 +319,16 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        EditText privateJournalView = (EditText) findViewById(R.id.privateJournal);
+
+        String privateJournal = privateJournalView.getText().toString();
+
+        WorkoutAssistorAssemblerClass.getInstance().privateJournal = privateJournal;
+
+    }
 
     // [START on_start_add_listener]
     @Override
