@@ -159,51 +159,16 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
 
                     DatabaseReference daySpecificRef = workoutHistoryRef.child(snapshotString);
 
-                    daySpecificRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager
+                            .beginTransaction();
+                    WorkoutHistoryListFrag workoutHistoryListFrag = new WorkoutHistoryListFrag();
+                    workoutHistoryListFrag.daySpecificRef = daySpecificRef;
+                    workoutHistoryListFrag.date = snapshotString;
+                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                            workoutHistoryListFrag);
+                    fragmentTransaction.commit();
 
-                                String itemString = dateSnapshot.getValue(String.class);
-
-                                if (isExerciseName(itemString)) {
-                                    FragmentManager fragmentManager = getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager
-                                            .beginTransaction();
-                                    HistoryExerciseNameFrag exerciseNameFrag = new HistoryExerciseNameFrag();
-                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                            exerciseNameFrag);
-                                    fragmentTransaction.commit();
-                                    exerciseNameFrag.exerciseName = itemString;
-                                } else {
-                                    String stringSansSpaces = itemString.replaceAll("\\s+", "");
-
-                                    String delims = "[x,@]";
-
-                                    String[] tokens = stringSansSpaces.split(delims);
-
-
-
-                                        FragmentManager fragmentManager = getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        HistoryRepsWeightFrag repsWeightFrag = new HistoryRepsWeightFrag();
-                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                repsWeightFrag);
-                                        fragmentTransaction.commit();
-                                        repsWeightFrag.reps = tokens[0];
-                                        repsWeightFrag.weight = tokens[1];
-
-
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                 }
             }
 
@@ -212,22 +177,5 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
 
             }
         });
-
-
-    }
-
-
-    boolean isExerciseName(String input) {
-        String[] tokens = input.split("");
-
-        boolean isExercise = true;
-
-        char c = tokens[1].charAt(0);
-        if (Character.isDigit(c)) {
-            isExercise = false;
-        }
-
-        return isExercise;
-
     }
 }

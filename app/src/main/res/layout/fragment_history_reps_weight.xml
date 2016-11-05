@@ -7,7 +7,8 @@
                   android:weightSum="1"
                   android:background="#FFFFFF"
                   android:id="@+id/main_layout"
-              android:gravity="center_horizontal"
+              android:gravity="start"
+              android:layout_marginStart="10dp"
     >
 
     <TextView

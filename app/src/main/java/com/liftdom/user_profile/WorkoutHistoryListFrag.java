@@ -3,6 +3,8 @@ package com.liftdom.user_profile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
@@ -27,6 +33,7 @@ public class WorkoutHistoryListFrag extends Fragment {
 
     String date = "fail";
     ArrayList<String> initialDataList = new ArrayList<>();
+    DatabaseReference daySpecificRef;
 
     @BindView(R.id.dateTitle) TextView dateTitle;
 
@@ -42,6 +49,61 @@ public class WorkoutHistoryListFrag extends Fragment {
 
         LinearLayout itemHolder = (LinearLayout) view.findViewById(R.id.dataHolder);
 
+        //TODO: Add date converter
+
+        daySpecificRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+
+                    String itemString = dateSnapshot.getValue(String.class);
+
+                    String itemKey = dateSnapshot.getKey();
+
+                    if (isExerciseName(itemString) && !itemKey.equals("private_journal")) {
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        HistoryExerciseNameFrag exerciseNameFrag = new HistoryExerciseNameFrag();
+                        fragmentTransaction.add(R.id.dataHolder,
+                                exerciseNameFrag);
+                        fragmentTransaction.commit();
+                        exerciseNameFrag.exerciseName = itemString;
+                    } else if(!isExerciseName(itemString)){
+                        String stringSansSpaces = itemString.replaceAll("\\s+", "");
+
+                        String delims = "[x,@]";
+
+                        String[] tokens = stringSansSpaces.split(delims);
+
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        HistoryRepsWeightFrag repsWeightFrag = new HistoryRepsWeightFrag();
+                        fragmentTransaction.add(R.id.dataHolder,
+                                repsWeightFrag);
+                        fragmentTransaction.commit();
+                        repsWeightFrag.reps = tokens[0];
+                        repsWeightFrag.weight = tokens[1];
+                    } if(itemKey.equals("private_journal")){
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        HistoryPrivateJournalFrag historyPrivateJournalFrag = new HistoryPrivateJournalFrag();
+                        historyPrivateJournalFrag.journalString = itemString;
+                        fragmentTransaction.add(R.id.dataHolder,
+                                historyPrivateJournalFrag);
+                        fragmentTransaction.commit();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         for(String item : initialDataList){
             TextView itemView = new TextView(getContext());
             itemView.setText(item);
@@ -50,6 +112,20 @@ public class WorkoutHistoryListFrag extends Fragment {
 
 
         return view;
+    }
+
+    boolean isExerciseName(String input) {
+        String[] tokens = input.split("");
+
+        boolean isExercise = true;
+
+        char c = tokens[1].charAt(0);
+        if (Character.isDigit(c)) {
+            isExercise = false;
+        }
+
+        return isExercise;
+
     }
 
 }
