@@ -167,7 +167,7 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                     workoutHistoryListFrag.date = snapshotString;
                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                             workoutHistoryListFrag);
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commitAllowingStateLoss();
 
                 }
             }

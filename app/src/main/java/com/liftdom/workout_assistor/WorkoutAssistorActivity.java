@@ -251,7 +251,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                 RestDayFrag exerciseNameFrag = new RestDayFrag();
                                 fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                         exerciseNameFrag);
-                                fragmentTransaction.commit();
+                                fragmentTransaction.commitAllowingStateLoss();
                             }
                         }
                         @Override
