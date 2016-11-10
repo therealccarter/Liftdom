@@ -319,6 +319,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         });
     }
 
+
     boolean isToday(String dayString){
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();

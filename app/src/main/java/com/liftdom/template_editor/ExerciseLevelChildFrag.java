@@ -3,16 +3,14 @@ package com.liftdom.template_editor;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +42,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     // Butterknife
-    @BindView(R.id.movementName) Spinner exerciseSpinner;
+    @BindView(R.id.movementName) Button exerciseButton;
     @BindView(R.id.addSet) Button addSet;
     @BindView(R.id.removeSet) Button removeSet;
 
@@ -69,19 +67,20 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         ButterKnife.bind(this, view);
 
         // Exercise Spinner
-        Spinner exerciseSpinner = (Spinner) view.findViewById(R.id.movementName);
+        //Spinner exerciseSpinner = (Spinner) view.findViewById(R.id.movementName);
 
-        ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.exercises1,
-                android.R.layout.simple_spinner_dropdown_item);
+        //ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(getActivity(), R.array
+        // .exercises1,
+               // android.R.layout.simple_spinner_dropdown_item);
 
-        exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exerciseSpinner.setAdapter(exerciseAdapter);
+       // exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //exerciseSpinner.setAdapter(exerciseAdapter);
 
         final ArrayList<String> stringSnapshotAL = new ArrayList<>();
 
         if(isEdit){
 
-            exerciseSpinner.setSelection(exerciseAdapter.getPosition(spinnerValue));
+            exerciseButton.setText(spinnerValue);
 
             DatabaseReference selectedDayRef = mRootRef.child("users").child(uid).child("templates").child
                     (templateName).child(selectedDaysReference);
@@ -128,6 +127,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
             fragmentTransaction.commit();
         }
+
+        exerciseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ExercisePickerActivity.class);
+
+                int exID = exerciseButton.getId();
+                intent.putExtra("exID", exID);
+                startActivity(intent);
+            }
+        });
 
         addSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,9 +188,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         return doWSelected;
     }
 
-    public String getSpinnerValue(){
+    public String getExerciseValue(){
 
-        String spinnerText = exerciseSpinner.getSelectedItem().toString();
+        String spinnerText = exerciseButton.getText().toString();
 
         return spinnerText;
     }

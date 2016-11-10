@@ -5,6 +5,7 @@
     <item name="colorPrimary" type="color">#000000</item>
     <item name="colorPrimaryDark" type="color">#D1B91D</item>
     <item name="colorAccent" type="color">#D1B91D</item>
+    <color name="tabsScrollColor">#D1B91D</color>
 
     <color name="grey" type="color">#cccccc</color>
     <item name="blue" type="color">#FF33B5E5</item>

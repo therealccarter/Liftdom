@@ -6,7 +6,8 @@ UPCOMING FEATURES TO DO:
 *v0.2*
 *DONE* 1. After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
 2. Revamp and beautify design throughout app
-3. Go to UserProfile via NavDrawer header
+3. Go to UserProfile via NavDrawer header *UNDER DEVELOPMENT...*
+4. Fix up the exercise picker (from spinner to advanced picker)
 4. Clear current BugList
 
 *v0.3*

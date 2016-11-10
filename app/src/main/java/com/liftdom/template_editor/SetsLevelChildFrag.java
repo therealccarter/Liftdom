@@ -32,7 +32,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
     // Callback
     public interface setSchemesCallback{
-        String getSpinnerValue();
+        String getExerciseValue();
         String getDoWValue();
     }
 
@@ -91,10 +91,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         super.onPause();
 
 
-        String parentSpinnerValue = callback.getSpinnerValue();
+        String parentSpinnerValue = callback.getExerciseValue();
         String doWSelected = callback.getDoWValue();
         EditTemplateAssemblerClass.getInstance().setDoW(doWSelected);
-        EditTemplateAssemblerClass.getInstance().setExSpinnerValue(parentSpinnerValue, doWSelected);
+        EditTemplateAssemblerClass.getInstance().setExerciseValue(parentSpinnerValue, doWSelected);
 
         String setsString = setsEditText.getText().toString();
         String repsString = repsEditText.getText().toString();

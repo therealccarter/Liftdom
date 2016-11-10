@@ -59,63 +59,63 @@ class EditTemplateAssemblerClass {
      */
 
     // Exercise spinner setters
-    void setExSpinnerValue(String spinnerValue, String doWValue){
+    void setExerciseValue(String exerciseValue, String doWValue){
         if(doWValue != null){
-            if(doWValue.equals(DoWAL1.get(0)) && !DoWAL1.contains(spinnerValue)){
-                DoWAL1.add(spinnerValue);
+            if(doWValue.equals(DoWAL1.get(0)) && !DoWAL1.contains(exerciseValue)){
+                DoWAL1.add(exerciseValue);
             } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !DoWAL2.contains
-                    (spinnerValue)){
-                DoWAL2.add(spinnerValue);
-            } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !DoWAL3.contains(spinnerValue)){
-                DoWAL3.add(spinnerValue);
-            } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !DoWAL4.contains(spinnerValue)){
-                DoWAL4.add(spinnerValue);
-            } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !DoWAL5.contains(spinnerValue)){
-                DoWAL5.add(spinnerValue);
-            } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !DoWAL6.contains(spinnerValue)){
-                DoWAL6.add(spinnerValue);
-            } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !DoWAL7.contains(spinnerValue)){
-                DoWAL7.add(spinnerValue);
+                    (exerciseValue)){
+                DoWAL2.add(exerciseValue);
+            } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !DoWAL3.contains(exerciseValue)){
+                DoWAL3.add(exerciseValue);
+            } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !DoWAL4.contains(exerciseValue)){
+                DoWAL4.add(exerciseValue);
+            } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !DoWAL5.contains(exerciseValue)){
+                DoWAL5.add(exerciseValue);
+            } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !DoWAL6.contains(exerciseValue)){
+                DoWAL6.add(exerciseValue);
+            } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !DoWAL7.contains(exerciseValue)){
+                DoWAL7.add(exerciseValue);
             }
         }
     }
 
     // Set scheme setter
-    void setSetSchemeValue(String setSchemeValue, String spinnerValue, String doWValue){
+    void setSetSchemeValue(String setSchemeValue, String exerciseValue, String doWValue){
         if(doWValue != null){
             if(doWValue.equals(DoWAL1.get(0))){
-                if(DoWAL1.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL1.indexOf(spinnerValue);
+                if(DoWAL1.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL1.indexOf(exerciseValue);
                     DoWAL1.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL2.get(0))){
-                if(DoWAL2.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL2.indexOf(spinnerValue);
+                if(DoWAL2.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL2.indexOf(exerciseValue);
                     DoWAL2.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL3.get(0))){
-                if(DoWAL3.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL3.indexOf(spinnerValue);
+                if(DoWAL3.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL3.indexOf(exerciseValue);
                     DoWAL3.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL4.get(0))){
-                if(DoWAL4.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL4.indexOf(spinnerValue);
+                if(DoWAL4.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL4.indexOf(exerciseValue);
                     DoWAL4.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL5.get(0))){
-                if(DoWAL5.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL5.indexOf(spinnerValue);
+                if(DoWAL5.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL5.indexOf(exerciseValue);
                     DoWAL5.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL6.get(0))){
-                if(DoWAL6.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL6.indexOf(spinnerValue);
+                if(DoWAL6.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL6.indexOf(exerciseValue);
                     DoWAL6.add(spinnerIndex + 1, setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL7.get(0))){
-                if(DoWAL7.contains(spinnerValue)){
-                    int spinnerIndex = DoWAL7.indexOf(spinnerValue);
+                if(DoWAL7.contains(exerciseValue)){
+                    int spinnerIndex = DoWAL7.indexOf(exerciseValue);
                     DoWAL7.add(spinnerIndex + 1, setSchemeValue);
                 }
             }
