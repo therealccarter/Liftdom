@@ -36,6 +36,7 @@ public class WorkoutHistoryListFrag extends Fragment {
     DatabaseReference daySpecificRef;
 
     @BindView(R.id.dateTitle) TextView dateTitle;
+    @BindView(R.id.dataHolder) LinearLayout dataHolder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +48,6 @@ public class WorkoutHistoryListFrag extends Fragment {
 
         dateTitle.setText(date);
 
-        LinearLayout itemHolder = (LinearLayout) view.findViewById(R.id.dataHolder);
 
         //TODO: Add date converter
 
@@ -85,7 +85,7 @@ public class WorkoutHistoryListFrag extends Fragment {
                         fragmentTransaction.commit();
                         repsWeightFrag.reps = tokens[0];
                         repsWeightFrag.weight = tokens[1];
-                    } if(itemKey.equals("private_journal")){
+                    } else if(itemKey.equals("private_journal")){
                         FragmentManager fragmentManager = getChildFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();
@@ -104,24 +104,26 @@ public class WorkoutHistoryListFrag extends Fragment {
             }
         });
 
-        for(String item : initialDataList){
-            TextView itemView = new TextView(getContext());
-            itemView.setText(item);
-            itemHolder.addView(itemView);
-        }
+        //for(String item : initialDataList){
+        //    TextView itemView = new TextView(getContext());
+        //    itemView.setText(item);
+        //    dataHolder.addView(itemView);
+        //}
 
 
         return view;
     }
 
     boolean isExerciseName(String input) {
-        String[] tokens = input.split("");
+        char[] tokens = input.toCharArray();
 
         boolean isExercise = true;
 
-        char c = tokens[1].charAt(0);
-        if (Character.isDigit(c)) {
-            isExercise = false;
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
         }
 
         return isExercise;
