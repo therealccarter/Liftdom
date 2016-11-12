@@ -1,24 +1,25 @@
 package com.liftdom.template_editor;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
+import android.widget.Button;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
-import com.liftdom.template_editor.exercise_picker_frags.ViewPagerAdapter;
 
 public class ExercisePickerActivity extends AppCompatActivity {
-
 
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Upper Body","Lower Body"};
-    int Numboftabs =2;
+    int Numboftabs = 2;
 
+    @BindView(R.id.saveButton) Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,9 @@ public class ExercisePickerActivity extends AppCompatActivity {
         setTitle("Choose An Exercise");
         setContentView(R.layout.activity_exercise_picker);
 
-        int exerciseID = getIntent().getExtras().getInt("exID");
+        ButterKnife.bind(this);
+
+        ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
@@ -50,6 +53,20 @@ public class ExercisePickerActivity extends AppCompatActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(ExercisePickerController.getInstance().exName != null) {
+                    String message = ExercisePickerController.getInstance().exName;
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", message);
+                    setResult(2, intent);
+                    ExercisePickerController.getInstance().exName = null;
+                }else{
+                    Intent intent = new Intent();
+                    setResult(1, intent);
+                }
+                finish();
+            }
+        });
     }
 }

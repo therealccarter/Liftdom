@@ -1,4 +1,4 @@
-package com.liftdom.template_editor.exercise_picker_frags;
+package com.liftdom.template_editor;
 
 
 
@@ -14,19 +14,20 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExPickerTab1 extends Fragment {
+public class ExPickerTab2 extends Fragment {
 
 
-    public ExPickerTab1() {
+    public ExPickerTab2() {
         // Required empty public constructor
     }
 
+    int exID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab1, container, false);
+       View view = inflater.inflate(R.layout.fragment_tab2, container, false);
 
         return view;
     }

@@ -19,6 +19,8 @@ import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
 
+import static android.R.attr.data;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -131,12 +133,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExercisePickerActivity.class);
-
                 int exID = exerciseButton.getId();
                 intent.putExtra("exID", exID);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
+
+
 
         addSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +170,26 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         callback = (doWCallback) getParentFragment();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode == 2)
+        {
+            String message = data.getStringExtra("MESSAGE");
+            exerciseButton.setText(message);
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+       //if(ExercisePickerController.getInstance().exID == exerciseButton.getId()) {
+       //    exerciseButton.setText(ExercisePickerController.getInstance().exName);
+       //}
     }
 
     boolean isExerciseName(String input){
@@ -233,4 +256,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

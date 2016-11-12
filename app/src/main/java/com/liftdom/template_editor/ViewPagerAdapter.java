@@ -1,4 +1,4 @@
-package com.liftdom.template_editor.exercise_picker_frags;
+package com.liftdom.template_editor;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +27,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     //This method return the fragment for the every position in the View Pager
     @Override
     public Fragment getItem(int position) {
-
         if(position == 0) // if the position is 0 we are returning the First tab
         {
             ExPickerTab1 tab1 = new ExPickerTab1();
@@ -38,8 +37,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             ExPickerTab2 tab2 = new ExPickerTab2();
             return tab2;
         }
-
-
     }
 
     // This method return the titles for the Tabs in the Tab Strip
