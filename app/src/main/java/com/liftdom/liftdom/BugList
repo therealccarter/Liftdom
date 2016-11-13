@@ -1,5 +1,6 @@
 CURRENT BUG LIST:
 
-1. WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
-2. Rotate change crashes/adds frags in various places
+*DONE*(I think) 1. WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
+2. Rotate change adds frags in various places
 3. Editing and creating templates adds extra set schemes
+4. Various crashes

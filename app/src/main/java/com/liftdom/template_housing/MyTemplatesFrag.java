@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -35,10 +36,10 @@ public class MyTemplatesFrag extends Fragment {
 
     ArrayList<String> templateNamesList = new ArrayList<>();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_my_templates, container, false);
 
         DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
@@ -48,13 +49,12 @@ public class MyTemplatesFrag extends Fragment {
         final DatabaseReference mTemplateRef = mDatabase.child("users").child(uid).child("templates");
 
         //TODO loading symbol until it loads...
-
+        if(savedInstanceState == null) {//
         mTemplateRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for(DataSnapshot templateSnapshot : dataSnapshot.getChildren()){
+                        for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
 
                             //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
 
@@ -80,19 +80,8 @@ public class MyTemplatesFrag extends Fragment {
                         // ...
                     }
                 });
-
-
+        }
         return view;
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // We need to get the name of each template in a user's collection
-
-
-    }
-
 
 }

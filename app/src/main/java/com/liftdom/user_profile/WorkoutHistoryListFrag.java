@@ -104,18 +104,10 @@ public class WorkoutHistoryListFrag extends Fragment {
             }
         });
 
-        //for(String item : initialDataList){
-        //    TextView itemView = new TextView(getContext());
-        //    itemView.setText(item);
-        //    dataHolder.addView(itemView);
-        //}
-
-
         return view;
     }
 
     boolean isExerciseName(String input) {
-        char[] tokens = input.toCharArray();
 
         boolean isExercise = true;
 

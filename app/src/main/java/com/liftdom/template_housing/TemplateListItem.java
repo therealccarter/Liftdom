@@ -38,6 +38,11 @@ public class TemplateListItem extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        if(savedInstanceState != null){
+            templateName = savedInstanceState.getString("template_name");
+            templateNameView.setText(templateName);
+        }
+
         templateNameView.setText(templateName);
 
         templateListItemLinear.setOnClickListener(new View.OnClickListener(){
@@ -60,4 +65,11 @@ public class TemplateListItem extends Fragment {
         return view;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putString("template_name", templateName);
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
 }

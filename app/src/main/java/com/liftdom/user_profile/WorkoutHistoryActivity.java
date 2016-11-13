@@ -168,7 +168,6 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                             workoutHistoryListFrag);
                     fragmentTransaction.commitAllowingStateLoss();
-
                 }
             }
 

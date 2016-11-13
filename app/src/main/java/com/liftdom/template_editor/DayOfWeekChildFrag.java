@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
  */
 public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback{
 
-    private OnFragmentInteractionListener mListener;
+    //private OnFragmentInteractionListener mListener;
 
     int fragIdCount1 = 0;
 
@@ -301,45 +301,45 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-        try {
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+    //// TODO: Rename method, update argument and hook method into UI event
+    //public void onButtonPressed(Uri uri) {
+    //    if (mListener != null) {
+    //        mListener.onFragmentInteraction(uri);
+    //    }
+    //}
+//
+    //@Override
+    //public void onAttach(Context context) {
+    //    super.onAttach(context);
+    //    if (context instanceof OnFragmentInteractionListener) {
+    //        mListener = (OnFragmentInteractionListener) context;
+    //    } else {
+    //        throw new RuntimeException(context.toString()
+    //                + " must implement OnFragmentInteractionListener");
+    //    }
+    //}
+//
+    //@Override
+    //public void onDetach() {
+    //    super.onDetach();
+    //    mListener = null;
+    //    try {
+    //        Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+    //        childFragmentManager.setAccessible(true);
+    //        childFragmentManager.set(this, null);
+//
+    //    } catch (NoSuchFieldException e) {
+    //        throw new RuntimeException(e);
+    //    } catch (IllegalAccessException e) {
+    //        throw new RuntimeException(e);
+    //    }
+//
+    //}
+//
+    //public interface OnFragmentInteractionListener {
+    //    // TODO: Update argument type and name
+    //    void onFragmentInteraction(Uri uri);
+    //}
 
     public String getDoW(){
         String doWConstructor = "";

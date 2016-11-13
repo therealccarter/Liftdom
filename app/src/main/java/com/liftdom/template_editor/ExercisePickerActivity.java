@@ -26,6 +26,7 @@ public class ExercisePickerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Choose An Exercise");
         setContentView(R.layout.activity_exercise_picker);
+        this.setFinishOnTouchOutside(false);
 
         ButterKnife.bind(this);
 

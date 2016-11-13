@@ -17,7 +17,9 @@
         </activity>
         <activity android:name=".SignInActivity">
         </activity>
-        <activity android:name="com.liftdom.template_editor.TemplateEditorActivity">
+        <activity android:name="com.liftdom.template_editor.TemplateEditorActivity"
+                    android:screenOrientation="portrait"
+        >
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"

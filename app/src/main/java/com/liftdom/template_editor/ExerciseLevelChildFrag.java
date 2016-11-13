@@ -17,21 +17,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static android.R.attr.data;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ExerciseLevelChildFrag.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
 public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback{
 
     int fragIdCount2 = 0;
 
-    private OnFragmentInteractionListener mListener;
+
 
     Boolean isEdit = false;
     String spinnerValue;
@@ -67,16 +62,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         View view = inflater.inflate(R.layout.fragment_exercise_level_child, container, false);
 
         ButterKnife.bind(this, view);
-
-        // Exercise Spinner
-        //Spinner exerciseSpinner = (Spinner) view.findViewById(R.id.movementName);
-
-        //ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(getActivity(), R.array
-        // .exercises1,
-               // android.R.layout.simple_spinner_dropdown_item);
-
-       // exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //exerciseSpinner.setAdapter(exerciseAdapter);
 
         final ArrayList<String> stringSnapshotAL = new ArrayList<>();
 
@@ -179,8 +164,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 2)
         {
-            String message = data.getStringExtra("MESSAGE");
-            exerciseButton.setText(message);
+            if(data.getStringExtra("MESSAGE") != null) {
+                String message = data.getStringExtra("MESSAGE");
+                exerciseButton.setText(message);
+            }
         }
     }
 
@@ -218,44 +205,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         return spinnerText;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
 
 }

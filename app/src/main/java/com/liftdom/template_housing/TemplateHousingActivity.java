@@ -144,6 +144,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
             // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
+        if(savedInstanceState == null) {
             // get an instance of FragmentTransaction from your Activity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -151,7 +152,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
             TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
             fragmentTransaction.add(R.id.templateMenuFragContainer, templateMenuFrag);
             fragmentTransaction.commit();
-
+        }
         //}
     }
 
