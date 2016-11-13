@@ -36,6 +36,7 @@ public class RepsWeightFrag extends Fragment {
     @BindView(R.id.checkBox) CheckBox checkBox;
     @BindView(R.id.main_layout) LinearLayout mainLayout;
 
+    Bundle mSaved;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +45,8 @@ public class RepsWeightFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reps_weight, container, false);
 
         ButterKnife.bind(this, view);
+
+        mSaved = savedInstanceState;
 
         repsEditText.setText(reps);
         weightEditText.setText(weight);
@@ -65,13 +68,15 @@ public class RepsWeightFrag extends Fragment {
     public void onPause(){
         super.onPause();
 
-        CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
-        EditText repsEditText = (EditText) getView().findViewById(R.id.repsEditText);
-        EditText weightEditText = (EditText) getView().findViewById(R.id.weightEditText);
+        if(mSaved == null) {
+            CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
+            EditText repsEditText = (EditText) getView().findViewById(R.id.repsEditText);
+            EditText weightEditText = (EditText) getView().findViewById(R.id.weightEditText);
 
-        if(checkBox.isChecked()){
-            String compiledString = repsEditText.getText() + "@" + weightEditText.getText();
-            WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, compiledString);
+            if (checkBox.isChecked()) {
+                String compiledString = repsEditText.getText() + "@" + weightEditText.getText();
+                WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, compiledString);
+            }
         }
     }
 

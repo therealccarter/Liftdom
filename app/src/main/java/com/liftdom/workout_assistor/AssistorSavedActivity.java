@@ -177,14 +177,16 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
         List<String> list = new ArrayList<>();
 
-        for (String item : assistorArrayList) {
-            list.add(item);
-        }
+        if(savedInstanceState == null) {
+            for (String item : assistorArrayList) {
+                list.add(item);
+            }
 
-        specificDate.setValue(list);
+            specificDate.setValue(list);
 
-        if (privateJournalString != null) {
-            journalRef.setValue(privateJournalString);
+            if (privateJournalString != null) {
+                journalRef.setValue(privateJournalString);
+            }
         }
 
 

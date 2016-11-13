@@ -36,10 +36,23 @@ public class ExerciseNameFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        if(savedInstanceState != null){
+            exerciseName = savedInstanceState.getString("exercise_name");
+            exerciseNameView.setText(exerciseName);
+        }
+
         exerciseNameView.setText(exerciseName);
 
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putString("exercise_name", exerciseName);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 

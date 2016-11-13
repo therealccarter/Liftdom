@@ -32,6 +32,8 @@ public class SaveTemplateDialog extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_save_template_dialog);
 
+        //TODO: input validation, don't allow no-name templates
+
         ButterKnife.bind(this);
 
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
