@@ -4,57 +4,60 @@ UPCOMING FEATURES TO DO:
 *DONE*
 
 *v0.2*
-*DONE* 1. After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
-2. Revamp and beautify design throughout app
-3. Go to UserProfile via NavDrawer header
-*DONE* 4. Fix up the exercise picker (from spinner to advanced picker)
-4. Clear current BugList
+**DONE** After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
+* Revamp and beautify design throughout app
+** Fix up exercise picker
+* Go to UserProfile via NavDrawer header
+**DONE** Fix up the exercise picker (from spinner to advanced picker)
+* Clear current BugList
 
 *v0.3*
-1. Work on pre-made templates (
-2. Create a simple algorithm template for continuous resistance training
-3. Add some tools (BMI, cal calculator, etc)
-4. Clear current BugList
+* Work on pre-made templates (Just a few)
+* Fix architecture of templates/history
+* Create a simple algorithm template for continuous resistance training
+* Add some tools (BMI, cal calculator, etc)
+* Clear current BugList
 
 *v0.4*
-1. Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
-2. Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
-3. Show past and future workouts in a Calendar View (color code - future/past/failures)
-4. Clear current BugList
+* Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
+* Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
+* Show past and future workouts in a Calendar View (color code - future/past/failures)
+* Clear current BugList
 
 *v0.5*
-1. Exercise movement library/reference
-2. Understand and plan the right NoSQL architecture for efficient social media working
-3. Clear current BugList
+* Exercise movement library/reference
+* Work on pre-made templates (many more)
+* Understand and plan the right NoSQL architecture for efficient social media working
+* Clear current BugList
 
 *v0.6* - Begin Social features!
-1. Search for other users
-2. Friend other users
-3. View other users' profiles
-4. Add friends' workouts and your workouts to main feed
-4. Clear current BugList
+* Search for other users
+* Friend other users
+* View other users' profiles
+* Add friends' workouts and your workouts to main feed
+* Clear current BugList
 
 *v0.7*
-1. DM other users (including group chat)
-2. Send templates to other users via chat
-3. Ability to "fork" workouts and collaborate
-4. Clear current BugList
+* DM other users (including group chat)
+* Send templates to other users via chat
+* Ability to "fork" workouts and collaborate
+* Clear current BugList
 
 *v0.8*
-1. Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
-2. Look for other lifters at various gyms (mark on Google Maps maybe?)
-3. DM workout invite
+* Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
+* Look for other lifters at various gyms (mark on Google Maps maybe?)
+* DM workout invite
 
 *v0.9*
-1. Level up structure based on daily multiplier, lifts, etc.
+* Level up structure based on daily multiplier, lifts, etc.
 
 *v1.0*
-1. Polish everything, beautify, make the app look sleek and pro
-2. Fix all current bugs
-3. Create first-time user tutorial/profile setup
-3. Release.
+* Polish everything, beautify, make the app look sleek and pro
+* Fix all current bugs
+* Create first-time user tutorial/profile setup
+* Release.
 
 ***TENTATIVE***
 
 *v2.0*
-1. Full forum integration.
+* Full forum integration.

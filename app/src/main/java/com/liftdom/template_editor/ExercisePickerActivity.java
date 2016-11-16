@@ -20,6 +20,7 @@ public class ExercisePickerActivity extends AppCompatActivity {
     int Numboftabs = 2;
 
     @BindView(R.id.saveButton) Button saveButton;
+    @BindView(R.id.cancelButton) Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +70,14 @@ public class ExercisePickerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(1, intent);
+                finish();
+            }
+        });
+
     }
 }

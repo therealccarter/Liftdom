@@ -5,30 +5,57 @@
               android:orientation="vertical"
              tools:context="com.liftdom.template_editor.ExPickerTab1">
 
-    <Button
-            android:id="@+id/benchPressButton"
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FREE WEIGHTS"
+            android:textSize="28sp"
+            android:textColor="@color/liftrGold1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:background="@color/darkerGrey"
+    />
+
+    <TextView
+            android:id="@+id/benchPressView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:text="Bench Press"/>
 
 
-    <Button
-            android:id="@+id/curlsButton"
+    <TextView
+            android:id="@+id/curlsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:text="Curls"/>
 
 
-    <Button
-            android:id="@+id/rowsButton"
+    <TextView
+            android:id="@+id/rowsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:text="Rows"/>
 
 </LinearLayout>
