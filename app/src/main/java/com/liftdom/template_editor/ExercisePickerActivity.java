@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
+
+import static android.R.id.message;
 
 public class ExercisePickerActivity extends AppCompatActivity {
 
@@ -19,7 +22,7 @@ public class ExercisePickerActivity extends AppCompatActivity {
     CharSequence Titles[]={"Upper Body","Lower Body"};
     int Numboftabs = 2;
 
-    @BindView(R.id.saveButton) Button saveButton;
+    //@BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.cancelButton) Button cancelButton;
 
     @Override
@@ -27,6 +30,7 @@ public class ExercisePickerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Choose An Exercise");
         setContentView(R.layout.activity_exercise_picker);
+        this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_1);
         this.setFinishOnTouchOutside(false);
 
         ButterKnife.bind(this);
@@ -55,22 +59,8 @@ public class ExercisePickerActivity extends AppCompatActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(ExercisePickerController.getInstance().exName != null) {
-                    String message = ExercisePickerController.getInstance().exName;
-                    Intent intent = new Intent();
-                    intent.putExtra("MESSAGE", message);
-                    setResult(2, intent);
-                    ExercisePickerController.getInstance().exName = null;
-                }else{
-                    Intent intent = new Intent();
-                    setResult(1, intent);
-                }
-                finish();
-            }
-        });
 
+//
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -78,6 +68,6 @@ public class ExercisePickerActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
+
 }

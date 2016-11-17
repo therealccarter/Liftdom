@@ -3,16 +3,23 @@ package com.liftdom.template_editor;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.refactor.lib.colordialog.ColorDialog;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.liftdom.liftdom.R;
+
+import static android.R.id.message;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +31,11 @@ public class ExPickerTab1 extends Fragment {
         // Required empty public constructor
     }
 
-    @BindView(R.id.benchPressView) TextView benchPressTextView;
-    @BindView(R.id.curlsView) TextView curlsTextView;
-    @BindView(R.id.rowsView) TextView rowsTextView;
+    //@BindView(R.id.benchPressView) TextView benchPressTextView;
+    //@BindView(R.id.curlsView) TextView curlsTextView;
+    //@BindView(R.id.rowsView) TextView rowsTextView;
+    @BindView(R.id.exerciseListView) ListView exerciseListView;
+
 
     int exID;
     int clickCounter = 0;
@@ -39,45 +48,48 @@ public class ExPickerTab1 extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        benchPressTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(clickCounter == 0){
-                    benchPressTextView.setBackgroundColor(Color.parseColor("#388e3c"));
-                    ExercisePickerController.getInstance().exName = "Bench Press";
-                    clickCounter = 1;
-                } else if(clickCounter == 1){
-                    benchPressTextView.setBackgroundColor(Color.parseColor("#D1B91D"));
-                    ExercisePickerController.getInstance().exName = null;
-                    clickCounter = 0;
-                }
-            }
-        });
+        String[] listViewValues = new String[]{
+          "Bench Press", "Curls", "Rows"
+        };
 
-        curlsTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(clickCounter == 0){
-                    curlsTextView.setBackgroundColor(Color.parseColor("#388e3c"));
-                    ExercisePickerController.getInstance().exName = "Curls";
-                    clickCounter = 1;
-                } else if(clickCounter == 1){
-                    curlsTextView.setBackgroundColor(Color.parseColor("#D1B91D"));
-                    ExercisePickerController.getInstance().exName = null;
-                    clickCounter = 0;
-                }
-            }
-        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout
+                .simple_expandable_list_item_1, android.R.id.text1, listViewValues);
 
-        rowsTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(clickCounter == 0){
-                    rowsTextView.setBackgroundColor(Color.parseColor("#388e3c"));
-                    ExercisePickerController.getInstance().exName = "Rows";
-                    clickCounter = 1;
-                } else if(clickCounter == 1){
-                    rowsTextView.setBackgroundColor(Color.parseColor("#D1B91D"));
-                    ExercisePickerController.getInstance().exName = null;
-                    clickCounter = 0;
-                }
+        exerciseListView.setAdapter(adapter);
+
+        exerciseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                int itemPosition = position;
+                final String itemValue = (String) exerciseListView.getItemAtPosition(itemPosition);
+
+                ColorDialog dialog = new ColorDialog(getContext());
+                dialog.setTitle(itemValue);
+                dialog.setContentText("content");
+                dialog.setContentImage(getResources().getDrawable(R.drawable.usertest));
+
+
+                dialog.setPositiveListener("Yes", new ColorDialog.OnPositiveListener() {
+                    @Override
+                    public void onClick(ColorDialog dialog) {
+                        ExercisePickerController.getInstance().exName = itemValue;
+                        String message = ExercisePickerController.getInstance().exName;
+                        Intent intent = new Intent();
+                        intent.putExtra("MESSAGE", message);
+                        getActivity().setResult(2, intent);
+                        ExercisePickerController.getInstance().exName = null;
+                        getActivity().finish();
+                    }
+                })
+                    .setNegativeListener("No", new ColorDialog.OnNegativeListener() {
+                        @Override
+                        public void onClick(ColorDialog dialog) {
+                            ExercisePickerController.getInstance().exName = null;
+                            dialog.dismiss();
+                        }
+                    }).show();
+
             }
         });
 

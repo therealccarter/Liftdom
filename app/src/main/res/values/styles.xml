@@ -10,4 +10,16 @@
         <item name="android:windowActionBar">false</item>
     </style>
 
+    <style name="theme">
+        <item name="android:windowTitleBackgroundStyle">@style/themeTitleBackground</item>
+        <item name="android:windowTitleSize">65dip</item>
+
+    </style>
+
+    <style name="themeTitleBackground">
+        <item name="android:layout_height">wrap_content</item>
+
+
+    </style>
+
 </resources>

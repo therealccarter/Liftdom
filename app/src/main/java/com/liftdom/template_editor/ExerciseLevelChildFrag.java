@@ -163,7 +163,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         // check if the request code is same as what is passed  here it is 2
         if(requestCode == 2)
         {
-            if(data.getStringExtra("MESSAGE") != null) {
+            if(data.getStringExtra("MESSAGE") != null && data != null ) {
                 String message = data.getStringExtra("MESSAGE");
                 exerciseButton.setText(message);
             }

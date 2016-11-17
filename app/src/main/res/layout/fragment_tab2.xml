@@ -11,4 +11,57 @@
             android:textSize="24sp"
             android:text="tab2"/>
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FREE WEIGHTS"
+            android:textSize="28sp"
+            android:textColor="@color/liftrGold1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:background="@color/darkerGrey"
+    />
+
+    <TextView
+            android:id="@+id/benchPressView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="Bench Press"/>
+
+
+    <TextView
+            android:id="@+id/curlsView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="Curls"/>
+
+
+    <TextView
+            android:id="@+id/rowsView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:background="@color/liftrGold1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="Rows"/>
+
 </FrameLayout>
