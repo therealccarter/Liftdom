@@ -97,7 +97,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                             fragmentTransaction.commitAllowingStateLoss();
                         }
                     }
-
                 }
 
                 @Override

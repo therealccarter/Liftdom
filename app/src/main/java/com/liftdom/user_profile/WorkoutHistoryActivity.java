@@ -99,6 +99,18 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                         //Handle Profile changes
                         return false;
                     }
+                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(WorkoutHistoryActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
+                        return false;
+                    }
                 })
                 .build();
 

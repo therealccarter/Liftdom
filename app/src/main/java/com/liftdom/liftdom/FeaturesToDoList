@@ -7,13 +7,13 @@ UPCOMING FEATURES TO DO:
 **DONE** After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
 * Revamp and beautify design throughout app
 ** Fix up exercise picker
-* Go to UserProfile via NavDrawer header
+**DONE** Go to UserProfile via NavDrawer header
 **DONE** Fix up the exercise picker (from spinner to advanced picker)
 * Clear current BugList
 
 *v0.3*
 * Work on pre-made templates (Just a few)
-* Fix architecture of templates/history
+**DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
 * Add some tools (BMI, cal calculator, etc)
 * Clear current BugList

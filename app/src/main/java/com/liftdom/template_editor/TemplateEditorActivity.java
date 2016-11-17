@@ -20,6 +20,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
 import com.liftdom.workout_assistor.RepsWeightFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
@@ -110,6 +111,18 @@ public class TemplateEditorActivity extends AppCompatActivity {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
                         //Handle Profile changes
+                        return false;
+                    }
+                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(TemplateEditorActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
                         return false;
                     }
                 })

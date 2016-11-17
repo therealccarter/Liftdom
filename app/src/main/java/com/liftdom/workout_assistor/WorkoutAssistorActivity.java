@@ -23,6 +23,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.user_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -114,6 +115,18 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
                         //Handle Profile changes
+                        return false;
+                    }
+                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(WorkoutAssistorActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
                         return false;
                     }
                 })

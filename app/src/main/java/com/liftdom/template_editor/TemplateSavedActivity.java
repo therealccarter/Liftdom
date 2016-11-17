@@ -18,6 +18,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -112,6 +113,18 @@ public class TemplateSavedActivity extends AppCompatActivity {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
                         //Handle Profile changes
+                        return false;
+                    }
+                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(TemplateSavedActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
                         return false;
                     }
                 })
@@ -229,7 +242,9 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 List<String> list = new ArrayList<>(); //
 
                 for (int i = 1; i < childInc; i++) {
-                    list.add(doWAL.get(i));
+                    if(!doWAL.get(i).equals("")) {
+                        list.add(doWAL.get(i));
+                    }
                 }
 
                 templateSpecific.child(doWAL.get(0)).setValue(list);
