@@ -195,14 +195,14 @@ public class TemplateSavedActivity extends AppCompatActivity {
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
 
-            DatabaseReference mTemplateRef = mRootRef.child("users").child(uid).child("templates"); // creates /templates
+            DatabaseReference mTemplateRef = mRootRef.child("templates").child(uid); // creates
+            // /templates
 
             ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
 
             DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
 
-            DatabaseReference selectedTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
-                    .child(templateName);
+            DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
             if (getIntent().getExtras().getString("isEdit") != null) {
                 if (getIntent().getExtras().getString("isEdit").equals("yes")) {

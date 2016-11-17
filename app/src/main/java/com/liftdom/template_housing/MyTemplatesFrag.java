@@ -46,7 +46,7 @@ public class MyTemplatesFrag extends Fragment {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        final DatabaseReference mTemplateRef = mDatabase.child("users").child(uid).child("templates");
+        final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
 
         //TODO loading symbol until it loads...
         if(savedInstanceState == null) {//
@@ -69,7 +69,7 @@ public class MyTemplatesFrag extends Fragment {
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
-                            fragmentTransaction.commit();
+                            fragmentTransaction.commitAllowingStateLoss();
 
                         }
                     }

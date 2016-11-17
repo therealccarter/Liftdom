@@ -165,7 +165,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
         dateFormat.setTimeZone(TimeZone.getTimeZone("gmt"));
         String gmtTime = dateFormat.format(new Date());
 
-        DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
+        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
         DatabaseReference specificDate = workoutHistoryRef.child(gmtTime);
 

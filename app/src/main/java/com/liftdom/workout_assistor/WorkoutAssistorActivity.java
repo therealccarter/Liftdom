@@ -171,7 +171,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
         String gmtTime = dateFormat.format(new Date());
 
 
-        DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
+        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
         DatabaseReference specificDate = workoutHistoryRef.child(gmtTime);
 
@@ -193,7 +193,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                             if (activeTemplateName != null) {
 
                                 // now we're in "yeee."
-                                final DatabaseReference activeTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
+                                final DatabaseReference activeTemplateDataRef = mRootRef.child("templates").child(uid)
                                         .child(activeTemplateName);
 
                                 // find the matching day

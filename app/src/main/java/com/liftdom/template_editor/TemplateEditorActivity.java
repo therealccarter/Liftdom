@@ -177,8 +177,7 @@ public class TemplateEditorActivity extends AppCompatActivity {
 
                 // 1. Get a path to the selected template
                 // "realll"
-                final DatabaseReference selectedTemplateDataRef = mRootRef.child("users").child(uid).child("templates")
-                        .child(templateName);
+                final DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
                 // find the matching day
                 selectedTemplateDataRef.addValueEventListener(new ValueEventListener() {

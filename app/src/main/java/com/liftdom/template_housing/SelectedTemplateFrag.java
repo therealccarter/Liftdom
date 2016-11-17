@@ -75,8 +75,7 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onClick(final View v){
 
-                DatabaseReference selectedTemplateRef = mRootRef.child("users").child(uid).child("templates")
-                        .child(templateName);
+                DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
                 DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
                 selectedTemplateRef.setValue(null);

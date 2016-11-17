@@ -148,7 +148,7 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
-        final DatabaseReference workoutHistoryRef = mRootRef.child("users").child(uid).child("workout_history");
+        final DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
         workoutHistoryRef.addValueEventListener(new ValueEventListener() {
             @Override

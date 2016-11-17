@@ -23,12 +23,6 @@ import com.liftdom.liftdom.R;
 
 import java.lang.reflect.Field;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DayOfWeekChildFrag.OnFragmentInteractionListener} interface
- * to handle interaction events.
- */
 public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback{
 
     //private OnFragmentInteractionListener mListener;
@@ -249,7 +243,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
 
 
-            DatabaseReference selectedDayRef = mRootRef.child("users").child(uid).child("templates").child
+            DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
                     (templateName).child(selectedDaysReference);
 
             selectedDayRef.addValueEventListener(new ValueEventListener() {
@@ -287,14 +281,15 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     }
 
-    boolean isExerciseName(String input){
-        String[] tokens = input.split("");
+    boolean isExerciseName(String input) {
 
         boolean isExercise = true;
 
-        char c = tokens[1].charAt(0);
-        if(Character.isDigit(c)){
-            isExercise = false;
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
         }
 
         return isExercise;
