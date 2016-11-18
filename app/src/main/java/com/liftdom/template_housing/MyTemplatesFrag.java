@@ -66,11 +66,12 @@ public class MyTemplatesFrag extends Fragment {
 
                             templateListItem.templateName = templateClassName;
 
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
-                            fragmentTransaction.commitAllowingStateLoss();
-
+                            if(getActivity() != null) {
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
                         }
                     }
 

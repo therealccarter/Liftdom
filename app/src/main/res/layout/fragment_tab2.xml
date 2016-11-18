@@ -1,67 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.liftdom.template_editor.ExPickerTab2">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.liftdom.template_editor.ExPickerTab1">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="24sp"
-            android:text="tab2"/>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FREE WEIGHTS"
-            android:textSize="28sp"
-            android:textColor="@color/liftrGold1"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:background="@color/darkerGrey"
-    />
-
-    <TextView
-            android:id="@+id/benchPressView"
+    <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:background="@color/liftrGold1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="5dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:text="Bench Press"/>
+            android:id="@+id/exerciseListView"
+    >
 
 
-    <TextView
-            android:id="@+id/curlsView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:background="@color/liftrGold1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="5dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:text="Curls"/>
+    </ListView>
 
-
-    <TextView
-            android:id="@+id/rowsView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:background="@color/liftrGold1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="5dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:text="Rows"/>
-
-</FrameLayout>
+</LinearLayout>

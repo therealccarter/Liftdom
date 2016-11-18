@@ -36,7 +36,6 @@ public class ExPickerTab1 extends Fragment {
     //@BindView(R.id.rowsView) TextView rowsTextView;
     @BindView(R.id.exerciseListView) ListView exerciseListView;
 
-
     int exID;
     int clickCounter = 0;
 
@@ -48,8 +47,14 @@ public class ExPickerTab1 extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        // TODO: Add sticky headers
+
         String[] listViewValues = new String[]{
-          "Bench Press", "Curls", "Rows"
+          "Barbell Bench Press", "Dumbell Bench Press", "Barbell Incline Press", "Dumbell Incline Press",
+                "Dumbell Flys", "Lat Pulldown", "Barbell Row", "Dumbell Row", "T-bar Rows", "Pullups",
+                "Barbell Overhead Press", "Dumbell Overhead Press", "Lateral Raise", "Tricep Extensions",
+                "French Press", "Barbell Preacher Curls", "Dumbell Preacher Curls", "Dumbell Curls",
+                "Barbell Curls", "Concentration Curls", "Crunches", "Sit-ups", "Leg Raises"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout
@@ -66,7 +71,8 @@ public class ExPickerTab1 extends Fragment {
 
                 ColorDialog dialog = new ColorDialog(getContext());
                 dialog.setTitle(itemValue);
-                dialog.setContentText("content");
+                dialog.setContentText("Choose " + itemValue + "?");
+                dialog.setColor(Color.parseColor("#D1B91D"));
                 dialog.setContentImage(getResources().getDrawable(R.drawable.usertest));
 
 
