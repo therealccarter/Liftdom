@@ -80,6 +80,7 @@ class EditTemplateAssemblerClass {
         }
     }
 
+
     // Set scheme setter
     void setSetSchemeValue(String setSchemeValue, String exerciseValue, String doWValue){
         if(doWValue != null){

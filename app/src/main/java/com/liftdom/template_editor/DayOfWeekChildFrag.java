@@ -253,19 +253,18 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                         String snapshotString = daySnapshot.getValue(String.class);
 
                         if(isExerciseName(snapshotString)){
-                            ++fragIdCount1;
                             String fragString1 = Integer.toString(fragIdCount1);
                             ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
                             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
                             frag1.isEdit = true;
-                            frag1.spinnerValue = snapshotString;
                             frag1.exerciseName = snapshotString;
                             frag1.selectedDaysReference = selectedDaysReference;
                             frag1.templateName = templateName;
 
                             fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                             fragmentTransaction.commitAllowingStateLoss();
+                            ++fragIdCount1;
                         }
                     }
                 }

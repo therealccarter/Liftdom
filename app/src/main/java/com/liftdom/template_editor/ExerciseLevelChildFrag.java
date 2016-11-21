@@ -29,8 +29,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
 
     Boolean isEdit = false;
-    String spinnerValue;
-    ArrayList<String> setSchemeAList = new ArrayList<String>();
     String exerciseName;
     String templateName;
     String selectedDaysReference;
@@ -67,7 +65,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
         if(isEdit){
 
-            exerciseButton.setText(spinnerValue);
+            exerciseButton.setText(exerciseName);
 
             DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
                     (templateName).child(selectedDaysReference);
@@ -94,7 +92,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                             frag1.isEdit = true;
                             frag1.setSchemeEdited = stringSnapshotAL.get(i);
                             fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
-                            fragmentTransaction.commitAllowingStateLoss();
+                            if(getActivity() != null) {
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
                         }
                     }
                 }

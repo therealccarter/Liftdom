@@ -48,18 +48,12 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         callback = (setSchemesCallback) getParentFragment();
 
-        return view;
-    }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
         String delims = "[x,@]";
 
-        EditText setsEditText = (EditText) getView().findViewById(R.id.sets);
-        EditText repsEditText = (EditText) getView().findViewById(R.id.reps);
-        EditText weightEditText = (EditText) getView().findViewById(R.id.weight);
+        EditText setsEditText = (EditText) view.findViewById(R.id.sets);
+        EditText repsEditText = (EditText) view.findViewById(R.id.reps);
+        EditText weightEditText = (EditText) view.findViewById(R.id.weight);
 
 
         if(isEdit){
@@ -82,35 +76,36 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             //int weightInt = Integer.parseInt(weightWithoutSpaces);
             weightEditText.setText(weightWithoutSpaces);
         }
-
+        return view;
     }
+
 
 
     @Override
     public void onPause(){
         super.onPause();
 
+        if(!callback.getExerciseValue().equals("Click to add exercise")) {
+            String parentSpinnerValue = callback.getExerciseValue();
+            String doWSelected = callback.getDoWValue();
+            EditTemplateAssemblerClass.getInstance().setDoW(doWSelected);
+            EditTemplateAssemblerClass.getInstance().setExerciseValue(parentSpinnerValue, doWSelected);
 
-        String parentSpinnerValue = callback.getExerciseValue();
-        String doWSelected = callback.getDoWValue();
-        EditTemplateAssemblerClass.getInstance().setDoW(doWSelected);
-        EditTemplateAssemblerClass.getInstance().setExerciseValue(parentSpinnerValue, doWSelected);
+            String setsString = setsEditText.getText().toString();
+            String repsString = repsEditText.getText().toString();
+            String weightString = weightEditText.getText().toString();
 
-        String setsString = setsEditText.getText().toString();
-        String repsString = repsEditText.getText().toString();
-        String weightString = weightEditText.getText().toString();
+            String value = null;
 
-        String value = null;
+            if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
+                value = setsString + " x " + repsString + " @ " +
+                        weightString;
+            }
 
-        if(!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-            value = setsString + " x " + repsString + " @ " +
-                    weightString;
+            if (value != null) {
+                EditTemplateAssemblerClass.getInstance().setSetSchemeValue(value, parentSpinnerValue, doWSelected);
+            }
         }
-
-        if(value != null) {
-            EditTemplateAssemblerClass.getInstance().setSetSchemeValue(value, parentSpinnerValue, doWSelected);
-        }
-
 
     }
 
