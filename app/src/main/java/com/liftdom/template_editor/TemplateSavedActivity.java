@@ -236,6 +236,8 @@ public class TemplateSavedActivity extends AppCompatActivity {
              */
 
 
+
+
             for (ArrayList<String> doWAL : masterListTemplate) {
                 // for each entry in a specific day's list
 
