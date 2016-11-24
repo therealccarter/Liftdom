@@ -61,63 +61,238 @@ class EditTemplateAssemblerClass {
     // Exercise spinner setters
     void setExerciseValue(String exerciseValue, String doWValue){
         if(doWValue != null){
-            if(doWValue.equals(DoWAL1.get(0)) && !DoWAL1.contains(exerciseValue)){
+            if(doWValue.equals(DoWAL1.get(0)) && !doesExNameExist1(exerciseValue)){
                 DoWAL1.add(exerciseValue);
-            } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !DoWAL2.contains
-                    (exerciseValue)){
+            } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !doesExNameExist2(exerciseValue)){
                 DoWAL2.add(exerciseValue);
-            } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !DoWAL3.contains(exerciseValue)){
+            } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !doesExNameExist3(exerciseValue)){
                 DoWAL3.add(exerciseValue);
-            } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !DoWAL4.contains(exerciseValue)){
+            } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !doesExNameExist4(exerciseValue)){
                 DoWAL4.add(exerciseValue);
-            } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !DoWAL5.contains(exerciseValue)){
+            } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !doesExNameExist5(exerciseValue)){
                 DoWAL5.add(exerciseValue);
-            } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !DoWAL6.contains(exerciseValue)){
+            } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !doesExNameExist6(exerciseValue)){
                 DoWAL6.add(exerciseValue);
-            } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !DoWAL7.contains(exerciseValue)){
+            } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !doesExNameExist7(exerciseValue)){
                 DoWAL7.add(exerciseValue);
             }
         }
     }
 
+    int getExNameIndex1(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL1.size(); i++){
+            String[] array = DoWAL1.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex2(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL2.size(); i++){
+            String[] array = DoWAL2.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex3(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL3.size(); i++){
+            String[] array = DoWAL3.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex4(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL4.size(); i++){
+            String[] array = DoWAL4.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex5(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL5.size(); i++){
+            String[] array = DoWAL5.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex6(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL6.size(); i++){
+            String[] array = DoWAL6.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    int getExNameIndex7(String exerciseName){
+        int index = -1;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL7.size(); i++){
+            String[] array = DoWAL7.get(i).split(delims);
+            if(array[0].equals(exerciseName)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    Boolean doesExNameExist1(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL1.size(); i++){
+            String[] array = DoWAL1.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist2(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL2.size(); i++){
+            String[] array = DoWAL2.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist3(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL3.size(); i++){
+            String[] array = DoWAL3.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist4(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL4.size(); i++){
+            String[] array = DoWAL4.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist5(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL5.size(); i++){
+            String[] array = DoWAL5.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist6(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL6.size(); i++){
+            String[] array = DoWAL6.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    Boolean doesExNameExist7(String exName){
+        Boolean doesExist = false;
+        String delims = "[,]";
+        for(int i = 0; i < DoWAL7.size(); i++){
+            String[] array = DoWAL7.get(i).split(delims);
+            if(array[0].equals(exName)){
+                doesExist = true;
+            }
+        }
+        return doesExist;
+    }
+
+    /**
+     * What are we trying to do here?
+     * We need to search an arraylist for a string that has ExName as its first value
+     * We then need to get the index of that value and append a setSchemeValue onto it
+     * @param setSchemeValue
+     * @param exerciseValue
+     * @param doWValue
+     */
 
     // Set scheme setter
     void setSetSchemeValue(String setSchemeValue, String exerciseValue, String doWValue){
         if(doWValue != null){
             if(doWValue.equals(DoWAL1.get(0))){
-                if(DoWAL1.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL1.indexOf(exerciseValue);
-                    DoWAL1.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist1(exerciseValue)){
+                    int spinnerIndex = getExNameIndex1(exerciseValue);
+                    DoWAL1.set(spinnerIndex, DoWAL1.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL2.get(0))){
-                if(DoWAL2.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL2.indexOf(exerciseValue);
-                    DoWAL2.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist2(exerciseValue)){
+                    int spinnerIndex = getExNameIndex2(exerciseValue);
+                    DoWAL2.set(spinnerIndex, DoWAL2.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL3.get(0))){
-                if(DoWAL3.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL3.indexOf(exerciseValue);
-                    DoWAL3.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist3(exerciseValue)){
+                    int spinnerIndex = getExNameIndex3(exerciseValue);
+                    DoWAL3.set(spinnerIndex, DoWAL3.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL4.get(0))){
-                if(DoWAL4.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL4.indexOf(exerciseValue);
-                    DoWAL4.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist4(exerciseValue)){
+                    int spinnerIndex = getExNameIndex4(exerciseValue);
+                    DoWAL4.set(spinnerIndex, DoWAL4.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL5.get(0))){
-                if(DoWAL5.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL5.indexOf(exerciseValue);
-                    DoWAL5.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist5(exerciseValue)){
+                    int spinnerIndex = getExNameIndex5(exerciseValue);
+                    DoWAL5.set(spinnerIndex, DoWAL5.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL6.get(0))){
-                if(DoWAL6.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL6.indexOf(exerciseValue);
-                    DoWAL6.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist6(exerciseValue)){
+                    int spinnerIndex = getExNameIndex6(exerciseValue);
+                    DoWAL6.set(spinnerIndex, DoWAL6.get(spinnerIndex) + "," + setSchemeValue);
                 }
             } else if(doWValue.equals(DoWAL7.get(0))){
-                if(DoWAL7.contains(exerciseValue)){
-                    int spinnerIndex = DoWAL7.indexOf(exerciseValue);
-                    DoWAL7.add(spinnerIndex + 1, setSchemeValue);
+                if(doesExNameExist7(exerciseValue)){
+                    int spinnerIndex = getExNameIndex7(exerciseValue);
+                    DoWAL7.set(spinnerIndex, DoWAL7.get(spinnerIndex) + "," + setSchemeValue);
                 }
             }
         }

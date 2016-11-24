@@ -236,19 +236,27 @@ public class TemplateSavedActivity extends AppCompatActivity {
              */
 
 
-
-
             for (ArrayList<String> doWAL : masterListTemplate) {
                 // for each entry in a specific day's list
 
-                int childInc = doWAL.size(); // size = 3 in this case
-                List<String> list = new ArrayList<>(); //
+                List<String> list = new ArrayList<>();
 
-                for (int i = 1; i < childInc; i++) {
-                    if(!doWAL.get(i).equals("")) {
-                        list.add(doWAL.get(i));
+                //doWAL = DowAL1
+                for(int i = 1; i < doWAL.size(); i++){
+                    String[] array = stringSplitter(doWAL.get(i));
+                    for(String string : array){
+                        list.add(string);
                     }
                 }
+
+                //int childInc = doWAL.size(); // size = 3 in this case
+                //List<String> list = new ArrayList<>(); //
+//
+                //for (int i = 1; i < childInc; i++) {
+                //    if(!doWAL.get(i).equals("")) {
+                //        list.add(doWAL.get(i));
+                //    }
+                //}
 
                 templateSpecific.child(doWAL.get(0)).setValue(list);
             }
@@ -260,4 +268,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
         // END UPLOAD OF TEMPLATE
 
     }
+
+    String[] stringSplitter(String unSplitted){
+        String delims = "[,]";
+        String[] splitted = unSplitted.split(delims);
+        return splitted;
+    }
+
+
 }
