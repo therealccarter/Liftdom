@@ -2,6 +2,6 @@ CURRENT BUG LIST:
 
 * WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 **DONE** Rotate change adds frags in various places
-* Editing and creating templates adds extra set schemes
-* Set Schemes need to be added by top->down priority
-**DONE**(Constant WIP though) Various crashes
+**DONE** Editing and creating templates adds extra set schemes
+**DONE** Set Schemes need to be added by top->down priority
+(Constant WIP throughout) Various crashes

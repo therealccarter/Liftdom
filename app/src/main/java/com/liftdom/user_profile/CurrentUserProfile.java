@@ -3,6 +3,8 @@ package com.liftdom.user_profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.template_housing.MyTemplatesFrag;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -48,6 +52,7 @@ public class CurrentUserProfile extends AppCompatActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.historyButton) Button historyButton;
+    @BindView(R.id.savedTemplates) Button savedTemplatesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +175,13 @@ public class CurrentUserProfile extends AppCompatActivity {
             }
         });
 
+        savedTemplatesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -178,7 +190,6 @@ public class CurrentUserProfile extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-
     }
     // [END on_start_add_listener]
 

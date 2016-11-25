@@ -34,10 +34,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 public class AssistorSavedActivity extends AppCompatActivity {
 
@@ -174,13 +171,13 @@ public class AssistorSavedActivity extends AppCompatActivity {
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("gmt"));
-        String gmtTime = dateFormat.format(new Date());
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("MM:dd:yyyy");
+        String formattedDate = df.format(c.getTime());
 
         DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
-        DatabaseReference specificDate = workoutHistoryRef.child(gmtTime);
+        DatabaseReference specificDate = workoutHistoryRef.child(formattedDate);
 
         DatabaseReference journalRef = specificDate.child("private_journal");
 

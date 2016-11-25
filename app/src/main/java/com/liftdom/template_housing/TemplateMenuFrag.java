@@ -36,6 +36,8 @@ public class TemplateMenuFrag extends Fragment {
     @BindView(R.id.button_my_templates) Button myTemplatesButton;
     @BindView(R.id.button_premade_templates) Button premadeTemplatesButton;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class TemplateMenuFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         templateOptions.setVisibility(View.GONE);
+
 
         myTemplatesButton.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -1,11 +1,13 @@
 package com.liftdom.template_housing;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.MasterListTemplateClass;
+import com.liftdom.user_profile.CurrentUserProfile;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,8 @@ public class MyTemplatesFrag extends Fragment {
     }
 
     ArrayList<String> templateNamesList = new ArrayList<>();
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +87,7 @@ public class MyTemplatesFrag extends Fragment {
                     }
                 });
         }
+
         return view;
     }
 
