@@ -8,7 +8,7 @@ UPCOMING FEATURES TO DO:
 * Revamp and beautify design throughout app
 **DONE** Fix up exercise picker
 **DONE** Go to UserProfile via NavDrawer header
-**DONE** Fix up the exercise picker (from spinner to advanced picker)
+**DONE** Fix up the exercise selector (from spinner to advanced selector)
 * Clear current BugList
 
 *v0.3*

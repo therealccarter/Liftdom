@@ -37,6 +37,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class CurrentUserProfile extends AppCompatActivity {
 
+    //TODO: Use diagonal library for layout
 
     private static final String TAG = "EmailPassword";
 

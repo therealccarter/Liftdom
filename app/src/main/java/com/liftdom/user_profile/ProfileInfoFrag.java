@@ -19,6 +19,13 @@ public class ProfileInfoFrag extends Fragment {
         // Required empty public constructor
     }
 
+    //TODO: In this and my templates view, try to get these values to load before inflation
+    //@Override
+    //public void onCreate(Bundle savedInstanceState){
+    //    super.onCreate(savedInstanceState);
+//
+    //}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
