@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.KeyAccountValuesActivity;
 import com.liftdom.liftdom.R;
 
 /**
@@ -43,23 +44,7 @@ public class ProfileInfoFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        final DatabaseReference usernameRef = mRootRef.child("users").child(uid);
-        usernameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    if(dataSnapshot1.getKey().equals("username")){
-                        String username = dataSnapshot1.getValue(String.class);
-                        userName.setText(username);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        userName.setText(KeyAccountValuesActivity.getInstance().getUserName());
 
         return view;
     }

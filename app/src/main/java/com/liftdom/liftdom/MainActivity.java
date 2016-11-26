@@ -75,12 +75,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
         // [END auth_state_listener]
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Liftdom");
+
+        // set the key account values
+        KeyAccountValuesActivity.getInstance().setUsername();
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -112,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
                 .withAccountHeader(header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
+                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
-                        new PrimaryDrawerItem().withName("User Profile").withIdentifier(4),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("test1"),
-                        new SecondaryDrawerItem().withName("test2")
+                        new SecondaryDrawerItem().withName("Tools").withIdentifier(4),
+                        new SecondaryDrawerItem().withName("Exercise Academy (Info)").withIdentifier(5)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -149,12 +156,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                .withName
-                ("Username").withEmail(email),
+                        .withName
+                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail(email),
                 0);
 
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
+
 
     }
 
