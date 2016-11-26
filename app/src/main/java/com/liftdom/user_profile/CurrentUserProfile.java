@@ -15,8 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -167,7 +166,6 @@ public class CurrentUserProfile extends AppCompatActivity {
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
-
 
         historyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

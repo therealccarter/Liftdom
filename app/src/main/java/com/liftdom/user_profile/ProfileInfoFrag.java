@@ -7,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 /**
@@ -19,19 +24,44 @@ public class ProfileInfoFrag extends Fragment {
         // Required empty public constructor
     }
 
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    @BindView(R.id.userName)
+    TextView userName;
+
     //TODO: In this and my templates view, try to get these values to load before inflation
-    //@Override
-    //public void onCreate(Bundle savedInstanceState){
-    //    super.onCreate(savedInstanceState);
-//
-    //}
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
+
+        ButterKnife.bind(this, view);
+
+        final DatabaseReference usernameRef = mRootRef.child("users").child(uid);
+        usernameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    if(dataSnapshot1.getKey().equals("username")){
+                        String username = dataSnapshot1.getValue(String.class);
+                        userName.setText(username);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return view;
     }
 
 }
