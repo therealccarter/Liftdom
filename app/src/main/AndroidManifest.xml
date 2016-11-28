@@ -17,9 +17,9 @@
         </activity>
         <activity android:name=".SignInActivity">
         </activity>
-        <activity android:name="com.liftdom.template_editor.TemplateEditorActivity"
-                    android:screenOrientation="portrait"
-        >
+        <activity
+                android:name="com.liftdom.template_editor.TemplateEditorActivity"
+                android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"
@@ -41,8 +41,11 @@
         </activity>
         <activity android:name="com.liftdom.user_profile.WorkoutHistoryActivity">
         </activity>
-        <activity android:name="com.liftdom.template_editor.ExercisePickerActivity"
-                 android:theme="@style/Theme.AppCompat.Dialog">
+        <activity
+                android:name="com.liftdom.template_editor.ExercisePickerActivity"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.ProfileSettingsActivity">
         </activity>
     </application>
 

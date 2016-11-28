@@ -21,8 +21,8 @@
 
     <com.github.florent37.diagonallayout.DiagonalLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            app:diagonal_angle="8"
+            android:layout_height="155dp"
+            app:diagonal_angle="0"
             app:diagonal_gravity="left|bottom"
     >
 
@@ -39,7 +39,7 @@
               android:layout_height="wrap_content"
               android:name="com.liftdom.user_profile.ProfileInfoFrag"
               tools:layout="@layout/fragment_profile_info"
-              android:layout_marginTop="-45dp"
+              android:layout_marginTop="-145dp"
     />
 
 
@@ -47,7 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:background="@color/black"
 

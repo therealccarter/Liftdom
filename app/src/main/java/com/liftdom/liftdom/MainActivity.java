@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // set the key account values
+        KeyAccountValuesActivity.getInstance().setUsername();
+
         setContentView(R.layout.activity_main);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
@@ -86,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Liftdom");
 
-        // set the key account values
-        KeyAccountValuesActivity.getInstance().setUsername();
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -142,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(MainActivity.this, WorkoutAssistorActivity.class);
                             }
-                            if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(MainActivity.this, CurrentUserProfile.class);
-                            }
+                            //if (drawerItem.getIdentifier() == 4) {
+                            //    intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                            //}
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
                             }

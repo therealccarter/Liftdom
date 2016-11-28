@@ -98,6 +98,8 @@ public class CurrentUserProfile extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Today's Workout");
+        toolbar.canShowOverflowMenu();
+        toolbar.showOverflowMenu();
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
