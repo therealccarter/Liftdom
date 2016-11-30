@@ -3,6 +3,19 @@ UPCOMING FEATURES TO DO:
 *v0.1*
 *DONE*
 
+*Features to be sorted*
+* Fix Save Button in WA
+* redesign template housing landing page
+* redesign saved templates page
+* redesign selected template page
+* Redesign Workout History
+* Recode Workout History
+* Work on body stats/profile settings input page
+* More cleanup work on User Profile page
+* Convert hardcoded text to String Resources
+* Figure out how to load key account values before being seen (splash screen?)
+* clean up and beautify WA
+
 *v0.2*
 **DONE** After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
 * Revamp and beautify design throughout app
