@@ -37,18 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
     // butterknife
 
-    String email = "error";
 
-
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // set the key account values
-        KeyAccountValuesActivity.getInstance().setUsername();
 
         setContentView(R.layout.activity_main);
 
@@ -70,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    email = user.getEmail();
+                    KeyAccountValuesActivity.getInstance().setUsername();
+                    KeyAccountValuesActivity.getInstance().setEmail(user.getEmail());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -81,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        String email = user.getEmail();
+        //FirebaseUser user = mAuth.getCurrentUser();
+        //String email = user.getEmail();
         // [END auth_state_listener]
 
         // Handle Toolbar
@@ -159,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail(email),
+                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail
+                        (KeyAccountValuesActivity.getInstance().getEmail()),
                 0);
 
 

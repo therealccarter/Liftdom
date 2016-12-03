@@ -1,6 +1,7 @@
 package com.liftdom.liftdom;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
 /**
@@ -23,6 +24,7 @@ public class KeyAccountValuesActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     String username = "error";
+    String email = "error";
 
     public void setUsername(){
         DatabaseReference usernameRef = mRootRef.child("users").child(uid);
@@ -43,8 +45,15 @@ public class KeyAccountValuesActivity {
         });
     }
 
-    public String getUserName(){
+    public void setEmail(String emailPassedIn){
+        email = emailPassedIn;
+    }
 
+    public String getUserName(){
         return username;
+    }
+
+    public String getEmail(){
+        return email;
     }
 }
