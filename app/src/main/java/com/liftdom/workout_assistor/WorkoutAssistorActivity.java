@@ -62,6 +62,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.saveButton) Button saveButton;
+    @BindView(R.id.journalAndSave) LinearLayout journalAndSave;
 
 
     @Override
@@ -258,7 +259,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                     RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                             repsWeightFrag);
-                                                                    fragmentTransaction.commit();
+                                                                    fragmentTransaction.commitAllowingStateLoss();
                                                                     repsWeightFrag.parentExercise = exerciseString;
                                                                     repsWeightFrag.reps = tokens[1];
                                                                     repsWeightFrag.weight = tokens[2];
@@ -273,6 +274,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                     }
                                                 });
+                                                journalAndSave.setVisibility(View.VISIBLE);
                                             }
                                         }
                                         if (isToday(activeTemplateDayValue) == false) {

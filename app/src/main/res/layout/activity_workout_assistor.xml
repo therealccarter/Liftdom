@@ -50,6 +50,7 @@
                     android:id="@+id/journalAndSave"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:visibility="gone"
             >
                 <EditText
                         android:layout_width="match_parent"
