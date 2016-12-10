@@ -3,26 +3,24 @@ package com.liftdom.user_profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.KeyAccountValuesActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
-import com.liftdom.template_housing.MyTemplatesFrag;
 import com.liftdom.template_housing.TemplateHousingActivity;
-import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -55,6 +53,7 @@ public class CurrentUserProfile extends AppCompatActivity {
 
     @BindView(R.id.historyButton) Button historyButton;
     @BindView(R.id.savedTemplates) Button savedTemplatesButton;
+    @BindView(R.id.sign_out_button) Button signOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +181,14 @@ public class CurrentUserProfile extends AppCompatActivity {
         savedTemplatesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(v.getContext(), SignInActivity.class);
                 startActivity(intent);
             }
         });

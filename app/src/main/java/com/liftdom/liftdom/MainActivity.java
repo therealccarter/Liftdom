@@ -153,12 +153,17 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // Later
+        //header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
+        //                .withName
+        //                        (KeyAccountValuesActivity.getInstance().getUserName()).withEmail
+        //                (KeyAccountValuesActivity.getInstance().getEmail()),
+        //        0);
+
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail
-                        (KeyAccountValuesActivity.getInstance().getEmail()),
+                                ("Foo").
+                        withEmail("Foooo"),
                 0);
-
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
