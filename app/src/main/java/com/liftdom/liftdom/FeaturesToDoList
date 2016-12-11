@@ -10,8 +10,8 @@ UPCOMING FEATURES TO DO:
     * redesign template housing landing page
     * redesign saved templates page
     * redesign selected template page
-    * Redesign Workout History
-    * Recode Workout History
+    **DONE** Redesign Workout History
+    **DONE** Recode Workout History
     * Work on body stats/profile settings input page
     * More cleanup work on User Profile page
     * Convert hardcoded text to String Resources

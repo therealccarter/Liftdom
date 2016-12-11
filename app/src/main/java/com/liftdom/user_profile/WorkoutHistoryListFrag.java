@@ -85,7 +85,7 @@ public class WorkoutHistoryListFrag extends Fragment {
                         fragmentTransaction.commit();
                         repsWeightFrag.reps = tokens[0];
                         repsWeightFrag.weight = tokens[1];
-                    } else if(itemKey.equals("private_journal")){
+                    } else if(itemKey.equals("private_journal") && !itemString.equals("")){
                         FragmentManager fragmentManager = getChildFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();

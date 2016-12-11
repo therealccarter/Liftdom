@@ -33,6 +33,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class WorkoutHistoryActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -167,20 +170,30 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
         workoutHistoryRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot historySnapshot : dataSnapshot.getChildren()) {
+
+                ArrayList<WorkoutHistoryListFrag> historyListFrags = new ArrayList<WorkoutHistoryListFrag>();
+                for (DataSnapshot historySnapshot : (dataSnapshot.getChildren())) {
 
                     String snapshotString = historySnapshot.getKey();
 
                     DatabaseReference daySpecificRef = workoutHistoryRef.child(snapshotString);
 
+                    WorkoutHistoryListFrag workoutHistoryListFrag = new WorkoutHistoryListFrag();
+                    workoutHistoryListFrag.daySpecificRef = daySpecificRef;
+                    workoutHistoryListFrag.date = dateConverter(snapshotString);
+
+                    historyListFrags.add(workoutHistoryListFrag);
+                }
+
+                Collections.reverse(historyListFrags);
+
+                for(WorkoutHistoryListFrag listFrag : historyListFrags){
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager
                             .beginTransaction();
-                    WorkoutHistoryListFrag workoutHistoryListFrag = new WorkoutHistoryListFrag();
-                    workoutHistoryListFrag.daySpecificRef = daySpecificRef;
-                    workoutHistoryListFrag.date = snapshotString;
+
                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            workoutHistoryListFrag);
+                            listFrag);
                     fragmentTransaction.commitAllowingStateLoss();
                 }
             }
@@ -190,5 +203,17 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public String dateConverter(String unconverted){
+        String converted = "error";
+        String delims = "[:]";
+
+        String[] splitArray = unconverted.split(delims);
+
+        converted = splitArray[1] + "-" + splitArray[2] +"-" + splitArray[0];
+
+
+        return converted;
     }
 }
