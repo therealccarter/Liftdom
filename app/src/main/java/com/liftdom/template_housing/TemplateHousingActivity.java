@@ -1,6 +1,8 @@
 package com.liftdom.template_housing;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +36,10 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.Locale;
+
+import static android.R.attr.typeface;
+
 public class TemplateHousingActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -53,7 +60,13 @@ public class TemplateHousingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_housing);
 
+        //ButterKnife.bind(this);
 
+        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        setTitle("Workout Templating");
+
+        //templatingHeader.setTypeface(lobster);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
         //if (savedInstanceState == null) {

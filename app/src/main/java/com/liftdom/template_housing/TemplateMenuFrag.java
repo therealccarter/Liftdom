@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +49,10 @@ public class TemplateMenuFrag extends Fragment {
 
         templateOptions.setVisibility(View.GONE);
 
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        myTemplatesButton.setTypeface(lobster);
+        newTemplateButton.setTypeface(lobster);
 
         myTemplatesButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,8 +80,8 @@ public class TemplateMenuFrag extends Fragment {
                 }else if (templateOptionsCheck == 1) {
                     templateOptions.setVisibility(View.GONE);
 
-                    newTemplateButton.setBackgroundColor(Color.parseColor("#00000000"));
-                    newTemplateButton.setTextColor(Color.parseColor("#ffffff"));
+                    newTemplateButton.setBackgroundColor(Color.parseColor("#BB282828"));
+                    newTemplateButton.setTextColor(Color.parseColor("#D1B91D"));
 
                     templateOptionsCheck = 0;
                 }

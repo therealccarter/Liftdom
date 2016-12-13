@@ -6,58 +6,63 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         tools:context="com.liftdom.template_housing.TemplateMenuFrag"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/backgroundgrey1"
-    >
+        android:background="@color/black"
+>
+
+
+
 
         <LinearLayout
-                android:id="@+id/templateChartFragContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-        >
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/templateMenuContainer"
-                android:layout_marginTop="150dp"
         >
 
             <Button
                     android:id="@+id/button_my_templates"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#00000000"
-                    android:drawableTop="@drawable/file_multiple"
+                    android:background="@color/darkgrey"
+                    android:drawableStart="@drawable/file_multiple"
                     android:textAllCaps="false"
                     android:text="@string/my_templates"
                     style="?android:attr/borderlessButtonStyle"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-            />
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="30sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:elevation="0dp"/>
 
             <Button
                     android:id="@+id/button_new_template"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#00000000"
-                    android:drawableTop="@drawable/note_plus"
+                    android:background="@color/darkgrey"
+                    android:drawableStart="@drawable/note_plus"
                     android:textAllCaps="false"
                     android:text="@string/new_template"
                     style="?android:attr/borderlessButtonStyle"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-            />
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="30sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+
+
+                    android:elevation="0dp"/>
 
 
         </LinearLayout>
