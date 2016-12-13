@@ -27,6 +27,7 @@ public class TemplateMenuFrag extends Fragment {
     int templateOptionsCheck = 0;
 
 
+
     public TemplateMenuFrag() {
         // Required empty public constructor
     }
