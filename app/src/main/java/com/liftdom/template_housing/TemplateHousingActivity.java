@@ -53,6 +53,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
     String email = "error";
 
+    @BindView(R.id.workoutTemplatingTitle) TextView workoutTemplatingTitle;
 
 
     @Override
@@ -60,13 +61,12 @@ public class TemplateHousingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_housing);
 
-        //ButterKnife.bind(this);
+        ButterKnife.bind(this);
 
-        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
-        setTitle("Workout Templating");
 
-        //templatingHeader.setTypeface(lobster);
+        workoutTemplatingTitle.setTypeface(lobster);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
         //if (savedInstanceState == null) {
@@ -99,7 +99,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
             // Handle Toolbar
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            toolbar.setTitle("Workout Templates");
+
 
             AccountHeader header = new AccountHeaderBuilder()
                     .withActivity(this)

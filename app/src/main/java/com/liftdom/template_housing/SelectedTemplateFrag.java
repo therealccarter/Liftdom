@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -53,11 +54,13 @@ public class SelectedTemplateFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         selectedTemplateNameView.setText(templateName);
+        selectedTemplateNameView.setTypeface(lobster);
 
         editTemplate.setOnClickListener(new View.OnClickListener(){
             @Override

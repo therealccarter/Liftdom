@@ -18,13 +18,22 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workout Templating"
+                android:textSize="24sp"
+                android:id="@+id/workoutTemplatingTitle"
+                android:textColor="@color/white"
+        />
+
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
         <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:src="@drawable/gymbackground1"
                 android:scaleType="centerCrop"
         />
@@ -40,7 +49,7 @@
             <LinearLayout
                     android:id="@+id/templateMenuFragContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
             >
 

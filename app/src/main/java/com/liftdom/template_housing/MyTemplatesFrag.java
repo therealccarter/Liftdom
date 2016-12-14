@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -39,7 +43,8 @@ public class MyTemplatesFrag extends Fragment {
 
     ArrayList<String> templateNamesList = new ArrayList<>();
 
-
+    @BindView(R.id.savedTemplatesTitle) TextView savedTemplatesTitle;
+    @BindView(R.id.myTemplatesList) LinearLayout myTemplatesLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,45 +52,55 @@ public class MyTemplatesFrag extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_templates, container, false);
 
-        DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
+        ButterKnife.bind(this, view);
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
+        savedTemplatesTitle.setTypeface(lobster);
 
-        //TODO loading symbol until it loads...
+        //TODO: loading symbol until it loads...
+        //TODO: forward then backpress allows for re-adding views (error)
         if(savedInstanceState == null) {//
-        mTemplateRef.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
+            savedTemplatesTitle.setTypeface(lobster);
+            DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
 
-                            //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                            String templateClassName = templateSnapshot.getKey();
+            final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
 
-                            //templateNamesList.add(templateClassName);
+            myTemplatesLL.removeAllViewsInLayout();
 
-                            TemplateListItem templateListItem = new TemplateListItem();
+            mTemplateRef.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
 
-                            templateListItem.templateName = templateClassName;
+                                //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
 
-                            if(getActivity() != null) {
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
-                                fragmentTransaction.commitAllowingStateLoss();
+                                String templateClassName = templateSnapshot.getKey();
+
+                                //templateNamesList.add(templateClassName);
+
+                                TemplateListItem templateListItem = new TemplateListItem();
+
+                                templateListItem.templateName = templateClassName;
+
+                                if(getActivity() != null) {
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                        // ...
-                    }
-                });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                            // ...
+                        }
+                    });
         }
 
         return view;

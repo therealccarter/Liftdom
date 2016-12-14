@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -33,11 +35,13 @@ public class TemplateMenuFrag extends Fragment {
     }
 
     @BindView(R.id.createTemplateLinearLayout) LinearLayout templateOptions;
-    @BindView(R.id.button_new_template) Button newTemplateButton;
+    @BindView(R.id.button_new_template) LinearLayout newTemplateButton;
     @BindView(R.id.button_from_scratch) Button fromScratch;
-    @BindView(R.id.button_my_templates) Button myTemplatesButton;
+    @BindView(R.id.button_my_templates) LinearLayout myTemplatesButton;
     @BindView(R.id.button_premade_templates) Button premadeTemplatesButton;
-
+    @BindView(R.id.text_my_templates) TextView textMyTemplates;
+    @BindView(R.id.text_new_template) TextView textNewTemplate;
+    @BindView(R.id.new_template_image) ImageView newTemplateImage;
 
 
     @Override
@@ -52,8 +56,8 @@ public class TemplateMenuFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        myTemplatesButton.setTypeface(lobster);
-        newTemplateButton.setTypeface(lobster);
+        textMyTemplates.setTypeface(lobster);
+        textNewTemplate.setTypeface(lobster);
 
         myTemplatesButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,22 +71,32 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
+
         newTemplateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
 
+                float scale = getResources().getDisplayMetrics().density;
+                int dp = (int) (7*scale + 0.5f);
+
                 if (templateOptionsCheck == 0) {
                     templateOptions.setVisibility(View.VISIBLE);
 
+                    newTemplateImage.setImageResource(android.R.color.transparent);
+                    newTemplateImage.setBackgroundResource(R.drawable.simple_up_arrow_small);
+                    newTemplateImage.setPadding(dp,0,dp,0);
                     newTemplateButton.setBackgroundColor(Color.parseColor("#FF131313"));
-                    newTemplateButton.setTextColor(Color.parseColor("#D1B91D"));
+                    textMyTemplates.setTextColor(Color.parseColor("#D1B91D"));
 
                     templateOptionsCheck = 1;
                 }else if (templateOptionsCheck == 1) {
                     templateOptions.setVisibility(View.GONE);
 
-                    newTemplateButton.setBackgroundColor(Color.parseColor("#BB282828"));
-                    newTemplateButton.setTextColor(Color.parseColor("#D1B91D"));
+                    newTemplateImage.setImageResource(android.R.color.transparent);
+                    newTemplateImage.setBackgroundResource(R.drawable.simple_down_arrow_small);
+                    newTemplateImage.setPadding(dp,0,dp,0);
+                    newTemplateButton.setBackgroundColor(Color.parseColor("#C9000000"));
+                    textMyTemplates.setTextColor(Color.parseColor("#D1B91D"));
 
                     templateOptionsCheck = 0;
                 }
