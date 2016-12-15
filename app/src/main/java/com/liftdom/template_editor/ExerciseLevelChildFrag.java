@@ -52,6 +52,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     }
     private doWCallback callback;
 
+    ArrayList<String> stringSnapshotAL = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,10 +62,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
         ButterKnife.bind(this, view);
 
-        final ArrayList<String> stringSnapshotAL = new ArrayList<>();
-
         if(isEdit){
-
             exerciseButton.setText(exerciseName);
 
             DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
@@ -83,17 +81,24 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     int specificExerciseIndex = stringSnapshotAL.indexOf(exerciseName);
                     // we need to somehow get the index of the next occurring exercise name
                     int arrayListLength = stringSnapshotAL.size();
+
+                    Boolean isFirstEx = true;
+
                     for(int i = specificExerciseIndex; i < arrayListLength; i++){
-                        if(!isExerciseName(stringSnapshotAL.get(i))){
-                            ++fragIdCount2;
-                            String fragString2 = Integer.toString(fragIdCount2);
-                            SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
-                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                            frag1.isEdit = true;
-                            frag1.setSchemeEdited = stringSnapshotAL.get(i);
-                            fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
-                            if(getActivity() != null) {
-                                fragmentTransaction.commitAllowingStateLoss();
+                        if(isFirstEx) {
+                            if (!isExerciseName(stringSnapshotAL.get(i))) {
+                                ++fragIdCount2;
+                                String fragString2 = Integer.toString(fragIdCount2);
+                                SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                frag1.isEdit = true;
+                                frag1.setSchemeEdited = stringSnapshotAL.get(i);
+                                fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
+                                if (getActivity() != null) {
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }
+                            } else if(!stringSnapshotAL.get(i).equals(exerciseName)){
+                                isFirstEx = false;
                             }
                         }
                     }

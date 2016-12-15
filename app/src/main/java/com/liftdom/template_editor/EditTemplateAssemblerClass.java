@@ -79,6 +79,57 @@ class EditTemplateAssemblerClass {
         }
     }
 
+    /**
+     * What are we trying to do here?
+     * We need to search an arraylist for a string that has ExName as its first value
+     * We then need to get the index of that value and append a setSchemeValue onto it
+     * @param setSchemeValue
+     * @param exerciseValue
+     * @param doWValue
+     */
+
+    // Set scheme setter
+    void setSetSchemeValue(String setSchemeValue, String exerciseValue, String doWValue){
+        if(doWValue != null){
+            if(doWValue.equals(DoWAL1.get(0))){
+                if(doesExNameExist1(exerciseValue)){
+                    int spinnerIndex = getExNameIndex1(exerciseValue);
+                    DoWAL1.set(spinnerIndex, DoWAL1.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL2.get(0))){
+                if(doesExNameExist2(exerciseValue)){
+                    int spinnerIndex = getExNameIndex2(exerciseValue);
+                    DoWAL2.set(spinnerIndex, DoWAL2.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL3.get(0))){
+                if(doesExNameExist3(exerciseValue)){
+                    int spinnerIndex = getExNameIndex3(exerciseValue);
+                    DoWAL3.set(spinnerIndex, DoWAL3.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL4.get(0))){
+                if(doesExNameExist4(exerciseValue)){
+                    int spinnerIndex = getExNameIndex4(exerciseValue);
+                    DoWAL4.set(spinnerIndex, DoWAL4.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL5.get(0))){
+                if(doesExNameExist5(exerciseValue)){
+                    int spinnerIndex = getExNameIndex5(exerciseValue);
+                    DoWAL5.set(spinnerIndex, DoWAL5.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL6.get(0))){
+                if(doesExNameExist6(exerciseValue)){
+                    int spinnerIndex = getExNameIndex6(exerciseValue);
+                    DoWAL6.set(spinnerIndex, DoWAL6.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            } else if(doWValue.equals(DoWAL7.get(0))){
+                if(doesExNameExist7(exerciseValue)){
+                    int spinnerIndex = getExNameIndex7(exerciseValue);
+                    DoWAL7.set(spinnerIndex, DoWAL7.get(spinnerIndex) + "," + setSchemeValue);
+                }
+            }
+        }
+    }
+
     int getExNameIndex1(String exerciseName){
         int index = -1;
         String delims = "[,]";
@@ -247,56 +298,7 @@ class EditTemplateAssemblerClass {
         return doesExist;
     }
 
-    /**
-     * What are we trying to do here?
-     * We need to search an arraylist for a string that has ExName as its first value
-     * We then need to get the index of that value and append a setSchemeValue onto it
-     * @param setSchemeValue
-     * @param exerciseValue
-     * @param doWValue
-     */
 
-    // Set scheme setter
-    void setSetSchemeValue(String setSchemeValue, String exerciseValue, String doWValue){
-        if(doWValue != null){
-            if(doWValue.equals(DoWAL1.get(0))){
-                if(doesExNameExist1(exerciseValue)){
-                    int spinnerIndex = getExNameIndex1(exerciseValue);
-                    DoWAL1.set(spinnerIndex, DoWAL1.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL2.get(0))){
-                if(doesExNameExist2(exerciseValue)){
-                    int spinnerIndex = getExNameIndex2(exerciseValue);
-                    DoWAL2.set(spinnerIndex, DoWAL2.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL3.get(0))){
-                if(doesExNameExist3(exerciseValue)){
-                    int spinnerIndex = getExNameIndex3(exerciseValue);
-                    DoWAL3.set(spinnerIndex, DoWAL3.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL4.get(0))){
-                if(doesExNameExist4(exerciseValue)){
-                    int spinnerIndex = getExNameIndex4(exerciseValue);
-                    DoWAL4.set(spinnerIndex, DoWAL4.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL5.get(0))){
-                if(doesExNameExist5(exerciseValue)){
-                    int spinnerIndex = getExNameIndex5(exerciseValue);
-                    DoWAL5.set(spinnerIndex, DoWAL5.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL6.get(0))){
-                if(doesExNameExist6(exerciseValue)){
-                    int spinnerIndex = getExNameIndex6(exerciseValue);
-                    DoWAL6.set(spinnerIndex, DoWAL6.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            } else if(doWValue.equals(DoWAL7.get(0))){
-                if(doesExNameExist7(exerciseValue)){
-                    int spinnerIndex = getExNameIndex7(exerciseValue);
-                    DoWAL7.set(spinnerIndex, DoWAL7.get(spinnerIndex) + "," + setSchemeValue);
-                }
-            }
-        }
-    }
 
     void assembleMasterList(){
         if(!DoWAL1.isEmpty()){

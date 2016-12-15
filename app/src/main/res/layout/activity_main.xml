@@ -17,7 +17,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Liftdom"
+                android:text="- home"
                 android:textSize="28sp"
                 android:id="@+id/mainActivityTitle"
                 android:textColor="@color/white"

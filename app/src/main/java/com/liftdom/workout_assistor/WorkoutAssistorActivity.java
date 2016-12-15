@@ -1,5 +1,6 @@
 package com.liftdom.workout_assistor;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -258,7 +259,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                             .beginTransaction();
                                                                     RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                                            repsWeightFrag);
+                                                                    repsWeightFrag);
                                                                     fragmentTransaction.commitAllowingStateLoss();
                                                                     repsWeightFrag.parentExercise = exerciseString;
                                                                     repsWeightFrag.reps = tokens[1];
