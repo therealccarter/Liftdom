@@ -102,7 +102,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         weightString;
             }
 
-            if (value != null) {
+            if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
                 EditTemplateAssemblerClass.getInstance().setSetSchemeValue(value, parentSpinnerValue, doWSelected);
             }
         }

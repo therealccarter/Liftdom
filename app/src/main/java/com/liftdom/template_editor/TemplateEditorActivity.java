@@ -271,6 +271,8 @@ public class TemplateEditorActivity extends AppCompatActivity {
                     intent.putExtra("isEdit", "no");
                     startActivity(intent);
                 }
+
+                EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;
             }
         });
 

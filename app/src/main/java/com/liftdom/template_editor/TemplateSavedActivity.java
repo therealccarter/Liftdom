@@ -251,15 +251,6 @@ public class TemplateSavedActivity extends AppCompatActivity {
                     }
                 }
 
-                //int childInc = doWAL.size(); // size = 3 in this case
-                //List<String> list = new ArrayList<>(); //
-//
-                //for (int i = 1; i < childInc; i++) {
-                //    if(!doWAL.get(i).equals("")) {
-                //        list.add(doWAL.get(i));
-                //    }
-                //}
-
                 templateSpecific.child(doWAL.get(0)).setValue(list);
             }
 

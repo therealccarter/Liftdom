@@ -27,6 +27,8 @@ class EditTemplateAssemblerClass {
     private ArrayList<String> DoWAL6 = new ArrayList<>();
     private ArrayList<String> DoWAL7 = new ArrayList<>();
 
+    Boolean isOnSaveClick = false;
+
     // DoW Setter
     void setDoW(String doWValue){
         if(doWValue != null){
