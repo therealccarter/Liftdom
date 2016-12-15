@@ -59,7 +59,7 @@ public class MyTemplatesFrag extends Fragment {
         savedTemplatesTitle.setTypeface(lobster);
 
         //TODO: loading symbol until it loads...
-        //TODO: forward then backpress allows for re-adding views (error)
+        //TODO: forward then backpress is re-adding extra views (error)
         if(savedInstanceState == null) {//
             savedTemplatesTitle.setTypeface(lobster);
             DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();

@@ -7,15 +7,15 @@ UPCOMING FEATURES TO DO:
 **DONE** After a day's workout is complete, have frag in WA that disallows repeating that day's workout.
 * Revamp and beautify design throughout app
     **DONE** Fix Save Button in WA
-    * redesign template housing landing page
-    * redesign saved templates page
+    **DONE** redesign template housing landing page
+    **DONE** redesign saved templates page
     * redesign selected template page
     **DONE** Redesign Workout History
     **DONE** Recode Workout History
     * Work on body stats/profile settings input page
     * More cleanup work on User Profile page
     * Convert hardcoded text to String Resources
-    * Figure out how to load key account values before being seen (splash screen?)
+    **DONE** Figure out how to load key account values before being seen (splash screen?)
     * clean up and beautify WA
 **DONE** Fix up exercise picker
 **DONE** Go to UserProfile via NavDrawer header
@@ -29,6 +29,7 @@ UPCOMING FEATURES TO DO:
 * Add some tools (BMI, cal calculator, etc)
 * TemplateEditor - drop sets, to failure, etc.
 * Workout Timer
+* Rehaul sign in page
 * Clear current BugList
 
 *v0.4*

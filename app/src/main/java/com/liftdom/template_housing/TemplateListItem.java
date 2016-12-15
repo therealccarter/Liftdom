@@ -1,6 +1,7 @@
 package com.liftdom.template_housing;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 /**
@@ -28,6 +31,9 @@ public class TemplateListItem extends Fragment {
     @BindView(R.id.templateName) TextView templateNameView;
     @BindView(R.id.templateListItemLinear) LinearLayout templateListItemLinear;
 
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     String templateName;
 
     @Override
@@ -42,6 +48,24 @@ public class TemplateListItem extends Fragment {
             templateName = savedInstanceState.getString("template_name");
             templateNameView.setText(templateName);
         }
+
+        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
+        activeTemplateRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String activeTemplateName = dataSnapshot.getValue(String.class);
+
+                if(activeTemplateName.equals(templateName)){
+                    templateNameView.setTextColor(Color.parseColor("#D1B91D"));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         templateNameView.setText(templateName);
 
