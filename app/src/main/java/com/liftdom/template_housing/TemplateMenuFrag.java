@@ -71,22 +71,22 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
+        final int padding = getResources().getDimensionPixelOffset(R.dimen.seven_dip);
+
 
         newTemplateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
 
-                float scale = getResources().getDisplayMetrics().density;
-                int dp = (int) (7*scale + 0.5f);
 
                 if (templateOptionsCheck == 0) {
                     templateOptions.setVisibility(View.VISIBLE);
 
                     newTemplateImage.setImageResource(android.R.color.transparent);
                     newTemplateImage.setBackgroundResource(R.drawable.simple_up_arrow_small);
-                    newTemplateImage.setPadding(dp,0,dp,0);
+                    //newTemplateImage.setPadding(padding,0,padding,0);
                     newTemplateButton.setBackgroundColor(Color.parseColor("#FF131313"));
-                    textMyTemplates.setTextColor(Color.parseColor("#D1B91D"));
+                    textMyTemplates.setTextColor(Color.parseColor("#FFFFFF"));
 
                     templateOptionsCheck = 1;
                 }else if (templateOptionsCheck == 1) {
@@ -94,9 +94,9 @@ public class TemplateMenuFrag extends Fragment {
 
                     newTemplateImage.setImageResource(android.R.color.transparent);
                     newTemplateImage.setBackgroundResource(R.drawable.simple_down_arrow_small);
-                    newTemplateImage.setPadding(dp,0,dp,0);
-                    newTemplateButton.setBackgroundColor(Color.parseColor("#C9000000"));
-                    textMyTemplates.setTextColor(Color.parseColor("#D1B91D"));
+                    //newTemplateImage.setPadding(padding,0,padding,0);
+                    newTemplateButton.setBackgroundColor(Color.parseColor("#000000"));
+                    textMyTemplates.setTextColor(Color.parseColor("#FFFFFF"));
 
                     templateOptionsCheck = 0;
                 }

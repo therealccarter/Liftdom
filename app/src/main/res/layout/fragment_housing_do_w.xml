@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:context="com.liftdom.template_housing.TemplateHousingActivity"
+              android:orientation="horizontal"
+              android:background="@color/liftrGold1"
+              android:id="@+id/repsWeightContainer"
+              android:layout_marginStart="30dp"
+>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"
+            android:textSize="26sp"
+            android:id="@+id/doWName"
+            android:textColor="@color/black"
+            android:paddingEnd="10dp"
+            android:paddingStart="4dp"
+            android:layout_gravity="end"
+    />
+
+</LinearLayout>

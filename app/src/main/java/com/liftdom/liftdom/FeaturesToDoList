@@ -30,19 +30,20 @@ UPCOMING FEATURES TO DO:
 * Add some tools (BMI, cal calculator, etc)
 * TemplateEditor - drop sets, to failure, etc.
 * Workout Timer
-* Rehaul sign in page
 * Clear current BugList
 
 *v0.4*
 * Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
 * Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
 * Show past and future workouts in a Calendar View (color code - future/past/failures)
+* Add motivation quotes
 * Clear current BugList
 
 *v0.5*
 * Exercise movement library/reference
 * Work on pre-made templates (many more)
 * Understand and plan the right NoSQL architecture for efficient social media working
+* Rehaul sign in page
 * Clear current BugList
 
 *v0.6* - Begin Social features!

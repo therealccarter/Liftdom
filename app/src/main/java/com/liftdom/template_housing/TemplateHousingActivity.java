@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -65,8 +66,8 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
-
         workoutTemplatingTitle.setTypeface(lobster);
+        workoutTemplatingTitle.setTextColor(Color.parseColor("#D1B91D"));
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
         //if (savedInstanceState == null) {
