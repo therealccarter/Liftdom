@@ -16,13 +16,14 @@ UPCOMING FEATURES TO DO:
     * More cleanup work on User Profile page
     * Convert hardcoded text to String Resources
     **DONE** Figure out how to load key account values before being seen (splash screen?)
-    * clean up and beautify WA
+    **DONE** clean up and beautify WA
 **DONE** Fix up exercise picker
 **DONE** Go to UserProfile via NavDrawer header
 **DONE** Fix up the exercise selector (from spinner to advanced selector)
 * Clear current BugList
 
 *v0.3*
+* Use shared prefs to store values for faster recall
 * Work on pre-made templates (Just a few)
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training

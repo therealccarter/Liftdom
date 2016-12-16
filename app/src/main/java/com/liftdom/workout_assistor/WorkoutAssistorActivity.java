@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +66,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.journalAndSave) LinearLayout journalAndSave;
+    @BindView(R.id.currentTemplateView) TextView currentTemplateView;
+    @BindView(R.id.WATitleView) TextView WATitleView;
 
 
     @Override
@@ -77,6 +81,11 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        currentTemplateView.setTypeface(lobster);
+        WATitleView.setTypeface(lobster);
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
@@ -205,6 +214,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             activeTemplateName = dataSnapshot.getValue(String.class);
+                            currentTemplateView.setText(activeTemplateName);
 
                             if (activeTemplateName != null) {
 

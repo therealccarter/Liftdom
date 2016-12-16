@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     // butterknife
 
-    @BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
+    //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
 
     @Override
@@ -92,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-
-        mainActivityTitle.setTypeface(lobster);
+        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+//
+        //mainActivityTitle.setTypeface(lobster);
 
 
         AccountHeader header = new AccountHeaderBuilder()

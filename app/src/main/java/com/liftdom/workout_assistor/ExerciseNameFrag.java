@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,6 +41,10 @@ public class ExerciseNameFrag extends Fragment {
             exerciseName = savedInstanceState.getString("exercise_name");
             exerciseNameView.setText(exerciseName);
         }
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        exerciseNameView.setTypeface(lobster);
 
         exerciseNameView.setText(exerciseName);
 

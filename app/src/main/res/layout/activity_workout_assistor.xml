@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context="com.liftdom.workout_assistor.WorkoutAssistorActivity"
         android:orientation="vertical"
+        android:background="@color/grey"
 >
 
     <android.support.v7.widget.Toolbar
@@ -17,7 +18,29 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workout Assistor"
+                android:textSize="24sp"
+                android:id="@+id/WATitleView"
+                android:textColor="@color/liftrGold1"
+        />
+
     </android.support.v7.widget.Toolbar>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Template"
+            android:textSize="35sp"
+            android:layout_gravity="end"
+            android:background="@color/liftrGold1"
+            android:textColor="@color/black"
+            android:paddingEnd="30dp"
+            android:paddingStart="5dp"
+            android:id="@+id/currentTemplateView"
+    />
 
 
     <ScrollView

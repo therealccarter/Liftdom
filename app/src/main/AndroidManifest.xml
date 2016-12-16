@@ -35,7 +35,9 @@
                     android:label=""
         >
         </activity>
-        <activity android:name="com.liftdom.workout_assistor.WorkoutAssistorActivity">
+        <activity android:name="com.liftdom.workout_assistor.WorkoutAssistorActivity"
+                    android:label=""
+        >
         </activity>
         <activity android:name="com.liftdom.workout_assistor.AssistorSavedActivity">
         </activity>
