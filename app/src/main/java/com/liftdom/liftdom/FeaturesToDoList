@@ -9,7 +9,7 @@ UPCOMING FEATURES TO DO:
     **DONE** Fix Save Button in WA
     **DONE** redesign template housing landing page
     **DONE** redesign saved templates page
-    * redesign selected template page
+    **DONE** redesign selected template page
     **DONE** Redesign Workout History
     **DONE** Recode Workout History
     * Work on body stats/profile settings input page
@@ -42,7 +42,7 @@ UPCOMING FEATURES TO DO:
 *v0.5*
 * Exercise movement library/reference
 * Work on pre-made templates (many more)
-* Understand and plan the right NoSQL architecture for efficient social media working
+* Understand and plan the right NoSQL architecture for efficient social media features
 * Rehaul sign in page
 * Clear current BugList
 
@@ -55,7 +55,7 @@ UPCOMING FEATURES TO DO:
 
 *v0.7*
 * DM other users (including group chat)
-* Send templates to other users via chat
+* Send templates to other users via chat/share via url
 * Ability to "fork" workouts and collaborate
 * Clear current BugList
 
@@ -73,7 +73,10 @@ UPCOMING FEATURES TO DO:
 * Create first-time user tutorial/profile setup
 * Release.
 
-***TENTATIVE***
+
+***TBD***
+*v1.1 - v1.9*
+***TBD***
 
 *v2.0*
 * Full forum integration.
