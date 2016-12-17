@@ -53,7 +53,6 @@ public class SelectedTemplateFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,8 +63,6 @@ public class SelectedTemplateFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         selectedTemplateNameView.setText(templateName);
         selectedTemplateNameView.setTypeface(lobster);
@@ -76,9 +73,8 @@ public class SelectedTemplateFrag extends Fragment {
             selectedTemplateNameView.setTypeface(lobster);
         }
 
-        final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-
         if(savedInstanceState == null){
+            final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
             specificTemplateRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,47 +86,10 @@ public class SelectedTemplateFrag extends Fragment {
                                 .beginTransaction();
                         HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
                         housingDoWFrag.dOWString = daysOfTheWeek;
+                        housingDoWFrag.templateName = templateName;
                         fragmentTransaction.add(R.id.templateListedView,
                                 housingDoWFrag);
                         fragmentTransaction.commitAllowingStateLoss();
-
-                        DatabaseReference specificDaysRef = specificTemplateRef.child(daysOfTheWeek);
-
-                        specificDaysRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
-                                    String value = dataSnapshot2.getValue(String.class);
-                                    if(isExerciseName(value)){
-
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
-                                        housingExNameFrag.exNameString = value;
-                                        fragmentTransaction.add(R.id.templateListedView, housingExNameFrag);
-
-                                        fragmentTransaction.commitAllowingStateLoss();
-
-                                    }else{
-
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        HousingSetSchemeFrag housingSetSchemeFrag = new HousingSetSchemeFrag();
-                                        housingSetSchemeFrag.setSchemeString = value;
-                                        fragmentTransaction.add(R.id.templateListedView, housingSetSchemeFrag);
-                                        fragmentTransaction.commitAllowingStateLoss();
-
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
                     }
                 }
 
@@ -232,18 +191,6 @@ public class SelectedTemplateFrag extends Fragment {
     }
 
 
-    boolean isExerciseName(String input){
-        boolean isExercise = true;
 
-        if(input.length() != 0) {
-            char c = input.charAt(0);
-            if (Character.isDigit(c)) {
-                isExercise = false;
-            }
-        }
-
-        return isExercise;
-
-    }
 
 }

@@ -34,9 +34,22 @@ public class HousingSetSchemeFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        if(savedInstanceState != null){
+            setSchemeString = savedInstanceState.getString("set_scheme_string");
+            setSchemesView.setText(setSchemeString);
+        }
+
         setSchemesView.setText(setSchemeString);
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putString("set_scheme_string", setSchemeString);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

@@ -18,7 +18,7 @@
     <item name="darkgreen" type="color">#FF669900</item>
     <item name="darkorange" type="color">#FFFF8800</item>
     <item name="darkred" type="color">#FFCC0000</item>
-    <item name="black" type="color">#fe000000</item>
+    <item name="black" type="color">#000000</item>
     <item name="white" type="color">#FFFFFF</item>
     <color name="darkerGrey" type="color">#1d1d1d</color>
     <color name="darkgrey" type="color">#bb040404</color>
@@ -29,6 +29,8 @@
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
+    <color name="transblack2">#bf000000</color>
+    <color name="liftrGold2">#a79413</color>
 
     <item name="backgroundgrey1" type="color">#454545</item>
 

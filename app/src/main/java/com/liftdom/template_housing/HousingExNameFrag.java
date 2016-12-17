@@ -34,9 +34,24 @@ public class HousingExNameFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+
+        if(savedInstanceState != null){
+            exNameString = savedInstanceState.getString("ex_name");
+            exerciseName.setText(exNameString);
+        }
+
         exerciseName.setText(exNameString);
 
         return view;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putString("ex_name", exNameString);
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
 
 }

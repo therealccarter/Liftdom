@@ -38,7 +38,7 @@ public class TemplateListItem extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_template_list_item, container, false);
 
@@ -49,23 +49,28 @@ public class TemplateListItem extends Fragment {
             templateNameView.setText(templateName);
         }
 
-        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
-        activeTemplateRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String activeTemplateName = dataSnapshot.getValue(String.class);
 
-                if(activeTemplateName.equals(templateName)){
-                    templateNameView.setTextColor(Color.parseColor("#D1B91D"));
+        if(templateNameView != null) {
+            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+            activeTemplateRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String activeTemplateName = dataSnapshot.getValue(String.class);
+
+                    if(activeTemplateName != null) {
+                        if (activeTemplateName.equals(templateName)) {
+                            templateNameView.setTextColor(Color.parseColor("#D1B91D"));
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
 
         templateNameView.setText(templateName);
 

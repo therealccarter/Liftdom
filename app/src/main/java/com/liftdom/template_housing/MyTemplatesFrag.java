@@ -101,9 +101,60 @@ public class MyTemplatesFrag extends Fragment {
                             // ...
                         }
                     });
+        }else{
+            myTemplatesLL.removeAllViewsInLayout();
+
+            savedTemplatesTitle.setTypeface(lobster);
+            DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
+
+            myTemplatesLL.removeAllViewsInLayout();
+
+            mTemplateRef.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
+
+                                //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
+
+                                String templateClassName = templateSnapshot.getKey();
+
+                                //templateNamesList.add(templateClassName);
+
+                                TemplateListItem templateListItem = new TemplateListItem();
+
+                                templateListItem.templateName = templateClassName;
+
+                                if(getActivity() != null) {
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                            // ...
+                        }
+                    });
         }
 
         return view;
     }
+
+    //@Override
+    //public void onSaveInstanceState(Bundle savedInstanceState) {
+//
+    //    savedInstanceState.putString("doW_name", dOWString);
+//
+    //    super.onSaveInstanceState(savedInstanceState);
+    //}
 
 }
