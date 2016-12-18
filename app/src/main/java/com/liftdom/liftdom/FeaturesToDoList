@@ -33,6 +33,8 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.4*
+* Work on user values, whole sign in/sign up process, usernames, auth, etc
+* Rehaul sign in page
 * Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
 * Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
 * Show past and future workouts in a Calendar View (color code - future/past/failures)
@@ -43,7 +45,6 @@ UPCOMING FEATURES TO DO:
 * Exercise movement library/reference
 * Work on pre-made templates (many more)
 * Understand and plan the right NoSQL architecture for efficient social media features
-* Rehaul sign in page
 * Clear current BugList
 
 *v0.6* - Begin Social features!

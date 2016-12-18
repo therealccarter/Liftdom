@@ -32,13 +32,13 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Current Template"
+            android:text="..."
             android:textSize="35sp"
             android:layout_gravity="end"
             android:background="@color/liftrGold1"
             android:textColor="@color/black"
             android:paddingEnd="30dp"
-            android:paddingStart="5dp"
+            android:paddingStart="15dp"
             android:layout_marginStart="70dp"
             android:id="@+id/currentTemplateView"
     />
