@@ -34,7 +34,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WORKOUT FINISHED"
+                android:text="@string/workoutFinished"
                 android:textSize="50dp"
                 android:id="@+id/templateSaved"
                 android:textColor="@color/white"
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/goBackHome"
-                    android:text="Go Home"
+                    android:text="@string/goHome"
                     android:background="@color/black"
                     android:textColor="@color/liftrGold1"
                     android:layout_marginEnd="20dp"

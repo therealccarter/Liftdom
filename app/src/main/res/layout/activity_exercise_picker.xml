@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancelButton"
-                android:text="Close"
+                android:text="@string/close"
                 android:textColor="@color/black"
                 android:textSize="24sp"
         />

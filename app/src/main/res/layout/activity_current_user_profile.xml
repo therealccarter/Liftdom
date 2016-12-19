@@ -55,7 +55,7 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saved templates"
+                android:text="@string/saved_templates"
                 android:background="@color/black"
                 android:textColor="@color/white"
                 android:layout_marginEnd="10dp"
@@ -66,7 +66,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-  "
+                android:text="@string/dash"
                 android:padding="0dp"
                 android:textColor="@color/liftrGold1"
         />
@@ -74,7 +74,7 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Workout History"
+                android:text="@string/workoutHistory"
                 android:background="@color/black"
                 android:textColor="@color/white"
                 android:id="@+id/historyButton"
@@ -106,7 +106,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sign out"
+                android:text="@string/sign_out"
                 android:id="@+id/sign_out_button"
         />
 

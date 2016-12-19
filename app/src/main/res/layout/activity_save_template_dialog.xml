@@ -13,7 +13,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SAVE TEMPLATE AS..."
+                android:text="@string/saveTemplateAs"
                 android:textSize="25dp"
                 android:padding="10dp"
                 android:textColor="@color/black"
@@ -24,7 +24,7 @@
                 android:id="@+id/templateName"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="TEMPLATE NAME"
+                android:hint="@string/templateNameHint"
         />
 
 
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-                    android:text="CANCEL"
+                    android:text="@string/cancel"
                     android:id="@+id/saveButtonCancel"
                     android:textColor="@color/liftrGold1"
                     android:background="@color/black"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-                    android:text="SAVE"
+                    android:text="@string/save"
                     android:id="@+id/saveButtonSave"
                     android:textColor="@color/liftrGold1"
                     android:background="@color/black"

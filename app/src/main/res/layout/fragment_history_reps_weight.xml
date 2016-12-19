@@ -13,7 +13,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
+            android:text="@string/elipses"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:id="@+id/reps"
@@ -30,7 +30,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="135"
+            android:text="@string/elipses"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:id="@+id/weight"
@@ -39,7 +39,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" lbs"
+            android:text="@string/pounds"
             android:textSize="18sp"
             android:textColor="@color/black"
     />

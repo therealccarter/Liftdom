@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/templateName"
             android:textColor="@color/white"
-            android:text="fail"
+            android:text="@string/dummyFailed"
             android:textSize="26sp"
             android:paddingEnd="20dp"
             android:layout_gravity="center_vertical"

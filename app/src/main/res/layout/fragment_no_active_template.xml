@@ -10,7 +10,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No active template!"
+            android:text="@string/noActiveTemplate"
             android:textColor="@color/black"
             android:textSize="34sp"
             android:layout_marginBottom="40dp"
@@ -20,7 +20,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go to Templates"
+            android:text="@string/goToTemplating"
             android:background="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:padding="10dp"

@@ -243,6 +243,9 @@
     <string name="title_activity_scheduler2_main">Scheduler2Main</string>
     <string name="title_activity_results">Results</string>
 
+    <!-- Exercise Selector -->
+    <string name="close">Close</string>
+
     <!-- END STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
 
     <string name="todo">TO-DO</string>
@@ -259,7 +262,7 @@
     <!-- TEMPLATE LANDER TEXT -->
     <string name="new_template">New Template</string>
     <string name="premade_templates">Pre-made Templates</string>
-    <string name="my_templates">Saved Templates</string>
+    <string name="saved_templates">Saved Templates</string>
 
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>
@@ -270,4 +273,58 @@
     <string name="editThisTemplate">Edit</string>
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete</string>
+
+    <!-- Workout assistor -->
+    <string name="workoutFinished">WORKOUT FINISHED</string>
+    <string name="goHome">Go Home</string>
+    <string name="workoutAssistor">Workout Assistor</string>
+    <string name="healUpString">Heal up, today is a rest day!</string>
+    <string name="viewStretchingAndAdvice">View stretching and nutrition advice</string>
+    <string name="doneForTheDay">You're done for the day. Rest up!</string>
+
+    <!-- user profile -->
+    <string name="dash">- </string>
+    <string name="workoutHistory">Workout History</string>
+    <string name="signOut">Sign Out</string>
+    <string name="dummyUsername">Username</string>
+    <string name="bodyWeight">Body Weight:</string>
+    <string name="zero_zero"> 00</string>
+    <string name="pounds"> lbs</string>
+    <string name="saveButton">Save</string>
+    <string name="dummyLevel"> - level .0</string>
+    <string name="currentFocus">Focus: </string>
+
+
+    <!-- save assistor -->
+    <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
+    <string name="cancel">CANCEL</string>
+    <string name="finish">FINISH</string>
+
+    <!-- save dialog <string name=""></string> -->
+    <string name="saveTemplateAs">SAVE TEMPLATE AS...</string>
+    <string name="templateNameHint">TEMPLATE NAME</string>
+    <string name="formatAdvice">Format: SETS x REPS @ WEIGHT</string>
+
+    <!-- Template Housing -->
+    <string name="workoutTemplating">Workout Templating</string>
+    <string name="noActiveTemplate">No active template</string>
+    <string name="goToTemplating">Go to Workout Templating</string>
+
+    <string name="templateSaved">TEMPLATE SAVED</string>
+    <string name="backToTemplates">Back to Templates</string>
+
+    <string name="elipses">...</string>
+
+    <string name="chooseAnExercise">Choose an Exercise</string>
+    <string name="clickToAddAnExercise">Click to add an exercise</string>
+
+    <string name="repsWord">reps</string>
+
+    <!-- Sign In -->
+    <string name="newUserSwipeRight">New User? Swipe to the right</string>
+
+    <string name="enterLiftdom">Enter Liftdom</string>
+
+    <string name="dummyFailed">failed</string>
+
 </resources>

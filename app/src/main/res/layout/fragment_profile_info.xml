@@ -35,7 +35,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tester"
+                    android:text="@string/dummyUsername"
                     android:textSize="24sp"
                     android:textColor="@color/white"
                     android:id="@+id/userName"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/currentLevel"
-                    android:text=" - Level 0"
+                    android:text="@string/dummyLevel"
                     android:textSize="18sp"
                     android:textColor="@color/liftrGold1"
             />
@@ -64,7 +64,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Body Weight: "
+                    android:text="@string/bodyWeight"
                     android:textSize="18sp"
                     android:textColor="@color/white"
                     android:id="@+id/textView"/>
@@ -73,7 +73,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/bodyWeight"
-                    android:text="00lbs"
+                    android:text="@string/zero_zero"
+                    android:textSize="17sp"
+                    android:textColor="@color/liftrGold1"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pounds"
                     android:textSize="17sp"
                     android:textColor="@color/liftrGold1"
             />
@@ -90,7 +98,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Focus: "
+                    android:text="@string/currentFocus"
                     android:textSize="18sp"
                     android:textColor="@color/white"
             />
@@ -99,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/currentFocus"
-                    android:text="Bodybuilding"
+                    android:text="@string/bodybuilding"
                     android:textSize="17sp"
                     android:textColor="@color/liftrGold1"
             />

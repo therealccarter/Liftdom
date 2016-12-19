@@ -18,7 +18,7 @@
             android:id="@+id/dateTitle"
             android:textColor="@color/black"
             android:background="@color/liftrGold1"
-            android:text="fail"
+            android:text="@string/dummyFailed"
             android:textSize="26sp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"

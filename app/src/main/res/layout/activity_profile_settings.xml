@@ -12,7 +12,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="@string/dummyUsername"
             android:textSize="34sp"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
@@ -41,7 +41,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Body-Weight:"
+            android:text="@string/bodyWeight"
             android:background="@color/liftrGold1"
             android:textColor="@color/black"
             android:paddingStart="70dp"
@@ -63,7 +63,7 @@
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00"
+                android:text="@string/zero_zero"
                 android:textColor="@color/white"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
@@ -74,7 +74,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lbs"
+                android:text="@string/pounds"
                 android:textColor="@color/white"
                 android:textSize="18sp"
         />
@@ -87,7 +87,7 @@
             android:id="@+id/saveButtonProfileSettings"
             android:background="@color/confirmgreen"
             android:textColor="@color/black"
-            android:text="SAVE"
+            android:text="@string/saveButton"
             android:textSize="30sp"
             android:paddingEnd="150dp"
             android:paddingStart="20dp"
