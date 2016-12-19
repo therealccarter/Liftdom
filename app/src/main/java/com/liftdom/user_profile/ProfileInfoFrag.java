@@ -32,7 +32,7 @@ public class ProfileInfoFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.userName) TextView userName;
-    @BindView(R.id.settingsButton) ImageView settingsButton;
+
 
     //TODO: In this and my templates view, try to get these values to load before inflation
 
@@ -47,13 +47,6 @@ public class ProfileInfoFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         userName.setText(KeyAccountValuesActivity.getInstance().getUserName());
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileSettingsActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }

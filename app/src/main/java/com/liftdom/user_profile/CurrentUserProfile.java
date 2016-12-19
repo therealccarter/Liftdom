@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +55,7 @@ public class CurrentUserProfile extends AppCompatActivity {
     @BindView(R.id.historyButton) Button historyButton;
     @BindView(R.id.savedTemplates) Button savedTemplatesButton;
     @BindView(R.id.sign_out_button) Button signOutButton;
+    @BindView(R.id.settingsButton) ImageView settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +191,13 @@ public class CurrentUserProfile extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent intent = new Intent(v.getContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ProfileSettingsActivity.class);
                 startActivity(intent);
             }
         });

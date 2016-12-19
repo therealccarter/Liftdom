@@ -12,8 +12,7 @@ UPCOMING FEATURES TO DO:
     **DONE** redesign selected template page
     **DONE** Redesign Workout History
     **DONE** Recode Workout History
-    * Work on body stats/profile settings input page
-    * More cleanup work on User Profile page
+    **DONE** More cleanup work on User Profile page
     * Convert hardcoded text to String Resources
     **DONE** Figure out how to load key account values before being seen (splash screen?)
     **DONE** clean up and beautify WA
@@ -25,15 +24,16 @@ UPCOMING FEATURES TO DO:
 *v0.3*
 * Use shared prefs to store values for faster recall
 * Work on pre-made templates (Just a few)
+* TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
 * Add some tools (BMI, cal calculator, etc)
-* TemplateEditor - drop sets, to failure, etc.
 * Workout Timer
 * Clear current BugList
 
 *v0.4*
 * Work on user values, whole sign in/sign up process, usernames, auth, etc
+* Really work on body stats/profile settings input page
 * Rehaul sign in page
 * Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
 * Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts

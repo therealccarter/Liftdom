@@ -14,10 +14,28 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textSize="34sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/usernameTextView"
+            android:background="@color/liftrGold1"
+            android:layout_gravity="end"
+            android:paddingEnd="75dp"
+            android:paddingStart="15dp"
+            android:layout_marginBottom="5dp"
+    />
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:hint="Enter a username"
+            android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            android:paddingBottom="15dp"
             android:layout_marginStart="10dp"
+            android:id="@+id/usernameEditText"
+            android:visibility="gone"
     />
 
     <TextView
@@ -37,8 +55,9 @@
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:background="@color/darkerGrey"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="30dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
     >
 
         <EditText
@@ -48,6 +67,8 @@
                 android:textColor="@color/white"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
+                android:id="@+id/bodyWeightEditText"
+                android:inputType="number"
         />
 
         <TextView
@@ -59,6 +80,21 @@
         />
 
     </LinearLayout>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/saveButtonProfileSettings"
+            android:background="@color/confirmgreen"
+            android:textColor="@color/black"
+            android:text="SAVE"
+            android:textSize="30sp"
+            android:paddingEnd="150dp"
+            android:paddingStart="20dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="end"
+    />
 
 
 </LinearLayout>
