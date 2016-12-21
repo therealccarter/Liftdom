@@ -134,6 +134,14 @@
 
             </LinearLayout>
 
+            <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/makeCurrentTemplate"
+                    android:textColor="@color/liftrGold1"
+                    android:id="@+id/activeTemplateCheckbox"
+            />
+
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

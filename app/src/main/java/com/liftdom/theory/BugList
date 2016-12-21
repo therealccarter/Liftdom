@@ -7,16 +7,25 @@ CURRENT BUG LIST:
 **DONE** Editing and creating templates adds extra set schemes
 **DONE** Set Schemes need to be added by top->down priority
 
+****12/18/16 demo * things to fix**********************************************************************
 error on create account without inputting information (null check)
+
 pages where there aren't values, show that there aren't values..
+
 nav drawer check
+
 more null checking if user doesn't click something
+
 if exercise is a bodyweight exercise, have option to replace with bodyweight.
+
 "Add day" people may think it literally means add that day to schedule
+
 give option to make active template (maybe default active for new users)
+
 on back press causing template deletion.
     * happens when going back to "save template as..."
     * only happens after advancing one frag/activity forward and then back
+
 add color ish notifications for adding and deleting so people can see
 adding a shit ton of exercises and set-schemes results in weird shit
-
+************************************************************************************

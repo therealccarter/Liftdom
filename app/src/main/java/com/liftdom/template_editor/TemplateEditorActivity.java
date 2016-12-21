@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,12 +57,10 @@ public class TemplateEditorActivity extends AppCompatActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     // butterknife
-    @BindView(R.id.addDay)
-    Button addDay;
-    @BindView(R.id.removeDay)
-    Button removeDay;
-    @BindView(R.id.saveButton)
-    Button onSave;
+    @BindView(R.id.addDay) Button addDay;
+    @BindView(R.id.removeDay) Button removeDay;
+    @BindView(R.id.saveButton) Button onSave;
+    @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,15 +259,19 @@ public class TemplateEditorActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
 
+                boolean checkBool = activeTemplateCheckbox.isChecked();
+
                 if(getIntent().getExtras().getString("isEdit") != null) {
                     if(getIntent().getExtras().getString("isEdit").equals("yes")) {
                         String templateName = getIntent().getExtras().getString("templateName");
                         intent.putExtra("isEdit", "yes");
                         intent.putExtra("templateName", templateName);
+                        intent.putExtra("isActiveTemplate", checkBool);
                         startActivity(intent);
                     }
                 }else{
                     intent.putExtra("isEdit", "no");
+                    intent.putExtra("isActiveTemplate", checkBool);
                     startActivity(intent);
                 }
 

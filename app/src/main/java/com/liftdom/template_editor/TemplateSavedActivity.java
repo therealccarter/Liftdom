@@ -56,6 +56,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
     @BindView(R.id.goBackToTemplates) Button goToTemplates;
 
     String templateName;
+    Boolean checkBool;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -210,6 +211,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
             // BEGIN UPLOAD OF TEMPLATE
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
+            checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 
             DatabaseReference mTemplateRef = mRootRef.child("templates").child(uid); // creates
             // /templates
@@ -220,10 +222,16 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
+            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
             if (getIntent().getExtras().getString("isEdit") != null) {
                 if (getIntent().getExtras().getString("isEdit").equals("yes")) {
                     selectedTemplateDataRef.setValue(null);
                 }
+            }
+
+            if(checkBool){
+                activeTemplateRef.setValue(templateName);
             }
 
             /**

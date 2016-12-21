@@ -10,8 +10,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 public class SaveTemplateDialog extends Activity {
@@ -25,6 +24,7 @@ public class SaveTemplateDialog extends Activity {
     @BindView(R.id.templateName) EditText templateName;
 
     String templateName1;
+    Boolean checkBool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,8 @@ public class SaveTemplateDialog extends Activity {
         //TODO: input validation, don't allow no-name templates
 
         ButterKnife.bind(this);
+
+        checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
             templateName1 = getIntent().getExtras().getString("templateName");
@@ -51,9 +53,12 @@ public class SaveTemplateDialog extends Activity {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
+
+
                 String isEdit = "yes";
                 Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
                 intent.putExtra("key1", templateName.getText().toString());
+                intent.putExtra("isActiveTemplate", checkBool);
                 intent.putExtra("isEdit", isEdit );
                 startActivity(intent);
                 EditTemplateAssemblerClass.getInstance().assembleMasterList();
@@ -62,3 +67,17 @@ public class SaveTemplateDialog extends Activity {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
