@@ -267,6 +267,7 @@
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>
     <string name="fromScratch1">From Scratch</string>
+    <string name="my_templates">My Templates</string>
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Template</string>
@@ -280,7 +281,7 @@
     <string name="workoutAssistor">Workout Assistor</string>
     <string name="healUpString">Heal up, today is a rest day!</string>
     <string name="viewStretchingAndAdvice">View stretching and nutrition advice</string>
-    <string name="doneForTheDay">You're done for the day. Rest up!</string>
+    <string name="doneForTheDay">You\'re done for the day. Rest up!</string>
 
     <!-- user profile -->
     <string name="dash">- </string>

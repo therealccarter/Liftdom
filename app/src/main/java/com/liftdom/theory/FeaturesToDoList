@@ -13,7 +13,7 @@ UPCOMING FEATURES TO DO:
     **DONE** Redesign Workout History
     **DONE** Recode Workout History
     **DONE** More cleanup work on User Profile page
-    * Convert hardcoded text to String Resources
+    **DONE** Convert hardcoded text to String Resources
     **DONE** Figure out how to load key account values before being seen (splash screen?)
     **DONE** clean up and beautify WA
 **DONE** Fix up exercise picker
