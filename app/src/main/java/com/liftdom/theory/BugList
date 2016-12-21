@@ -20,8 +20,6 @@ if exercise is a bodyweight exercise, have option to replace with bodyweight.
 
 "Add day" people may think it literally means add that day to schedule
 
-give option to make active template (maybe default active for new users)
-
 on back press causing template deletion.
     * happens when going back to "save template as..."
     * only happens after advancing one frag/activity forward and then back

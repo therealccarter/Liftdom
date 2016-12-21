@@ -1,6 +1,8 @@
 package com.liftdom.liftdom;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     // butterknife
 
+    String emailFromSP = "error";
+    String username = "errorrr";
+
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
+
 
 
     @Override
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
         mAuth = FirebaseAuth.getInstance();
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SignInActivity.class));
         }
 
+
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -72,8 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    KeyAccountValuesActivity.getInstance().setUsername();
-                    KeyAccountValuesActivity.getInstance().setEmail(user.getEmail());
+                    if(getIntent().getStringExtra("username") != null) {
+                        KeyAccountValuesActivity.getInstance().setUsername(getIntent().getStringExtra("username"));
+                    }
+                    //KeyAccountValuesActivity.getInstance().setEmail(user.getEmail());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -82,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+        //if (getIntent().getExtras() != null) {
+        //    if(mFirebaseUser != null) {
+        //        String username = getIntent().getExtras().getString("username");
+        //        KeyAccountValuesActivity.getInstance().setUsername(username);
+        //    }
+        //}
 
 
         //FirebaseUser user = mAuth.getCurrentUser();
@@ -162,19 +179,29 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-        // Later
-        //header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
+        if (mFirebaseUser != null) {
+
+            username = KeyAccountValuesActivity.getInstance().getUserName();
+
+            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
+                            .withName
+                                    (username).withEmail
+                                    (mFirebaseUser.getEmail()),
+                    0);
+        }
+
+
+
+
+        //header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
+        //        .drawable
+        //                .usertest))
         //                .withName
-        //                        (KeyAccountValuesActivity.getInstance().getUserName()).withEmail
-        //                (KeyAccountValuesActivity.getInstance().getEmail()),
+        //                        ("Foo").
+        //                        withEmail(emailFromSP),
         //        0);
-
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                        .withName
-                                ("Foo").
-                        withEmail("Foooo"),
-                0);
-
+//
+//
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
 

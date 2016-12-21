@@ -31,6 +31,7 @@ public class SignInTab2 extends Fragment {
     @BindView(R.id.field_password) EditText passwordField;
     @BindView(R.id.email_create_account_button) Button createAccountButton;
     @BindView(R.id.go_to_main) Button goToMainButton;
+    @BindView(R.id.field_username) EditText usernameField;
 
 
     // [START declare_auth]
@@ -78,6 +79,9 @@ public class SignInTab2 extends Fragment {
         goToMainButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
+
+                intent.putExtra("username", usernameField.getText().toString());
+
                 startActivity(intent);
             }
         });

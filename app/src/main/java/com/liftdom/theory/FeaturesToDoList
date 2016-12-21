@@ -27,7 +27,7 @@ UPCOMING FEATURES TO DO:
 * TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
-* Add some tools (BMI, cal calculator, etc)
+**DONE** Give option to make active template
 * Workout Timer
 * Clear current BugList
 
@@ -39,6 +39,7 @@ UPCOMING FEATURES TO DO:
 * Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
 * Show past and future workouts in a Calendar View (color code - future/past/failures)
 * Add motivation quotes
+* Add some tools (BMI, cal calculator, etc)
 * Clear current BugList
 
 *v0.5*

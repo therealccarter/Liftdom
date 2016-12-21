@@ -1,7 +1,9 @@
 package com.liftdom.liftdom;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -98,7 +100,7 @@ public class SignInTab1 extends Fragment {
         emailSignInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                String email = emailField.getText().toString();
+                final String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
 
                 //Log.d(TAG, "signIn:" + email);
@@ -110,28 +112,30 @@ public class SignInTab1 extends Fragment {
 
                 // [START sign_in_with_email]
                 mAuth.signInWithEmailAndPassword(email, password);
-                //        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                //            @Override
-                //            public void onComplete(@NonNull Task<AuthResult> task) {
-                //                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-//
-                //                // If sign in fails, display a message to the user. If sign in succeeds
-                //                // the auth state listener will be notified and logic to handle the
-                //                // signed in user can be handled in the listener.
-                //                if (!task.isSuccessful()) {
-                //                    Log.w(TAG, "signInWithEmail:failed", task.getException());
-                //                    Toast.makeText(view.getContext(), R.string.auth_failed,Toast.LENGTH_SHORT).show();
-                //                }
-//
-                //                // [START_EXCLUDE]
-                //                if (!task.isSuccessful()) {
-                //                    mStatusTextView.setText(R.string.auth_failed);
-                //                }
-                //                //hideProgressDialog();
-                //                // [END_EXCLUDE]
-                //            }
-                //        });
-                //// [END sign_in_with_email]
+                //.addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                //    @Override
+                //    public void onComplete(@NonNull Task<AuthResult> task) {
+                //        if(task.isSuccessful()){
+                //            SharedPreferences sharedPreferences = getActivity().getPreferences(Context
+                //                    .MODE_PRIVATE);
+                //            SharedPreferences.Editor editor = sharedPreferences.edit();
+                //            editor.putString("email", email);
+                //        }
+                //    }
+                //});
+        // [END sign_in_with_email]
+
+                //SharedPreferences sharedPreferences = getActivity().getPreferences(Context
+                //        .MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("email", email);
+                //editor.apply();
+
+
+                //KeyAccountValuesActivity.getInstance().setUsername();
+                //KeyAccountValuesActivity.getInstance().setEmail(email);
+
+
                 goToMainButton.setVisibility(View.VISIBLE);
             }
         });
