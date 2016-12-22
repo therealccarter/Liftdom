@@ -25,6 +25,94 @@
                 android:paddingStart="15dp"
         />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:text="@string/noSavedTemplates"
+            android:layout_margin="10dp"
+            android:id="@+id/noSavedTemplates"
+            android:visibility="gone"
+        />
+
+        <LinearLayout
+                android:id="@+id/button_new_template"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@color/black"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:visibility="gone"
+        >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/createTemplate"
+                    android:textSize="24sp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/white"
+            />
+
+            <ImageView
+                    android:id="@+id/new_template_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/simple_down_arrow_small"
+            />
+
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/createTemplateLinearLayout"
+            android:background="@color/transDarkGrey"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+    >
+        <Button
+                android:id="@+id/button_premade_templates"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/note_plus_gold"
+                android:textAllCaps="false"
+                android:text="@string/premade_templates"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                style="?android:attr/borderlessButtonStyle"
+
+        />
+
+        <Button
+                android:id="@+id/button_from_scratch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/note_plus_gold"
+                android:textAllCaps="false"
+                android:text="@string/fromScratch1"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                style="?android:attr/borderlessButtonStyle"
+
+        />
+
+    </LinearLayout>
+
         <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/myTemplatesList"

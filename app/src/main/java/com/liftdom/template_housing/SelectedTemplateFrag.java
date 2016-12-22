@@ -160,32 +160,6 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-
-        //setAsActiveTemplate.setOnClickListener(new View.OnClickListener(){
-        //    @Override
-        //    public void onClick(final View v){
-//
-        //        if (colorIncrement == 0) {
-//
-        //            activeTemplateRef.setValue(templateName);
-//
-        //            setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
-        //            setAsActiveTemplate.setBackgroundColor(Color.parseColor("#D1B91D"));
-        //            setAsActiveTemplate.setText("Unselect As Active Template");
-        //            colorIncrement = 1;
-//
-        //        } else if(colorIncrement == 1){
-//
-        //            activeTemplateRef.setValue(null);
-//
-        //            setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
-        //            setAsActiveTemplate.setBackgroundColor(Color.parseColor("#388e3c"));
-        //            setAsActiveTemplate.setText("Select As Active Template");
-        //            colorIncrement = 0;
-        //        }
-        //    }
-        //});
-
         return view;
     }
 

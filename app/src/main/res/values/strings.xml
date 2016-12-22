@@ -311,6 +311,9 @@
     <string name="noActiveTemplate">No active template</string>
     <string name="goToTemplating">Go to Workout Templating</string>
 
+    <string name="noSavedTemplates">No saved templates</string>
+    <string name="createTemplate">New Template:</string>
+
     <string name="templateSaved">TEMPLATE SAVED</string>
     <string name="backToTemplates">Back to Templates</string>
 
