@@ -142,6 +142,7 @@ public class SelectedTemplateFrag extends Fragment {
                 }
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
