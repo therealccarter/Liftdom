@@ -22,7 +22,7 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.3*
-* Use shared prefs to store values for faster recall
+*tentative...* Use shared prefs to store values for faster recall
 * Work on pre-made templates (Just a few)
 * TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history

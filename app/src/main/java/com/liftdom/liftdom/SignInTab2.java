@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +65,11 @@ public class SignInTab2 extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(usernameField.getText().toString()).build();
+                    user.updateProfile(profileUpdates);
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -76,15 +82,15 @@ public class SignInTab2 extends Fragment {
         };
         // [END auth_state_listener]
 
-        goToMainButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-
-                intent.putExtra("username", usernameField.getText().toString());
-
-                startActivity(intent);
-            }
-        });
+        //goToMainButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent = new Intent(getContext(), MainActivity.class);
+//
+        //        intent.putExtra("username", usernameField.getText().toString());
+//
+        //        startActivity(intent);
+        //    }
+        //});
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -114,6 +120,12 @@ public class SignInTab2 extends Fragment {
         mAuth.addAuthStateListener(mAuthListener);
     }
     // [END on_start_add_listener]
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
     // [START on_stop_remove_listener]
     @Override

@@ -2,10 +2,7 @@ CURRENT BUG LIST:
 
 (Constant WIP throughout) Various crashes
 
-* WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
-**DONE** Rotate change adds frags in various places
-**DONE** Editing and creating templates adds extra set schemes
-**DONE** Set Schemes need to be added by top->down priority
+*unknown* WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 
 ****12/18/16 demo * things to fix**********************************************************************
 error on create account without inputting information (null check)
@@ -16,13 +13,7 @@ nav drawer check
 
 more null checking if user doesn't click something
 
-if exercise is a bodyweight exercise, have option to replace with bodyweight.
-
 "Add day" people may think it literally means add that day to schedule
-
-on back press causing template deletion.
-    * happens when going back to "save template as..."
-    * only happens after advancing one frag/activity forward and then back
 
 add color ish notifications for adding and deleting so people can see
 adding a shit ton of exercises and set-schemes results in weird shit

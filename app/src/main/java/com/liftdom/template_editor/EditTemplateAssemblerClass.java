@@ -62,7 +62,7 @@ class EditTemplateAssemblerClass {
 
     // Exercise spinner setters
     void setExerciseValue(String exerciseValue, String doWValue){
-        if(doWValue != null){
+        if(doWValue != null && !exerciseValue.equals("Click to add an exercise")){
             if(doWValue.equals(DoWAL1.get(0)) && !doesExNameExist1(exerciseValue)){
                 DoWAL1.add(exerciseValue);
             } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !doesExNameExist2(exerciseValue)){

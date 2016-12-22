@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     // butterknife
-
-    String emailFromSP = "error";
-    String username = "errorrr";
-
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
 
@@ -81,7 +77,18 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     if(getIntent().getStringExtra("username") != null) {
-                        KeyAccountValuesActivity.getInstance().setUsername(getIntent().getStringExtra("username"));
+
+                        String username = getIntent().getStringExtra("username");
+
+                        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                        DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+
+                        usernameRef.setValue(username);
+
+
+
                     }
                     //KeyAccountValuesActivity.getInstance().setEmail(user.getEmail());
                 } else {
@@ -93,17 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        //if (getIntent().getExtras() != null) {
-        //    if(mFirebaseUser != null) {
-        //        String username = getIntent().getExtras().getString("username");
-        //        KeyAccountValuesActivity.getInstance().setUsername(username);
-        //    }
-        //}
-
-
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //String email = user.getEmail();
-        // [END auth_state_listener]
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -114,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         //mainActivityTitle.setTypeface(lobster);
 
 
-        AccountHeader header = new AccountHeaderBuilder()
+            AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -137,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-        // create the drawer
-         Drawer drawer = new DrawerBuilder()
+            // create the drawer
+            Drawer drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
@@ -180,31 +176,39 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         if (mFirebaseUser != null) {
+            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            username = KeyAccountValuesActivity.getInstance().getUserName();
+            //username = KeyAccountValuesActivity.getInstance().getUserName();
 
-            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
+
+            DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+
+            usernameRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot usernameSnap : dataSnapshot.getChildren()){
+                        String key = usernameSnap.getKey();
+                        if(key.equals("username")) {
+                            String username;
+                            username = usernameSnap.getValue(String.class);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
+                            .drawable.usertest))
                             .withName
-                                    (username).withEmail
+                                    (mFirebaseUser.getDisplayName()).withEmail
                                     (mFirebaseUser.getEmail()),
                     0);
         }
-
-
-
-
-        //header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
-        //        .drawable
-        //                .usertest))
-        //                .withName
-        //                        ("Foo").
-        //                        withEmail(emailFromSP),
-        //        0);
-//
-//
-        // [END AUTH AND NAV-DRAWER BOILERPLATE]
-
-
     }
 
 

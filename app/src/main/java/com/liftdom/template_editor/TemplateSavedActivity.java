@@ -276,5 +276,13 @@ public class TemplateSavedActivity extends AppCompatActivity {
         return splitted;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(TemplateSavedActivity.this, TemplateHousingActivity.class);
+        startActivity(intent);
+
+    }
+
 
 }

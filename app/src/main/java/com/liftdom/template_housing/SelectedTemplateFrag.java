@@ -14,9 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +43,7 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.selectedTemplateTitle) TextView selectedTemplateNameView;
     @BindView(R.id.editThisTemplate) Button editTemplate;
     @BindView(R.id.deleteThisTemplate) Button deleteTemplate;
-    @BindView(R.id.setActiveTemplate) Button setAsActiveTemplate;
+    @BindView(R.id.activeTemplateCheckbox) CheckBox setAsActiveTemplate;
     @BindView(R.id.templateListedView) LinearLayout templateListedViewHolder;
 
     int colorIncrement = 0;
@@ -139,10 +137,7 @@ public class SelectedTemplateFrag extends Fragment {
                 String activeTemplate = dataSnapshot.getValue(String.class);
                 if(activeTemplate != null && templateName != null) {
                     if (templateName.equals(activeTemplate)) {
-                        setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
-                        setAsActiveTemplate.setBackgroundColor(Color.parseColor("#D1B91D"));
-                        setAsActiveTemplate.setText("Unselect As Active Template");
-                        colorIncrement = 1;
+                        setAsActiveTemplate.setChecked(true);
                     }
                 }
             }
@@ -153,31 +148,42 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-
-        setAsActiveTemplate.setOnClickListener(new View.OnClickListener(){
+        setAsActiveTemplate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(final View v){
-
-                if (colorIncrement == 0) {
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
                     activeTemplateRef.setValue(templateName);
-
-                    setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
-                    setAsActiveTemplate.setBackgroundColor(Color.parseColor("#D1B91D"));
-                    setAsActiveTemplate.setText("Unselect As Active Template");
-                    colorIncrement = 1;
-
-                } else if(colorIncrement == 1){
-
+                } else if(!isChecked){
                     activeTemplateRef.setValue(null);
-
-                    setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
-                    setAsActiveTemplate.setBackgroundColor(Color.parseColor("#388e3c"));
-                    setAsActiveTemplate.setText("Select As Active Template");
-                    colorIncrement = 0;
                 }
             }
         });
+
+
+        //setAsActiveTemplate.setOnClickListener(new View.OnClickListener(){
+        //    @Override
+        //    public void onClick(final View v){
+//
+        //        if (colorIncrement == 0) {
+//
+        //            activeTemplateRef.setValue(templateName);
+//
+        //            setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
+        //            setAsActiveTemplate.setBackgroundColor(Color.parseColor("#D1B91D"));
+        //            setAsActiveTemplate.setText("Unselect As Active Template");
+        //            colorIncrement = 1;
+//
+        //        } else if(colorIncrement == 1){
+//
+        //            activeTemplateRef.setValue(null);
+//
+        //            setAsActiveTemplate.setTextColor(Color.parseColor("#000000"));
+        //            setAsActiveTemplate.setBackgroundColor(Color.parseColor("#388e3c"));
+        //            setAsActiveTemplate.setText("Select As Active Template");
+        //            colorIncrement = 0;
+        //        }
+        //    }
+        //});
 
         return view;
     }

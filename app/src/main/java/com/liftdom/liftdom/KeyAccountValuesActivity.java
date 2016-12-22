@@ -41,25 +41,6 @@ public class KeyAccountValuesActivity {
     }
 
     public String getUserName(){
-        DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
-
-        usernameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot usernameSnap : dataSnapshot.getChildren()){
-                    String key = usernameSnap.getKey();
-                    if(key.equals("username")) {
-                        username = usernameSnap.getValue(String.class);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         return username;
     }
 
