@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -65,11 +68,6 @@ public class SignInTab2 extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(usernameField.getText().toString()).build();
-                    user.updateProfile(profileUpdates);
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    startActivity(intent);
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -96,8 +94,14 @@ public class SignInTab2 extends Fragment {
             public void onClick(View v) {
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
+                String username = usernameField.getText().toString();
 
-                createAccount(email, password);
+                createAccount(email, username, password);
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+
+
             }
         });
 
@@ -105,10 +109,27 @@ public class SignInTab2 extends Fragment {
         return view;
     }
 
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, final String username, final String password) {
         Log.d(TAG, "createAccount:" + email);
         // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new
+                OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                FirebaseUser user = task.getResult().getUser();
+                UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(username)
+                        .build();
+
+                        mAuth.getCurrentUser().updateProfile(changeRequest);
+                        //this is needed for display name to show up in auth listener
+                        user.reload();
+                        mAuth.signOut();
+                        mAuth.signInWithEmailAndPassword(email, password);
+
+                }
+            });
+
         // [END create_user_with_email]
         goToMainButton.setVisibility(View.VISIBLE);
     }

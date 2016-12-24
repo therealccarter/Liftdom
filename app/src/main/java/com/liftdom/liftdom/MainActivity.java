@@ -78,15 +78,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     if(getIntent().getStringExtra("username") != null) {
 
-                        String username = getIntent().getStringExtra("username");
-
-                        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                        DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
-
-                        usernameRef.setValue(username);
-
+                        //String username = getIntent().getStringExtra("username");
+                        //
+                        //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        //
+                        //DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+                        //
+                        //usernameRef.setValue(username);
+                        //
 
 
                     }
