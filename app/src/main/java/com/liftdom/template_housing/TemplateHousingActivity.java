@@ -47,6 +47,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
 
     // declare_auth
     private FirebaseAuth mAuth;
+    private FirebaseUser mFirebaseUser;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -73,8 +74,10 @@ public class TemplateHousingActivity extends AppCompatActivity {
         //if (savedInstanceState == null) {
 
             mAuth = FirebaseAuth.getInstance();
+            mFirebaseUser = mAuth.getCurrentUser();
 
-            // [START auth_state_listener]
+
+        // [START auth_state_listener]
             mAuthListener = new FirebaseAuth.AuthStateListener() {
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -168,7 +171,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
             // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail(email),
+                                (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
             // [END AUTH AND NAV-DRAWER BOILERPLATE]

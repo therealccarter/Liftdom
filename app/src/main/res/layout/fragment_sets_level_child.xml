@@ -2,8 +2,8 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:gravity="center_horizontal"
              android:orientation="horizontal"
+             android:gravity="center_horizontal"
              tools:context="com.liftdom.template_editor.SetsLevelChildFrag">
 
 
@@ -15,6 +15,7 @@
             android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
+            android:layout_marginStart="110dp"
             android:textSize="22sp"
     />
 
@@ -58,6 +59,24 @@
             android:textColorHint="@color/black"
             android:textSize="22sp"
     />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbs"
+            android:text="@string/pounds"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+    />
+
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="80dp"
+            android:id="@+id/extraOptions"
+    >
+
+    </Spinner>
 
 
 

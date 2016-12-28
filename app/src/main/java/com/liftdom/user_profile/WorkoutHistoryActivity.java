@@ -160,7 +160,7 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                (KeyAccountValuesActivity.getInstance().getUserName()).withEmail(email),
+                                (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]

@@ -42,6 +42,8 @@ public class TemplateEditorActivity extends AppCompatActivity {
 
     // declare_auth
     private FirebaseAuth mAuth;
+    private FirebaseUser mFirebaseUser;
+
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -75,6 +77,7 @@ public class TemplateEditorActivity extends AppCompatActivity {
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
 
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -168,7 +171,7 @@ public class TemplateEditorActivity extends AppCompatActivity {
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                ("Username").withEmail(email),
+                                (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================

@@ -166,7 +166,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
         // Later
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
                         .withName
-                                ("Username").withEmail(email),
+                                (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================

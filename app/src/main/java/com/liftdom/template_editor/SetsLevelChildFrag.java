@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.EditText;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
+    @BindView(R.id.extraOptions) Spinner extraOptions;
+    @BindView(R.id.lbs) TextView pounds;
 
     public SetsLevelChildFrag() {
         // Required empty public constructor
@@ -47,6 +51,29 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         callback = (setSchemesCallback) getParentFragment();
+
+        ArrayList<String> optionsAL = new ArrayList<>();
+        optionsAL.add("Weights");
+        optionsAL.add("Body-weight");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
+                optionsAL);
+
+        extraOptions.setAdapter(dataAdapter);
+
+        extraOptions.setOnItemSelectedListener(new YourItemSelectedListener());
+
+        //extraOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //    @Override
+        //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //        parent.getItemAtPosition(position);
+        //        if(position == 0){
+        //            weightEditText.setText("W");
+        //        }else if(position == 1){
+        //            weightEditText.setText("B.W.");
+        //        }
+        //    }
+        //});
 
 
         String delims = "[x,@]";
@@ -78,6 +105,27 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         }
         return view;
     }
+
+    public class YourItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            if(pos == 0){
+                weightEditText.setHint("W");
+                weightEditText.setText("");
+                pounds.setVisibility(View.VISIBLE);
+                weightEditText.setEnabled(true);
+            }else if(pos == 1){
+                weightEditText.setText("B.W.");
+                pounds.setVisibility(View.GONE);
+                weightEditText.setEnabled(false);
+            }
+        }
+
+        public void onNothingSelected(AdapterView parent) {
+            // Do nothing.
+        }
+    }
+
 
 
 
