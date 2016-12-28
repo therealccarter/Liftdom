@@ -12,6 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.KeyAccountValuesActivity;
@@ -26,6 +27,10 @@ public class ProfileInfoFrag extends Fragment {
     public ProfileInfoFrag() {
         // Required empty public constructor
     }
+
+
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
 
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -46,7 +51,10 @@ public class ProfileInfoFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        userName.setText(KeyAccountValuesActivity.getInstance().getUserName());
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+
+        userName.setText(mFirebaseUser.getDisplayName());
 
         return view;
     }

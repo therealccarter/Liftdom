@@ -331,7 +331,7 @@
 
     <string name="dummyFailed">failed</string>
 
-    <string name="afterCreateAccount">Note: Once you create your account, you'll be asked to sign in. Do that
+    <string name="afterCreateAccount">Note: Once you create your account, you\'ll be asked to sign in. Do that
     to complete the process.</string>
 
 </resources>

@@ -79,17 +79,6 @@ public class SignInTab2 extends Fragment {
             }
         };
         // [END auth_state_listener]
-
-        //goToMainButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        Intent intent = new Intent(getContext(), MainActivity.class);
-//
-        //        intent.putExtra("username", usernameField.getText().toString());
-//
-        //        startActivity(intent);
-        //    }
-        //});
-
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String email = emailField.getText().toString();
@@ -104,6 +93,17 @@ public class SignInTab2 extends Fragment {
 
             }
         });
+        //goToMainButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent = new Intent(getContext(), MainActivity.class);
+//
+        //        intent.putExtra("username", usernameField.getText().toString());
+//
+        //        startActivity(intent);
+        //    }
+        //});
+
+
 
 
         return view;
@@ -116,16 +116,22 @@ public class SignInTab2 extends Fragment {
                 OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = task.getResult().getUser();
+
+                final FirebaseUser user = task.getResult().getUser();
+
                 UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()
                         .setDisplayName(username)
                         .build();
 
-                        mAuth.getCurrentUser().updateProfile(changeRequest);
-                        //this is needed for display name to show up in auth listener
-                        user.reload();
-                        mAuth.signOut();
-                        mAuth.signInWithEmailAndPassword(email, password);
+                        mAuth.getCurrentUser().updateProfile(changeRequest).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                //this is needed for display name to show up in auth listener
+                                user.reload();
+                                mAuth.signOut();
+                                mAuth.signInWithEmailAndPassword(email, password);
+                            }
+                        });
 
                 }
             });
