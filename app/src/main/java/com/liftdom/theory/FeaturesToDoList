@@ -22,6 +22,7 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.3*
+**DONE** Set display name
 * Work on pre-made templates (Just a few)
 * TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
