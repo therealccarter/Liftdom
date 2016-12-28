@@ -22,11 +22,18 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.3*
-*tentative...* Use shared prefs to store values for faster recall
 * Work on pre-made templates (Just a few)
 * TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
+    * How would we do this?
+        * Every _ week(s), increase sets by _
+        * Every _ week(s), increase reps by _
+        * Every _ week(s), increase weight by _
+    * OK, how would we apply this to exercises?
+    * Let's use a checkbox on each exercise. If checked, it uses the algorithm.
+    * Also, an option to apply to all exercises.
+
 **DONE** Give option to make active template
 * Workout Timer
 * Clear current BugList

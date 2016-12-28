@@ -131,7 +131,7 @@ public class SignInTab2 extends Fragment {
             });
 
         // [END create_user_with_email]
-        goToMainButton.setVisibility(View.VISIBLE);
+        //goToMainButton.setVisibility(View.VISIBLE);
     }
 
     // [START on_start_add_listener]

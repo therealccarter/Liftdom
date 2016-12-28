@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -35,6 +36,7 @@ public class RepsWeightFrag extends Fragment {
     @BindView(R.id.weightEditText) EditText weightEditText;
     @BindView(R.id.checkBox) CheckBox checkBox;
     @BindView(R.id.main_layout) LinearLayout mainLayout;
+    @BindView(R.id.pounds) TextView pounds;
 
     Bundle mSaved;
 
@@ -49,7 +51,15 @@ public class RepsWeightFrag extends Fragment {
         mSaved = savedInstanceState;
 
         repsEditText.setText(reps);
-        weightEditText.setText(weight);
+        if(weight.equals("B.W.")){
+            weightEditText.setText(weight);
+            weightEditText.setEnabled(false);
+            pounds.setVisibility(View.GONE);
+            weightEditText.setTextColor(Color.parseColor("#000000"));
+        }else{
+            weightEditText.setText(weight);
+        }
+
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

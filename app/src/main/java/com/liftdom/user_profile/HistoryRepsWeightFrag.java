@@ -29,7 +29,7 @@ public class HistoryRepsWeightFrag extends Fragment {
 
     @BindView(R.id.reps) TextView repsEditText;
     @BindView(R.id.weight) TextView weightEditText;
-
+    @BindView(R.id.pounds) TextView pounds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,9 +39,15 @@ public class HistoryRepsWeightFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        if(weight.equals("B.W.")){
+            weightEditText.setText(weight);
+            pounds.setVisibility(View.GONE);
+        }else{
+            weightEditText.setText(weight);
+        }
 
         repsEditText.setText(reps);
-        weightEditText.setText(weight);
+
 
         return view;
     }
