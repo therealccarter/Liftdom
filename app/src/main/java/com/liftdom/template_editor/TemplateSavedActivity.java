@@ -279,8 +279,6 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             }
 
-
-
             EditTemplateAssemblerClass.getInstance().clearAllLists();
 
         }
