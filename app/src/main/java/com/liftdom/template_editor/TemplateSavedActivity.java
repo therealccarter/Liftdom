@@ -57,6 +57,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
     String templateName;
     Boolean checkBool;
+    Boolean algBool;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -212,11 +213,14 @@ public class TemplateSavedActivity extends AppCompatActivity {
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
             checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
+            algBool = getIntent().getExtras().getBoolean("isAlgorithm");
 
             DatabaseReference mTemplateRef = mRootRef.child("templates").child(uid); // creates
             // /templates
 
             ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+
+            ArrayList<ArrayList> algorithmMasterList = EditTemplateAssemblerClass.getInstance().algorithmMasterList;
 
             DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
 
@@ -261,6 +265,21 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
                 templateSpecific.child(doWAL.get(0)).setValue(list);
             }
+
+            if(algBool){
+                int count = 0;
+                for(ArrayList<Integer> setsRepsWeightsAlgo : algorithmMasterList){
+
+                    for(int value : setsRepsWeightsAlgo){
+                        templateSpecific.child("algorithm").child(Integer.toString(count)).setValue(value);
+                        count++;
+                    }
+
+                }
+
+            }
+
+
 
             EditTemplateAssemblerClass.getInstance().clearAllLists();
 

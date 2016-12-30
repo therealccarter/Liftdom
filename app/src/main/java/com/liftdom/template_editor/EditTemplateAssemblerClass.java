@@ -27,6 +27,10 @@ class EditTemplateAssemblerClass {
     private ArrayList<String> DoWAL6 = new ArrayList<>();
     private ArrayList<String> DoWAL7 = new ArrayList<>();
 
+    ArrayList<String> algorithmExercisesAL = new ArrayList<>();
+
+    ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
+
     Boolean isOnSaveClick = false;
 
     // DoW Setter
@@ -61,22 +65,43 @@ class EditTemplateAssemblerClass {
      */
 
     // Exercise spinner setters
-    void setExerciseValue(String exerciseValue, String doWValue){
+    void setExerciseValue(String exerciseValue, String doWValue, Boolean isChecked){
         if(doWValue != null && !exerciseValue.equals("Click to add an exercise")){
             if(doWValue.equals(DoWAL1.get(0)) && !doesExNameExist1(exerciseValue)){
                 DoWAL1.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL2.size() != 0) && doWValue.equals(DoWAL2.get(0)) && !doesExNameExist2(exerciseValue)){
                 DoWAL2.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL3.size() != 0) && doWValue.equals(DoWAL3.get(0)) && !doesExNameExist3(exerciseValue)){
                 DoWAL3.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL4.size() != 0) && doWValue.equals(DoWAL4.get(0)) && !doesExNameExist4(exerciseValue)){
                 DoWAL4.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL5.size() != 0) && doWValue.equals(DoWAL5.get(0)) && !doesExNameExist5(exerciseValue)){
                 DoWAL5.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL6.size() != 0) && doWValue.equals(DoWAL6.get(0)) && !doesExNameExist6(exerciseValue)){
                 DoWAL6.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             } else if((DoWAL7.size() != 0) && doWValue.equals(DoWAL7.get(0)) && !doesExNameExist7(exerciseValue)){
                 DoWAL7.add(exerciseValue);
+                if(isChecked){
+                    algorithmExercisesAL.add(exerciseValue);
+                }
             }
         }
     }
@@ -302,6 +327,8 @@ class EditTemplateAssemblerClass {
 
 
 
+
+
     void assembleMasterList(){
         if(!DoWAL1.isEmpty()){
             MasterEditTemplateAL.add(DoWAL1);
@@ -324,6 +351,9 @@ class EditTemplateAssemblerClass {
         if(!DoWAL7.isEmpty()){
             MasterEditTemplateAL.add(DoWAL7);
         }
+        if(!algorithmExercisesAL.isEmpty()){
+            MasterEditTemplateAL.add(algorithmExercisesAL);
+        }
     }
 
     void clearAllLists(){
@@ -335,6 +365,8 @@ class EditTemplateAssemblerClass {
         DoWAL6.clear();
         DoWAL7.clear();
         MasterEditTemplateAL.clear();
+        algorithmExercisesAL.clear();
+        algorithmMasterList.clear();
     }
 
 }

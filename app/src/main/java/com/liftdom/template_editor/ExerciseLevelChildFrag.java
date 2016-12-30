@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +27,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
     int fragIdCount2 = 0;
 
-
-
     Boolean isEdit = false;
     String exerciseName;
     String templateName;
@@ -40,6 +39,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     @BindView(R.id.movementName) Button exerciseButton;
     @BindView(R.id.addSet) Button addSet;
     @BindView(R.id.removeSet) Button removeSet;
+    @BindView(R.id.algorithmCheckBox) CheckBox algoCheckBox;
 
 
     public ExerciseLevelChildFrag() {
@@ -208,6 +208,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         String spinnerText = exerciseButton.getText().toString();
 
         return spinnerText;
+    }
+
+    public Boolean getCheckBoxValue(){
+
+        Boolean isChecked = algoCheckBox.isChecked();
+
+        return isChecked;
     }
 
 

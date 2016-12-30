@@ -3,6 +3,7 @@ package com.liftdom.template_editor;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -10,8 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +35,8 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+
+import java.util.ArrayList;
 
 public class TemplateEditorActivity extends AppCompatActivity {
 
@@ -63,6 +65,15 @@ public class TemplateEditorActivity extends AppCompatActivity {
     @BindView(R.id.removeDay) Button removeDay;
     @BindView(R.id.saveButton) Button onSave;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
+    @BindView(R.id.applyAlgorithmCheckbox) CheckBox applyAlgorithmCheckbox;
+    @BindView(R.id.algorithmLayout) LinearLayout algorithmLayout;
+    @BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
+    @BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
+    @BindView(R.id.repsWeeksEditText) EditText repsWeeksEditText;
+    @BindView(R.id.repsIncreaseEditText) EditText repsIncreasedEditText;
+    @BindView(R.id.weightsWeeksEditText) EditText weightsWeeksEditText;
+    @BindView(R.id.weightsIncreaseEditText) EditText  weightsIncreasedEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,12 +268,54 @@ public class TemplateEditorActivity extends AppCompatActivity {
             }
         });
 
+        applyAlgorithmCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    algorithmLayout.setVisibility(View.VISIBLE);
+                    applyAlgorithmCheckbox.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }else{
+                    algorithmLayout.setVisibility(View.GONE);
+                    applyAlgorithmCheckbox.setBackgroundColor(Color.parseColor("#00000000"));
+                }
+            }
+        });
+
+
+        //@BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
+        //@BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
+        //@BindView(R.id.repsWeeksEditText) EditText repsWeeksEditText;
+        //@BindView(R.id.repsIncreaseEditText) EditText repsIncreasedEditText;
+        //@BindView(R.id.weightsWeeksEditText) EditText weightsWeeksEditText;
+        //@BindView(R.id.weightsIncreaseEditText) EditText  weightsIncreasedEditText;
+
 
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
 
                 boolean checkBool = activeTemplateCheckbox.isChecked();
+                boolean algBool = applyAlgorithmCheckbox.isChecked();
+
+                ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
+
+                if(algBool){
+                    ArrayList<Integer> setsAL = new ArrayList<>();
+                    setsAL.add(Integer.parseInt(setsWeeksEditText.getText().toString()));
+                    setsAL.add(Integer.parseInt(setsIncreasedEditText.getText().toString()));
+
+                    ArrayList<Integer> repsAL = new ArrayList<>();
+                    repsAL.add(Integer.parseInt(repsWeeksEditText.getText().toString()));
+                    repsAL.add(Integer.parseInt(repsIncreasedEditText.getText().toString()));
+
+                    ArrayList<Integer> weightsAL = new ArrayList<>();
+                    weightsAL.add(Integer.parseInt(weightsWeeksEditText.getText().toString()));
+                    weightsAL.add(Integer.parseInt(weightsIncreasedEditText.getText().toString()));
+
+                    algorithmMasterList.add(setsAL);
+                    algorithmMasterList.add(repsAL);
+                    algorithmMasterList.add(weightsAL);
+                }
 
                 if(getIntent().getExtras().getString("isEdit") != null) {
                     if(getIntent().getExtras().getString("isEdit").equals("yes")) {
@@ -270,11 +323,15 @@ public class TemplateEditorActivity extends AppCompatActivity {
                         intent.putExtra("isEdit", "yes");
                         intent.putExtra("templateName", templateName);
                         intent.putExtra("isActiveTemplate", checkBool);
+                        intent.putExtra("isAlgorithm", algBool);
+                        EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                         startActivity(intent);
                     }
                 }else{
                     intent.putExtra("isEdit", "no");
                     intent.putExtra("isActiveTemplate", checkBool);
+                    intent.putExtra("isAlgorithm", algBool);
+                    EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                     startActivity(intent);
                 }
 
