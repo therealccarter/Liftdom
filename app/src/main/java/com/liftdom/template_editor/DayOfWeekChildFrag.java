@@ -1,5 +1,6 @@
 package com.liftdom.template_editor;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Color;
@@ -45,6 +46,10 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    onDaySelectedListener mCallback;
+
+
 
     // Butterknife
     @BindView(R.id.M) ToggleButton monToggle;
@@ -316,5 +321,28 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
         return doWConstructor;
 
+    }
+
+    public interface onDaySelectedListener{
+        public void onDaySelected(String doW, View v, long id);
+    }
+
+    // method called on toggle
+    public void onDayToggle(String doW, View v, long id){
+        mCallback.onDaySelected(doW, v, id);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (onDaySelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 }

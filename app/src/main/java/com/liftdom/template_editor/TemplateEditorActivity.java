@@ -38,7 +38,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 
-public class TemplateEditorActivity extends AppCompatActivity {
+public class TemplateEditorActivity extends AppCompatActivity implements DayOfWeekChildFrag.onDaySelectedListener{
 
     private static final String TAG = "EmailPassword";
 
@@ -381,4 +381,8 @@ public class TemplateEditorActivity extends AppCompatActivity {
     //    super.onPause();
     //
     //}
+
+    public void onDaySelected(String doW, View v, long id){
+
+    }
 }
