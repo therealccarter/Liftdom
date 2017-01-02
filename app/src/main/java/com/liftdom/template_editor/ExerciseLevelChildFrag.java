@@ -183,6 +183,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
        //}
     }
 
+    //@Override
+    //public void onPause(){
+    //    super.onPause();
+    //}
+
     boolean isExerciseName(String input) {
 
         boolean isExercise = true;

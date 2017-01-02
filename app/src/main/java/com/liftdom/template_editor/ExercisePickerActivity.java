@@ -70,4 +70,10 @@ public class ExercisePickerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        finish();
+    }
+
 }

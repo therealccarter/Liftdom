@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.workout_assistor.*;
@@ -115,17 +118,53 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onClick(final View v){
 
-                DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getContext());
 
-                selectedTemplateRef.setValue(null);
-                activeTemplateRef.setValue(null);
+                // set title
+                alertDialogBuilder.setTitle("Delete template:");
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Are you sure you want to delete this template?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
-                fragmentTransaction.commit();
+                                selectedTemplateRef.setValue(null);
+                                activeTemplateRef.setValue(null);
+
+                                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                                //fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(),
+                                        //"myTemplatesTag");
+                                //fragmentTransaction.commit();
+
+                                Intent intent = new Intent(getContext(), TemplateHousingActivity.class);
+                                startActivity(intent);
+
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
             }
         });
 

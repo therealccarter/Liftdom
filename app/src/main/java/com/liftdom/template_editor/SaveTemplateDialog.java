@@ -26,7 +26,7 @@ public class SaveTemplateDialog extends Activity {
     @BindView(R.id.templateName) EditText templateName;
 
     String templateName1;
-    Boolean checkBool;
+    Boolean activeTemplateCheckBool;
     Boolean algBool;
 
 
@@ -40,8 +40,8 @@ public class SaveTemplateDialog extends Activity {
 
         ButterKnife.bind(this);
 
-        checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
-        checkBool = getIntent().getExtras().getBoolean("isAlgorithm");
+        activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
+        algBool = getIntent().getExtras().getBoolean("isAlgorithm");
 
 
 
@@ -64,7 +64,7 @@ public class SaveTemplateDialog extends Activity {
                 String isEdit = "yes";
                 Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
                 intent.putExtra("key1", templateName.getText().toString());
-                intent.putExtra("isActiveTemplate", checkBool);
+                intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
                 intent.putExtra("isEdit", isEdit );
                 intent.putExtra("isAlgorithm", algBool);
                 startActivity(intent);

@@ -12,22 +12,23 @@ Badges to earn? Plan more game-ifying.
 
 ================================== DEMO: 1/1/2017 ===================================================
 Check out scroll lock on user creation
-Pop up after creation account just to be sure
+**DONE** Pop up after creation account just to be sure
 make bodyweight and shit more obvious
 make input fields "next"-able
-active template on create template does not set it
-need to add a confirm for active template
+**DONE** active template on create template does not set it
+need to add a confirm for active template (toasts?)
 back going to template editor from main activity (deletes template)
 main activity froze?
 re-order on the view saved template list to be chronological
-add delete confirmation
+**DONE** add delete confirmation
 add call-back for real time day "greying"
 
-create template crash:
-Activity com.liftdom.template_editor.ExercisePickerActivity has leaked window com.android.internal.policy.PhoneWindow$DecorView{8cb44c7 V.E...... R....... 0,0-1080,912} that was originally added here
-at android.view.ViewRootImpl.<init>(ViewRootImpl.java:565)
-at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:326)
-at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:91)
-at android.app.Dialog.show(Dialog.java:350)
-at com.liftdom.template_editor.ExPickerTab1$1.onItemClick(ExPickerTab1.java:97)
-at android.widget.AdapterView.performItemClick(AdapterView.java:345)
+//DONE// create template crash:
+//DONE// Activity com.liftdom.template_editor.ExercisePickerActivity has leaked window com.android.internal.policy
+//DONE// .PhoneWindow$DecorView{8cb44c7 V.E...... R....... 0,0-1080,912} that was originally added here
+//DONE// at android.view.ViewRootImpl.<init>(ViewRootImpl.java:565)
+//DONE// at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:326)
+//DONE// at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:91)
+//DONE// at android.app.Dialog.show(Dialog.java:350)
+//DONE// at com.liftdom.template_editor.ExPickerTab1$1.onItemClick(ExPickerTab1.java:97)
+//DONE// at android.widget.AdapterView.performItemClick(AdapterView.java:345)

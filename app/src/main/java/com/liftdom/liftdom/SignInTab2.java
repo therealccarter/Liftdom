@@ -1,10 +1,12 @@
 package com.liftdom.liftdom;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,15 +83,46 @@ public class SignInTab2 extends Fragment {
         // [END auth_state_listener]
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String email = emailField.getText().toString();
-                String password = passwordField.getText().toString();
-                String username = usernameField.getText().toString();
 
-                createAccount(email, username, password);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getContext());
 
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                // set title
+                alertDialogBuilder.setTitle("Note:");
 
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("You'll be taken to the sign in page. Sign in, and your account will be ready!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                String email = emailField.getText().toString();
+                                String password = passwordField.getText().toString();
+                                String username = usernameField.getText().toString();
+
+                                createAccount(email, username, password);
+
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                startActivity(intent);
+
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
 
             }
         });

@@ -205,6 +205,23 @@ public class TemplateEditorActivity extends AppCompatActivity {
                 // "realll"
                 final DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
+                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
+                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String activeTemplateName = dataSnapshot.getValue(String.class);
+                        if(activeTemplateName.equals(templateName)){
+                            activeTemplateCheckbox.setChecked(true);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 // find the matching day
                 selectedTemplateDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -358,4 +375,10 @@ public class TemplateEditorActivity extends AppCompatActivity {
         }
     }
     // [END on_stop_remove_listener]
+
+    //@Override
+    //public void onPause(){
+    //    super.onPause();
+    //
+    //}
 }

@@ -296,7 +296,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                             fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                     exerciseNameFrag);
                                             //TODO: Add activity life check
-                                            fragmentTransaction.commitAllowingStateLoss();
+                                            if(!isFinishing()) {
+                                                fragmentTransaction.commitAllowingStateLoss();
+                                            }
                                         }
                                     }
 
