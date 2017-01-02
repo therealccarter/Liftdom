@@ -32,6 +32,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
     Boolean isEdit = false;
     String setSchemeEdited;
+    Boolean isEditFirstEdit = false;
 
 
     // Callback
@@ -61,9 +62,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 optionsAL);
 
         extraOptions.setAdapter(dataAdapter);
-
         extraOptions.setOnItemSelectedListener(new YourItemSelectedListener());
-
         //extraOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         //    @Override
         //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,13 +75,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         //    }
         //});
 
-
         String delims = "[x,@]";
-
-        EditText setsEditText = (EditText) view.findViewById(R.id.sets);
-        EditText repsEditText = (EditText) view.findViewById(R.id.reps);
-        EditText weightEditText = (EditText) view.findViewById(R.id.weight);
-
 
         if(isEdit){
             String[] setSchemesEachArray = setSchemeEdited.split(delims);
@@ -100,26 +93,38 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             repsEditText.setText(repsWithoutSpaces);
 
             String weightWithSpaces = setSchemesEachArray[2];
-            String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+            if(!setSchemesEachArray[2].equals(" B.W.")){
+                String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+                weightEditText.setText(weightWithoutSpaces);
+            } else if(setSchemesEachArray[2].equals(" B.W.")){
+                weightEditText.setText(setSchemesEachArray[2]);
+            }
             //int weightInt = Integer.parseInt(weightWithoutSpaces);
-            weightEditText.setText(weightWithoutSpaces);
+
+
+
         }
+
         return view;
     }
 
     public class YourItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            if(pos == 0){
-                weightEditText.setHint("W");
-                weightEditText.setText("");
-                pounds.setVisibility(View.VISIBLE);
-                weightEditText.setEnabled(true);
-            }else if(pos == 1){
-                weightEditText.setText("B.W.");
-                pounds.setVisibility(View.GONE);
-                weightEditText.setEnabled(false);
-            }
+
+                if (pos == 0) {
+                    weightEditText.setHint("W");
+                    if(weightEditText.getText().toString().equals("B.W.")){
+                        weightEditText.setText("");
+                    }
+                    pounds.setVisibility(View.VISIBLE);
+                    weightEditText.setEnabled(true);
+                } else if (pos == 1) {
+                    weightEditText.setText("B.W.");
+                    pounds.setVisibility(View.GONE);
+                    weightEditText.setEnabled(false);
+                }
+
         }
 
         public void onNothingSelected(AdapterView parent) {
