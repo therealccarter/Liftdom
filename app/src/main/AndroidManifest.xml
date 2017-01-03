@@ -8,7 +8,9 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:label="Liftdom">
+        <activity
+                android:name=".MainActivity"
+                android:label="Liftdom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,13 +33,13 @@
         </activity>
         <activity android:name="com.liftdom.template_editor.TemplateSavedActivity">
         </activity>
-        <activity android:name="com.liftdom.template_housing.TemplateHousingActivity"
-                    android:label=""
-        >
+        <activity
+                android:name="com.liftdom.template_housing.TemplateHousingActivity"
+                android:label="">
         </activity>
-        <activity android:name="com.liftdom.workout_assistor.WorkoutAssistorActivity"
-                    android:label=""
-        >
+        <activity
+                android:name="com.liftdom.workout_assistor.WorkoutAssistorActivity"
+                android:label="">
         </activity>
         <activity android:name="com.liftdom.workout_assistor.AssistorSavedActivity">
         </activity>
@@ -50,6 +52,9 @@
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
         <activity android:name="com.liftdom.user_profile.ProfileSettingsActivity">
+        </activity>
+        <activity android:name="com.liftdom.template_editor.ExtraOptionsActivity"
+                  android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
     </application>
 

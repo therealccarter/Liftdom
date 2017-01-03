@@ -246,20 +246,28 @@
     <!-- Exercise Selector -->
     <string name="close">Close</string>
 
-    <!-- END STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
+    <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
 
     <string name="todo">TO-DO</string>
     <string name="templates">Templates</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Close Drawer</string>
-    <string name="extraOptions">Extra options: </string>
+    <string name="extraOptions">Extra options:</string>
     <string name="liftr">LIFTr</string>
-    <string name="applyAlgorithm">Apply algorithm to checked exercises? </string>
-    <string name="every">Every\u0020 </string>
-    <string name="weeks">week(s), </string>
-    <string name="increaseSets">\u0020 increase sets by </string>
-    <string name="increaseReps">\u0020 increase reps by </string>
-    <string name="increaseWeight">\u0020 increase weight by </string>
+    <string name="applyAlgorithm">Apply algorithm to checked exercises?</string>
+    <string name="every">Every\u0020</string>
+    <string name="weeks">week(s),</string>
+    <string name="increaseSets">\u0020 increase sets by</string>
+    <string name="increaseReps">\u0020 increase reps by</string>
+    <string name="increaseWeight">\u0020 increase weight by</string>
+    <string name="defaultWeightOptionButton">Normal Weights</string>
+    <string name="bodyWeightOptionButton">Bodyweight</string>
+    <string name="toFailureOptionButton">To Failure</string>
+    <string name="defaultRepsOptionButton">Normal Reps</string>
+    <string name="defaultWeightOptionText">Weights in lbs/kgs (default)</string>
+    <string name="bodyWeightOptionText">Use bodyweight instead of weights</string>
+    <string name="toFailureOptionText">Go to failure instead of reps in numerical form</string>
+    <string name="defaultRepsOptionText">Reps in number form (default)</string>
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
@@ -291,16 +299,16 @@
     <string name="doneForTheDay">You\'re done for the day. Rest up!</string>
 
     <!-- user profile -->
-    <string name="dash">- </string>
+    <string name="dash">-</string>
     <string name="workoutHistory">Workout History</string>
     <string name="signOut">Sign Out</string>
     <string name="dummyUsername">Username</string>
     <string name="bodyWeight">Body Weight:</string>
-    <string name="zero_zero"> 00</string>
-    <string name="pounds"> lbs</string>
+    <string name="zero_zero">00</string>
+    <string name="pounds">lbs</string>
     <string name="saveButton">Save</string>
-    <string name="dummyLevel"> - level .0</string>
-    <string name="currentFocus">Focus: </string>
+    <string name="dummyLevel">- level .0</string>
+    <string name="currentFocus">Focus:</string>
 
 
     <!-- save assistor -->
@@ -339,8 +347,11 @@
     <string name="dummyFailed">failed</string>
 
     <string name="afterCreateAccount">Note: Once you create your account, you\'ll be asked to sign in. Do that
-    to complete the process.</string>
+        to complete the process.
+    </string>
 
     <string name="or">or</string>
+
+    <!-- -->
 
 </resources>

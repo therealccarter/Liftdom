@@ -65,6 +65,7 @@ public class SaveTemplateDialog extends Activity {
                 Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
                 intent.putExtra("key1", templateName.getText().toString());
                 intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
+                intent.putExtra("isFromEditor", true);
                 intent.putExtra("isEdit", isEdit );
                 intent.putExtra("isAlgorithm", algBool);
                 startActivity(intent);

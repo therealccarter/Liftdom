@@ -208,7 +208,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        if(mSaved == null) {
+        if(mSaved == null && getIntent().getExtras().getBoolean("isFromEditor")) {
             // BEGIN UPLOAD OF TEMPLATE
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
@@ -284,6 +284,8 @@ public class TemplateSavedActivity extends AppCompatActivity {
         }
 
         // END UPLOAD OF TEMPLATE
+
+        getIntent().removeExtra("isFromEditor");
 
     }
 
