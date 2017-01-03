@@ -27,3 +27,10 @@ add call-back for real time day "greying"
 **DONE** create template crash:
 **DONE** Activity com.liftdom.template_editor.ExercisePickerActivity has leaked window com.android.internal.policy
 
+============================= DEMO: 1/3/2017 =================================================
+Make set scheme option selector more obvious and user friendly
+set scheme option selector reactive? so you don't click normal reps and erase shit?
+Edit template still doubling
+No username
+Back on exercise selector crashes
+
