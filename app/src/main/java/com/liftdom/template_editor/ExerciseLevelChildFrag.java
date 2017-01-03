@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -141,6 +142,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
                 fragmentTransaction.commit();
                 fragmentManager.executePendingTransactions();
+
+                CharSequence toastText = "(+) Set-scheme added";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                toast.show();
             }
         });
 
@@ -153,6 +160,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString2)).commit();
                     --fragIdCount2;
                 }
+
+                CharSequence toastText = "(-) Set-scheme removed";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                toast.show();
             }
         });
 

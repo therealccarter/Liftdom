@@ -193,8 +193,19 @@ public class SelectedTemplateFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     activeTemplateRef.setValue(templateName);
+                    CharSequence toastText = "(+) Set as Active Template";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getContext(), toastText, duration);
+                    toast.show();
                 } else if(!isChecked){
                     activeTemplateRef.setValue(null);
+
+                    CharSequence toastText = "(-) Unselected as Active Template";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(getContext(), toastText, duration);
+                    toast.show();
                 }
             }
         });

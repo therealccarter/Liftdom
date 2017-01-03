@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,10 @@ import com.liftdom.liftdom.R;
 
 import java.lang.reflect.Field;
 
+
+
 public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback{
+
 
     //private OnFragmentInteractionListener mListener;
 
@@ -185,6 +189,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                 fragmentTransaction.commit();
+
+                CharSequence toastText = "(+) Exercise added";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                toast.show();
             }
         });
 
@@ -197,6 +207,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString1)).commit();
                     --fragIdCount1;
                 }
+
+                CharSequence toastText = "(-) Exercise removed";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                toast.show();
             }
         });
 

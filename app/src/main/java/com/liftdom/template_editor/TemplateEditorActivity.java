@@ -269,6 +269,12 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 DayOfWeekChildFrag frag2 = new DayOfWeekChildFrag();
                 fragmentTransaction.add(R.id.templateFragmentLayout, frag2, fragString);
                 fragmentTransaction.commit();
+
+                CharSequence toastText = "(+) Day-set added";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                toast.show();
             }
         });
 
@@ -282,6 +288,12 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                     --fragIdCount;
                 }
+
+                CharSequence toastText = "(-) Day-set removed";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                toast.show();
             }
         });
 
