@@ -73,7 +73,15 @@ public class ExercisePickerActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        Intent intent = new Intent();
+        setResult(1, intent);
         finish();
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        setResult(1, intent);
+        finish();
+    }
 }
