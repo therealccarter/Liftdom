@@ -1,20 +1,41 @@
-CURRENT BUG LIST:
 
-(Constant WIP throughout) Various crashes
+
+
+======================================================================================================
+================================== CURRENT BUG/FIX LIST ===================================================
+======================================================================================================
+
 
 *unknown* WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 
-****12/18/16 demo * things to fix**********************************************************************
+================================== DEMO: 12/18/16 ===================================================
 error on create account without inputting information (null check)
-
-pages where there aren't values, show that there aren't values..
-
-nav drawer check
-
-more null checking if user doesn't click something
 
 "Add day" people may think it literally means add that day to schedule
 
-add color ish notifications for adding and deleting so people can see
 adding a shit ton of exercises and set-schemes results in weird shit
-************************************************************************************
+======================
+
+
+
+================================== DEMO: 1/1/2017 ===================================================
+User cannot physically see all the input fields in the create account process (because it's vertical)
+
+Selected template shows days of the week out of order
+
+In template editor: days need to grey out on select/unselect
+
+Template editor doubling set schemes for some reason
+
+======================
+
+
+
+================================== DEMO: 1/3/2017 ===================================================
+set scheme option selector needs work
+
+possibly have set scheme option selector save values so you don't go back to nothing?
+
+No username for chris b.
+
+======================

@@ -75,6 +75,12 @@ public class ExtraOptionsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        String repsText = getIntent().getExtras().getString("repsText");
+        String weightText = getIntent().getExtras().getString("weightText");
+
+
+
     }
 
     @Override

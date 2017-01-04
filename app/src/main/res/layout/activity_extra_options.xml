@@ -14,6 +14,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:id="@+id/bodyWeightOptionButton"
+            android:visibility="gone"
     >
         <Button
                 android:layout_width="wrap_content"
@@ -25,8 +27,7 @@
                 android:text="@string/bodyWeightOptionButton"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textSize="18sp"
-                android:id="@+id/bodyWeightOptionButton"
+                android:textSize="16sp"
         />
 
         <TextView
@@ -40,6 +41,7 @@
                 android:paddingBottom="10dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginEnd="10dp"
         />
 
     </LinearLayout>
@@ -49,6 +51,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:id="@+id/defaultWeightOptionButton"
+            android:visibility="gone"
     >
         <Button
                 android:layout_width="wrap_content"
@@ -60,8 +64,7 @@
                 android:text="@string/defaultWeightOptionButton"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textSize="18sp"
-                android:id="@+id/defaultWeightOptionButton"
+                android:textSize="16sp"
         />
 
         <TextView
@@ -75,6 +78,7 @@
                 android:paddingBottom="10dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginEnd="10dp"
         />
 
     </LinearLayout>
@@ -84,6 +88,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:id="@+id/toFailureOptionButton"
+            android:visibility="gone"
+
     >
         <Button
                 android:layout_width="wrap_content"
@@ -95,8 +102,7 @@
                 android:text="@string/toFailureOptionButton"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textSize="18sp"
-                android:id="@+id/toFailureOptionButton"
+                android:textSize="16sp"
         />
 
         <TextView
@@ -111,6 +117,7 @@
                 android:layout_marginBottom="5dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginEnd="10dp"
         />
 
     </LinearLayout>
@@ -120,6 +127,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:id="@+id/defaultRepsOptionButton"
+            android:visibility="gone"
     >
         <Button
                 android:layout_width="wrap_content"
@@ -131,8 +140,7 @@
                 android:text="@string/defaultRepsOptionButton"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textSize="18sp"
-                android:id="@+id/defaultRepsOptionButton"
+                android:textSize="16sp"
         />
 
         <TextView
@@ -146,6 +154,7 @@
                 android:paddingBottom="10dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginEnd="10dp"
         />
 
     </LinearLayout>

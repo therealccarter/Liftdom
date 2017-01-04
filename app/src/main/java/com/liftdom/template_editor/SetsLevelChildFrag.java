@@ -56,29 +56,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         callback = (setSchemesCallback) getParentFragment();
 
-        //ArrayList<String> optionsAL = new ArrayList<>();
-        //optionsAL.add("Weights");
-        //optionsAL.add("Body-weight");
-        //optionsAL.add("To failure (reps)");
-        //optionsAL.add("Back to normal reps");
-//
-        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
-        //        optionsAL);
-//
-        //extraOptions.setAdapter(dataAdapter);
-        //extraOptions.setOnItemSelectedListener(new YourItemSelectedListener());
-        //extraOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        //    @Override
-        //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //        parent.getItemAtPosition(position);
-        //        if(position == 0){
-        //            weightEditText.setText("W");
-        //        }else if(position == 1){
-        //            weightEditText.setText("B.W.");
-        //        }
-        //    }
-        //});
-
         String delims = "[x,@]";
 
         if(isEdit){
@@ -99,42 +76,16 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
             weightEditText.setText(weightWithoutSpaces);
 
-            //int weightInt = Integer.parseInt(weightWithoutSpaces);
-
-            // sets
-            //String setsWithSpaces = setSchemesEachArray[0];
-            //String setsWithoutSpaces = setsWithSpaces.replaceAll("\\s+","");
-            ////int setsInt = Integer.parseInt(setsWithoutSpaces);
-            //setsEditText.setText(setsWithoutSpaces);
-//
-            //// reps
-            //String repsWithSpaces = setSchemesEachArray[1];
-            //if(!setSchemesEachArray[2].equals(" failure")){
-            //    String repsWithout = repsWithSpaces.replaceAll("\\s+","");
-            //    repsEditText.setText(repsWithout);
-            //} else if(setSchemesEachArray[2].equals(" failure")){
-            //    repsEditText.setText(setSchemesEachArray[2]);
-            //}
-            //String repsWithoutSpaces = repsWithSpaces.replaceAll("\\s+","");
-            ////int repsInt = Integer.parseInt(repsWithoutSpaces);
-            //repsEditText.setText(repsWithoutSpaces);
-//
-            //String weightWithSpaces = setSchemesEachArray[2];
-            //if(!setSchemesEachArray[2].equals(" B.W.")){
-            //    String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
-            //    weightEditText.setText(weightWithoutSpaces);
-            //} else if(setSchemesEachArray[2].equals(" B.W.")){
-            //    weightEditText.setText(setSchemesEachArray[2]);
-            //}
-            ////int weightInt = Integer.parseInt(weightWithoutSpaces);
         }
 
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExtraOptionsActivity.class);
-                //int exID = exerciseButton.getId();
-                //intent.putExtra("exID", exID);
+                String weightText = weightEditText.getText().toString();
+                String repsText = repsEditText.getText().toString();
+                intent.putExtra("repsText", repsText);
+                intent.putExtra("weightText", weightText);
                 startActivityForResult(intent, 3);
             }
         });
@@ -173,42 +124,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }
         }
     }
-
-    //public class YourItemSelectedListener implements AdapterView.OnItemSelectedListener {
-//
-    //    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//
-    //            if (pos == 0) {
-    //                weightEditText.setHint("W");
-    //                if(weightEditText.getText().toString().equals("B.W.")){
-    //                    weightEditText.setText("");
-    //                }
-    //                pounds.setVisibility(View.VISIBLE);
-    //                weightEditText.setEnabled(true);
-    //            } else if (pos == 1) {
-    //                weightEditText.setText("B.W.");
-    //                pounds.setVisibility(View.GONE);
-    //                weightEditText.setEnabled(false);
-    //            } else if (pos == 2){
-    //                repsEditText.setText("failure");
-    //                repsEditText.setEnabled(false);
-    //            } else if (pos == 3){
-    //                if(repsEditText.getText().toString().equals("failure")){
-    //                    repsEditText.setText("");
-    //                }
-    //                weightEditText.setHint("R");
-    //                weightEditText.setEnabled(true);
-    //            }
-//
-    //    }
-//
-    //    public void onNothingSelected(AdapterView parent) {
-    //        // Do nothing.
-    //    }
-    //}
-
-
-
 
     @Override
     public void onPause(){

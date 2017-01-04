@@ -260,14 +260,15 @@
     <string name="increaseSets">\u0020 increase sets by</string>
     <string name="increaseReps">\u0020 increase reps by</string>
     <string name="increaseWeight">\u0020 increase weight by</string>
-    <string name="defaultWeightOptionButton">Normal Weights</string>
+    <string name="defaultWeightOptionButton">Numeric Weights</string>
     <string name="bodyWeightOptionButton">Bodyweight</string>
     <string name="toFailureOptionButton">To Failure</string>
-    <string name="defaultRepsOptionButton">Normal Reps</string>
-    <string name="defaultWeightOptionText">Weights in lbs/kgs (default)</string>
-    <string name="bodyWeightOptionText">Use bodyweight instead of weights</string>
-    <string name="toFailureOptionText">Go to failure instead of reps in numerical form</string>
-    <string name="defaultRepsOptionText">Reps in number form (default)</string>
+    <string name="defaultRepsOptionButton">Numeric Reps</string>
+    <string name="defaultWeightOptionText">Go back to <b><i>weight</i></b> in lbs/kgs (default)</string>
+    <string name="bodyWeightOptionText">Change <b><i>weight</i></b> to <b><i>bodyweight.</i></b></string>
+    <string name="toFailureOptionText">Instead of a number as <b><i>reps</i></b>, go
+        <b><i>to failure. (as many reps as poosible)</i></b></string>
+    <string name="defaultRepsOptionText">Go back to <b><i>reps</i></b> in number form (default)</string>
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
