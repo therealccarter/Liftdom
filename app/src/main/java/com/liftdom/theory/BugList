@@ -8,6 +8,10 @@
 
 *unknown* WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 
+save instance of workout assistor (if same day, and if workout hasn't already been finished)
+
+savedInstanceState check for DayOfWeekFrag (adds exercises on pause? or on start)
+
 ================================== DEMO: 12/18/16 ===================================================
 error on create account without inputting information (null check)
 
@@ -26,16 +30,12 @@ Selected template shows days of the week out of order
 In template editor: days need to grey out on select/unselect
 
 Template editor doubling set schemes for some reason
-
 ======================
 
 
 
 ================================== DEMO: 1/3/2017 ===================================================
-set scheme option selector needs work
-
 possibly have set scheme option selector save values so you don't go back to nothing?
 
 No username for chris b.
-
 ======================

@@ -56,7 +56,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     String selectedTemplateDayValue = null;
     String activeTemplateToday = null;
 
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -74,6 +73,36 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     @BindView(R.id.weightsWeeksEditText) EditText weightsWeeksEditText;
     @BindView(R.id.weightsIncreaseEditText) EditText  weightsIncreasedEditText;
 
+    ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
+
+    public void daySelectedFromFrag(String doW, String tag){
+        for(int i = 0; i < fragIdCount; i++){
+            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
+                dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW);
+            }
+        }
+    }
+
+    public void dayUnselectedFromFrag(String doW, String tag){
+        for(int i = 0; i < fragIdCount; i++){
+            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
+                dayOfWeekChildFragArrayList.get(i).dayUnselectedToFrag(doW);
+            }
+        }
+    }
+
+    public ArrayList<String> getCurrentSelectedDays(){
+        ArrayList<String> selectedDaysAL = new ArrayList<>();
+        for(int i = 0; i < fragIdCount - 1; i++){
+            ArrayList<String> iSelectedDaysAL = new ArrayList<>();
+            iSelectedDaysAL = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
+            for(String day : iSelectedDaysAL){
+                selectedDaysAL.add(day);
+            }
+        }
+
+        return selectedDaysAL;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +110,21 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         setContentView(R.layout.activity_template_editor);
 
         //TODO: Edit template adds setScheme from other exercise...
+
+        final DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW1);
+        final DayOfWeekChildFrag doW2 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW2);
+        final DayOfWeekChildFrag doW3 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW3);
+        final DayOfWeekChildFrag doW4 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW4);
+        final DayOfWeekChildFrag doW5 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW5);
+        final DayOfWeekChildFrag doW6 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW6);
+        final DayOfWeekChildFrag doW7 = new DayOfWeekChildFrag();
+        dayOfWeekChildFragArrayList.add(doW7);
 
 
         ButterKnife.bind(this);
@@ -185,6 +229,13 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
+        /**
+         * How would we implement this new idea...
+         * From text message:
+         *  Simply remove or add fragment depending on the action and use the incrementor,
+         *  if 1, doW1, etc.
+         */
+
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
         if (getIntent().getExtras().getString("isEdit") != null) {
@@ -238,14 +289,63 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             String fragString = Integer.toString(fragIdCount);
 
-                            DayOfWeekChildFrag dayOfWeekChildFrag = new DayOfWeekChildFrag();
-                            dayOfWeekChildFrag.isEdit = true;
-                            dayOfWeekChildFrag.daysArray = dayStringArray.clone();
-                            dayOfWeekChildFrag.selectedDaysReference = selectedTemplateDayValue;
-                            dayOfWeekChildFrag.templateName = templateName;
+                            if(fragIdCount == 1){
+                                doW1.isEdit = true;
+                                doW1.daysArray = dayStringArray.clone();
+                                doW1.selectedDaysReference = selectedTemplateDayValue;
+                                doW1.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 2){
 
-                            fragmentTransaction.add(R.id.templateFragmentLayout, dayOfWeekChildFrag, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
+                                doW2.isEdit = true;
+                                doW2.daysArray = dayStringArray.clone();
+                                doW2.selectedDaysReference = selectedTemplateDayValue;
+                                doW2.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 3){
+
+                                doW3.isEdit = true;
+                                doW3.daysArray = dayStringArray.clone();
+                                doW3.selectedDaysReference = selectedTemplateDayValue;
+                                doW3.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 4){
+
+                                doW4.isEdit = true;
+                                doW4.daysArray = dayStringArray.clone();
+                                doW4.selectedDaysReference = selectedTemplateDayValue;
+                                doW4.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 5){
+
+                                doW5.isEdit = true;
+                                doW5.daysArray = dayStringArray.clone();
+                                doW5.selectedDaysReference = selectedTemplateDayValue;
+                                doW5.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 6){
+
+                                doW6.isEdit = true;
+                                doW6.daysArray = dayStringArray.clone();
+                                doW6.selectedDaysReference = selectedTemplateDayValue;
+                                doW6.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }else if(fragIdCount == 7){
+
+                                doW7.isEdit = true;
+                                doW7.daysArray = dayStringArray.clone();
+                                doW7.selectedDaysReference = selectedTemplateDayValue;
+                                doW7.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+
                         }
                     }
 
@@ -259,6 +359,9 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
 
 
+
+        // use increment to keep track of what the current doW frag is
+
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,9 +369,56 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 String fragString = Integer.toString(fragIdCount);
-                DayOfWeekChildFrag frag2 = new DayOfWeekChildFrag();
-                fragmentTransaction.add(R.id.templateFragmentLayout, frag2, fragString);
-                fragmentTransaction.commit();
+
+                /**
+                 * Only problem we're having now is that when a new day-set is added,
+                 *  the new day-set is unaware of current/existing selected days
+                 *
+                 *  So what we need to do is call a check out to see what days are selected
+                 *  in existing day-set fragments.
+                 */
+
+                if(fragIdCount == 1){
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 2){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW2.daysArray = stringArray.clone();
+                    doW2.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 3){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW3.daysArray = stringArray.clone();
+                    doW3.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 4){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW4.daysArray = stringArray.clone();
+                    doW4.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 5){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW5.daysArray = stringArray.clone();
+                    doW5.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 6){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW6.daysArray = stringArray.clone();
+                    doW6.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+                    fragmentTransaction.commit();
+                }else if(fragIdCount == 7){
+                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+                    doW7.daysArray = stringArray.clone();
+                    doW7.isAdded = true;
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+                    fragmentTransaction.commit();
+                }
+
 
                 CharSequence toastText = "(+) Day-set added";
                 int duration = Toast.LENGTH_SHORT;
@@ -281,9 +431,15 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         removeDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // only thing now is to remove all greyed out instances if the removed frag
+                // has that selected day
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 String fragString = Integer.toString(fragIdCount);
+
+
                 if (fragIdCount != 0) {
                     fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                     --fragIdCount;
@@ -309,15 +465,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 }
             }
         });
-
-
-        //@BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
-        //@BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
-        //@BindView(R.id.repsWeeksEditText) EditText repsWeeksEditText;
-        //@BindView(R.id.repsIncreaseEditText) EditText repsIncreasedEditText;
-        //@BindView(R.id.weightsWeeksEditText) EditText weightsWeeksEditText;
-        //@BindView(R.id.weightsIncreaseEditText) EditText  weightsIncreasedEditText;
-
 
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -394,7 +541,4 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     //
     //}
 
-    public void onDaySelected(String doW, View v, long id){
-
-    }
 }
