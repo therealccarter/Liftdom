@@ -46,6 +46,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     Boolean isEdit = false;
     Boolean isAdded = false;
+    Boolean isRemoved = false;
     String[] daysArray;
     String[][] doWArray1;
     String selectedDaysReference;
@@ -317,6 +318,26 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 }
             }
         }
+
+        //if(isRemoved){
+        //    for(String day : daysArray){
+        //        if(day.equals("Monday")){
+        //            dayUnselectedToFrag("Monday");
+        //        }else if(day.equals("Tuesday")){
+        //            dayUnselectedToFrag("Tuesday");
+        //        }else if(day.equals("Wednesday")){
+        //            dayUnselectedToFrag("Wednesday");
+        //        }else if(day.equals("Thursday")){
+        //            dayUnselectedToFrag("Thursday");
+        //        }else if(day.equals("Friday")){
+        //            dayUnselectedToFrag("Friday");
+        //        }else if(day.equals("Saturday")){
+        //            dayUnselectedToFrag("Saturday");
+        //        }else if(day.equals("Sunday")){
+        //            dayUnselectedToFrag("Sunday");
+        //        }
+        //    }
+        //}
 
 
         if(isEdit){

@@ -425,6 +425,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
                 Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
                 toast.show();
+
             }
         });
 
@@ -440,16 +441,69 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 String fragString = Integer.toString(fragIdCount);
 
 
+
+
                 if (fragIdCount != 0) {
-                    fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                    --fragIdCount;
+                    //if(fragIdCount == 1){
+                    //    fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                    //
+                    if(fragIdCount == 2){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW2.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }else if(fragIdCount == 3){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW3.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }else if(fragIdCount == 4){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW4.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }else if(fragIdCount == 5){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW5.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }else if(fragIdCount == 6){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW6.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }else if(fragIdCount == 7){
+                        ArrayList<String> removeList = new ArrayList<>();
+                        removeList = doW7.getSelectedDays();
+                        for(String days : removeList){
+                            dayUnselectedFromFrag(days, fragString);
+                        }
+                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        --fragIdCount;
+                    }
                 }
 
-                CharSequence toastText = "(-) Day-set removed";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
-                toast.show();
+                if(fragIdCount != 1) {
+                    CharSequence toastText = "(-) Day-set removed";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                    toast.show();
+                }
             }
         });
 
