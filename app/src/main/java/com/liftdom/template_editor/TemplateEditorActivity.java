@@ -91,6 +91,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         }
     }
 
+    public void setUnChecked(String doW, String tag){
+
+    }
+
     public ArrayList<String> getCurrentSelectedDays(){
         ArrayList<String> selectedDaysAL = new ArrayList<>();
         for(int i = 0; i < fragIdCount - 1; i++){
@@ -453,6 +457,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW2.dayUnselectedToFrag(days);
+                            doW2.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;
@@ -462,6 +467,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW3.dayUnselectedToFrag(days);
+                            doW3.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;
@@ -471,6 +477,8 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW4.dayUnselectedToFrag(days);
+                            doW4.setToNull();
+
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;
@@ -480,6 +488,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW5.dayUnselectedToFrag(days);
+                            doW5.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;
@@ -489,6 +498,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW6.dayUnselectedToFrag(days);
+                            doW6.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;
@@ -498,6 +508,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         for(String days : removeList){
                             dayUnselectedFromFrag(days, fragString);
                             doW7.dayUnselectedToFrag(days);
+                            doW7.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
                         --fragIdCount;

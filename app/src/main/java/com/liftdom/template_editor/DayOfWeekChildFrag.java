@@ -77,6 +77,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     public interface onDaySelectedListener{
         public void daySelectedFromFrag(String doW, String tag);
         public void dayUnselectedFromFrag(String doW, String tag);
+
     }
 
 
@@ -87,6 +88,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     public void dayUnselectedToFrag(String doW){
         setGreyUnChecked(doW);
     }
+
 
     public ArrayList<String> getSelectedDays(){
         ArrayList<String> selectedDays = new ArrayList<>();
@@ -505,6 +507,50 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             sunToggle.setBackgroundColor(Color.parseColor("#000000"));
             sunToggle.setTextColor(Color.parseColor("#FFFFFF"));
         }
+    }
+
+    public void setToNull(){
+        //monToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //monToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        monToggle.setChecked(false);
+        isMon = null;
+        ////mCallback.dayUnselectedFromFrag("Monday", getTag());
+//
+        //tuesToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //tuesToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isTues = null;
+        tuesToggle.setChecked(false);
+        ////mCallback.dayUnselectedFromFrag("Tuesday", getTag());
+//
+        //wedToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //wedToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isWed = null;
+        wedToggle.setChecked(false);
+        ////mCallback.dayUnselectedFromFrag("Wednesday", getTag());
+//
+        //thurToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //thurToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isThur = null;
+        thurToggle.setChecked(false);
+        ////mCallback.dayUnselectedFromFrag("Thursday", getTag());
+//
+        //friToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //friToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isFri = null;
+        friToggle.setChecked(false);
+        ////mCallback.dayUnselectedFromFrag("Friday", getTag());
+//
+        //satToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //satToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isSat = null;
+        satToggle.setChecked(false);
+        ////mCallback.dayUnselectedFromFrag("Saturday", getTag());
+//
+        //sunToggle.setBackgroundColor(Color.parseColor("#000000"));
+        //sunToggle.setTextColor(Color.parseColor("#FFFFFF"));
+        isSun = null;
+        sunToggle.setChecked(false);
+        //mCallback.dayUnselectedFromFrag("Sunday", getTag());
     }
 
 
