@@ -129,7 +129,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     public void onPause(){
         super.onPause();
 
-        if(!callback.getExerciseValue().equals("Click to add exercise")) {
+        if(!callback.getExerciseValue().equals("Click to add exercise") && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
             String parentSpinnerValue = callback.getExerciseValue();
             String doWSelected = callback.getDoWValue();
             Boolean isChecked = callback.getCheckBoxValue();
