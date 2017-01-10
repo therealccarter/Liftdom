@@ -91,6 +91,21 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         }
     }
 
+    public ArrayList<String> getSelectedDaysOtherThan(String tag){
+        ArrayList<String> selectedDaysOtherThan = new ArrayList<>();
+
+        for(int i = 0; i < fragIdCount; i++){
+            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
+                ArrayList<String> getSelectedDays = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
+                for(String day : getSelectedDays){
+                    selectedDaysOtherThan.add(day);
+                }
+            }
+        }
+
+        return selectedDaysOtherThan;
+    }
+
     public void setUnChecked(String doW, String tag){
 
     }
@@ -295,6 +310,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
                             if(fragIdCount == 1){
                                 doW1.isEdit = true;
+                                doW1.isFirstTime = true;
                                 doW1.daysArray = dayStringArray.clone();
                                 doW1.selectedDaysReference = selectedTemplateDayValue;
                                 doW1.templateName = templateName;
@@ -303,6 +319,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 2){
 
                                 doW2.isEdit = true;
+                                doW2.isFirstTime = true;
                                 doW2.daysArray = dayStringArray.clone();
                                 doW2.selectedDaysReference = selectedTemplateDayValue;
                                 doW2.templateName = templateName;
@@ -311,6 +328,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 3){
 
                                 doW3.isEdit = true;
+                                doW3.isFirstTime = true;
                                 doW3.daysArray = dayStringArray.clone();
                                 doW3.selectedDaysReference = selectedTemplateDayValue;
                                 doW3.templateName = templateName;
@@ -319,6 +337,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 4){
 
                                 doW4.isEdit = true;
+                                doW4.isFirstTime = true;
                                 doW4.daysArray = dayStringArray.clone();
                                 doW4.selectedDaysReference = selectedTemplateDayValue;
                                 doW4.templateName = templateName;
@@ -327,6 +346,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 5){
 
                                 doW5.isEdit = true;
+                                doW5.isFirstTime = true;
                                 doW5.daysArray = dayStringArray.clone();
                                 doW5.selectedDaysReference = selectedTemplateDayValue;
                                 doW5.templateName = templateName;
@@ -335,6 +355,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 6){
 
                                 doW6.isEdit = true;
+                                doW6.isFirstTime = true;
                                 doW6.daysArray = dayStringArray.clone();
                                 doW6.selectedDaysReference = selectedTemplateDayValue;
                                 doW6.templateName = templateName;
@@ -343,6 +364,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             }else if(fragIdCount == 7){
 
                                 doW7.isEdit = true;
+                                doW7.isFirstTime = true;
                                 doW7.daysArray = dayStringArray.clone();
                                 doW7.selectedDaysReference = selectedTemplateDayValue;
                                 doW7.templateName = templateName;

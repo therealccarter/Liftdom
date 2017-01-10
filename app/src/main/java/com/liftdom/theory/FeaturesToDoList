@@ -30,7 +30,7 @@ UPCOMING FEATURES TO DO:
     * PPL
     * Ice Cream Fitness
     * PHAT
-* TemplateEditor - drop sets, to failure, body weight, etc.
+**DONE** TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
     * How would we do this?

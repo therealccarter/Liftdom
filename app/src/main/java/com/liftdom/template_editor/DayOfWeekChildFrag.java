@@ -25,6 +25,8 @@ import com.liftdom.liftdom.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback{
@@ -32,7 +34,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     //private OnFragmentInteractionListener mListener;
 
-
+    boolean isFirstTime = false;
 
     int fragIdCount1 = 0;
 
@@ -77,7 +79,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     public interface onDaySelectedListener{
         public void daySelectedFromFrag(String doW, String tag);
         public void dayUnselectedFromFrag(String doW, String tag);
-
+        public ArrayList<String> getSelectedDaysOtherThan(String tag);
     }
 
 
@@ -92,26 +94,30 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     public ArrayList<String> getSelectedDays(){
         ArrayList<String> selectedDays = new ArrayList<>();
-        if(monToggle.isChecked()){
-            selectedDays.add("Monday");
-        }
-        if(tuesToggle.isChecked()){
-            selectedDays.add("Tuesday");
-        }
-        if(wedToggle.isChecked()){
-            selectedDays.add("Wednesday");
-        }
-        if(thurToggle.isChecked()){
-            selectedDays.add("Thursday");
-        }
-        if(friToggle.isChecked()){
-            selectedDays.add("Friday");
-        }
-        if(satToggle.isChecked()){
-            selectedDays.add("Saturday");
-        }
-        if(sunToggle.isChecked()){
-            selectedDays.add("Sunday");
+
+        if(monToggle != null && tuesToggle != null && wedToggle != null && thurToggle != null
+                && friToggle != null && satToggle != null && sunToggle != null){
+            if(monToggle.isChecked()){
+                selectedDays.add("Monday");
+            }
+            if(tuesToggle.isChecked()){
+                selectedDays.add("Tuesday");
+            }
+            if(wedToggle.isChecked()){
+                selectedDays.add("Wednesday");
+            }
+            if(thurToggle.isChecked()){
+                selectedDays.add("Thursday");
+            }
+            if(friToggle.isChecked()){
+                selectedDays.add("Friday");
+            }
+            if(satToggle.isChecked()){
+                selectedDays.add("Saturday");
+            }
+            if(sunToggle.isChecked()){
+                selectedDays.add("Sunday");
+            }
         }
 
         return selectedDays;
@@ -275,6 +281,35 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             }
         });
 
+        if(isEdit && isFirstTime) {
+            for (String day : daysArray) {
+                if (day.equals("Monday")) {
+                    monToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Monday", getTag());
+                } else if (day.equals("Tuesday")) {
+                    tuesToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Tuesday", getTag());
+                } else if (day.equals("Wednesday")) {
+                    wedToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Wednesday", getTag());
+                } else if (day.equals("Thursday")) {
+                    thurToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Thursday", getTag());
+                } else if (day.equals("Friday")) {
+                    friToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Friday", getTag());
+                } else if (day.equals("Saturday")) {
+                    satToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Saturday", getTag());
+                } else if (day.equals("Sunday")) {
+                    sunToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Sunday", getTag());
+                }
+            }
+
+
+        }
+
         if(!isEdit){
             ++fragIdCount1;
             String fragString1 = Integer.toString(fragIdCount1);
@@ -286,6 +321,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
         return view;
     }
+
+
 
     @Override
     public void onStart() {
@@ -342,29 +379,36 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
         //}
 
 
-        if(isEdit){
-            for(String day : daysArray){
-                if(day.equals("Monday")){
-                    monToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Monday", getTag());
-                }else if(day.equals("Tuesday")){
-                    tuesToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Tuesday", getTag());
-                }else if(day.equals("Wednesday")){
-                    wedToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Wednesday", getTag());
-                }else if(day.equals("Thursday")){
-                    thurToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Thursday", getTag());
-                }else if(day.equals("Friday")){
-                    friToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Friday", getTag());
-                }else if(day.equals("Saturday")){
-                    satToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Saturday", getTag());
-                }else if(day.equals("Sunday")){
-                    sunToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Sunday", getTag());
+        if(isEdit && isFirstTime){
+            //for(String day : daysArray){
+            //    if(day.equals("Monday")){
+            //        monToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Monday", getTag());
+            //    }else if(day.equals("Tuesday")){
+            //        tuesToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Tuesday", getTag());
+            //    }else if(day.equals("Wednesday")){
+            //        wedToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Wednesday", getTag());
+            //    }else if(day.equals("Thursday")){
+            //        thurToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Thursday", getTag());
+            //    }else if(day.equals("Friday")){
+            //        friToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Friday", getTag());
+            //    }else if(day.equals("Saturday")){
+            //        satToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Saturday", getTag());
+            //    }else if(day.equals("Sunday")){
+            //        sunToggle.setChecked(true);
+            //        mCallback.daySelectedFromFrag("Sunday", getTag());
+            //    }
+            //}
+
+            if(isFirstTime){
+                ArrayList<String> selectedDaysOtherThan = mCallback.getSelectedDaysOtherThan(getTag());
+                for(String days : selectedDaysOtherThan){
+                    setGreyChecked(days);
                 }
             }
 
@@ -407,6 +451,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     }
 
+
+
     boolean isExerciseName(String input) {
 
         boolean isExercise = true;
@@ -447,33 +493,47 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     private void setGreyChecked(String doW){
         if(doW.equals("Monday")){
-            monToggle.setEnabled(false);
-            monToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            monToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(monToggle != null){
+                monToggle.setEnabled(false);
+                monToggle.setBackgroundColor(Color.parseColor("#707070"));
+                monToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Tuesday")){
-            tuesToggle.setEnabled(false);
-            tuesToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            tuesToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(tuesToggle != null){
+                tuesToggle.setEnabled(false);
+                tuesToggle.setBackgroundColor(Color.parseColor("#707070"));
+                tuesToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Wednesday")){
-            wedToggle.setEnabled(false);
-            wedToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            wedToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(wedToggle != null){
+                wedToggle.setEnabled(false);
+                wedToggle.setBackgroundColor(Color.parseColor("#707070"));
+                wedToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Thursday")){
-            thurToggle.setEnabled(false);
-            thurToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            thurToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(thurToggle != null){
+                thurToggle.setEnabled(false);
+                thurToggle.setBackgroundColor(Color.parseColor("#707070"));
+                thurToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Friday")){
-            friToggle.setEnabled(false);
-            friToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            friToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(friToggle != null){
+                friToggle.setEnabled(false);
+                friToggle.setBackgroundColor(Color.parseColor("#707070"));
+                friToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Saturday")){
-            satToggle.setEnabled(false);
-            satToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            satToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(satToggle != null){
+                satToggle.setEnabled(false);
+                satToggle.setBackgroundColor(Color.parseColor("#707070"));
+                satToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }else if(doW.equals("Sunday")){
-            sunToggle.setEnabled(false);
-            sunToggle.setBackgroundColor(Color.parseColor("#9C9C9C"));
-            sunToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            if(sunToggle != null){
+                sunToggle.setEnabled(false);
+                sunToggle.setBackgroundColor(Color.parseColor("#707070"));
+                sunToggle.setTextColor(Color.parseColor("#E8E8E8"));
+            }
         }
     }
 
@@ -566,5 +626,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        isFirstTime = false;
     }
 }

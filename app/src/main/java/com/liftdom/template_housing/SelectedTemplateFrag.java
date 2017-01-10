@@ -29,6 +29,7 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -54,6 +55,11 @@ public class SelectedTemplateFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    ArrayList<String> daysArrayList = new ArrayList<>();
+
+    String[] daysArray = new String[7];
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +67,11 @@ public class SelectedTemplateFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_selected_template, container, false);
 
         ButterKnife.bind(this, view);
+
+
+        for(int i = 0; i < 7; i++){
+            daysArray[i] = "false";
+        }
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -82,16 +93,41 @@ public class SelectedTemplateFrag extends Fragment {
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         String daysOfTheWeek = dataSnapshot1.getKey();
 
-                        FragmentManager fragmentManager = getChildFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager
-                                .beginTransaction();
-                        HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                        housingDoWFrag.dOWString = daysOfTheWeek;
-                        housingDoWFrag.templateName = templateName;
-                        fragmentTransaction.add(R.id.templateListedView,
-                                housingDoWFrag);
-                        fragmentTransaction.commitAllowingStateLoss();
+                        String delims = "[_]";
+
+                        String[] dayArray = daysOfTheWeek.split(delims);
+
+                        if(dayArray[0].equals("Monday")){
+                            daysArray[0] = daysOfTheWeek;
+                        } else if(dayArray[0].equals("Tuesday")){
+                            daysArray[1] = daysOfTheWeek;
+                        }else if(dayArray[0].equals("Wednesday")){
+                            daysArray[2] = daysOfTheWeek;
+                        }else if(dayArray[0].equals("Thursday")){
+                            daysArray[3] = daysOfTheWeek;
+                        }else if(dayArray[0].equals("Friday")){
+                            daysArray[4] = daysOfTheWeek;
+                        }else if(dayArray[0].equals("Saturday")){
+                            daysArray[5] = daysOfTheWeek;
+                        }else if(dayArray[0].equals("Sunday")){
+                            daysArray[6] = daysOfTheWeek;
+                        }
                     }
+
+                    for(int i = 0; i < 7; i++){
+                        if(!daysArray[i].equals("false")){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                            housingDoWFrag.dOWString = daysArray[i];
+                            housingDoWFrag.templateName = templateName;
+                            fragmentTransaction.add(R.id.templateListedView,
+                                    housingDoWFrag);
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
+                    }
+
                 }
 
                 @Override

@@ -1,16 +1,18 @@
 
+==============================================================================
+================================== PIPELINE ==================================
+==============================================================================
 
-
-======================================================================================================
-================================== CURRENT BUG/FIX LIST ===================================================
-======================================================================================================
-
+=================================================
+============== CURRENT BUG/FIX LIST =============
+=================================================
 
 *unknown* WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 
 save instance of workout assistor (if same day, and if workout hasn't already been finished)
 
 savedInstanceState check for DayOfWeekFrag (adds exercises on pause? or on start)
+
 
 ================================== DEMO: 12/18/16 ===================================================
 error on create account without inputting information (null check)
@@ -26,10 +28,6 @@ adding a shit ton of exercises and set-schemes results in weird shit
 User cannot physically see all the input fields in the create account process (because it's vertical)
 
 Selected template shows days of the week out of order
-
-In template editor: days need to grey out on select/unselect
-
-Template editor doubling set schemes for some reason
 ======================
 
 
