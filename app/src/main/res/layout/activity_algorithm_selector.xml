@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_algorithm_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.liftdom.template_editor.AlgorithmSelectorActivity"
+        android:background="@color/backgroundgrey1"
+>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/algorithmLayout"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/grey"
+    >
+        <CheckBox 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content"
+                android:text="@string/applyAlgorithm"
+                android:id="@+id/applyAlgo"
+        />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp"
+                
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/every"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/setsWeeksEditText"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weeks"
+                    android:textColor="@color/black"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/increaseSets"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/setsIncreaseEditText"
+                    android:inputType="number"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp"
+        >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/every"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/repsWeeksEditText"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weeks"
+                    android:textColor="@color/black"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/increaseReps"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/repsIncreaseEditText"
+                    android:inputType="number"
+            />
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+        >
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/every"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/weightsWeeksEditText"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weeks"
+                    android:textColor="@color/black"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/increaseWeight"
+                    android:textColor="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_"
+                    android:id="@+id/weightsIncreaseEditText"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pounds"
+                    android:textColor="@color/black"
+            />
+
+
+
+        </LinearLayout>
+
+
+
+        <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/algoLooper"
+                android:textColor="@color/black"
+                android:id="@+id/algorithmLooper"
+        />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cancelButton"
+                    android:background="@color/darkgrey"
+                    android:text="@string/cancel"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="40dp"
+            />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveButton"
+                android:background="@color/confirmgreen"
+                android:text="@string/save"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="-50dp"
+        />
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

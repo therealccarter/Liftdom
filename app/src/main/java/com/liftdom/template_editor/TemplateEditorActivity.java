@@ -64,14 +64,8 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     @BindView(R.id.removeDay) Button removeDay;
     @BindView(R.id.saveButton) Button onSave;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
-    @BindView(R.id.applyAlgorithmCheckbox) CheckBox applyAlgorithmCheckbox;
-    @BindView(R.id.algorithmLayout) LinearLayout algorithmLayout;
-    @BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
-    @BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
-    @BindView(R.id.repsWeeksEditText) EditText repsWeeksEditText;
-    @BindView(R.id.repsIncreaseEditText) EditText repsIncreasedEditText;
-    @BindView(R.id.weightsWeeksEditText) EditText weightsWeeksEditText;
-    @BindView(R.id.weightsIncreaseEditText) EditText  weightsIncreasedEditText;
+    //@BindView(R.id.applyAlgorithmCheckbox) CheckBox applyAlgorithmCheckbox;
+    @BindView(R.id.algoButton) Button algoButton;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
@@ -546,16 +540,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
             }
         });
 
-        applyAlgorithmCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    algorithmLayout.setVisibility(View.VISIBLE);
-                    applyAlgorithmCheckbox.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                }else{
-                    algorithmLayout.setVisibility(View.GONE);
-                    applyAlgorithmCheckbox.setBackgroundColor(Color.parseColor("#00000000"));
-                }
+        algoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -564,27 +552,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
 
                 boolean checkBool = activeTemplateCheckbox.isChecked();
-                boolean algBool = applyAlgorithmCheckbox.isChecked();
+                boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
 
-                ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
+                //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
 
-                if(algBool){
-                    ArrayList<Integer> setsAL = new ArrayList<>();
-                    setsAL.add(Integer.parseInt(setsWeeksEditText.getText().toString()));
-                    setsAL.add(Integer.parseInt(setsIncreasedEditText.getText().toString()));
-
-                    ArrayList<Integer> repsAL = new ArrayList<>();
-                    repsAL.add(Integer.parseInt(repsWeeksEditText.getText().toString()));
-                    repsAL.add(Integer.parseInt(repsIncreasedEditText.getText().toString()));
-
-                    ArrayList<Integer> weightsAL = new ArrayList<>();
-                    weightsAL.add(Integer.parseInt(weightsWeeksEditText.getText().toString()));
-                    weightsAL.add(Integer.parseInt(weightsIncreasedEditText.getText().toString()));
-
-                    algorithmMasterList.add(setsAL);
-                    algorithmMasterList.add(repsAL);
-                    algorithmMasterList.add(weightsAL);
-                }
 
                 if(getIntent().getExtras().getString("isEdit") != null) {
                     if(getIntent().getExtras().getString("isEdit").equals("yes")) {
@@ -593,14 +564,14 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         intent.putExtra("templateName", templateName);
                         intent.putExtra("isActiveTemplate", checkBool);
                         intent.putExtra("isAlgorithm", algBool);
-                        EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
+                        //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                         startActivity(intent);
                     }
                 }else{
                     intent.putExtra("isEdit", "no");
                     intent.putExtra("isActiveTemplate", checkBool);
                     intent.putExtra("isAlgorithm", algBool);
-                    EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
+                    //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                     startActivity(intent);
                 }
 
@@ -608,6 +579,20 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(requestCode == 4)
+        {
+            CharSequence toastText = "(+) Algorithm Added";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+            toast.show();
+        }
     }
 
     // [START on_start_add_listener]

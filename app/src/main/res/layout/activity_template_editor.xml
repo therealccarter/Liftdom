@@ -156,188 +156,28 @@
                         android:id="@+id/activeTemplateCheckbox"
                 />
 
-                <CheckBox
+
+                <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/applyAlgorithm"
+                        android:id="@+id/algoButton"
+                        android:background="@color/black"
+                        android:text="@string/templateAlgorithm"
+                        android:textSize="18sp"
                         android:textColor="@color/liftrGold1"
-                        android:id="@+id/applyAlgorithmCheckbox"
+                        android:gravity="start|center_vertical"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="start"
+                        android:layout_marginEnd="150dp"
+                        android:layout_marginStart="7dp"
                 />
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/algorithmLayout"
-                    android:orientation="vertical"
-                    android:background="@color/white"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:visibility="gone"
-            >
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginStart="10dp"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/every"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/setsWeeksEditText"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weeks"
-                            android:textColor="@color/black"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/increaseSets"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/setsIncreaseEditText"
-                            android:inputType="number"
-                    />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginStart="10dp"
-                >
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/every"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/repsWeeksEditText"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weeks"
-                            android:textColor="@color/black"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/increaseReps"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/repsIncreaseEditText"
-                            android:inputType="number"
-                    />
-
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_marginStart="10dp"
-                >
-
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/every"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/weightsWeeksEditText"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weeks"
-                            android:textColor="@color/black"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/increaseWeight"
-                            android:textColor="@color/black"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="_"
-                            android:id="@+id/weightsIncreaseEditText"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pounds"
-                            android:textColor="@color/black"
-                    />
-
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
-
-
 
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/saveButton"
                     android:background="@color/confirmgreen"
-                    android:text="@string/saveAs"
+                    android:text="@string/save"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:padding="10dp"

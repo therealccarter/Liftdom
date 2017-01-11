@@ -255,6 +255,10 @@
     <string name="extraOptions">Extra options:</string>
     <string name="liftr">LIFTr</string>
     <string name="applyAlgorithm">Apply algorithm to checked exercises?</string>
+    <string name="templateAlgorithm">Template Algorithm</string>
+    <string name="algoLooper">Loop your algorithm (takes your highest week value and resets Sets/Reps while
+        keeping the weight increases)(Highly suggested)
+    </string>
     <string name="every">Every\u0020</string>
     <string name="weeks">week(s),</string>
     <string name="increaseSets">\u0020 increase sets by</string>
@@ -264,11 +268,36 @@
     <string name="bodyWeightOptionButton">Bodyweight</string>
     <string name="toFailureOptionButton">To Failure</string>
     <string name="defaultRepsOptionButton">Numeric Reps</string>
-    <string name="defaultWeightOptionText">Go back to <b><i>weight</i></b> in lbs/kgs (default)</string>
-    <string name="bodyWeightOptionText">Change <b><i>weight</i></b> to <b><i>bodyweight.</i></b></string>
-    <string name="toFailureOptionText">Instead of a number as <b><i>reps</i></b>, go
-        <b><i>to failure. (as many reps as poosible)</i></b></string>
-    <string name="defaultRepsOptionText">Go back to <b><i>reps</i></b> in number form (default)</string>
+    <string name="defaultWeightOptionText">Go back to
+        <b>
+            <i>weight</i>
+        </b>
+        in lbs/kgs (default)
+    </string>
+    <string name="bodyWeightOptionText">Change
+        <b>
+            <i>weight</i>
+        </b>
+        to
+        <b>
+            <i>bodyweight.</i>
+        </b>
+    </string>
+    <string name="toFailureOptionText">Instead of a number as
+        <b>
+            <i>reps</i>
+        </b>
+        , go
+        <b>
+            <i>to failure. (as many reps as poosible)</i>
+        </b>
+    </string>
+    <string name="defaultRepsOptionText">Go back to
+        <b>
+            <i>reps</i>
+        </b>
+        in number form (default)
+    </string>
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 

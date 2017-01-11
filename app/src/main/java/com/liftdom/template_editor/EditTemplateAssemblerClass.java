@@ -31,6 +31,11 @@ class EditTemplateAssemblerClass {
 
     ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
 
+    String[] algorithmDataList = new String[7];
+
+    Boolean isAlgoLooper = true;
+    Boolean isApplyAlgo = false;
+
     Boolean isOnSaveClick = false;
 
     // DoW Setter

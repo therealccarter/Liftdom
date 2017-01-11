@@ -267,16 +267,14 @@ public class TemplateSavedActivity extends AppCompatActivity {
             }
 
             if(algBool){
-                int count = 0;
-                for(ArrayList<Integer> setsRepsWeightsAlgo : algorithmMasterList){
 
-                    for(int value : setsRepsWeightsAlgo){
-                        templateSpecific.child("algorithm").child(Integer.toString(count)).setValue(value);
-                        count++;
-                    }
+                List<String> list = new ArrayList<>();
 
+                for(int i = 0; i < 7; i++){
+                    list.add(EditTemplateAssemblerClass.getInstance().algorithmDataList[i]);
                 }
 
+                templateSpecific.child("algorithm").setValue(list);
             }
 
             EditTemplateAssemblerClass.getInstance().clearAllLists();
