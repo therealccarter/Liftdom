@@ -34,6 +34,9 @@ class EditTemplateAssemblerClass {
     String[] algorithmDataList = new String[7];
 
     Boolean isAlgoLooper = true;
+
+    Boolean isAlgoFirstTime = true;
+
     Boolean isApplyAlgo = false;
 
     Boolean isOnSaveClick = false;

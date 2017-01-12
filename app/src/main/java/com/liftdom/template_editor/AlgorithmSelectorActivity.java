@@ -27,6 +27,16 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.algorithmLooper) CheckBox algorithmLooper;
     @BindView(R.id.applyAlgo) CheckBox applyAlgo;
+    @BindView(R.id.textView1) TextView textView1;
+    @BindView(R.id.textView2) TextView textView2;
+    @BindView(R.id.textView3) TextView textView3;
+    @BindView(R.id.textView4) TextView textView4;
+    @BindView(R.id.textView5) TextView textView5;
+    @BindView(R.id.textView6) TextView textView6;
+    @BindView(R.id.textView7) TextView textView7;
+    @BindView(R.id.textView8) TextView textView8;
+    @BindView(R.id.textView9) TextView textView9;
+    @BindView(R.id.textView10) TextView textView10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +48,48 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        if(EditTemplateAssemblerClass.getInstance().isApplyAlgo){
+        String[] algoDataArray = new String[7];
+
+        algoDataArray = EditTemplateAssemblerClass.getInstance().algorithmDataList;
+
+        for(int i = 0; i < 7; i++){
+            String value = algoDataArray[i];
+            if(i == 0){
+                setsWeeksEditText.setText(value);
+            } else if(i == 1){
+                setsIncreasedEditText.setText(value);
+            } else if(i == 2){
+                repsWeeksEditText.setText(value);
+            } else if(i == 3){
+                repsIncreasedEditText.setText(value);
+            } else if(i == 4){
+                weightsWeeksEditText.setText(value);
+            } else if(i == 5){
+                weightsIncreasedEditText.setText(value);
+            }
+        }
+
+        if(EditTemplateAssemblerClass.getInstance().isApplyAlgo && !EditTemplateAssemblerClass.getInstance()
+                .isAlgoFirstTime){
             setsWeeksEditText.setTextColor(Color.parseColor("#000000"));
             setsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
             repsWeeksEditText.setTextColor(Color.parseColor("#000000"));
             repsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
             weightsWeeksEditText.setTextColor(Color.parseColor("#000000"));
             weightsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
+
+            applyAlgo.setChecked(true);
+
+            textView1.setTextColor(Color.parseColor("#000000"));
+            textView2.setTextColor(Color.parseColor("#000000"));
+            textView3.setTextColor(Color.parseColor("#000000"));
+            textView4.setTextColor(Color.parseColor("#000000"));
+            textView5.setTextColor(Color.parseColor("#000000"));
+            textView6.setTextColor(Color.parseColor("#000000"));
+            textView7.setTextColor(Color.parseColor("#000000"));
+            textView8.setTextColor(Color.parseColor("#000000"));
+            textView9.setTextColor(Color.parseColor("#000000"));
+            textView10.setTextColor(Color.parseColor("#000000"));
 
             setsWeeksEditText.setEnabled(true);
             setsIncreasedEditText.setEnabled(true);
@@ -61,6 +106,18 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             weightsWeeksEditText.setTextColor(Color.parseColor("#E8E8E8"));
             weightsIncreasedEditText.setTextColor(Color.parseColor("#E8E8E8"));
 
+            applyAlgo.setChecked(false);
+
+            textView1.setTextColor(Color.parseColor("#E8E8E8"));
+            textView2.setTextColor(Color.parseColor("#E8E8E8"));
+            textView3.setTextColor(Color.parseColor("#E8E8E8"));
+            textView4.setTextColor(Color.parseColor("#E8E8E8"));
+            textView5.setTextColor(Color.parseColor("#E8E8E8"));
+            textView6.setTextColor(Color.parseColor("#E8E8E8"));
+            textView7.setTextColor(Color.parseColor("#E8E8E8"));
+            textView8.setTextColor(Color.parseColor("#E8E8E8"));
+            textView9.setTextColor(Color.parseColor("#E8E8E8"));
+            textView10.setTextColor(Color.parseColor("#E8E8E8"));
 
             setsWeeksEditText.setEnabled(false);
             setsIncreasedEditText.setEnabled(false);
@@ -70,10 +127,13 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             weightsIncreasedEditText.setEnabled(false);
         }
 
-        if(EditTemplateAssemblerClass.getInstance().isAlgoLooper){
+        if(EditTemplateAssemblerClass.getInstance().isAlgoLooper && !EditTemplateAssemblerClass.getInstance()
+                .isAlgoFirstTime){
             algorithmLooper.setChecked(true);
+            algorithmLooper.setTextColor(Color.parseColor("#000000"));
         }else{
             algorithmLooper.setChecked(false);
+            algorithmLooper.setTextColor(Color.parseColor("#E8E8E8"));
         }
 
         applyAlgo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -82,6 +142,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 if(isChecked){
                     EditTemplateAssemblerClass.getInstance().isApplyAlgo = true;
 
+                    EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
+
 
                     setsWeeksEditText.setTextColor(Color.parseColor("#000000"));
                     setsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
@@ -89,6 +151,19 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     repsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
                     weightsWeeksEditText.setTextColor(Color.parseColor("#000000"));
                     weightsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
+
+                    textView1.setTextColor(Color.parseColor("#000000"));
+                    textView2.setTextColor(Color.parseColor("#000000"));
+                    textView3.setTextColor(Color.parseColor("#000000"));
+                    textView4.setTextColor(Color.parseColor("#000000"));
+                    textView5.setTextColor(Color.parseColor("#000000"));
+                    textView6.setTextColor(Color.parseColor("#000000"));
+                    textView7.setTextColor(Color.parseColor("#000000"));
+                    textView8.setTextColor(Color.parseColor("#000000"));
+                    textView9.setTextColor(Color.parseColor("#000000"));
+                    textView10.setTextColor(Color.parseColor("#000000"));
+
+                    algorithmLooper.setTextColor(Color.parseColor("#000000"));
 
                     setsWeeksEditText.setEnabled(true);
                     setsIncreasedEditText.setEnabled(true);
@@ -108,6 +183,18 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     weightsWeeksEditText.setTextColor(Color.parseColor("#E8E8E8"));
                     weightsIncreasedEditText.setTextColor(Color.parseColor("#E8E8E8"));
 
+                    textView1.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView2.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView3.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView4.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView5.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView6.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView7.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView8.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView9.setTextColor(Color.parseColor("#E8E8E8"));
+                    textView10.setTextColor(Color.parseColor("#E8E8E8"));
+
+                    algorithmLooper.setTextColor(Color.parseColor("#E8E8E8"));
 
                     setsWeeksEditText.setEnabled(false);
                     setsIncreasedEditText.setEnabled(false);
@@ -125,8 +212,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     EditTemplateAssemblerClass.getInstance().isAlgoLooper = true;
+                    algorithmLooper.setTextColor(Color.parseColor("#000000"));
                 }else{
                     EditTemplateAssemblerClass.getInstance().isAlgoLooper = false;
+                    algorithmLooper.setTextColor(Color.parseColor("#E8E8E8"));
                 }
             }
         });
@@ -153,6 +242,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     }
                 }
 
+                EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
+
                 Intent intent = new Intent();
                 setResult(4, intent);
                 finish();
@@ -164,6 +255,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 setResult(1, intent);
+
+                EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
+
                 finish();
             }
         });
@@ -173,6 +267,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
         Intent intent = new Intent();
         setResult(1, intent);
         finish();
@@ -180,6 +275,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
         Intent intent = new Intent();
         setResult(1, intent);
         finish();

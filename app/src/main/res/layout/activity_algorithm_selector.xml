@@ -24,6 +24,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/applyAlgorithm"
                 android:id="@+id/applyAlgo"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:buttonTint="@color/liftrGold1"
         />
 
         <LinearLayout
@@ -37,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/every"
+                    android:id="@+id/textView1"
                     android:textColor="@color/black"
             />
 
@@ -52,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weeks"
+                    android:id="@+id/textView2"
                     android:textColor="@color/black"
             />
 
@@ -60,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/increaseSets"
                     android:textColor="@color/black"
+                    android:id="@+id/textView3"
             />
 
             <EditText
@@ -76,7 +82,6 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="10dp"
         >
 
@@ -85,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/every"
                     android:textColor="@color/black"
+                    android:id="@+id/textView4"
             />
 
             <EditText
@@ -100,6 +106,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/weeks"
                     android:textColor="@color/black"
+                    android:id="@+id/textView5"
+
             />
 
             <TextView
@@ -107,6 +115,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/increaseReps"
                     android:textColor="@color/black"
+                    android:id="@+id/textView6"
+
             />
 
             <EditText
@@ -136,6 +146,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/every"
                     android:textColor="@color/black"
+                    android:id="@+id/textView7"
+
             />
 
             <EditText
@@ -151,6 +163,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/weeks"
                     android:textColor="@color/black"
+                    android:id="@+id/textView8"
+
             />
 
             <TextView
@@ -158,6 +172,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/increaseWeight"
                     android:textColor="@color/black"
+                    android:id="@+id/textView9"
+
             />
 
             <EditText
@@ -173,6 +189,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pounds"
                     android:textColor="@color/black"
+                    android:id="@+id/textView10"
+
             />
 
 
@@ -187,6 +205,7 @@
                 android:text="@string/algoLooper"
                 android:textColor="@color/black"
                 android:id="@+id/algorithmLooper"
+                android:buttonTint="@color/liftrGold1"
         />
 
             <Button
