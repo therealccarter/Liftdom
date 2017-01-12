@@ -189,11 +189,13 @@
     <string name="title_activity_discipline_list">disciplineList</string>
     <string name="ppl">P/P/L</string>
     <string name="example">Example Text</string>
+    <string name="algHint">(Hint: Remember to check the checkbox of exercises you want this algorithm to apply
+        to.)</string>
 
     <string name="title_activity_under_construction">underConstruction</string>
     <string name="title_activity_bodybuilding_programs">bodybuildingPrograms</string>
     <string name="title_activity_pushpulldetails">pushpulldetails</string>
-    <string name="customizeYour">Customize Your Workout Template</string>
+    <string name="customizeYour">Build Your Workout Template:</string>
 
     <string name="x">x</string>
     <string name="at">\@</string>
@@ -349,7 +351,10 @@
     <!-- save dialog <string name=""></string> -->
     <string name="saveTemplateAs">SAVE TEMPLATE AS...</string>
     <string name="templateNameHint">TEMPLATE NAME</string>
-    <string name="formatAdvice">Format: SETS x REPS @ WEIGHT</string>
+    <string name="format">Format:</string>
+    <string name="formatSRW">SETS x REPS @ WEIGHT</string>
+    <string name="formatAlg">Algorithm\n Checkbox</string>
+    <string name="formatExtra">Extra\n Options</string>
 
     <!-- Template Housing -->
     <string name="workoutTemplating">Workout Templating</string>

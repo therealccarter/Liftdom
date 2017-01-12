@@ -269,12 +269,18 @@ public class TemplateSavedActivity extends AppCompatActivity {
             if(algBool){
 
                 List<String> list = new ArrayList<>();
+                List<String> exAlgList = new ArrayList<>();
 
                 for(int i = 0; i < 7; i++){
                     list.add(EditTemplateAssemblerClass.getInstance().algorithmDataList[i]);
                 }
 
+                for(String exercise : EditTemplateAssemblerClass.getInstance().algorithmExercisesAL){
+                    exAlgList.add(exercise);
+                }
+
                 templateSpecific.child("algorithm").setValue(list);
+                templateSpecific.child("algorithmExercises").setValue(exAlgList);
             }
 
             EditTemplateAssemblerClass.getInstance().clearAllLists();

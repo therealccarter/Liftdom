@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context="com.liftdom.template_editor.AlgorithmSelectorActivity"
-        android:background="@color/backgroundgrey1"
+        android:background="@color/grey"
 >
 
     <LinearLayout
@@ -15,10 +15,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/algorithmLayout"
             android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@color/grey"
     >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@color/backgroundgrey1"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/algHint"
+        />
+
         <CheckBox 
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
@@ -28,6 +39,7 @@
                 android:padding="5dp"
                 android:buttonTint="@color/liftrGold1"
         />
+
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -210,7 +222,7 @@
 
             <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:id="@+id/cancelButton"
                     android:background="@color/darkgrey"
                     android:text="@string/cancel"
@@ -223,7 +235,7 @@
 
         <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:id="@+id/saveButton"
                 android:background="@color/confirmgreen"
                 android:text="@string/save"
@@ -231,8 +243,10 @@
                 android:textColor="@color/white"
                 android:padding="10dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="-50dp"
+                android:layout_marginTop="-40dp"
+
         />
+
 
 
 

@@ -585,8 +585,8 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 3
-        if(requestCode == 4)
+
+        if(resultCode == 4)
         {
             CharSequence toastText = "(+) Algorithm Added";
             int duration = Toast.LENGTH_SHORT;
