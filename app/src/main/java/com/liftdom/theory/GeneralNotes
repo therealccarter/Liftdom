@@ -5,32 +5,19 @@ Lift Hard, Live Easy?
 
 Sharing service/incentive service to increase reps or level
 
+Build it up into something greater than it really is, even if it's legitimately great.
+See smolov rogue app page
+
 Create content early to make it look like it has users
 
 Badges to earn? Plan more game-ifying.
 
+TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
+TODO: Also, check up on that pesky bug in the workout assistor.
 
-================================== DEMO: 1/1/2017 ===================================================
-Check out scroll lock on user creation
-**DONE** Pop up after creation account just to be sure
-make bodyweight and shit more obvious
-make input fields "next"-able
-**DONE** active template on create template does not set it
-need to add a confirm for active template (toasts?)
-back going to template editor from main activity (deletes template)
-main activity froze?
-re-order on the view saved template list to be chronological
-**DONE** add delete confirmation
-add call-back for real time day "greying"
-**DONE** weights not being added on edit
+Algorithm design:
 
-**DONE** create template crash:
-**DONE** Activity com.liftdom.template_editor.ExercisePickerActivity has leaked window com.android.internal.policy
+Keep the original algorithm and applied exercises.
 
-============================= DEMO: 1/3/2017 =================================================
-Make set scheme option selector more obvious and user friendly
-set scheme option selector reactive? so you don't click normal reps and erase shit?
-Edit template still doubling
-No username
-Back on exercise selector crashes
-
+Then in algorithm.child(uid), keep a dynamic log of the exercises to increment.
+We'd also somehow keep track of the time increments and shit

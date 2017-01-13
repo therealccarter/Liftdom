@@ -290,7 +290,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                 journalAndSave.setVisibility(View.VISIBLE);
                                             }
                                         }
-                                        if (isToday(activeTemplateDayValue) == false) {
+                                        if (!isToday(activeTemplateDayValue)) {
                                             FragmentManager fragmentManager = getSupportFragmentManager();
                                             FragmentTransaction fragmentTransaction = fragmentManager
                                                     .beginTransaction();
@@ -357,16 +357,18 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     boolean isToday(String dayString){
         boolean today = false;
         if(dayString != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-            Date d = new Date();
-            String currentDoW = sdf.format(d);
+            if(!dayString.equals("algorithm") || !dayString.equals("algorithmExercises")){
+                SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                Date d = new Date();
+                String currentDoW = sdf.format(d);
 
-            String delims = "[_]";
-            String[] tokens = dayString.split(delims);
+                String delims = "[_]";
+                String[] tokens = dayString.split(delims);
 
-            for (String day : tokens) {
-                if (day.equals(currentDoW)) {
-                    today = true;
+                for (String day : tokens) {
+                    if (day.equals(currentDoW)) {
+                        today = true;
+                    }
                 }
             }
         }

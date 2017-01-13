@@ -93,24 +93,28 @@ public class SelectedTemplateFrag extends Fragment {
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         String daysOfTheWeek = dataSnapshot1.getKey();
 
-                        String delims = "[_]";
+                        if(!daysOfTheWeek.equals("algorithm") || !daysOfTheWeek.equals("algorithmExercises")){
 
-                        String[] dayArray = daysOfTheWeek.split(delims);
+                            String delims = "[_]";
 
-                        if(dayArray[0].equals("Monday")){
-                            daysArray[0] = daysOfTheWeek;
-                        } else if(dayArray[0].equals("Tuesday")){
-                            daysArray[1] = daysOfTheWeek;
-                        }else if(dayArray[0].equals("Wednesday")){
-                            daysArray[2] = daysOfTheWeek;
-                        }else if(dayArray[0].equals("Thursday")){
-                            daysArray[3] = daysOfTheWeek;
-                        }else if(dayArray[0].equals("Friday")){
-                            daysArray[4] = daysOfTheWeek;
-                        }else if(dayArray[0].equals("Saturday")){
-                            daysArray[5] = daysOfTheWeek;
-                        }else if(dayArray[0].equals("Sunday")){
-                            daysArray[6] = daysOfTheWeek;
+                            String[] dayArray = daysOfTheWeek.split(delims);
+
+                            if(dayArray[0].equals("Monday")){
+                                daysArray[0] = daysOfTheWeek;
+                            } else if(dayArray[0].equals("Tuesday")){
+                                daysArray[1] = daysOfTheWeek;
+                            }else if(dayArray[0].equals("Wednesday")){
+                                daysArray[2] = daysOfTheWeek;
+                            }else if(dayArray[0].equals("Thursday")){
+                                daysArray[3] = daysOfTheWeek;
+                            }else if(dayArray[0].equals("Friday")){
+                                daysArray[4] = daysOfTheWeek;
+                            }else if(dayArray[0].equals("Saturday")){
+                                daysArray[5] = daysOfTheWeek;
+                            }else if(dayArray[0].equals("Sunday")){
+                                daysArray[6] = daysOfTheWeek;
+                            }
+
                         }
                     }
 
