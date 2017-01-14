@@ -290,18 +290,18 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                 journalAndSave.setVisibility(View.VISIBLE);
                                             }
                                         }
-                                        if (!isToday(activeTemplateDayValue)) {
-                                            FragmentManager fragmentManager = getSupportFragmentManager();
-                                            FragmentTransaction fragmentTransaction = fragmentManager
-                                                    .beginTransaction();
-                                            RestDayFrag exerciseNameFrag = new RestDayFrag();
-                                            fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                    exerciseNameFrag);
-                                            //TODO: Add activity life check
-                                            if(!isFinishing()) {
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }
-                                        }
+                                        //if (!isToday(activeTemplateDayValue)) {
+                                        //    FragmentManager fragmentManager = getSupportFragmentManager();
+                                        //    FragmentTransaction fragmentTransaction = fragmentManager
+                                        //            .beginTransaction();
+                                        //    RestDayFrag exerciseNameFrag = new RestDayFrag();
+                                        //    fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                        //            exerciseNameFrag);
+                                        //    //TODO: Add activity life check
+                                        //    if(!isFinishing()) {
+                                        //        fragmentTransaction.commitAllowingStateLoss();
+                                        //    }
+                                        //}
                                     }
 
                                     @Override
