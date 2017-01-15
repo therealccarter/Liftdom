@@ -422,6 +422,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
                         String snapshotString = daySnapshot.getValue(String.class);
+                        //TODO: What the fuck?
+                        if(!snapshotString.equals("algorithm") || !snapshotString.equals("algorithmExercises"))
 
                         if(isExerciseName(snapshotString)){
                             String fragString1 = Integer.toString(fragIdCount1);

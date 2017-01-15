@@ -10,6 +10,8 @@ See smolov rogue app page
 
 Create content early to make it look like it has users
 
+On account create, open a direct message to me for messages?
+
 Badges to earn? Plan more game-ifying.
 
 TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
@@ -21,3 +23,7 @@ Keep the original algorithm and applied exercises.
 
 Then in algorithm.child(uid), keep a dynamic log of the exercises to increment.
 We'd also somehow keep track of the time increments and shit
+
+The three pillars of Liftdom:
+
+Superior Core Workout Engine        Useful & Attractive Social Media        Fully Functional Forum
