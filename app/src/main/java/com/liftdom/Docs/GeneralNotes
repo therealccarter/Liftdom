@@ -27,3 +27,34 @@ We'd also somehow keep track of the time increments and shit
 The three pillars of Liftdom:
 
 Superior Core Workout Engine        Useful & Attractive Social Media        Fully Functional Forum
+
+Well written articles
+Senior Editor?
+
+Get users to generate content - Remember, goal is for the company to run itself
+User reps as incentive
+
+Add picture, public comment after completing workout
+
+Maybe have workout assistor also be on a slide layout?
+
+grid view of past workouts and achievements in place of, say, insta pics
+
+Be able to create/join groups (1 team leader, you ask for permission. Transfer permissions)
+
+Workout Assitor overhaul:
+Reactive stacked panel view: top is current set, bottom is list view of all the sets/exercises
+Algorithm only advances on w/o completion. That way, the algorithm can be locally generated
+
+Daily tips/motivation
+"Spread the word!"
+Make the whole app feel personalized and exciting and motivating
+
+Checkbox for if you want the workout assistor shortcut in your top app panel/lock screen.
+
+Add bottom navigation to eliminate constant need of nav-drawer.
+
+Other than completed workouts, update feed with
+    "looking for partners"
+    "checking in @ gym in x minutes"
+    "created new public template"
