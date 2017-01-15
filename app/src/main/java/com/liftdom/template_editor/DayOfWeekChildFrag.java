@@ -420,25 +420,22 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             selectedDayRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
                         String snapshotString = daySnapshot.getValue(String.class);
-                        //TODO: What the fuck?
-                        if(!snapshotString.equals("algorithm") || !snapshotString.equals("algorithmExercises"))
+                            if (isExerciseName(snapshotString)) {
+                                String fragString1 = Integer.toString(fragIdCount1);
+                                ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
-                        if(isExerciseName(snapshotString)){
-                            String fragString1 = Integer.toString(fragIdCount1);
-                            ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
-                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                frag1.isEdit = true;
+                                frag1.exerciseName = snapshotString;
+                                frag1.selectedDaysReference = selectedDaysReference;
+                                frag1.templateName = templateName;
 
-                            frag1.isEdit = true;
-                            frag1.exerciseName = snapshotString;
-                            frag1.selectedDaysReference = selectedDaysReference;
-                            frag1.templateName = templateName;
-
-                            fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            ++fragIdCount1;
-                        }
+                                fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+                                fragmentTransaction.commitAllowingStateLoss();
+                                ++fragIdCount1;
+                            }
                     }
                 }
 

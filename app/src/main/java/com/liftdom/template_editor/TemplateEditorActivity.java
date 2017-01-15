@@ -295,6 +295,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             // Thursday_
                             selectedTemplateDayValue = templateSnapshot.getKey();
 
+                            if (!selectedTemplateDayValue.equals("algorithm") && !selectedTemplateDayValue.equals
+                                    ("algorithmExercises")){
+
+
                             String[] dayStringArray = selectedTemplateDayValue.split("_");
 
                             ++fragIdCount;
@@ -302,7 +306,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             String fragString = Integer.toString(fragIdCount);
 
-                            if(fragIdCount == 1){
+                            if (fragIdCount == 1) {
                                 doW1.isEdit = true;
                                 doW1.isFirstTime = true;
                                 doW1.daysArray = dayStringArray.clone();
@@ -310,7 +314,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW1.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 2){
+                            } else if (fragIdCount == 2) {
 
                                 doW2.isEdit = true;
                                 doW2.isFirstTime = true;
@@ -319,7 +323,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW2.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 3){
+                            } else if (fragIdCount == 3) {
 
                                 doW3.isEdit = true;
                                 doW3.isFirstTime = true;
@@ -328,7 +332,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW3.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 4){
+                            } else if (fragIdCount == 4) {
 
                                 doW4.isEdit = true;
                                 doW4.isFirstTime = true;
@@ -337,7 +341,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW4.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 5){
+                            } else if (fragIdCount == 5) {
 
                                 doW5.isEdit = true;
                                 doW5.isFirstTime = true;
@@ -346,7 +350,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW5.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 6){
+                            } else if (fragIdCount == 6) {
 
                                 doW6.isEdit = true;
                                 doW6.isFirstTime = true;
@@ -355,7 +359,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 doW6.templateName = templateName;
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
-                            }else if(fragIdCount == 7){
+                            } else if (fragIdCount == 7) {
 
                                 doW7.isEdit = true;
                                 doW7.isFirstTime = true;
@@ -365,7 +369,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
                                 fragmentTransaction.commitAllowingStateLoss();
                             }
-
+                        }
                         }
                     }
 
