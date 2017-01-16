@@ -3,6 +3,7 @@ package com.liftdom.liftdom;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +40,7 @@ public class SignInTab2 extends Fragment {
     @BindView(R.id.email_create_account_button) Button createAccountButton;
     @BindView(R.id.go_to_main) Button goToMainButton;
     @BindView(R.id.field_username) EditText usernameField;
+    @BindView(R.id.signUpTitle) TextView signUpTitle;
 
 
     // [START declare_auth]
@@ -57,6 +60,10 @@ public class SignInTab2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_in_tab2, container, false);
 
         ButterKnife.bind(this, view);
+
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+        signUpTitle.setTypeface(lobster);
 
 
         // [START initialize_auth]

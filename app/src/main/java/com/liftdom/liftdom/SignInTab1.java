@@ -4,6 +4,7 @@ package com.liftdom.liftdom;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -57,6 +58,7 @@ public class SignInTab1 extends Fragment {
     @BindView(R.id.email_sign_in_button) Button emailSignInButton;
     @BindView(R.id.sign_out_button) Button signOutButton;
     @BindView(R.id.go_to_main) Button goToMainButton;
+    @BindView(R.id.signInTitle) TextView signInTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +68,9 @@ public class SignInTab1 extends Fragment {
 
         ButterKnife.bind(this, view);
         // Views
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+        signInTitle.setTypeface(lobster);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
@@ -136,7 +141,10 @@ public class SignInTab1 extends Fragment {
                 //KeyAccountValuesActivity.getInstance().setEmail(email);
 
 
-                goToMainButton.setVisibility(View.VISIBLE);
+                //goToMainButton.setVisibility(View.VISIBLE);
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
