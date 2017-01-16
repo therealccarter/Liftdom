@@ -94,7 +94,7 @@ public class ExPickerTab1 extends Fragment {
                             ExercisePickerController.getInstance().exName = null;
                             dialog.dismiss();
                         }
-                    }).show();
+                    }).show(); //TODO window leak here
 
             }
         });

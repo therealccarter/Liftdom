@@ -433,6 +433,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                                 frag1.templateName = templateName;
 
                                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+                                // TODO: add isFinishing check
                                 fragmentTransaction.commitAllowingStateLoss();
                                 ++fragIdCount1;
                             }

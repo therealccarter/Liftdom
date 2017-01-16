@@ -150,6 +150,7 @@ public class SignInTab2 extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                //TODO: invalid password
                 final FirebaseUser user = task.getResult().getUser();
 
                 UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()

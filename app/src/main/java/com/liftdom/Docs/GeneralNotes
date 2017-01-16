@@ -15,7 +15,9 @@ On account create, open a direct message to me for messages?
 Badges to earn? Plan more game-ifying.
 
 TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
-TODO: Also, check up on that pesky bug in the workout assistor.
+TODO: Also, check up on that pesky bug in the workout assistor
+
+
 
 Algorithm design:
 

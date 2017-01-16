@@ -128,6 +128,7 @@ public class SelectedTemplateFrag extends Fragment {
                             housingDoWFrag.templateName = templateName;
                             fragmentTransaction.add(R.id.templateListedView,
                                     housingDoWFrag);
+                            //TODO: Activity isFinishing check
                             fragmentTransaction.commitAllowingStateLoss();
                         }
                     }
