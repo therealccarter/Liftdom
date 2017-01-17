@@ -184,8 +184,6 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 }else{
                     EditTemplateAssemblerClass.getInstance().isApplyAlgo = false;
 
-
-
                     setsWeeksEditText.setTextColor(Color.parseColor("#E8E8E8"));
                     setsIncreasedEditText.setTextColor(Color.parseColor("#E8E8E8"));
                     repsWeeksEditText.setTextColor(Color.parseColor("#E8E8E8"));

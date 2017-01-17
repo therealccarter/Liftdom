@@ -2,16 +2,15 @@ package com.liftdom.template_editor;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,10 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import static android.R.attr.data;
 
 public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback{
 
@@ -166,6 +162,23 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
                 Toast toast = Toast.makeText(getActivity(), toastText, duration);
                 toast.show();
+            }
+        });
+
+        algoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    CharSequence toastText = "(+) Added to Algorithm List";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                    toast.show();
+                } else {
+                    CharSequence toastText = "(-) Removed from Algorithm List";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                    toast.show();
+                }
             }
         });
 

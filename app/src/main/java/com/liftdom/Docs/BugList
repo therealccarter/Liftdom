@@ -42,8 +42,6 @@ Responsive password validator (ie, password at least 6 chars)
 
 Remove nav drawer from back stack
 
-Have loop checked by default
-
 add check to see if no exercises are checked
 
 add plate math
@@ -51,8 +49,6 @@ add plate math
 for obvious bodyweight exercises, bw by default
 
 drop keypad down when necessary.
-
-re-check for algo exercises
 
 in selectedTemplate page, click name to edit name directly
 

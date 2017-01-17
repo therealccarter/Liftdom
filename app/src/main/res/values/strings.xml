@@ -270,13 +270,13 @@
     <string name="bodyWeightOptionButton">Bodyweight</string>
     <string name="toFailureOptionButton">To Failure</string>
     <string name="defaultRepsOptionButton">Numeric Reps</string>
-    <string name="defaultWeightOptionText">Go back to
+    <string name="defaultWeightOptionText">Numerical:
         <b>
-            <i>weight</i>
+            <i>Weight</i>
         </b>
         in lbs/kgs (default)
     </string>
-    <string name="bodyWeightOptionText">Change
+    <string name="bodyWeightOptionText">Bodyweight: Change
         <b>
             <i>weight</i>
         </b>
@@ -285,7 +285,7 @@
             <i>bodyweight.</i>
         </b>
     </string>
-    <string name="toFailureOptionText">Instead of a number as
+    <string name="toFailureOptionText">To Failure: Instead of a number as
         <b>
             <i>reps</i>
         </b>
@@ -294,9 +294,9 @@
             <i>to failure. (as many reps as poosible)</i>
         </b>
     </string>
-    <string name="defaultRepsOptionText">Go back to
+    <string name="defaultRepsOptionText">Numerical:
         <b>
-            <i>reps</i>
+            <i>Reps</i>
         </b>
         in number form (default)
     </string>
