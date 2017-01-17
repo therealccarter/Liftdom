@@ -284,6 +284,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
             }
 
             EditTemplateAssemblerClass.getInstance().clearAllLists();
+            EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
 
         }
 

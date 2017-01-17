@@ -38,13 +38,7 @@ No username for chris b.
 
 ================================== DEMO: 1/15/2017 ===================================================
 
-Forgot to add titles on login page
-
 Responsive password validator (ie, password at least 6 chars)
-
-On complete, remember to send intent to main activity
-
-Shouldn't be able to go back to sign in on back pressed
 
 Remove nav drawer from back stack
 
@@ -58,10 +52,6 @@ for obvious bodyweight exercises, bw by default
 
 drop keypad down when necessary.
 
-on back press, confirm if the user wants to discard or save template
-
-if first template, auto set as active template
-
 re-check for algo exercises
 
 in selectedTemplate page, click name to edit name directly
@@ -70,17 +60,14 @@ weird doubling bug
 
 setschemes options only text view on right selects
 
-setschemes options, just grey out the selected one (so user can still see what they've selected)
-
-add day by default
+setschemes options, just grey out the selected one
+(so user can still see what they've selected)
 
 algorithm if bodyweight, just keep increasing
 
 added exercise/set scheme values straight under the template name
 
 add check saying you can't use numbers as title ( test )
-
-it kept algorithm post-deletion
 
 premium feature? different algorithms for different exercises
 ======================

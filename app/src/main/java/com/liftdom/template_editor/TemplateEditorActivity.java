@@ -2,11 +2,13 @@ package com.liftdom.template_editor;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -37,6 +39,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
 
 public class TemplateEditorActivity extends AppCompatActivity implements DayOfWeekChildFrag.onDaySelectedListener{
 
@@ -251,10 +255,12 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
+
+
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")) {
 
-                EditTemplateAssemblerClass.getInstance().clearAllLists();
+                //EditTemplateAssemblerClass.getInstance().clearAllLists();
 
                 final String templateName = getIntent().getExtras().getString("templateName");
 
@@ -592,10 +598,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
         if(resultCode == 4)
         {
-            CharSequence toastText = "(+) Algorithm Added";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
-            toast.show();
         }
     }
 
@@ -604,6 +606,28 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        DatabaseReference isFirstTemplate = mRootRef.child("templates");
+        isFirstTemplate.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean isFirst = false;
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String userId = dataSnapshot1.getKey();
+                    if(userId.equals(uid)){
+                        isFirst = true;
+                    }
+                }
+                if(!isFirst){
+                    activeTemplateCheckbox.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     // [END on_start_add_listener]
 
@@ -622,5 +646,44 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     //    super.onPause();
     //
     //}
+
+    @Override
+    public void onBackPressed(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        EditTemplateAssemblerClass.getInstance().clearAllLists();
+        EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
+
+        // set title
+        builder.setTitle("Discard template?");
+
+        // set dialog message
+        builder
+                .setMessage("Are you sure you want to discard this template?")
+                .setCancelable(false)
+                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+
+                        Intent intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
+                        startActivity(intent);
+
+                        finish();
+                    }
+                })
+                .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
+    }
 
 }

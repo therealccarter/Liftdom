@@ -131,6 +131,14 @@
                     android:id="@+id/templateFragmentLayout"
                     android:orientation="vertical"
             >
+                <fragment
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        class="com.liftdom.template_editor.DayOfWeekChildFrag"
+                        tools:layout="@layout/fragment_day_of_week_child"
+                        android:id="@+id/toWorkoutAssistor"
+
+                />
 
             </LinearLayout>
 

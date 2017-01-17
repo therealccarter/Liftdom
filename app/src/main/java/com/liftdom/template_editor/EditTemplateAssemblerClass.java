@@ -375,11 +375,13 @@ class EditTemplateAssemblerClass {
         MasterEditTemplateAL.clear();
         algorithmExercisesAL.clear();
         algorithmMasterList.clear();
+
+        for(String stringData : algorithmDataList){
+            stringData = "";
+        }
     }
 
 }
-
-
 
 
 

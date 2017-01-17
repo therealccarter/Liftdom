@@ -69,6 +69,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             }
         }
 
+        if(EditTemplateAssemblerClass.getInstance().isAlgoFirstTime && EditTemplateAssemblerClass.getInstance().isAlgoLooper){
+            algorithmLooper.setChecked(true);
+        }
+
         if(EditTemplateAssemblerClass.getInstance().isApplyAlgo && !EditTemplateAssemblerClass.getInstance()
                 .isAlgoFirstTime){
             setsWeeksEditText.setTextColor(Color.parseColor("#000000"));
@@ -79,6 +83,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             weightsIncreasedEditText.setTextColor(Color.parseColor("#000000"));
 
             applyAlgo.setChecked(true);
+
+            if(EditTemplateAssemblerClass.getInstance().isAlgoLooper){
+                algorithmLooper.setChecked(true);
+            }
 
             textView1.setTextColor(Color.parseColor("#000000"));
             textView2.setTextColor(Color.parseColor("#000000"));
@@ -105,8 +113,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             repsIncreasedEditText.setTextColor(Color.parseColor("#E8E8E8"));
             weightsWeeksEditText.setTextColor(Color.parseColor("#E8E8E8"));
             weightsIncreasedEditText.setTextColor(Color.parseColor("#E8E8E8"));
-
-            applyAlgo.setChecked(false);
+            algorithmLooper.setChecked(true);
+            //applyAlgo.setChecked(false);
 
             textView1.setTextColor(Color.parseColor("#E8E8E8"));
             textView2.setTextColor(Color.parseColor("#E8E8E8"));
@@ -131,9 +139,6 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 .isAlgoFirstTime){
             algorithmLooper.setChecked(true);
             algorithmLooper.setTextColor(Color.parseColor("#000000"));
-        }else{
-            algorithmLooper.setChecked(false);
-            algorithmLooper.setTextColor(Color.parseColor("#E8E8E8"));
         }
 
         applyAlgo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -171,6 +176,11 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     repsIncreasedEditText.setEnabled(true);
                     weightsWeeksEditText.setEnabled(true);
                     weightsIncreasedEditText.setEnabled(true);
+
+                    CharSequence toastText = "(+) Algorithm Added";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                    toast.show();
                 }else{
                     EditTemplateAssemblerClass.getInstance().isApplyAlgo = false;
 
@@ -203,6 +213,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     weightsWeeksEditText.setEnabled(false);
                     weightsIncreasedEditText.setEnabled(false);
 
+                    CharSequence toastText = "(-) Algorithm Removed";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                    toast.show();
                 }
             }
         });

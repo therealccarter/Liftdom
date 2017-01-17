@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(MainActivity.this, MainActivity.class);
+
                             }
                             if (drawerItem.getIdentifier() == 2) {
                                 intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+
+
 
         if (mFirebaseUser != null) {
             DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -209,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                                     (mFirebaseUser.getEmail()),
                     0);
         }
+
     }
 
 
