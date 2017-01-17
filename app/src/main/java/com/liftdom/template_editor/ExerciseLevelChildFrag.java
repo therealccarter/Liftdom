@@ -49,6 +49,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     }
     private doWCallback callback;
 
+    ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
+
     ArrayList<String> stringSnapshotAL = new ArrayList<>();
 
     @Override
@@ -111,6 +113,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         if(!isEdit){
             String fragString2 = Integer.toString(fragIdCount2);
             SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+            setsLevelChildFragAL.add(frag1);
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
             fragmentTransaction.commit();
@@ -134,6 +137,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 FragmentManager fragmentManager = getFragmentManager();
                 String fragString2 = Integer.toString(fragIdCount2);
                 SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+                setsLevelChildFragAL.add(frag1);
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
                 fragmentTransaction.commit();
@@ -197,6 +201,15 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             if(data.getStringExtra("MESSAGE") != null && data != null ) {
                 String message = data.getStringExtra("MESSAGE");
                 exerciseButton.setText(message);
+                if(message.equals("Pullups") || message.equals("Crunches")
+                        || message.equals("Sit-ups")
+                        || message.equals("Leg Raises")){
+                    if(!setsLevelChildFragAL.isEmpty()){
+                        setsLevelChildFragAL.get(0).weightEditText.setText("B.W.");
+                        setsLevelChildFragAL.get(0).pounds.setVisibility(View.GONE);
+                        setsLevelChildFragAL.get(0).weightEditText.setEnabled(false);
+                    }
+                }
             }
         }
     }

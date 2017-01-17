@@ -17,6 +17,10 @@ Badges to earn? Plan more game-ifying.
 TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
 TODO: Also, check up on that pesky bug in the workout assistor
 
+premium feature? different algorithms for different exercises
+
+add plate math
+
 Algorithm design:
 
 Keep the original algorithm and applied exercises.
