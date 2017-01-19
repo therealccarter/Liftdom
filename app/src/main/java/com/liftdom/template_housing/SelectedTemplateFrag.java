@@ -1,11 +1,8 @@
 package com.liftdom.template_housing;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,22 +12,16 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
-import com.liftdom.workout_assistor.*;
-import org.w3c.dom.Text;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +40,7 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.deleteThisTemplate) Button deleteTemplate;
     @BindView(R.id.activeTemplateCheckbox) CheckBox setAsActiveTemplate;
     @BindView(R.id.templateListedView) LinearLayout templateListedViewHolder;
+    @BindView(R.id.editPenSmall) ImageView editPenSmall;
 
     int colorIncrement = 0;
 
@@ -84,6 +76,14 @@ public class SelectedTemplateFrag extends Fragment {
             selectedTemplateNameView.setText(templateName);
             selectedTemplateNameView.setTypeface(lobster);
         }
+
+        editPenSmall.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RenameTemplateDialog.class);
+                intent.putExtra("templateName", templateName);
+                startActivity(intent);
+            }
+        });
 
         if(savedInstanceState == null){
             final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);

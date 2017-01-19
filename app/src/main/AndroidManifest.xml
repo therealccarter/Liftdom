@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"
-                  android:noHistory="true"
-        >
+        <activity
+                android:name=".SignInActivity"
+                android:noHistory="true">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
@@ -59,8 +59,12 @@
                 android:name="com.liftdom.template_editor.ExtraOptionsActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
-                    android:theme="@style/Theme.AppCompat.Dialog">
+        <activity
+                android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity android:name="com.liftdom.template_housing.RenameTemplateDialog"
+                  android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
     </application>
 

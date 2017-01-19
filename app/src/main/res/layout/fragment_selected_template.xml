@@ -9,28 +9,37 @@
 >
 
     <LinearLayout
-            android:id="@+id/templateChartFragContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:gravity="end"
     >
+        <TextView
+                android:id="@+id/selectedTemplateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/elipses"
+                android:textSize="34sp"
+                android:layout_gravity="end"
+                android:background="@color/liftrGold1"
+                android:textColor="@color/black"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="80dp"
+        />
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="45.5dp"
+                android:src="@drawable/edit_pen_small"
+                android:background="@color/liftrGold1"
+                android:paddingEnd="10dp"
+                android:id="@+id/editPenSmall"
+        />
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/selectedTemplateTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/elipses"
-            android:textSize="34sp"
-            android:layout_gravity="end"
-            android:background="@color/liftrGold1"
-            android:textColor="@color/black"
-            android:paddingBottom="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="80dp"
-    />
+
 
     <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,23 +56,6 @@
                 android:background="@color/transblack2"
                 android:layout_marginBottom="20dp"
         >
-
-
-
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:id="@+id/editThisTemplate"
-                        android:text="@string/editThisTemplate"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:background="@color/black"
-                        android:layout_marginEnd="5dp"
-                        android:layout_gravity="start"
-                />
-
             <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,9 +76,28 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+            >
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:id="@+id/editThisTemplate"
+                        android:text="@string/editThisTemplate"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:background="@color/black"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="-40dp"
+                        android:layout_gravity="start"
+                />
 
                 <Button
-                        android:layout_width="104dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:id="@+id/deleteThisTemplate"
                         android:text="@string/deleteThisTemplate"
@@ -95,11 +106,12 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:background="@color/black"
-                        android:layout_gravity="start"
+                        android:layout_gravity="end"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="1dp"
                 />
 
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

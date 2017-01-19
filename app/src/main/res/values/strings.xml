@@ -190,7 +190,8 @@
     <string name="ppl">P/P/L</string>
     <string name="example">Example Text</string>
     <string name="algHint">(Hint: Remember to check the checkbox of exercises you want this algorithm to apply
-        to.)</string>
+        to.)
+    </string>
 
     <string name="title_activity_under_construction">underConstruction</string>
     <string name="title_activity_bodybuilding_programs">bodybuildingPrograms</string>
@@ -342,6 +343,7 @@
     <string name="dummyLevel">- level .0</string>
     <string name="currentFocus">Focus:</string>
 
+    <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
