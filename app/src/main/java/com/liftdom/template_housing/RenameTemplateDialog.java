@@ -66,66 +66,60 @@ public class RenameTemplateDialog extends Activity {
         templateName1 = getIntent().getExtras().getString("templateName");
         templateNameEditText.setText(templateName1);
 
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Button saveButton1 = (Button) findViewById(R.id.saveButton);
-
         final DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName1);
-
-        saveButton1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
                 templateRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                             final String dayOrAlgString = dataSnapshot1.getKey();
 
-                            arrayListInc++;
 
-                            if(!dayOrAlgString.equals("algorithm") && !dayOrAlgString.equals
-                                    ("algoirthmExercises")){
+
+                            if (!dayOrAlgString.equals("algorithm") && !dayOrAlgString.equals
+                                    ("algorithmExercises")) {
+
+                                arrayListInc++;
+
                                 DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                    if (arrayListInc == 1) {
+                                        arrayListHeader1 = dayOrAlgString;
+                                    } else if (arrayListInc == 2) {
+                                        arrayListHeader2 = dayOrAlgString;
+                                    } else if (arrayListInc == 3) {
+                                        arrayListHeader3 = dayOrAlgString;
+                                    } else if (arrayListInc == 4) {
+                                        arrayListHeader4 = dayOrAlgString;
+                                    } else if (arrayListInc == 5) {
+                                        arrayListHeader5 = dayOrAlgString;
+                                    } else if (arrayListInc == 6) {
+                                        arrayListHeader6 = dayOrAlgString;
+                                    } else if (arrayListInc == 7) {
+                                        arrayListHeader7 = dayOrAlgString;
+                                    }
 
                                 daySpecificRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                             String value = dataSnapshot2.getValue(String.class);
 
-                                            if(arrayListInc == 1){
-                                                arrayListHeader1 = dayOrAlgString;
+                                            if (arrayListInc == 1) {
                                                 arrayList1.add(value);
-                                            } else if(arrayListInc == 2){
-                                                arrayListHeader2 = dayOrAlgString;
+                                            } else if (arrayListInc == 2) {
                                                 arrayList2.add(value);
-                                            }else if(arrayListInc == 3){
-                                                arrayListHeader3 = dayOrAlgString;
+                                            } else if (arrayListInc == 3) {
                                                 arrayList3.add(value);
-                                            }else if(arrayListInc == 4){
-                                                arrayListHeader4 = dayOrAlgString;
+                                            } else if (arrayListInc == 4) {
                                                 arrayList4.add(value);
-                                            }else if(arrayListInc == 5){
-                                                arrayListHeader5 = dayOrAlgString;
+                                            } else if (arrayListInc == 5) {
                                                 arrayList5.add(value);
-                                            }else if(arrayListInc == 6){
-                                                arrayListHeader6 = dayOrAlgString;
+                                            } else if (arrayListInc == 6) {
                                                 arrayList6.add(value);
-                                            }else if(arrayListInc == 7){
-                                                arrayListHeader7 = dayOrAlgString;
+                                            } else if (arrayListInc == 7) {
                                                 arrayList7.add(value);
                                             }
                                         }
@@ -137,13 +131,13 @@ public class RenameTemplateDialog extends Activity {
                                     }
                                 });
 
-                            } else if(dayOrAlgString.equals("algorithm")){
+                            } else if (dayOrAlgString.equals("algorithm")) {
                                 DatabaseReference algorithmRef = templateRef.child(dayOrAlgString);
 
                                 algorithmRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for(DataSnapshot dataSnapshot3 : dataSnapshot.getChildren()){
+                                        for (DataSnapshot dataSnapshot3 : dataSnapshot.getChildren()) {
                                             String algorithmValue = dataSnapshot3.getValue(String.class);
 
                                             algorithmArrayList.add(algorithmValue);
@@ -155,13 +149,13 @@ public class RenameTemplateDialog extends Activity {
 
                                     }
                                 });
-                            } else if(dayOrAlgString.equals("algorithmExercises")){
+                            } else if (dayOrAlgString.equals("algorithmExercises")) {
                                 DatabaseReference algorithmExRef = templateRef.child(dayOrAlgString);
 
                                 algorithmExRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for(DataSnapshot dataSnapshot4 : dataSnapshot.getChildren()){
+                                        for (DataSnapshot dataSnapshot4 : dataSnapshot.getChildren()) {
                                             String algorithmExValue = dataSnapshot4.getValue(String.class);
 
                                             algorithmExList.add(algorithmExValue);
@@ -182,6 +176,11 @@ public class RenameTemplateDialog extends Activity {
 
                     }
                 });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                final DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName1);
 
                 String templateNameNew = templateNameEditText.getText().toString();
 
@@ -269,7 +268,7 @@ public class RenameTemplateDialog extends Activity {
                 if(!algorithmArrayList.isEmpty()){
                     List<String> list = new ArrayList<>();
 
-                    for(String value : arrayList7){
+                    for(String value : algorithmArrayList){
                         list.add(value);
                     }
 
@@ -279,7 +278,7 @@ public class RenameTemplateDialog extends Activity {
                 if(!algorithmExList.isEmpty()){
                     List<String> list = new ArrayList<>();
 
-                    for(String value : arrayList7){
+                    for(String value : algorithmExList){
                         list.add(value);
                     }
 
@@ -290,8 +289,16 @@ public class RenameTemplateDialog extends Activity {
 
 
                 finish();
+                }
+            });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
             }
         });
 
     }
+
+
 }
