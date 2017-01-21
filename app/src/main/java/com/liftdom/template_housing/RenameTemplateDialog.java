@@ -320,6 +320,7 @@ public class RenameTemplateDialog extends Activity {
                 if(!arrayList2.isEmpty()){
                     List<String> list = new ArrayList<>();
 
+
                     for(String value : arrayList2){
                         list.add(value);
                     }
