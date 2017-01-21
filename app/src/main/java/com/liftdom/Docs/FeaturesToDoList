@@ -49,6 +49,7 @@ UPCOMING FEATURES TO DO:
 * Work on user values, whole sign in/sign up process, usernames, auth, etc
 * Really work on body stats/profile settings input page
 * Rehaul sign in page
+* algorithm if bodyweight, just keep increasing
 * Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
 * Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
 * Show past and future workouts in a Calendar View (color code - future/past/failures)
@@ -61,6 +62,7 @@ UPCOMING FEATURES TO DO:
 * Work on pre-made templates (many more)
 * Understand and plan the right NoSQL architecture for efficient social media features
 * Clear current BugList
+* save instance of workout assistor (if same day, and if workout hasn't already been finished)
 * add color ish notifications for adding and deleting
 
 *v0.6* - Begin Social features!

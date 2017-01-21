@@ -76,7 +76,6 @@ public class RenameTemplateDialog extends Activity {
                             final String dayOrAlgString = dataSnapshot1.getKey();
 
 
-
                             if (!dayOrAlgString.equals("algorithm") && !dayOrAlgString.equals
                                     ("algorithmExercises")) {
 
@@ -285,7 +284,7 @@ public class RenameTemplateDialog extends Activity {
                     newTemplateRef.child("algorithmExercises").setValue(list);
                 }
 
-                //templateRef.setValue(null);
+                templateRef.setValue(null);
 
 
                 finish();
