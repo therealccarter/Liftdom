@@ -122,7 +122,31 @@
                   android:background="#000000"
                   android:layout_width = "fill_parent"
                   android:layout_height="7dp"
-                  android:layout_marginBottom="10dp"
+            />
+
+
+            <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/makeCurrentTemplate"
+                    android:textColor="@color/liftrGold1"
+                    android:id="@+id/activeTemplateCheckbox"
+            />
+
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/algoButton"
+                    android:background="@color/liftrGold1"
+                    android:text="@string/templateAlgorithm"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:paddingStart="10dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="15dp"
             />
 
             <LinearLayout
@@ -131,14 +155,6 @@
                     android:id="@+id/templateFragmentLayout"
                     android:orientation="vertical"
             >
-                <fragment
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        class="com.liftdom.template_editor.DayOfWeekChildFrag"
-                        tools:layout="@layout/fragment_day_of_week_child"
-                        android:id="@+id/toWorkoutAssistor"
-
-                />
 
             </LinearLayout>
 
@@ -183,43 +199,6 @@
             />
 
             </LinearLayout>
-
-
-
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/extraOptions"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/liftrGold1"
-                        android:background="@color/darkerGrey"
-                        android:padding="5dp"
-                />
-
-
-                <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/makeCurrentTemplate"
-                        android:textColor="@color/liftrGold1"
-                        android:id="@+id/activeTemplateCheckbox"
-                />
-
-
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:id="@+id/algoButton"
-                        android:background="@color/liftrGold1"
-                        android:text="@string/templateAlgorithm"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:paddingStart="10dp"
-                        android:layout_gravity="start"
-                        android:layout_marginStart="7dp"
-                        android:layout_marginEnd="7dp"
-                />
 
             <Button
                     android:layout_width="match_parent"

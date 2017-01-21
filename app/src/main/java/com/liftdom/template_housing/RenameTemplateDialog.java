@@ -52,7 +52,7 @@ public class RenameTemplateDialog extends Activity {
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.cancelButton) Button cancelButton;
 
-    int arrayListInc = 0;
+    int arrayListInc = 1;
 
 
     @Override
@@ -79,56 +79,168 @@ public class RenameTemplateDialog extends Activity {
                             if (!dayOrAlgString.equals("algorithm") && !dayOrAlgString.equals
                                     ("algorithmExercises")) {
 
-                                arrayListInc++;
-
-                                DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
-
                                     if (arrayListInc == 1) {
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
                                         arrayListHeader1 = dayOrAlgString;
-                                    } else if (arrayListInc == 2) {
-                                        arrayListHeader2 = dayOrAlgString;
-                                    } else if (arrayListInc == 3) {
-                                        arrayListHeader3 = dayOrAlgString;
-                                    } else if (arrayListInc == 4) {
-                                        arrayListHeader4 = dayOrAlgString;
-                                    } else if (arrayListInc == 5) {
-                                        arrayListHeader5 = dayOrAlgString;
-                                    } else if (arrayListInc == 6) {
-                                        arrayListHeader6 = dayOrAlgString;
-                                    } else if (arrayListInc == 7) {
-                                        arrayListHeader7 = dayOrAlgString;
-                                    }
 
-                                daySpecificRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
-                                            String value = dataSnapshot2.getValue(String.class);
+                                                    String value = dataSnapshot2.getValue(String.class);
 
-                                            if (arrayListInc == 1) {
-                                                arrayList1.add(value);
-                                            } else if (arrayListInc == 2) {
-                                                arrayList2.add(value);
-                                            } else if (arrayListInc == 3) {
-                                                arrayList3.add(value);
-                                            } else if (arrayListInc == 4) {
-                                                arrayList4.add(value);
-                                            } else if (arrayListInc == 5) {
-                                                arrayList5.add(value);
-                                            } else if (arrayListInc == 6) {
-                                                arrayList6.add(value);
-                                            } else if (arrayListInc == 7) {
-                                                arrayList7.add(value);
+                                                    arrayList1.add(value);
+                                                }
                                             }
-                                        }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 2) {
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader2 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList2.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 3) {
+
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader3 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList3.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 4) {
+
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader4 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList4.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 5) {
+
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader5 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList5.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 6) {
+
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader6 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList6.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    } else if (arrayListInc == 7) {
+
+
+                                        DatabaseReference daySpecificRef = templateRef.child(dayOrAlgString);
+
+                                        arrayListHeader7 = dayOrAlgString;
+
+                                        daySpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+                                                    String value = dataSnapshot2.getValue(String.class);
+
+                                                    arrayList7.add(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
+                                arrayListInc++;
 
                             } else if (dayOrAlgString.equals("algorithm")) {
                                 DatabaseReference algorithmRef = templateRef.child(dayOrAlgString);
@@ -174,17 +286,24 @@ public class RenameTemplateDialog extends Activity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
                 });
+
+
+
+
+
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
-                final DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName1);
+
 
                 String templateNameNew = templateNameEditText.getText().toString();
 
                 DatabaseReference newTemplateRef = mRootRef.child("templates").child(uid).child(templateNameNew);
-
 
 
                 if(!arrayList1.isEmpty()){
@@ -284,7 +403,7 @@ public class RenameTemplateDialog extends Activity {
                     newTemplateRef.child("algorithmExercises").setValue(list);
                 }
 
-                templateRef.setValue(null);
+                //templateRef.setValue(null);
 
 
                 finish();
@@ -296,6 +415,16 @@ public class RenameTemplateDialog extends Activity {
                 finish();
             }
         });
+
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
 
     }
 

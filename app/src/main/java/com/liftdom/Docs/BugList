@@ -10,7 +10,8 @@ Remove nav drawer from back stack
 add check to see if no exercises are checked
 drop keypad down when necessary.
 "Add day" people may think it literally means add that day to schedule
-User cannot physically see all the input fields in the create account process (because it's vertical)
+User cannot physically see all the input fields in the create account process
+(because it's vertical)
 
 MEDIUM:
 No username for chris b.
@@ -22,12 +23,19 @@ SERIOUS:
 weird doubling bug
 added exercise/set scheme values straight under the template name
 
+================================== SELF-DEMO: 1/21/2017 =====================================
+EVERYTHING WRONG WITH THE TEMPLATE EDITOR:
 
-================================== DEMO: 12/18/16 ===================================================
+
+
 ======================
-================================== DEMO: 1/1/2017 ===================================================
+
+================================== DEMO: 12/18/16 ===========================================
 ======================
-================================== DEMO: 1/3/2017 ===================================================
+================================== DEMO: 1/1/2017 ===========================================
 ======================
-================================== DEMO: 1/15/2017 ===================================================
+================================== DEMO: 1/3/2017 ===========================================
 ======================
+================================== DEMO: 1/15/2017 ==========================================
+======================
+
