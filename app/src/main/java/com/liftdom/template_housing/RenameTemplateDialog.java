@@ -404,7 +404,7 @@ public class RenameTemplateDialog extends Activity {
                     newTemplateRef.child("algorithmExercises").setValue(list);
                 }
 
-                //templateRef.setValue(null);
+                templateRef.setValue(null);
 
 
                 finish();
