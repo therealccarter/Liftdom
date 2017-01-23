@@ -84,8 +84,8 @@
                 <Button
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:id="@+id/editThisTemplate"
-                        android:text="@string/editThisTemplate"
+                        android:id="@+id/deleteThisTemplate"
+                        android:text="@string/deleteThisTemplate"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:paddingTop="5dp"
@@ -99,8 +99,8 @@
                 <Button
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:id="@+id/deleteThisTemplate"
-                        android:text="@string/deleteThisTemplate"
+                        android:id="@+id/editThisTemplate"
+                        android:text="@string/editThisTemplate"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:paddingTop="5dp"

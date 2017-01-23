@@ -81,7 +81,7 @@ public class SelectedTemplateFrag extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RenameTemplateDialog.class);
                 intent.putExtra("templateName", templateName);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -253,6 +253,21 @@ public class SelectedTemplateFrag extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(requestCode == 1){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override

@@ -20,14 +20,11 @@ error on create account without inputting information (null check)
 WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
 
 SERIOUS:
-weird doubling bug
-added exercise/set scheme values straight under the template name
+*possibly done, wait for testing* weird doubling bug
+*possibly done, wait for testing* added exercise/set scheme values straight under the template name
 
 ================================== SELF-DEMO: 1/21/2017 =====================================
 EVERYTHING WRONG WITH THE TEMPLATE EDITOR:
-
-Looking at set scheme extra options changes pound number to W and reps to R
-
 
 
 ======================

@@ -1,6 +1,9 @@
 package com.liftdom.template_housing;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -292,16 +295,30 @@ public class RenameTemplateDialog extends Activity {
 
 
 
-
-
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final String templateNameNew = templateNameEditText.getText().toString();
+
+                final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String activeTemplate = dataSnapshot.getValue(String.class);
+                        if(activeTemplate != null){
+                            if(activeTemplate.equals(templateName1)){
+                                activeTemplateRef.setValue(templateNameNew);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
 
-
-                String templateNameNew = templateNameEditText.getText().toString();
 
                 DatabaseReference newTemplateRef = mRootRef.child("templates").child(uid).child(templateNameNew);
 
@@ -406,13 +423,16 @@ public class RenameTemplateDialog extends Activity {
 
                 templateRef.setValue(null);
 
+                setResult(1);
 
                 finish();
+
                 }
             });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                setResult(2);
                 finish();
             }
         });
