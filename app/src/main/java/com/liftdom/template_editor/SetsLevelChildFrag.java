@@ -4,6 +4,7 @@ package com.liftdom.template_editor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,11 +109,13 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     pounds.setVisibility(View.GONE);
                     weightEditText.setEnabled(false);
                 } else if(message.equals("defaultWeight")){
-                    weightEditText.setText("");
-                    weightEditText.setEnabled(true);
-                    weightEditText.setHint("W");
-                    pounds.setVisibility(View.VISIBLE);
-                    weightEditText.setEnabled(true);
+                    if(!isNumber(weightEditText.getText().toString())){
+                        weightEditText.setText("");
+                        weightEditText.setEnabled(true);
+                        weightEditText.setHint("W");
+                        pounds.setVisibility(View.VISIBLE);
+                        weightEditText.setEnabled(true);
+                    }
                 }
             }
             if(data.getStringExtra("MESSAGE2") != null && data != null ) {
@@ -121,9 +124,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     repsEditText.setText("T.F.");
                     repsEditText.setEnabled(false);
                 } else if(message.equals("defaultReps")){
-                    repsEditText.setText("");
-                    repsEditText.setEnabled(true);
-                    repsEditText.setHint("R");
+                    if(!isNumber(repsEditText.getText().toString())){
+                        repsEditText.setText("");
+                        repsEditText.setEnabled(true);
+                        repsEditText.setHint("R");
+                    }
                 }
             }
         }
@@ -156,6 +161,26 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }
         }
 
+    }
+
+    boolean isNumber(String input){
+        boolean isNumber = false;
+
+        String inputWithout = input.replaceAll("\\s+","");
+
+        if(inputWithout.equals("")){
+            isNumber = true;
+        } else{
+            try {
+                int num = Integer.parseInt(input);
+                Log.i("",num+" is a number");
+                isNumber = true;
+            } catch (NumberFormatException e) {
+                isNumber = false;
+            }
+        }
+
+        return isNumber;
     }
 
 

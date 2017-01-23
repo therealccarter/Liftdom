@@ -470,7 +470,12 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 String fragString = Integer.toString(fragIdCount);
 
-
+                if(fragIdCount != 1) {
+                    CharSequence toastText = "(-) Day-set removed";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                    toast.show();
+                }
 
 
                 if (fragIdCount != 0) {
@@ -541,12 +546,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     }
                 }
 
-                if(fragIdCount != 1) {
-                    CharSequence toastText = "(-) Day-set removed";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
-                    toast.show();
-                }
+
             }
         });
 
