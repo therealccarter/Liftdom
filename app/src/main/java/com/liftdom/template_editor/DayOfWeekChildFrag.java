@@ -306,8 +306,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                     mCallback.daySelectedFromFrag("Sunday", getTag());
                 }
             }
-
-
         }
 
         if(!isEdit){
