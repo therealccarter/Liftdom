@@ -13,8 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -54,6 +53,19 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+    // tells us which exercises we want to increment
+    ArrayList<String> algoExercisesAL = new ArrayList<>();
+
+    // tells us the data to apply to successful exercises
+    ArrayList<String> algoInfoAL = new ArrayList<>();
+
+    // The
+    ArrayList<String> runningALOriginal = new ArrayList<>();
+    ArrayList<String> runningALCompleted = new ArrayList<>();
+
+    ArrayList<String> originalAL = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +212,112 @@ public class AssistorSavedActivity extends AppCompatActivity {
             }
         }
 
+        final DatabaseReference algorithmRef = mRootRef.child("templates").child(uid).child(WorkoutAssistorAssemblerClass
+                .getInstance().templateName);
+
+        algorithmRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    if(dataSnapshot1.getKey().equals("algorithm")){
+                        DatabaseReference algorithmInfoRef = algorithmRef.child("algorithm");
+                        algorithmInfoRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                    String value = dataSnapshot2.getValue(String.class);
+                                    algoInfoAL.add(value);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }else if(dataSnapshot1.getKey().equals("algorithmExercises")){
+                        DatabaseReference algorithmInfoRef = algorithmRef.child("algorithmExercises");
+                        algorithmInfoRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                    String value = dataSnapshot2.getValue(String.class);
+                                    algoExercisesAL.add(value);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        final DatabaseReference activeTemplateDataRef = mRootRef.child("templates").child(uid)
+                .child(WorkoutAssistorAssemblerClass.getInstance().templateName);
+
+        activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String key = dataSnapshot1.getKey();
+                    if(isToday(key)){
+                        DatabaseReference dayRef = activeTemplateDataRef.child(key);
+
+                        dayRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
+
+                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+
+                                    String snapshotString = dataSnapshot2.getValue(String.class);
+                                    if(isExerciseName(snapshotString)){
+                                        originalAL.add(snapshotString);
+                                    }else{
+                                        String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
+                                        String delims = "[x,@]";
+                                        String[] tokens = stringSansSpaces.split(delims);
+
+                                        int setAmount = Integer.parseInt(tokens[0]);
+
+                                        for(int i = 0; i < setAmount; i++){
+                                            String cat = tokens[1] + "x" + tokens[2];
+                                            originalAL.add(cat);
+                                        }
+                                    }
+                                }
+                                ArrayList<String> exercisesToInc = exercisesCompleted(assistorArrayList, originalAL);
+                                // here we'd perform the algo operations
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,4 +329,88 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
 
     }
+
+    ArrayList<String> exercisesCompleted(ArrayList<String> completedArrayList, ArrayList<String> originalAL){
+        ArrayList<String> completedExercises = new ArrayList<>();
+
+        // first we should get the original exercises to compare with...
+        for(String exName : originalAL){
+            if(isExerciseName(exName)){
+                int index = originalAL.indexOf(exName);
+                runningALOriginal.add(Integer.toString(index));
+                runningALOriginal.add(exName);
+            }
+        }
+
+        // get all the completed exercises to compare with...
+        for(String completedEx : completedArrayList){
+            if(isExerciseName(completedEx)){
+                runningALCompleted.add(completedEx);
+            }
+        }
+
+        // next we should compare each exercise in the original array list with each exercise in the completed list
+        for(String completedEx : runningALCompleted){
+            boolean isTotallyComplete = false;
+            if(runningALOriginal.contains(completedEx)){
+                int nextIndex = runningALOriginal.indexOf(completedEx) + 1;
+                int originalIndex = 0;
+                if(runningALOriginal.indexOf(completedEx) - 1 > 0){
+                    originalIndex = runningALOriginal.indexOf(completedEx) - 1;
+                }
+
+                for(int i = originalIndex; i <= nextIndex; i++){
+                    if(completedArrayList.get(completedArrayList.indexOf(completedEx) + i).equals(
+                            originalAL.get(originalAL.indexOf(completedEx) + i)
+                    )){
+                        isTotallyComplete = true;
+                    }else{
+                        isTotallyComplete = false;
+                    }
+                }
+
+                if(isTotallyComplete){
+                    completedExercises.add(completedEx);
+                }
+            }
+        }
+
+        return completedExercises;
+    }
+
+    boolean isToday(String dayString){
+        boolean today = false;
+        if(dayString != null) {
+            if(!dayString.equals("algorithm") || !dayString.equals("algorithmExercises")){
+                SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                Date d = new Date();
+                String currentDoW = sdf.format(d);
+
+                String delims = "[_]";
+                String[] tokens = dayString.split(delims);
+
+                for (String day : tokens) {
+                    if (day.equals(currentDoW)) {
+                        today = true;
+                    }
+                }
+            }
+        }
+        return today;
+    }
+
+    boolean isExerciseName(String input){
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
+
+    }
+
 }

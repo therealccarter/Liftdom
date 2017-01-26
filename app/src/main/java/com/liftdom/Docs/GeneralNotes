@@ -14,6 +14,49 @@ On account create, open a direct message to me for messages?
 
 Badges to earn? Plan more game-ifying.
 
+plate calculator in workout assistor
+
+===========THEORICAL======================
+
+So, how are we going to get this algorithm to work?
+
+We have algorithm values and algorithm exercises stored with the template
+
+We'd have to keep a running tab of which exercises to apply the algorithm to
+    based on if the user completed at least the goal sets and reps...maybe not though?
+
+What would go in the running algorithm node?...
+
+Let's go through a scenario:
+    The user sets algorithm as such:
+
+        every 1 week, increase reps by 1.
+        every 2 weeks, increase sets by 1.
+        every 3 weeks, increase weight by 10lbs.
+
+    Each exercise in runningAlgorithm is given a boolean for if it should be operated on (if completed)
+    if the boolean is true, we check the timestamp of the last time it was completed.
+    Then, if it's been x amount of time, we increment y by z.
+    If the time passed is the highest inputted value, reset reps/sets to original values
+
+    So we must compare sets/reps completed to sets/reps originally inputted.
+
+0: "Dumbell Incline Press"
+1: "10@60"
+2: "10@60"
+3: "Barbell Overhead Press"
+4: "10@115"
+5: "10@115"
+
+We need to match this to the inputted goal...
+We must break it up into groups I think...or do a sort of running check.
+If they match, keep going. If they don't match throw some kind of exception
+    and then move to the next one. Or if they do match, add to exercise incrementor list.
+
+
+
+==========================================
+
 TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
 TODO: Also, check up on that pesky bug in the workout assistor
 
@@ -62,74 +105,4 @@ Other than completed workouts, update feed with
     "looking for partners"
     "checking in @ gym in x minutes"
     "created new public template"
-
-===========================================================================================
-Competition's features:
-===============================
-
-Do multiple workouts at the same time. For example, smolov full for squat and smolov jr for bench.
-
-Plate calculator
-
-Running multiple cycles seem to be a big deal...
-
-Definitely get that calendar feature up
-
-Partial weight entry for metric users
-
-Rest time stopwatch
-
-Hatch Squat protocol?
-
-Complete 30 – 90 day fitness programs for beginner through advanced trainees
-
-Gym workout demonstrations for beginner through advanced trainees
-
-Easy to follow meal plans to help you lose weight or gain muscle the healthy way
-
-100’s of healthy recipes with demonstration videos that you and your family will love
-
-Guy going through every exercise with you
-
--Get the bodyweight tracker from the feature store
--Log your bodyweight, body fat, and other body stats
--Automatic BMI calculation
--Bodyweight progress graphs
--Take progress pics
-
-
--Track time, distance, and calories burned for each cardio fitness session in your workout log.
-
-
--Track weightlifting statistics such as maximum and average reps, maximum and average weight etc.
--Track your cardio fitness statistics such as time, distance, calories burned etc.
--Progress graphs for all exercises
--Donut charts of your most worked muscles and body parts
--Track data for number of workouts, number of reps, most performed exercise and more!
--One Rep Max calculations to improve your strength
-
-EXERCISE DATABASE
-● Lots of exercises with many different variations
-● Rich photos and hi-res videos of each exercise
-● Easy-to-understand detailed descriptions
-● Search by muscle group, equipment type or keyword
-
-FEATURES:
-● Create, or add, your existing routine to the app
-● Save all of your favorite exercises
-● Modify and save any of our pre-made routines
-● Access your workout history
-● Audio cues for your rest time in between sets
-● Smooth design allows for easy navigation
-● Entirely Ad Free!
-
-What you will find in this app?
-- 3 month bodybuilding plan
-- meal plan
-- chart to watch your progress
-- the most effective 70exercises to pack serious muscles
-- videos
-- tips to build muscles
-- motivational quotes
-- supplements and nutrition information
 

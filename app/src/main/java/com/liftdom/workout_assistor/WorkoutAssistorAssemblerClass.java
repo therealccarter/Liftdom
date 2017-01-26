@@ -19,6 +19,8 @@ public class WorkoutAssistorAssemblerClass {
 
     private int indexIncrementor = 1;
 
+    String templateName = null;
+
     String privateJournal = null;
 
     public void setRepsWeight(String exercise, String repsWeight){

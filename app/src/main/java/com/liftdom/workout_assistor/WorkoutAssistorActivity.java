@@ -290,6 +290,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                 if (activeTemplateName != null) {
 
+                                    WorkoutAssistorAssemblerClass.getInstance().templateName = activeTemplateName;
                                     // now we're in "yeee."
                                     final DatabaseReference activeTemplateDataRef = mRootRef.child("templates").child(uid)
                                             .child(activeTemplateName);
@@ -387,7 +388,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                     NoActiveTemplateFrag exerciseNameFrag = new NoActiveTemplateFrag();
                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                             exerciseNameFrag);
-                                    fragmentTransaction.commit();
+                                    fragmentTransaction.commitAllowingStateLoss();
                                 }
                             }
 
@@ -402,9 +403,11 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();
                         WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
-                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                workoutFinishedFrag);
-                        fragmentTransaction.commit();
+
+                            fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                    workoutFinishedFrag);
+                            fragmentTransaction.commitAllowingStateLoss();
+
                     }
                 }
 
