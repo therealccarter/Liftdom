@@ -292,7 +292,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                         int setAmount = Integer.parseInt(tokens[0]);
 
                                         for(int i = 0; i < setAmount; i++){
-                                            String cat = tokens[1] + "x" + tokens[2];
+                                            String cat = tokens[1] + "@" + tokens[2];
                                             originalAL.add(cat);
                                         }
                                     }
@@ -353,20 +353,45 @@ public class AssistorSavedActivity extends AppCompatActivity {
         for(String completedEx : runningALCompleted){
             boolean isTotallyComplete = false;
             if(runningALOriginal.contains(completedEx)){
-                int nextIndex = runningALOriginal.indexOf(completedEx) + 1;
+                int nextIndex = 0;
                 int originalIndex = 0;
-                if(runningALOriginal.indexOf(completedEx) - 1 > 0){
-                    originalIndex = runningALOriginal.indexOf(completedEx) - 1;
+
+                try{
+                    nextIndex = Integer.parseInt(runningALOriginal.get(runningALOriginal.indexOf(completedEx) + 1));
+                } catch (IndexOutOfBoundsException e){
+                    nextIndex = originalAL.size();
                 }
 
-                for(int i = originalIndex; i <= nextIndex; i++){
-                    if(completedArrayList.get(completedArrayList.indexOf(completedEx) + i).equals(
-                            originalAL.get(originalAL.indexOf(completedEx) + i)
-                    )){
-                        isTotallyComplete = true;
-                    }else{
-                        isTotallyComplete = false;
+                originalIndex = Integer.parseInt(runningALOriginal.get(runningALOriginal.indexOf(completedEx) - 1));
+
+                //try{
+                //    originalIndex = Integer.parseInt(runningALOriginal.get(runningALOriginal.indexOf(completedEx) -
+                //            1));
+                //} catch (IndexOutOfBoundsException e){
+                //
+                //}
+
+                //if(runningALOriginal.indexOf(completedEx) - 1 > 0){
+                //    originalIndex = runningALOriginal.indexOf(completedEx) - 1;
+                //}
+
+                for(int i = 1; i < nextIndex - originalIndex; i++){
+                    if (i == 0) {
+                        i++;
                     }
+                    try{
+                        if(completedArrayList.get(completedArrayList.indexOf(completedEx) + i).equals(
+                                originalAL.get(originalAL.indexOf(completedEx) + i)
+                        )){
+                            isTotallyComplete = true;
+                        }else{
+                            isTotallyComplete = false;
+                            //TODO check to see if it's greater than
+                        }
+                    } catch (IndexOutOfBoundsException e){
+
+                    }
+
                 }
 
                 if(isTotallyComplete){

@@ -39,7 +39,26 @@ Let's go through a scenario:
     Then, if it's been x amount of time, we increment y by z.
     If the time passed is the highest inputted value, reset reps/sets to original values
 
+    Node Theory:
+
+    runningAlgorithm:
+        - uid:
+            - templateName:
+                - BenchPress:
+                    - TimeStamp:
+                        -(last completed)(ie, 01:26:2017)
+                    - 1
+                    - 1            In this scenario we'd do something like this:
+                    - 2     if it's been algAL.[0] weeks since T.S., increase sets by algAL.[1]
+                    - 1     if it's been algAL.[2] weeks since T.S., increase reps by algAL.[3]
+                    - 3     if it's been algAL.[4] weeks since T.S., increase weight by algAL.[5]
+                    - 10
+                    - loop
+                - LegPress:
+
+
     So we must compare sets/reps completed to sets/reps originally inputted.
+    Eventually we'll also have to update the original template values...
 
 0: "Dumbell Incline Press"
 1: "10@60"
@@ -52,8 +71,6 @@ We need to match this to the inputted goal...
 We must break it up into groups I think...or do a sort of running check.
 If they match, keep going. If they don't match throw some kind of exception
     and then move to the next one. Or if they do match, add to exercise incrementor list.
-
-
 
 ==========================================
 

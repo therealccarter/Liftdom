@@ -406,7 +406,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                             fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                     workoutFinishedFrag);
+                        if(!isFinishing()){
                             fragmentTransaction.commitAllowingStateLoss();
+                        }
+
 
                     }
                 }
