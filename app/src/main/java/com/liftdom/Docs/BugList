@@ -18,12 +18,12 @@ No username for chris b.
 adding a shit ton of exercises and set-schemes results in weird shit
 error on create account without inputting information (null check)
 WorkoutAssistor adds frag "Heal up! Today is a rest day." when it's not a rest day.
+Algorithm exercises need to be checked on edit
+Algorithm exercises being added to their own node
 
 SERIOUS:
-*possibly done, wait for testing* weird doubling bug
-Array out of bounds after adding day on edit
 *possibly done, wait for testing* added exercise/set scheme values straight under the template name
-Algorithm exercises being added to their own node...
+
 
 ================================== DEMO: 12/18/16 ===========================================
 ======================
