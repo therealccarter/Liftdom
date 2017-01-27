@@ -359,9 +359,6 @@ class EditTemplateAssemblerClass {
         if(!DoWAL7.isEmpty()){
             MasterEditTemplateAL.add(DoWAL7);
         }
-        if(!algorithmExercisesAL.isEmpty()){
-            MasterEditTemplateAL.add(algorithmExercisesAL);
-        }
     }
 
     void clearAllLists(){
