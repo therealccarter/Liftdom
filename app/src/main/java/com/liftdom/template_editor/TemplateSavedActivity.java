@@ -281,6 +281,10 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
                 templateSpecific.child("algorithm").setValue(list);
                 templateSpecific.child("algorithmExercises").setValue(exAlgList);
+
+                //DatabaseReference runningAlgoRef = mRootRef.child(uid)
+                //        .child(templateName )
+                //        .child(completedEx);
             }
 
             EditTemplateAssemblerClass.getInstance().clearAllLists();

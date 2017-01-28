@@ -30,6 +30,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import org.joda.time.DateTime;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -60,6 +61,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
     // tells us the data to apply to successful exercises
     ArrayList<String> algoInfoAL = new ArrayList<>();
+    int[] algoInfoArray = new int[7];
 
     // The
     ArrayList<String> runningALOriginal = new ArrayList<>();
@@ -68,7 +70,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
     ArrayList<String> originalAL = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assistor_saved);
 
@@ -184,37 +186,11 @@ public class AssistorSavedActivity extends AppCompatActivity {
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
 
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("MM:dd:yyyy");
-        String formattedDate = df.format(c.getTime());
 
-        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
-        DatabaseReference specificDate = workoutHistoryRef.child(formattedDate);
-
-        DatabaseReference journalRef = specificDate.child("private_journal");
-
-        String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
-
-        ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
-
-        List<String> list = new ArrayList<>();
-
-        if(savedInstanceState == null) {
-            for (String item : assistorArrayList) {
-                list.add(item);
-            }
-
-            specificDate.setValue(list);
-
-            if (privateJournalString != null) {
-                journalRef.setValue(privateJournalString);
-            }
-        }
-
+        // HERE WE'RE GETTING THE ORIGINAL VALUES FROM THE TEMPLATE NODE
         final DatabaseReference algorithmRef = mRootRef.child("templates").child(uid).child(WorkoutAssistorAssemblerClass
                 .getInstance().templateName);
-
         algorithmRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -224,9 +200,12 @@ public class AssistorSavedActivity extends AppCompatActivity {
                         algorithmInfoRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                int index = 0;
                                 for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
-                                    String value = dataSnapshot2.getValue(String.class);
-                                    algoInfoAL.add(value);
+                                    int value = Integer.parseInt(dataSnapshot2.getValue(String.class));
+                                    algoInfoArray[index] = value;
+                                    ++index;
+                                    //algoInfoAL.add(value);
                                 }
                             }
 
@@ -262,9 +241,9 @@ public class AssistorSavedActivity extends AppCompatActivity {
         });
 
 
+        // HERE WE'RE COMPARING THE ORIGINAL VALUES TO THE COMPLETED/NEW VALUES
         final DatabaseReference activeTemplateDataRef = mRootRef.child("templates").child(uid)
                 .child(WorkoutAssistorAssemblerClass.getInstance().templateName);
-
         activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -297,8 +276,47 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
+
                                 ArrayList<String> exercisesToInc = exercisesCompleted(assistorArrayList, originalAL);
                                 // here we'd perform the algo operations
+                                // for each completed exercise
+                                for(String completedEx : exercisesToInc){
+
+                                    /**
+                                     * What are we trying to accomplish here?
+                                     * We need to get the last completed date and compare it to today's date
+                                     * Then we'll check that value against the values in the algo data array
+                                     * Finally, we'll increment the values that pass the test and update the
+                                     * template's SxRxW data.
+                                     */
+
+                                    // runningAlgorithm->uid->templateName->Exercise->TimeStamp
+
+                                    DatabaseReference runningAlgoRef = mRootRef.child("runningAlgorithm")
+                                            .child(uid)
+                                            .child(WorkoutAssistorAssemblerClass.getInstance().templateName)
+                                            .child(completedEx).child("timeStamp");
+
+                                    //DatabaseReference runningAlgoTimeStampRef = runningAlgoRef.child("timeStamp");
+
+                                    //runningAlgoTimeStampRef.setValue(formattedDate);
+
+                                    runningAlgoRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String oldTimeStamp = dataSnapshot.getValue(String.class);
+                                            if(oldTimeStamp != null){
+                                                //TODO: here we'll compare the last completed date to today's date
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
                             }
 
                             @Override
@@ -306,6 +324,32 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                             }
                         });
+                    }
+                }
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("MM:dd:yyyy");
+                final String formattedDate = df.format(c.getTime());
+
+                DateTime dt1 = new DateTime();
+
+                DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
+                DatabaseReference specificDate = workoutHistoryRef.child(formattedDate);
+                DatabaseReference journalRef = specificDate.child("private_journal");
+                String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
+                ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
+
+
+                List<String> list = new ArrayList<>();
+
+                if(savedInstanceState == null) {
+                    for (String item : assistorArrayList) {
+                        list.add(item);
+                    }
+
+                    specificDate.setValue(list);
+
+                    if (privateJournalString != null) {
+                        journalRef.setValue(privateJournalString);
                     }
                 }
             }
