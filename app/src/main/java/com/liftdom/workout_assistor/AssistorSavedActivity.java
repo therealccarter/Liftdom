@@ -31,6 +31,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,6 +57,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    ArrayList<String> daySpecificArrayList = new ArrayList<String>();
+
+    boolean isFirstupload = true;
+    boolean isFirstupload2 = true;
 
     // tells us which exercises we want to increment
     ArrayList<String> algoExercisesAL = new ArrayList<>();
@@ -68,6 +74,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
     ArrayList<String> runningALCompleted = new ArrayList<>();
 
     ArrayList<String> originalAL = new ArrayList<>();
+
+    DatabaseReference daySpecificRef;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -202,9 +210,11 @@ public class AssistorSavedActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 int index = 0;
                                 for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
-                                    int value = Integer.parseInt(dataSnapshot2.getValue(String.class));
-                                    algoInfoArray[index] = value;
-                                    ++index;
+                                    if(!dataSnapshot2.getValue(String.class).equals("loop")){
+                                        int value = Integer.parseInt(dataSnapshot2.getValue(String.class));
+                                        algoInfoArray[index] = value;
+                                        ++index;
+                                    }
                                     //algoInfoAL.add(value);
                                 }
                             }
@@ -280,7 +290,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                 ArrayList<String> exercisesToInc = exercisesCompleted(assistorArrayList, originalAL);
                                 // here we'd perform the algo operations
                                 // for each completed exercise
-                                for(String completedEx : exercisesToInc){
+                                for(final String completedEx : exercisesToInc){
 
                                     /**
                                      * What are we trying to accomplish here?
@@ -292,7 +302,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                                     // runningAlgorithm->uid->templateName->Exercise->TimeStamp
 
-                                    DatabaseReference runningAlgoRef = mRootRef.child("runningAlgorithm")
+                                    final DatabaseReference runningAlgoRef = mRootRef.child("runningAlgorithm")
                                             .child(uid)
                                             .child(WorkoutAssistorAssemblerClass.getInstance().templateName)
                                             .child(completedEx).child("timeStamp");
@@ -307,6 +317,109 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                             String oldTimeStamp = dataSnapshot.getValue(String.class);
                                             if(oldTimeStamp != null){
                                                 //TODO: here we'll compare the last completed date to today's date
+                                                LocalDate oldDate = LocalDate.parse(oldTimeStamp);
+                                                LocalDate newDate = LocalDate.now();
+
+                                                int daysBetween = Days.daysBetween(oldDate, newDate).getDays();
+                                                final int weeksBetween = (int) Math.round(daysBetween / 7);
+
+
+                                                final DatabaseReference templateRef = mRootRef.child("templates")
+                                                        .child(uid)
+                                                        .child(WorkoutAssistorAssemblerClass.getInstance()
+                                                                .templateName);
+
+                                                templateRef.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                            String dayKey = dataSnapshot2.getKey();
+                                                            if(isToday(dayKey)){
+                                                                daySpecificRef = templateRef.child
+                                                                        (dayKey);
+
+                                                                daySpecificRef.addValueEventListener(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                        for(DataSnapshot dataSnapshot3 : dataSnapshot
+                                                                                .getChildren()){
+                                                                            String value = dataSnapshot3.getValue
+                                                                                    (String.class);
+                                                                            daySpecificArrayList.add(value);
+                                                                        }
+                                                                        int arrayListLength = daySpecificArrayList.size();
+                                                                        int exIndex = daySpecificArrayList.indexOf(completedEx);
+
+                                                                        for(int i = exIndex + 1; i < arrayListLength;
+                                                                            i++){
+                                                                            if(!isExerciseName(daySpecificArrayList.get(i))){
+                                                                                int sets = 0;
+                                                                                int reps = 0;
+                                                                                int weight = 0;
+
+
+                                                                                String delims = "[x,@]";
+                                                                                String noSpaces = daySpecificArrayList.get(i).replace(" ", "");
+                                                                                String[] cutArray = noSpaces.split(delims);
+
+                                                                                if(weeksBetween >= algoInfoArray[0]){
+                                                                                    sets = Integer.parseInt(cutArray[0]);
+                                                                                    sets += algoInfoArray[1];
+                                                                                } else{
+                                                                                    sets = Integer.parseInt(cutArray[0]);
+                                                                                }
+                                                                                if(weeksBetween >= algoInfoArray[2]){
+                                                                                    reps = Integer.parseInt(cutArray[1]);
+                                                                                    reps += algoInfoArray[3];
+                                                                                } else{
+                                                                                    reps = Integer.parseInt(cutArray[1]);
+                                                                                }
+                                                                                if(weeksBetween >= algoInfoArray[4]){
+                                                                                    weight = Integer.parseInt(cutArray[2]);
+                                                                                    weight += algoInfoArray[5];
+                                                                                }else{
+                                                                                    weight = Integer.parseInt(cutArray[2]);
+                                                                                }
+
+                                                                                String concat = Integer.toString
+                                                                                        (sets) + " x " + Integer.toString(reps)
+                                                                                        + " @ " + Integer.toString
+                                                                                        (weight);
+
+                                                                                daySpecificArrayList.set(i, concat);
+                                                                            }else{
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        if(isFirstupload){
+                                                                            daySpecificUploader(daySpecificArrayList);
+                                                                            isFirstupload = false;
+                                                                        }
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                                ArrayList<String> exerciseSpecificArrayList = new ArrayList<String>();
+
+
+                                            }else{
+                                                String date = LocalDate.now().toString();
+                                                runningAlgoRef.setValue(date);
                                             }
                                         }
 
@@ -317,6 +430,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     });
 
                                 }
+                                //daySpecificRef.setValue(daySpecificArrayList);
                             }
 
                             @Override
@@ -326,14 +440,14 @@ public class AssistorSavedActivity extends AppCompatActivity {
                         });
                     }
                 }
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("MM:dd:yyyy");
-                final String formattedDate = df.format(c.getTime());
+                //Calendar c = Calendar.getInstance();
+                //SimpleDateFormat df = new SimpleDateFormat("MM:dd:yyyy");
+                //final String formattedDate = df.format(c.getTime());
 
-                DateTime dt1 = new DateTime();
+                LocalDate d1 = LocalDate.now();
 
                 DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
-                DatabaseReference specificDate = workoutHistoryRef.child(formattedDate);
+                DatabaseReference specificDate = workoutHistoryRef.child(d1.toString("MM-dd-yyyy"));
                 DatabaseReference journalRef = specificDate.child("private_journal");
                 String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
                 ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
@@ -372,6 +486,47 @@ public class AssistorSavedActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    void templateAlgorithmSetter(String exName){
+
+    }
+
+    void daySpecificUploader(final ArrayList<String> arrayList){
+        final DatabaseReference templateRef = mRootRef.child("templates")
+                .child(uid)
+                .child(WorkoutAssistorAssemblerClass.getInstance()
+                        .templateName);
+
+
+        templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String key = dataSnapshot1.getKey();
+                    if(isToday(key)){
+                        DatabaseReference daySpecificRef1 = templateRef.child(key);
+
+                        List<String> list = new ArrayList<>();
+
+                        for(String value : arrayList){
+                            list.add(value);
+                        }
+
+                        //daySpecificRef1.setValue(null);
+
+                        daySpecificRef1.setValue(list);
+
+                        isFirstupload2 = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     ArrayList<String> exercisesCompleted(ArrayList<String> completedArrayList, ArrayList<String> originalAL){
