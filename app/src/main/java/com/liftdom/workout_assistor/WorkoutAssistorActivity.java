@@ -37,6 +37,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import org.joda.time.LocalDate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,6 +71,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     @BindView(R.id.journalAndSave) LinearLayout journalAndSave;
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
     @BindView(R.id.WATitleView) TextView WATitleView;
+
+    int ArrayListIterator = 0;
 
 
     @Override
@@ -209,25 +212,23 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     }
 
 
-    boolean isToday(String dayString){
-        boolean today = false;
+    ArrayList<String> dayFormat(String dayString){
+        ArrayList<String> daysFormmatted = new ArrayList<>();
         if(dayString != null) {
             if(!dayString.equals("algorithm") || !dayString.equals("algorithmExercises")){
-                SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-                Date d = new Date();
-                String currentDoW = sdf.format(d);
+                //SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                //Date d = new Date();
+                //String currentDoW = sdf.format(d);
 
                 String delims = "[_]";
                 String[] tokens = dayString.split(delims);
 
                 for (String day : tokens) {
-                    if (day.equals(currentDoW)) {
-                        today = true;
-                    }
+                    daysFormmatted.add(day);
                 }
             }
         }
-        return today;
+        return daysFormmatted;
 
     }
 
@@ -264,14 +265,15 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         if(isSavedInstanceBool) {
 
-            DateFormat dateFormat = new SimpleDateFormat("MM:dd:yyyy");
-            dateFormat.setTimeZone(TimeZone.getTimeZone("gmt"));
-            String gmtTime = dateFormat.format(new Date());
+            //DateFormat dateFormat = new SimpleDateFormat("MM:dd:yyyy");
+            //dateFormat.setTimeZone(TimeZone.getTimeZone("gmt"));
+            //String gmtTime = dateFormat.format(new Date());
 
+            String date = LocalDate.now().toString();
 
             DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
-            DatabaseReference specificDate = workoutHistoryRef.child(gmtTime);
+            DatabaseReference specificDate = workoutHistoryRef.child(date);
 
             specificDate.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -299,71 +301,93 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                     activeTemplateDataRef.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
+                                            ArrayList<String> allDays = new ArrayList<String>();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                            Date d = new Date();
+                                            String currentDay = sdf.format(d);
+
+                                            String activeTemplateToday = null;
+                                            boolean hasDay = false;
+
+
                                             for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
                                                 // Here we're looking at each DoW entry ("Monday_Thursday", "Tuesday_Saturday", etc)
 
+                                                // I think the problem is we're deciding for each one. What we need
+                                                // to do is gather them all and compare.
+
                                                 activeTemplateDayValue = templateSnapshot.getKey();
+                                                allDays.add(activeTemplateDayValue);
+                                                ++ArrayListIterator;
+                                            }
 
-                                                if (isToday(activeTemplateDayValue)) {
-                                                    // see if any DoW entries match the
-                                                    activeTemplateToday = activeTemplateDayValue;
+                                            for(String dayUnFormatted : allDays){
+                                                ArrayList<String> daysFormatted = dayFormat(dayUnFormatted);
 
-                                                    DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateDayValue);
-                                                    activeDayRef.addValueEventListener(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                                            for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
-                                                                String snapshotString = daySnapshot.getValue(String.class);
+                                                for(String dayFormatted : daysFormatted){
+                                                    if(dayFormatted.equals(currentDay)){
+                                                        activeTemplateToday = dayUnFormatted;
+                                                        hasDay = true;
+                                                    }
+                                                }
+                                            }
 
-                                                                if (isExerciseName(snapshotString)) {
+                                            if(hasDay){
+
+                                                DatabaseReference activeDayRef = activeTemplateDataRef.child(activeTemplateToday);
+                                                activeDayRef.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
+                                                            String snapshotString = daySnapshot.getValue(String.class);
+
+                                                            if (isExerciseName(snapshotString)) {
+                                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                FragmentTransaction fragmentTransaction = fragmentManager
+                                                                        .beginTransaction();
+                                                                ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
+                                                                fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                                                        exerciseNameFrag);
+                                                                if (!isFinishing()) {
+                                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                                }
+                                                                exerciseNameFrag.exerciseName = snapshotString;
+                                                                exerciseString = snapshotString;
+                                                            } else {
+                                                                String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
+
+                                                                String delims = "[x,@]";
+
+                                                                String[] tokens = stringSansSpaces.split(delims);
+
+                                                                int setAmount = Integer.parseInt(tokens[0]);
+
+                                                                for (int i = 0; i < setAmount; i++) {
                                                                     FragmentManager fragmentManager = getSupportFragmentManager();
                                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                                             .beginTransaction();
-                                                                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
+                                                                    RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                                            exerciseNameFrag);
+                                                                            repsWeightFrag);
                                                                     if (!isFinishing()) {
                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                     }
-                                                                    exerciseNameFrag.exerciseName = snapshotString;
-                                                                    exerciseString = snapshotString;
-                                                                } else {
-                                                                    String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
-
-                                                                    String delims = "[x,@]";
-
-                                                                    String[] tokens = stringSansSpaces.split(delims);
-
-                                                                    int setAmount = Integer.parseInt(tokens[0]);
-
-                                                                    for (int i = 0; i < setAmount; i++) {
-                                                                        FragmentManager fragmentManager = getSupportFragmentManager();
-                                                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                                                .beginTransaction();
-                                                                        RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
-                                                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                                                repsWeightFrag);
-                                                                        if (!isFinishing()) {
-                                                                            fragmentTransaction.commitAllowingStateLoss();
-                                                                        }
-                                                                        repsWeightFrag.parentExercise = exerciseString;
-                                                                        repsWeightFrag.reps = tokens[1];
-                                                                        repsWeightFrag.weight = tokens[2];
-                                                                        repsWeightFrag.fullString = snapshotString;
-                                                                    }
+                                                                    repsWeightFrag.parentExercise = exerciseString;
+                                                                    repsWeightFrag.reps = tokens[1];
+                                                                    repsWeightFrag.weight = tokens[2];
+                                                                    repsWeightFrag.fullString = snapshotString;
                                                                 }
                                                             }
                                                         }
+                                                    }
 
-                                                        @Override
-                                                        public void onCancelled(DatabaseError databaseError) {
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
 
-                                                        }
-                                                    });
-                                                    journalAndSave.setVisibility(View.VISIBLE);
-                                                }
-                                            }
-                                            if (!isToday(activeTemplateDayValue)) {
+                                                    }
+                                                });
+                                                journalAndSave.setVisibility(View.VISIBLE);
+                                            }else{
                                                 FragmentManager fragmentManager = getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                         .beginTransaction();
@@ -373,7 +397,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                 if(!isFinishing()) {
                                                     fragmentTransaction.commitAllowingStateLoss();
                                                 }
+
                                             }
+
                                         }
 
                                         @Override
