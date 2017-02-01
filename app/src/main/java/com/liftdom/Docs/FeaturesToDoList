@@ -23,13 +23,8 @@ UPCOMING FEATURES TO DO:
 
 *v0.3*
 **DONE** Set display name
-* Work on pre-made templates (Just a few)
+* Work on pre-made templates
     *** Smolov & Smolov Jr
-    * Starting Strength
-    * Stronglifts
-    * PPL
-    * Ice Cream Fitness
-    * PHAT
 **DONE** TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 * Create a simple algorithm template for continuous resistance training
@@ -60,6 +55,11 @@ UPCOMING FEATURES TO DO:
 *v0.5*
 * Exercise movement library/reference
 * Work on pre-made templates (many more)
+    * Starting Strength
+    * Stronglifts
+    * PPL
+    * Ice Cream Fitness
+    * PHAT
 * Understand and plan the right NoSQL architecture for efficient social media features
 * Clear current BugList
 * save instance of workout assistor (if same day, and if workout hasn't already been finished)

@@ -211,9 +211,14 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                 int index = 0;
                                 for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
                                     if(!dataSnapshot2.getValue(String.class).equals("loop")){
-                                        int value = Integer.parseInt(dataSnapshot2.getValue(String.class));
-                                        algoInfoArray[index] = value;
-                                        ++index;
+                                        if(dataSnapshot2.getValue(String.class).equals("")){
+                                            algoInfoArray[index] = 0;
+                                            ++index;
+                                        }else{
+                                            int value = Integer.parseInt(dataSnapshot2.getValue(String.class));
+                                            algoInfoArray[index] = value;
+                                            ++index;
+                                        }
                                     }
                                     //algoInfoAL.add(value);
                                 }
@@ -416,6 +421,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                                                 ArrayList<String> exerciseSpecificArrayList = new ArrayList<String>();
 
+                                                String date = LocalDate.now().toString();
+                                                runningAlgoRef.setValue(date);
 
                                             }else{
                                                 String date = LocalDate.now().toString();
@@ -445,9 +452,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
                 //final String formattedDate = df.format(c.getTime());
 
                 LocalDate d1 = LocalDate.now();
+                String date = LocalDate.now().toString();
 
                 DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
-                DatabaseReference specificDate = workoutHistoryRef.child(d1.toString("MM-dd-yyyy"));
+                DatabaseReference specificDate = workoutHistoryRef.child(date);
                 DatabaseReference journalRef = specificDate.child("private_journal");
                 String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
                 ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;

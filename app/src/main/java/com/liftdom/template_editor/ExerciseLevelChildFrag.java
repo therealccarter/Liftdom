@@ -38,6 +38,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     @BindView(R.id.removeSet) Button removeSet;
     @BindView(R.id.algorithmCheckBox) CheckBox algoCheckBox;
 
+    ArrayList<String> algoExAL = new ArrayList<>();
+
 
     public ExerciseLevelChildFrag() {
         // Required empty public constructor
@@ -62,7 +64,32 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         ButterKnife.bind(this, view);
 
         if(isEdit){
+
+
+
+            DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
+                    ("algorithmExercises");
+
+            algoExercises.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        String value = dataSnapshot1.getValue(String.class);
+                        if(value.equals(exerciseName)){
+                            algoCheckBox.setChecked(true);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
             exerciseButton.setText(exerciseName);
+
 
             DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
                     (templateName).child(selectedDaysReference);
@@ -185,6 +212,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 }
             }
         });
+
+
 
         callback = (doWCallback) getParentFragment();
 
