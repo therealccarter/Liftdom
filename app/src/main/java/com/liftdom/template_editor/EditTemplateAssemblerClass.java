@@ -41,6 +41,8 @@ class EditTemplateAssemblerClass {
 
     Boolean isOnSaveClick = false;
 
+    boolean isEditAndFirstTime = false;
+
     // DoW Setter
     void setDoW(String doWValue){
         if(doWValue != null){

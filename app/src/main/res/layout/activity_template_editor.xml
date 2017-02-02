@@ -134,21 +134,6 @@
             />
 
 
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/algoButton"
-                    android:background="@color/liftrGold1"
-                    android:text="@string/templateAlgorithm"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:paddingStart="10dp"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="15dp"
-            />
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,6 +183,21 @@
             />
 
             </LinearLayout>
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/algoButton"
+                    android:background="@color/liftrGold1"
+                    android:text="@string/templateAlgorithm"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:paddingStart="10dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="15dp"
+            />
 
             <Button
                     android:layout_width="match_parent"

@@ -9,6 +9,9 @@ import android.view.Window;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
@@ -37,6 +40,19 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.textView8) TextView textView8;
     @BindView(R.id.textView9) TextView textView9;
     @BindView(R.id.textView10) TextView textView10;
+
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    // declare_auth
+    private FirebaseAuth mAuth;
+    private FirebaseUser mFirebaseUser;
+
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    String templateName = "fail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +84,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 weightsIncreasedEditText.setText(value);
             }
         }
+
 
         if(EditTemplateAssemblerClass.getInstance().isAlgoFirstTime && EditTemplateAssemblerClass.getInstance().isAlgoLooper){
             algorithmLooper.setChecked(true);
@@ -273,6 +290,68 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        if(EditTemplateAssemblerClass.getInstance().isEditAndFirstTime){
+            templateName = getIntent().getExtras().getString("templateName");
+
+            DatabaseReference algoInfoRef = mRootRef.child(uid).child("templates")
+                    .child(templateName).child("algorithm");
+
+            algoInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    int index = 0;
+
+                    if(dataSnapshot.getKey() != null){
+                        String[] algoInfo = new String[7];
+
+                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                            String value = dataSnapshot1.getValue(String.class);
+
+                            algoInfo[index] = value;
+
+                            ++index;
+
+                            if(index == 7){
+                                for(int i = 0; i < 7; i++){
+                                    String value1 = algoInfo[i];
+                                    if(i == 0){
+                                        setsWeeksEditText.setText(value1);
+                                    } else if(i == 1){
+                                        setsIncreasedEditText.setText(value1);
+                                    } else if(i == 2){
+                                        repsWeeksEditText.setText(value1);
+                                    } else if(i == 3){
+                                        repsIncreasedEditText.setText(value1);
+                                    } else if(i == 4){
+                                        weightsWeeksEditText.setText(value1);
+                                    } else if(i == 5){
+                                        weightsIncreasedEditText.setText(value1);
+                                    } else if(i == 6){
+                                        if(value1 != null && value1.equals("loop")){
+                                            algorithmLooper.setChecked(true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        applyAlgo.setChecked(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = false;
+
+        }
+
 
     }
 

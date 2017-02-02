@@ -570,6 +570,15 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         algoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
+                if(getIntent().getExtras().getString("isEdit") != null) {
+                    if (getIntent().getExtras().getString("isEdit").equals("yes")) {
+                        EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = true;
+                    }
+                }
+                String templateName = getIntent().getExtras().getString("templateName");
+
+                intent.putExtra("templateName", templateName);
+
                 startActivityForResult(intent, 4);
             }
         });
