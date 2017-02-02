@@ -70,6 +70,12 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
         for(int i = 0; i < 7; i++){
             String value = algoDataArray[i];
+            if(EditTemplateAssemblerClass.getInstance().isEditAndFirstTime){
+                applyAlgo.setChecked(true);
+
+                EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = false;
+            }
+
             if(i == 0){
                 setsWeeksEditText.setText(value);
             } else if(i == 1){
@@ -293,67 +299,13 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
 
         if(EditTemplateAssemblerClass.getInstance().isEditAndFirstTime){
-            templateName = getIntent().getExtras().getString("templateName");
-
-            DatabaseReference algoInfoRef = mRootRef.child(uid).child("templates")
-                    .child(templateName).child("algorithm");
-
-            algoInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    int index = 0;
-
-                    if(dataSnapshot.getKey() != null){
-                        String[] algoInfo = new String[7];
-
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            String value = dataSnapshot1.getValue(String.class);
-
-                            algoInfo[index] = value;
-
-                            ++index;
-
-                            if(index == 7){
-                                for(int i = 0; i < 7; i++){
-                                    String value1 = algoInfo[i];
-                                    if(i == 0){
-                                        setsWeeksEditText.setText(value1);
-                                    } else if(i == 1){
-                                        setsIncreasedEditText.setText(value1);
-                                    } else if(i == 2){
-                                        repsWeeksEditText.setText(value1);
-                                    } else if(i == 3){
-                                        repsIncreasedEditText.setText(value1);
-                                    } else if(i == 4){
-                                        weightsWeeksEditText.setText(value1);
-                                    } else if(i == 5){
-                                        weightsIncreasedEditText.setText(value1);
-                                    } else if(i == 6){
-                                        if(value1 != null && value1.equals("loop")){
-                                            algorithmLooper.setChecked(true);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        applyAlgo.setChecked(true);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-            EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = false;
 
         }
 
 
-    }
+
+        }
+
 
     @Override
     public void onPause(){

@@ -303,6 +303,40 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     }
                 });
 
+                DatabaseReference algoInfoRef = mRootRef.child("templates").child(uid)
+                        .child(templateName).child("algorithm");
+
+                algoInfoRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = true;
+
+                        if(EditTemplateAssemblerClass.getInstance().isEditAndFirstTime){
+                            int index = 0;
+
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                String value = dataSnapshot1.getValue(String.class);
+
+                                EditTemplateAssemblerClass.getInstance().algorithmDataList[index] = value;
+
+                                EditTemplateAssemblerClass.getInstance().isApplyAlgo = true;
+                                EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = false;
+
+                                ++index;
+                            }
+
+                            //EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = false;
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 // find the matching day
                 selectedTemplateDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -570,14 +604,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         algoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
-                if(getIntent().getExtras().getString("isEdit") != null) {
-                    if (getIntent().getExtras().getString("isEdit").equals("yes")) {
-                        EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = true;
-                    }
-                }
-                String templateName = getIntent().getExtras().getString("templateName");
-
-                intent.putExtra("templateName", templateName);
 
                 startActivityForResult(intent, 4);
             }
