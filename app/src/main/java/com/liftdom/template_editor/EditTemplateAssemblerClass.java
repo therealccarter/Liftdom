@@ -382,6 +382,18 @@ class EditTemplateAssemblerClass {
 
 }
 
+/**
+ * if(algoInfoArray[6] == 1){
+ // what if we just subtracted the
+ // algo shit from the weeks
+ // between?...
+ for(int j = 0; j < weeksBetween;
+ j++){
+ sets = sets - algoInfoArray[1];
+ reps = reps - algoInfoArray[3];
+ }
+ }
+ */
 
 
 

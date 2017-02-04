@@ -62,6 +62,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
     boolean isFirstupload = true;
     boolean isFirstupload2 = true;
 
+    String dayKey = "fail";
+
     // tells us which exercises we want to increment
     ArrayList<String> algoExercisesAL = new ArrayList<>();
 
@@ -311,6 +313,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
 
 
+
+
                                 ArrayList<String> exercisesToInc = exercisesCompleted(assistorArrayList, originalAL);
                                 // here we'd perform the algo operations
                                 // for each completed exercise
@@ -401,13 +405,21 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                 if(weeksBetween >= algoInfoArray[4]){
                                                                                     weight = Integer.parseInt(cutArray[2]);
                                                                                     weight += algoInfoArray[5];
+                                                                                    if(algoInfoArray[6] == 1){
+                                                                                        // what if we just subtracted the
+                                                                                        // algo shit from the weeks
+                                                                                        // between?...
+                                                                                        for(int j = 0; j < weeksBetween;
+                                                                                            j++){
+                                                                                            sets = sets - algoInfoArray[1];
+                                                                                            reps = reps - algoInfoArray[3];
+                                                                                        }
+                                                                                    }
                                                                                 }else{
                                                                                     weight = Integer.parseInt(cutArray[2]);
                                                                                 }
 
-                                                                                if(algoInfoArray[6] == 1){
 
-                                                                                }
 
                                                                                 String concat = Integer.toString
                                                                                         (sets) + " x " + Integer.toString(reps)
@@ -420,14 +432,13 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                             }
                                                                         }
 
-                                                                        String date = LocalDate.now().toString();
-                                                                        runningAlgoRef.setValue(date);
-
                                                                         if(isFirstupload){
                                                                             daySpecificUploader(daySpecificArrayList);
                                                                             isFirstupload = false;
                                                                         }
 
+                                                                        String date = LocalDate.now().toString();
+                                                                        runningAlgoRef.setValue(date);
                                                                     }
 
                                                                     @Override
@@ -551,7 +562,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                         daySpecificRef1.setValue(list);
 
-                        isFirstupload2 = false;
+                        //isFirstupload2 = false;
                     }
                 }
             }

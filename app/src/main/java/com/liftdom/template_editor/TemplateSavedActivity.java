@@ -270,7 +270,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 }
 
                 templateSpecific.child(doWAL.get(0)).setValue(list);
-                originalSetsRepsRef.child(doWAL.get(0)).setValue(list);
+                //originalSetsRepsRef.child(doWAL.get(0)).setValue(list);
             }
 
 
@@ -291,7 +291,6 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 }
 
                 templateSpecific.child("algorithm").setValue(list);
-                templateSpecific.child("isFirstAlgo").setValue(1);
                 templateSpecific.child("algorithmExercises").setValue(exAlgList);
 
                 //DatabaseReference runningAlgoRef = mRootRef.child(uid)
