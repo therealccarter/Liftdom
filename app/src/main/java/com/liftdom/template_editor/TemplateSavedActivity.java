@@ -21,6 +21,7 @@ import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
+import com.liftdom.workout_assistor.WorkoutAssistorAssemblerClass;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -249,11 +250,16 @@ public class TemplateSavedActivity extends AppCompatActivity {
              * When we open up a template asEdit, it's adding replica sets to the template Editor
              */
 
+            DatabaseReference originalSetsRepsRef = mRootRef.child("templates").child(uid)
+                    .child(templateName)
+                    .child("originalSetsReps");
+
 
             for (ArrayList<String> doWAL : masterListTemplate) {
                 // for each entry in a specific day's list
 
                 List<String> list = new ArrayList<>();
+
 
                 //doWAL = DowAL1
                 for(int i = 1; i < doWAL.size(); i++){
@@ -264,7 +270,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 }
 
                 templateSpecific.child(doWAL.get(0)).setValue(list);
+                originalSetsRepsRef.child(doWAL.get(0)).setValue(list);
             }
+
+
+
+            // maybe we could add a boolean that would add those things.
 
             if(algBool){
 
@@ -280,6 +291,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 }
 
                 templateSpecific.child("algorithm").setValue(list);
+                templateSpecific.child("isFirstAlgo").setValue(1);
                 templateSpecific.child("algorithmExercises").setValue(exAlgList);
 
                 //DatabaseReference runningAlgoRef = mRootRef.child(uid)

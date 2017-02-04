@@ -17,17 +17,16 @@ MEDIUM:
 No username for chris b.
 adding a shit ton of exercises and set-schemes results in weird shit
 error on create account without inputting information (null check)
-Algorithm info needs to be set on edit
+algorithm "sticks" after switching to different template.
+algorithm loop button shouldn't be checked if "no loop".
+We probably need to delete exercises from the running algo if they get unchecked.
+    Or at least make sure there isn't any carryover. idk.
 
 SERIOUS:
-
+GOD DAMN DOUBLING/TRIPLING BUG FUCK OFFFFFFF REEEEE
 
 ================================== DEMO: 12/18/16 ===========================================
-======================
 ================================== DEMO: 1/1/2017 ===========================================
-======================
 ================================== DEMO: 1/3/2017 ===========================================
-======================
 ================================== DEMO: 1/15/2017 ==========================================
-======================
 

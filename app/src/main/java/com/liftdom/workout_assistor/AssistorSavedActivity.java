@@ -74,6 +74,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
     ArrayList<String> runningALCompleted = new ArrayList<>();
 
     ArrayList<String> originalAL = new ArrayList<>();
+    ArrayList<String> firstSetsRepsAL = new ArrayList<>();
 
     DatabaseReference daySpecificRef;
 
@@ -219,6 +220,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                             algoInfoArray[index] = value;
                                             ++index;
                                         }
+                                    }else if(dataSnapshot2.getValue(String.class).equals("loop")){
+                                        algoInfoArray[6] = 1;
+                                    }else if(dataSnapshot2.getValue(String.class).equals("no loop")){
+                                        algoInfoArray[6] = 0;
                                     }
                                     //algoInfoAL.add(value);
                                 }
@@ -263,7 +268,9 @@ public class AssistorSavedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
                     String key = dataSnapshot1.getKey();
+
                     if(isToday(key)){
                         DatabaseReference dayRef = activeTemplateDataRef.child(key);
 
@@ -278,6 +285,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     String snapshotString = dataSnapshot2.getValue(String.class);
                                     if(isExerciseName(snapshotString)){
                                         originalAL.add(snapshotString);
+                                        //firstSetsRepsAL.set(0, snapshotString);
                                     }else{
                                         String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
                                         String delims = "[x,@]";
@@ -287,10 +295,21 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                                         for(int i = 0; i < setAmount; i++){
                                             String cat = tokens[1] + "@" + tokens[2];
+                                            //if(some shit){
+                                            //    String cat2 = tokens[0] + "x" + tokens[1];
+                                            //    firstSetsRepsAL.add(cat2);
+                                            //}
                                             originalAL.add(cat);
                                         }
                                     }
                                 }
+
+                                //OK what we're going to do for the looper is create a full arraylist for the day
+                                // we're in of the original pure sets/reps/weight data.
+                                // then we'll look at that to get the original values.
+
+
+
 
                                 ArrayList<String> exercisesToInc = exercisesCompleted(assistorArrayList, originalAL);
                                 // here we'd perform the algo operations
@@ -315,6 +334,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     //DatabaseReference runningAlgoTimeStampRef = runningAlgoRef.child("timeStamp");
 
                                     //runningAlgoTimeStampRef.setValue(formattedDate);
+
 
                                     runningAlgoRef.addValueEventListener(new ValueEventListener() {
                                         @Override
@@ -362,7 +382,6 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                 int reps = 0;
                                                                                 int weight = 0;
 
-
                                                                                 String delims = "[x,@]";
                                                                                 String noSpaces = daySpecificArrayList.get(i).replace(" ", "");
                                                                                 String[] cutArray = noSpaces.split(delims);
@@ -386,6 +405,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                     weight = Integer.parseInt(cutArray[2]);
                                                                                 }
 
+                                                                                if(algoInfoArray[6] == 1){
+
+                                                                                }
+
                                                                                 String concat = Integer.toString
                                                                                         (sets) + " x " + Integer.toString(reps)
                                                                                         + " @ " + Integer.toString
@@ -396,6 +419,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                 break;
                                                                             }
                                                                         }
+
+                                                                        String date = LocalDate.now().toString();
+                                                                        runningAlgoRef.setValue(date);
+
                                                                         if(isFirstupload){
                                                                             daySpecificUploader(daySpecificArrayList);
                                                                             isFirstupload = false;
@@ -417,12 +444,11 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                     public void onCancelled(DatabaseError databaseError) {
 
                                                     }
+                                                    ArrayList<String> exerciseSpecificArrayList = new ArrayList<String>();
+
+
                                                 });
 
-                                                ArrayList<String> exerciseSpecificArrayList = new ArrayList<String>();
-
-                                                String date = LocalDate.now().toString();
-                                                runningAlgoRef.setValue(date);
 
                                             }else{
                                                 String date = LocalDate.now().toString();
