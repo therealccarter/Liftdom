@@ -63,8 +63,11 @@
                 android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.template_housing.RenameTemplateDialog"
-                  android:theme="@android:style/Theme.Holo.Dialog">
+        <activity
+                android:name="com.liftdom.template_housing.RenameTemplateDialog"
+                android:theme="@android:style/Theme.Holo.Dialog">
+        </activity>
+        <activity android:name="com.liftdom.template_housing.premade_program_starters.SmolovStarterActivity">
         </activity>
     </application>
 

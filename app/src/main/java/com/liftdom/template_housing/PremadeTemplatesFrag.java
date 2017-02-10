@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 
@@ -20,6 +22,9 @@ import com.liftdom.template_editor.TemplateEditorActivity;
  * A simple {@link Fragment} subclass.
  */
 public class PremadeTemplatesFrag extends Fragment {
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.smolovButton) Button smolovButton;
 
@@ -51,9 +56,13 @@ public class PremadeTemplatesFrag extends Fragment {
                         .setPositiveButton("Select Smolov",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
-                                //DatabaseReference setSmolov =
+
+                                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                        ("active_template");
+                                activeTemplateRef.setValue("Smolov");
 
                                 getActivity().finish();
+
                             }
                         })
                         .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {

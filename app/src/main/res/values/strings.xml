@@ -372,6 +372,10 @@
 
     <string name="elipses">...</string>
 
+    <string name="oneRepMax">One-rep Max:</string>
+
+    <string name="beginRoutine">Begin Routine</string>
+
     <string name="chooseAnExercise">Choose an Exercise</string>
     <string name="clickToAddAnExercise">Click to add an exercise</string>
 
