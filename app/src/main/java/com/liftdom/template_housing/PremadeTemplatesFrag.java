@@ -15,8 +15,11 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_housing.premade_program_starters.SmolovStarterActivity;
+import com.liftdom.workout_assistor.AssistorSavedActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,13 +59,10 @@ public class PremadeTemplatesFrag extends Fragment {
                         .setPositiveButton("Select Smolov",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
-
-                                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
-                                        ("active_template");
-                                activeTemplateRef.setValue("Smolov");
-
                                 getActivity().finish();
-
+                                Intent intent;
+                                intent = new Intent(getContext(), SmolovStarterActivity.class);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {

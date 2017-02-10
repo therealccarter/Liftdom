@@ -53,6 +53,7 @@
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/oneRepMaxEditText"
                 android:hint="____"
         />
 
@@ -88,6 +89,7 @@
             android:text="@string/beginRoutine"
             android:textSize="24sp"
             android:layout_gravity="center_horizontal"
+            android:id="@+id/saveButton"
             android:background="@color/confirmgreen"
     />
 

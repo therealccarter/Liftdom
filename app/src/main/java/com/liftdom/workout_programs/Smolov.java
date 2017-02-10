@@ -10,9 +10,9 @@ public class Smolov {
 
     int Week;
     int Day;
-    int OneRM;
+    double OneRM;
 
-    public Smolov(int week, int day, int oneRM){
+    public Smolov(int week, int day, double oneRM){
         setWeek(week);
         setDay(day);
         setOneRM(oneRM);
@@ -32,11 +32,11 @@ public class Smolov {
         Day = day;
     }
 
-    void setOneRM(int oneRM){
+    void setOneRM(double oneRM){
         OneRM = oneRM;
     }
 
-    ArrayList<String> getWorkout(){
+    public ArrayList<String> getWorkout(){
         ArrayList<String> workout = new ArrayList<>();
 
         if(Week == 1 && Day == 1){
@@ -257,30 +257,31 @@ public class Smolov {
         return workout;
     }
 
-    int percentToWeight(int percent){
+    double percentToWeight(int percent){
         double weight;
-        int weight2;
-        double percentage = percent/100;
+        //int weight2;
+
+        double percentage = (double)percent/(double)100;
 
         weight = OneRM * percentage;
 
-        weight2 = (int) Math.round(weight);
+        //weight2 = (int) Math.round(weight);
 
-        return weight2;
+        return weight;
     }
 
-    int percentToWeight(int percent, int addExtra){
+    double percentToWeight(int percent, int addExtra){
         double weight;
-        int weight2;
-        double percentage = percent/100;
+        //int weight2;
+        double percentage = (double)percent/(double)100;
 
         weight = OneRM * percentage;
 
-        weight2 = (int) Math.round(weight);
+        //weight2 = (int) Math.round(weight);
 
-        weight2 = weight2 + addExtra;
+        weight = weight + addExtra;
 
-        return weight2;
+        return weight;
     }
 
 }
