@@ -216,6 +216,9 @@
     <string name="backSquat">Back Squat</string>
     <string name="title_activity_algorithm_results_po_c">AlgorithmResultsPoC</string>
 
+    <!-- Smolov -->
+    <string name="smolovStarterTitle">Smolov Setup</string>
+
 
     <!-- Days of the Week -->
     <string name="M">M</string>

@@ -12,12 +12,13 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Smolov Routine Setup"
+            android:text="@string/smolovStarterTitle"
             android:textSize="30sp"
             android:gravity="center_horizontal"
             android:padding="10dp"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
+            android:id="@+id/smolovTitle"
     />
 
 

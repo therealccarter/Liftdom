@@ -69,6 +69,8 @@
         </activity>
         <activity android:name="com.liftdom.template_housing.premade_program_starters.SmolovStarterActivity">
         </activity>
+        <activity android:name="com.liftdom.template_housing.premade_program_starters.SmolovSavedActivity">
+        </activity>
     </application>
 
 </manifest>

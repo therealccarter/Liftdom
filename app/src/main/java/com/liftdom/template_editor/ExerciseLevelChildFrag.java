@@ -64,9 +64,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         ButterKnife.bind(this, view);
 
         if(isEdit){
-
-
-
             DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
                     ("algorithmExercises");
 
