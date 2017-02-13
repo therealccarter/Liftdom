@@ -67,9 +67,12 @@
                 android:name="com.liftdom.template_housing.RenameTemplateDialog"
                 android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
-        <activity android:name="com.liftdom.template_housing.premade_program_starters.SmolovStarterActivity">
+        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovSavedActivity">
         </activity>
-        <activity android:name="com.liftdom.template_housing.premade_program_starters.SmolovSavedActivity">
+        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovStarterActivity">
+        </activity>
+        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovSaveDialog"
+                  android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
     </application>
 

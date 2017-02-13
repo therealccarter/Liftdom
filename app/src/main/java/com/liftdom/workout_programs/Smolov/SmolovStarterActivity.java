@@ -1,9 +1,9 @@
-package com.liftdom.template_housing.premade_program_starters;
+package com.liftdom.workout_programs.Smolov;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,10 +12,11 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExercisePickerActivity;
-import com.liftdom.template_editor.TemplateSavedActivity;
+import com.liftdom.template_editor.SaveTemplateDialog;
 
 public class SmolovStarterActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class SmolovStarterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smolov_starter);
 
+
         ButterKnife.bind(this);
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -44,16 +46,35 @@ public class SmolovStarterActivity extends AppCompatActivity {
                 //SmolovSavedActivity smolovSavedActivity = new SmolovSavedActivity(oneRepMaxEditText.getText()
                 //        .toString(), movementName.getText().toString());
 
-                Intent intent;
-                intent = new Intent(SmolovStarterActivity.this, SmolovSavedActivity.class);
+                //Intent intent;
+                //intent = new Intent(SmolovStarterActivity.this, SmolovSavedActivity.class);
+                Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+
+                boolean checkBool = false;
+
+                if(activeTemplateCheckbox.isChecked()){
+                    checkBool = true;
+                }
+
+                if(getIntent().getExtras().getString("isEdit") != null) {
+                    if (getIntent().getExtras().getString("isEdit").equals("yes")) {
+                        String templateName = getIntent().getExtras().getString("templateName");
+                        intent.putExtra("isEdit", "yes");
+                        intent.putExtra("templateName", templateName);
+                        intent.putExtra("isActiveTemplate", checkBool);
+
+                    }
+                }else{
+                    intent.putExtra("isEdit", "no");
+                    intent.putExtra("isActiveTemplate", checkBool);
+
+                    //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
+                    startActivity(intent);
+                }
                 intent.putExtra("1rm", oneRepMaxEditText.getText()
                         .toString());
                 intent.putExtra("exName", movementName.getText().toString());
-                if(activeTemplateCheckbox.isChecked()){
-                    intent.putExtra("isActive", true);
-                }else{
-                    intent.putExtra("isActive", false);
-                }
+
                 startActivity(intent);
             }
         });
@@ -82,3 +103,4 @@ public class SmolovStarterActivity extends AppCompatActivity {
         }
     }
 }
+

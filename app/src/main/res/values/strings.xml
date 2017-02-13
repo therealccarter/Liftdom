@@ -373,6 +373,8 @@
     <string name="templateSaved">TEMPLATE SAVED</string>
     <string name="backToTemplates">Back to Templates</string>
 
+    <string name="smolovSaved">SMOLOV CONFIRMED</string>
+
     <string name="elipses">...</string>
 
     <string name="oneRepMax">One-rep Max:</string>

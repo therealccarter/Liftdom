@@ -1,4 +1,4 @@
-package com.liftdom.workout_programs;
+package com.liftdom.workout_programs.Smolov;
 
 import java.util.ArrayList;
 

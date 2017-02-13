@@ -5,7 +5,7 @@
         android:id="@+id/activity_smolov_starter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.liftdom.template_housing.premade_program_starters.SmolovStarterActivity"
+        tools:context="com.liftdom.workout_programs.Smolov.SmolovStarterActivity"
         android:orientation="vertical"
         android:background="@color/backgroundgrey1"
 >
@@ -79,6 +79,8 @@
             android:layout_marginBottom="140dp"
 
     />
+
+
 
     <!-- TODO: Add calendar for picking the first day-->
 

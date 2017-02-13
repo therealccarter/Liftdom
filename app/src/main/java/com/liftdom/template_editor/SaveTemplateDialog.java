@@ -43,8 +43,6 @@ public class SaveTemplateDialog extends Activity {
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
         algBool = getIntent().getExtras().getBoolean("isAlgorithm");
 
-
-
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
             templateName1 = getIntent().getExtras().getString("templateName");
             templateName.setText(templateName1);
