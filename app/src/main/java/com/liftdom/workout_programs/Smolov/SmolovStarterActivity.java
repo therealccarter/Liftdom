@@ -46,34 +46,19 @@ public class SmolovStarterActivity extends AppCompatActivity {
                 //SmolovSavedActivity smolovSavedActivity = new SmolovSavedActivity(oneRepMaxEditText.getText()
                 //        .toString(), movementName.getText().toString());
 
-                //Intent intent;
-                //intent = new Intent(SmolovStarterActivity.this, SmolovSavedActivity.class);
-                Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+                Intent intent;
+                intent = new Intent(SmolovStarterActivity.this, SmolovSavedActivity.class);
 
-                boolean checkBool = false;
+                intent = new Intent(SmolovStarterActivity.this, SmolovSavedActivity.class);
 
-                if(activeTemplateCheckbox.isChecked()){
-                    checkBool = true;
-                }
-
-                if(getIntent().getExtras().getString("isEdit") != null) {
-                    if (getIntent().getExtras().getString("isEdit").equals("yes")) {
-                        String templateName = getIntent().getExtras().getString("templateName");
-                        intent.putExtra("isEdit", "yes");
-                        intent.putExtra("templateName", templateName);
-                        intent.putExtra("isActiveTemplate", checkBool);
-
-                    }
-                }else{
-                    intent.putExtra("isEdit", "no");
-                    intent.putExtra("isActiveTemplate", checkBool);
-
-                    //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
-                    startActivity(intent);
-                }
                 intent.putExtra("1rm", oneRepMaxEditText.getText()
                         .toString());
                 intent.putExtra("exName", movementName.getText().toString());
+                if(activeTemplateCheckbox.isChecked()){
+                    intent.putExtra("isActive", true);
+                }else{
+                    intent.putExtra("isActive", false);
+                }
 
                 startActivity(intent);
             }
