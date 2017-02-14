@@ -1,6 +1,8 @@
 package com.liftdom.workout_assistor;
 
 
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +24,13 @@ public class WorkoutAssistorAssemblerClass {
     String templateName = null;
 
     String privateJournal = null;
+
+    //SMOLOV STUFF
+    double oneRM;
+    int week;
+    int day;
+    String exName;
+    LocalDate localDate;
 
     public void setRepsWeight(String exercise, String repsWeight){
         if(DoWAL1.contains(exercise)){
