@@ -23,11 +23,11 @@ UPCOMING FEATURES TO DO:
 
 *v0.3*
 **DONE** Set display name
-* Work on pre-made templates
+**DONE** Work on pre-made templates
     *** Smolov & Smolov Jr
 **DONE** TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
-***DONE** Create a simple algorithm template for continuous resistance training
+**DONE** Create a simple algorithm template for continuous resistance training
     * How would we do this?
         * Every _ week(s), increase sets by _
         * Every _ week(s), increase reps by _
@@ -40,28 +40,31 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.4*
-* Work on user values, whole sign in/sign up process, usernames, auth, etc
-* Really work on body stats/profile settings input page
+* Body stats/profile settings input page (weight, height, size, maxes, etc)
 * Rehaul sign in page
+    - Null checks
+    - Toasts for errors
+    - Consolidate sign in and sign up
+    - Beautify
 * algorithm if bodyweight, just keep increasing
-* Begin work on creating a User Body Profile (weight, height, size, maxes, etc)
-* Create a chart for Strength Gains, Body Weight, Predictive/Future Lifts
+* Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
 * Show past and future workouts in a Calendar View (color code - future/past/failures)
 * Add motivation quotes
 * Clear current BugList
 
 *v0.5*
 * Exercise movement library/reference
+* Add rounder option for weights
+* Add some tools (BMI, cal calculator, etc)
 * Work on pre-made templates (many more)
     * Starting Strength
     * Stronglifts
     * PPL
     * Ice Cream Fitness
     * PHAT
+* save instance of workout assistor (if same day, and if workout hasn't already been finished)
 * Understand and plan the right NoSQL architecture for efficient social media features
 * Clear current BugList
-* save instance of workout assistor (if same day, and if workout hasn't already been finished)
-* add color ish notifications for adding and deleting
 
 *v0.6* - Begin Social features!
 * Search for other users
@@ -81,12 +84,10 @@ UPCOMING FEATURES TO DO:
 * Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
 * Look for other lifters at various gyms (mark on Google Maps maybe?)
 * DM workout invite
-* Add rounder option for weights
 * for the workout assistor, give spaces between different rep types
 
 *v0.9*
 * Level up structure based on daily multiplier, lifts, etc.
-* Add some tools (BMI, cal calculator, etc)
 
 
 *v1.0*

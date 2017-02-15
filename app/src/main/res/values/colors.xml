@@ -31,6 +31,7 @@
     <color name="grey_300">#E0E0E0</color>
     <color name="transblack2">#bf000000</color>
     <color name="liftrGold2">#a79413</color>
+    <color name="grey1">#e5b9b9b9</color>
 
     <item name="backgroundgrey1" type="color">#454545</item>
 
