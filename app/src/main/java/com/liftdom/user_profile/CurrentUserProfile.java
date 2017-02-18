@@ -17,10 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.liftdom.liftdom.KeyAccountValuesActivity;
-import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.liftdom.*;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -71,7 +68,7 @@ public class CurrentUserProfile extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, SignInActivity2.class));
         }
 
         // [START auth_state_listener]
@@ -86,7 +83,7 @@ public class CurrentUserProfile extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(CurrentUserProfile.this, SignInActivity.class));
+                    startActivity(new Intent(CurrentUserProfile.this, SignInActivity2.class));
                 }
             }
         };
@@ -190,7 +187,7 @@ public class CurrentUserProfile extends AppCompatActivity {
         signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mAuth.signOut();
-                Intent intent = new Intent(v.getContext(), SignInActivity.class);
+                Intent intent = new Intent(v.getContext(), SignInActivity2.class);
                 startActivity(intent);
             }
         });

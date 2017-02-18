@@ -71,11 +71,8 @@
         </activity>
         <activity android:name="com.liftdom.workout_programs.Smolov.SmolovStarterActivity">
         </activity>
-        <activity
-                android:name="com.liftdom.workout_programs.Smolov.SmolovSaveDialog"
-                android:theme="@android:style/Theme.Holo.Dialog">
-        </activity>
-        <activity android:name=".SignInActivity2">
+        <activity android:name=".SignInActivity2"
+                  android:noHistory="true">
         </activity>
     </application>
 

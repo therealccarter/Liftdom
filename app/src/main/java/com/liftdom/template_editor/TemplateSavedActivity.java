@@ -14,10 +14,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.KeyAccountValuesActivity;
-import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.liftdom.*;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
@@ -81,7 +78,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, SignInActivity2.class));
         }
 
         // [START auth_state_listener]
@@ -95,7 +92,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(TemplateSavedActivity.this, SignInActivity.class));
+                    startActivity(new Intent(TemplateSavedActivity.this, SignInActivity2.class));
                 }
 
             }

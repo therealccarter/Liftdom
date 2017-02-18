@@ -15,11 +15,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.auth.*;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity2 extends AppCompatActivity {
 
@@ -62,6 +62,7 @@ public class SignInActivity2 extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+
                 }
                 // [START_EXCLUDE]
                 //updateUI(user);
@@ -76,16 +77,37 @@ public class SignInActivity2 extends AppCompatActivity {
                 String email = signInEmail.getText().toString();
                 String password = signInPassword.getText().toString();
 
-                if(email == null || password == null){
+                if(email.isEmpty() || password.isEmpty()){
                     CharSequence toastText = "Email/Password fields are required";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
                     toast.show();
                 }else{
-                    mAuth.signInWithEmailAndPassword(email, password);
+                    // [START sign_in_with_email]
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignInActivity2.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
-                    Intent intent = new Intent(SignInActivity2.this, MainActivity.class);
-                    startActivity(intent);
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    if (!task.isSuccessful()) {
+                                        CharSequence toastText = "Email/Password fields are required";
+                                        int duration = Toast.LENGTH_SHORT;
+                                        Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
+                                        toast.show();
+                                    }
+                                    if(task.isSuccessful()){
+                                        Intent intent = new Intent(SignInActivity2.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                    // [END_EXCLUDE]
+                                }
+                            });
+                    // [END sign_in_with_email]
                 }
             }
         });
@@ -94,7 +116,7 @@ public class SignInActivity2 extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SignInActivity2.this);
 
                 // set title
                 alertDialogBuilder.setTitle("Note:");
@@ -111,17 +133,16 @@ public class SignInActivity2 extends AppCompatActivity {
                                 String password = signUpPassword.getText().toString();
                                 String username = signUpUsername.getText().toString();
 
-                                if(email == null || password == null || username == null){
+                                if(email.isEmpty() || password.isEmpty() || username.isEmpty()){
                                     CharSequence toastText = "Email/Password/Username fields are required";
                                     int duration = Toast.LENGTH_SHORT;
                                     Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
                                     toast.show();
                                     finish();
                                 }else{
-                                    createAccount(email, username, password);
-                                    Intent intent = new Intent(SignInActivity2.this, MainActivity.class);
-                                    startActivity(intent);
                                     finish();
+                                    createAccount(email, username, password);
+
                                 }
 
                             }
@@ -142,45 +163,49 @@ public class SignInActivity2 extends AppCompatActivity {
 
             }
         });
+
     }
+
+
+
 
     private void createAccount(final String email, final String username, final String password) {
 
         Log.d(TAG, "createAccount:" + email);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new
-                OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                        //TODO: invalid password
-                        final FirebaseUser user = task.getResult().getUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                        UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(username)
-                                .build();
+                        DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+                        usernameRef.setValue(username);
 
-                        mAuth.getCurrentUser().updateProfile(changeRequest).addOnCompleteListener(getParent(), new
-                                OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                //this is needed for display name to show up in auth listener
-                                user.reload();
-                                mAuth.signOut();
-                                mAuth.signInWithEmailAndPassword(email, password);
-                            }
-                        });
+
+                    // If sign in fails, display a message to the user. If sign in succeeds
+                    // the auth state listener will be notified and logic to handle the
+                    // signed in user can be handled in the listener.
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(SignInActivity2.this, R.string.auth_failed,
+                                Toast.LENGTH_SHORT).show();
                     }
-                });
+
+                }
+            });
+
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    // [END on_start_add_listener]
-
+    //@Override
+    //public void onStart() {
+    //    super.onStart();
+    //    mAuth.addAuthStateListener(mAuthListener);
+    //}
+    //// [END on_start_add_listener]
+//
     @Override
     public void onResume(){
         super.onResume();

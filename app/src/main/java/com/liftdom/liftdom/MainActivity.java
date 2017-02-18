@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    String username = "failed";
+
     // butterknife
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, SignInActivity2.class));
         }
 
 
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    startActivity(new Intent(MainActivity.this, SignInActivity2.class));
                 }
 
             }
@@ -207,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
                             .drawable.usertest))
                             .withName
-                                    (mFirebaseUser.getDisplayName()).withEmail
+                                    (getUsername()).withEmail
                                     (mFirebaseUser.getEmail()),
                     0);
         }
@@ -215,7 +217,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    String getUsername(){
 
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+
+        usernameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                username = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return username;
+
+    }
 
 
     // [START on_start_add_listener]
