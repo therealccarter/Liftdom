@@ -23,8 +23,8 @@
     <color name="darkerGrey" type="color">#1d1d1d</color>
     <color name="darkgrey" type="color">#bb040404</color>
     <color name="verylightgrey" type="color">#EBEBEB</color>
-    <color name="transBlack1" type="color">#C9000000</color>
-    <color name="transDarkGrey" type="color">#eb131313</color>
+    <color name="transBlack1" type="color">#c9000000</color>
+    <color name="transDarkGrey" type="color">#7d969696</color>
 
 
     <color name="grey_100">#F5F5F5</color>

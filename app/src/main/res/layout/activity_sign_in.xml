@@ -1,28 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/activity_sign_in"
-              android:orientation="vertical"
-              tools:context="com.liftdom.liftdom.SignInActivity"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_sign_in2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.liftdom.liftdom.SignInActivity"
+        android:orientation="vertical"
+        android:background="@color/backgroundgrey1"
 >
-
-
-    <com.liftdom.liftdom.utils.SlidingTabLayout
-            android:id="@+id/tabsSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:background="@color/black"
-    />
-
-    <android.support.v4.view.ViewPager
-            android:id="@+id/pagerSignIn"
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-    ></android.support.v4.view.ViewPager>
+    >
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/justknight2"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="60dp"
+        />
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textSize="50sp"
+                android:gravity="center_horizontal"
+                android:background="@color/black"
+                android:id="@+id/signInTitle"
+                android:textColor="@color/liftrGold1"
+                android:padding="20dp"
+        />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="30dp"
+                android:background="@color/transDarkGrey"
+        >
+            <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="visible"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="50dp"
+            />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+            />
+
+            <com.facebook.login.widget.LoginButton
+                    android:id="@+id/button_facebook_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="50dp"
+            />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

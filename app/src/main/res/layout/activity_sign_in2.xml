@@ -18,6 +18,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/justknight2"
                 android:scaleType="centerCrop"
+                android:layout_marginTop="70dp"
         />
 
         <TextView
@@ -44,75 +45,11 @@
                 android:layout_marginStart="30dp"
                 android:background="@color/grey1"
         >
-            <EditText
-                    android:id="@+id/signup_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress" />
-
-            <EditText
-                    android:id="@+id/signup_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_user_id"
-                    android:inputType="textEmailAddress" />
-
-            <EditText
-                    android:id="@+id/signup_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_password"
-                    android:inputType="textPassword" />
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="@string/create_account"
-                    android:id="@+id/email_sign_up_button"
-                    android:background="@color/liftrGold1"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:layout_margin="10dp"
-            />
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_margin="10dp"
-            />
-
-
-            <EditText
-                    android:id="@+id/signin_email"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress" />
-
-            <EditText
-                    android:id="@+id/signin_password"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_password"
-                    android:inputType="textPassword" />
-
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="@string/sign_in"
-                    android:id="@+id/email_sign_in_button"
-                    android:background="@color/liftrGold1"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:layout_margin="10dp"
-            />
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/button_facebook_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
 
         </LinearLayout>
 
