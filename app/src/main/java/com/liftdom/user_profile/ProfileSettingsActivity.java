@@ -9,9 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +18,9 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ProfileSettingsActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     @BindView(R.id.usernameTextView) TextView usernameTextView;
     @BindView(R.id.bodyWeightEditText) EditText bodyWeightEditText;
     @BindView(R.id.saveButtonProfileSettings) Button saveButton;
+    @BindView(R.id.currentFocus) Spinner currentFocusSpinner;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -73,6 +75,25 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             }
         };
         // [END auth_state_listener]
+
+        //currentFocusSpinner.setOnItemSelectedListener(this);
+
+        List<String> focuses = new ArrayList<String>();
+        focuses.add("Bodybuilding");
+        focuses.add("Powerlifting");
+        focuses.add("Powerbuilding");
+        focuses.add("General Weightlifting");
+        focuses.add("General Fitness");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                focuses);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        currentFocusSpinner.setAdapter(dataAdapter);
 
         final Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 

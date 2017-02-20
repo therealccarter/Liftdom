@@ -255,6 +255,8 @@
 
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
 
+
+
     <string name="todo">TO-DO</string>
     <string name="templates">Templates</string>
     <string name="openDrawer">Open Drawer</string>
@@ -343,6 +345,12 @@
     <string name="bodyWeight">Body Weight:</string>
     <string name="zero_zero">00</string>
     <string name="pounds">lbs</string>
+    <string name="feet">ft</string>
+    <string name="inches">in</string>
+    <string name="height">Height</string>
+    <string name="bench1rm">Bench Press 1-rep Max: </string>
+    <string name="squat1rm">Squat 1-rep Max: </string>
+    <string name="deadlift1rm">Deadlift 1-rep Max: </string>
     <string name="saveButton">Save</string>
     <string name="dummyLevel">- level .0</string>
     <string name="currentFocus">Focus:</string>
