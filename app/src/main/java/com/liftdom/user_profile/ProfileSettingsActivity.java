@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
-import com.liftdom.liftdom.SignInActivity2;
+
 
 public class ProfileSettingsActivity extends AppCompatActivity {
 
@@ -53,7 +53,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity2.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
 
         // [START auth_state_listener]
@@ -68,7 +68,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(ProfileSettingsActivity.this, SignInActivity2.class));
+                    startActivity(new Intent(ProfileSettingsActivity.this, SignInActivity.class));
                 }
             }
         };

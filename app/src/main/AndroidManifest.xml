@@ -2,12 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.liftdom.liftdom">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity
                 android:name=".MainActivity"
                 android:label="Liftdom">
@@ -19,7 +22,9 @@
         </activity>
         <activity
                 android:name=".SignInActivity"
-                android:noHistory="true">
+                android:noHistory="true"
+        >
+
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
@@ -71,9 +76,14 @@
         </activity>
         <activity android:name="com.liftdom.workout_programs.Smolov.SmolovStarterActivity">
         </activity>
-        <activity android:name=".SignInActivity2"
-                  android:noHistory="true">
-        </activity>
+
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+                  android:label="@string/app_name" />
+
     </application>
 
 </manifest>

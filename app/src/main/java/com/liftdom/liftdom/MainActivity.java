@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity2.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
 
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(MainActivity.this, SignInActivity2.class));
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 }
 
             }
