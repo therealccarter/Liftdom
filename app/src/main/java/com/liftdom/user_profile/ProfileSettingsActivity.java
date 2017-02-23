@@ -28,6 +28,11 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     @BindView(R.id.usernameEditText) EditText usernameEditText;
     @BindView(R.id.usernameTextView) TextView usernameTextView;
     @BindView(R.id.bodyWeightEditText) EditText bodyWeightEditText;
+    @BindView(R.id.heightFeet) EditText heightFeet;
+    @BindView(R.id.heightInches) EditText heightInches;
+    @BindView(R.id.benchPress1rm) EditText benchPress1rm;
+    @BindView(R.id.squat1rm) EditText squat1rm;
+    @BindView(R.id.deadlift1rm) EditText deadlift1rm;
     @BindView(R.id.saveButtonProfileSettings) Button saveButton;
     @BindView(R.id.currentFocus) Spinner currentFocusSpinner;
 
@@ -87,7 +92,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         focuses.add("General Fitness");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_style_new_1,
                 focuses);
 
         // Drop down layout style - list view with radio button
@@ -96,26 +101,66 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         // attaching data adapter to spinner
         currentFocusSpinner.setAdapter(dataAdapter);
 
-        final Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        usernameTextView.setText(mFirebaseUser.getDisplayName());
+        usernameTextView.setTypeface(lobster);
 
-        final DatabaseReference usernameRef = mRootRef.child("users").child(uid);
+        final DatabaseReference userRef = mRootRef.child("users").child(uid);
 
-        usernameRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean hasUsername = false;
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    String key = dataSnapshot1.getKey();
-                    if(key.equals("username")){
-                        hasUsername = true;
-                        String uName = dataSnapshot1.getValue(String.class);
-                        usernameTextView.setText(uName);
-                        usernameTextView.setTypeface(lobster);
-                        usernameTextView.setVisibility(View.VISIBLE);
+                    if(dataSnapshot1.getKey().equals("currentFocus")){
+                        String value = dataSnapshot1.getValue(String.class);
+                        if(value.equals("Bodybuilding")){
+                            currentFocusSpinner.setSelection(0);
+                        }else if(value.equals("Powerlifting")){
+                            currentFocusSpinner.setSelection(1);
+                        }else if(value.equals("Powerbuilding")){
+                            currentFocusSpinner.setSelection(2);
+                        }else if(value.equals("General Weightlifting")){
+                            currentFocusSpinner.setSelection(3);
+                        }else if(value.equals("General Fitness")){
+                            currentFocusSpinner.setSelection(4);
+                        }
+                    }else if(dataSnapshot1.getKey().equals("bodyweight")){
+                        String value = dataSnapshot1.getValue(String.class);
+                        bodyWeightEditText.setText(value);
+                    }else if(dataSnapshot1.getKey().equals("height")){
+                        String value = dataSnapshot1.getValue(String.class);
+                        String delims = "[_]";
+                        String[] values = value.split(delims);
+                        heightFeet.setText(values[0]);
+                        heightInches.setText(values[1]);
+                    }else if(dataSnapshot1.getKey().equals("maxes")){
+                        DatabaseReference maxesRef = userRef.child("maxes");
+                        maxesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                    if(dataSnapshot2.getKey().equals("benchMax")){
+                                        String value = dataSnapshot2.getValue(String.class);
+                                        benchPress1rm.setText(value);
+
+                                    }else if(dataSnapshot2.getKey().equals("squatMax")){
+                                        String value = dataSnapshot2.getValue(String.class);
+                                        squat1rm.setText(value);
+
+                                    }else if(dataSnapshot2.getKey().equals("deadliftMax")){
+                                        String value = dataSnapshot2.getValue(String.class);
+                                        deadlift1rm.setText(value);
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-                }
-                if(!hasUsername){
-                    usernameEditText.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -127,20 +172,23 @@ public class ProfileSettingsActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(usernameEditText.getText())){
-                    DatabaseReference setUserNameRef = usernameRef.child("username");
-                    setUserNameRef.setValue(usernameEditText.getText().toString());
+                String currentFocus = currentFocusSpinner.getSelectedItem().toString();
+                String bodyweight = bodyWeightEditText.getText().toString();
+                String height = heightFeet.getText().toString() + "_" + heightInches.getText().toString();
 
+                String benchMax = benchPress1rm.getText().toString();
+                String squatMax = squat1rm.getText().toString();
+                String deadliftMax = deadlift1rm.getText().toString();
 
-                    Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
-                    startActivity(intent);
-                }else{
+                userRef.child("currentFocus").setValue(currentFocus);
+                userRef.child("bodyweight").setValue(bodyweight);
+                userRef.child("height").setValue(height);
+                userRef.child("maxes").child("benchMax").setValue(benchMax);
+                userRef.child("maxes").child("squatMax").setValue(squatMax);
+                userRef.child("maxes").child("deadliftMax").setValue(deadliftMax);
 
-                    Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
-                    startActivity(intent);
-                }
-
-                // TODO: add bodyweight
+                Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
+                startActivity(intent);
 
             }
         });

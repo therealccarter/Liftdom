@@ -40,7 +40,7 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.4*
-* Body stats/profile settings input page (weight, height, size, maxes, etc)
+**DONE** Body stats/profile settings input page (weight, height, size, maxes, etc)
 **DONE** Rehaul sign in page
     - Null checks
     - Toasts for errors
