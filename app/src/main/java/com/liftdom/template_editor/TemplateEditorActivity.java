@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.LoginActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -173,7 +174,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(TemplateEditorActivity.this, SignInActivity.class));
+                    startActivity(new Intent(TemplateEditorActivity.this, LoginActivity.class));
                 }
 
             }

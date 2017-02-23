@@ -256,7 +256,6 @@
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
 
 
-
     <string name="todo">TO-DO</string>
     <string name="templates">Templates</string>
     <string name="openDrawer">Open Drawer</string>
@@ -348,9 +347,9 @@
     <string name="feet">ft</string>
     <string name="inches">in</string>
     <string name="height">Height</string>
-    <string name="bench1rm">Bench Press 1-rep Max: </string>
-    <string name="squat1rm">Squat 1-rep Max: </string>
-    <string name="deadlift1rm">Deadlift 1-rep Max: </string>
+    <string name="bench1rm">Bench Press 1-rep Max:</string>
+    <string name="squat1rm">Squat 1-rep Max:</string>
+    <string name="deadlift1rm">Deadlift 1-rep Max:</string>
     <string name="saveButton">Save</string>
     <string name="dummyLevel">- level .0</string>
     <string name="currentFocus">Focus:</string>
@@ -408,6 +407,18 @@
     </string>
 
     <string name="or">or</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
     <!-- -->
 

@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "710482914931-4pnr5h6pgicu8lhuc4n8ju07o5c56h58.apps.googleusercontent.com",
+          "client_id": "710482914931-hbvoourd0618g3oek490g0n31k088ule.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.liftdom.liftdom",
-            "certificate_hash": "61F112B1AE19F716E8B786D0E695617AEEA3944F"
+            "certificate_hash": "8ded047ae8866c161d97fbf927c82819a998df11"
           }
         },
         {

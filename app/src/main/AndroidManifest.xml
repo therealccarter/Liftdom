@@ -4,13 +4,17 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
         <activity
                 android:name=".MainActivity"
                 android:label="Liftdom">
@@ -22,9 +26,7 @@
         </activity>
         <activity
                 android:name=".SignInActivity"
-                android:noHistory="true"
-        >
-
+                android:noHistory="true">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
@@ -81,9 +83,15 @@
                 android:name="com.facebook.sdk.ApplicationId"
                 android:value="@string/facebook_app_id"/>
 
-        <activity android:name="com.facebook.FacebookActivity"
-                  android:label="@string/app_name" />
-
+        <activity
+                android:name="com.facebook.FacebookActivity"
+                android:label="@string/app_name"/>
+        <activity android:name=".GoogleSignInTest">
+        </activity>
+        <activity
+                android:name=".LoginActivity"
+                android:label="@string/title_activity_login">
+        </activity>
     </application>
 
 </manifest>

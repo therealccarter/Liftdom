@@ -28,20 +28,20 @@ UPCOMING FEATURES TO DO:
 **DONE** TemplateEditor - drop sets, to failure, body weight, etc.
 **DONE** Fix architecture of templates/history
 **DONE** Create a simple algorithm template for continuous resistance training
-    * How would we do this?
-        * Every _ week(s), increase sets by _
-        * Every _ week(s), increase reps by _
-        * Every _ week(s), increase weight by _
-    * OK, how would we apply this to exercises?
-    * Let's use a checkbox on each exercise. If checked, it uses the algorithm.
-    * Also, an option to apply to all exercises.
+    **DONE** How would we do this?
+       * Every _ week(s), increase sets by _
+       * Every _ week(s), increase reps by _
+       * Every _ week(s), increase weight by _
+    **DONE** OK, how would we apply this to exercises?
+    **DONE** Let's use a checkbox on each exercise. If checked, it uses the algorithm.
+    **DONE** Also, an option to apply to all exercises.
 
 **DONE** Give option to make active template
 * Clear current BugList
 
 *v0.4*
 * Body stats/profile settings input page (weight, height, size, maxes, etc)
-* Rehaul sign in page
+**DONE** Rehaul sign in page
     - Null checks
     - Toasts for errors
     - Consolidate sign in and sign up

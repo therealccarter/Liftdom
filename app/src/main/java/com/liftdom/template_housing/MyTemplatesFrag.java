@@ -28,7 +28,7 @@ import com.liftdom.user_profile.CurrentUserProfile;
 
 import java.util.ArrayList;
 
-import static com.google.android.gms.internal.zzs.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,8 +112,7 @@ public class MyTemplatesFrag extends Fragment {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                            // ...
+
                         }
                     });
         }else{
@@ -159,8 +158,7 @@ public class MyTemplatesFrag extends Fragment {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                            // ...
+
                         }
                     });
         }
