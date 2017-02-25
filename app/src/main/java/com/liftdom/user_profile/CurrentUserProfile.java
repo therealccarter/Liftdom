@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,9 +48,9 @@ public class CurrentUserProfile extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.historyButton) Button historyButton;
-    @BindView(R.id.savedTemplates) Button savedTemplatesButton;
-    @BindView(R.id.sign_out_button) Button signOutButton;
+    //@BindView(R.id.historyButton) Button historyButton;
+    //@BindView(R.id.savedTemplates) Button savedTemplatesButton;
+    @BindView(R.id.basicProfileStats) Button basicProfileStats;
     @BindView(R.id.settingsButton) ImageView settingsButton;
 
     @Override
@@ -170,31 +169,30 @@ public class CurrentUserProfile extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), WorkoutHistoryActivity.class);
-                startActivity(intent);
-            }
-        });
+        //historyButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent = new Intent(v.getContext(), WorkoutHistoryActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
+//
+        //savedTemplatesButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
 
-        savedTemplatesButton.setOnClickListener(new View.OnClickListener() {
+        basicProfileStats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mAuth.signOut();
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                Intent intent = new Intent(v.getContext(), BasicStatsActivity.class);
                 startActivity(intent);
             }
         });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ProfileSettingsActivity.class);
+                Intent intent = new Intent(v.getContext(), SettingsListActivity.class);
                 startActivity(intent);
             }
         });

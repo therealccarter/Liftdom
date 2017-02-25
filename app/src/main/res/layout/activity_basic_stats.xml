@@ -5,7 +5,7 @@
         android:id="@+id/activity_profile_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.liftdom.user_profile.ProfileSettingsActivity"
+        tools:context="com.liftdom.user_profile.BasicStatsActivity"
         android:orientation="vertical"
         android:background="@color/backgroundgrey1"
 >

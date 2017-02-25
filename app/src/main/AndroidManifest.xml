@@ -60,7 +60,7 @@
                 android:name="com.liftdom.template_editor.ExercisePickerActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.user_profile.ProfileSettingsActivity">
+        <activity android:name="com.liftdom.user_profile.BasicStatsActivity">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExtraOptionsActivity"
@@ -91,6 +91,8 @@
         <activity
                 android:name=".LoginActivity"
                 android:label="@string/title_activity_login">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.SettingsListActivity">
         </activity>
     </application>
 

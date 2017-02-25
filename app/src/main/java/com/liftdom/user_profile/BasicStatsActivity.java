@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
@@ -17,13 +15,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.LoginActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileSettingsActivity extends AppCompatActivity {
+public class BasicStatsActivity extends AppCompatActivity {
 
     @BindView(R.id.usernameEditText) EditText usernameEditText;
     @BindView(R.id.usernameTextView) TextView usernameTextView;
@@ -51,7 +48,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_settings);
+        setContentView(R.layout.activity_basic_stats);
 
         ButterKnife.bind(this);
 
@@ -76,7 +73,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(ProfileSettingsActivity.this, LoginActivity.class));
+                    startActivity(new Intent(BasicStatsActivity.this, LoginActivity.class));
                 }
             }
         };
