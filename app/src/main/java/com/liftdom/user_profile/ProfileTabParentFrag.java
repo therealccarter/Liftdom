@@ -18,7 +18,7 @@ import com.liftdom.template_editor.ViewPagerAdapter;
 public class ProfileTabParentFrag extends Fragment {
 
     ViewPager pager;
-    ViewPagerAdapter adapter;
+    ProfilePagerAdapter adapter;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Workout History","Stats & Progression", "Body Level"};
     int Numboftabs = 3;
@@ -36,7 +36,7 @@ public class ProfileTabParentFrag extends Fragment {
 
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new ProfilePagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager);

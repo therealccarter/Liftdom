@@ -12,10 +12,10 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HIstoryCalendarTab extends Fragment {
+public class HistoryCalendarTab extends Fragment {
 
 
-    public HIstoryCalendarTab() {
+    public HistoryCalendarTab() {
         // Required empty public constructor
     }
 
