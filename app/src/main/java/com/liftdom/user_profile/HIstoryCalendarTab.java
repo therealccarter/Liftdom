@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.CalendarView;
 import com.liftdom.liftdom.R;
 
 /**
@@ -24,7 +25,17 @@ public class HistoryCalendarTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_calendar_tab, container, false);
+        View view = inflater.inflate(R.layout.fragment_history_calendar_tab, container, false);
+
+        initializeCalendar(view);
+
+        return view;
+    }
+
+    public void initializeCalendar(View view){
+        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView);
+
+
     }
 
 }
