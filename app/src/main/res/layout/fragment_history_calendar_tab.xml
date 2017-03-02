@@ -1,16 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context="com.liftdom.user_profile.HistoryCalendarTab">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <CalendarView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="WORKOUT HISTORY HERE"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-    />
+            android:layout_height="wrap_content"
+            android:id="@+id/calendarView"
+    >
 
-</FrameLayout>
+    </CalendarView>
+
+</LinearLayout>

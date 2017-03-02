@@ -9,7 +9,7 @@ import com.liftdom.template_editor.ExPickerTab2;
 public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
 
 
-    CharSequence Titles[]={"Workout History","Stats & Progression", "Body Level"};
+    CharSequence Titles[]={"Workout History","Progression Charts", "Body Level"};
     int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
 
 

@@ -20,7 +20,7 @@ public class ProfileTabParentFrag extends Fragment {
     ViewPager pager;
     ProfilePagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Workout History","Stats & Progression", "Body Level"};
+    CharSequence Titles[]={"Workout History","Progression Charts", "Body Level"};
     int Numboftabs = 3;
 
     public ProfileTabParentFrag() {
@@ -33,7 +33,6 @@ public class ProfileTabParentFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_tab_parent, container, false);
-
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ProfilePagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);

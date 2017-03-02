@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -143,6 +144,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setTypeface(Typeface.DEFAULT_BOLD);
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textView.setTextColor(Color.parseColor("#D1B91D"));
 
         TypedValue outValue = new TypedValue();
         getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
@@ -194,7 +196,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             mTabStrip.addView(tabView);
             if (i == mViewPager.getCurrentItem()) {
+                //Typeface lobster = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lobster-Regular.ttf");
                 tabView.setSelected(true);
+                //tabTitleView.setTypeface(lobster);
+
             }
         }
     }
