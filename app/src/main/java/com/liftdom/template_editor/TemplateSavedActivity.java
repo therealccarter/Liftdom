@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.*;
+import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;

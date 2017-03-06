@@ -27,15 +27,11 @@ public class HistoryCalendarTab extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history_calendar_tab, container, false);
 
-        initializeCalendar(view);
+
 
         return view;
     }
 
-    public void initializeCalendar(View view){
-        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView);
 
-
-    }
 
 }

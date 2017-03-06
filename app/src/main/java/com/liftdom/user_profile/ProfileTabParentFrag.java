@@ -20,8 +20,8 @@ public class ProfileTabParentFrag extends Fragment {
     ViewPager pager;
     ProfilePagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Workout History","Progression Charts", "Body Level"};
-    int Numboftabs = 3;
+    CharSequence Titles[]={"Progression Charts", "Body Level"};
+    int Numboftabs = 2;
 
     public ProfileTabParentFrag() {
         // Required empty public constructor

@@ -9,8 +9,8 @@ import com.liftdom.template_editor.ExPickerTab2;
 public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
 
 
-    CharSequence Titles[]={"Workout History","Progression Charts", "Body Level"};
-    int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+    CharSequence Titles[]={"Progression Charts", "Body Level"};
+    int NumbOfTabs = 2; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
@@ -27,16 +27,12 @@ public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            HistoryCalendarTab tab1 = new HistoryCalendarTab();
+            StatChartsTab tab1 = new StatChartsTab();
             return tab1;
         }
-        else if(position == 1)
-        {
-            StatChartsTab tab2 = new StatChartsTab();
+        else{
+            BodyLevelTab tab2 = new BodyLevelTab();
             return tab2;
-        }else{
-            BodyLevelTab tab3 = new BodyLevelTab();
-            return tab3;
         }
     }
 
