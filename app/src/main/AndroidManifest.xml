@@ -86,13 +86,15 @@
         <activity
                 android:name="com.facebook.FacebookActivity"
                 android:label="@string/app_name"/>
-        <activity android:name=".GoogleSignInTest">
-        </activity>
+
         <activity
                 android:name=".LoginActivity"
                 android:label="@string/title_activity_login">
         </activity>
         <activity android:name="com.liftdom.user_profile.SettingsListActivity">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.SelectedPastDateDialog"
+                  android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
     </application>
 

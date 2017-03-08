@@ -60,6 +60,7 @@ dependencies {
     compile 'com.github.florent37:diagonallayout:1.0.2'
     compile 'joda-time:joda-time:2.9.7'
     compile 'com.github.zagum:Android-ExpandIcon:1.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

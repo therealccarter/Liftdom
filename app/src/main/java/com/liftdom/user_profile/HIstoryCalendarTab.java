@@ -1,7 +1,9 @@
 package com.liftdom.user_profile;
 
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,15 +16,20 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.decorators.OneDayDecorator;
 import com.liftdom.liftdom.decorators.PastEventDecorator;
+import com.liftdom.template_housing.TemplateHousingActivity;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
@@ -36,6 +43,11 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     public HistoryCalendarTab() {
         // Required empty public constructor
     }
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    ArrayList<CalendarDay> pastDates = new ArrayList<>();
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
 
@@ -68,21 +80,35 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 .setMaximumDate(maxDate.toDate())
                 .commit();
 
-        DateTime testDate1 = new DateTime("2017-03-01");
-        DateTime testDate2 = new DateTime("2017-03-02");
-        DateTime testDate3 = new DateTime("2017-03-03");
+        DatabaseReference historyRef = mRootRef.child("workout_history").child(uid);
 
-        ArrayList<CalendarDay> pastDates = new ArrayList<>();
+        historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long incrementor = 0;
 
-        CalendarDay converted1 = CalendarDay.from(testDate1.toDate());
-        CalendarDay converted2 = CalendarDay.from(testDate2.toDate());
-        CalendarDay converted3 = CalendarDay.from(testDate3.toDate());
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
 
-        pastDates.add(converted1);
-        pastDates.add(converted2);
-        pastDates.add(converted3);
+                    DateTime dateTime = new DateTime(dataSnapshot1.getKey());
 
-        widget.addDecorator(new PastEventDecorator(Color.RED, pastDates));
+                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
+
+                    pastDates.add(convertedDateTime);
+
+                    incrementor++;
+
+                    if(incrementor == dataSnapshot.getChildrenCount()){
+                        widget.addDecorator(new PastEventDecorator(Color.GREEN, pastDates));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         return view;
     }
@@ -91,6 +117,17 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         //If you change a decorate, you need to invalidate decorators
         oneDayDecorator.setDate(date.getDate());
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+
+        DateTime dateTime = new DateTime(date.getDate());
+
+        String formatted = fmt.print(dateTime);
+
+        Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
+        pastIntent.putExtra("date", formatted);
+        startActivity(pastIntent);
+
         widget.invalidateDecorators();
     }
 

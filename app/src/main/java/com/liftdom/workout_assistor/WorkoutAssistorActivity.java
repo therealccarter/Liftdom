@@ -299,9 +299,6 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                 if (activeTemplateName != null) {
                                     if(smolovChecker(activeTemplateName)) {
                                         // SMOLOV WORKOUT ASSISTOR
-
-
-
                                         WorkoutAssistorAssemblerClass.getInstance().templateName = activeTemplateName;
                                         final DatabaseReference smolovDataRef = mRootRef.child("templates").child(uid)
                                                 .child(activeTemplateName);

@@ -117,17 +117,16 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/fragHolder"
         >
+            <fragment android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:name="com.liftdom.user_profile.HistoryCalendarTab"
+                      tools:layout="@layout/fragment_history_calendar_tab"
+            />
 
             <fragment android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:name="com.liftdom.user_profile.ProfileTabParentFrag"
                       tools:layout="@layout/fragment_profile_tab_parent"
-            />
-
-            <fragment android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:name="com.liftdom.user_profile.HistoryCalendarTab"
-                      tools:layout="@layout/fragment_history_calendar_tab"
             />
 
 

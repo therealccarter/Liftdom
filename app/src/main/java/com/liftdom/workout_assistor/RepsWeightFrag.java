@@ -27,10 +27,11 @@ public class RepsWeightFrag extends Fragment {
 
     int setNumber;
 
-    String reps = "fail";
-    String weight = "fail";
-    String parentExercise = "failed";
-    String fullString = "failed";
+    public String reps = "fail";
+    public String weight = "fail";
+    public String parentExercise = "failed";
+    public String fullString = "failed";
+    public boolean isFromCalendar = false;
 
     @BindView(R.id.repsEditText) EditText repsEditText;
     @BindView(R.id.weightEditText) EditText weightEditText;
@@ -60,6 +61,10 @@ public class RepsWeightFrag extends Fragment {
             weightEditText.setText(weight);
         }
 
+        if(isFromCalendar){
+            checkBox.setVisibility(View.GONE);
+        }
+
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -78,7 +83,7 @@ public class RepsWeightFrag extends Fragment {
     public void onPause(){
         super.onPause();
 
-        if(mSaved == null) {
+        if(mSaved == null && !isFromCalendar) {
             CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
             EditText repsEditText = (EditText) getView().findViewById(R.id.repsEditText);
             EditText weightEditText = (EditText) getView().findViewById(R.id.weightEditText);
