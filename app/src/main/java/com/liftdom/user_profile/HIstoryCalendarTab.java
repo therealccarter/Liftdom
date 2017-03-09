@@ -48,6 +48,17 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ArrayList<CalendarDay> pastDates = new ArrayList<>();
+    ArrayList<CalendarDay> futureDates = new ArrayList<>();
+
+    long futureIncrementor = 0;
+
+    ArrayList<String> firstAL = new ArrayList<>();
+    ArrayList<String> secondAL = new ArrayList<>();
+    ArrayList<String> thirdAL = new ArrayList<>();
+    ArrayList<String> fourthAL = new ArrayList<>();
+    ArrayList<String> fifthAL = new ArrayList<>();
+    ArrayList<String> sixthAL = new ArrayList<>();
+    ArrayList<String> seventhAL = new ArrayList<>();
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
 
@@ -58,6 +69,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history_calendar_tab, container, false);
+
+        //TODO: Add missed days in the past
 
         ButterKnife.bind(this, view);
 
@@ -109,6 +122,179 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             }
         });
 
+        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //TODO: Apply algorithm
+
+                String activeTemplate = dataSnapshot.getValue(String.class);
+
+                final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
+
+                futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                            ++futureIncrementor;
+
+                            String keyValue = dataSnapshot1.getKey();
+
+                            if(!keyValue.equals("algorithm") && !keyValue.equals("algorithmExercises")){
+                                if(futureIncrementor == 1){
+                                    firstAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                firstAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 2){
+                                    secondAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                secondAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 3){
+                                    thirdAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                thirdAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 4){
+                                    fourthAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                fourthAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 5){
+                                    fifthAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                fifthAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 6){
+                                    sixthAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                sixthAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else if(futureIncrementor == 7){
+                                    seventhAL.add(keyValue);
+                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
+
+                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                                String value = dataSnapshot2.getValue(String.class);
+                                                seventhAL.add(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
+
+                            if(futureIncrementor == dataSnapshot.getChildrenCount()){
+                                futureDatesConstructor();
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         return view;
     }
@@ -124,13 +310,18 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         String formatted = fmt.print(dateTime);
 
-        Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
-        pastIntent.putExtra("date", formatted);
-        startActivity(pastIntent);
+        if(pastDates.contains(date)){
+            Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
+            pastIntent.putExtra("date", formatted);
+            startActivity(pastIntent);
+        }
 
         widget.invalidateDecorators();
     }
 
+    public void futureDatesConstructor(){
+        // Here we'll deconstruct the array lists and try to turn it into something tangible
+    }
 
 }
 
