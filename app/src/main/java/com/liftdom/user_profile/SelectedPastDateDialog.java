@@ -1,5 +1,6 @@
 package com.liftdom.user_profile;
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -48,8 +49,9 @@ public class SelectedPastDateDialog extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     String snapshotString = dataSnapshot1.getValue(String.class);
+                    String keyString = dataSnapshot1.getKey();
 
-                    if (isExerciseName(snapshotString) && !snapshotString.equals("private_journal")) {
+                    if (isExerciseName(snapshotString) && !keyString.equals("private_journal")) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();
@@ -60,6 +62,18 @@ public class SelectedPastDateDialog extends AppCompatActivity {
                             fragmentTransaction.commitAllowingStateLoss();
                         }
                         exerciseNameFrag.exerciseName = snapshotString;
+                    } else if(isExerciseName(snapshotString) && keyString.equals("private_journal")
+                        && !snapshotString.equals("")){
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager
+                                .beginTransaction();
+                        PastJournalFrag pastJournalFrag = new PastJournalFrag();
+                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                pastJournalFrag);
+                        if (!isFinishing()) {
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
+                        pastJournalFrag.journalString = snapshotString;
                     } else {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager

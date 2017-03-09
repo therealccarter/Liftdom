@@ -94,7 +94,8 @@
         <activity android:name="com.liftdom.user_profile.SettingsListActivity">
         </activity>
         <activity android:name="com.liftdom.user_profile.SelectedPastDateDialog"
-                  android:theme="@style/Theme.AppCompat.Dialog">
+                  android:theme="@style/AppCompatDialogNoTitleBar"
+                  >
         </activity>
     </application>
 
