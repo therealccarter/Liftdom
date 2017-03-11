@@ -178,10 +178,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool1 = subIncValidator(futureSubInc1, dataSnapshot
                                                         .getChildrenCount());
 
-                                                /**
-                                                 * Ok, we can instead make seven methods for each one,
-                                                 * and validate separately.
-                                                 */
+                                                if(subIncBool1){
+                                                    futureConstructor1();
+                                                }
                                             }
                                         }
 
@@ -209,6 +208,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool2 = subIncValidator(futureSubInc2, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool2){
+                                                    futureConstructor2();
+                                                }
                                             }
                                         }
 
@@ -236,6 +239,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool3 = subIncValidator(futureSubInc3, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool3){
+                                                    futureConstructor3();
+                                                }
                                             }
                                         }
 
@@ -263,6 +270,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool4 = subIncValidator(futureSubInc4, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool4){
+                                                    futureConstructor4();
+                                                }
                                             }
                                         }
 
@@ -290,6 +301,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool5 = subIncValidator(futureSubInc5, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool5){
+                                                    futureConstructor5();
+                                                }
                                             }
                                         }
 
@@ -317,6 +332,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool6 = subIncValidator(futureSubInc6, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool6){
+                                                    futureConstructor6();
+                                                }
                                             }
                                         }
 
@@ -346,6 +365,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                                 subIncBool7 = subIncValidator(futureSubInc7, dataSnapshot
                                                         .getChildrenCount());
+
+                                                if(subIncBool7){
+                                                    futureConstructor7();
+                                                }
                                             }
                                         }
 
@@ -356,14 +379,6 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                     });
                                 }
 
-
-                            }
-
-                            if(futureIncrementor == dataSnapshot.getChildrenCount()){
-                                if(subIncBool1 && subIncBool2 && subIncBool3 && subIncBool4 && subIncBool5 &&
-                                        subIncBool6 && subIncBool7){
-                                    futureDatesConstructor();
-                                }
 
                             }
 
@@ -395,7 +410,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         //If you change a decorate, you need to invalidate decorators
         oneDayDecorator.setDate(date.getDate());
 
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 
         DateTime dateTime = new DateTime(date.getDate());
 
@@ -445,14 +460,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         widget.invalidateDecorators();
     }
 
-    public void futureDatesConstructor(){
-        // Here we'll deconstruct the array lists and try to turn it into something tangible
-        // So we'll get each array list, and for each day/s at index 0, we'll use the rest of that data somehow to
-        // phone back
-
-        // I think the best idea is to use this to generate dates and set the values of them in the singleton.
-        // And then one date selection, we'll call back to the singleton to retrieve the info
-
+    public void futureConstructor1(){
         if(!firstAL.isEmpty()){
             ArrayList<String> days = getDayStrings(firstAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -475,6 +483,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             // we could get dates for the remainder of the year, and somehow associate those dates with the info
             // in a singleton helper class...
 
+            // So, this part works fine..
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
                 dateTime = dateTime.plusDays(i);
@@ -486,8 +495,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection1));
+        }
+    }
+
+    public void futureConstructor2(){
         if(!secondAL.isEmpty()){
             ArrayList<String> days = getDayStrings(secondAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -502,13 +518,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(secondAL.get(i));
 
                 if(i == (secondAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(2, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(1, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -521,8 +534,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection2.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection2.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection2));
+        }
+    }
+
+    public void futureConstructor3(){
         if(!thirdAL.isEmpty()){
             ArrayList<String> days = getDayStrings(thirdAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -537,13 +557,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(thirdAL.get(i));
 
                 if(i == (thirdAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(3, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(2, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -556,8 +573,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection3.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection3.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection3));
+        }
+    }
+
+    public void futureConstructor4(){
         if(!fourthAL.isEmpty()){
             ArrayList<String> days = getDayStrings(fourthAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -572,13 +596,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(fourthAL.get(i));
 
                 if(i == (fourthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(4, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(3, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -591,8 +612,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection4.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection4.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection4));
+        }
+    }
+
+    public void futureConstructor5(){
         if(!fifthAL.isEmpty()){
             ArrayList<String> days = getDayStrings(fifthAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -607,13 +635,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(fifthAL.get(i));
 
                 if(i == (fifthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(5, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(4, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -626,8 +651,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection5.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection5.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection5));
+        }
+    }
+
+    public void futureConstructor6(){
         if(!sixthAL.isEmpty()){
             ArrayList<String> days = getDayStrings(sixthAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -642,13 +674,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(sixthAL.get(i));
 
                 if(i == (sixthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(6, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(5, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -661,8 +690,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection6.add(convertedDateTime);
                 }
             }
-
         }
+
+        if(!FutureDateHelperClass.getInstance().DateCollection6.isEmpty()){
+            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                    .DateCollection6));
+        }
+    }
+
+    public void futureConstructor7(){
         if(!seventhAL.isEmpty()){
             ArrayList<String> days = getDayStrings(seventhAL.get(0));
             ArrayList<Integer> daysAsInts = new ArrayList<>();
@@ -677,13 +713,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 data.add(seventhAL.get(i));
 
                 if(i == (seventhAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.set(7, data);
+                    FutureDateHelperClass.getInstance().DataCollection.add(6, data);
                 }
             }
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
 
             for(int i = 1; i < 90; i++){
                 DateTime dateTime = new DateTime(DateTime.now());
@@ -696,38 +729,15 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     FutureDateHelperClass.getInstance().DateCollection7.add(convertedDateTime);
                 }
             }
-
         }
 
-        if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance().DateCollection1));
-        }
-        if(!FutureDateHelperClass.getInstance().DateCollection2.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection2));
-        }
-        if(!FutureDateHelperClass.getInstance().DateCollection3.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection3));
-        }
-        if(!FutureDateHelperClass.getInstance().DateCollection4.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection4));
-        }
-        if(!FutureDateHelperClass.getInstance().DateCollection5.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection5));
-        }
-        if(!FutureDateHelperClass.getInstance().DateCollection6.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection6));
-        }
         if(!FutureDateHelperClass.getInstance().DateCollection7.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
                     .DateCollection7));
         }
-
     }
+
+
 
     int dayIntFromString(String day){
         int dayInt = 0;

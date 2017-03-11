@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class SelectedPastDateDialog extends AppCompatActivity {
 
@@ -38,7 +41,13 @@ public class SelectedPastDateDialog extends AppCompatActivity {
 
         formattedDate = getIntent().getExtras().getString("date");
 
-        selectedDateView.setText(formattedDate);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");
+
+        DateTime dateTime = new DateTime(formattedDate);
+
+        String formatted = fmt.print(dateTime);
+
+        selectedDateView.setText(formatted);
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         selectedDateView.setTypeface(lobster);
 

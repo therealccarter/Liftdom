@@ -75,7 +75,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 2){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(2);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(1);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
@@ -103,7 +103,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 3){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(3);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(2);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
@@ -131,7 +131,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 4){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(4);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(3);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
@@ -159,7 +159,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 5){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(5);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(4);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
@@ -187,7 +187,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 6){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(6);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(5);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
@@ -215,7 +215,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 }
             }
         }else if(collectionNumber == 7){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(7);
+            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(6);
 
             for(String data : dataCollection){
                 if(isExerciseName(data)){
