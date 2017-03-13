@@ -1,4 +1,4 @@
-package com.liftdom.user_profile.CalendarStuff;
+package com.liftdom.user_profile.calendar_stuff;
 
 
 import android.os.Bundle;
@@ -15,27 +15,26 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PastDateRepsWeightFrag extends Fragment {
+public class PastJournalFrag extends Fragment {
 
-    String repsWeight = "null";
+    public String journalString;
 
 
-    public PastDateRepsWeightFrag() {
+    public PastJournalFrag() {
         // Required empty public constructor
     }
 
-    @BindView(R.id.repsWeightTextView) TextView repsWeightTextView;
-
+    @BindView(R.id.journalTextView) TextView journalView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_past_date_reps_weight, container, false);
+        View view = inflater.inflate(R.layout.fragment_past_journal, container, false);
 
         ButterKnife.bind(this, view);
 
-        repsWeightTextView.setText(repsWeight);
+        journalView.setText(journalString);
 
         return view;
     }

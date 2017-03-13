@@ -9,7 +9,7 @@
         android:layout_marginStart="2dp"
         android:background="@color/grey"
         android:orientation="vertical"
-        tools:context="com.liftdom.user_profile.CalendarStuff.PastJournalFrag">
+        tools:context="com.liftdom.user_profile.calendar_stuff.PastJournalFrag">
 
     <TextView
             android:id="@+id/journalTextView"

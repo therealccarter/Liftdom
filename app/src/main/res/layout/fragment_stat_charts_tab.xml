@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-             tools:context="com.liftdom.user_profile.StatChartsTab">
+             tools:context="com.liftdom.user_profile.stat_chart_stuff.StatChartsTab">
 
     <TextView
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.liftdom.user_profile.CalendarStuff;
+package com.liftdom.user_profile.calendar_stuff;
 
 import android.graphics.Typeface;
 import android.os.Bundle;

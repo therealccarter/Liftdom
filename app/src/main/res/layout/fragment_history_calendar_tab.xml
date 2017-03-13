@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
-             tools:context="com.liftdom.user_profile.CalendarStuff.HistoryCalendarTab">
+             tools:context="com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/backgroundgrey1"
-        tools:context="com.liftdom.user_profile.CalendarStuff.SelectedPastDateDialog">
+        tools:context="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog">
 
     <TextView
             android:layout_width="match_parent"

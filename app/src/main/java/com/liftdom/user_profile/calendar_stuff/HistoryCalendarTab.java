@@ -1,19 +1,15 @@
-package com.liftdom.user_profile;
+package com.liftdom.user_profile.calendar_stuff;
 
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.CalendarView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,9 +17,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.decorators.OneDayDecorator;
 import com.liftdom.liftdom.decorators.PastEventDecorator;
-import com.liftdom.template_housing.TemplateHousingActivity;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import org.joda.time.DateTime;
