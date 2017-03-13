@@ -1,4 +1,4 @@
-package com.liftdom.user_profile;
+package com.liftdom.user_profile.CalendarStuff;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 

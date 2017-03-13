@@ -93,10 +93,10 @@
         <activity android:name="com.liftdom.user_profile.SettingsListActivity">
         </activity>
         <activity
-                android:name="com.liftdom.user_profile.SelectedPastDateDialog"
+                android:name="com.liftdom.user_profile.CalendarStuff.SelectedPastDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.user_profile.SelectedFutureDateDialog"
+        <activity android:name="com.liftdom.user_profile.CalendarStuff.SelectedFutureDateDialog"
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>

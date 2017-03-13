@@ -1,6 +1,5 @@
-package com.liftdom.user_profile;
+package com.liftdom.user_profile.CalendarStuff;
 
-import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;

@@ -48,7 +48,7 @@ UPCOMING FEATURES TO DO:
     - Beautify
 * algorithm if bodyweight, just keep increasing
 * Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
-* Show past and future workouts in a Calendar View (color code - future/past/failures)
+**DONE** Show past and future workouts in a Calendar View (color code - future/past/failures)
 * Add motivation quotes
 * Clear current BugList
 
