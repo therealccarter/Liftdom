@@ -49,7 +49,10 @@ UPCOMING FEATURES TO DO:
 * algorithm if bodyweight, just keep increasing
 * Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
 **DONE** Show past and future workouts in a Calendar View (color code - future/past/failures)
-* Add motivation quotes
+    - In future, perhaps have reds for totally missed days, yellows for days that weren't 100% filled, greens for
+        full completion.
+    - Also, could have stars or some other decoration for days that you hit a new max/PR.
+* Add motivation quotes (In future, perhaps have motivation center?)
 * Clear current BugList
 
 *v0.5*

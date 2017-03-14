@@ -12,6 +12,8 @@ import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
 import com.liftdom.liftdom.R;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -36,6 +38,15 @@ public class StatChartsTab extends Fragment {
         // that main chart will be the workout history + future workouts
         // we'll also have charts for each exercise you've done at least once
         // also bodyweight/bf%/etc
+
+        // we'll have a button to choose an exercise, which then we'll crawl through the past and active template
+        // (future) to chart it.
+
+
+        StatOverviewChartClass statOverviewChartClass = new StatOverviewChartClass();
+
+        ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
+
 
 
 

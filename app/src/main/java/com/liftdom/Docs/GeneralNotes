@@ -16,7 +16,16 @@ Badges to earn? Plan more game-ifying.
 
 plate calculator in workout assistor
 
-===========THEORICAL======================
+===========THEORICAL===================================
+
+===========STAT CHART THEORY===============
+Data sets:
+    Body weight
+    Overall workouts
+    Each exercise (can display multiple exercises on some chart)
+
+
+===========
 
 So, how are we going to get this algorithm to work?
 
