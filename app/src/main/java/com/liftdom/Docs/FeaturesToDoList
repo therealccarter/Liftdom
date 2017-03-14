@@ -46,7 +46,7 @@ UPCOMING FEATURES TO DO:
     - Toasts for errors
     - Consolidate sign in and sign up
     - Beautify
-* algorithm if bodyweight, just keep increasing
+**DONE** algorithm if bodyweight, just keep increasing
 * Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
 **DONE** Show past and future workouts in a Calendar View (color code - future/past/failures)
     - In future, perhaps have reds for totally missed days, yellows for days that weren't 100% filled, greens for
