@@ -92,7 +92,7 @@
                 android:paddingBottom="10dp"
                 android:id="@+id/createTemplateLinearLayout"
                 android:background="@color/transDarkGrey"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
         >
@@ -125,6 +125,44 @@
             />
 
     </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/quoteBody"
+                android:text="Test text"
+                android:textColor="@color/white"
+                android:background="@color/transBlack1"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:textSize="18sp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/quoteAuthor"
+                android:background="@color/transBlack1"
+                android:textColor="@color/liftrGold1"
+                android:text="Example name"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:padding="10dp"
+                android:layout_gravity="end"
+                android:textSize="16sp"
+        />
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

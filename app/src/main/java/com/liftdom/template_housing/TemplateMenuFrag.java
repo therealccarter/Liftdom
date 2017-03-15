@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.liftdom.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 
@@ -28,7 +29,7 @@ public class TemplateMenuFrag extends Fragment {
 
     int templateOptionsCheck = 0;
 
-
+    String[] quoteArray;
 
     public TemplateMenuFrag() {
         // Required empty public constructor
@@ -42,6 +43,8 @@ public class TemplateMenuFrag extends Fragment {
     @BindView(R.id.text_my_templates) TextView textMyTemplates;
     @BindView(R.id.text_new_template) TextView textNewTemplate;
     @BindView(R.id.new_template_image) ImageView newTemplateImage;
+    @BindView(R.id.quoteBody) TextView quoteBody;
+    @BindView(R.id.quoteAuthor) TextView quoteAuthor;
 
 
     @Override
@@ -58,6 +61,18 @@ public class TemplateMenuFrag extends Fragment {
 
         textMyTemplates.setTypeface(lobster);
         textNewTemplate.setTypeface(lobster);
+
+        MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
+        quoteArray = motivationalQuotes.getQuote();
+
+        if(savedInstanceState == null){
+            quoteBody.setText(quoteArray[0]);
+            quoteAuthor.setText(quoteArray[1]);
+        }else{
+            quoteArray = savedInstanceState.getStringArray("quoteArray");
+            quoteBody.setText(quoteArray[0]);
+            quoteAuthor.setText(quoteArray[1]);
+        }
 
         myTemplatesButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -128,5 +143,15 @@ public class TemplateMenuFrag extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putStringArray("quoteArray", quoteArray);
+
+    }
+
+
 
 }
