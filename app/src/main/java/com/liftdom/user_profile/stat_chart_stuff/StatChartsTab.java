@@ -45,9 +45,9 @@ public class StatChartsTab extends Fragment {
         // so, depending on which view of the exercise we choose is, we'll have to somehow pass in the view we want
         // ie, either overall load or max weight used...either way, we'll be getting back values and dates.
 
-        StatOverviewChartClass statOverviewChartClass = new StatOverviewChartClass();
-
-        ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
+        //StatOverviewChartClass statOverviewChartClass = new StatOverviewChartClass();
+//
+        //ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
 
 
         SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass("Barbell Row");
