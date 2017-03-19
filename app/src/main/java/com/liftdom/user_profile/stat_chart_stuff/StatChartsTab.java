@@ -50,17 +50,15 @@ public class StatChartsTab extends Fragment {
         //ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
 
 
-        SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass("Barbell Row");
-        ArrayList<ValueAndDateObject> valueAndDateObjects = exerciseChartClass.getSpecificExerciseValueList();
-
-
-
-
-
-
+        SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass("Barbell Row", StatChartsTab
+                .this);
 
 
         return view;
+    }
+
+    public void updateUI(ArrayList<ValueAndDateObject> arrayList){
+        System.out.print(arrayList.size());
     }
 
 }
