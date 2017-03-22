@@ -29,6 +29,7 @@ public class SpecificExerciseChartClass {
 
     private ArrayList<ValueAndDateObject> SpecificExerciseValueList = new ArrayList<>();
 
+    long incrementor = 0;
 
     public void getValueList(String exName, StatChartsTab statChartsTab){
         setSpecificExerciseValueList(exName, statChartsTab);
@@ -42,103 +43,101 @@ public class SpecificExerciseChartClass {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Observable.fromIterable(dataSnapshot.getChildren())
-                        .observeOn(Schedulers.computation())
-                        .subscribeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new ResourceObserver<DataSnapshot>() {
-                            @Override
-                            public void onNext(DataSnapshot dataSnapshot1) {
-                                final String key = dataSnapshot1.getKey();
+                final long childrenCount = dataSnapshot.getChildrenCount();
 
-                                DatabaseReference specificDateRef = historyRef.child(key);
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    final String key1 = dataSnapshot1.getKey();
 
-                                specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    DatabaseReference specificDateRef = historyRef.child(key1);
 
-                                        final ArrayList<String> exValueArrayList = new ArrayList<String>();
+                    specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                        Observable.fromIterable(dataSnapshot.getChildren())
-                                                // We're going to do our calculations on the computation thread
-                                                .observeOn(Schedulers.computation())
-                                                // And our results will be published onto the Main Thread
-                                                .subscribeOn(AndroidSchedulers.mainThread())
-                                                // Finally we will subscribe to our list and watch for results
-                                                .subscribe(new ResourceObserver<DataSnapshot>() {
-                                                    @Override
-                                                    public void onComplete() {
-                                                        isOfExName = false;
-                                                    }
+                            final ArrayList<String> exValueArrayList = new ArrayList<String>();
 
-                                                    @Override
-                                                    public void onError(Throwable e) {
+                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
-                                                    }
+                                String key = "date";
 
-                                                    @Override
-                                                    public void onNext(DataSnapshot dataSnapshot) {
-                                                        String value = dataSnapshot.getValue(String.class);
-
-                                                        if(isExerciseName(value)){
-                                                            if(value.equals(exName)){
-                                                                isOfExName = true;
-                                                            }else {
-                                                                isOfExName = false;
-                                                            }
-                                                        }
-
-                                                        if(isOfExName){
-                                                            exValueArrayList.add(value);
-                                                        }else if(!isOfExName && !exValueArrayList.isEmpty()){
-                                                            if(isOverall){
-                                                                // this returns a value of reps*weight. so for each valid
-                                                                // date we'll get an overall value...
-                                                                double exerciseValue = getExerciseValue(exValueArrayList);
-                                                                ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
-                                                                valueAndDateObject.setDate(key);
-                                                                valueAndDateObject.setValue(exerciseValue);
-
-                                                                SpecificExerciseValueList.add(valueAndDateObject);
-                                                            }else{
-                                                                // ...or the max weight lifted.
-                                                                double maxExWeight = getMaxExerciseWeight(exValueArrayList);
-                                                                ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
-                                                                valueAndDateObject.setDate(key);
-                                                                valueAndDateObject.setValue(maxExWeight);
-
-                                                                SpecificExerciseValueList.add(valueAndDateObject);
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                    }
-
-
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                if(!SpecificExerciseValueList.isEmpty()){
-                                    statChartsTab.setUpUI(SpecificExerciseValueList);
-                                    Log.i("info", "completed!");
-                                } else{
-                                    Log.i("info", "empty");
+                                if(!dataSnapshot2.getKey().equals("private_journal")){
+                                     key = dataSnapshot2.getKey();
                                 }
 
-                            }
-                        });
+                                String value = dataSnapshot2.getValue(String.class);
 
+                                    if (isExerciseName(value)) {
+                                        if (value.equals(exName)) {
+                                            isOfExName = true;
+                                        } else {
+                                            isOfExName = false;
+                                        }
+                                    }
+
+                                    if (isOfExName) {
+                                        exValueArrayList.add(value);
+                                    }else if (!isOfExName && !exValueArrayList.isEmpty()) {
+
+                                        ++incrementor;
+
+                                        if (isOverall) {
+                                            // this returns a value of reps*weight. so for each valid
+                                            // date we'll get an overall value...
+                                            double exerciseValue = getExerciseValue(exValueArrayList);
+                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
+                                            valueAndDateObject.setDate(key1);
+                                            valueAndDateObject.setValue(exerciseValue);
+
+
+                                            SpecificExerciseValueList.add(valueAndDateObject);
+
+
+                                            if (incrementor == childrenCount) {
+                                                if (!SpecificExerciseValueList.isEmpty()) {
+                                                    statChartsTab.setUpUI(SpecificExerciseValueList);
+                                                    Log.i("info", "completed!"); // never happens
+                                                } else {
+                                                    Log.i("info", "empty"); // this always logs
+                                                }
+                                            }
+                                        } else {
+                                            // ...or the max weight lifted.
+                                            double maxExWeight = getMaxExerciseWeight(exValueArrayList);
+                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
+                                            valueAndDateObject.setDate(key);
+                                            valueAndDateObject.setValue(maxExWeight);
+
+                                                SpecificExerciseValueList.add(valueAndDateObject);
+
+
+                                            if (incrementor == childrenCount) {
+                                                if (!SpecificExerciseValueList.isEmpty()) {
+                                                    statChartsTab.setUpUI(SpecificExerciseValueList);
+                                                    Log.i("info", "completed!"); // never happens
+                                                } else {
+                                                    Log.i("info", "empty"); // this always logs
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+                                }
+
+                        }
+
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                }
             }
 
             @Override

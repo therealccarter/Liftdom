@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -84,26 +85,29 @@ public class StatChartsTab extends Fragment {
 
         for(ValueAndDateObject data : valueAndDateArrayList){
 
-            DateTime dateTime = new DateTime(data.getValueX());
-            Date date = dateTime.toDate();
+            if(!data.getValueX().equals("private_journal")){
+                DateTime dateTime = new DateTime(data.getValueX());
+                Date date = dateTime.toDate();
 
-            long mills = date.getTime();
+                long mills = date.getTime();
 
-            float dMills = ((float) mills);
+                float dMills = ((float) mills);
 
-            if(inc == 1){
-                reference_timestamp = dMills;
+                if(inc == 1){
+                    reference_timestamp = dMills;
+                }
+
+                float newStamp = dMills - reference_timestamp;
+
+                entries.add(new Entry(newStamp, ((float)data.getValueY())));
+
+                ++inc;
+
+                if(inc == valueAndDateArrayList.size()){
+                    updateUI(entries);
+                }
             }
 
-            float newStamp = dMills - reference_timestamp;
-
-            entries.add(new Entry(newStamp, ((float)data.getValueY())));
-
-            ++inc;
-
-            if(inc == valueAndDateArrayList.size()){
-                updateUI(entries);
-            }
         }
 
 
@@ -123,6 +127,7 @@ public class StatChartsTab extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(new ChartDateFormatter());
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
 
         LineDataSet dataSet = new LineDataSet(entries, "Label");
         dataSet.setColor(Color.YELLOW);
