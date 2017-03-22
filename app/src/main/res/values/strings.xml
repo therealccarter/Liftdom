@@ -341,7 +341,7 @@
     <string name="workoutHistory">Workout History</string>
     <string name="signOut">Sign Out</string>
     <string name="dummyUsername">Username</string>
-    <string name="bodyWeight">Body Weight:</string>
+    <string name="bodyWeight">Body Weight:\u0020</string>
     <string name="zero_zero">00</string>
     <string name="pounds">lbs</string>
     <string name="feet">ft</string>
@@ -352,7 +352,7 @@
     <string name="deadlift1rm">Deadlift 1-rep Max:</string>
     <string name="saveButton">Save</string>
     <string name="dummyLevel">- level .0</string>
-    <string name="currentFocus">Focus:</string>
+    <string name="currentFocus">Focus:\u0020</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 

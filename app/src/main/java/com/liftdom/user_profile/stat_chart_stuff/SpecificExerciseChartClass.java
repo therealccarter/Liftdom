@@ -2,6 +2,7 @@ package com.liftdom.user_profile.stat_chart_stuff;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import io.reactivex.Observable;
@@ -27,12 +28,9 @@ public class SpecificExerciseChartClass {
 
     private ArrayList<ValueAndDateObject> SpecificExerciseValueList = new ArrayList<>();
 
-    public SpecificExerciseChartClass (String exName, StatChartsTab statChartsTab){
-        setSpecificExerciseValueList(exName, statChartsTab);
-    }
 
-    public ArrayList<ValueAndDateObject> getSpecificExerciseValueList(){
-        return SpecificExerciseValueList;
+    public void getValueList(String exName, StatChartsTab statChartsTab){
+        setSpecificExerciseValueList(exName, statChartsTab);
     }
 
     private void setSpecificExerciseValueList(final String exName, final StatChartsTab statChartsTab){
@@ -68,8 +66,6 @@ public class SpecificExerciseChartClass {
                                                 .subscribe(new ResourceObserver<DataSnapshot>() {
                                                     @Override
                                                     public void onComplete() {
-
-
                                                         isOfExName = false;
                                                     }
 
@@ -132,7 +128,13 @@ public class SpecificExerciseChartClass {
 
                             @Override
                             public void onComplete() {
-                                statChartsTab.updateUI(SpecificExerciseValueList);
+                                if(!SpecificExerciseValueList.isEmpty()){
+                                    statChartsTab.setUpUI(SpecificExerciseValueList);
+                                    Log.i("info", "completed!");
+                                } else{
+                                    Log.i("info", "empty");
+                                }
+
                             }
                         });
 

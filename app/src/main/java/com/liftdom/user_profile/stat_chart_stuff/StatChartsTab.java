@@ -1,18 +1,30 @@
 package com.liftdom.user_profile.stat_chart_stuff;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.liftdom.liftdom.R;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,15 +62,91 @@ public class StatChartsTab extends Fragment {
         //ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
 
 
-        SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass("Barbell Row", StatChartsTab
-                .this);
+        SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+        exerciseChartClass.getValueList("Barbell Row", StatChartsTab.this);
 
+        /**
+         *
+         */
 
         return view;
     }
 
-    public void updateUI(ArrayList<ValueAndDateObject> arrayList){
-        System.out.print(arrayList.size());
+    public void toaster(){
+        CharSequence toastText = "Yeeeezy yeeezy what's good";
+        int duration = Toast.LENGTH_SHORT;
+        Looper.prepare();
+        Toast toast = Toast.makeText(getActivity(), toastText, duration);
+        toast.show();
     }
+
+    public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList){
+        List<Entry> entries = new ArrayList<Entry>();
+
+        ArrayList<String> datesStrings = new ArrayList<>();
+
+        float reference_timestamp = 0;
+
+        int inc = 0;
+
+        for(ValueAndDateObject data : valueAndDateArrayList){
+
+            DateTime dateTime = new DateTime(data.getValueX());
+            Date date = dateTime.toDate();
+
+            long mills = date.getTime();
+
+            float dMills = ((float) mills);
+
+            if(inc == 1){
+                reference_timestamp = dMills;
+            }
+
+            float newStamp = dMills - reference_timestamp;
+
+            entries.add(new Entry(newStamp, ((float)data.getValueY())));
+
+            ++inc;
+
+            if(inc == valueAndDateArrayList.size()){
+                updateUI(entries);
+            }
+        }
+
+
+        //float one = 100;
+        //float two = 5;
+        //float three = 300;
+        //float four = 7;
+        //entries.add(new Entry(one, two));
+        //entries.add(new Entry(three, four));
+//
+        //updateUI(entries);
+
+    }
+
+    public void updateUI(List<Entry> entries){
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new ChartDateFormatter());
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        LineDataSet dataSet = new LineDataSet(entries, "Label");
+        dataSet.setColor(Color.YELLOW);
+        dataSet.setValueTextColor(Color.BLACK);
+
+        LineData lineData = new LineData(dataSet);
+        lineChart.setData(lineData);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lineChart.invalidate();
+            }
+        });
+    }
+
+
+
 
 }
