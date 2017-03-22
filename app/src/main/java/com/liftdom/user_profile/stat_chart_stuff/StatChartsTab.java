@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.liftdom.liftdom.R;
+import io.reactivex.Observable;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -70,14 +71,6 @@ public class StatChartsTab extends Fragment {
          */
 
         return view;
-    }
-
-    public void toaster(){
-        CharSequence toastText = "Yeeeezy yeeezy what's good";
-        int duration = Toast.LENGTH_SHORT;
-        Looper.prepare();
-        Toast toast = Toast.makeText(getActivity(), toastText, duration);
-        toast.show();
     }
 
     public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList){
