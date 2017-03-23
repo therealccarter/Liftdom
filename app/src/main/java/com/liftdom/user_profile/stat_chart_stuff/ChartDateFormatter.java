@@ -15,6 +15,12 @@ import java.util.Date;
 
 public class ChartDateFormatter implements IAxisValueFormatter {
 
+    private long referenceTimestamp; // minimum timestamp in your data set
+
+    public ChartDateFormatter(long referenceTimestamp){
+        this.referenceTimestamp = referenceTimestamp;
+    }
+
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
         // Simple version. You should use a DateFormatter to specify how you want to textually represent your date.

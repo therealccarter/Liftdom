@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatChartsTab extends Fragment {
+public class  StatChartsTab extends Fragment {
 
 
     public StatChartsTab() {
@@ -67,9 +67,7 @@ public class StatChartsTab extends Fragment {
         SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
         exerciseChartClass.getValueList("Barbell Row", StatChartsTab.this);
 
-        /**
-         *
-         */
+
 
         return view;
     }
@@ -79,7 +77,7 @@ public class StatChartsTab extends Fragment {
 
         ArrayList<String> datesStrings = new ArrayList<>();
 
-        float reference_timestamp = 0;
+        long reference_timestamp = 0;
 
         int inc = 0;
 
@@ -91,42 +89,34 @@ public class StatChartsTab extends Fragment {
 
                 long mills = date.getTime();
 
-                float dMills = ((float) mills);
-
                 if(inc == 1){
-                    reference_timestamp = dMills;
+                    reference_timestamp = mills;
                 }
 
-                float newStamp = dMills - reference_timestamp;
+                float newStamp = mills - reference_timestamp;
 
                 entries.add(new Entry(newStamp, ((float)data.getValueY())));
 
                 ++inc;
 
                 if(inc == valueAndDateArrayList.size()){
-                    updateUI(entries);
+                    updateUI(entries, reference_timestamp);
                 }
             }
 
         }
 
-
-        //float one = 100;
-        //float two = 5;
-        //float three = 300;
-        //float four = 7;
-        //entries.add(new Entry(one, two));
-        //entries.add(new Entry(three, four));
-//
-        //updateUI(entries);
-
     }
 
-    public void updateUI(List<Entry> entries){
+    public void updateUI(List<Entry> entries, long reference_timestamp){
 
+        ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
+
+        // x-axis stuff
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.setValueFormatter(new ChartDateFormatter());
+        xAxis.setValueFormatter(chartDateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(90);
 
 
         LineDataSet dataSet = new LineDataSet(entries, "Label");

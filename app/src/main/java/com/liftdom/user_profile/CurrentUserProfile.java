@@ -30,6 +30,9 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CurrentUserProfile extends AppCompatActivity {
 
     //TODO: Use diagonal library for layout
@@ -166,6 +169,10 @@ public class CurrentUserProfile extends AppCompatActivity {
                         .withName
                                 (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
+
+
+
+
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE]
 
