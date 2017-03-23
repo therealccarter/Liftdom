@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -72,7 +73,7 @@ public class  StatChartsTab extends Fragment {
         return view;
     }
 
-    public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList){
+    public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
         List<Entry> entries = new ArrayList<Entry>();
 
         ArrayList<String> datesStrings = new ArrayList<>();
@@ -89,7 +90,7 @@ public class  StatChartsTab extends Fragment {
 
                 long mills = date.getTime();
 
-                if(inc == 1){
+                if(inc == 0){
                     reference_timestamp = mills;
                 }
 
@@ -100,7 +101,7 @@ public class  StatChartsTab extends Fragment {
                 ++inc;
 
                 if(inc == valueAndDateArrayList.size()){
-                    updateUI(entries, reference_timestamp);
+                    updateUI(entries, reference_timestamp, exName);
                 }
             }
 
@@ -108,7 +109,13 @@ public class  StatChartsTab extends Fragment {
 
     }
 
-    public void updateUI(List<Entry> entries, long reference_timestamp){
+    /**
+     *
+     * @param entries
+     * @param reference_timestamp = 1488175200000
+     */
+
+    public void updateUI(List<Entry> entries, long reference_timestamp, String exName){
 
         ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
 
@@ -116,12 +123,23 @@ public class  StatChartsTab extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(chartDateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(90);
+        xAxis.setLabelRotationAngle(75);
+        xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
+        xAxis.setAxisMaximum(1514848380000f - (float) reference_timestamp); // january 2018
 
+        // y-axis stuff
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setDrawLabels(false);
 
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
-        dataSet.setColor(Color.YELLOW);
+        // legend stuff
+        Legend legend = lineChart.getLegend();
+        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
+        legend.setDrawInside(true);
+
+        LineDataSet dataSet = new LineDataSet(entries, exName);
+        dataSet.setColor(Color.BLACK);
         dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setCircleColor(Color.parseColor("#D1B91D"));
 
         LineData lineData = new LineData(dataSet);
         lineChart.setData(lineData);
@@ -134,7 +152,16 @@ public class  StatChartsTab extends Fragment {
         });
     }
 
+    public long getCurrentDay(){
+        float currentDateInMilli;
 
+        long intermediate;
 
+        DateTime dateTime = (DateTime.now());
+
+        intermediate = dateTime.getMillisOfDay();
+
+        return intermediate;
+    }
 
 }
