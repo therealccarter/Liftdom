@@ -1,15 +1,9 @@
-package com.liftdom.user_profile.stat_chart_stuff;
+package com.liftdom.charts;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.ResourceObserver;
-import io.reactivex.schedulers.Schedulers;
+
 import java.util.ArrayList;
 
 

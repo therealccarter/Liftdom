@@ -1,4 +1,4 @@
-package com.liftdom.user_profile.stat_chart_stuff;
+package com.liftdom.charts;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

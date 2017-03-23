@@ -1,4 +1,4 @@
-package com.liftdom.user_profile.stat_chart_stuff;
+package com.liftdom.charts;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.Entry;

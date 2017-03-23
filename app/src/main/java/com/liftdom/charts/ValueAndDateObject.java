@@ -1,4 +1,4 @@
-package com.liftdom.user_profile.stat_chart_stuff;
+package com.liftdom.charts;
 
 /**
  * Created by Brodin on 3/13/2017.

@@ -4,7 +4,7 @@ package com.liftdom.user_profile;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.liftdom.user_profile.stat_chart_stuff.StatChartsTab;
+import com.liftdom.charts.StatChartsTab;
 
 public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
 

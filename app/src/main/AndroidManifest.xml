@@ -96,8 +96,11 @@
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
-                  android:theme="@style/AppCompatDialogNoTitleBar">
+        <activity
+                android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name="com.liftdom.charts.ChartsAndStatsActivity">
         </activity>
     </application>
 
