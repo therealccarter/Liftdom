@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="com.liftdom.liftdom.utils.exercise_selector.UpperBodyExListFrag">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TEST"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:gravity="center"
+            />
+            <!--
+            <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+                    android:id="@+id/stickyList1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

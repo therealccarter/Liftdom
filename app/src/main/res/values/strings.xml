@@ -354,8 +354,8 @@
     <string name="dummyLevel">- level .0</string>
     <string name="currentFocus">Focus:\u0020</string>
 
-    <string name="graphing">Graphing:\u0020</string>
-    <string name="mode">Mode:\u0020</string>
+    <string name="graphing">Choose item(s) to graph:\u0020</string>
+    <string name="mode">Choose data mode:\u0020</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 

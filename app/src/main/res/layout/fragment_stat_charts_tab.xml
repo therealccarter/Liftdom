@@ -5,82 +5,99 @@
               android:orientation="vertical"
              tools:context="com.liftdom.charts.StatChartsTab">
 
-
-
-
-    <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginBottom="10dp"
-    >
-    </com.github.mikephil.charting.charts.LineChart>
-
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
     >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+        >
 
-        <TextView
-                android:layout_width="wrap_content"
+
+        <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginBottom="10dp"
+        >
+        </com.github.mikephil.charting.charts.LineChart>
+
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/graphing"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-        />
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+        >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/graphing"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+            />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:id="@+id/graphingSelectorButton"
+                    android:background="@color/black"
+                    android:textColor="@color/white"
+                    android:text="item(s)"
+                    android:textAllCaps="false"
+                    android:layout_marginEnd="30dp"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mode"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+            />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:id="@+id/modeSelectorButton"
+                    android:background="@color/black"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="Mode"
+                    android:layout_marginEnd="30dp"
+            />
+
+        </LinearLayout>
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:id="@+id/graphingSelectorButton"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:text="Graphing"
-                android:layout_marginEnd="30dp"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-    >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/reloadChartButton"
+                android:background="@color/confirmgreen"
+                android:text="Reload chart"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:layout_margin="20dp"
+
         />
 
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:id="@+id/modeSelectorButton"
-                android:background="@color/black"
-                android:textColor="@color/white"
-                android:text="Mode"
-                android:layout_marginEnd="30dp"
-        />
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/reloadChartButton"
-            android:background="@color/confirmgreen"
-            android:text="Reload chart"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_margin="20dp"
 
-    />
+
 
 </LinearLayout>
