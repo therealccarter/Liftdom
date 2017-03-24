@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.liftdom.charts.ChartsAndStatsActivity;
 import com.liftdom.liftdom.LoginActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
@@ -163,8 +164,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Tools").withIdentifier(4),
-                        new SecondaryDrawerItem().withName("Exercise Academy (Info)").withIdentifier(5)
+                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(4),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName("Tools").withIdentifier(5),
+                        new SecondaryDrawerItem().withName("Exercise Academy (Info)").withIdentifier(6)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -175,6 +178,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(WorkoutAssistorActivity.this, MainActivity.class);
+
                             }
                             if (drawerItem.getIdentifier() == 2) {
                                 intent = new Intent(WorkoutAssistorActivity.this, TemplateHousingActivity.class);
@@ -182,6 +186,12 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(WorkoutAssistorActivity.this, WorkoutAssistorActivity.class);
                             }
+                            if (drawerItem.getIdentifier() == 4) {
+                                intent = new Intent(WorkoutAssistorActivity.this, ChartsAndStatsActivity.class);
+                            }
+                            //if (drawerItem.getIdentifier() == 4) {
+                            //    intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                            //}
                             if (intent != null) {
                                 WorkoutAssistorActivity.this.startActivity(intent);
                             }
