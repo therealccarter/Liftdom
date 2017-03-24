@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
@@ -35,6 +36,9 @@ public class  StatChartsTab extends Fragment {
     }
 
     @BindView(R.id.lineChart) LineChart lineChart;
+    @BindView(R.id.graphingSelectorButton) Button graphingSelector;
+    @BindView(R.id.modeSelectorButton) Button modeSelector;
+    @BindView(R.id.reloadChartButton) Button reloadChart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,20 +48,6 @@ public class  StatChartsTab extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        // we could have an average weighted set that is able to show general progress
-        // that main chart will be the workout history + future workouts
-        // we'll also have charts for each exercise you've done at least once
-        // also bodyweight/bf%/etc
-
-        // we'll have a button to choose an exercise, which then we'll crawl through the past and active template
-        // (future) to chart it.
-
-        // so, depending on which view of the exercise we choose is, we'll have to somehow pass in the view we want
-        // ie, either overall load or max weight used...either way, we'll be getting back values and dates.
-
-        //StatOverviewChartClass statOverviewChartClass = new StatOverviewChartClass();
-//
-        //ArrayList<ValueAndDateObject> overviewValueAndDateList = statOverviewChartClass.getOverviewStatValues();
 
 
         SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
