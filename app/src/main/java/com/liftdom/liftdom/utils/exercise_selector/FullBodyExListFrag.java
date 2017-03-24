@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,12 +22,21 @@ public class FullBodyExListFrag extends Fragment {
         // Required empty public constructor
     }
 
+    @BindView(R.id.stickyList3) StickyListHeadersListView stickyList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_full_body_ex_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_full_body_ex_list, container, false);
+
+        ButterKnife.bind(this, view);
+
+        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), "full");
+
+        stickyList.setAdapter(adapter);
+
+        return view;
     }
 
 }

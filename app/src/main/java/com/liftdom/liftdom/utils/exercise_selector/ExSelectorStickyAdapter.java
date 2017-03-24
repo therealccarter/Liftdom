@@ -69,7 +69,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
         if (convertView == null) {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.sticky_header, parent, false);
-            holder.text = (TextView) convertView.findViewById(R.id.text);
+            holder.text = (TextView) convertView.findViewById(R.id.text1);
             convertView.setTag(holder);
         } else {
             holder = (HeaderViewHolder) convertView.getTag();

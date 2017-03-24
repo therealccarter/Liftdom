@@ -14,20 +14,11 @@
                 android:layout_height="match_parent"
         >
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:textColor="@color/black"
-                    android:textSize="30sp"
-                    android:gravity="center"
-            />
-            <!--
             <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/stickyList1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-            -->
+
 
         </LinearLayout>
 

@@ -64,6 +64,17 @@ public class StatChartsTab extends Fragment {
             }
         });
 
+        itemsToGraph.add("Barbell Row");
+
+        reloadChart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                for(String itemName : itemsToGraph){
+                    SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                }
+            }
+        });
+
         return view;
     }
 
