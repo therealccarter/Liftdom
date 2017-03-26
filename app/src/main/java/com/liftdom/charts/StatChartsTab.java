@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.exercise_selector.ExSelectorActivity;
+import com.liftdom.liftdom.utils.exercise_selector.ExSelectorSingleton;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class StatChartsTab extends Fragment {
 
-    ArrayList<String> itemsToGraph = new ArrayList<>();
+
 
     public StatChartsTab() {
         // Required empty public constructor
@@ -59,16 +60,20 @@ public class StatChartsTab extends Fragment {
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
-
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
-        itemsToGraph.add("Barbell Row");
+
 
         reloadChart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                for(String itemName : itemsToGraph){
+
+                ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
+                ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
+                ArrayList<String> fullBodyItems = ExSelectorSingleton.getInstance().fullBodyItems;
+
+                for(String itemName : upperBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.getValueList(itemName, StatChartsTab.this);
                 }
@@ -76,17 +81,6 @@ public class StatChartsTab extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 2
-        if(requestCode == 1)
-        {
-
-        }
     }
 
     public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){

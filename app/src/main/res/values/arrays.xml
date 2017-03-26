@@ -14,6 +14,9 @@
     </string-array>
     
     <string-array name="upperBodyList">
+        <!--A-->
+
+        <!--B-->
         <item>Bench Press (Barbell, Flat)</item>
         <item>Bench Press (Barbell, Incline)</item>
         <item>Bench Press (Barbell, Decline)</item>
@@ -21,42 +24,100 @@
         <item>Bench Press (Dumbell, Incline)</item>
         <item>Bench Press (Dumbell, Decline)</item>
 
+        <!--C-->
         <item>Chest Fly (Dumbell, Flat)</item>
         <item>Chest Fly (Dumbell, Incline)</item>
         <item>Chest Fly (Dumbell, Decline)</item>
         <item>Chest Fly (Machine)</item>
+        <!--D-->
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
 
-        <item>Push-up (Bodyweight)</item>
-        <item>Pull-up (Bodyweight)</item>
-        <item>Pull-up (Weighted)</item>
-
-        <item>Row (Barbell, Bent-over)</item>
-        <item>Row (Dumbell, Bent-over)</item>
-        <item>Row (Machine)</item>
-
-        <item>Upright Row (Barbell)</item>
-
-        <item>Overhead Press (Barbell)</item>
-        <item>Overhead Press (Dumbell)</item>
-        <item>Overhead Press (Machine)</item>
-
-        <item>Military Press (Barbell)</item>
-        <item>Military Press (Dumbell)</item>
-        <item>Military Press (Machine)</item>
-
-        <item>Shrug (Machine)</item>
-        <item>Shrug (Barbell)</item>
-
+        <!--L-->
         <item>Lateral Raise (Machine)</item>
         <item>Lateral Raise (Dumbell)</item>
         <item>Lateral Raise (Dumbell, Bent-over)</item>
 
+        <!--M-->
+        <item>Military Press (Barbell)</item>
+        <item>Military Press (Dumbell)</item>
+        <item>Military Press (Machine)</item>
 
+        <!--N-->
+        <!--O-->
+        <item>Overhead Press (Barbell)</item>
+        <item>Overhead Press (Dumbell)</item>
+        <item>Overhead Press (Machine)</item>
+
+        <!--P-->
         <item>Pull-down (Machine)</item>
+        <item>Pull-up (Bodyweight)</item>
+        <item>Pull-up (Weighted)</item>
+        <item>Push-up (Bodyweight)</item>
+
+        <!--Q-->
+        <!--R-->
+        <item>Row (Barbell, Bent-over)</item>
+        <item>Row (Dumbell, Bent-over)</item>
+        <item>Row (Machine)</item>
+
+        <!--S-->
+        <item>Shrug (Machine)</item>
+        <item>Shrug (Barbell)</item>
+
+        <!--T-->
+        <!--U-->
+        <item>Upright Row (Barbell)</item>
+
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
 
     </string-array>
 
     <string-array name="lowerBodyList">
+        <!--A-->
+        <!--B-->
+
+        <!--C-->
+        <item>Calf-raise (Barbell, Back)</item>
+        <item>Calf-raise (Barbell, Front)</item>
+        <item>Calf-raise (Dumbell)</item>
+        <item>Calf-raise (Bodyweight)</item>
+        <item>Calf-raise (Seated)</item>
+
+        <!--D-->
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
+
+        <!--L-->
+        <item>Leg Press</item>
+        <item>Leg Extension</item>
+        <item>Leg Curl</item>
+        <item>Lunge (Barbell, Back)</item>
+        <item>Lunge (Barbell, Front)</item>
+        <item>Lunge (Dumbell)</item>
+
+        <!--M-->
+        <!--N-->
+        <!--O-->
+        <!--P-->
+        <!--Q-->
+        <!--R-->
+
+        <!--S-->
         <item>Squat (Barbell, Back)</item>
         <item>Squat (Barbell, Front)</item>
         <item>Squat (Bodyweight)</item>
@@ -64,24 +125,45 @@
         <item>Squat (Machine, Back)</item>
         <item>Squat (Machine, Front)</item>
 
-        <item>Lunge (Barbell, Back)</item>
-        <item>Lunge (Barbell, Front)</item>
-        <item>Lunge (Dumbell)</item>
+        <!--T-->
+        <!--U-->
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
 
-        <item>Calf-raise (Barbell, Back)</item>
-        <item>Calf-raise (Barbell, Front)</item>
-        <item>Calf-raise (Dumbell)</item>
-        <item>Calf-raise (Bodyweight)</item>
-        <item>Calf-raise (Seated)</item>
-
-        <item>Leg Press</item>
-
-        <item>Leg Extension</item>
-
-        <item>Leg Curl</item>
     </string-array>
 
     <string-array name="fullBodyList">
+        <!--A-->
+        <!--B-->
+        <!--C-->
+
+        <!--D-->
         <item>Deadlift (Conventional)</item>
+
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
+        <!--L-->
+        <!--M-->
+        <!--N-->
+        <!--O-->
+        <!--P-->
+        <!--Q-->
+        <!--R-->
+        <!--S-->
+        <!--T-->
+        <!--U-->
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
     </string-array>
 </resources>

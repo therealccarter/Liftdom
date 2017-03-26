@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.CheckBox;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -24,6 +26,8 @@ public class LowerBodyExListFrag extends Fragment {
 
     @BindView(R.id.stickyList2) StickyListHeadersListView stickyList;
 
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +41,33 @@ public class LowerBodyExListFrag extends Fragment {
         stickyList.setAdapter(adapter);
 
         return view;
+    }
+
+    public void setItemsSelected(){
+        //ArrayList<String> itemsSelected = new ArrayList<>();
+
+        StickyListHeadersListView stickyList =
+                (StickyListHeadersListView) view.findViewById(R.id.stickyList3);
+
+        View v;
+        CheckBox checkBox;
+        TextView textView;
+
+        for(int i = 0; i < stickyList.getCount(); i++){
+            v = stickyList.getChildAt(i);
+            checkBox = (CheckBox) v.findViewById(R.id.stickyCheckbox);
+            textView = (TextView) v.findViewById(R.id.text);
+
+            if(checkBox.isChecked()){
+                ExSelectorSingleton.getInstance().upperBodyItems.add(textView.getText().toString());
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        //setItemsSelected();
     }
 
 }

@@ -1,14 +1,15 @@
 package com.liftdom.liftdom.utils.exercise_selector;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
-import com.liftdom.user_profile.ProfilePagerAdapter;
 
 public class ExSelectorActivity extends AppCompatActivity {
 
@@ -17,6 +18,8 @@ public class ExSelectorActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Upper Body", "Lower Body", "Full Body"};
     int Numboftabs = 3;
+
+    @BindView(R.id.confirmButton) Button confirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,11 @@ public class ExSelectorActivity extends AppCompatActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }
