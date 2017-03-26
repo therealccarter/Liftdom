@@ -42,6 +42,7 @@ public class StatChartsTab extends Fragment {
     @BindView(R.id.graphingSelectorButton) Button graphingSelector;
     @BindView(R.id.modeSelectorButton) Button modeSelector;
     @BindView(R.id.reloadChartButton) Button reloadChart;
+    @BindView(R.id.clearChartButton) Button clearChart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +51,6 @@ public class StatChartsTab extends Fragment {
         View view = inflater.inflate(R.layout.fragment_stat_charts_tab, container, false);
 
         ButterKnife.bind(this, view);
-
 
 
         //SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
@@ -64,6 +64,22 @@ public class StatChartsTab extends Fragment {
             }
         });
 
+        clearChart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                ExSelectorSingleton.getInstance().clearArrayLists();
+                lineChart.clear();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lineChart.invalidate();
+                    }
+                });
+
+
+            }
+        });
 
 
         reloadChart.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +90,12 @@ public class StatChartsTab extends Fragment {
                 ArrayList<String> fullBodyItems = ExSelectorSingleton.getInstance().fullBodyItems;
 
                 for(String itemName : upperBodyItems){
+                    SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                }for(String itemName : lowerBodyItems){
+                    SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                }for(String itemName : fullBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.getValueList(itemName, StatChartsTab.this);
                 }
@@ -168,5 +190,13 @@ public class StatChartsTab extends Fragment {
 
         return intermediate;
     }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+
+        ExSelectorSingleton.getInstance().clearArrayLists();
+    }
+
 
 }

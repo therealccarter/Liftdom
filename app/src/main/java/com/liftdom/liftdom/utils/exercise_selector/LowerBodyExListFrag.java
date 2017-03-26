@@ -43,31 +43,5 @@ public class LowerBodyExListFrag extends Fragment {
         return view;
     }
 
-    public void setItemsSelected(){
-        //ArrayList<String> itemsSelected = new ArrayList<>();
-
-        StickyListHeadersListView stickyList =
-                (StickyListHeadersListView) view.findViewById(R.id.stickyList3);
-
-        View v;
-        CheckBox checkBox;
-        TextView textView;
-
-        for(int i = 0; i < stickyList.getCount(); i++){
-            v = stickyList.getChildAt(i);
-            checkBox = (CheckBox) v.findViewById(R.id.stickyCheckbox);
-            textView = (TextView) v.findViewById(R.id.text);
-
-            if(checkBox.isChecked()){
-                ExSelectorSingleton.getInstance().upperBodyItems.add(textView.getText().toString());
-            }
-        }
-    }
-
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-        //setItemsSelected();
-    }
 
 }

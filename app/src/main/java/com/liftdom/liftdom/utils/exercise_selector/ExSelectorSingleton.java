@@ -22,7 +22,7 @@ public class ExSelectorSingleton {
     public ArrayList<String> lowerBodyItems = new ArrayList<>();
     public ArrayList<String> fullBodyItems = new ArrayList<>();
 
-    public void clearArrayList(){
+    public void clearArrayLists(){
         upperBodyItems.clear();
         lowerBodyItems.clear();
         fullBodyItems.clear();

@@ -356,6 +356,8 @@
 
     <string name="graphing">Choose item(s) to graph:\u0020</string>
     <string name="mode">Choose data mode:\u0020</string>
+    <string name="reloadChart">Reload Chart</string>
+    <string name="clearChart">Clear Chart</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 

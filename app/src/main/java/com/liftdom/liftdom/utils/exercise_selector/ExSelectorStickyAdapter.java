@@ -78,7 +78,6 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                         ExSelectorSingleton.getInstance().fullBodyItems.add(exercises[position]);
                     Log.i("info", exercises[position]);
                     }
-
                 } else{
                     int index;
 
