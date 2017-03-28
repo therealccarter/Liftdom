@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
@@ -127,11 +128,11 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
-                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(5),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Tools").withIdentifier(5),
-                        new SecondaryDrawerItem().withName("Exercise Academy (Info)").withIdentifier(6)
+                        new SecondaryDrawerItem().withName("Tools").withIdentifier(6),
+                        new SecondaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -142,7 +143,6 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(WorkoutHistoryActivity.this, MainActivity.class);
-
                             }
                             if (drawerItem.getIdentifier() == 2) {
                                 intent = new Intent(WorkoutHistoryActivity.this, TemplateHousingActivity.class);
@@ -153,9 +153,9 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                             if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(WorkoutHistoryActivity.this, ChartsAndStatsActivity.class);
                             }
-                            //if (drawerItem.getIdentifier() == 4) {
-                            //    intent = new Intent(MainActivity.this, CurrentUserProfile.class);
-                            //}
+                            if (drawerItem.getIdentifier() == 5) {
+                                intent = new Intent(WorkoutHistoryActivity.this, KnowledgeCenterHolderActivity.class);
+                            }
                             if (intent != null) {
                                 WorkoutHistoryActivity.this.startActivity(intent);
                             }

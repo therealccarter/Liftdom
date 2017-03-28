@@ -102,8 +102,11 @@
         </activity>
         <activity android:name="com.liftdom.charts.ChartsAndStatsActivity">
         </activity>
-        <activity android:name=".utils.exercise_selector.ExSelectorActivity"
-                  android:theme="@style/Theme.AppCompat.Dialog">
+        <activity
+                android:name=".utils.exercise_selector.ExSelectorActivity"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity">
         </activity>
     </application>
 

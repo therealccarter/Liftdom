@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
@@ -135,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-            // create the drawer
-            Drawer drawer = new DrawerBuilder()
+        // create the drawer
+        Drawer drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
@@ -145,11 +146,11 @@ public class MainActivity extends AppCompatActivity {
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
-                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(5),
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("Tools").withIdentifier(5),
-                        new SecondaryDrawerItem().withName("Exercise Academy (Info)").withIdentifier(6)
+                        new SecondaryDrawerItem().withName("Tools").withIdentifier(6),
+                        new SecondaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -160,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(MainActivity.this, MainActivity.class);
-
                             }
                             if (drawerItem.getIdentifier() == 2) {
                                 intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
@@ -171,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
                             if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(MainActivity.this, ChartsAndStatsActivity.class);
                             }
-                            //if (drawerItem.getIdentifier() == 4) {
-                            //    intent = new Intent(MainActivity.this, CurrentUserProfile.class);
-                            //}
+                            if (drawerItem.getIdentifier() == 5) {
+                                intent = new Intent(MainActivity.this, KnowledgeCenterHolderActivity.class);
+                            }
                             if (intent != null) {
                                 MainActivity.this.startActivity(intent);
                             }
