@@ -83,7 +83,12 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
                     if(mbodyString.equals("upper")){
                         index = ExSelectorSingleton.getInstance().upperBodyItems.indexOf(exercises[position]);
-                        ExSelectorSingleton.getInstance().upperBodyItems.remove(index);
+                        try {
+                            ExSelectorSingleton.getInstance().upperBodyItems.remove(index);
+                        } catch (IndexOutOfBoundsException e){
+                            Log.i("info", "out of bounds issue..");
+                        }
+
                     }else if(mbodyString.equals("lower")){
                         index = ExSelectorSingleton.getInstance().lowerBodyItems.indexOf(exercises[position]);
                         ExSelectorSingleton.getInstance().lowerBodyItems.remove(index);
@@ -95,6 +100,15 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
             }
         });
+
+        if(ExSelectorSingleton.getInstance().upperBodyItems.contains(exercises[position])
+                || ExSelectorSingleton.getInstance().lowerBodyItems.contains(exercises[position])
+                || ExSelectorSingleton.getInstance().fullBodyItems.contains(exercises[position]))
+            {
+            holder.checkBox.setChecked(true);
+        }else{
+            holder.checkBox.setChecked(false);
+        }
 
         holder.text.setText(exercises[position]);
 

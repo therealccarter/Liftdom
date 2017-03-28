@@ -88,7 +88,7 @@ public class SpecificExerciseChartClass {
 
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsTab.setUpUI(SpecificExerciseValueList,exName);
+                                                    statChartsTab.valueConverter(SpecificExerciseValueList,exName);
                                                     Log.i("info", "completed!"); // never happens
                                                 } else {
                                                     Log.i("info", "empty"); // this always logs
@@ -106,7 +106,7 @@ public class SpecificExerciseChartClass {
 
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsTab.setUpUI(SpecificExerciseValueList, exName);
+                                                    statChartsTab.valueConverter(SpecificExerciseValueList, exName);
                                                     Log.i("info", "completed!"); // never happens
                                                 } else {
                                                     Log.i("info", "empty"); // this always logs

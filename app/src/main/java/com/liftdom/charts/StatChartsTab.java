@@ -18,6 +18,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.utils.exercise_selector.ExSelectorSingleton;
@@ -44,6 +45,11 @@ public class StatChartsTab extends Fragment {
     @BindView(R.id.reloadChartButton) Button reloadChart;
     @BindView(R.id.clearChartButton) Button clearChart;
 
+    List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class StatChartsTab extends Fragment {
 
                 ExSelectorSingleton.getInstance().clearArrayLists();
                 lineChart.clear();
+                dataSets.clear();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -105,7 +112,7 @@ public class StatChartsTab extends Fragment {
         return view;
     }
 
-    public void setUpUI(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
+    public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
         List<Entry> entries = new ArrayList<Entry>();
 
         ArrayList<String> datesStrings = new ArrayList<>();
@@ -133,7 +140,7 @@ public class StatChartsTab extends Fragment {
                 ++inc;
 
                 if(inc == valueAndDateArrayList.size()){
-                    updateUI(entries, reference_timestamp, exName);
+                    lineDataCreator(entries, reference_timestamp, exName);
                 }
             }
 
@@ -142,7 +149,7 @@ public class StatChartsTab extends Fragment {
     }
 
 
-    public void updateUI(List<Entry> entries, long reference_timestamp, String exName){
+    public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName){
 
         ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
 
@@ -168,15 +175,41 @@ public class StatChartsTab extends Fragment {
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setCircleColor(Color.parseColor("#D1B91D"));
 
-        LineData lineData = new LineData(dataSet);
-        lineChart.setData(lineData);
+        //LineData lineData = new LineData(dataSet);
+
+        dataSets.add(dataSet);
+
+        if(dataSets.size() == getItemCount()){
+            setLineChart();
+        }
+
+    }
+
+
+
+    private void setLineChart(){
+
+        LineData data = new LineData(dataSets);
+
+        lineChart.setData(data);
 
         getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                lineChart.invalidate();
-            }
-        });
+                    @Override
+                    public void run() {
+                        lineChart.invalidate();
+                    }
+                });
+
+    }
+
+    private int getItemCount(){
+        int count = 0;
+
+        count += ExSelectorSingleton.getInstance().upperBodyItems.size();
+        count += ExSelectorSingleton.getInstance().lowerBodyItems.size();
+        count += ExSelectorSingleton.getInstance().fullBodyItems.size();
+
+        return count;
     }
 
     public long getCurrentDay(){
@@ -196,6 +229,7 @@ public class StatChartsTab extends Fragment {
         super.onDestroyView();
 
         ExSelectorSingleton.getInstance().clearArrayLists();
+        dataSets.clear();
     }
 
 
