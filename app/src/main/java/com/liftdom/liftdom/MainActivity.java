@@ -144,8 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
+                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(4),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(5),
                         new DividerDrawerItem(),

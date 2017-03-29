@@ -391,6 +391,8 @@
     <string name="disciplines">Disciplines</string>
     <string name="hallOfFame">Hall of Fame</string>
 
+    <string name="writtenBy">Written by:\u0020</string>
+
 
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
