@@ -17,18 +17,16 @@
             >
 
         <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
+                android:id="@+id/collapsingToolbar1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginStart="48dp"
-                app:expandedTitleMarginEnd="64dp"
                 android:fitsSystemWindows="true"
-                app:title="LIFTDOM">
+                app:title="Knowledge Center">
 
             <ImageView
-                    android:id="@+id/toolbarImage"
+                    android:id="@+id/toolbarImage1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -38,9 +36,9 @@
             />
 
             <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolbar1"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="70dp"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="snap"
@@ -54,12 +52,114 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:text="@string/longLatin"
-                android:padding="@dimen/activity_horizontal_margin" />
+                android:orientation="vertical"
+        >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/articles"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/articlesButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/exercises"
+                        android:textSize="20sp"
+                        android:id="@+id/exercisesButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/disciplines"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/disciplinesButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/hallOfFame"
+                        android:textSize="20sp"
+                        android:id="@+id/hallOfFameButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+            </LinearLayout>
+
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/liftrGold1"
+                        android:layout_margin="20dp"
+                />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/knowledgeOfTheDay"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:gravity="center"
+
+                />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/knowledgeOfTheDayHolder"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/longLatin"
+                        android:padding="@dimen/activity_horizontal_margin" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 

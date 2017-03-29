@@ -348,7 +348,8 @@
         fugit eruditi persequeris ut sea.
         Nam ei quando putant, sed fugit liber apeirian eu. Eu atqui menandri vel,
         ea rebum ridens inciderint cum. Ne per malorum deseruisse, ei ius eius perpetua persequeris.
-        Eum te affert soluta, ex nobis nonumy elaboraret eam, utamur tritani eu sea.</string>
+        Eum te affert soluta, ex nobis nonumy elaboraret eam, utamur tritani eu sea.
+    </string>
 
     <!-- Workout assistor -->
     <string name="workoutFinished">WORKOUT FINISHED</string>
@@ -382,6 +383,14 @@
     <string name="clearChart">Clear Chart</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
+
+    <string name="knowledgeOfTheDay">Knowledge of the Day</string>
+
+    <string name="articles">Articles</string>
+    <string name="exercises">Exercises</string>
+    <string name="disciplines">Disciplines</string>
+    <string name="hallOfFame">Hall of Fame</string>
+
 
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
