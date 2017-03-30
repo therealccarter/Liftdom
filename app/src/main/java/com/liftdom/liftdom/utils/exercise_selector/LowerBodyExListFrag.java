@@ -26,7 +26,6 @@ public class LowerBodyExListFrag extends Fragment {
 
     @BindView(R.id.stickyList2) StickyListHeadersListView stickyList;
 
-    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

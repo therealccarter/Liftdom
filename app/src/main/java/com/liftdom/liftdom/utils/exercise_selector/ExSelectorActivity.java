@@ -16,7 +16,7 @@ public class ExSelectorActivity extends AppCompatActivity {
     ViewPager pager;
     ExPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Upper Body", "Lower Body", "Full Body"};
+    CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
     int Numboftabs = 3;
 
     @BindView(R.id.confirmButton) Button confirmButton;

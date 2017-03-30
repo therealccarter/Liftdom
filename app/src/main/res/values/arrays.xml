@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="exercises1">
-        <item>Bench Press</item>
-        <item>Squat</item>
-        <item>Dead-Lift</item>
-        <item>OHP</item>
-        <item>Pull Ups</item>
-        <item>DB Row</item>
-        <item>BB Row</item>
-        <item>DB Curls</item>
-        <item>BB Curls</item>
-        <item>Skull-Crushers</item>
-    </string-array>
-    
+    <!-- ===================== BEGIN EXERCISE SELECTOR LIST ================================= -->
     <string-array name="upperBodyList">
         <!--A-->
 
@@ -94,6 +82,7 @@
         <item>Calf-raise (Seated)</item>
 
         <!--D-->
+        <item>Deadlift (Conventional)</item>
         <!--E-->
         <!--F-->
         <!--G-->
@@ -135,14 +124,11 @@
 
     </string-array>
 
-    <string-array name="fullBodyList">
+    <string-array name="otherBodyList">
         <!--A-->
         <!--B-->
         <!--C-->
-
         <!--D-->
-        <item>Deadlift (Conventional)</item>
-
         <!--E-->
         <!--F-->
         <!--G-->
@@ -157,6 +143,7 @@
         <!--P-->
         <!--Q-->
         <!--R-->
+        <item>Running</item>
         <!--S-->
         <!--T-->
         <!--U-->
@@ -166,4 +153,134 @@
         <!--Y-->
         <!--Z-->
     </string-array>
+    <!-- ========================= END EXERCISE SELECTOR LIST ======================= -->
+
+    <!-- ======================= BEGIN EXERCISE LIBRARY LIST ======================== -->
+
+    <string-array name="upperBodyLibList">
+        <!--A-->
+
+        <!--B-->
+        <item>Bench Press</item>
+
+
+        <!--C-->
+        <item>Chest Fly</item>
+        <!--D-->
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
+
+        <!--L-->
+        <item>Lateral Raise</item>
+
+        <!--M-->
+        <item>Military Press</item>
+
+        <!--N-->
+        <!--O-->
+        <item>Overhead Press</item>
+
+        <!--P-->
+        <item>Pull-down</item>
+        <item>Pull-up</item>
+        <item>Push-up</item>
+
+        <!--Q-->
+        <!--R-->
+        <item>Row</item>
+
+        <!--S-->
+        <item>Shrug</item>
+
+        <!--T-->
+        <!--U-->
+        <item>Upright Row</item>
+
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
+
+    </string-array>
+
+    <string-array name="lowerBodyLibList">
+        <!--A-->
+        <!--B-->
+
+        <!--C-->
+        <item>Calf-raise</item>
+
+        <!--D-->
+        <item>Deadlift</item>
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
+
+        <!--L-->
+        <item>Leg Press</item>
+        <item>Leg Extension</item>
+        <item>Leg Curl</item>
+        <item>Lunge</item>
+
+        <!--M-->
+        <!--N-->
+        <!--O-->
+        <!--P-->
+        <!--Q-->
+        <!--R-->
+
+        <!--S-->
+        <item>Squat</item>
+
+        <!--T-->
+        <!--U-->
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
+
+    </string-array>
+
+    <string-array name="otherBodyLibList">
+        <!--A-->
+        <!--B-->
+        <!--C-->
+        <!--D-->
+        <!--E-->
+        <!--F-->
+        <!--G-->
+        <!--H-->
+        <!--I-->
+        <!--J-->
+        <!--K-->
+        <!--L-->
+        <!--M-->
+        <!--N-->
+        <!--O-->
+        <!--P-->
+        <!--Q-->
+        <!--R-->
+        <item>Running</item>
+        <!--S-->
+        <!--T-->
+        <!--U-->
+        <!--V-->
+        <!--W-->
+        <!--X-->
+        <!--Y-->
+        <!--Z-->
+    </string-array>
+
+    <!-- ======================= END EXERCISE LIBRARY LIST ========================== -->
 </resources>

@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
-             tools:context="com.liftdom.liftdom.utils.exercise_selector.FullBodyExListFrag">
+             tools:context="com.liftdom.liftdom.utils.exercise_selector.OtherExListFrag">
 
 
         <LinearLayout

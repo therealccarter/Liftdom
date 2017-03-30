@@ -22,6 +22,8 @@
 
     </style>
 
+    <style name="stickyListHeadersListViewStyle"></style>
+
     <style name="AppCompatDialogNoTitleBar" parent="Base.Theme.AppCompat">
         <item name="android:colorBackground">?attr/colorBackgroundFloating</item>
         <item name="android:colorBackgroundCacheHint">@null</item>

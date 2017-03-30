@@ -30,8 +30,8 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
             exercises = context.getResources().getStringArray(R.array.upperBodyList);
         }else if(bodyString.equals("lower")){
             exercises = context.getResources().getStringArray(R.array.lowerBodyList);
-        }else if(bodyString.equals("full")){
-            exercises = context.getResources().getStringArray(R.array.fullBodyList);
+        }else if(bodyString.equals("other")){
+            exercises = context.getResources().getStringArray(R.array.otherBodyList);
         }
     }
 
@@ -74,8 +74,8 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                     }else if(mbodyString.equals("lower")){
                         ExSelectorSingleton.getInstance().lowerBodyItems.add(exercises[position]);
                     Log.i("info", exercises[position]);
-                    }else if(mbodyString.equals("full")){
-                        ExSelectorSingleton.getInstance().fullBodyItems.add(exercises[position]);
+                    }else if(mbodyString.equals("other")){
+                        ExSelectorSingleton.getInstance().otherItems.add(exercises[position]);
                     Log.i("info", exercises[position]);
                     }
                 } else{
@@ -92,9 +92,9 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                     }else if(mbodyString.equals("lower")){
                         index = ExSelectorSingleton.getInstance().lowerBodyItems.indexOf(exercises[position]);
                         ExSelectorSingleton.getInstance().lowerBodyItems.remove(index);
-                    }else if(mbodyString.equals("full")){
-                        index = ExSelectorSingleton.getInstance().fullBodyItems.indexOf(exercises[position]);
-                        ExSelectorSingleton.getInstance().fullBodyItems.remove(index);
+                    }else if(mbodyString.equals("other")){
+                        index = ExSelectorSingleton.getInstance().otherItems.indexOf(exercises[position]);
+                        ExSelectorSingleton.getInstance().otherItems.remove(index);
                     }
                 }
 
@@ -103,7 +103,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
         if(ExSelectorSingleton.getInstance().upperBodyItems.contains(exercises[position])
                 || ExSelectorSingleton.getInstance().lowerBodyItems.contains(exercises[position])
-                || ExSelectorSingleton.getInstance().fullBodyItems.contains(exercises[position]))
+                || ExSelectorSingleton.getInstance().otherItems.contains(exercises[position]))
             {
             holder.checkBox.setChecked(true);
         }else{

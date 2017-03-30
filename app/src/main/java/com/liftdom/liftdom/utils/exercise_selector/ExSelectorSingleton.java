@@ -20,12 +20,12 @@ public class ExSelectorSingleton {
 
     public ArrayList<String> upperBodyItems = new ArrayList<>();
     public ArrayList<String> lowerBodyItems = new ArrayList<>();
-    public ArrayList<String> fullBodyItems = new ArrayList<>();
+    public ArrayList<String> otherItems = new ArrayList<>();
 
     public void clearArrayLists(){
         upperBodyItems.clear();
         lowerBodyItems.clear();
-        fullBodyItems.clear();
+        otherItems.clear();
     }
 
 }

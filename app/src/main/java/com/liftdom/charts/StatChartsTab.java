@@ -94,7 +94,7 @@ public class StatChartsTab extends Fragment {
 
                 ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
                 ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
-                ArrayList<String> fullBodyItems = ExSelectorSingleton.getInstance().fullBodyItems;
+                ArrayList<String> fullBodyItems = ExSelectorSingleton.getInstance().otherItems;
 
                 for(String itemName : upperBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
@@ -207,7 +207,7 @@ public class StatChartsTab extends Fragment {
 
         count += ExSelectorSingleton.getInstance().upperBodyItems.size();
         count += ExSelectorSingleton.getInstance().lowerBodyItems.size();
-        count += ExSelectorSingleton.getInstance().fullBodyItems.size();
+        count += ExSelectorSingleton.getInstance().otherItems.size();
 
         return count;
     }
