@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ====================== UPPER BODY ====================== -->
+
+    <!--Bench Press -->
+    <string name="benchPressSummary"></string>
+    <string name="benchPressHowTo"></string>
+    <string name="benchPressVideo"></string>
+    <string name="benchPressBarbellTitle"></string>
+    <string name="benchPressDumbellTitle"></string>
+    <string name="benchPressFlatTitle"></string>
+    <string name="benchPressInclineTitle"></string>
+    <string name="benchPressDeclineTitle"></string>
+
+    <string name="benchPressBarbellText"></string>
+    <string name="benchPressDumbellText"></string>
+    <string name="benchPressFlatText"></string>
+    <string name="benchPressInclineText"></string>
+    <string name="benchPressDeclineText"></string>
+
+    <string name="benchPressMuscles"></string>
+
+    
+</resources>

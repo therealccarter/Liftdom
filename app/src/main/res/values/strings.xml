@@ -351,6 +351,24 @@
         Eum te affert soluta, ex nobis nonumy elaboraret eam, utamur tritani eu sea.
     </string>
 
+    <string name="shortLatin">
+        Lorem ipsum dolor sit amet, et modus senserit ullamcorper sed.
+        Eos ne semper utamur consequat, te sit repudiandae comprehensam.
+        Sit in unum option, accusata partiendo ea cum.
+        Te quot graeci forensibus pri, pro movet mollis utamur ad, noster omnesque reprehendunt eu nam.
+        Vidit solet scribentur mel ei, nostrum commune epicurei at nec.
+        Detracto percipit qui ad. Scripta viderer prompta ea eum.
+    </string>
+
+    <string name="shorterLatin">
+        Lorem ipsum dolor sit amet, et modus senserit ullamcorper sed.
+        Eos ne semper utamur consequat, te sit repudiandae comprehensam.
+        Sit in unum option, accusata partiendo ea cum.
+    </string>
+
+    <string name="variantsAndDetails">Major Variants and Details</string>
+
+
     <!-- Workout assistor -->
     <string name="workoutFinished">WORKOUT FINISHED</string>
     <string name="goHome">Go Home</string>
@@ -358,6 +376,8 @@
     <string name="healUpString">Heal up, today is a rest day!</string>
     <string name="viewStretchingAndAdvice">View stretching and nutrition advice</string>
     <string name="doneForTheDay">You\'re done for the day. Rest up!</string>
+
+    <string name="howTo">How-to</string>
 
     <!-- user profile -->
     <string name="dash">-</string>
