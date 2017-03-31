@@ -1,6 +1,7 @@
 package com.liftdom.knowledge_center.exercise_library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import static java.security.AccessController.getContext;
 public class ExLibraryStickyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     Context context;
+    ViewGroup viewGroup;
 
     private String[] exercises;
     private LayoutInflater inflater;
@@ -31,7 +33,8 @@ public class ExLibraryStickyAdapter extends BaseAdapter implements StickyListHea
 
         context = mContext;
 
-        inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(mContext);
+
         mbodyString = bodyString;
         if(bodyString.equals("upper")){
             exercises = context.getResources().getStringArray(R.array.upperBodyLibList);
@@ -63,7 +66,7 @@ public class ExLibraryStickyAdapter extends BaseAdapter implements StickyListHea
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.ex_list_sticky_item_layout, parent, false);
+            convertView = inflater.inflate(R.layout.ex_lib_sticky_item_layout, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.text2);
             convertView.setTag(holder);
         } else {
@@ -72,14 +75,20 @@ public class ExLibraryStickyAdapter extends BaseAdapter implements StickyListHea
 
         holder.text.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                ExercisesDetailFrag exercisesDetailFrag = new ExercisesDetailFrag();
-                exercisesDetailFrag.exName = exercises[position];
+                //ExercisesDetailFrag exercisesDetailFrag = new ExercisesDetailFrag();
+                //exercisesDetailFrag.exName = exercises[position];
 
-                fragmentTransaction.replace(R.id.knowledgeCenterHolder, exercisesDetailFrag);
-                fragmentTransaction.commit();
+                //fragmentTransaction.replace(R.id.upperBodyHolder, exercisesDetailFrag);
+                //fragmentTransaction.commit();
+
+                Intent intent = new Intent(context, ExerciseDetailActivity.class);
+
+                intent.putExtra("exName", exercises[position]);
+
+                context.startActivity(intent);
             }
         });
 

@@ -5,18 +5,9 @@
               android:orientation="vertical"
               tools:context="com.liftdom.knowledge_center.exercise_library.LowerBodyExLibFrag">
 
-
-    <LinearLayout
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/stickyList5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-    >
+            android:layout_height="wrap_content"/>
 
-        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-                android:id="@+id/stickyList5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-        </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
-
-    </LinearLayout>
 </LinearLayout>

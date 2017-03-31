@@ -2,6 +2,7 @@ package com.liftdom.knowledge_center;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity;
 import com.liftdom.knowledge_center.exercise_library.ExercisesMainFrag;
 import com.liftdom.liftdom.R;
 
@@ -67,12 +69,15 @@ public class KnowledgeCenterMainFrag extends Fragment {
 
         exercisesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.knowledgeCenterHolder, new ExercisesMainFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                //fragmentTransaction.replace(R.id.knowledgeCenterHolder, new ExercisesMainFrag());
+                //fragmentTransaction.addToBackStack(null);
+                //fragmentTransaction.commit();
+
+                Intent intent = new Intent(getContext(), ExerciseLibraryActivity.class);
+                startActivity(intent);
             }
         });
 

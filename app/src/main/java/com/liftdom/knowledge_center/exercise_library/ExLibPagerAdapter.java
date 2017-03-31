@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 
 public class ExLibPagerAdapter extends FragmentStatePagerAdapter{
+
     CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
     int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
 

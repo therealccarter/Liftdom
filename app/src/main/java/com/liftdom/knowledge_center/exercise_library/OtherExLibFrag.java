@@ -33,7 +33,7 @@ public class OtherExLibFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), "other");
+        ExLibraryStickyAdapter adapter = new ExLibraryStickyAdapter(getContext(), "other");
 
         stickyList.setAdapter(adapter);
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.liftdom.knowledge_center.exercise_library.ExerciseDetailActivity">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/testText"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+        />
+    </ScrollView>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:background="@color/backgroundgrey1"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="5dp"
+            android:id="@+id/closeButton"
+    />
+
+</LinearLayout>

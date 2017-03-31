@@ -4,10 +4,13 @@ package com.liftdom.knowledge_center.exercise_library;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
 import com.liftdom.liftdom.utils.exercise_selector.ExPagerAdapter;
@@ -46,8 +49,11 @@ public class ExercisesMainFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exercises_main, container, false);
         headerChanger("Exercise Library");
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ExLibPagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new ExLibPagerAdapter(fragmentManager, Titles,
+                Numboftabs);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager1);

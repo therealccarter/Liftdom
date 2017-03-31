@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
 import com.liftdom.liftdom.utils.exercise_selector.ExPagerAdapter;
@@ -33,6 +34,8 @@ public class ExercisesDetailFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_exercises_detail, container, false);
+
+        ButterKnife.bind(this, view);
 
         textView.setText(exName);
 

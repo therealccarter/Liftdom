@@ -108,6 +108,11 @@
         </activity>
         <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity">
         </activity>
+        <activity android:name="com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity">
+        </activity>
+        <activity android:name="com.liftdom.knowledge_center.exercise_library.ExerciseDetailActivity"
+                  android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
     </application>
 
 </manifest>

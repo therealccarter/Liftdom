@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
               android:orientation="vertical"
              tools:context="com.liftdom.knowledge_center.exercise_library.ExercisesMainFrag">
 
@@ -9,15 +9,23 @@
             android:id="@+id/tabs1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
             android:background="@color/black"
     />
 
     <android.support.v4.view.ViewPager
             android:id="@+id/pager1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST TEXT"
+            android:textColor="@color/black"
+            android:textSize="35sp"
+            android:gravity="center"
     />
 
 </LinearLayout>
