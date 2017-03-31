@@ -1,4 +1,4 @@
-package com.liftdom.knowledge_center;
+package com.liftdom.knowledge_center.hall_of_fame;
 
 
 import android.app.Activity;

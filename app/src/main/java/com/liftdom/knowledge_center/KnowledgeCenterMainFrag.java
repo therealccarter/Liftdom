@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity;
+import com.liftdom.knowledge_center.hall_of_fame.HallOfFameMainFrag;
 import com.liftdom.liftdom.R;
 
 /**

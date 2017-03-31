@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.liftdom.knowledge_center.HallOfFameDetailFrag">
+             tools:context="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailFrag">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

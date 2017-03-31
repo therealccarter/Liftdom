@@ -186,6 +186,9 @@
     <string name="previous">Prev</string>
     <string name="bodybuilding">Bodybuilding</string>
     <string name="powerlifting">Powerlifting</string>
+    <string name="fitness">General Fitness</string>
+    <string name="crossfit">Crossfit</string>
+    <string name="strongman">Strongman</string>
     <string name="powerbuilding">Power-building</string>
     <string name="title_activity_discipline_list">disciplineList</string>
     <string name="ppl">P/P/L</string>

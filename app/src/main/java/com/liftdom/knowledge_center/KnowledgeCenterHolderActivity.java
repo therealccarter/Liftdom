@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.knowledge_center.hall_of_fame.HallOfFameMainFrag;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
@@ -35,7 +36,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 public class KnowledgeCenterHolderActivity extends AppCompatActivity
         implements ArticlesMainFrag.headerChangeToFrag,
         KnowledgeCenterMainFrag.headerChangeToFrag,
-        HallOfFameMainFrag.headerChangeToFrag
+        HallOfFameMainFrag.headerChangeToFrag,
+        DisciplinesMainFrag.headerChangeToFrag,
+        DisciplinesDetailFrag.headerChangeToFrag
 {
 
     @BindView(R.id.knowledgeCenterHolder) LinearLayout holderView;

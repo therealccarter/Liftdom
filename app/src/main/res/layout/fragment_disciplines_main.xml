@@ -1,13 +1,115 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context="com.liftdom.knowledge_center.DisciplinesMainFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="wrap_content"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/bodybuilding"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/bodybuildingButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
 
-</FrameLayout>
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/powerlifting"
+                        android:textSize="20sp"
+                        android:id="@+id/powerliftingButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/strongman"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/strongmanButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/powerbuilding"
+                        android:textSize="18sp"
+                        android:id="@+id/powerbuildingButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/fitness"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/fitnessButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+                <Button
+                        android:layout_width="170dp"
+                        android:layout_height="75dp"
+                        android:text="@string/crossfit"
+                        android:textSize="20sp"
+                        android:id="@+id/crossfitButton"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
