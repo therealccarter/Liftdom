@@ -20,14 +20,13 @@ public class ExerciseDetailActivity extends AppCompatActivity {
     @BindView(R.id.closeButton) Button closeButton;
     @BindView(R.id.exSummary) TextView exSummary;
     @BindView(R.id.exHowTo) TextView exHowTo;
-    @BindView(R.id.varientsAndDetailsHolder) LinearLayout varientsHolder;
+    @BindView(R.id.variantsAndDetailsHolder) LinearLayout variantsHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_detail);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         exName = getIntent().getExtras().getString("exName");
 
