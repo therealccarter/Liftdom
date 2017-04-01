@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity;
-import com.liftdom.knowledge_center.hall_of_fame.HallOfFameMainFrag;
+import com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity;
 import com.liftdom.liftdom.R;
 
 /**
@@ -94,12 +94,8 @@ public class KnowledgeCenterMainFrag extends Fragment {
 
         hallOfFameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.knowledgeCenterHolder, new HallOfFameMainFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getContext(), HallOfFameActivity.class);
+                startActivity(intent);
             }
         });
 
