@@ -47,7 +47,7 @@ UPCOMING FEATURES TO DO:
     - Consolidate sign in and sign up
     - Beautify
 **DONE** algorithm if bodyweight, just keep increasing
-* Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
+**DONE** Chart progress for Strength Gains, Body Weight, Predictive/Future Lifts
 **DONE** Show past and future workouts in a Calendar View (color code - future/past/failures)
     - In future, perhaps have reds for totally missed days, yellows for days that weren't 100% filled, greens for
         full completion.
@@ -56,7 +56,7 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.5*
-* Exercise movement library/reference
+**DONE** Exercise movement library/reference
 * Add rounder option for weights
 * Add some tools (BMI, cal calculator, etc)
 * Work on pre-made templates (many more)
