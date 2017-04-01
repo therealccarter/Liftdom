@@ -90,7 +90,7 @@
                 android:name=".LoginActivity"
                 android:label="@string/title_activity_login">
         </activity>
-        <activity android:name="com.liftdom.user_profile.SettingsListActivity">
+        <activity android:name="com.liftdom.settings.SettingsListActivity">
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog"
@@ -116,8 +116,13 @@
         </activity>
         <activity android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity">
         </activity>
-        <activity android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
-                  android:theme="@style/Theme.AppCompat.Dialog">
+        <activity
+                android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
+                android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
+        <activity android:name="com.liftdom.tools.ToolsMainActivity">
+        </activity>
+        <activity android:name=".PremiumFeaturesActivity">
         </activity>
     </application>
 

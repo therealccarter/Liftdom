@@ -197,6 +197,13 @@
         to.)
     </string>
 
+    <string name="weightUnit">Weight unit:</string>
+
+    <string name="settings">Settings</string>
+
+    <string name="kilos">kg</string>
+    <string name="roundWeight">Round weights to \n nearest 5lbs/kg?</string>
+
     <string name="title_activity_under_construction">underConstruction</string>
     <string name="title_activity_bodybuilding_programs">bodybuildingPrograms</string>
     <string name="title_activity_pushpulldetails">pushpulldetails</string>
@@ -408,6 +415,10 @@
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 
     <string name="knowledgeOfTheDay">Knowledge of the Day</string>
+
+    <string name="heightUnits">Height units:</string>
+    <string name="centimeters">Centimeters:</string>
+    <string name="footInch">ft/in</string>
 
     <string name="articles">Articles</string>
     <string name="exercises">Exercises</string>

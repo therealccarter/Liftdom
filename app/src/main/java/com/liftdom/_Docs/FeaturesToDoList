@@ -66,10 +66,10 @@ UPCOMING FEATURES TO DO:
     * Ice Cream Fitness
     * PHAT
 * save instance of workout assistor (if same day, and if workout hasn't already been finished)
-* Understand and plan the right NoSQL architecture for efficient social media features
 * Clear current BugList
 
 *v0.6* - Begin Social features!
+* Understand and plan the right NoSQL architecture for efficient social media features
 * Search for other users
 * Friend other users
 * View other users' profiles
