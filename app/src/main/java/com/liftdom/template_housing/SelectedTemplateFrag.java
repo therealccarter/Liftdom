@@ -114,8 +114,50 @@ public class SelectedTemplateFrag extends Fragment {
                             }else if(dayArray[0].equals("Sunday")){
                                 daysArray[6] = daysOfTheWeek;
                             }
-
                         }
+
+                        if(daysOfTheWeek.equals("1rm")){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                            housingDoWFrag.otherTitle = daysOfTheWeek;
+                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
+                            fragmentTransaction.add(R.id.templateListedView,
+                                    housingDoWFrag);
+                            if(!getActivity().isFinishing()){
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+                        }
+
+                        if(daysOfTheWeek.equals("exName")){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                            housingDoWFrag.otherTitle = "Exercise: ";
+                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
+                            fragmentTransaction.add(R.id.templateListedView,
+                                    housingDoWFrag);
+                            if(!getActivity().isFinishing()){
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+                        }
+
+                        if(daysOfTheWeek.equals("id")){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                            housingDoWFrag.otherTitle = "Workout Type: ";
+                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
+                            fragmentTransaction.add(R.id.templateListedView,
+                                    housingDoWFrag);
+                            if(!getActivity().isFinishing()){
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+                        }
+
                     }
 
                     for(int i = 0; i < 7; i++){

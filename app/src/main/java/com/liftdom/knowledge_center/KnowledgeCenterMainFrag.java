@@ -42,6 +42,8 @@ public class KnowledgeCenterMainFrag extends Fragment {
     @BindView(R.id.exercisesButton) Button exercisesButton;
     @BindView(R.id.disciplinesButton) Button disciplinesButton;
     @BindView(R.id.hallOfFameButton) Button hallOfFameButton;
+    @BindView(R.id.recoveryButton) Button recoveryButton;
+    @BindView(R.id.nutritionButton) Button nutritionButton;
     @BindView(R.id.knowledgeOfTheDayHolder) LinearLayout kOTDHolder;
 
 
@@ -69,13 +71,6 @@ public class KnowledgeCenterMainFrag extends Fragment {
 
         exercisesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                //fragmentTransaction.replace(R.id.knowledgeCenterHolder, new ExercisesMainFrag());
-                //fragmentTransaction.addToBackStack(null);
-                //fragmentTransaction.commit();
-
                 Intent intent = new Intent(getContext(), ExerciseLibraryActivity.class);
                 startActivity(intent);
             }

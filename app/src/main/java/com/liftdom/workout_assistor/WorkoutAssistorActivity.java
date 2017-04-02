@@ -600,9 +600,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     boolean smolovChecker(String templateName){
         boolean isSmolov = false;
 
-        if(templateName.substring(0,6).equals("Smolov")){
-            isSmolov = true;
+        try{
+            if(templateName.substring(0,6).equals("Smolov")){
+                isSmolov = true;
+            }
+        } catch (StringIndexOutOfBoundsException e){
+            isSmolov = false;
         }
+
 
         return isSmolov;
     }

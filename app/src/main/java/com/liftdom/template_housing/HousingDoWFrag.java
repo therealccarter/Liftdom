@@ -30,7 +30,8 @@ public class HousingDoWFrag extends Fragment {
 
     String dOWString = "error";
     String templateName = "error";
-
+    String otherTitle = "error";
+    String otherSub = "error";
 
     @BindView(R.id.doWName) TextView doWStringView;
     @BindView(R.id.exAndSetLLHolder) LinearLayout exAndSetHolder;
@@ -60,45 +61,66 @@ public class HousingDoWFrag extends Fragment {
 
         final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
 
-        doWStringView.setText(dOWString);
+        if(!dOWString.equals("error") && !templateName.equals("error")){
 
-        DatabaseReference specificDaysRef = specificTemplateRef.child(dOWString);
+            doWStringView.setText(dOWString);
 
-        specificDaysRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
-                    String value = dataSnapshot2.getValue(String.class);
-                    if(isExerciseName(value)){
+            DatabaseReference specificDaysRef = specificTemplateRef.child(dOWString);
 
-                        FragmentManager fragmentManager = getChildFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager
-                                .beginTransaction();
-                        HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
-                        housingExNameFrag.exNameString = value;
-                        fragmentTransaction.add(R.id.exAndSetLLHolder, housingExNameFrag);
+            specificDaysRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                        String value = dataSnapshot2.getValue(String.class);
+                        if(isExerciseName(value)){
 
-                        fragmentTransaction.commitAllowingStateLoss();
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
+                            housingExNameFrag.exNameString = value;
+                            fragmentTransaction.add(R.id.exAndSetLLHolder, housingExNameFrag);
 
-                    }else{
+                            fragmentTransaction.commitAllowingStateLoss();
 
-                        FragmentManager fragmentManager = getChildFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager
-                                .beginTransaction();
-                        HousingSetSchemeFrag housingSetSchemeFrag = new HousingSetSchemeFrag();
-                        housingSetSchemeFrag.setSchemeString = value;
-                        fragmentTransaction.add(R.id.exAndSetLLHolder, housingSetSchemeFrag);
-                        fragmentTransaction.commitAllowingStateLoss();
+                        }else{
 
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            HousingSetSchemeFrag housingSetSchemeFrag = new HousingSetSchemeFrag();
+                            housingSetSchemeFrag.setSchemeString = value;
+                            fragmentTransaction.add(R.id.exAndSetLLHolder, housingSetSchemeFrag);
+                            fragmentTransaction.commitAllowingStateLoss();
+
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
+        }else{
+            doWStringView.setVisibility(View.GONE);
+
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
+            housingExNameFrag.exNameString = otherTitle;
+            fragmentTransaction.add(R.id.exAndSetLLHolder, housingExNameFrag);
+
+            HousingSetSchemeFrag housingSetSchemeFrag = new HousingSetSchemeFrag();
+            housingSetSchemeFrag.setSchemeString = otherSub;
+            if(!otherTitle.equals("1rm")){
+                housingSetSchemeFrag.differentType = true;
             }
-        });
+            fragmentTransaction.add(R.id.exAndSetLLHolder, housingSetSchemeFrag);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+
 
         return view;
     }

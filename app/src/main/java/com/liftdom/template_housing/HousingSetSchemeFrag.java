@@ -23,8 +23,10 @@ public class HousingSetSchemeFrag extends Fragment {
     }
 
     String setSchemeString = "error";
+    boolean differentType = false;
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;
+    @BindView(R.id.pounds) TextView pounds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,10 @@ public class HousingSetSchemeFrag extends Fragment {
         if(savedInstanceState != null){
             setSchemeString = savedInstanceState.getString("set_scheme_string");
             setSchemesView.setText(setSchemeString);
+        }
+
+        if(differentType){
+            pounds.setVisibility(View.GONE);
         }
 
         setSchemesView.setText(setSchemeString);
