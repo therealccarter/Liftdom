@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,15 +75,17 @@ public class HousingDoWFrag extends Fragment {
                         String value = dataSnapshot2.getValue(String.class);
                         if(isExerciseName(value)){
 
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
-                            housingExNameFrag.exNameString = value;
-                            fragmentTransaction.add(R.id.exAndSetLLHolder, housingExNameFrag);
-
-                            fragmentTransaction.commitAllowingStateLoss();
-
+                            try {
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                HousingExNameFrag housingExNameFrag = new HousingExNameFrag();
+                                housingExNameFrag.exNameString = value;
+                                fragmentTransaction.add(R.id.exAndSetLLHolder, housingExNameFrag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            } catch (IllegalStateException e){
+                                Log.i("info", "illegal state");
+                            }
                         }else{
 
                             FragmentManager fragmentManager = getChildFragmentManager();

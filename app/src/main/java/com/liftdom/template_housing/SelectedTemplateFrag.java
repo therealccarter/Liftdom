@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,17 +163,22 @@ public class SelectedTemplateFrag extends Fragment {
 
                     for(int i = 0; i < 7; i++){
                         if(!daysArray[i].equals("false")){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                            housingDoWFrag.dOWString = daysArray[i];
-                            housingDoWFrag.templateName = templateName;
-                            fragmentTransaction.add(R.id.templateListedView,
-                                    housingDoWFrag);
-                            if(!getActivity().isFinishing()){
-                                fragmentTransaction.commitAllowingStateLoss();
+                            try{
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                                housingDoWFrag.dOWString = daysArray[i];
+                                housingDoWFrag.templateName = templateName;
+                                fragmentTransaction.add(R.id.templateListedView,
+                                        housingDoWFrag);
+                                if(!getActivity().isFinishing()){
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }
+                            } catch (IllegalStateException e){
+                                Log.i("info", "illegal error");
                             }
+
                         }
                     }
 
