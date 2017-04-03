@@ -78,12 +78,12 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
             holder.checkBox.setVisibility(View.GONE);
             holder.text.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    ExercisePickerController.getInstance().exName = exercises[position];
-                    String message = ExercisePickerController.getInstance().exName;
+                    //ExercisePickerController.getInstance().exName = exercises[position];
+                    //String message = ExercisePickerController.getInstance().exName;
                     Intent intent = new Intent();
-                    intent.putExtra("MESSAGE", message);
+                    intent.putExtra("MESSAGE", exercises[position]);
                     fragActivity.setResult(2, intent);
-                    ExercisePickerController.getInstance().exName = null;
+                    //ExercisePickerController.getInstance().exName = null;
                     fragActivity.finish();
                 }
             });
