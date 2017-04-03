@@ -15,8 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.charts.ChartsAndStatsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.LoginActivity;
@@ -174,6 +173,51 @@ public class SettingsListActivity extends AppCompatActivity {
                                 (mFirebaseUser.getDisplayName()).withEmail
                                 (mFirebaseUser.getEmail()),
                 0);
+
+        DatabaseReference settingsRef = mRootRef.child("users").child(uid);
+        settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String key = dataSnapshot1.getKey();
+                    if(!key.equals("maxes")){
+                        String value = dataSnapshot1.getValue(String.class);
+
+                        if(key.equals("weightUnit")){
+                            if(value.equals("pounds")){
+                                poundsWeight.setChecked(true);
+                            }else if(value.equals("kilos")){
+                                kiloWeight.setChecked(true);
+                            }
+                        }else if(key.equals("bodyWeightUnit")){
+                            if(value.equals("pounds")){
+                                poundsBodyWeight.setChecked(true);
+                            }else if(value.equals("kilos")){
+                                kiloBodyWeight.setChecked(true);
+                            }
+                        }else if(key.equals("heightUnit")){
+                            if(value.equals("footInches")){
+                                footInchesHeight.setChecked(true);
+                            }else if(value.equals("centimeters")){
+                                centiHeight.setChecked(true);
+                            }
+                        }else if(key.equals("roundWeight")){
+                            if(value.equals("yes")){
+                                checkBoxRound.setChecked(true);
+                            }else if(value.equals("no")){
+                                checkBoxRound.setChecked(false);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
