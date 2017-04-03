@@ -422,6 +422,7 @@
 
     <string name="articles">Articles</string>
     <string name="exercises">Exercises</string>
+    <string name="exLibrary">Exercise Library</string>
     <string name="disciplines">Disciplines</string>
     <string name="hallOfFame">Hall of Fame</string>
     <string name="recovery">Recovery</string>

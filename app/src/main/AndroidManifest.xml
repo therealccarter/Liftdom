@@ -108,13 +108,15 @@
         </activity>
         <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity">
         </activity>
-        <activity android:name="com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity">
+        <activity android:name="com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity"
+                    android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.exercise_library.ExerciseDetailActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity">
+        <activity android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity"
+                    android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"

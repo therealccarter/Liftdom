@@ -16,6 +16,14 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hallOfFame"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+        />
+
     </android.support.v7.widget.Toolbar>
 
     <com.liftdom.liftdom.utils.SlidingTabLayout
