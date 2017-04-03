@@ -19,6 +19,7 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.PlateRounderClass;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_editor.TemplateSavedActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
@@ -83,6 +84,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
     ArrayList<String> firstSetsRepsAL = new ArrayList<>();
 
     DatabaseReference daySpecificRef;
+
+    boolean isRound = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -219,6 +222,29 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
+        DatabaseReference roundRef = mRootRef.child("users").child(uid).child("roundWeight");
+        roundRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                //    String key = dataSnapshot1.getKey();
+                //    String value = dataSnapshot1.getValue(String.class);
+                //
+                //    if(key)
+                //}
+                String value = dataSnapshot.getValue(String.class);
+                if(value.equals("yes")){
+                    isRound = true;
+                }else if(value.equals("no")){
+                    isRound = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -429,6 +455,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                     if(!isExerciseName(cutArray[2])) {
                                                                                         weight = Integer.parseInt(cutArray[2]);
                                                                                         weight += algoInfoArray[5];
+                                                                                        if(isRound){
+                                                                                            PlateRounderClass rounderClass = new PlateRounderClass(weight);
+                                                                                            weight = rounderClass.getNewWeight();
+                                                                                        }
                                                                                         if (algoInfoArray[6] == 1) {
                                                                                             // what if we just subtracted the
                                                                                             // algo shit from the weeks
@@ -443,8 +473,6 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                 }else{
                                                                                     weight = Integer.parseInt(cutArray[2]);
                                                                                 }
-
-
 
                                                                                 String concat = Integer.toString
                                                                                         (sets) + " x " + Integer.toString(reps)

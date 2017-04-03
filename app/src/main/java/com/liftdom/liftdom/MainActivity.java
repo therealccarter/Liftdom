@@ -35,6 +35,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -233,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
     // [START on_start_add_listener]
     @Override
