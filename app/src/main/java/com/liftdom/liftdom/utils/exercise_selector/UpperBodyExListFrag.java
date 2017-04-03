@@ -28,6 +28,7 @@ public class UpperBodyExListFrag extends Fragment{
 
     @BindView(R.id.stickyList1) StickyListHeadersListView stickyList;
 
+    boolean noCheckbox = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +38,7 @@ public class UpperBodyExListFrag extends Fragment{
 
         ButterKnife.bind(this, view);
 
-        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), "upper");
+        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "upper", noCheckbox);
 
         stickyList.setAdapter(adapter);
 

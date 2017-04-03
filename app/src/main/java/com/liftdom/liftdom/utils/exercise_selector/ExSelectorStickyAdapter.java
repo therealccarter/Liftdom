@@ -1,7 +1,8 @@
 package com.liftdom.liftdom.utils.exercise_selector;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.ExercisePickerController;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -22,10 +24,18 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     private String[] exercises;
     private LayoutInflater inflater;
     String mbodyString = "null";
+    boolean mNoCheckbox = false;
+    FragmentActivity fragActivity;
 
-    public ExSelectorStickyAdapter(Context context, String bodyString){
+    public ExSelectorStickyAdapter(Context context, FragmentActivity activity,  String bodyString, boolean noCheckbox){
+        fragActivity = activity;
+
         inflater = LayoutInflater.from(context);
+
         mbodyString = bodyString;
+
+        mNoCheckbox = noCheckbox;
+
         if(bodyString.equals("upper")){
             exercises = context.getResources().getStringArray(R.array.upperBodyList);
         }else if(bodyString.equals("lower")){
@@ -64,50 +74,65 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    if(mbodyString.equals("upper")){
-                        ExSelectorSingleton.getInstance().upperBodyItems.add(exercises[position]);
-                        Log.i("info", exercises[position]);
-                    }else if(mbodyString.equals("lower")){
-                        ExSelectorSingleton.getInstance().lowerBodyItems.add(exercises[position]);
-                    Log.i("info", exercises[position]);
-                    }else if(mbodyString.equals("other")){
-                        ExSelectorSingleton.getInstance().otherItems.add(exercises[position]);
-                    Log.i("info", exercises[position]);
-                    }
-                } else{
-                    int index;
-
-                    if(mbodyString.equals("upper")){
-                        index = ExSelectorSingleton.getInstance().upperBodyItems.indexOf(exercises[position]);
-                        try {
-                            ExSelectorSingleton.getInstance().upperBodyItems.remove(index);
-                        } catch (IndexOutOfBoundsException e){
-                            Log.i("info", "out of bounds issue..");
-                        }
-
-                    }else if(mbodyString.equals("lower")){
-                        index = ExSelectorSingleton.getInstance().lowerBodyItems.indexOf(exercises[position]);
-                        ExSelectorSingleton.getInstance().lowerBodyItems.remove(index);
-                    }else if(mbodyString.equals("other")){
-                        index = ExSelectorSingleton.getInstance().otherItems.indexOf(exercises[position]);
-                        ExSelectorSingleton.getInstance().otherItems.remove(index);
-                    }
+        if(mNoCheckbox){
+            holder.checkBox.setVisibility(View.GONE);
+            holder.text.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    ExercisePickerController.getInstance().exName = exercises[position];
+                    String message = ExercisePickerController.getInstance().exName;
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", message);
+                    fragActivity.setResult(2, intent);
+                    ExercisePickerController.getInstance().exName = null;
+                    fragActivity.finish();
                 }
-
-            }
-        });
-
-        if(ExSelectorSingleton.getInstance().upperBodyItems.contains(exercises[position])
-                || ExSelectorSingleton.getInstance().lowerBodyItems.contains(exercises[position])
-                || ExSelectorSingleton.getInstance().otherItems.contains(exercises[position]))
-            {
-            holder.checkBox.setChecked(true);
+            });
         }else{
-            holder.checkBox.setChecked(false);
+            holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        if(mbodyString.equals("upper")){
+                            ExSelectorSingleton.getInstance().upperBodyItems.add(exercises[position]);
+                            Log.i("info", exercises[position]);
+                        }else if(mbodyString.equals("lower")){
+                            ExSelectorSingleton.getInstance().lowerBodyItems.add(exercises[position]);
+                            Log.i("info", exercises[position]);
+                        }else if(mbodyString.equals("other")){
+                            ExSelectorSingleton.getInstance().otherItems.add(exercises[position]);
+                            Log.i("info", exercises[position]);
+                        }
+                    } else{
+                        int index;
+
+                        if(mbodyString.equals("upper")){
+                            index = ExSelectorSingleton.getInstance().upperBodyItems.indexOf(exercises[position]);
+                            try {
+                                ExSelectorSingleton.getInstance().upperBodyItems.remove(index);
+                            } catch (IndexOutOfBoundsException e){
+                                Log.i("info", "out of bounds issue..");
+                            }
+
+                        }else if(mbodyString.equals("lower")){
+                            index = ExSelectorSingleton.getInstance().lowerBodyItems.indexOf(exercises[position]);
+                            ExSelectorSingleton.getInstance().lowerBodyItems.remove(index);
+                        }else if(mbodyString.equals("other")){
+                            index = ExSelectorSingleton.getInstance().otherItems.indexOf(exercises[position]);
+                            ExSelectorSingleton.getInstance().otherItems.remove(index);
+                        }
+                    }
+
+                }
+            });
+
+            if(ExSelectorSingleton.getInstance().upperBodyItems.contains(exercises[position])
+                    || ExSelectorSingleton.getInstance().lowerBodyItems.contains(exercises[position])
+                    || ExSelectorSingleton.getInstance().otherItems.contains(exercises[position]))
+            {
+                holder.checkBox.setChecked(true);
+            }else{
+                holder.checkBox.setChecked(false);
+            }
         }
 
         holder.text.setText(exercises[position]);

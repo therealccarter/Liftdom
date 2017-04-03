@@ -10,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
+import com.liftdom.template_editor.ExercisePickerController;
 
 public class ExSelectorActivity extends AppCompatActivity {
 
@@ -30,8 +31,17 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ExPagerAdapter(this.getSupportFragmentManager(),Titles,Numboftabs);
+        if(getIntent().getExtras() != null){
+            ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
+
+            // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true);
+        }else{
+            // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs);
+        }
+
+
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);

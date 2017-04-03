@@ -66,6 +66,7 @@ UPCOMING FEATURES TO DO:
     * Ice Cream Fitness
     * PHAT
 * save instance of workout assistor (if same day, and if workout hasn't already been finished)
+* Work on validator - no exercises added, name taken, etc etc
 * Clear current BugList
 
 *v0.6* - Begin Social features!

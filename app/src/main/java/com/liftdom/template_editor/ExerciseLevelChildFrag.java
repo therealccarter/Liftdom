@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.exercise_selector.ExSelectorActivity;
 
 import java.util.ArrayList;
 
@@ -145,7 +146,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExercisePickerActivity.class);
+                Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
                 int exID = exerciseButton.getId();
                 intent.putExtra("exID", exID);
                 startActivityForResult(intent, 2);

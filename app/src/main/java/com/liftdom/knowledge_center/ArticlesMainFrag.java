@@ -52,14 +52,23 @@ public class ArticlesMainFrag extends Fragment {
 
         // Just a test article
         // get an instance of FragmentTransaction from your Activity
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //add a fragment
-        ArticleCollapsedFrag articleTest = new ArticleCollapsedFrag();
-        articleTest.articleTitleString = "Lorem Ipsum, yada yada yada?";
-        fragmentTransaction.add(R.id.collapsedArticleHolder, articleTest);
+        if(savedInstanceState == null){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            //add a fragment
+            ArticleCollapsedFrag articleTest = new ArticleCollapsedFrag();
+            articleTest.articleTitleString = "Lorem Ipsum, yada yada yada?";
+            fragmentTransaction.add(R.id.collapsedArticleHolder, articleTest);
 
-        fragmentTransaction.commit();
+            fragmentTransaction.commit();
+        }
+
+        //if(savedInstanceState != null){
+        //    setSchemeString = savedInstanceState.getString("set_scheme_string");
+        //    setSchemesView.setText(setSchemeString);
+        //}
+
+        //TODO: I think we'l add them to an arraylist and then save that in the bundle
 
         return view;
     }
@@ -78,5 +87,12 @@ public class ArticlesMainFrag extends Fragment {
         }
     }
 
+    //@Override
+    //public void onSaveInstanceState(Bundle savedInstanceState) {
+//
+    //    savedInstanceState.putString("set_scheme_string", setSchemeString);
+//
+    //    super.onSaveInstanceState(savedInstanceState);
+    //}
 
 }

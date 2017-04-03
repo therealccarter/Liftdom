@@ -5,17 +5,17 @@
         <!--A-->
 
         <!--B-->
-        <item>Bench Press (Barbell, Flat)</item>
-        <item>Bench Press (Barbell, Incline)</item>
-        <item>Bench Press (Barbell, Decline)</item>
-        <item>Bench Press (Dumbell, Flat)</item>
-        <item>Bench Press (Dumbell, Incline)</item>
-        <item>Bench Press (Dumbell, Decline)</item>
+        <item>Bench Press (Barbell - Flat)</item>
+        <item>Bench Press (Barbell - Incline)</item>
+        <item>Bench Press (Barbell - Decline)</item>
+        <item>Bench Press (Dumbell - Flat)</item>
+        <item>Bench Press (Dumbell - Incline)</item>
+        <item>Bench Press (Dumbell - Decline)</item>
 
         <!--C-->
-        <item>Chest Fly (Dumbell, Flat)</item>
-        <item>Chest Fly (Dumbell, Incline)</item>
-        <item>Chest Fly (Dumbell, Decline)</item>
+        <item>Chest Fly (Dumbell - Flat)</item>
+        <item>Chest Fly (Dumbell - Incline)</item>
+        <item>Chest Fly (Dumbell - Decline)</item>
         <item>Chest Fly (Machine)</item>
         <!--D-->
         <!--E-->
@@ -29,7 +29,7 @@
         <!--L-->
         <item>Lateral Raise (Machine)</item>
         <item>Lateral Raise (Dumbell)</item>
-        <item>Lateral Raise (Dumbell, Bent-over)</item>
+        <item>Lateral Raise (Dumbell - Bent-over)</item>
 
         <!--M-->
         <item>Military Press (Barbell)</item>
@@ -50,8 +50,8 @@
 
         <!--Q-->
         <!--R-->
-        <item>Row (Barbell, Bent-over)</item>
-        <item>Row (Dumbell, Bent-over)</item>
+        <item>Row (Barbell - Bent-over)</item>
+        <item>Row (Dumbell - Bent-over)</item>
         <item>Row (Machine)</item>
 
         <!--S-->
@@ -75,8 +75,8 @@
         <!--B-->
 
         <!--C-->
-        <item>Calf-raise (Barbell, Back)</item>
-        <item>Calf-raise (Barbell, Front)</item>
+        <item>Calf-raise (Barbell - Back)</item>
+        <item>Calf-raise (Barbell - Front)</item>
         <item>Calf-raise (Dumbell)</item>
         <item>Calf-raise (Bodyweight)</item>
         <item>Calf-raise (Seated)</item>
@@ -95,8 +95,8 @@
         <item>Leg Press</item>
         <item>Leg Extension</item>
         <item>Leg Curl</item>
-        <item>Lunge (Barbell, Back)</item>
-        <item>Lunge (Barbell, Front)</item>
+        <item>Lunge (Barbell - Back)</item>
+        <item>Lunge (Barbell - Front)</item>
         <item>Lunge (Dumbell)</item>
 
         <!--M-->
@@ -107,12 +107,12 @@
         <!--R-->
 
         <!--S-->
-        <item>Squat (Barbell, Back)</item>
-        <item>Squat (Barbell, Front)</item>
+        <item>Squat (Barbell - Back)</item>
+        <item>Squat (Barbell - Front)</item>
         <item>Squat (Bodyweight)</item>
         <item>Squat (Dumbell)</item>
-        <item>Squat (Machine, Back)</item>
-        <item>Squat (Machine, Front)</item>
+        <item>Squat (Machine - Back)</item>
+        <item>Squat (Machine - Front)</item>
 
         <!--T-->
         <!--U-->

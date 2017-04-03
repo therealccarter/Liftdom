@@ -10,7 +10,7 @@ public class ExercisePickerController {
 
     // Singleton boilerplate
     private static ExercisePickerController controller;
-    static ExercisePickerController getInstance() {
+    public static ExercisePickerController getInstance() {
         if (controller == null) {
             controller = new ExercisePickerController();
         }

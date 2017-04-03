@@ -87,7 +87,6 @@ public class HousingDoWFrag extends Fragment {
                                 Log.i("info", "illegal state");
                             }
                         }else{
-
                             FragmentManager fragmentManager = getChildFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager
                                     .beginTransaction();
