@@ -70,6 +70,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
     Boolean isSavedInstanceBool;
 
+    int ArrayListIterator = 0;
+
+    ArrayList<RunningAssistorClass> runningAssistorList = new ArrayList<>();
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -78,7 +82,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
     @BindView(R.id.WATitleView) TextView WATitleView;
 
-    int ArrayListIterator = 0;
+
 
 
     @Override
@@ -225,6 +229,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             isSavedInstanceBool = true;
+        }else{
+            isSavedInstanceBool = false;
         }
 
 
@@ -280,6 +286,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         WorkoutAssistorAssemblerClass.getInstance().privateJournal = privateJournal;
 
+        //TODO: Look at ramifications of below line
+        isSavedInstanceBool = false;
+
     }
 
     // [START on_start_add_listener]
@@ -301,6 +310,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
 
             DatabaseReference specificDate = workoutHistoryRef.child(date);
+
+            // Perhaps we can implement a dynamic saving system that updates to the db?
 
             specificDate.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -359,8 +370,6 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                         Smolov smolov = new Smolov(weeks, days, oneRM);
 
                                                         ArrayList<String> smolovWorkout = smolov.getWorkout();
-
-
 
                                                         for(String routine : smolovWorkout){
                                                             if(routine.equals("rest")){
