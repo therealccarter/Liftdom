@@ -222,6 +222,10 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
+        DatabaseReference runningBoolDateRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
+                ("isRunningBoolDate");
+        runningBoolDateRef.setValue("false" + "_" + LocalDate.now().toString());
+
         DatabaseReference roundRef = mRootRef.child("users").child(uid).child("roundWeight");
         roundRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

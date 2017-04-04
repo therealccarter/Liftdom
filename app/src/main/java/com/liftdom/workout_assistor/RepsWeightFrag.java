@@ -32,6 +32,7 @@ public class RepsWeightFrag extends Fragment {
     public String parentExercise = "failed";
     public String fullString = "failed";
     public boolean isFromCalendar = false;
+    public boolean isCheckbox = false;
 
     @BindView(R.id.repsEditText) EditText repsEditText;
     @BindView(R.id.weightEditText) EditText weightEditText;
@@ -41,11 +42,13 @@ public class RepsWeightFrag extends Fragment {
 
     Bundle mSaved;
 
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_reps_weight, container, false);
+        view = inflater.inflate(R.layout.fragment_reps_weight, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -76,6 +79,10 @@ public class RepsWeightFrag extends Fragment {
             }
         });
 
+        if(isCheckbox){
+            checkBox.setChecked(true);
+        }
+
         return view;
     }
 
@@ -93,6 +100,21 @@ public class RepsWeightFrag extends Fragment {
                 WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, compiledString);
             }
         }
+    }
+
+    public String getCheckedStatus(){
+        boolean isChecked;
+
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+        isChecked = checkBox.isChecked();
+
+        String toString = String.valueOf(isChecked);
+
+        return toString;
+    }
+
+    public String getParentExercise(){
+        return parentExercise;
     }
 
 }
