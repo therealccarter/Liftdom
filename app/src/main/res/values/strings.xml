@@ -399,7 +399,7 @@
     <string name="pounds">lbs</string>
     <string name="feet">ft</string>
     <string name="inches">in</string>
-    <string name="height">Height</string>
+    <string name="height">Height:\u0020</string>
     <string name="bench1rm">Bench Press 1-rep Max:</string>
     <string name="squat1rm">Squat 1-rep Max:</string>
     <string name="deadlift1rm">Deadlift 1-rep Max:</string>
@@ -411,6 +411,8 @@
     <string name="mode">Choose data mode:\u0020</string>
     <string name="reloadChart">Reload Chart</string>
     <string name="clearChart">Clear Chart</string>
+
+    <string name="calorieChart">Calorie Calculation Chart</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
 
@@ -430,6 +432,10 @@
 
     <string name="writtenBy">Written by:\u0020</string>
 
+    <string name="age">Age:\u0020</string>
+    <string name="sex">Sex:\u0020</string>
+    <string name="weightColon">Weight:\u0020</string>
+    <string name="activityLevel">Activity level:\u0020</string>
 
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
