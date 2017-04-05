@@ -404,7 +404,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                     repsWeightFrag.parentExercise = exerciseString;
                                                     repsWeightFrag.reps = tokens[1];
                                                     repsWeightFrag.weight = tokens[2];
-                                                    repsWeightFrag.fullString = snapshotString;
+                                                    repsWeightFrag.fullString = tokens[0] + " x " + tokens[1] + " @ "
+                                                            + tokens[2];
                                                     boolean isCheckedBool = Boolean.parseBoolean(tokens[3]);
                                                     repsWeightFrag.isCheckbox = isCheckedBool;
 
@@ -1036,10 +1037,11 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 //
         //runningDateRef.setValue(date);
 
-        //TODO: Debug the repeating boolean concat...may be solved simply by erasing current data
 
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
                 ("isRunningInfo");
+
+        runningAssistorRef.setValue(null);
 
         for(ExerciseNameFrag exNameFrag : exerciseNameFragList){
             String exName = exNameFrag.exerciseName;
