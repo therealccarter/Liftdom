@@ -41,7 +41,7 @@ public class SpecificExerciseChartClass {
 
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     final String key1 = dataSnapshot1.getKey();
-
+                    ++incrementor;
                     DatabaseReference specificDateRef = historyRef.child(key1);
 
                     specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -72,7 +72,7 @@ public class SpecificExerciseChartClass {
                                         exValueArrayList.add(value);
                                     }else if (!isOfExName && !exValueArrayList.isEmpty()) {
 
-                                        ++incrementor;
+
 
                                         if (isOverall) {
                                             // this returns a value of reps*weight. so for each valid
@@ -86,12 +86,13 @@ public class SpecificExerciseChartClass {
                                             SpecificExerciseValueList.add(valueAndDateObject);
 
 
+
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
                                                     statChartsTab.valueConverter(SpecificExerciseValueList,exName);
-                                                    Log.i("info", "completed!"); // never happens
+                                                    Log.i("info", "completed!");
                                                 } else {
-                                                    Log.i("info", "empty"); // this always logs
+                                                    Log.i("info", "empty");
                                                 }
                                             }
                                         } else {
@@ -103,16 +104,16 @@ public class SpecificExerciseChartClass {
 
                                                 SpecificExerciseValueList.add(valueAndDateObject);
 
-
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
                                                     statChartsTab.valueConverter(SpecificExerciseValueList, exName);
-                                                    Log.i("info", "completed!"); // never happens
+                                                    Log.i("info", "completed!");
                                                 } else {
-                                                    Log.i("info", "empty"); // this always logs
+                                                    Log.i("info", "empty");
                                                 }
                                             }
                                         }
+
 
 
                                     }
