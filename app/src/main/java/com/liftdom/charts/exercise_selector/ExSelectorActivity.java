@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.utils.exercise_selector;
+package com.liftdom.charts.exercise_selector;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;

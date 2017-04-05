@@ -3,7 +3,6 @@ package com.liftdom.template_editor;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.utils.exercise_selector.ExSelectorActivity;
+import com.liftdom.charts.exercise_selector.ExSelectorActivity;
 
 import java.util.ArrayList;
 

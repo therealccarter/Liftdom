@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.utils.exercise_selector;
+package com.liftdom.charts.exercise_selector;
 
 
 import android.os.Bundle;
@@ -7,14 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.CheckBox;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.

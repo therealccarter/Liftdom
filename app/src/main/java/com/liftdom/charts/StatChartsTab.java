@@ -20,8 +20,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.utils.exercise_selector.ExSelectorActivity;
-import com.liftdom.liftdom.utils.exercise_selector.ExSelectorSingleton;
+import com.liftdom.charts.exercise_selector.ExSelectorActivity;
+import com.liftdom.charts.exercise_selector.ExSelectorSingleton;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;

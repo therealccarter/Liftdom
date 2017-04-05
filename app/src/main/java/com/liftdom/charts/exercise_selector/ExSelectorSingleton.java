@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.utils.exercise_selector;
+package com.liftdom.charts.exercise_selector;
 
 import java.util.ArrayList;
 

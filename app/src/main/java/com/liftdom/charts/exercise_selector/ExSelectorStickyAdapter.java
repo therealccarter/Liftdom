@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.utils.exercise_selector;
+package com.liftdom.charts.exercise_selector;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_editor.ExercisePickerController;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**

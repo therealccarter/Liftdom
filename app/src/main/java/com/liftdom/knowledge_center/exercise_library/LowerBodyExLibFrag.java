@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.utils.exercise_selector.ExSelectorStickyAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**

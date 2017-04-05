@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.utils.exercise_selector;
+package com.liftdom.charts.exercise_selector;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
