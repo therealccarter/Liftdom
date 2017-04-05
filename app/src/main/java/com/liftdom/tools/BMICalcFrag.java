@@ -19,6 +19,7 @@ public class BMICalcFrag extends Fragment {
         // Required empty public constructor
     }
 
+    //TODO: Just a thought, but it'd probably be more addictive if things like this run once upon creation
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

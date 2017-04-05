@@ -18,4 +18,33 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.tools.CalorieCalcFrag"
+                    tools:layout="@layout/fragment_calorie_calc"
+                    android:id="@+id/calCalcFrag"
+            />
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.tools.BMICalcFrag"
+                    tools:layout="@layout/fragment_bmicalc"
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/bmiCalcFrag"
+            />
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

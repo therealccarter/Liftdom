@@ -1,13 +1,193 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_marginTop="20dp"
              tools:context="com.liftdom.tools.BMICalcFrag">
 
-    <!-- TODO: Update blank fragment layout -->
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/liftrGold1"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+    />
+
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="wrap_content"
+            android:text="@string/bmiTitle"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="5dp"
+            android:gravity="center"
+    />
 
-</FrameLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/liftrGold1"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="20dp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:background="@color/grey"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/results"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dummy"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+            />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Congratulations, you're fat as hell!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_margin="10dp"
+        />
+
+    </LinearLayout>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/confirmgreen"
+            android:layout_margin="20dp"
+            android:text="@string/calculate"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+    />
+
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:id="@+id/ageEditText"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+        />
+
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+        >
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="M"
+                    android:layout_marginEnd="10dp"
+            />
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="F"
+            />
+        </RadioGroup>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/height"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weightColon"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+    />
+
+</LinearLayout>
