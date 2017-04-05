@@ -23,7 +23,8 @@ public class SpecificExerciseChartClass {
 
     private ArrayList<ValueAndDateObject> SpecificExerciseValueList = new ArrayList<>();
 
-    long incrementor = 0;
+    long incrementor = 1;
+    String runningKey = "null";
 
     public void getValueList(String exName, StatChartsFrag statChartsFrag){
         setSpecificExerciseValueList(exName, statChartsFrag);
@@ -40,8 +41,9 @@ public class SpecificExerciseChartClass {
                 final long childrenCount = dataSnapshot.getChildrenCount();
 
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    // for each date
                     final String key1 = dataSnapshot1.getKey();
-                    ++incrementor;
+
                     DatabaseReference specificDateRef = historyRef.child(key1);
 
                     specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -50,8 +52,14 @@ public class SpecificExerciseChartClass {
 
                             final ArrayList<String> exValueArrayList = new ArrayList<String>();
 
+                            if(!runningKey.equals(key1)){
+                                ++incrementor;
+                                runningKey = key1;
+                            }
+
                             for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
+                                // for each child within specific date
                                 String key = "date";
 
                                 if(!dataSnapshot2.getKey().equals("private_journal")){
@@ -72,8 +80,6 @@ public class SpecificExerciseChartClass {
                                         exValueArrayList.add(value);
                                     }else if (!isOfExName && !exValueArrayList.isEmpty()) {
 
-
-
                                         if (isOverall) {
                                             // this returns a value of reps*weight. so for each valid
                                             // date we'll get an overall value...
@@ -85,8 +91,11 @@ public class SpecificExerciseChartClass {
 
                                             SpecificExerciseValueList.add(valueAndDateObject);
 
-
-
+                                            if(incrementor == 5){
+                                                Log.i("info", "five");
+                                            }
+                                            // despite the incrementer being at the right amount, we're only getting
+                                            // the first date, 2-14-2017...
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
                                                     statChartsFrag.valueConverter(SpecificExerciseValueList,exName);
@@ -113,12 +122,9 @@ public class SpecificExerciseChartClass {
                                                 }
                                             }
                                         }
-
-
-
                                     }
-                                }
 
+                                }
                         }
 
 
