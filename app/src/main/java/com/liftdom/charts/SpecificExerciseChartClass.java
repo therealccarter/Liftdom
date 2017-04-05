@@ -25,11 +25,11 @@ public class SpecificExerciseChartClass {
 
     long incrementor = 0;
 
-    public void getValueList(String exName, StatChartsTab statChartsTab){
-        setSpecificExerciseValueList(exName, statChartsTab);
+    public void getValueList(String exName, StatChartsFrag statChartsFrag){
+        setSpecificExerciseValueList(exName, statChartsFrag);
     }
 
-    private void setSpecificExerciseValueList(final String exName, final StatChartsTab statChartsTab){
+    private void setSpecificExerciseValueList(final String exName, final StatChartsFrag statChartsFrag){
 
         final DatabaseReference historyRef = mRootRef.child("workout_history").child(uid);
 
@@ -89,7 +89,7 @@ public class SpecificExerciseChartClass {
 
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsTab.valueConverter(SpecificExerciseValueList,exName);
+                                                    statChartsFrag.valueConverter(SpecificExerciseValueList,exName);
                                                     Log.i("info", "completed!");
                                                 } else {
                                                     Log.i("info", "empty");
@@ -106,7 +106,7 @@ public class SpecificExerciseChartClass {
 
                                             if (incrementor == childrenCount) {
                                                 if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsTab.valueConverter(SpecificExerciseValueList, exName);
+                                                    statChartsFrag.valueConverter(SpecificExerciseValueList, exName);
                                                     Log.i("info", "completed!");
                                                 } else {
                                                     Log.i("info", "empty");

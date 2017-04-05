@@ -31,11 +31,11 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatChartsTab extends Fragment {
+public class StatChartsFrag extends Fragment {
 
 
 
-    public StatChartsTab() {
+    public StatChartsFrag() {
         // Required empty public constructor
     }
 
@@ -60,7 +60,7 @@ public class StatChartsTab extends Fragment {
 
 
         //SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
-        //exerciseChartClass.getValueList("Barbell Row", StatChartsTab.this);
+        //exerciseChartClass.getValueList("Barbell Row", StatChartsFrag.this);
 
 
         graphingSelector.setOnClickListener(new View.OnClickListener() {
@@ -98,13 +98,13 @@ public class StatChartsTab extends Fragment {
 
                 for(String itemName : upperBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
-                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                    exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }for(String itemName : lowerBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
-                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                    exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }for(String itemName : fullBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
-                    exerciseChartClass.getValueList(itemName, StatChartsTab.this);
+                    exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }
             }
         });
