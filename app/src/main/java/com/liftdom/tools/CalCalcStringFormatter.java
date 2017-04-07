@@ -17,15 +17,17 @@ public class CalCalcStringFormatter implements IAxisValueFormatter {
     private String getTitle(float position){
         String title = "null";
 
-        if(position == 0){
+        int positionInt = (int) position;
+
+        if(positionInt == 0){
             title = "Lose 2lbs/week";
-        }else if(position == 1){
+        }else if(positionInt == 1){
             title = "Lose 1lb/week";
-        }else if(position == 2){
+        }else if(positionInt == 2){
             title = "Maintenance";
-        }else if(position == 3){
+        }else if(positionInt == 3){
             title = "Gain 1lb/week";
-        }else if(position == 4){
+        }else if(positionInt == 4){
             title = "Gain 2lbs/week";
         }
 

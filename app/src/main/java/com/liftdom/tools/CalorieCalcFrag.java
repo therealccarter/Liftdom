@@ -1,6 +1,7 @@
 package com.liftdom.tools;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -191,19 +193,27 @@ public class CalorieCalcFrag extends Fragment {
         }
     }
 
+    //TODO: extra x-axis value added for some reason
+
     public void barDataCreator(List<BarEntry> entries){
         CalCalcStringFormatter stringFormatter = new CalCalcStringFormatter();
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(stringFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(75);
+        xAxis.setLabelRotationAngle(60);
 
         // y-axis stuff
         YAxis rightAxis = barChart.getAxisRight();
         rightAxis.setDrawLabels(false);
 
+        // legend stuff
+        Legend legend = barChart.getLegend();
+        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+        legend.setDrawInside(true);
+
         BarDataSet dataSet = new BarDataSet(entries, "Calorie Chart");
+        dataSet.setColor(Color.parseColor("#D1B91D"));
 
         setBarChart(dataSet);
     }
