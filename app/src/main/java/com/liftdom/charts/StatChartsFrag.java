@@ -47,9 +47,6 @@ public class StatChartsFrag extends Fragment {
 
     List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,7 +109,7 @@ public class StatChartsFrag extends Fragment {
         return view;
     }
 
-    //TODO: validator to make sure we're not graphing the same exercise twice
+    //TODO: create validator to make sure we're not graphing the same exercise twice
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
         List<Entry> entries = new ArrayList<Entry>();
 

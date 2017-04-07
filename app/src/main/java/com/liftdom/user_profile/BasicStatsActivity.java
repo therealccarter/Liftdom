@@ -32,6 +32,9 @@ public class BasicStatsActivity extends AppCompatActivity {
     @BindView(R.id.deadlift1rm) EditText deadlift1rm;
     @BindView(R.id.saveButtonProfileSettings) Button saveButton;
     @BindView(R.id.currentFocus) Spinner currentFocusSpinner;
+    @BindView(R.id.ageYears) EditText ageEditText;
+    @BindView(R.id.maleRadioButton) RadioButton maleRadioButton;
+    @BindView(R.id.femaleRadioButton) RadioButton femaleRadioButton;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -52,6 +55,7 @@ public class BasicStatsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //TODO: Make sure this is using identical units as set in Settings
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -124,6 +128,18 @@ public class BasicStatsActivity extends AppCompatActivity {
                     }else if(dataSnapshot1.getKey().equals("bodyweight")){
                         String value = dataSnapshot1.getValue(String.class);
                         bodyWeightEditText.setText(value);
+                    }else if(dataSnapshot1.getKey().equals("age")){
+                        String value = dataSnapshot1.getValue(String.class);
+                        ageEditText.setText(value);
+                    }else if(dataSnapshot1.getKey().equals("sex")){
+                        String value = dataSnapshot1.getValue(String.class);
+                        if(value.equals("male")){
+                            maleRadioButton.setChecked(true);
+                            femaleRadioButton.setChecked(false);
+                        }else if(value.equals("female")){
+                            maleRadioButton.setChecked(false);
+                            femaleRadioButton.setChecked(true);
+                        }
                     }else if(dataSnapshot1.getKey().equals("height")){
                         String value = dataSnapshot1.getValue(String.class);
                         String delims = "[_]";
@@ -172,6 +188,7 @@ public class BasicStatsActivity extends AppCompatActivity {
                 String currentFocus = currentFocusSpinner.getSelectedItem().toString();
                 String bodyweight = bodyWeightEditText.getText().toString();
                 String height = heightFeet.getText().toString() + "_" + heightInches.getText().toString();
+                String age = ageEditText.getText().toString();
 
                 String benchMax = benchPress1rm.getText().toString();
                 String squatMax = squat1rm.getText().toString();
@@ -180,9 +197,16 @@ public class BasicStatsActivity extends AppCompatActivity {
                 userRef.child("currentFocus").setValue(currentFocus);
                 userRef.child("bodyweight").setValue(bodyweight);
                 userRef.child("height").setValue(height);
+                userRef.child("age").setValue(age);
                 userRef.child("maxes").child("benchMax").setValue(benchMax);
                 userRef.child("maxes").child("squatMax").setValue(squatMax);
                 userRef.child("maxes").child("deadliftMax").setValue(deadliftMax);
+
+                if(maleRadioButton.isChecked()){
+                    userRef.child("sex").setValue("male");
+                }else if(femaleRadioButton.isChecked()){
+                    userRef.child("sex").setValue("female");
+                }
 
                 Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
                 startActivity(intent);

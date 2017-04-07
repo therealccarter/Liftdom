@@ -4,7 +4,8 @@
              android:layout_height="match_parent"
               android:orientation="vertical"
               android:layout_marginTop="20dp"
-             tools:context="com.liftdom.tools.BMICalcFrag">
+              android:background="@color/white"
+              tools:context="com.liftdom.tools.BMICalcFrag">
 
     <View
             android:layout_width="match_parent"
@@ -180,14 +181,5 @@
 
     </LinearLayout>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-    />
 
 </LinearLayout>

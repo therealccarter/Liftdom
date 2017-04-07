@@ -398,6 +398,7 @@
     <string name="zero_zero">00</string>
     <string name="pounds">lbs</string>
     <string name="feet">ft</string>
+    <string name="yearsOld">\u0020years old</string>
     <string name="inches">in</string>
     <string name="height">Height:\u0020</string>
     <string name="bench1rm">Bench Press 1-rep Max:</string>
@@ -439,6 +440,8 @@
 
     <string name="age">Age:\u0020</string>
     <string name="sex">Sex:\u0020</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
     <string name="weightColon">Weight:\u0020</string>
     <string name="activityLevel">Activity level:\u0020</string>
 
