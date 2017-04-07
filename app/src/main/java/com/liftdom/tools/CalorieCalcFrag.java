@@ -10,6 +10,11 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -170,13 +175,50 @@ public class CalorieCalcFrag extends Fragment {
     }
 
     public void setUpBarChart(ArrayList<ValueAndCaloriesObect> valueAndCalArrayList){
-        List<Entry> entries = new ArrayList<Entry>();
+        List<BarEntry> entries = new ArrayList<BarEntry>();
 
         int inc = 0;
 
         for(ValueAndCaloriesObect data : valueAndCalArrayList){
 
+            entries.add(new BarEntry((float) data.getValueX(), (float) data.getValueY()));
+
+            ++inc;
+
+            if(inc == valueAndCalArrayList.size()){
+                barDataCreator(entries);
+            }
         }
+    }
+
+    public void barDataCreator(List<BarEntry> entries){
+        CalCalcStringFormatter stringFormatter = new CalCalcStringFormatter();
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(stringFormatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(75);
+
+        // y-axis stuff
+        YAxis rightAxis = barChart.getAxisRight();
+        rightAxis.setDrawLabels(false);
+
+        BarDataSet dataSet = new BarDataSet(entries, "Calorie Chart");
+
+        setBarChart(dataSet);
+    }
+
+    public void setBarChart(BarDataSet dataSet){
+        BarData data = new BarData(dataSet);
+
+        barChart.setData(data);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                barChart.invalidate();
+            }
+        });
     }
 
     public double weightConvertToMet(double weight){

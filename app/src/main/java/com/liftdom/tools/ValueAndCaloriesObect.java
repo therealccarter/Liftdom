@@ -6,10 +6,10 @@ package com.liftdom.tools;
 
 public class ValueAndCaloriesObect {
 
-    private String dietType;
+    private double dietType;
     private double calorieValue;
 
-    public String getValueX(){
+    public double getValueX(){
         return dietType;
     }
 
@@ -17,8 +17,8 @@ public class ValueAndCaloriesObect {
         return calorieValue;
     }
 
-    public void setDietType(String dietTypeString){
-        dietType = dietTypeString;
+    public void setDietType(double position){
+        dietType = position;
     }
 
     public void setCalories(double valueDouble){
