@@ -12,8 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExercisePickerActivity;
 import com.liftdom.template_editor.SaveTemplateDialog;
@@ -39,6 +38,25 @@ public class SmolovStarterActivity extends AppCompatActivity {
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         smolovTitle.setTypeface(lobster);
+
+        if(savedInstanceState == null){
+            DatabaseReference squatMaxRef = mRootRef.child("users").child(uid).child("maxes").child("squatMax");
+
+            squatMaxRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        String value = dataSnapshot.getValue(String.class);
+                        oneRepMaxEditText.setText(value);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

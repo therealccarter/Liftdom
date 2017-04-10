@@ -91,7 +91,7 @@ public class MotivationalQuotes {
     };
 
     public String[] getQuote(){
-        int random = (int)(Math.random() * quotes.length + 1);
+        int random = (int)(Math.random() * quotes.length);
 
         String quoteUnSplit = quotes[random];
 
