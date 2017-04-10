@@ -71,6 +71,7 @@ public class CalorieCalcFrag extends Fragment {
         DatabaseReference settingsRef = mRootRef.child("users").child(uid);
 
         if(savedInstanceState == null){
+
             settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,6 +124,8 @@ public class CalorieCalcFrag extends Fragment {
 
                 }
             });
+
+
         }
 
         calReloadButton.setOnClickListener(new View.OnClickListener() {
