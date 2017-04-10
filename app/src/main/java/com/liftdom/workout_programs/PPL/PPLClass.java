@@ -22,16 +22,16 @@ public class PPLClass {
     ArrayList<String> LegsB;
 
     public PPLClass(String benchMax, String deadMax, String squatMax){
-        PushA.add("Monday");
-        PullA.add("Tuesday");
-        LegsA.add("Wednesday");
-        PushB.add("Thursday");
-        PullB.add("Friday");
-        LegsB.add("Saturday");
-
         BenchMax = benchMax;
         DeadMax = deadMax;
         SquatMax = squatMax;
+
+        PushA = new ArrayList<>();
+        PullA = new ArrayList<>();
+        LegsA = new ArrayList<>();
+        PushB = new ArrayList<>();
+        PullB = new ArrayList<>();
+        LegsB = new ArrayList<>();
 
         constructPush();
         constructPull();

@@ -3,10 +3,17 @@ package com.liftdom.workout_programs.PPL;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
+import android.widget.EditText;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 /**
@@ -19,12 +26,70 @@ public class PPLSetupFrag extends Fragment {
         // Required empty public constructor
     }
 
+    String benchMax;
+    String deadliftMax;
+    String squatMax;
+
+    @BindView(R.id.benchPress1rm) EditText benchPress1rm;
+    @BindView(R.id.deadlift1rm) EditText deadlift1rm;
+    @BindView(R.id.squat1rm) EditText squat1rm;
+    @BindView(R.id.nextButton) Button nextButton;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pplsetup, container, false);
+        View view = inflater.inflate(R.layout.fragment_pplsetup, container, false);
+
+        ButterKnife.bind(this, view);
+
+        DatabaseReference maxesRef = mRootRef.child("users").child(uid).child("maxes");
+
+        maxesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String key = dataSnapshot1.getKey();
+                    String value = dataSnapshot1.getValue(String.class);
+
+                    if(key.equals("benchMax")){
+                        benchPress1rm.setText(value);
+                        benchMax = value;
+                    }else if(key.equals("deadliftMax")){
+                        deadlift1rm.setText(value);
+                        deadliftMax = value;
+                    }else if(key.equals("squatMax")){
+                        squat1rm.setText(value);
+                        squatMax = value;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                PPLFinishedFrag pplFinishedFrag = new PPLFinishedFrag();
+                pplFinishedFrag.benchMax = benchMax;
+                pplFinishedFrag.squatMax = squatMax;
+                pplFinishedFrag.deadliftMax = deadliftMax;
+                fragmentTransaction.replace(R.id.pplFragHolder, pplFinishedFrag);
+                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.addToBackStack(null);
+            }
+        });
+
+        return view;
     }
 
 }

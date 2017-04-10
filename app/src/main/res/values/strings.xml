@@ -197,6 +197,9 @@
         to.)
     </string>
 
+    <string name="programBasedOn">This program is constructed using your profile stats. Here you can adjust desired
+        values accordingly. </string>
+
     <string name="weightUnit">Weight unit:</string>
 
     <string name="settings">Settings</string>
@@ -402,7 +405,7 @@
     <string name="inches">in</string>
     <string name="height">Height:\u0020</string>
     <string name="bench1rm">Bench Press 1-rep Max:</string>
-    <string name="squat1rm">Squat 1-rep Max:</string>
+    <string name="squat1rm">Barbell Squat 1-rep Max:</string>
     <string name="deadlift1rm">Deadlift 1-rep Max:</string>
     <string name="saveButton">Save</string>
     <string name="dummyLevel">- level .0</string>
