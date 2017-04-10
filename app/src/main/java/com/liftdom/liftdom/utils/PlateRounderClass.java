@@ -7,8 +7,9 @@ package com.liftdom.liftdom.utils;
 public class PlateRounderClass {
 
     int originalWeight;
+    //TODO: Add more weights
     int[] commonIntsArray = {
-            5, 10, 25, 35, 45, 55, 65, 95, 115, 135, 145,
+            5, 10, 15, 20, 25, 30, 35, 45, 55, 65, 95, 115, 135, 145,
             155, 185, 205, 225, 235, 245, 275, 295, 315, 325,
             335, 365, 385, 405, 415, 425, 455, 475, 495, 505,
             515, 545, 565, 585, 595, 605, 635, 655, 675, 685,

@@ -14,10 +14,45 @@
             android:orientation="vertical"
             android:background="@color/white"
     >
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/liftrGold1"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+        />
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pushPullLegs"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:layout_margin="15dp"
+        />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/liftrGold1"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shortLatin"
+                android:lineSpacingExtra="8dp"
+                android:layout_margin="20dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+        />
 
     </LinearLayout>
+
 
     <View
             android:layout_width="match_parent"
@@ -27,11 +62,35 @@
             android:layout_marginStart="10dp"
     />
 
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/white"
+            android:gravity="center"
     >
+
+        <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:background="@color/white"
+                android:textColor="@color/black"
+        />
+
+        <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:id="@+id/nextButton"
+        />
 
     </LinearLayout>
 

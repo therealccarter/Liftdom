@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import com.liftdom.workout_programs.PPL.PPLHolderActivity;
 import com.liftdom.workout_programs.Smolov.SmolovStarterActivity;
 
 /**
@@ -25,7 +26,7 @@ public class PremadeTemplatesFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.smolovButton) Button smolovButton;
-
+    @BindView(R.id.pplButton) Button pplButton;
 
     public PremadeTemplatesFrag() {
         // Required empty public constructor
@@ -45,6 +46,14 @@ public class PremadeTemplatesFrag extends Fragment {
             Intent intent;
             intent = new Intent(getContext(), SmolovStarterActivity.class);
             startActivity(intent);
+            }
+        });
+
+        pplButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(getContext(), PPLHolderActivity.class);
+                startActivity(intent);
             }
         });
 

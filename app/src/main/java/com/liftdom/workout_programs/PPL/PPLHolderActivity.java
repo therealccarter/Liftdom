@@ -1,5 +1,7 @@
 package com.liftdom.workout_programs.PPL;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -18,6 +20,12 @@ public class PPLHolderActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-
+        if(savedInstanceState == null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            PPLIntroFrag pplIntroFrag = new PPLIntroFrag();
+            fragmentTransaction.add(R.id.pplFragHolder, pplIntroFrag);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
     }
 }

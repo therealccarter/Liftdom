@@ -424,6 +424,8 @@
 
     <string name="results">Results:\u0020</string>
 
+    <string name="pushPullLegs">Push/Pull/Legs</string>
+
     <string name="calculate">Calculate</string>
 
     <string name="renameTemplate">RENAME TEMPLATE TO...</string>
