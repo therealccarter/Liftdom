@@ -1,14 +1,191 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:background="@color/grey"
+              android:orientation="vertical"
              tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
 
-    <Button
-            android:layout_width="wrap_content"
+    <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/smolov"
-            android:id="@+id/smolovButton"
-    />
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_margin="10dp"
+                android:paddingBottom="50dp"
+        >
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+            />
 
-</FrameLayout>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bodybuildingPrograms"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:padding="5dp"
+                    android:gravity="center"
+            />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="50dp"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="@string/ppl"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="20dp"
+                        android:id="@+id/articlesButton"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+                />
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="filler"
+                        android:textSize="20sp"
+                        android:id="@+id/exercisesButton"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+
+                />
+
+            </LinearLayout>
+
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/powerliftingPrograms"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:padding="5dp"
+                    android:gravity="center"
+            />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="50dp"
+            />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+        >
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/smolov"
+                    android:id="@+id/smolovButton"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:background="@color/liftrGold1"
+                    android:padding="10dp"
+            />
+
+        </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otherPrograms"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:padding="5dp"
+                    android:gravity="center"
+            />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="50dp"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="filler"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:background="@color/liftrGold1"
+                        android:padding="10dp"
+                />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
