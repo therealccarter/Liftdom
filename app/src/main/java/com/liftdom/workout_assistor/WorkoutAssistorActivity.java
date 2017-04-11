@@ -1026,9 +1026,32 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
 
-        DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
+        final DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
                 ("isRunningBoolDate");
-        runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+
+        runningBoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                String delims = "[_]";
+
+                String[] tokens1 = value.split(delims);
+
+                LocalDate localDate = LocalDate.now();
+                LocalDate convertedDate = new LocalDate(tokens1[1]);
+
+                if (Boolean.valueOf(tokens1[0]) && localDate.equals(convertedDate)) {
+                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //DatabaseReference runningDateRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
         //        ("isRunningDate");

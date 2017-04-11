@@ -475,7 +475,9 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                                                                         }
                                                                                     }
                                                                                 }else{
-                                                                                    weight = Integer.parseInt(cutArray[2]);
+                                                                                    if(!isExerciseName(cutArray[2])){
+                                                                                        weight = Integer.parseInt(cutArray[2]);
+                                                                                    }
                                                                                 }
 
                                                                                 String concat = Integer.toString
