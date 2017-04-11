@@ -480,6 +480,10 @@
     <string name="templateSaved">TEMPLATE SAVED</string>
     <string name="backToTemplates">Back to Templates</string>
 
+    <string name="pplSaved">PUSH/PULL/LEGS SAVED</string>
+
+    <string name="finishedTemplateMessage">View or further edit this template via your Saved Templates page.</string>
+
     <string name="smolovSaved">SMOLOV CONFIRMED</string>
 
     <string name="elipses">...</string>

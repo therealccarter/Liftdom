@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.PPL;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,9 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_housing.TemplateHousingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +54,33 @@ public class PPLFinishedFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    // Butterknife binds
+    @BindView(R.id.goBackHome) Button goHome;
+    @BindView(R.id.goBackToTemplates) Button goToTemplates;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pplfinished, container, false);
+
+        ButterKnife.bind(this, view);
+
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        goToTemplates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         PPLClass pplClass = new PPLClass(benchMax, deadliftMax, squatMax);
 
@@ -93,7 +121,7 @@ public class PPLFinishedFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int pplInc = 1;
+                int pplInc = 0;
                 int inc = 0;
 
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){

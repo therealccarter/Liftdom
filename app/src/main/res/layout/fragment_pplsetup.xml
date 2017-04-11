@@ -204,7 +204,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Next"
+                android:text="Finish"
                 android:background="@color/white"
                 android:textColor="@color/black"
                 android:id="@+id/nextButton"

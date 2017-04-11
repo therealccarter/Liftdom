@@ -1,13 +1,85 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.liftdom.workout_programs.PPL.PPLFinishedFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            tools:context="com.template_system_default.TemplateSaved"
+            android:gravity="center"
+    >
 
-</FrameLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pplSaved"
+                android:textSize="40dp"
+                android:id="@+id/templateSaved"
+                android:textColor="@color/black"
+        />
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/templateSaved"
+                android:id="@+id/buttonHolder"
+                android:orientation="vertical"
+        >
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+            >
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/goBackHome"
+                        android:text="@string/goHome"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="20dp"
+                />
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/backToTemplates"
+                        android:id="@+id/goBackToTemplates"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finishedTemplateMessage"
+                android:layout_below="@+id/buttonHolder"
+                android:id="@+id/templateSavedMessage"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
+        />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
