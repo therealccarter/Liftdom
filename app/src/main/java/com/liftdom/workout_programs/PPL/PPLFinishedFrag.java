@@ -37,6 +37,8 @@ public class PPLFinishedFrag extends Fragment {
     List<String> list4 = new ArrayList<>();
     List<String> list5 = new ArrayList<>();
     List<String> list6 = new ArrayList<>();
+    List<String> algList = new ArrayList<>();
+    List<String> algeExList = new ArrayList<>();
 
     String benchMax;
     String deadliftMax;
@@ -115,13 +117,40 @@ public class PPLFinishedFrag extends Fragment {
             list6.add(value);
         }
 
+        algList.add("0");
+        algList.add("0");
+        algList.add("1");
+        algList.add("1");
+        algList.add("3");
+        algList.add("10");
+        algList.add("loop");
+        //TODO: See if algorithm added weights are rounded
+
+        algeExList.add("Bench Press (Barbell - Flat)");
+        algeExList.add("Overhead Press (Dumbbell)");
+        algeExList.add("Tricep Extension (Barbell - Overhead)");
+        algeExList.add("Overhead Press (Barbell)");
+        algeExList.add("Bench Press (Dumbbell - Incline)");
+        algeExList.add("Tricep Extension (Machine)");
+        algeExList.add("Deadlift (Barbell - Conventional)");
+        algeExList.add("Row (Dumbbell - Bent-over)");
+        algeExList.add("Curl (Dumbbell - Standing)");
+        algeExList.add("Curl (Barbell - Standing)");
+        algeExList.add("Deadlift (Barbell - Stiff-legged)");
+        algeExList.add("Row (Barbell - Bent-over)");
+        algeExList.add("Squat (Barbell - Back)");
+        algeExList.add("Leg Press");
+        algeExList.add("Leg Extension");
+        algeExList.add("Leg Curl");
+        algeExList.add("Squat (Barbell - Front)");
+
         DatabaseReference templatesRef = mRootRef.child("templates").child(uid);
 
         templatesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int pplInc = 0;
+                int pplInc = 1;
                 int inc = 0;
 
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
@@ -146,6 +175,8 @@ public class PPLFinishedFrag extends Fragment {
                         templateRef.child("Thursday").setValue(list4);
                         templateRef.child("Friday").setValue(list5);
                         templateRef.child("Saturday").setValue(list6);
+                        templateRef.child("algorithm").setValue(algList);
+                        templateRef.child("algorithmExercises").setValue(algeExList);
                     }
                 }
             }
