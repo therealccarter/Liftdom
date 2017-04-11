@@ -62,7 +62,7 @@ UPCOMING FEATURES TO DO:
 * Work on pre-made templates (many more)
     * Starting Strength
     * Stronglifts
-    * PPL
+    **DONE** PPL
     * Ice Cream Fitness
     * PHAT
 **DONE**  save instance of workout assistor (if same day, and if workout hasn't already been finished)

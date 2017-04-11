@@ -68,7 +68,7 @@ public class MotivationalQuotes {
                     "(concentric) part of the rep, while paying no attention to the negative (eccentric) segment. - Dorian Yates",
             "There's more to life than training, but training is what puts more in your life. - Brooks Kubik",
             "Most champions are built by punch the clock workouts rather than extraordinary efforts. - Dan John",
-            "THERE IS NO REASON TO BE ALIVE IF YOU CAN'T DO THE DEADLIFT! - Jon Pall Sigmarsson",
+            "THERE IS NO REASON TO BE ALIVE IF YOU CANNOT DO THE DEADLIFT! - Jon Pall Sigmarsson",
             "Not only are squats not bad for the knees, every legitimate research study on this subject has shown " +
                     "that squats improve knee stability and therefore help reduce the risk of injuries. - Charles Poliquin",
             "You are right to be wary. There is much bullshit. Be wary of me too, because I may be wrong. Make up " +
