@@ -15,7 +15,21 @@ On account create, open a direct message to me for messages?
 Badges to earn? Plan more game-ifying.
 
 plate calculator in workout assistor
+
 ===========THEORICAL===================================
+
+
+
+so we've got one block that adds exercises.
+Then we've got a block that adds reps@weights.
+The problem is that the reps@weights aren't being added correctly to the exercises.
+We need to make sure we don't move to the next exercises until the reps@weights are finished.
+We could also try an arraylist method, where we store all the info in named arraylists.
+
+
+
+
+
 
 Welcome screen will be very important. Ask them things while setting up their first workout and use those values
 on their profile. If they don't even know their maxes, start them on a super novice program.

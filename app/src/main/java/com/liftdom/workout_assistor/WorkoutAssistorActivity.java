@@ -76,7 +76,12 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
     int ArrayListIterator = 0;
 
+    //boolean firstEx = true;
+    //boolean setSchemesFinished = true;
 
+    int assistorInfoInc = 0;
+    ArrayList<ArrayList<String>> assistorInfoLists = new ArrayList<ArrayList<String>>();
+    ArrayList<String> assistorInfoRunningList = new ArrayList<>();
 
     ArrayList<ExerciseNameFrag> exerciseNameFragList = new ArrayList<>();
     ArrayList<RepsWeightFrag> repsWeightFragList = new ArrayList<>();
@@ -298,6 +303,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * So the problem is probably sequential issues. We should wrap the running info frags in incrementors
+     *
+     */
 
 
     // [START on_start_add_listener]
@@ -367,22 +376,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                             runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                                    for(final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
                                         String exName = dataSnapshot1.getKey();
-
-                                        FragmentManager fragmentManager = getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                                        exerciseNameFrag.exerciseName = exName;
-                                        exerciseString = exName;
-                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                exerciseNameFrag);
-                                        exerciseNameFragList.add(exerciseNameFrag);
-
-                                        if (!isFinishing()) {
-                                            fragmentTransaction.commitAllowingStateLoss();
-                                        }
 
                                         DatabaseReference setSchemeRef = runningAssistorRef.child(exName);
                                         setSchemeRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -391,34 +387,64 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                 for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
                                                     String snapshotString = dataSnapshot2.getValue(String.class);
 
-                                                    String stringSansSpaces = snapshotString.replaceAll("\\s+", "");
+                                                    String exName = dataSnapshot1.getKey();
 
-                                                    String delims = "[x,@,_]";
+                                                    assistorInfoRunningList.add(snapshotString);
 
-                                                    String[] tokens = stringSansSpaces.split(delims);
+                                                    ++assistorInfoInc;
 
-                                                    FragmentManager fragmentManager = getSupportFragmentManager();
-                                                    FragmentTransaction fragmentTransaction = fragmentManager
-                                                            .beginTransaction();
-                                                    RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
-                                                    repsWeightFrag.parentExercise = exerciseString;
-                                                    repsWeightFrag.reps = tokens[1];
-                                                    repsWeightFrag.weight = tokens[2];
-                                                    repsWeightFrag.fullString = tokens[0] + " x " + tokens[1] + " @ "
-                                                            + tokens[2];
-                                                    boolean isCheckedBool = Boolean.parseBoolean(tokens[3]);
-                                                    repsWeightFrag.isCheckbox = isCheckedBool;
+                                                    if(assistorInfoInc == dataSnapshot.getChildrenCount()){
 
-                                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                            repsWeightFrag);
+                                                        if(exName.equals("Leg Extension")){
+                                                            Log.i("info", "what");
+                                                        }
 
-                                                    repsWeightFragList.add(repsWeightFrag);
+                                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                                .beginTransaction();
+                                                        ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
+                                                        exerciseNameFrag.exerciseName = exName;
+                                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
+                                                                exerciseNameFrag);
+                                                        exerciseNameFragList.add(exerciseNameFrag);
 
-                                                    if (!isFinishing()) {
-                                                        fragmentTransaction.commitAllowingStateLoss();
+                                                        if (!isFinishing()) {
+                                                            fragmentTransaction.commitAllowingStateLoss();
+                                                        }
 
+                                                        for(String string : assistorInfoRunningList){
+                                                            String stringSansSpaces = string.replaceAll("\\s+", "");
+
+                                                            String delims = "[x,@,_]";
+
+                                                            String[] tokens = stringSansSpaces.split(delims);
+
+                                                            FragmentManager fragmentManager2 =
+                                                                    getSupportFragmentManager();
+                                                            FragmentTransaction fragmentTransaction2 = fragmentManager2
+                                                                    .beginTransaction();
+                                                            RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
+                                                            repsWeightFrag.parentExercise = exName;
+                                                            repsWeightFrag.reps = tokens[1];
+                                                            repsWeightFrag.weight = tokens[2];
+                                                            repsWeightFrag.fullString = tokens[0] + " x " + tokens[1] + " @ "
+                                                                    + tokens[2];
+                                                            boolean isCheckedBool = Boolean.parseBoolean(tokens[3]);
+                                                            repsWeightFrag.isCheckbox = isCheckedBool;
+
+                                                            fragmentTransaction2.add(R.id.eachExerciseFragHolder,
+                                                                    repsWeightFrag);
+
+                                                            repsWeightFragList.add(repsWeightFrag);
+
+                                                            if (!isFinishing()) {
+                                                                fragmentTransaction2.commitAllowingStateLoss();
+
+                                                            }
+                                                        }
+                                                        assistorInfoRunningList.clear();
+                                                        assistorInfoInc = 0;
                                                     }
-
                                                 }
                                             }
 
@@ -1040,10 +1066,16 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                 LocalDate localDate = LocalDate.now();
                 LocalDate convertedDate = new LocalDate(tokens1[1]);
 
-                if (Boolean.valueOf(tokens1[0]) && localDate.equals(convertedDate)) {
+                // (isEditing, isDate)
+                // (false, true) = workout has been finished - do nothing
+                // (true, true) = workout is being edited - do nothing
+                // (false, false) = workout has not been finished - set to (true, true)
+                // (true, false) = yesterday's workout not finished - set to (true, true)
+                if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                }else if(Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)){
                     runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
                 }
-
             }
 
             @Override

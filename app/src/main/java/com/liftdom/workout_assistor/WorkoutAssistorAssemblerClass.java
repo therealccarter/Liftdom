@@ -19,7 +19,7 @@ public class WorkoutAssistorAssemblerClass {
 
     public ArrayList<String> DoWAL1 = new ArrayList<>();
 
-    private int indexIncrementor = 1;
+    private int indexIncrementor = 0;
 
     String templateName = null;
 
