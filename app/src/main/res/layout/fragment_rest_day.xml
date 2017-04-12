@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               tools:context="com.liftdom.workout_assistor.RestDayFrag"
               android:orientation="vertical"
-              android:gravity="center_horizontal"
+              android:gravity="center"
 >
 
     <TextView
@@ -15,6 +15,7 @@
             android:textSize="30sp"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
+            android:layout_margin="20dp"
     />
 
     <Button
@@ -24,7 +25,7 @@
             android:background="@color/confirmgreen"
             android:textSize="24sp"
             android:padding="10dp"
-            android:id="@+id/toTemplatesButton"
+            android:id="@+id/restAdviceButton"
             android:layout_margin="10dp"
     />
 
