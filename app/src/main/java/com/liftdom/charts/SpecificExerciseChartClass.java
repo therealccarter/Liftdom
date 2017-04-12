@@ -23,12 +23,14 @@ public class SpecificExerciseChartClass {
 
     private ArrayList<ValueAndDateObject> SpecificExerciseValueList = new ArrayList<>();
 
-    long incrementor = 1;
+    long incrementor = 0;
     String runningKey = "null";
 
     public void getValueList(String exName, StatChartsFrag statChartsFrag){
         setSpecificExerciseValueList(exName, statChartsFrag);
     }
+
+    int innerInc;
 
     private void setSpecificExerciseValueList(final String exName, final StatChartsFrag statChartsFrag){
 
@@ -44,6 +46,9 @@ public class SpecificExerciseChartClass {
                     // for each date
                     final String key1 = dataSnapshot1.getKey();
 
+                    // So the problem is that this loop is fast and gets to 8 before the first inner loop is completed
+                    // which means when we get to the first inner date, inc is 8 so just that one gets published.
+
                     DatabaseReference specificDateRef = historyRef.child(key1);
 
                     specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -53,7 +58,6 @@ public class SpecificExerciseChartClass {
                             final ArrayList<String> exValueArrayList = new ArrayList<String>();
 
                             if(!runningKey.equals(key1)){
-                                ++incrementor;
                                 runningKey = key1;
                             }
 
@@ -64,6 +68,10 @@ public class SpecificExerciseChartClass {
 
                                 if(!dataSnapshot2.getKey().equals("private_journal")){
                                      key = dataSnapshot2.getKey();
+                                }
+
+                                if(dataSnapshot2.getKey().equals("private_journal")){
+                                    incrementor++;
                                 }
 
                                 String value = dataSnapshot2.getValue(String.class);
@@ -88,12 +96,11 @@ public class SpecificExerciseChartClass {
                                             valueAndDateObject.setDate(key1);
                                             valueAndDateObject.setValue(exerciseValue);
 
+                                            Log.i("info", key1);
+                                            Log.i("info", String.valueOf(exerciseValue));
 
                                             SpecificExerciseValueList.add(valueAndDateObject);
 
-                                            if(incrementor == 5){
-                                                Log.i("info", "five");
-                                            }
                                             // despite the incrementer being at the right amount, we're only getting
                                             // the first date, 2-14-2017...
                                             if (incrementor == childrenCount) {
@@ -134,8 +141,6 @@ public class SpecificExerciseChartClass {
 
                         }
                     });
-
-
 
 
                 }

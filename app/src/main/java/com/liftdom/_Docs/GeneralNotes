@@ -130,7 +130,6 @@ If they match, keep going. If they don't match throw some kind of exception
 ==========================================
 
 TODO: Maybe make a dedicated algorithm tracking system in the database? algorithm.child(uid) sort of thing.
-TODO: Also, check up on that pesky bug in the workout assistor
 
 premium feature? different algorithms for different exercises
 
