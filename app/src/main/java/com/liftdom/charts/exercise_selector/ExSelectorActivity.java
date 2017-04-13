@@ -26,7 +26,6 @@ public class ExSelectorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_ex_selector);
-        this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_1);
         this.setFinishOnTouchOutside(false);
 
         ButterKnife.bind(this);
@@ -36,12 +35,11 @@ public class ExSelectorActivity extends AppCompatActivity {
 
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
             adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true);
+            confirmButton.setVisibility(View.GONE);
         }else{
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
             adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs);
         }
-
-
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);

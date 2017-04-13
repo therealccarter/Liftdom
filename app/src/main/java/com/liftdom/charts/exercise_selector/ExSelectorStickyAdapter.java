@@ -65,16 +65,21 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.ex_list_sticky_item_layout, parent, false);
-            holder.text = (TextView) convertView.findViewById(R.id.text);
-            holder.checkBox = (CheckBox) convertView.findViewById(R.id.stickyCheckbox);
+            if(mNoCheckbox){
+                convertView = inflater.inflate(R.layout.ex_list_sticky_item2, parent, false);
+                holder.text = (TextView) convertView.findViewById(R.id.textFull);
+            }else{
+                convertView = inflater.inflate(R.layout.ex_list_sticky_item_layout, parent, false);
+                holder.text = (TextView) convertView.findViewById(R.id.text);
+                holder.checkBox = (CheckBox) convertView.findViewById(R.id.stickyCheckbox);
+            }
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         if(mNoCheckbox){
-            holder.checkBox.setVisibility(View.GONE);
             holder.text.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //ExercisePickerController.getInstance().exName = exercises[position];

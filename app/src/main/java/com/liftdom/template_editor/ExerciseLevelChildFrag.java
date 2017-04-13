@@ -143,17 +143,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             fragmentTransaction.commit();
         }
 
-        exerciseButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
-                int exID = exerciseButton.getId();
-                intent.putExtra("exID", exID);
-                startActivityForResult(intent, 2);
-            }
-        });
-
-
-
         addSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +199,14 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             }
         });
 
-
+        exerciseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
+                int exID = exerciseButton.getId();
+                intent.putExtra("exID", exID);
+                startActivityForResult(intent, 2);
+            }
+        });
 
         callback = (doWCallback) getParentFragment();
 
@@ -218,22 +214,22 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        if(requestCode == 2)
-        {
-            if(data.getStringExtra("MESSAGE") != null && data != null ) {
-                String message = data.getStringExtra("MESSAGE");
-                exerciseButton.setText(message);
-                if(message.equals("Pullups") || message.equals("Crunches")
-                        || message.equals("Sit-ups")
-                        || message.equals("Leg Raises")){
-                    if(!setsLevelChildFragAL.isEmpty()){
-                        setsLevelChildFragAL.get(0).weightEditText.setText("B.W.");
-                        setsLevelChildFragAL.get(0).pounds.setVisibility(View.GONE);
-                        setsLevelChildFragAL.get(0).weightEditText.setEnabled(false);
+        if(data != null){
+        if (requestCode == 2) {
+                if (data.getStringExtra("MESSAGE") != null) {
+                    String message = data.getStringExtra("MESSAGE");
+                    exerciseButton.setText(message);
+                    if (message.equals("Pullups") || message.equals("Crunches")
+                            || message.equals("Sit-ups")
+                            || message.equals("Leg Raises")) {
+                        if (!setsLevelChildFragAL.isEmpty()) {
+                            setsLevelChildFragAL.get(0).weightEditText.setText("B.W.");
+                            setsLevelChildFragAL.get(0).pounds.setVisibility(View.GONE);
+                            setsLevelChildFragAL.get(0).weightEditText.setEnabled(false);
+                        }
                     }
                 }
             }
