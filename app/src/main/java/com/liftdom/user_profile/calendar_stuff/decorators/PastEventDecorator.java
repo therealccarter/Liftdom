@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.decorators;
+package com.liftdom.user_profile.calendar_stuff.decorators;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

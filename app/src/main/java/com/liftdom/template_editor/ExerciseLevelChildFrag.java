@@ -236,19 +236,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         }
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-       //if(ExercisePickerController.getInstance().exID == exerciseButton.getId()) {
-       //    exerciseButton.setText(ExercisePickerController.getInstance().exName);
-       //}
-    }
-
-    //@Override
-    //public void onPause(){
-    //    super.onPause();
-    //}
-
     boolean isExerciseName(String input) {
 
         boolean isExercise = true;
