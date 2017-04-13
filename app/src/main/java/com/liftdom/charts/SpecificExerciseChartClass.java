@@ -49,6 +49,8 @@ public class SpecificExerciseChartClass {
                     // So the problem is that this loop is fast and gets to 8 before the first inner loop is completed
                     // which means when we get to the first inner date, inc is 8 so just that one gets published.
 
+                    // the problem is that the incrementor is only getting incremented when the date contains the ex.
+
                     DatabaseReference specificDateRef = historyRef.child(key1);
 
                     specificDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -70,11 +72,60 @@ public class SpecificExerciseChartClass {
                                      key = dataSnapshot2.getKey();
                                 }
 
+                                String value = dataSnapshot2.getValue(String.class);
+
                                 if(dataSnapshot2.getKey().equals("private_journal")){
                                     incrementor++;
+                                    Log.i("info", String.valueOf(incrementor));
+
+                                    if (isOverall) {
+                                        // this returns a value of reps*weight. so for each valid
+                                        // date we'll get an overall value...
+                                        double exerciseValue = getExerciseValue(exValueArrayList);
+
+                                        if(exerciseValue != 0.0){
+                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
+                                            valueAndDateObject.setDate(key1);
+                                            valueAndDateObject.setValue(exerciseValue);
+
+                                            Log.i("info", key1);
+                                            Log.i("info", String.valueOf(exerciseValue));
+
+                                            SpecificExerciseValueList.add(valueAndDateObject);
+                                        }
+
+                                        // despite the incrementer being at the right amount, we're only getting
+                                        // the first date, 2-14-2017...
+                                        if (incrementor == childrenCount) {
+                                            Log.i("info", "inc == childrenCount");
+                                            if (!SpecificExerciseValueList.isEmpty()) {
+                                                statChartsFrag.valueConverter(SpecificExerciseValueList,exName);
+                                                Log.i("info", "completed!");
+                                            } else {
+                                                Log.i("info", "empty");
+                                            }
+                                        }
+                                    } else {
+                                        // ...or the max weight lifted.
+                                        double maxExWeight = getMaxExerciseWeight(exValueArrayList);
+                                        ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
+                                        valueAndDateObject.setDate(key);
+                                        valueAndDateObject.setValue(maxExWeight);
+
+                                        SpecificExerciseValueList.add(valueAndDateObject);
+
+                                        if (incrementor == childrenCount) {
+                                            if (!SpecificExerciseValueList.isEmpty()) {
+                                                statChartsFrag.valueConverter(SpecificExerciseValueList, exName);
+                                                Log.i("info", "completed!");
+                                            } else {
+                                                Log.i("info", "empty");
+                                            }
+                                        }
+                                    }
                                 }
 
-                                String value = dataSnapshot2.getValue(String.class);
+
 
                                     if (isExerciseName(value)) {
                                         if (value.equals(exName)) {
@@ -88,47 +139,7 @@ public class SpecificExerciseChartClass {
                                         exValueArrayList.add(value);
                                     }else if (!isOfExName && !exValueArrayList.isEmpty()) {
 
-                                        if (isOverall) {
-                                            // this returns a value of reps*weight. so for each valid
-                                            // date we'll get an overall value...
-                                            double exerciseValue = getExerciseValue(exValueArrayList);
-                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
-                                            valueAndDateObject.setDate(key1);
-                                            valueAndDateObject.setValue(exerciseValue);
 
-                                            Log.i("info", key1);
-                                            Log.i("info", String.valueOf(exerciseValue));
-
-                                            SpecificExerciseValueList.add(valueAndDateObject);
-
-                                            // despite the incrementer being at the right amount, we're only getting
-                                            // the first date, 2-14-2017...
-                                            if (incrementor == childrenCount) {
-                                                if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsFrag.valueConverter(SpecificExerciseValueList,exName);
-                                                    Log.i("info", "completed!");
-                                                } else {
-                                                    Log.i("info", "empty");
-                                                }
-                                            }
-                                        } else {
-                                            // ...or the max weight lifted.
-                                            double maxExWeight = getMaxExerciseWeight(exValueArrayList);
-                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
-                                            valueAndDateObject.setDate(key);
-                                            valueAndDateObject.setValue(maxExWeight);
-
-                                                SpecificExerciseValueList.add(valueAndDateObject);
-
-                                            if (incrementor == childrenCount) {
-                                                if (!SpecificExerciseValueList.isEmpty()) {
-                                                    statChartsFrag.valueConverter(SpecificExerciseValueList, exName);
-                                                    Log.i("info", "completed!");
-                                                } else {
-                                                    Log.i("info", "empty");
-                                                }
-                                            }
-                                        }
                                     }
 
                                 }
