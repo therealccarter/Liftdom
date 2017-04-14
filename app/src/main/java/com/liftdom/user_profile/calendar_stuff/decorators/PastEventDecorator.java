@@ -16,10 +16,17 @@ public class PastEventDecorator implements DayViewDecorator {
 
     private int color;
     private HashSet<CalendarDay> dates;
+    private int mSpanSize = 10;
 
     public PastEventDecorator(int color, Collection<CalendarDay> dates) {
         this.color = color;
         this.dates = new HashSet<>(dates);
+    }
+
+    public PastEventDecorator(int color, Collection<CalendarDay> dates, int spanSize) {
+        this.color = color;
+        this.dates = new HashSet<>(dates);
+        mSpanSize = spanSize;
     }
 
     @Override
@@ -29,7 +36,7 @@ public class PastEventDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(10, color));
+        view.addSpan(new DotSpan(mSpanSize, color));
 
     }
 }

@@ -21,6 +21,8 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -42,6 +44,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ArrayList<CalendarDay> pastDates = new ArrayList<>();
+    LocalDate firstDay;
+    ArrayList<CalendarDay> missedDates = new ArrayList<>();
     ArrayList<CalendarDay> futureDates = new ArrayList<>();
 
     long futureIncrementor = 0;
@@ -115,12 +119,35 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                     CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
 
+                    if(incrementor == 0){
+                        firstDay = new LocalDate(dateTime);
+                    }
+
                     pastDates.add(convertedDateTime);
 
                     incrementor++;
 
                     if(incrementor == dataSnapshot.getChildrenCount()){
+
                         widget.addDecorator(new PastEventDecorator(Color.GREEN, pastDates));
+
+                        LocalDate today = LocalDate.now();
+
+                        int days = Days.daysBetween(firstDay, today).getDays();
+
+                        for(int i = 0; i < days; i++){
+                            LocalDate localDate = firstDay.withFieldAdded(DurationFieldType.days(), i);
+
+                            CalendarDay calendarDay = CalendarDay.from(localDate.toDate());
+
+                            if(!pastDates.contains(calendarDay)){
+                                missedDates.add(calendarDay);
+                            }
+
+                            if(i == days - 1){
+                                widget.addDecorator(new PastEventDecorator(Color.RED, missedDates, 7));
+                            }
+                        }
                     }
                 }
             }
