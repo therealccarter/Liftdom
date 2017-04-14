@@ -145,7 +145,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                             }
 
                             if(i == days - 1){
-                                widget.addDecorator(new PastEventDecorator(Color.RED, missedDates, 7));
+                                widget.addDecorator(new PastEventDecorator(Color.RED, missedDates, 5));
                             }
                         }
                     }

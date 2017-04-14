@@ -25,6 +25,9 @@ public class WorkoutAssistorAssemblerClass {
 
     String privateJournal = null;
 
+    boolean isRestDay = false;
+    boolean isRestDayComplete = false;
+
     //SMOLOV STUFF
     double oneRM;
     int week;
@@ -34,9 +37,14 @@ public class WorkoutAssistorAssemblerClass {
 
     public void setRepsWeight(String exercise, String repsWeight){
         if(DoWAL1.contains(exercise)){
-            int exIndex = DoWAL1.indexOf(exercise);
-            DoWAL1.add(exIndex + indexIncrementor, repsWeight);
-            indexIncrementor++;
+            try{
+                int exIndex = DoWAL1.indexOf(exercise);
+                DoWAL1.add(exIndex + indexIncrementor, repsWeight);
+                indexIncrementor++;
+            } catch (IndexOutOfBoundsException e){
+
+            }
+
         }else{
             DoWAL1.add(exercise);
             DoWAL1.add(repsWeight);

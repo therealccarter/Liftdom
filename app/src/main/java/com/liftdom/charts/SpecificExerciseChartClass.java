@@ -68,7 +68,8 @@ public class SpecificExerciseChartClass {
                                 // for each child within specific date
                                 String key = "date";
 
-                                if(!dataSnapshot2.getKey().equals("private_journal")){
+                                if(!dataSnapshot2.getKey().equals("private_journal") && !dataSnapshot2.getKey()
+                                        .equals("restDay")){
                                      key = dataSnapshot2.getKey();
                                 }
 

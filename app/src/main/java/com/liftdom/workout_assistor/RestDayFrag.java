@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +24,7 @@ public class RestDayFrag extends Fragment {
     }
 
     @BindView(R.id.restAdviceButton) Button restAdviceButton;
+    @BindView(R.id.restDayComplete) Button restDayCompleteButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +37,15 @@ public class RestDayFrag extends Fragment {
         restAdviceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), KnowledgeCenterHolderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        restDayCompleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                WorkoutAssistorAssemblerClass.getInstance().isRestDay = true;
+                WorkoutAssistorAssemblerClass.getInstance().isRestDayComplete = true;
+                Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
                 startActivity(intent);
             }
         });

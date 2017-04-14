@@ -474,6 +474,8 @@
     <string name="noActiveTemplate">No active template</string>
     <string name="goToTemplating">Go to Workout Templating</string>
 
+    <string name="completeRestDay">Complete Rest Day</string>
+
     <string name="noSavedTemplates">No saved templates</string>
     <string name="createTemplate">New Template:</string>
 

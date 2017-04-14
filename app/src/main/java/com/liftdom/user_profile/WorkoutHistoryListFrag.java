@@ -60,7 +60,8 @@ public class WorkoutHistoryListFrag extends Fragment {
 
                     String itemKey = dateSnapshot.getKey();
 
-                    if (isExerciseName(itemString) && !itemKey.equals("private_journal")) {
+                    if (isExerciseName(itemString) && !itemKey.equals("private_journal") && !itemKey.equals
+                            ("restDay")) {
                         FragmentManager fragmentManager = getChildFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();

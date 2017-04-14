@@ -559,15 +559,24 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                 List<String> list = new ArrayList<>();
 
-                if(savedInstanceState == null) {
-                    for (String item : assistorArrayList) {
-                        list.add(item);
-                    }
+                if(WorkoutAssistorAssemblerClass.getInstance().isRestDay){
 
-                    specificDate.setValue(list);
+                    specificDate.child("restDay").setValue("Rested");
 
                     if (privateJournalString != null) {
                         journalRef.setValue(privateJournalString);
+                    }
+                }else{
+                    if(savedInstanceState == null) {
+                        for (String item : assistorArrayList) {
+                            list.add(item);
+                        }
+
+                        specificDate.setValue(list);
+
+                        if (privateJournalString != null) {
+                            journalRef.setValue(privateJournalString);
+                        }
                     }
                 }
             }

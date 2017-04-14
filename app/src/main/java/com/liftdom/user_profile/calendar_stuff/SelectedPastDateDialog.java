@@ -59,7 +59,8 @@ public class SelectedPastDateDialog extends AppCompatActivity {
                     String snapshotString = dataSnapshot1.getValue(String.class);
                     String keyString = dataSnapshot1.getKey();
 
-                    if (isExerciseName(snapshotString) && !keyString.equals("private_journal")) {
+                    if (isExerciseName(snapshotString) && !keyString.equals("private_journal") && !keyString.equals
+                            ("restDay")) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();

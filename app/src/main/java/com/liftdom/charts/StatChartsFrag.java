@@ -121,7 +121,7 @@ public class StatChartsFrag extends Fragment {
 
         for(ValueAndDateObject data : valueAndDateArrayList){
 
-            if(!data.getValueX().equals("private_journal")){
+            if(!data.getValueX().equals("private_journal") && !data.getValueX().equals("restDay")){
                 DateTime dateTime = new DateTime(data.getValueX());
                 Date date = dateTime.toDate();
 

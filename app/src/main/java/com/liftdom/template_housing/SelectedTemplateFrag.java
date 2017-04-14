@@ -21,6 +21,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 
@@ -282,6 +283,24 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String activeTemplate = dataSnapshot.getValue(String.class);
+                            if(activeTemplate != null && templateName != null) {
+                                if (!templateName.equals(activeTemplate)) {
+                                    DatabaseReference boolRunDateRef = mRootRef.child("runningAssistor").child(uid)
+                                            .child("isRunning").child("isRunningBoolDate");
+                                    boolRunDateRef.setValue("false" + "_" + LocalDate.now().toString());
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     activeTemplateRef.setValue(templateName);
                     CharSequence toastText = "(+) Set as Active Template";
                     int duration = Toast.LENGTH_SHORT;
