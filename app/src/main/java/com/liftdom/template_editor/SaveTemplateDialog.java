@@ -93,11 +93,8 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     // show it
                     alertDialog.show();
                 }
-
-
             }
         });
-
     }
 }
 
