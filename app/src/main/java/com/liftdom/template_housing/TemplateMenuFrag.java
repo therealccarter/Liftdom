@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.liftdom.liftdom.MotivationalQuotes;
+import com.liftdom.liftdom.utils.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 

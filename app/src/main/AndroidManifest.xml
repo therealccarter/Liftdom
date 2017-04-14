@@ -25,10 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".SignInActivity"
-                android:noHistory="true">
-        </activity>
-        <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
                 android:screenOrientation="portrait">
         </activity>

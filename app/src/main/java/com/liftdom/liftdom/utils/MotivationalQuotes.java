@@ -1,4 +1,4 @@
-package com.liftdom.liftdom;
+package com.liftdom.liftdom.utils;
 
 import java.util.ArrayList;
 
