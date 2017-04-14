@@ -1,8 +1,11 @@
 package com.liftdom.template_editor;
 
-import android.app.Activity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,9 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
-import java.util.ArrayList;
-
-public class SaveTemplateDialog extends Activity {
+public class SaveTemplateDialog extends AppCompatActivity {
 
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -59,15 +60,40 @@ public class SaveTemplateDialog extends Activity {
             @Override
             public void onClick(final View v){
 
-                String isEdit = "yes";
-                Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
-                intent.putExtra("key1", templateName.getText().toString());
-                intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
-                intent.putExtra("isFromEditor", true);
-                intent.putExtra("isEdit", isEdit );
-                intent.putExtra("isAlgorithm", algBool);
-                startActivity(intent);
-                EditTemplateAssemblerClass.getInstance().assembleMasterList();
+                if(templateName != null && !templateName.getText().toString().equals("")){
+                    String isEdit = "yes";
+                    Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
+                    intent.putExtra("key1", templateName.getText().toString());
+                    intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
+                    intent.putExtra("isFromEditor", true);
+                    intent.putExtra("isEdit", isEdit );
+                    intent.putExtra("isAlgorithm", algBool);
+                    startActivity(intent);
+                    EditTemplateAssemblerClass.getInstance().assembleMasterList();
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);
+
+                    // set title
+                    builder.setTitle("Error");
+
+                    // set dialog message
+                    builder.setMessage("You must enter a valid template name")
+                            .setCancelable(false)
+                            .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+
+                    // show it
+                    alertDialog.show();
+                }
+
 
             }
         });

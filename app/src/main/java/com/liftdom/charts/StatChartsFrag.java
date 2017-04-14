@@ -109,7 +109,6 @@ public class StatChartsFrag extends Fragment {
         return view;
     }
 
-    //TODO: create validator to make sure we're not graphing the same exercise twice
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
         List<Entry> entries = new ArrayList<Entry>();
 

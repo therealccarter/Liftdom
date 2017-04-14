@@ -34,7 +34,7 @@
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"
-                android:theme="@android:style/Theme.Holo.Dialog">
+                android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
         <activity
                 android:name="com.liftdom.workout_assistor.SaveAssistorDialog"

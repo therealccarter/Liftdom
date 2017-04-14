@@ -47,7 +47,6 @@ public class ExPickerTab1 extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        // TODO: Add sticky headers
 
         String[] listViewValues = new String[]{
           "Barbell Bench Press", "Dumbell Bench Press", "Barbell Incline Press", "Dumbell Incline Press",
@@ -94,7 +93,7 @@ public class ExPickerTab1 extends Fragment {
                             ExercisePickerController.getInstance().exName = null;
                             dialog.dismiss();
                         }
-                    }).show(); //TODO window leak here
+                    }).show();
 
             }
         });

@@ -65,6 +65,7 @@ public class TemplateMenuFrag extends Fragment {
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();
 
+        //TODO: Find broken quote
         if(savedInstanceState == null){
             quoteBody.setText(quoteArray[0]);
             quoteAuthor.setText(quoteArray[1]);

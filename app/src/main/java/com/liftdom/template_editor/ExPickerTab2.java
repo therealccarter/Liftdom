@@ -42,7 +42,6 @@ public class ExPickerTab2 extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        // TODO: Add sticky headers
 
         String[] listViewValues = new String[]{
                 "Barbell Squat", "Leg Press", "Barbell Lunges", "Dumbell Lunges", "Deadlift",
