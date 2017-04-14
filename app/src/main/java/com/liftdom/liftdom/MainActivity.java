@@ -237,9 +237,6 @@ public class MainActivity extends AppCompatActivity {
                     0);
         }
 
-        DatabaseReference missedRef = mRootRef.child("missedDays").child("nextPossibleDay");
-
-
     }
 
     // [START on_start_add_listener]
