@@ -303,6 +303,14 @@ public class SelectedTemplateFrag extends Fragment {
         return view;
     }
 
+    public void updateActiveDays(){
+
+    }
+
+    public void clearActiveDays(){
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {

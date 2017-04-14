@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     // butterknife
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,6 +236,9 @@ public class MainActivity extends AppCompatActivity {
                                     (mFirebaseUser.getEmail()),
                     0);
         }
+
+        DatabaseReference missedRef = mRootRef.child("missedDays").child("nextPossibleDay");
+
 
     }
 

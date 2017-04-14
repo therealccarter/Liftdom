@@ -27,6 +27,11 @@ We need to make sure we don't move to the next exercises until the reps@weights 
 We could also try an arraylist method, where we store all the info in named arraylists.
 
 
+CALENDAR - MISSED DAYS:
+Every template change we would update a list of active days for the next, say, year.
+Then any time the user starts up the app, we'd compare past days to the workout history.
+Any days that are not in the workout history get added to the missed days list.
+We then display the missed days list in the calendar as red dots.
 
 
 
