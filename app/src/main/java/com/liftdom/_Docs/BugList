@@ -1,0 +1,59 @@
+============ comments ================
+reminder about skipping via arrows (ex library for example)
+need to implement unit switching
+look into switching to snackbars
+to get to profile, get rid of down arrow, make whole header clickable to profile
+profile settings being overshadowed by app setting button.
+default body profile numbers are double zeros and they don't go away. Make them hints?
+change language of "values/stats" - personal info
+make keyboard thing go down
+look for saving activities and add a prompt for discard
+possibly unlock features with high reps
+if no active template, let them know on the calendar
+check backstack for everything. (profile info, confirmed pages)
+reload user values if on backstack?
+clean up smolov selected template view
+add description to smolov
+selected template edit button should be up top
+fix cal calc labels & add activity level multiplier
+disable decimal on pounds/units
+fix bmi calc
+push pull legs not uploading
+make mode radio button chart
+make items list in chart
+add titles
+only show items what user
+chart adding duplicate item
+adding different items sequentially only re-adds original item, without adding second item
+
+
+============ Bugs/features ===============
+
+default settings page to certain values
+dialog for save button in settings
+
+java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
+                                at com.liftdom.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
+
+java.lang.NullPointerException: Can't pass null for argument 'pathString' in child()
+                                at com.google.firebase.database.DatabaseReference.child(Unknown Source)
+                                at com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab$2.onDataChange(HistoryCalendarTab.java:171)
+
+// null check for running bool
+java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
+                                at com.liftdom.workout_assistor.WorkoutAssistorActivity$7.onDataChange(WorkoutAssistorActivity.java:1064)
+
+java.lang.IllegalStateException: Fragment has not been attached yet.
+                                 at android.support.v4.app.Fragment.instantiateChildFragmentManager(Fragment.java:2154)
+                                 at android.support.v4.app.Fragment.getChildFragmentManager(Fragment.java:704)
+                                 at com.liftdom.template_housing.SelectedTemplateFrag$2.onDataChange(SelectedTemplateFrag.java:122)
+
+p/p/l monday lateral raise gives 0lbs
+
+
+java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.String.equals(java.lang.Object)' on a null object reference
+                                 at com.liftdom.template_editor.TemplateEditorActivity$5.onDataChange(TemplateEditorActivity.java:318)
+
+// quote error
+java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
+                                  at com.liftdom.template_housing.TemplateMenuFrag.onCreateView(TemplateMenuFrag.java:71)

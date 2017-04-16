@@ -113,13 +113,13 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long incrementor = 0;
 
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     DateTime dateTime = new DateTime(dataSnapshot1.getKey());
 
                     CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
 
-                    if(incrementor == 0){
+                    if (incrementor == 0) {
                         firstDay = new LocalDate(dateTime);
                     }
 
@@ -127,7 +127,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                     incrementor++;
 
-                    if(incrementor == dataSnapshot.getChildrenCount()){
+                    if (incrementor == dataSnapshot.getChildrenCount()) {
 
                         widget.addDecorator(new PastEventDecorator(Color.GREEN, pastDates));
 
@@ -135,16 +135,16 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                         int days = Days.daysBetween(firstDay, today).getDays();
 
-                        for(int i = 0; i < days; i++){
+                        for (int i = 0; i < days; i++) {
                             LocalDate localDate = firstDay.withFieldAdded(DurationFieldType.days(), i);
 
                             CalendarDay calendarDay = CalendarDay.from(localDate.toDate());
 
-                            if(!pastDates.contains(calendarDay)){
+                            if (!pastDates.contains(calendarDay)) {
                                 missedDates.add(calendarDay);
                             }
 
-                            if(i == days - 1){
+                            if (i == days - 1) {
                                 widget.addDecorator(new PastEventDecorator(Color.RED, missedDates, 5));
                             }
                         }
@@ -168,18 +168,20 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                 String activeTemplate = dataSnapshot.getValue(String.class);
 
+                if(activeTemplate != null){
+
                 final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
 
                 futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             ++futureIncrementor;
 
                             String keyValue = dataSnapshot1.getKey();
 
-                            if(!keyValue.equals("algorithm") && !keyValue.equals("algorithmExercises")){
-                                if(futureIncrementor == 1){
+                            if (!keyValue.equals("algorithm") && !keyValue.equals("algorithmExercises")) {
+                                if (futureIncrementor == 1) {
                                     firstAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -189,7 +191,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool1 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc1;
 
@@ -199,7 +201,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool1 = subIncValidator(futureSubInc1, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool1){
+                                                if (subIncBool1) {
                                                     futureConstructor1();
                                                 }
                                             }
@@ -210,7 +212,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 2){
+                                } else if (futureIncrementor == 2) {
                                     secondAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -220,7 +222,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool2 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc2;
 
@@ -230,7 +232,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool2 = subIncValidator(futureSubInc2, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool2){
+                                                if (subIncBool2) {
                                                     futureConstructor2();
                                                 }
                                             }
@@ -241,7 +243,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 3){
+                                } else if (futureIncrementor == 3) {
                                     thirdAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -251,7 +253,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool3 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc3;
 
@@ -261,7 +263,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool3 = subIncValidator(futureSubInc3, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool3){
+                                                if (subIncBool3) {
                                                     futureConstructor3();
                                                 }
                                             }
@@ -272,7 +274,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 4){
+                                } else if (futureIncrementor == 4) {
                                     fourthAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -282,7 +284,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool4 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc4;
 
@@ -292,7 +294,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool4 = subIncValidator(futureSubInc4, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool4){
+                                                if (subIncBool4) {
                                                     futureConstructor4();
                                                 }
                                             }
@@ -303,7 +305,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 5){
+                                } else if (futureIncrementor == 5) {
                                     fifthAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -313,7 +315,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool5 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc5;
 
@@ -323,7 +325,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool5 = subIncValidator(futureSubInc5, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool5){
+                                                if (subIncBool5) {
                                                     futureConstructor5();
                                                 }
                                             }
@@ -334,7 +336,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 6){
+                                } else if (futureIncrementor == 6) {
                                     sixthAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
 
@@ -344,7 +346,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool6 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc6;
 
@@ -354,7 +356,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool6 = subIncValidator(futureSubInc6, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool6){
+                                                if (subIncBool6) {
                                                     futureConstructor6();
                                                 }
                                             }
@@ -365,10 +367,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                         }
                                     });
-                                }else if(futureIncrementor == 7){
+                                } else if (futureIncrementor == 7) {
                                     seventhAL.add(keyValue);
                                     DatabaseReference specificDayRef = futureRef.child(keyValue);
-
 
 
                                     specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -377,7 +378,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                             subIncBool7 = false;
 
-                                            for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
+                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
                                                 ++futureSubInc7;
 
@@ -387,7 +388,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                                 subIncBool7 = subIncValidator(futureSubInc7, dataSnapshot
                                                         .getChildrenCount());
 
-                                                if(subIncBool7){
+                                                if (subIncBool7) {
                                                     futureConstructor7();
                                                 }
                                             }
@@ -413,6 +414,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                     }
                 });
 
+            }
             }
 
             @Override

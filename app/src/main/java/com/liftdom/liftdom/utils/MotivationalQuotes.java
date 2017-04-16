@@ -52,8 +52,7 @@ public class MotivationalQuotes {
             "Courage doesn’t always roar. Sometimes courage is the quiet voice at the end of the day saying, \"I will " +
                     "try again tomorrow.\" - Mary Anne Radmacher",
             "A champion is someone who gets up when they can’t. - Jack Dempsey",
-            "If you can't explain the essence of your program to a three year old in 60 seconds, its too complicated" +
-                    "." +
+            "If you can't explain the essence of your program to a three year old in 60 seconds, its too complicated." +
                     " I've trained with Olympic medal winners and I can assure you, they don't do anything mysterious, they just do the exercises better than we do. - Maik Weidenbach",
             "The road to nowhere is paved with excuses. - Mark Bell",
             "There is no such thing as over training, just under nutrition and under sleeping. - The Barbarian " +

@@ -52,9 +52,8 @@ public class MainActivity extends AppCompatActivity {
     // butterknife
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+    DatabaseReference mRootRef;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -88,19 +86,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     if(getIntent().getStringExtra("username") != null) {
 
-                        //String username = getIntent().getStringExtra("username");
-                        //
-                        //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-                        //String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        //
-                        //DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
-                        //
-                        //usernameRef.setValue(username);
-                        //
-
-
                     }
-                    //KeyAccountValuesActivity.getInstance().setEmail(user.getEmail());
+                    mRootRef = FirebaseDatabase.getInstance().getReference();
+                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -208,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
             //username = KeyAccountValuesActivity.getInstance().getUserName();
 
-
             DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
 
             usernameRef.addValueEventListener(new ValueEventListener() {
@@ -233,10 +220,8 @@ public class MainActivity extends AppCompatActivity {
                             .drawable.usertest))
                             .withName
                                     (mFirebaseUser.getDisplayName()).withEmail
-                                    (mFirebaseUser.getEmail()),
-                    0);
+                                    (mFirebaseUser.getEmail()), 0);
         }
-
     }
 
     // [START on_start_add_listener]
