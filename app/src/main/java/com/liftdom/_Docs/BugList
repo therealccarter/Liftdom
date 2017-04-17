@@ -14,6 +14,7 @@
 **DONE** clean up smolov selected template view
 **DONE** add description to smolov
 **DONE** fix bmi calc
+**DONE** push pull legs not uploading
 
 
 reminder about skipping via arrows (ex library for example)
@@ -35,8 +36,6 @@ reload user values if on backstack?
 fix cal calc labels & add activity level multiplier
 
 disable decimal on pounds/units
-
-push pull legs not uploading
 
 make mode radio button chart
 
