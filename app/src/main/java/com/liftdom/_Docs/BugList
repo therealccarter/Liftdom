@@ -7,6 +7,8 @@
 **DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
 **DONE** ask user which profile to sign in with
 **DONE** change language of "values/stats" - personal info
+**DONE** selected template edit button should be up top
+**DONE** clean up smolov selected template view
 
 
 reminder about skipping via arrows (ex library for example)
@@ -25,11 +27,7 @@ check backstack for everything. (profile info, confirmed pages)
 
 reload user values if on backstack?
 
-clean up smolov selected template view
-
 add description to smolov
-
-selected template edit button should be up top
 
 fix cal calc labels & add activity level multiplier
 
