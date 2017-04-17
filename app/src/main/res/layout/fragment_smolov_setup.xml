@@ -2,9 +2,9 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/grey"
-             tools:context="com.liftdom.workout_programs.PPL.PPLSetupFrag">
+             android:orientation="vertical"
+             android:background="@color/grey"
+             tools:context="com.liftdom.workout_programs.Smolov.SmolovSetupFrag">
 
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
 
@@ -33,7 +33,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/pushPullLegs"
+                        android:text="@string/smolov"
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/black"
@@ -67,43 +67,19 @@
                         android:layout_marginStart="30dp"
                 />
 
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/bench1rm"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:layout_margin="10dp"
-                    />
+                <Button
+                        android:id="@+id/movementName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:textSize="20sp"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_gravity="center"
+                        android:text="Squat (Barbell - Back)"
+                />
 
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:id="@+id/benchPress1rm"
-                            android:textSize="20sp"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pounds"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="5dp"
-                    />
-
-                </LinearLayout>
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -115,68 +91,30 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/deadlift1rm"
-                            android:textSize="18sp"
+                            android:text="@string/oneRepMax"
                             android:textColor="@color/black"
-                            android:layout_margin="10dp"
+                            android:textSize="20sp"
                     />
 
                     <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:id="@+id/deadlift1rm"
+                            android:id="@+id/oneRepMaxEditText"
+                            android:hint="__"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:inputType="number"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
                     />
+
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/pounds"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="5dp"
-                    />
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/squat1rm"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:layout_margin="10dp"
-                    />
-
-                    <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:id="@+id/squat1rm"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:inputType="number"
-                    />
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pounds"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="5dp"
                     />
 
                 </LinearLayout>
@@ -202,7 +140,6 @@
                 />
 
             </LinearLayout>
-
 
 
             <View
@@ -246,4 +183,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

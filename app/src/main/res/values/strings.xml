@@ -196,8 +196,9 @@
         to.)
     </string>
 
-    <string name="programBasedOn">This program is constructed using your profile stats. Here you can adjust desired
-        values accordingly. </string>
+    <string name="programBasedOn">This program is constructed using your profile info. Here you can adjust desired
+        values accordingly.
+    </string>
 
     <string name="weightUnit">Weight unit:</string>
 

@@ -70,10 +70,6 @@
                 android:name="com.liftdom.template_housing.RenameTemplateDialog"
                 android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
-        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovSavedActivity">
-        </activity>
-        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovStarterActivity">
-        </activity>
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
@@ -125,6 +121,8 @@
         <activity android:name=".PremiumFeaturesActivity">
         </activity>
         <activity android:name="com.liftdom.workout_programs.PPL.PPLHolderActivity">
+        </activity>
+        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity">
         </activity>
     </application>
 

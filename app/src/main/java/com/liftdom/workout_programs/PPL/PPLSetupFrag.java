@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +34,8 @@ public class PPLSetupFrag extends Fragment {
     @BindView(R.id.benchPress1rm) EditText benchPress1rm;
     @BindView(R.id.deadlift1rm) EditText deadlift1rm;
     @BindView(R.id.squat1rm) EditText squat1rm;
-    @BindView(R.id.nextButton) Button nextButton;
+    @BindView(R.id.finishButton) Button finishButton;
+    @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -75,7 +77,7 @@ public class PPLSetupFrag extends Fragment {
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        finishButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -83,6 +85,9 @@ public class PPLSetupFrag extends Fragment {
                 pplFinishedFrag.benchMax = benchMax;
                 pplFinishedFrag.squatMax = squatMax;
                 pplFinishedFrag.deadliftMax = deadliftMax;
+                if(activeTemplateCheckbox.isChecked()){
+                    pplFinishedFrag.isActive = true;
+                }
                 fragmentTransaction.replace(R.id.pplFragHolder, pplFinishedFrag);
                 fragmentTransaction.commitAllowingStateLoss();
                 fragmentTransaction.addToBackStack(null);

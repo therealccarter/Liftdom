@@ -43,6 +43,7 @@ public class PPLFinishedFrag extends Fragment {
     String benchMax;
     String deadliftMax;
     String squatMax;
+    Boolean isActive = false;
 
     /**
      * PushA.add("Monday");
@@ -177,6 +178,13 @@ public class PPLFinishedFrag extends Fragment {
                         templateRef.child("Saturday").setValue(list6);
                         templateRef.child("algorithm").setValue(algList);
                         templateRef.child("algorithmExercises").setValue(algeExList);
+
+                        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                ("active_template");
+                        if(isActive){
+                            activeTemplateRef.setValue("PushPullLegs" +
+                                    String.valueOf(pplInc));
+                        }
                     }
                 }
             }
