@@ -5,13 +5,14 @@
               tools:context="com.liftdom.template_housing.TemplateHousingActivity"
               android:orientation="vertical"
               android:id="@+id/repsWeightContainer"
+              android:layout_marginTop="10dp"
 >
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:id="@+id/doWName"
             android:textColor="@color/black"
             android:paddingEnd="10dp"

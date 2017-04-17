@@ -37,9 +37,6 @@ public class HousingDoWFrag extends Fragment {
     @BindView(R.id.doWName) TextView doWStringView;
     @BindView(R.id.exAndSetLLHolder) LinearLayout exAndSetHolder;
 
-
-
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -64,7 +61,7 @@ public class HousingDoWFrag extends Fragment {
 
         if(!dOWString.equals("error") && !templateName.equals("error")){
 
-            doWStringView.setText(dOWString);
+            doWStringView.setText(titleFormatter(dOWString));
 
             DatabaseReference specificDaysRef = specificTemplateRef.child(dOWString);
 
@@ -139,6 +136,12 @@ public class HousingDoWFrag extends Fragment {
 
         return isExercise;
 
+    }
+
+    String titleFormatter(String unformatted){
+        String formatted = unformatted.replaceAll("_", "/");
+
+        return formatted;
     }
 
     @Override

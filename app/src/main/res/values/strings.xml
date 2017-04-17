@@ -336,9 +336,9 @@
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Template</string>
-    <string name="editThisTemplate">Edit</string>
+    <string name="editThisTemplate">Edit Template</string>
     <string name="renameThisTemplate">Rename</string>
-    <string name="deleteThisTemplate">Delete</string>
+    <string name="deleteThisTemplate">Delete Template</string>
 
     <string name="longLatin">
         Lorem ipsum dolor sit amet, et modus senserit ullamcorper sed.
