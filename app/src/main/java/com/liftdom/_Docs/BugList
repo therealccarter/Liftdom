@@ -1,30 +1,58 @@
 ============ comments ================
 reminder about skipping via arrows (ex library for example)
+
 need to implement unit switching
+
 look into switching to snackbars
+
 to get to profile, get rid of down arrow, make whole header clickable to profile
+
 profile settings being overshadowed by app setting button.
+
 **DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
+
+**DONE** ask user which profile to sign in with
+
 change language of "values/stats" - personal info
+
 make keyboard thing go down
+
 look for saving activities and add a prompt for discard
+
 possibly unlock features with high reps
+
 if no active template, let them know on the calendar
+
 check backstack for everything. (profile info, confirmed pages)
+
 reload user values if on backstack?
+
 clean up smolov selected template view
+
 add description to smolov
+
 selected template edit button should be up top
+
 fix cal calc labels & add activity level multiplier
+
 disable decimal on pounds/units
+
 fix bmi calc
+
 push pull legs not uploading
+
 make mode radio button chart
+
 make items list in chart
+
 add titles
-only show items what user
+
+only show items that user has done
+
 chart adding duplicate item
+
 adding different items sequentially only re-adds original item, without adding second item
+
 
 
 ============ Bugs/features ===============
