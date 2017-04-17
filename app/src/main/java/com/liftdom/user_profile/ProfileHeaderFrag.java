@@ -18,10 +18,10 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileInfoFrag extends Fragment {
+public class ProfileHeaderFrag extends Fragment {
 
 
-    public ProfileInfoFrag() {
+    public ProfileHeaderFrag() {
         // Required empty public constructor
     }
 
@@ -80,7 +80,7 @@ public class ProfileInfoFrag extends Fragment {
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BasicStatsActivity.class);
+                Intent intent = new Intent(v.getContext(), ProfileInfoActivity.class);
                 startActivity(intent);
             }
         });

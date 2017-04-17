@@ -1,9 +1,11 @@
 package com.liftdom.user_profile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BasicStatsActivity extends AppCompatActivity {
+public class ProfileInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.usernameEditText) EditText usernameEditText;
     @BindView(R.id.usernameTextView) TextView usernameTextView;
@@ -77,7 +79,7 @@ public class BasicStatsActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(BasicStatsActivity.this, LoginActivity.class));
+                    startActivity(new Intent(ProfileInfoActivity.this, LoginActivity.class));
                 }
             }
         };
@@ -234,4 +236,41 @@ public class BasicStatsActivity extends AppCompatActivity {
         }
     }
     // [END on_stop_remove_listener]
+
+    @Override
+    public void onBackPressed(){
+
+        //TODO: Have these things only called if changes are made
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set title
+        builder.setTitle("Discard changes?");
+
+        // set dialog message
+        builder
+                .setMessage("Are you sure you want to discard these changes?")
+                .setCancelable(false)
+                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+
+                        Intent intent = new Intent(ProfileInfoActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+
+                        finish();
+                    }
+                })
+                .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
+    }
 }

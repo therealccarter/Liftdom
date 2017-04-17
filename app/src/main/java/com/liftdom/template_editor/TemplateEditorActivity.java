@@ -447,9 +447,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
             }
         }
 
-
-
-
         // use increment to keep track of what the current doW frag is
 
         addDay.setOnClickListener(new View.OnClickListener() {

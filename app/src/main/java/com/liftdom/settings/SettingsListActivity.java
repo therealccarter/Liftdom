@@ -1,9 +1,11 @@
 package com.liftdom.settings;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +31,7 @@ import com.liftdom.liftdom.PremiumFeaturesActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
+import com.liftdom.user_profile.ProfileInfoActivity;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -283,5 +286,41 @@ public class SettingsListActivity extends AppCompatActivity implements
     void firebaseSetter(String key, String value){
         DatabaseReference dataRef = mRootRef.child("users").child(uid).child(key);
         dataRef.setValue(value);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        //TODO: Have these things only called if changes are made
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // set title
+        builder.setTitle("Discard changes?");
+
+        // set dialog message
+        builder
+                .setMessage("Are you sure you want to discard these changes?")
+                .setCancelable(false)
+                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+
+                        SettingsListActivity.super.onBackPressed();
+
+                        finish();
+                    }
+                })
+                .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
     }
 }
