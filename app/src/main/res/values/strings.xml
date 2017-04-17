@@ -410,6 +410,7 @@
     <string name="saveButton">Save</string>
     <string name="dummyLevel">- level .0</string>
     <string name="currentFocus">Focus:\u0020</string>
+    <string name="profileInfo">Profile Info</string>
 
     <string name="graphing">Choose item(s) to graph:\u0020</string>
     <string name="mode">Choose data mode:\u0020</string>

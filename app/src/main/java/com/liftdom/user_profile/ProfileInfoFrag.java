@@ -1,6 +1,7 @@
 package com.liftdom.user_profile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -36,11 +37,7 @@ public class ProfileInfoFrag extends Fragment {
     @BindView(R.id.currentLevel) TextView currentLevel;
     @BindView(R.id.bodyWeight) TextView bodyWeight;
     @BindView(R.id.currentFocus) TextView currentFocus;
-
-
-    //TODO: In this and my templates view, try to get these values to load before inflation
-
-
+    @BindView(R.id.profileInfo) TextView infoButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +75,13 @@ public class ProfileInfoFrag extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BasicStatsActivity.class);
+                startActivity(intent);
             }
         });
 

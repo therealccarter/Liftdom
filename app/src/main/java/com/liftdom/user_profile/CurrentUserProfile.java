@@ -1,8 +1,11 @@
 package com.liftdom.user_profile;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -54,8 +57,8 @@ public class CurrentUserProfile extends AppCompatActivity {
 
     //@BindView(R.id.historyButton) Button historyButton;
     //@BindView(R.id.savedTemplates) Button savedTemplatesButton;
-    @BindView(R.id.basicProfileStats) Button basicProfileStats;
-    @BindView(R.id.settingsButton) ImageView settingsButton;
+    //@BindView(R.id.basicProfileStats) Button basicProfileStats;
+    //@BindView(R.id.settingsButton) ImageView settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +99,9 @@ public class CurrentUserProfile extends AppCompatActivity {
         String email = user.getEmail();
 
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Today's Workout");
-        toolbar.canShowOverflowMenu();
-        toolbar.showOverflowMenu();
+        toolbar.setTitle("Chris Carter");
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -190,39 +191,10 @@ public class CurrentUserProfile extends AppCompatActivity {
                                 (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
-
-
-
-
-        // [END AUTH AND NAV-DRAWER BOILERPLATE]
-
-        //historyButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        Intent intent = new Intent(v.getContext(), WorkoutHistoryActivity.class);
-        //        startActivity(intent);
-        //    }
-        //});
-//
-        //savedTemplatesButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
-        //        startActivity(intent);
-        //    }
-        //});
-
-        basicProfileStats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BasicStatsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SettingsListActivity.class);
-                startActivity(intent);
-            }
-        });
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id
+                .collapsingToolbar1);
+        collapsingToolbarLayout.setTitle(mFirebaseUser.getDisplayName());
+        collapsingToolbarLayout.setExpandedTitleTextColor(ColorStateList.valueOf(Color.TRANSPARENT));
 
     }
 

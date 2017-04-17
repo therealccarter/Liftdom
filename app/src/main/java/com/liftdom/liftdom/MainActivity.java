@@ -111,6 +111,15 @@ public class MainActivity extends AppCompatActivity {
         AccountHeader header = new AccountHeaderBuilder()
             .withActivity(this)
             .withHeaderBackground(R.drawable.header)
+            .withSelectionListEnabledForSingleProfile(false)
+            .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                @Override
+                public boolean onClick(View view, IProfile profile) {
+                    Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                    startActivity(intent);
+                    return false;
+                }
+            })
             .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                 @Override
                 public boolean onProfileImageClick(View view, IProfile profile, boolean current) {

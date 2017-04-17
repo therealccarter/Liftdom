@@ -1,17 +1,20 @@
+
+
+
 ============ comments ================
-reminder about skipping via arrows (ex library for example)
-
-need to implement unit switching
-
-look into switching to snackbars
-
-to get to profile, get rid of down arrow, make whole header clickable to profile
+**DONE** to get to profile, get rid of down arrow, make whole header clickable to profile
 
 profile settings being overshadowed by app setting button.
 
 **DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
 
 **DONE** ask user which profile to sign in with
+
+reminder about skipping via arrows (ex library for example)
+
+need to implement unit switching
+
+look into switching to snackbars
 
 change language of "values/stats" - personal info
 
