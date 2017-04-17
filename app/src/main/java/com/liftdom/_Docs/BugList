@@ -4,7 +4,7 @@ need to implement unit switching
 look into switching to snackbars
 to get to profile, get rid of down arrow, make whole header clickable to profile
 profile settings being overshadowed by app setting button.
-default body profile numbers are double zeros and they don't go away. Make them hints?
+**DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
 change language of "values/stats" - personal info
 make keyboard thing go down
 look for saving activities and add a prompt for discard
