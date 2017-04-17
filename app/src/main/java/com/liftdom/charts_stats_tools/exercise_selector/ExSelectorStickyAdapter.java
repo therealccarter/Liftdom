@@ -1,4 +1,4 @@
-package com.liftdom.charts.exercise_selector;
+package com.liftdom.charts_stats_tools.exercise_selector;
 
 import android.content.Context;
 import android.content.Intent;

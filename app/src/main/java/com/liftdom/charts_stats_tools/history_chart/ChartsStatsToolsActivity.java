@@ -1,11 +1,14 @@
-package com.liftdom.tools;
+package com.liftdom.charts_stats_tools.history_chart;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import com.liftdom.charts.ChartsStatsToolsActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
@@ -20,24 +23,30 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class ToolsMainActivity extends AppCompatActivity {
+public class ChartsStatsToolsActivity extends AppCompatActivity {
+
+    // declare_auth
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tools_main);
+
+        setContentView(R.layout.activity_charts_and_stats);
+
+        // [START AUTH AND NAV-DRAWER BOILERPLATE]
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-//
-        //mainActivityTitle.setTypeface(lobster);
-
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -50,7 +59,7 @@ public class ToolsMainActivity extends AppCompatActivity {
                 }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
                     public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                        Intent intent = new Intent(ToolsMainActivity.this, CurrentUserProfile.class);
+                        Intent intent = new Intent(ChartsStatsToolsActivity.this, CurrentUserProfile.class);
                         startActivity(intent);
                         return false;
                     }
@@ -74,11 +83,10 @@ public class ToolsMainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Tools").withIdentifier(7),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(8)
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -88,36 +96,68 @@ public class ToolsMainActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(ToolsMainActivity.this, MainActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, MainActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(ToolsMainActivity.this, TemplateHousingActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, TemplateHousingActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(ToolsMainActivity.this, WorkoutAssistorActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, WorkoutAssistorActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(ToolsMainActivity.this, KnowledgeCenterHolderActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(ToolsMainActivity.this, ChartsStatsToolsActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(ToolsMainActivity.this, PremiumFeaturesActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, PremiumFeaturesActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(ToolsMainActivity.this, ToolsMainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 8) {
-                                intent = new Intent(ToolsMainActivity.this, SettingsListActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, SettingsListActivity.class);
                             }
                             if (intent != null) {
-                                ToolsMainActivity.this.startActivity(intent);
+                                ChartsStatsToolsActivity.this.startActivity(intent);
                             }
                         }
                         return true;
                     }
                 })
                 .build();
+
+        if (mFirebaseUser != null) {
+            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            //username = KeyAccountValuesActivity.getInstance().getUserName();
+
+
+            DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
+
+            usernameRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot usernameSnap : dataSnapshot.getChildren()){
+                        String key = usernameSnap.getKey();
+                        if(key.equals("username")) {
+                            String username;
+                            username = usernameSnap.getValue(String.class);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
+                            .drawable.usertest))
+                            .withName
+                                    (mFirebaseUser.getDisplayName()).withEmail
+                                    (mFirebaseUser.getEmail()),
+                    0);
+        }
     }
 }

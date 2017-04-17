@@ -5,7 +5,7 @@
               android:orientation="vertical"
               android:layout_marginTop="20dp"
               android:background="@color/white"
-              tools:context="com.liftdom.tools.BMICalcFrag">
+              tools:context="com.liftdom.charts_stats_tools.tools.BMICalcFrag">
 
     <View
             android:layout_width="match_parent"

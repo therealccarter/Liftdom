@@ -1,6 +1,4 @@
-package com.liftdom.tools;
-
-import android.util.Log;
+package com.liftdom.charts_stats_tools.tools;
 
 import java.util.ArrayList;
 

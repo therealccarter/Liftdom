@@ -1,10 +1,9 @@
-package com.liftdom.charts.exercise_selector;
+package com.liftdom.charts_stats_tools.exercise_selector;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;

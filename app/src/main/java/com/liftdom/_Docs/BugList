@@ -59,7 +59,7 @@ default settings page to certain values
 dialog for save button in settings
 
 java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
-                                at com.liftdom.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
+                                at com.liftdom.charts_stats_tools.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
 
 java.lang.NullPointerException: Can't pass null for argument 'pathString' in child()
                                 at com.google.firebase.database.DatabaseReference.child(Unknown Source)

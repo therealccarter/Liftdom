@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.charts.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.history_chart.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 
@@ -22,7 +22,6 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.PlateRounderClass;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
-import com.liftdom.tools.ToolsMainActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;

@@ -1,4 +1,4 @@
-package com.liftdom.charts;
+package com.liftdom.charts_stats_tools.history_chart;
 
 import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;

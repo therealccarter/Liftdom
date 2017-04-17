@@ -1,4 +1,4 @@
-package com.liftdom.tools;
+package com.liftdom.charts_stats_tools.tools;
 
 /**
  * Created by Brodin on 4/6/2017.

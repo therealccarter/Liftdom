@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.charts.exercise_selector.ExSelectorActivity;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 
 import java.util.ArrayList;
 

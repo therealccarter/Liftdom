@@ -1,4 +1,4 @@
-package com.liftdom.tools;
+package com.liftdom.charts_stats_tools.tools;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;

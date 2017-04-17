@@ -1,4 +1,4 @@
-package com.liftdom.charts;
+package com.liftdom.charts_stats_tools.history_chart;
 
 
 import android.content.Intent;
@@ -20,8 +20,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.liftdom.liftdom.R;
-import com.liftdom.charts.exercise_selector.ExSelectorActivity;
-import com.liftdom.charts.exercise_selector.ExSelectorSingleton;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class StatChartsFrag extends Fragment {
-
 
 
     public StatChartsFrag() {

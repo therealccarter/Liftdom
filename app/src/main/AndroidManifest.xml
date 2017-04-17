@@ -92,10 +92,10 @@
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.charts.ChartsStatsToolsActivity">
+        <activity android:name="com.liftdom.charts_stats_tools.history_chart.ChartsStatsToolsActivity">
         </activity>
         <activity
-                android:name="com.liftdom.charts.exercise_selector.ExSelectorActivity"
+                android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
         <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity">
@@ -115,8 +115,6 @@
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
-        </activity>
-        <activity android:name="com.liftdom.tools.ToolsMainActivity">
         </activity>
         <activity android:name=".PremiumFeaturesActivity">
         </activity>

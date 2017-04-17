@@ -1,4 +1,4 @@
-package com.liftdom.charts;
+package com.liftdom.charts_stats_tools.history_chart;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

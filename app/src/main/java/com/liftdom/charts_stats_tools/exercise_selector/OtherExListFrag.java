@@ -1,4 +1,4 @@
-package com.liftdom.charts.exercise_selector;
+package com.liftdom.charts_stats_tools.exercise_selector;
 
 
 import android.os.Bundle;
@@ -15,14 +15,14 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpperBodyExListFrag extends Fragment{
+public class OtherExListFrag extends Fragment {
 
 
-    public UpperBodyExListFrag() {
+    public OtherExListFrag() {
         // Required empty public constructor
     }
 
-    @BindView(R.id.stickyList1) StickyListHeadersListView stickyList;
+    @BindView(R.id.stickyList3) StickyListHeadersListView stickyList;
 
     boolean noCheckbox = false;
 
@@ -30,13 +30,14 @@ public class UpperBodyExListFrag extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_upper_body_ex_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_full_body_ex_list, container, false);
 
         ButterKnife.bind(this, view);
 
-        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "upper", noCheckbox);
+        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "other", noCheckbox);
 
         stickyList.setAdapter(adapter);
+
 
         return view;
     }
