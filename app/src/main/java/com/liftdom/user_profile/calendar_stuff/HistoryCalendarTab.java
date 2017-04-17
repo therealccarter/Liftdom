@@ -522,7 +522,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection1));
+                    .DateCollection1, 7));
         }
     }
 
@@ -561,7 +561,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection2.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection2));
+                    .DateCollection2, 7));
         }
     }
 
@@ -600,7 +600,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection3.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection3));
+                    .DateCollection3, 7));
         }
     }
 
@@ -639,7 +639,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection4.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection4));
+                    .DateCollection4, 7));
         }
     }
 
@@ -678,7 +678,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection5.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection5));
+                    .DateCollection5, 7));
         }
     }
 
@@ -717,7 +717,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection6.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection6));
+                    .DateCollection6, 7));
         }
     }
 
@@ -756,7 +756,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(!FutureDateHelperClass.getInstance().DateCollection7.isEmpty()){
             widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection7));
+                    .DateCollection7, 7));
         }
     }
 
