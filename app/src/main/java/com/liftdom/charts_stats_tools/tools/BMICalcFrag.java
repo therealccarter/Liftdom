@@ -85,7 +85,6 @@ public class BMICalcFrag extends Fragment {
                         inc++;
 
                         if(inc == dataSnapshot.getChildrenCount()){
-                            //TODO change units
                             bodyWeightEdit.setText(String.valueOf(bodyWeight));
                             if(heightUnit.equals("footInches")){
                                 String delims = "[_]";
@@ -123,14 +122,17 @@ public class BMICalcFrag extends Fragment {
 
                 double heightCm;
                 if(heightUnit.equals("footInches")){
-                    heightCm = heightConvertToMet(height);
+                    String newHeight = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText()
+                            .toString();
+                    heightCm = heightConvertToMet(newHeight);
                 }else{
                     heightCm = (double) Integer.parseInt(height);
                 }
 
                 double weightKg;
                 if(bodyWeightUnit.equals("pounds")){
-                    weightKg = weightConvertToMet(bodyWeight);
+                    double newWeight = Double.parseDouble(bodyWeightEdit.getText().toString());
+                    weightKg = weightConvertToMet(newWeight);
                 }else{
                     weightKg = bodyWeight;
                 }
@@ -157,7 +159,7 @@ public class BMICalcFrag extends Fragment {
 
     public double heightConvertToMet(String heightInches){
         String delims = "[_]";
-        String[] tokens = height.split(delims);
+        String[] tokens = heightInches.split(delims);
         int inches = (Integer.parseInt(tokens[0]) * 12) + Integer.parseInt(tokens[1]);
 
         double cm = (double) inches * 2.54;
