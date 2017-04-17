@@ -13,6 +13,7 @@
 **DONE** selected template edit button should be up top
 **DONE** clean up smolov selected template view
 **DONE** add description to smolov
+**DONE** fix bmi calc
 
 
 reminder about skipping via arrows (ex library for example)
@@ -34,8 +35,6 @@ reload user values if on backstack?
 fix cal calc labels & add activity level multiplier
 
 disable decimal on pounds/units
-
-fix bmi calc
 
 push pull legs not uploading
 
