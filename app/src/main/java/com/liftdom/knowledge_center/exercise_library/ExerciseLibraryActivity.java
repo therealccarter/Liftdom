@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.charts.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
@@ -98,11 +98,10 @@ public class ExerciseLibraryActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Tools").withIdentifier(7),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(8)
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -124,15 +123,12 @@ public class ExerciseLibraryActivity extends AppCompatActivity {
                                 intent = new Intent(ExerciseLibraryActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(ExerciseLibraryActivity.this, ChartsAndStatsActivity.class);
+                                intent = new Intent(ExerciseLibraryActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
                                 intent = new Intent(ExerciseLibraryActivity.this, PremiumFeaturesActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(ExerciseLibraryActivity.this, ToolsMainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 8) {
                                 intent = new Intent(ExerciseLibraryActivity.this, SettingsListActivity.class);
                             }
                             if (intent != null) {

@@ -14,15 +14,13 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.charts.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.tools.ToolsMainActivity;
-import com.liftdom.workout_assistor.ExerciseNameFrag;
-import com.liftdom.workout_assistor.RepsWeightFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -31,7 +29,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
@@ -132,11 +129,10 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Tools").withIdentifier(7),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(8)
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -158,15 +154,12 @@ public class WorkoutHistoryActivity extends AppCompatActivity {
                                 intent = new Intent(WorkoutHistoryActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(WorkoutHistoryActivity.this, ChartsAndStatsActivity.class);
+                                intent = new Intent(WorkoutHistoryActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
                                 intent = new Intent(WorkoutHistoryActivity.this, PremiumFeaturesActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(WorkoutHistoryActivity.this, ToolsMainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 8) {
                                 intent = new Intent(WorkoutHistoryActivity.this, SettingsListActivity.class);
                             }
                             if (intent != null) {

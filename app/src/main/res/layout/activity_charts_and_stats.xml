@@ -5,8 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.liftdom.charts.ChartsAndStatsActivity"
+        tools:context="com.liftdom.charts.ChartsStatsToolsActivity"
         android:orientation="vertical"
+        android:background="@color/grey"
 >
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -18,18 +19,47 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/statChartHolder"
+            android:layout_height="wrap_content"
     >
-        <fragment android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:name="com.liftdom.charts.StatChartsFrag"
-                  tools:layout="@layout/fragment_stat_charts_tab"
-        />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/statChartHolder"
+                android:orientation="vertical"
+        >
+            <fragment android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:name="com.liftdom.charts.StatChartsFrag"
+                      tools:layout="@layout/fragment_stat_charts_tab"
+                      android:layout_margin="15dp"
+            />
 
-    </LinearLayout>
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.tools.CalorieCalcFrag"
+                    tools:layout="@layout/fragment_calorie_calc"
+                    android:id="@+id/calCalcFrag"
+                    android:layout_margin="15dp"
+            />
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.tools.BMICalcFrag"
+                    tools:layout="@layout/fragment_bmicalc"
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/bmiCalcFrag"
+                    android:layout_margin="15dp"
+            />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 
 </LinearLayout>

@@ -25,11 +25,10 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class ChartsAndStatsActivity extends AppCompatActivity {
+public class ChartsStatsToolsActivity extends AppCompatActivity {
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -61,7 +60,7 @@ public class ChartsAndStatsActivity extends AppCompatActivity {
                 }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
                     @Override
                     public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                        Intent intent = new Intent(ChartsAndStatsActivity.this, CurrentUserProfile.class);
+                        Intent intent = new Intent(ChartsStatsToolsActivity.this, CurrentUserProfile.class);
                         startActivity(intent);
                         return false;
                     }
@@ -85,11 +84,10 @@ public class ChartsAndStatsActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Tools").withIdentifier(7),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(8)
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -99,31 +97,28 @@ public class ChartsAndStatsActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(ChartsAndStatsActivity.this, MainActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, MainActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(ChartsAndStatsActivity.this, TemplateHousingActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, TemplateHousingActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(ChartsAndStatsActivity.this, WorkoutAssistorActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, WorkoutAssistorActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(ChartsAndStatsActivity.this, KnowledgeCenterHolderActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(ChartsAndStatsActivity.this, ChartsAndStatsActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(ChartsAndStatsActivity.this, PremiumFeaturesActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, PremiumFeaturesActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(ChartsAndStatsActivity.this, ToolsMainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 8) {
-                                intent = new Intent(ChartsAndStatsActivity.this, SettingsListActivity.class);
+                                intent = new Intent(ChartsStatsToolsActivity.this, SettingsListActivity.class);
                             }
                             if (intent != null) {
-                                ChartsAndStatsActivity.this.startActivity(intent);
+                                ChartsStatsToolsActivity.this.startActivity(intent);
                             }
                         }
                         return true;

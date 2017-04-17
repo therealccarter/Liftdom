@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.charts.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
@@ -100,7 +100,7 @@ public class ToolsMainActivity extends AppCompatActivity {
                                 intent = new Intent(ToolsMainActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(ToolsMainActivity.this, ChartsAndStatsActivity.class);
+                                intent = new Intent(ToolsMainActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
                                 intent = new Intent(ToolsMainActivity.this, PremiumFeaturesActivity.class);

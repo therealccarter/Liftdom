@@ -1,9 +1,7 @@
 package com.liftdom.workout_assistor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -22,13 +20,12 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.charts.ChartsAndStatsActivity;
+import com.liftdom.charts.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 
 import com.liftdom.liftdom.R;
 import com.liftdom.settings.SettingsListActivity;
-import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.tools.ToolsMainActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
@@ -40,18 +37,15 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class WorkoutAssistorActivity extends AppCompatActivity {
 
@@ -180,11 +174,10 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts & Stats").withIdentifier(5),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Tools").withIdentifier(7),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(8)
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -206,15 +199,12 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                 intent = new Intent(WorkoutAssistorActivity.this, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(WorkoutAssistorActivity.this, ChartsAndStatsActivity.class);
+                                intent = new Intent(WorkoutAssistorActivity.this, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
                                 intent = new Intent(WorkoutAssistorActivity.this, PremiumFeaturesActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(WorkoutAssistorActivity.this, ToolsMainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 8) {
                                 intent = new Intent(WorkoutAssistorActivity.this, SettingsListActivity.class);
                             }
                             if (intent != null) {

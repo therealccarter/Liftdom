@@ -419,6 +419,7 @@
     <string name="clearChart">Clear Chart</string>
 
     <string name="calorieChart">Calorie Calculation Chart</string>
+    <string name="historyChart">Exercise History Chart</string>
     <string name="bmiTitle">Body Mass Index Calculator</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>

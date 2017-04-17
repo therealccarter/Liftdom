@@ -92,7 +92,7 @@
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.charts.ChartsAndStatsActivity">
+        <activity android:name="com.liftdom.charts.ChartsStatsToolsActivity">
         </activity>
         <activity
                 android:name="com.liftdom.charts.exercise_selector.ExSelectorActivity"
