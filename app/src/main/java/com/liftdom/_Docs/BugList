@@ -50,7 +50,7 @@ chart adding duplicate item
 
 adding different items sequentially only re-adds original item, without adding second item
 
-
+make charts load on create
 
 ============ Fatal ===============
 
