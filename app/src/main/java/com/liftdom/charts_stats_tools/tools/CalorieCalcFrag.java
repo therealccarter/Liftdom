@@ -59,7 +59,7 @@ public class CalorieCalcFrag extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calorie_calc, container, false);
 
@@ -130,6 +130,23 @@ public class CalorieCalcFrag extends Fragment {
                                 maleRadioButton.setChecked(true);
                             }else if(sex.equals("female")){
                                 femaleRadioButton.setChecked(true);
+                            }
+
+                            if(savedInstanceState == null){
+                                age = Integer.parseInt(ageEdit.getText().toString());
+                                bodyWeight = Double.parseDouble(weightEdit.getText().toString());
+                                if(heightUnit.equals("pounds")){
+                                    height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
+                                }
+                                if(maleRadioButton.isChecked()){
+                                    sex = "male";
+                                }else if(femaleRadioButton.isChecked()){
+                                    sex = "female";
+                                }
+
+                                int spinnerPosition = activityLevelSpinner.getSelectedItemPosition();
+
+                                setUpCalCalcClass(spinnerPosition);
                             }
                         }
                     }

@@ -50,7 +50,7 @@ public class BMICalcFrag extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bmicalc, container, false);
 
@@ -100,6 +100,40 @@ public class BMICalcFrag extends Fragment {
                                 maleRadioButton.setChecked(true);
                             }else if(sex.equals("female")){
                                 femaleRadioButton.setChecked(true);
+                            }
+
+                            if(savedInstanceState == null){
+
+                                boolean isMale = false;
+                                if(sex.equals("male")){
+                                    isMale = true;
+                                }
+
+                                double heightCm;
+                                if(heightUnit.equals("footInches")){
+                                    String newHeight = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText()
+                                            .toString();
+                                    heightCm = heightConvertToMet(newHeight);
+                                }else{
+                                    heightCm = (double) Integer.parseInt(height);
+                                }
+
+                                double weightKg;
+                                if(bodyWeightUnit.equals("pounds")){
+                                    double newWeight = Double.parseDouble(bodyWeightEdit.getText().toString());
+                                    weightKg = weightConvertToMet(newWeight);
+                                }else{
+                                    weightKg = bodyWeight;
+                                }
+
+                                BMICalculatorClass calcClass = new BMICalculatorClass(weightKg, heightCm);
+
+                                double BMI = calcClass.getBMI();
+
+                                resultsView.setText(Double.toString(BMI));
+
+                                //TODO: In summary view, tell them what it means concerning their age and sex
+                                // call a method here that returns an appropriate string.
                             }
                         }
                     }
