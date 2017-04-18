@@ -24,12 +24,14 @@ disable decimal on pounds/units
 add titles
 
 make charts load on create
+
+p/p/l monday lateral raise gives 0lbs
 =========================================================
 
 ============ Fatal ===============
 
-default settings page to certain values
-dialog for save button in settings
+//default settings page to certain values
+//dialog for save button in settings
 
 java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
                                 at com.liftdom.charts_stats_tools.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
@@ -46,8 +48,6 @@ java.lang.IllegalStateException: Fragment has not been attached yet.
                                  at android.support.v4.app.Fragment.instantiateChildFragmentManager(Fragment.java:2154)
                                  at android.support.v4.app.Fragment.getChildFragmentManager(Fragment.java:704)
                                  at com.liftdom.template_housing.SelectedTemplateFrag$2.onDataChange(SelectedTemplateFrag.java:122)
-
-p/p/l monday lateral raise gives 0lbs
 
 
 java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.String.equals(java.lang.Object)' on a null object reference
