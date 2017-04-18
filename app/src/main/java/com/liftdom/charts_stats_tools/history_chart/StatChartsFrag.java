@@ -61,6 +61,7 @@ public class StatChartsFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         overallRadioButton.setChecked(true);
+        itemsTextView.setVisibility(View.GONE);
 
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,6 +77,7 @@ public class StatChartsFrag extends Fragment {
                 lineChart.clear();
                 dataSets.clear();
                 itemsTextView.setText("");
+                itemsTextView.setVisibility(View.GONE);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -127,35 +129,39 @@ public class StatChartsFrag extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 3
         if(requestCode == 1){
-                String exNames = "";
+            String exNames = "";
 
-                ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
-                ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
-                ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
+            ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
+            ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
+            ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
 
-                for(String string : upperBodyItems){
-                    if(string != null){
-                        exNames = exNames + string + "\n";
-                    }
+            for(String string : upperBodyItems){
+                if(string != null){
+                    exNames = exNames + string + "\n";
                 }
-                for(String string : lowerBodyItems){
-                    if(string != null){
-                        exNames = exNames + string + "\n";
-                    }
+            }
+            for(String string : lowerBodyItems){
+                if(string != null){
+                    exNames = exNames + string + "\n";
                 }
-                for(String string : otherItems){
-                    if(string != null){
-                        exNames = exNames + string + "\n";
-                    }
+            }
+            for(String string : otherItems){
+                if(string != null){
+                    exNames = exNames + string + "\n";
                 }
+            }
 
-                TextView textView = (TextView) getView().findViewById(R.id.itemsBeingGraphed);
+            TextView textView = (TextView) getView().findViewById(R.id.itemsBeingGraphed);
 
-                try{
-                    textView.setText(exNames);
-                } catch (NullPointerException e){
+            if(!exNames.equals("")){
+                textView.setVisibility(View.VISIBLE);
+            }
 
-                }
+            try{
+                textView.setText(exNames);
+            } catch (NullPointerException e){
+
+            }
         }
     }
 
