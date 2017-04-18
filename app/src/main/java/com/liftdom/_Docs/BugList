@@ -21,7 +21,7 @@ fix cal calc labels
 
 disable decimal on pounds/units
 
-make charts load on create
+make history chart load overall on create
 
 p/p/l monday lateral raise gives 0lbs
 =========================================================
@@ -78,7 +78,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** only show items that user has done
 **DONE** add activity level multiplier
 **DONE** add titles
-**DONE**
+**DONE** make tools load on create
 **DONE**
 **DONE**
 **DONE**
