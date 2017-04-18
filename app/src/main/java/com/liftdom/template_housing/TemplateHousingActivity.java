@@ -100,10 +100,12 @@ public class TemplateHousingActivity extends AppCompatActivity {
             AccountHeader header = new AccountHeaderBuilder()
                     .withActivity(this)
                     .withHeaderBackground(R.drawable.header)
-                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    .withSelectionListEnabledForSingleProfile(false)
+                    .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
                         @Override
-                        public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                            //Handle Profile changes
+                        public boolean onClick(View view, IProfile profile) {
+                            Intent intent = new Intent(TemplateHousingActivity.this, CurrentUserProfile.class);
+                            startActivity(intent);
                             return false;
                         }
                     }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {

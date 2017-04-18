@@ -89,9 +89,12 @@ public class KnowledgeCenterHolderActivity extends AppCompatActivity
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                .withSelectionListEnabledForSingleProfile(false)
+                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
                     @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+                    public boolean onClick(View view, IProfile profile) {
+                        Intent intent = new Intent(KnowledgeCenterHolderActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
                         return false;
                     }
                 }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
