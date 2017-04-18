@@ -94,6 +94,8 @@ public class StatChartsFrag extends Fragment {
         reloadChart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                dataSets.clear();
+
                 boolean isOverall = false;
 
                 if(overallRadioButton.isChecked()){
@@ -127,7 +129,7 @@ public class StatChartsFrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 3
+
         if(requestCode == 1){
             String exNames = "";
 
