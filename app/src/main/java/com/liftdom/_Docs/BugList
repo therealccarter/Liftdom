@@ -5,24 +5,6 @@
 
 
 ============ Non-fatal ================
-**DONE** to get to profile, get rid of down arrow, make whole header clickable to profile
-**DONE** profile settings being overshadowed by app setting button.
-**DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
-**DONE** ask user which profile to sign in with
-**DONE** change language of "values/stats" - personal info
-**DONE** selected template edit button should be up top
-**DONE** clean up smolov selected template view
-**DONE** add description to smolov
-**DONE** fix bmi calc
-**DONE** push pull legs not uploading
-**DONE** look for saving activities and add a prompt for discard
-**DONE** make items list in chart
-**DONE** make mode radio button chart
-**DONE** chart adding duplicate item
-**DONE** adding different items sequentially only re-adds original item, without adding second item
-**DONE** only show items that user has done
-**DONE** add activity level multiplier
-
 reminder about skipping via arrows (ex library for example)
 
 need to implement unit switching
@@ -42,6 +24,7 @@ disable decimal on pounds/units
 add titles
 
 make charts load on create
+=========================================================
 
 ============ Fatal ===============
 
@@ -73,3 +56,28 @@ java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.l
 // quote error
 java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
                                   at com.liftdom.template_housing.TemplateMenuFrag.onCreateView(TemplateMenuFrag.java:71)
+
+=========================================================
+
+==============================================
+    ======== ***Completed*** ============
+==============================================
+**DONE** to get to profile, get rid of down arrow, make whole header clickable to profile
+**DONE** profile settings being overshadowed by app setting button.
+**DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
+**DONE** ask user which profile to sign in with
+**DONE** change language of "values/stats" - personal info
+**DONE** selected template edit button should be up top
+**DONE** clean up smolov selected template view
+**DONE** add description to smolov
+**DONE** fix bmi calc
+**DONE** push pull legs not uploading
+**DONE** look for saving activities and add a prompt for discard
+**DONE** make items list in chart
+**DONE** make mode radio button chart
+**DONE** chart adding duplicate item
+**DONE** adding different items sequentially only re-adds original item, without adding second item
+**DONE** only show items that user has done
+**DONE** add activity level multiplier
+
+==============================================

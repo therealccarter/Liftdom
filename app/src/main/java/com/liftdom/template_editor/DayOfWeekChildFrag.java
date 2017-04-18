@@ -47,6 +47,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     String isSun = null;
 
     Boolean isEdit = false;
+    Boolean toastInvalidator = true;
     Boolean isAdded = false;
     Boolean isRemoved = false;
     String[] daysArray;

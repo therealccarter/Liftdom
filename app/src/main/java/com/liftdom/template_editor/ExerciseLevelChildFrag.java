@@ -15,8 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.R;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
+import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     int fragIdCount2 = 0;
 
     Boolean isEdit = false;
+    Boolean toastInvalidator = true;
     String exerciseName;
     String templateName;
     String selectedDaysReference;
