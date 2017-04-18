@@ -424,6 +424,9 @@
     <string name="historyChart">Exercise History Chart</string>
     <string name="items">Items:\u0020</string>
     <string name="bmiTitle">Body Mass Index Calculator</string>
+    <string name="chartsStatsTools">Charts/Stats/Tools</string>
+
+    <string name="premiumFeatures">Premium Features</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>
 

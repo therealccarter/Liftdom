@@ -1,11 +1,15 @@
-package com.liftdom.charts_stats_tools.ex_history_chart;
+package com.liftdom.charts_stats_tools;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -33,11 +37,14 @@ public class ChartsStatsToolsActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
 
+    @BindView(R.id.title) TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_charts_and_stats);
+
+        ButterKnife.bind(this);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -47,6 +54,10 @@ public class ChartsStatsToolsActivity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        title.setTypeface(lobster);
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)

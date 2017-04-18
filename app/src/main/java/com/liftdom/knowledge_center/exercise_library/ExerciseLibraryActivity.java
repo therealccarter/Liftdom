@@ -1,6 +1,7 @@
 package com.liftdom.knowledge_center.exercise_library;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -8,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
@@ -44,11 +48,14 @@ public class ExerciseLibraryActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    @BindView(R.id.title) TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_library);
 
+        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -57,9 +64,9 @@ public class ExerciseLibraryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-//
-        //mainActivityTitle.setTypeface(lobster);
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        title.setTypeface(lobster);
 
 
         AccountHeader header = new AccountHeaderBuilder()

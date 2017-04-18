@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.settings.SettingsListActivity;
@@ -96,7 +96,7 @@ public class CurrentUserProfile extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Chris Carter");
+        toolbar.setTitle("Chris Carter"); //TODO: Set to user's display name
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)

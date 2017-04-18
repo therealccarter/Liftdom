@@ -82,7 +82,8 @@
                 android:name=".LoginActivity"
                 android:label="@string/title_activity_login">
         </activity>
-        <activity android:name="com.liftdom.settings.SettingsListActivity">
+        <activity android:name="com.liftdom.settings.SettingsListActivity"
+                  android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog"
@@ -92,7 +93,8 @@
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity">
+        <activity android:name="com.liftdom.charts_stats_tools.ChartsStatsToolsActivity"
+                  android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
@@ -116,7 +118,8 @@
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
-        <activity android:name=".PremiumFeaturesActivity">
+        <activity android:name=".PremiumFeaturesActivity"
+                  android:label="">
         </activity>
         <activity android:name="com.liftdom.workout_programs.PPL.PPLHolderActivity">
         </activity>

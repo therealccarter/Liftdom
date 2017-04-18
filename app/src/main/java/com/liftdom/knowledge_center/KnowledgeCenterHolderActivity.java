@@ -1,6 +1,8 @@
 package com.liftdom.knowledge_center;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
 import com.liftdom.liftdom.R;
@@ -75,8 +77,12 @@ public class KnowledgeCenterHolderActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
-        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-//
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        collapsingToolbar.setCollapsedTitleTextColor(Color.parseColor("#D1B91D"));
+        collapsingToolbar.setCollapsedTitleTypeface(lobster);
+
+
         //mainActivityTitle.setTypeface(lobster);
 
 

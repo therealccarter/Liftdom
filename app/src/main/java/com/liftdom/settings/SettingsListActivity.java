@@ -23,7 +23,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.LoginActivity;
 import com.liftdom.liftdom.MainActivity;
@@ -60,7 +60,6 @@ public class SettingsListActivity extends AppCompatActivity implements
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.sign_out_button) Button signOutButton;
-    @BindView(R.id.settingsTitle) TextView settingsTitle;
     @BindView(R.id.lbsWeight) RadioButton poundsWeight;
     @BindView(R.id.kgsWeight) RadioButton kiloWeight;
     @BindView(R.id.lbsBodyWeight) RadioButton poundsBodyWeight;
@@ -69,6 +68,7 @@ public class SettingsListActivity extends AppCompatActivity implements
     @BindView(R.id.centimetersHeight) RadioButton centiHeight;
     @BindView(R.id.checkBoxRound) CheckBox checkBoxRound;
     @BindView(R.id.saveButton) Button saveButton;
+    @BindView(R.id.title) TextView title;
 
     ArrayList<String> settingsArrayList = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class SettingsListActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-        settingsTitle.setTypeface(lobster);
+        title.setTypeface(lobster);
 
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
