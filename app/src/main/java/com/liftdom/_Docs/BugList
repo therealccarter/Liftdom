@@ -20,6 +20,7 @@
 **DONE** make mode radio button chart
 **DONE** chart adding duplicate item
 **DONE** adding different items sequentially only re-adds original item, without adding second item
+**DONE** only show items that user has done
 
 
 reminder about skipping via arrows (ex library for example)
@@ -43,8 +44,6 @@ fix cal calc labels & add activity level multiplier
 disable decimal on pounds/units
 
 add titles
-
-only show items that user has done
 
 make charts load on create
 
