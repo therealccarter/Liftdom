@@ -1,4 +1,4 @@
-package com.liftdom.charts_stats_tools.history_chart;
+package com.liftdom.charts_stats_tools.ex_history_chart;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;

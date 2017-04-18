@@ -1,12 +1,10 @@
-package com.liftdom.charts_stats_tools.history_chart;
+package com.liftdom.charts_stats_tools.ex_history_chart;
 
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

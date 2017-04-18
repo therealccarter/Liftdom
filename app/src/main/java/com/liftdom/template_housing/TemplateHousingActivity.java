@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts_stats_tools.history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.settings.SettingsListActivity;

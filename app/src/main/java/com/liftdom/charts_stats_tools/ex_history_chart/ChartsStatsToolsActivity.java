@@ -1,4 +1,4 @@
-package com.liftdom.charts_stats_tools.history_chart;
+package com.liftdom.charts_stats_tools.ex_history_chart;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;

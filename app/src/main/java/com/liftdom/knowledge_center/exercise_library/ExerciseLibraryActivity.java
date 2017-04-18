@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts_stats_tools.history_chart.ChartsStatsToolsActivity;
+import com.liftdom.charts_stats_tools.ex_history_chart.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.PremiumFeaturesActivity;
