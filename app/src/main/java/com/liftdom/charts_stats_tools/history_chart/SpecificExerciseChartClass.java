@@ -19,7 +19,7 @@ public class SpecificExerciseChartClass {
     boolean isOfExName = false;
 
     // if true, we're looking for the overall load value. if false, we're looking for the max weight used.
-    private boolean isOverall = true;
+    public boolean isOverall = true;
 
     private ArrayList<ValueAndDateObject> SpecificExerciseValueList = new ArrayList<>();
 

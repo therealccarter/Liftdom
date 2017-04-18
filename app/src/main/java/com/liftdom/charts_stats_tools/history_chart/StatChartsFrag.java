@@ -60,6 +60,8 @@ public class StatChartsFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        overallRadioButton.setChecked(true);
+
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
@@ -90,18 +92,27 @@ public class StatChartsFrag extends Fragment {
         reloadChart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                boolean isOverall = false;
+
+                if(overallRadioButton.isChecked()){
+                    isOverall = true;
+                }
+
                 ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
                 ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
                 ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
 
                 for(String itemName : upperBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }for(String itemName : lowerBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }for(String itemName : otherItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+                    exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }
             }
