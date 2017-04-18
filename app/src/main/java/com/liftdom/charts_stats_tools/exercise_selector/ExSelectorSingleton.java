@@ -22,6 +22,8 @@ public class ExSelectorSingleton {
     public ArrayList<String> lowerBodyItems = new ArrayList<>();
     public ArrayList<String> otherItems = new ArrayList<>();
 
+    public ArrayList<String> completedExercises = new ArrayList<>();
+
     public void clearArrayLists(){
         upperBodyItems.clear();
         lowerBodyItems.clear();

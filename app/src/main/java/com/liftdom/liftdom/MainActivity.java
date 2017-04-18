@@ -28,6 +28,9 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
@@ -43,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
     // butterknife
     //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
 
-    DatabaseReference mRootRef;
-    String uid;
+    //DatabaseReference mRootRef;
+    //String uid;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                                     (mFirebaseUser.getDisplayName()).withEmail
                                     (mFirebaseUser.getEmail()), 0);
         }
+
     }
 
     // [START on_start_add_listener]

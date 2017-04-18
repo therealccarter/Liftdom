@@ -23,6 +23,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
@@ -41,6 +43,9 @@ public class StatChartsFrag extends Fragment {
     public StatChartsFrag() {
         // Required empty public constructor
     }
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.lineChart) LineChart lineChart;
     @BindView(R.id.graphingSelectorButton) Button graphingSelector;
@@ -62,6 +67,22 @@ public class StatChartsFrag extends Fragment {
 
         overallRadioButton.setChecked(true);
         itemsTextView.setVisibility(View.GONE);
+
+        DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid);
+        completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String value = dataSnapshot1.getValue(String.class);
+                    ExSelectorSingleton.getInstance().completedExercises.add(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

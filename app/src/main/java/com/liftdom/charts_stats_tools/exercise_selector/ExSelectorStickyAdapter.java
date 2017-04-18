@@ -14,6 +14,10 @@ import android.widget.TextView;
 import com.liftdom.liftdom.R;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * Created by Brodin on 3/24/2017.
  */
@@ -35,12 +39,49 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
         mNoCheckbox = noCheckbox;
 
+        ArrayList<String> completedUpperList = ExSelectorSingleton.getInstance().completedExercises;
+
         if(bodyString.equals("upper")){
-            exercises = context.getResources().getStringArray(R.array.upperBodyList);
+
+            String[] upperArray = context.getResources().getStringArray(R.array.upperBodyList);
+            ArrayList<String> upperList = new ArrayList<>(Arrays.asList(upperArray));
+            ArrayList<String> newList = new ArrayList<>();
+            for(String string : completedUpperList){
+                if(upperList.contains(string)){
+                    newList.add(string);
+                }
+            }
+
+            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+            exercises = newList.toArray(new String[0]);
+
         }else if(bodyString.equals("lower")){
-            exercises = context.getResources().getStringArray(R.array.lowerBodyList);
+
+            String[] lowerArray = context.getResources().getStringArray(R.array.lowerBodyList);
+            ArrayList<String> lowerList = new ArrayList<>(Arrays.asList(lowerArray));
+            ArrayList<String> newList = new ArrayList<>();
+            for(String string : completedUpperList){
+                if(lowerList.contains(string)){
+                    newList.add(string);
+                }
+            }
+
+            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+            exercises = newList.toArray(new String[0]);
+
         }else if(bodyString.equals("other")){
-            exercises = context.getResources().getStringArray(R.array.otherBodyList);
+
+            String[] otherArray = context.getResources().getStringArray(R.array.upperBodyList);
+            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
+            ArrayList<String> newList = new ArrayList<>();
+            for(String string : completedUpperList){
+                if(otherList.contains(string)){
+                    newList.add(string);
+                }
+            }
+
+            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+            exercises = newList.toArray(new String[0]);
         }
     }
 

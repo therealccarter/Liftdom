@@ -221,12 +221,6 @@ public class AssistorSavedActivity extends AppCompatActivity {
         roundRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                //    String key = dataSnapshot1.getKey();
-                //    String value = dataSnapshot1.getValue(String.class);
-                //
-                //    if(key)
-                //}
                 String value = dataSnapshot.getValue(String.class);
                 if(value.equals("yes")){
                     isRound = true;
@@ -549,6 +543,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
 
                 List<String> list = new ArrayList<>();
+                List<String> exList = new ArrayList<>();
 
                 if(WorkoutAssistorAssemblerClass.getInstance().isRestDay){
 
@@ -561,9 +556,13 @@ public class AssistorSavedActivity extends AppCompatActivity {
                     if(savedInstanceState == null) {
                         for (String item : assistorArrayList) {
                             list.add(item);
+                            if(isExerciseName(item)){
+                                exList.add(item);
+                            }
                         }
 
                         specificDate.setValue(list);
+                        completedExercises(exList);
 
                         if (privateJournalString != null) {
                             journalRef.setValue(privateJournalString);
@@ -594,6 +593,42 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
     void templateAlgorithmSetter(String exName){
 
+    }
+
+    void completedExercises(final List<String> exList){
+        final DatabaseReference exHistory = mRootRef.child("completed_exercises").child("uid");
+        exHistory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int inc = 0;
+                ArrayList<String> oldList = new ArrayList<String>();
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
+                    String value = dataSnapshot1.getValue(String.class);
+                    oldList.add(value);
+
+                    inc++;
+
+                    if(inc == dataSnapshot.getChildrenCount()){
+                        int inc2 = 0;
+                        for(String string : exList){
+                            if(!oldList.contains(string)){
+                                oldList.add(string);
+                            }
+                            inc2++;
+                            if(inc2 == exList.size()){
+                                exHistory.setValue(oldList);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     void daySpecificUploader(final ArrayList<String> arrayList){
