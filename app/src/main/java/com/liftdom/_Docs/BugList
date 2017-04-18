@@ -21,7 +21,7 @@
 **DONE** chart adding duplicate item
 **DONE** adding different items sequentially only re-adds original item, without adding second item
 **DONE** only show items that user has done
-
+**DONE** add activity level multiplier
 
 reminder about skipping via arrows (ex library for example)
 
@@ -37,7 +37,7 @@ possibly unlock features with high reps
 
 check backstack for everything. (profile info, confirmed pages)
 
-fix cal calc labels & add activity level multiplier
+fix cal calc labels
 
 disable decimal on pounds/units
 
