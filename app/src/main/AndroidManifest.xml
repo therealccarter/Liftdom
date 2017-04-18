@@ -50,8 +50,6 @@
         </activity>
         <activity android:name="com.liftdom.user_profile.CurrentUserProfile">
         </activity>
-        <activity android:name="com.liftdom.user_profile.WorkoutHistoryActivity">
-        </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExercisePickerActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
