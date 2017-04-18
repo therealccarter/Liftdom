@@ -69,6 +69,23 @@ public class CalorieCalcFrag extends Fragment {
 
         DatabaseReference settingsRef = mRootRef.child("users").child(uid);
 
+        List<String> activityLevels = new ArrayList<String>();
+        activityLevels.add("No Exercise");
+        activityLevels.add("Light Exercise");
+        activityLevels.add("Moderate Exercise");
+        activityLevels.add("Heavy Exercise");
+        activityLevels.add("Extreme Exercise");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_style_new_2,
+                activityLevels);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        activityLevelSpinner.setAdapter(dataAdapter);
+
         if(savedInstanceState == null){
 
             settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -141,14 +158,16 @@ public class CalorieCalcFrag extends Fragment {
                     sex = "female";
                 }
 
-                setUpCalCalcClass();
+                int spinnerPosition = activityLevelSpinner.getSelectedItemPosition();
+
+                setUpCalCalcClass(spinnerPosition);
             }
         });
 
         return view;
     }
 
-    public void setUpCalCalcClass(){
+    public void setUpCalCalcClass(int spinnerPosition){
         boolean isMale = false;
         if(sex.equals("male")){
             isMale = true;
@@ -167,8 +186,6 @@ public class CalorieCalcFrag extends Fragment {
         }else{
             weightKg = bodyWeight;
         }
-
-        int spinnerPosition = 0;
 
         CalorieCalculatorClass calCalcClass = new CalorieCalculatorClass(
                 age, isMale, heightCm, weightKg, spinnerPosition

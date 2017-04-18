@@ -26,7 +26,7 @@ public class CalorieCalculatorClass {
     public void buildDataSetsMet(int age, Boolean isMale, double heightCm, double weight,
                                  int spinnerPosition){
 
-        double bmrInitial = bmrInitialCalcMet(age, isMale, weight, heightCm);
+        double bmrInitial = bmrInitialCalcMet(age, isMale, weight, heightCm, spinnerPosition);
 
         ValueAndCaloriesObect vACO1 = new ValueAndCaloriesObect();
         //vACO1.setDietType("Lose 2lbs/week");
@@ -60,13 +60,25 @@ public class CalorieCalculatorClass {
 
     }
 
-    private double bmrInitialCalcMet(int age, Boolean isMale, double height, double weight){
+    private double bmrInitialCalcMet(int age, Boolean isMale, double height, double weight, int spinnerPosition){
         double bmr = 0;
 
         if(isMale){
             bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
         }else{
             bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+        }
+
+        bmr = bmr - 300;
+
+        if(spinnerPosition == 1){
+            bmr = bmr * 1.2;
+        }else if(spinnerPosition == 2){
+            bmr = bmr * 1.5;
+        }else if(spinnerPosition == 3){
+            bmr = bmr * 1.8;
+        }else if(spinnerPosition == 4){
+            bmr = bmr * 2.0;
         }
 
         return bmr;
