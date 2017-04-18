@@ -16,6 +16,7 @@
 **DONE** fix bmi calc
 **DONE** push pull legs not uploading
 **DONE** look for saving activities and add a prompt for discard
+**DONE** make items list in chart
 
 
 reminder about skipping via arrows (ex library for example)
@@ -39,8 +40,6 @@ fix cal calc labels & add activity level multiplier
 disable decimal on pounds/units
 
 make mode radio button chart
-
-make items list in chart
 
 add titles
 

@@ -61,6 +61,7 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                setResult(1);
                 finish();
             }
         });

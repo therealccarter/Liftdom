@@ -413,13 +413,16 @@
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
 
-    <string name="graphing">Choose item(s) to graph:\u0020</string>
+    <string name="graphing">Choose item(s) to graph\u0020</string>
     <string name="mode">Choose data mode:\u0020</string>
+    <string name="totalPoundage">Total weight lifted</string>
+    <string name="maxWeightLifted">Max weight lifted</string>
     <string name="reloadChart">Reload Chart</string>
     <string name="clearChart">Clear Chart</string>
 
     <string name="calorieChart">Calorie Calculation Chart</string>
     <string name="historyChart">Exercise History Chart</string>
+    <string name="items">Items:\u0020</string>
     <string name="bmiTitle">Body Mass Index Calculator</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>

@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
@@ -40,7 +44,9 @@ public class StatChartsFrag extends Fragment {
 
     @BindView(R.id.lineChart) LineChart lineChart;
     @BindView(R.id.graphingSelectorButton) Button graphingSelector;
-    @BindView(R.id.modeSelectorButton) Button modeSelector;
+    @BindView(R.id.overallRadioButton) RadioButton overallRadioButton;
+    @BindView(R.id.maxWeightRadioButton) RadioButton maxWeightRadioButton;
+    @BindView(R.id.itemsBeingGraphed) TextView itemsTextView;
     @BindView(R.id.reloadChartButton) Button reloadChart;
     @BindView(R.id.clearChartButton) Button clearChart;
 
@@ -54,15 +60,10 @@ public class StatChartsFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
-        //SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
-        //exerciseChartClass.getValueList("Barbell Row", StatChartsFrag.this);
-
-
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -72,6 +73,7 @@ public class StatChartsFrag extends Fragment {
                 ExSelectorSingleton.getInstance().clearArrayLists();
                 lineChart.clear();
                 dataSets.clear();
+                itemsTextView.setText("");
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -90,7 +92,7 @@ public class StatChartsFrag extends Fragment {
 
                 ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
                 ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
-                ArrayList<String> fullBodyItems = ExSelectorSingleton.getInstance().otherItems;
+                ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
 
                 for(String itemName : upperBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
@@ -98,7 +100,7 @@ public class StatChartsFrag extends Fragment {
                 }for(String itemName : lowerBodyItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
-                }for(String itemName : fullBodyItems){
+                }for(String itemName : otherItems){
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
                 }
@@ -107,6 +109,45 @@ public class StatChartsFrag extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(requestCode == 1){
+                String exNames = "";
+
+                ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
+                ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
+                ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
+
+                for(String string : upperBodyItems){
+                    if(string != null){
+                        exNames = exNames + string + "\n";
+                    }
+                }
+                for(String string : lowerBodyItems){
+                    if(string != null){
+                        exNames = exNames + string + "\n";
+                    }
+                }
+                for(String string : otherItems){
+                    if(string != null){
+                        exNames = exNames + string + "\n";
+                    }
+                }
+
+                TextView textView = (TextView) getView().findViewById(R.id.itemsBeingGraphed);
+
+                try{
+                    textView.setText(exNames);
+                } catch (NullPointerException e){
+
+                }
+        }
+    }
+
 
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
         List<Entry> entries = new ArrayList<Entry>();
