@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey1"
+        android:background="@color/grey"
         tools:context="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog">
 
     <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/grey"
         >
             <LinearLayout
                     android:layout_width="match_parent"
@@ -46,8 +46,8 @@
             </LinearLayout>
 
             <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:id="@+id/closeButton"
                     android:text="@string/close"
                     android:background="@color/black"

@@ -3,16 +3,17 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:background="@color/grey"
+              android:background="@color/white"
              tools:context="com.liftdom.user_profile.calendar_stuff.PastDateRepsWeightFrag">
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:text="@string/elipses"
             android:id="@+id/repsWeightTextView"
+            android:layout_marginStart="10dp"
     />
 
 </LinearLayout>

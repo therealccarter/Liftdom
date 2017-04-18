@@ -35,7 +35,30 @@ public class PastDateRepsWeightFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        repsWeightTextView.setText(repsWeight);
+        String delims = "[@]";
+
+        String[] tokens = repsWeight.split(delims);
+
+
+
+        //TODO: kg if kg
+        try{
+
+            String formattedText;
+
+            if(tokens[1].equals("B.W.")){
+                 formattedText  = tokens[0] + " reps @ " + tokens[1];
+            }else {
+                formattedText  = tokens[0] + " reps @ " + tokens[1] + " lbs";
+            }
+            repsWeightTextView.setText(formattedText);
+
+        } catch (IndexOutOfBoundsException e){
+            repsWeightTextView.setText(repsWeight);
+        }
+
+
+
 
         return view;
     }

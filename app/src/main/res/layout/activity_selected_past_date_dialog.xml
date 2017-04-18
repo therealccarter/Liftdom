@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey1"
+        android:background="@color/grey"
         tools:context="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog">
 
     <TextView
@@ -21,6 +21,7 @@
             android:paddingStart="15dp"
             android:layout_marginStart="70dp"
             android:id="@+id/selectedDateView"
+            android:layout_marginBottom="10dp"
     />
 
     <ScrollView
@@ -34,7 +35,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/grey"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
         >
             <LinearLayout
                     android:layout_width="match_parent"
@@ -46,8 +49,8 @@
             </LinearLayout>
 
             <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:id="@+id/closeButton"
                     android:text="@string/close"
                     android:background="@color/black"
@@ -57,9 +60,6 @@
             />
 
         </LinearLayout>
-
-
-
 
     </ScrollView>
 
