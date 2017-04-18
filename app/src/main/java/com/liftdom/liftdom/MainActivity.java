@@ -1,6 +1,7 @@
 package com.liftdom.liftdom;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String username = "failed";
 
     // butterknife
-    //@BindView(R.id.mainActivityTitle) TextView mainActivityTitle;
+    @BindView(R.id.title) TextView title;
 
     //DatabaseReference mRootRef;
     //String uid;
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        title.setTypeface(lobster);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
