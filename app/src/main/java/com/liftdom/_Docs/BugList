@@ -23,7 +23,6 @@ figure out a way around the super long toasts on editing
 
 ============ Non-fatal ================
 
-check backstack for everything. (profile info, confirmed pages)
 
 =========================================================
 
@@ -83,7 +82,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** fix cal calc labels
 **DONE** p/p/l monday lateral raise gives 0lbs
 **DONE** make keyboard thing go down
-**DONE**
+**DONE** check backstack for everything. (profile info, confirmed pages)
 **DONE**
 **DONE**
 **DONE**
