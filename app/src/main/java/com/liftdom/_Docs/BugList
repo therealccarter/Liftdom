@@ -13,6 +13,8 @@ templates sort by date
 make history chart load overall on create / make separate overall history chart
 
 reminder about skipping via arrows (ex library for example)
+    * We could actually do this fairly easily. Convert dialog activity to frag,
+        then replace on arrow click.
 
 need to implement unit switching
 
