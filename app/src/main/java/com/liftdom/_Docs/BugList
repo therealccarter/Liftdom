@@ -21,8 +21,6 @@ disable decimal on pounds/units
 
 make history chart load overall on create / make separate overall history chart
 
-p/p/l monday lateral raise gives 0lbs
-
 make welcome screen that sets basic user values
 
 begin bottom navigation
@@ -84,7 +82,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** add titles
 **DONE** make tools load on create
 **DONE** fix cal calc labels
-**DONE**
+**DONE** p/p/l monday lateral raise gives 0lbs
 **DONE**
 **DONE**
 **DONE**

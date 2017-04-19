@@ -131,6 +131,7 @@ public class MyTemplatesFrag extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.getValue() != null) {
+                                int inc = 0;
                                 for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
                                     //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
 

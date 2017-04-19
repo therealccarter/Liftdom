@@ -51,7 +51,7 @@ public class PPLClass {
         PushA.add("5 x 10 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .25)));
 
         PushA.add("Lateral Raise (Dumbbell)");
-        PushA.add("3 x 20 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .05)));
+        PushA.add("3 x 20 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .07)));
 
         //PUSH B ============================================================
         PushB.add("Overhead Press (Barbell)");
@@ -64,7 +64,7 @@ public class PPLClass {
         PushB.add("5 x 12 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .25)));
 
         PushB.add("Lateral Raise (Dumbbell - Bent-over)");
-        PushB.add("3 x 20 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .05)));
+        PushB.add("3 x 20 @ " + " " + String.valueOf(getRoundedPercent(Integer.parseInt(BenchMax), .07)));
     }
 
     private void constructPull(){
@@ -135,7 +135,11 @@ public class PPLClass {
 
         PlateRounderClass rounderClass = new PlateRounderClass(newNum);
 
-        return rounderClass.getNewWeight();
+        if(rounderClass.getNewWeight() == 0){
+            return 10;
+        }else{
+            return rounderClass.getNewWeight();
+        }
     }
 
     public ArrayList<String> getPushA(){
