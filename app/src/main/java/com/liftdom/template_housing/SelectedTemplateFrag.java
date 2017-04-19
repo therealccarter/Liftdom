@@ -224,10 +224,25 @@ public class SelectedTemplateFrag extends Fragment {
                                 // if this button is clicked, close
                                 // current activity
                                 DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                                final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                        ("active_template");
 
                                 selectedTemplateRef.setValue(null);
-                                activeTemplateRef.setValue(null);
+                                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String value = dataSnapshot.getValue(String.class);
+                                        if(value.equals(templateName)){
+                                            activeTemplateRef.setValue(null);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
 
                                 //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
