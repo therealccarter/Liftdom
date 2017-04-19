@@ -95,12 +95,10 @@ public class SpecificExerciseChartClass {
                                             SpecificExerciseValueList.add(valueAndDateObject);
                                         }
 
-                                        // despite the incrementer being at the right amount, we're only getting
-                                        // the first date, 2-14-2017...
                                         if (incrementor == childrenCount) {
                                             Log.i("info", "inc == childrenCount");
                                             if (!SpecificExerciseValueList.isEmpty()) {
-                                                statChartsFrag.valueConverter(SpecificExerciseValueList,exName);
+                                                statChartsFrag.valueConverter(SpecificExerciseValueList, exName, true);
                                                 Log.i("info", "completed!");
                                             } else {
                                                 Log.i("info", "empty");
@@ -109,15 +107,17 @@ public class SpecificExerciseChartClass {
                                     } else {
                                         // ...or the max weight lifted.
                                         double maxExWeight = getMaxExerciseWeight(exValueArrayList);
-                                        ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
-                                        valueAndDateObject.setDate(key);
-                                        valueAndDateObject.setValue(maxExWeight);
 
-                                        SpecificExerciseValueList.add(valueAndDateObject);
+                                        if(maxExWeight != 0.0) {
+                                            ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
+                                            valueAndDateObject.setDate(key1);
+                                            valueAndDateObject.setValue(maxExWeight);
+                                            SpecificExerciseValueList.add(valueAndDateObject);
+                                        }
 
                                         if (incrementor == childrenCount) {
                                             if (!SpecificExerciseValueList.isEmpty()) {
-                                                statChartsFrag.valueConverter(SpecificExerciseValueList, exName);
+                                                statChartsFrag.valueConverter(SpecificExerciseValueList, exName, false);
                                                 Log.i("info", "completed!");
                                             } else {
                                                 Log.i("info", "empty");

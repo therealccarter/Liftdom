@@ -187,7 +187,8 @@ public class StatChartsFrag extends Fragment {
     }
 
 
-    public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName){
+    public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
+            isOverall){
         List<Entry> entries = new ArrayList<Entry>();
 
         ArrayList<String> datesStrings = new ArrayList<>();
@@ -215,7 +216,7 @@ public class StatChartsFrag extends Fragment {
                 ++inc;
 
                 if(inc == valueAndDateArrayList.size()){
-                    lineDataCreator(entries, reference_timestamp, exName);
+                    lineDataCreator(entries, reference_timestamp, exName, isOverall);
                 }
             }
 
@@ -224,7 +225,7 @@ public class StatChartsFrag extends Fragment {
     }
 
 
-    public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName){
+    public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall){
 
         ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
 
@@ -234,11 +235,35 @@ public class StatChartsFrag extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(75);
         xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
-        xAxis.setAxisMaximum(1514848380000f - (float) reference_timestamp); // january 2018
+        DateTime now = DateTime.now();
+        DateTime plusMonth = now.plusMonths(1);
+        long millies = plusMonth.getMillis();
+        xAxis.setAxisMaximum((float) millies - (float) reference_timestamp);
 
         // y-axis stuff
         YAxis rightAxis = lineChart.getAxisRight();
         rightAxis.setDrawLabels(false);
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        if(!isOverall){
+            float highest = 0;
+            float lowest = 0;
+            for(Entry entry : entries){
+                float yValue = entry.getY();
+                if(yValue > highest){
+                    highest = yValue;
+                }
+                if(lowest == 0){
+                    lowest = yValue;
+                }else{
+                    if(yValue < lowest){
+                        lowest = yValue;
+                    }
+                }
+            }
+            leftAxis.setAxisMaximum(highest + 15);
+            leftAxis.setAxisMinimum(lowest - 10);
+        }
 
         // legend stuff
         Legend legend = lineChart.getLegend();
@@ -246,7 +271,7 @@ public class StatChartsFrag extends Fragment {
         legend.setDrawInside(true);
 
         LineDataSet dataSet = new LineDataSet(entries, exName);
-        dataSet.setColor(Color.BLACK);
+        //dataSet.setColor(Color.BLACK);
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setCircleColor(Color.parseColor("#D1B91D"));
 
