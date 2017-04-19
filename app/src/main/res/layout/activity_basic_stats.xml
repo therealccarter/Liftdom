@@ -116,6 +116,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/bodyWeightEditText"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView
@@ -162,6 +163,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/heightFeet"
                         android:inputType="number"
+                        android:imeOptions="actionNext"
                 />
 
                 <TextView
@@ -182,6 +184,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/heightInches"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView
@@ -229,6 +232,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/ageYears"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView
@@ -339,6 +343,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/benchPress1rm"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView
@@ -385,6 +390,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/squat1rm"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView
@@ -431,6 +437,7 @@
                         android:paddingTop="5dp"
                         android:id="@+id/deadlift1rm"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                 />
 
                 <TextView

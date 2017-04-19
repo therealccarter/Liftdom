@@ -29,6 +29,7 @@
                 android:textColorHint="@color/grey"
                 android:hint="@string/templateNameHint"
                 android:background="@color/backgroundgrey1"
+                android:imeOptions="actionDone"
         />
 
 

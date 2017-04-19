@@ -85,6 +85,7 @@
                         android:layout_marginStart="5dp"
                         android:hint="Private Workout Journal"
                         android:id="@+id/privateJournal"
+                        android:imeOptions="actionDone"
                 />
 
                 <Button

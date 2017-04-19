@@ -92,6 +92,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:inputType="number"
+                            android:imeOptions="actionDone"
                     />
 
                     <TextView
@@ -130,6 +131,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:inputType="number"
+                            android:imeOptions="actionDone"
                     />
 
                     <TextView
@@ -168,6 +170,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:inputType="number"
+                            android:imeOptions="actionDone"
                     />
 
                     <TextView

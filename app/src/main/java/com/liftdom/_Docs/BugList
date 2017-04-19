@@ -1,16 +1,25 @@
 
            ========================================================
-=============================== BUG LIST ========================================
+=============================== BUG/IMMEDIATE TO-DO LIST =============================
            ========================================================
 
+============ Short-term TO-DO ================
+make welcome screen that sets basic user values
 
-============ Non-fatal ================
+begin bottom navigation
+
+templates sort by date
+
+make history chart load overall on create / make separate overall history chart
+
 reminder about skipping via arrows (ex library for example)
 
 need to implement unit switching
 
 look into switching to snackbars
 
+
+============ Non-fatal ================
 figure out a way around the super long toasts on editing
 
 make keyboard thing go down
@@ -19,13 +28,6 @@ check backstack for everything. (profile info, confirmed pages)
 
 disable decimal on pounds/units
 
-make history chart load overall on create / make separate overall history chart
-
-make welcome screen that sets basic user values
-
-begin bottom navigation
-
-templates sort by date
 =========================================================
 
 ============ Fatal ===============

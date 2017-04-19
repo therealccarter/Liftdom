@@ -106,6 +106,7 @@
                             android:inputType="number"
                             android:textColor="@color/black"
                             android:textSize="22sp"
+                            android:imeOptions="actionDone"
                     />
 
 
