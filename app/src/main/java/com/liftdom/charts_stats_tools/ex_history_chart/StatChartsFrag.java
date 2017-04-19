@@ -64,7 +64,7 @@ public class StatChartsFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         overallRadioButton.setChecked(true);
-        itemsTextView.setVisibility(View.GONE);
+
 
         DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid);
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -96,7 +96,7 @@ public class StatChartsFrag extends Fragment {
                 lineChart.clear();
                 dataSets.clear();
                 itemsTextView.setText("");
-                itemsTextView.setVisibility(View.GONE);
+
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -173,10 +173,6 @@ public class StatChartsFrag extends Fragment {
             }
 
             TextView textView = (TextView) getView().findViewById(R.id.itemsBeingGraphed);
-
-            if(!exNames.equals("")){
-                textView.setVisibility(View.VISIBLE);
-            }
 
             try{
                 textView.setText(exNames);
