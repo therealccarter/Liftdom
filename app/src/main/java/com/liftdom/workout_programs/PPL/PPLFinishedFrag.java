@@ -159,6 +159,14 @@ public class PPLFinishedFrag extends Fragment {
 
                     try{
                         if(key.substring(0,12).equals("PushPullLegs")){
+
+                            try{
+                                String pplStringInc = key.substring(12, key.length());
+                                int pplNew = Integer.parseInt(pplStringInc);
+                                pplInc = pplNew;
+                            } catch (NumberFormatException e){
+
+                            }
                             pplInc++;
                         }
                     } catch (StringIndexOutOfBoundsException e){
