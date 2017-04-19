@@ -19,15 +19,15 @@ public class CalCalcStringFormatter implements IAxisValueFormatter {
 
         int positionInt = (int) position;
 
-        if(positionInt == 0){
+        if(positionInt == 1){
             title = "Lose 2lbs/week";
-        }else if(positionInt == 1){
-            title = "Lose 1lb/week";
         }else if(positionInt == 2){
-            title = "Maintenance";
+            title = "Lose 1lb/week";
         }else if(positionInt == 3){
-            title = "Gain 1lb/week";
+            title = "Maintenance";
         }else if(positionInt == 4){
+            title = "Gain 1lb/week";
+        }else if(positionInt == 5){
             title = "Gain 2lbs/week";
         }
 

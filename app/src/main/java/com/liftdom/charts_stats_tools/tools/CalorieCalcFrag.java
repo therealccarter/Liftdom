@@ -229,7 +229,6 @@ public class CalorieCalcFrag extends Fragment {
         }
     }
 
-    //TODO: extra x-axis value added for some reason
 
     public void barDataCreator(List<BarEntry> entries){
         CalCalcStringFormatter stringFormatter = new CalCalcStringFormatter();
@@ -238,6 +237,7 @@ public class CalorieCalcFrag extends Fragment {
         xAxis.setValueFormatter(stringFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(60);
+        xAxis.setAxisMinimum(1);
 
         // y-axis stuff
         YAxis rightAxis = barChart.getAxisRight();

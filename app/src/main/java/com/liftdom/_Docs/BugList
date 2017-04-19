@@ -17,8 +17,6 @@ make keyboard thing go down
 
 check backstack for everything. (profile info, confirmed pages)
 
-fix cal calc labels
-
 disable decimal on pounds/units
 
 make history chart load overall on create / make separate overall history chart
@@ -28,6 +26,8 @@ p/p/l monday lateral raise gives 0lbs
 make welcome screen that sets basic user values
 
 begin bottom navigation
+
+templates sort by date
 =========================================================
 
 ============ Fatal ===============
@@ -83,7 +83,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** add activity level multiplier
 **DONE** add titles
 **DONE** make tools load on create
-**DONE**
+**DONE** fix cal calc labels
 **DONE**
 **DONE**
 **DONE**
