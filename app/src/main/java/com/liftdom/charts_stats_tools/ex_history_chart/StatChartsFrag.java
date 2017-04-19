@@ -63,7 +63,7 @@ public class StatChartsFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        overallRadioButton.setChecked(true);
+        maxWeightRadioButton.setChecked(true);
 
 
         DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid);
@@ -98,6 +98,7 @@ public class StatChartsFrag extends Fragment {
                 itemsTextView.setText("");
                 highest = 0;
                 lowest = 0;
+                itemsTextView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -178,6 +179,7 @@ public class StatChartsFrag extends Fragment {
 
             try{
                 textView.setText(exNames);
+                textView.setBackgroundColor(Color.parseColor("#cccccc"));
             } catch (NullPointerException e){
 
             }

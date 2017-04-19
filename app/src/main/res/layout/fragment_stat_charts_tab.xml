@@ -64,7 +64,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-
             />
 
             <Button
@@ -104,20 +103,20 @@
                     <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/totalPoundage"
+                            android:text="@string/maxWeightLifted"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_marginEnd="20dp"
-                            android:id="@+id/overallRadioButton"
+                            android:id="@+id/maxWeightRadioButton"
                     />
 
                     <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/maxWeightLifted"
+                            android:text="@string/totalPoundage"
                             android:textSize="16sp"
                             android:textColor="@color/black"
-                            android:id="@+id/maxWeightRadioButton"
+                            android:id="@+id/overallRadioButton"
                     />
 
                 </RadioGroup>
@@ -157,8 +156,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/itemsBeingGraphed"
-                    android:background="@color/grey"
-                    android:textColor="@color/white"
+                    android:background="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="17sp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
