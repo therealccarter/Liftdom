@@ -90,7 +90,6 @@ public class PPLSetupFrag extends Fragment {
                 }
                 fragmentTransaction.replace(R.id.pplFragHolder, pplFinishedFrag);
                 fragmentTransaction.commitAllowingStateLoss();
-                fragmentTransaction.addToBackStack(null);
             }
         });
 

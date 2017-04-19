@@ -126,8 +126,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_editor);
 
-        //TODO: Edit template adds setScheme from other exercise...
-
         final DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW1);
 

@@ -79,7 +79,6 @@ public class SmolovSetupFrag extends Fragment {
                 }
                 fragmentTransaction.replace(R.id.smolovFragHolder, smolovFinishedFrag);
                 fragmentTransaction.commitAllowingStateLoss();
-                fragmentTransaction.addToBackStack(null);
             }
         });
 

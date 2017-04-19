@@ -18,13 +18,12 @@ need to implement unit switching
 
 look into switching to snackbars
 
-
-============ Non-fatal ================
 figure out a way around the super long toasts on editing
 
-check backstack for everything. (profile info, confirmed pages)
 
-disable decimal on pounds/units
+============ Non-fatal ================
+
+check backstack for everything. (profile info, confirmed pages)
 
 =========================================================
 
