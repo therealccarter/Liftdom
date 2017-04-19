@@ -96,6 +96,8 @@ public class StatChartsFrag extends Fragment {
                 lineChart.clear();
                 dataSets.clear();
                 itemsTextView.setText("");
+                highest = 0;
+                lowest = 0;
 
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -220,6 +222,9 @@ public class StatChartsFrag extends Fragment {
 
     }
 
+    float highest = 0;
+    float lowest = 0;
+
 
     public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall){
 
@@ -242,8 +247,6 @@ public class StatChartsFrag extends Fragment {
 
         YAxis leftAxis = lineChart.getAxisLeft();
         if(!isOverall){
-            float highest = 0;
-            float lowest = 0;
             for(Entry entry : entries){
                 float yValue = entry.getY();
                 if(yValue > highest){
@@ -257,8 +260,6 @@ public class StatChartsFrag extends Fragment {
                     }
                 }
             }
-            leftAxis.setAxisMaximum(highest + 15);
-            leftAxis.setAxisMinimum(lowest - 10);
         }
 
         // legend stuff
@@ -277,6 +278,15 @@ public class StatChartsFrag extends Fragment {
 
         if(dataSets.size() == getItemCount()){
             setLineChart();
+            if(!isOverall){
+                if(dataSets.size() == 1){
+                    leftAxis.setAxisMaximum(highest + 15);
+                    leftAxis.setAxisMinimum(lowest - 10);
+                }else{
+                    leftAxis.setAxisMaximum(highest + 55);
+                    leftAxis.setAxisMinimum(lowest - 50);
+                }
+            }
         }
 
     }
