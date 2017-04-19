@@ -16,13 +16,7 @@ reminder about skipping via arrows (ex library for example)
 
 need to implement unit switching
 
-look into switching to snackbars
-
-figure out a way around the super long toasts on editing
-
-
 ============ Non-fatal ================
-
 
 =========================================================
 
@@ -83,7 +77,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** p/p/l monday lateral raise gives 0lbs
 **DONE** make keyboard thing go down
 **DONE** check backstack for everything. (profile info, confirmed pages)
-**DONE**
+**DONE** look into switching to snackbars
 **DONE**
 **DONE**
 **DONE**

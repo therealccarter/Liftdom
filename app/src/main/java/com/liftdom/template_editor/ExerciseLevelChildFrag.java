@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,11 +158,15 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 fragmentTransaction.commit();
                 fragmentManager.executePendingTransactions();
 
-                CharSequence toastText = "(+) Set-scheme added";
+                CharSequence toastText = "Set-scheme Added";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                toast.show();
+                try{
+                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
             }
         });
 
@@ -175,11 +180,15 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     --fragIdCount2;
                 }
 
-                CharSequence toastText = "(-) Set-scheme removed";
+                CharSequence toastText = "Set-scheme Removed";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                toast.show();
+                try{
+                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
             }
         });
 

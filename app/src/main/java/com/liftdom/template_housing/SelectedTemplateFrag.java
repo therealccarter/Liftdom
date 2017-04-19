@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -317,19 +318,28 @@ public class SelectedTemplateFrag extends Fragment {
                     });
 
                     activeTemplateRef.setValue(templateName);
-                    CharSequence toastText = "(+) Set as Active Template";
+                    CharSequence toastText = "Set as Active Template";
                     int duration = Toast.LENGTH_SHORT;
+                    try{
+                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                        snackbar.show();
+                    } catch (NullPointerException e){
 
-                    Toast toast = Toast.makeText(getContext(), toastText, duration);
-                    toast.show();
+                    }
+
+
                 } else if(!isChecked){
                     activeTemplateRef.setValue(null);
 
-                    CharSequence toastText = "(-) Unselected as Active Template";
+                    CharSequence toastText = "Unselected as Active Template";
                     int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(getContext(), toastText, duration);
-                    toast.show();
+                    try{
+                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                        snackbar.show();
+                    } catch (NullPointerException e){
+
+                    }
                 }
             }
         });

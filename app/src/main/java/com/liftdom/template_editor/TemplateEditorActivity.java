@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -509,11 +510,15 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 }
 
 
-                CharSequence toastText = "(+) Day-set added";
+                CharSequence toastText = "Day-set Added";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
-                toast.show();
+                try{
+                    Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
 
 
             }
@@ -531,10 +536,14 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 String fragString = Integer.toString(fragIdCount);
 
                 if(fragIdCount != 1) {
-                    CharSequence toastText = "(-) Day-set removed";
+                    CharSequence toastText = "Day-set Removed";
                     int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getApplicationContext(), toastText, duration);
-                    toast.show();
+                    try{
+                        Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
+                        snackbar.show();
+                    } catch (NullPointerException e){
+
+                    }
                 }
 
 

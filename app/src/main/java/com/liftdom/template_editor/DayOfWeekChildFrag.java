@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -256,11 +257,15 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                 fragmentTransaction.commit();
 
-                CharSequence toastText = "(+) Exercise added";
+                CharSequence toastText = "Exercise Added";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                toast.show();
+                try{
+                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
             }
         });
 
@@ -274,11 +279,15 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                     --fragIdCount1;
                 }
 
-                CharSequence toastText = "(-) Exercise removed";
+                CharSequence toastText = "Exercise Removed";
                 int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                toast.show();
+                try{
+                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
             }
         });
 
