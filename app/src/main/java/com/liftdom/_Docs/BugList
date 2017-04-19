@@ -22,8 +22,6 @@ look into switching to snackbars
 ============ Non-fatal ================
 figure out a way around the super long toasts on editing
 
-make keyboard thing go down
-
 check backstack for everything. (profile info, confirmed pages)
 
 disable decimal on pounds/units
@@ -85,7 +83,7 @@ java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
 **DONE** make tools load on create
 **DONE** fix cal calc labels
 **DONE** p/p/l monday lateral raise gives 0lbs
-**DONE**
+**DONE** make keyboard thing go down
 **DONE**
 **DONE**
 **DONE**
