@@ -467,6 +467,8 @@
     <string name="weightColon">Weight:\u0020</string>
     <string name="activityLevel">Activity level:\u0020</string>
 
+    <string name="privateJournal">Private Journal</string>
+
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>
     <string name="cancel">CANCEL</string>
