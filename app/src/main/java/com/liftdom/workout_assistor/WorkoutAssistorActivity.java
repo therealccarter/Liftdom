@@ -3,6 +3,7 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -715,6 +716,24 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                         });
 
                                     } else {
+
+                                        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid)
+                                                .child("active_template");
+                                        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                String value = dataSnapshot.getValue(String.class);
+                                                if(value != null){
+                                                    currentTemplateView.setText(value);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
                                         FragmentManager fragmentManager = getSupportFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager
                                                 .beginTransaction();
@@ -999,6 +1018,24 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                     });
 
                                 } else {
+
+                                    DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid)
+                                            .child("active_template");
+                                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String value = dataSnapshot.getValue(String.class);
+                                            if(value != null){
+                                                currentTemplateView.setText(value);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
                                     FragmentManager fragmentManager = getSupportFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager
                                             .beginTransaction();
@@ -1050,22 +1087,26 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                String delims = "[_]";
-
-                String[] tokens1 = value.split(delims);
-
-                LocalDate localDate = LocalDate.now();
-                LocalDate convertedDate = new LocalDate(tokens1[1]);
-
-                // (isEditing, isDate)
-                // (false, true) = workout has been finished - do nothing
-                // (true, true) = workout is being edited - do nothing
-                // (false, false) = workout has not been finished - set to (true, true)
-                // (true, false) = yesterday's workout not finished - set to (true, true)
-                if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                if(value == null){
                     runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-                }else if(Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)){
-                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                } else{
+                    String delims = "[_]";
+
+                    String[] tokens1 = value.split(delims);
+
+                    LocalDate localDate = LocalDate.now();
+                    LocalDate convertedDate = new LocalDate(tokens1[1]);
+
+                    // (isEditing, isDate)
+                    // (false, true) = workout has been finished - do nothing
+                    // (true, true) = workout is being edited - do nothing
+                    // (false, false) = workout has not been finished - set to (true, true)
+                    // (true, false) = yesterday's workout not finished - set to (true, true)
+                    if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                        runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                    }else if(Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)){
+                        runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                    }
                 }
             }
 
