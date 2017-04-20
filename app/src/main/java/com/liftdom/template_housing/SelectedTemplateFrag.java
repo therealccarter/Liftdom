@@ -233,9 +233,12 @@ public class SelectedTemplateFrag extends Fragment {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         String value = dataSnapshot.getValue(String.class);
-                                        if(value.equals(templateName)){
-                                            activeTemplateRef.setValue(null);
+                                        if(value != null){
+                                            if(value.equals(templateName)){
+                                                activeTemplateRef.setValue(null);
+                                            }
                                         }
+
                                     }
 
                                     @Override
