@@ -124,6 +124,10 @@ public class StatChartsFrag extends Fragment {
                     isOverall = true;
                 }
 
+                YAxis leftAxis = lineChart.getAxisLeft();
+                leftAxis.resetAxisMaximum();
+                leftAxis.resetAxisMinimum();
+
                 ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
                 ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
                 ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
@@ -239,7 +243,7 @@ public class StatChartsFrag extends Fragment {
         xAxis.setLabelRotationAngle(75);
         xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
         DateTime now = DateTime.now();
-        DateTime plusMonth = now.plusMonths(1);
+        DateTime plusMonth = now.plusMonths(3);
         long millies = plusMonth.getMillis();
         xAxis.setAxisMaximum((float) millies - (float) reference_timestamp);
 
@@ -282,10 +286,10 @@ public class StatChartsFrag extends Fragment {
             setLineChart();
             if(!isOverall){
                 if(dataSets.size() == 1){
-                    leftAxis.setAxisMaximum(highest + 15);
-                    leftAxis.setAxisMinimum(lowest - 10);
+                    leftAxis.setAxisMaximum(highest + 25);
+                    leftAxis.setAxisMinimum(lowest - 20);
                 }else{
-                    leftAxis.setAxisMaximum(highest + 55);
+                    leftAxis.setAxisMaximum(highest + 75);
                     leftAxis.setAxisMinimum(lowest - 50);
                 }
             }
