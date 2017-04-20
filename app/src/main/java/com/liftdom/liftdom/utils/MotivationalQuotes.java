@@ -48,7 +48,7 @@ public class MotivationalQuotes {
                     "to move ahead, to go up, to achieve, to conquer. - Arnold Schwarzenegger",
             "If you're capable of sending a legible text message between sets, you probably aren't working hard " +
                     "enough. - Dave Tate",
-            "Don’t have $100.00 shoes and a 10 cent squat. – Louie Simmons",
+            "Don’t have $100.00 shoes and a 10 cent squat. - Louie Simmons",
             "Courage doesn’t always roar. Sometimes courage is the quiet voice at the end of the day saying, \"I will " +
                     "try again tomorrow.\" - Mary Anne Radmacher",
             "A champion is someone who gets up when they can’t. - Jack Dempsey",
@@ -56,7 +56,7 @@ public class MotivationalQuotes {
                     " I've trained with Olympic medal winners and I can assure you, they don't do anything mysterious, they just do the exercises better than we do. - Maik Weidenbach",
             "The road to nowhere is paved with excuses. - Mark Bell",
             "There is no such thing as over training, just under nutrition and under sleeping. - The Barbarian " +
-                    "brothers",
+                    "Brothers",
             "I don’t do this to be healthy, I do this to get big muscles. - Markus Ruhl",
             "I'm not sold on one diet philosophy. I'm sold on whatever will work for you. - Dave Tate",
             "Discipline is doing what you hate to do, but nonetheless doing it like you love it. - Mike Tyson",
