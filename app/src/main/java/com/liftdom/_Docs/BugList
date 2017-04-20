@@ -49,10 +49,6 @@ java.lang.IllegalStateException: Fragment has not been attached yet.
 java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.String.equals(java.lang.Object)' on a null object reference
                                  at com.liftdom.template_editor.TemplateEditorActivity$5.onDataChange(TemplateEditorActivity.java:318)
 
-// quote error
-java.lang.ArrayIndexOutOfBoundsException: length=1; index=1
-                                  at com.liftdom.template_housing.TemplateMenuFrag.onCreateView(TemplateMenuFrag.java:71)
-
 =========================================================
 
 ==============================================
