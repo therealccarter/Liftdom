@@ -45,13 +45,20 @@ public class StatChartsFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.lineChart) LineChart lineChart;
-    @BindView(R.id.graphingSelectorButton) Button graphingSelector;
-    @BindView(R.id.overallRadioButton) RadioButton overallRadioButton;
-    @BindView(R.id.maxWeightRadioButton) RadioButton maxWeightRadioButton;
-    @BindView(R.id.itemsBeingGraphed) TextView itemsTextView;
-    @BindView(R.id.reloadChartButton) Button reloadChart;
-    @BindView(R.id.clearChartButton) Button clearChart;
+    @BindView(R.id.lineChart)
+    LineChart lineChart;
+    @BindView(R.id.graphingSelectorButton)
+    Button graphingSelector;
+    @BindView(R.id.overallRadioButton)
+    RadioButton overallRadioButton;
+    @BindView(R.id.maxWeightRadioButton)
+    RadioButton maxWeightRadioButton;
+    @BindView(R.id.itemsBeingGraphed)
+    TextView itemsTextView;
+    @BindView(R.id.reloadChartButton)
+    Button reloadChart;
+    @BindView(R.id.clearChartButton)
+    Button clearChart;
 
     List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 
@@ -70,7 +77,7 @@ public class StatChartsFrag extends Fragment {
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String value = dataSnapshot1.getValue(String.class);
                     ExSelectorSingleton.getInstance().completedExercises.add(value);
                 }
@@ -120,7 +127,7 @@ public class StatChartsFrag extends Fragment {
 
                 boolean isOverall = false;
 
-                if(overallRadioButton.isChecked()){
+                if (overallRadioButton.isChecked()) {
                     isOverall = true;
                 }
 
@@ -132,15 +139,17 @@ public class StatChartsFrag extends Fragment {
                 ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
                 ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
 
-                for(String itemName : upperBodyItems){
+                for (String itemName : upperBodyItems) {
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
-                }for(String itemName : lowerBodyItems){
+                }
+                for (String itemName : lowerBodyItems) {
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
-                }for(String itemName : otherItems){
+                }
+                for (String itemName : otherItems) {
                     SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
                     exerciseChartClass.isOverall = isOverall;
                     exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
@@ -152,39 +161,38 @@ public class StatChartsFrag extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1){
+        if (requestCode == 1) {
             String exNames = "";
 
             ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
             ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
             ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
 
-            for(String string : upperBodyItems){
-                if(string != null){
+            for (String string : upperBodyItems) {
+                if (string != null) {
                     exNames = exNames + string + "\n";
                 }
             }
-            for(String string : lowerBodyItems){
-                if(string != null){
+            for (String string : lowerBodyItems) {
+                if (string != null) {
                     exNames = exNames + string + "\n";
                 }
             }
-            for(String string : otherItems){
-                if(string != null){
+            for (String string : otherItems) {
+                if (string != null) {
                     exNames = exNames + string + "\n";
                 }
             }
 
             TextView textView = (TextView) getView().findViewById(R.id.itemsBeingGraphed);
 
-            try{
+            try {
                 textView.setText(exNames);
                 textView.setBackgroundColor(Color.parseColor("#cccccc"));
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             }
         }
@@ -192,7 +200,7 @@ public class StatChartsFrag extends Fragment {
 
 
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
-            isOverall){
+            isOverall) {
         List<Entry> entries = new ArrayList<Entry>();
 
         ArrayList<String> datesStrings = new ArrayList<>();
@@ -201,25 +209,25 @@ public class StatChartsFrag extends Fragment {
 
         int inc = 0;
 
-        for(ValueAndDateObject data : valueAndDateArrayList){
+        for (ValueAndDateObject data : valueAndDateArrayList) {
 
-            if(!data.getValueX().equals("private_journal") && !data.getValueX().equals("restDay")){
+            if (!data.getValueX().equals("private_journal") && !data.getValueX().equals("restDay")) {
                 DateTime dateTime = new DateTime(data.getValueX());
                 Date date = dateTime.toDate();
 
                 long mills = date.getTime();
 
-                if(inc == 0){
+                if (inc == 0) {
                     reference_timestamp = mills;
                 }
 
                 float newStamp = mills - reference_timestamp;
 
-                entries.add(new Entry(newStamp, ((float)data.getValueY())));
+                entries.add(new Entry(newStamp, ((float) data.getValueY())));
 
                 ++inc;
 
-                if(inc == valueAndDateArrayList.size()){
+                if (inc == valueAndDateArrayList.size()) {
                     lineDataCreator(entries, reference_timestamp, exName, isOverall);
                 }
             }
@@ -232,7 +240,7 @@ public class StatChartsFrag extends Fragment {
     float lowest = 0;
 
 
-    public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall){
+    public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall) {
 
         ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
 
@@ -252,16 +260,16 @@ public class StatChartsFrag extends Fragment {
         rightAxis.setDrawLabels(false);
 
         YAxis leftAxis = lineChart.getAxisLeft();
-        if(!isOverall){
-            for(Entry entry : entries){
+        if (!isOverall) {
+            for (Entry entry : entries) {
                 float yValue = entry.getY();
-                if(yValue > highest){
+                if (yValue > highest) {
                     highest = yValue;
                 }
-                if(lowest == 0){
+                if (lowest == 0) {
                     lowest = yValue;
-                }else{
-                    if(yValue < lowest){
+                } else {
+                    if (yValue < lowest) {
                         lowest = yValue;
                     }
                 }
@@ -282,13 +290,13 @@ public class StatChartsFrag extends Fragment {
 
         dataSets.add(dataSet);
 
-        if(dataSets.size() == getItemCount()){
+        if (dataSets.size() == getItemCount()) {
             setLineChart();
-            if(!isOverall){
-                if(dataSets.size() == 1){
+            if (!isOverall) {
+                if (dataSets.size() == 1) {
                     leftAxis.setAxisMaximum(highest + 25);
                     leftAxis.setAxisMinimum(lowest - 20);
-                }else{
+                } else {
                     leftAxis.setAxisMaximum(highest + 75);
                     leftAxis.setAxisMinimum(lowest - 50);
                 }
@@ -298,23 +306,22 @@ public class StatChartsFrag extends Fragment {
     }
 
 
-
-    private void setLineChart(){
+    private void setLineChart() {
 
         LineData data = new LineData(dataSets);
 
         lineChart.setData(data);
 
         getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lineChart.invalidate();
-                    }
-                });
+            @Override
+            public void run() {
+                lineChart.invalidate();
+            }
+        });
 
     }
 
-    private int getItemCount(){
+    private int getItemCount() {
         int count = 0;
 
         count += ExSelectorSingleton.getInstance().upperBodyItems.size();
@@ -324,7 +331,7 @@ public class StatChartsFrag extends Fragment {
         return count;
     }
 
-    public long getCurrentDay(){
+    public long getCurrentDay() {
         float currentDateInMilli;
 
         long intermediate;
@@ -337,7 +344,7 @@ public class StatChartsFrag extends Fragment {
     }
 
     @Override
-    public void onDestroyView(){
+    public void onDestroyView() {
         super.onDestroyView();
 
         ExSelectorSingleton.getInstance().clearArrayLists();
