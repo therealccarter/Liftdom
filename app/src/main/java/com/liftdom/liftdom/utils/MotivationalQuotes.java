@@ -13,7 +13,7 @@ public class MotivationalQuotes {
             "Lift hard, live easy. - Brodin",
             "The way to get started is to quit talking and begin doing. - Walt Disney",
             "The pessimist sees difficulty in every opportunity. The optimist sees the opportunity in every " +
-                     "difficulty. - Winston Churchill",
+                    "difficulty. - Winston Churchill",
             "You learn more from failure than from success. Don’t let it stop you. Failure builds character. - Unknown",
             "Strength does not come from winning. Your struggles develop your strengths. When you go through " +
                     "hardships and decide not to surrender, that is strength. - Arnold Schwarzenegger",
@@ -90,8 +90,8 @@ public class MotivationalQuotes {
             "The question isn’t who is going to let me; it’s who is going to stop me. - Ayn Rand",
     };
 
-    public String[] getQuote(){
-        int random = (int)(Math.random() * quotes.length);
+    public String[] getQuote() {
+        int random = (int) (Math.random() * quotes.length);
 
         String quoteUnSplit = quotes[random];
 
@@ -101,8 +101,6 @@ public class MotivationalQuotes {
 
         return quoteArray;
     }
-
-
 
 
 }
