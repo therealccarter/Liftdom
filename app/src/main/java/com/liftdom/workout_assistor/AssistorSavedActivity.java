@@ -224,10 +224,12 @@ public class AssistorSavedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                if(value.equals("yes")){
-                    isRound = true;
-                }else if(value.equals("no")){
-                    isRound = false;
+                if(value != null){
+                    if(value.equals("yes")){
+                        isRound = true;
+                    }else if(value.equals("no")){
+                        isRound = false;
+                    }
                 }
             }
 

@@ -707,7 +707,9 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                     NoActiveTemplateFrag exerciseNameFrag = new NoActiveTemplateFrag();
                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                             exerciseNameFrag);
-                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                    if (!isFinishing()) {
+                                                        fragmentTransaction.commitAllowingStateLoss();
+                                                    }
                                                     noActiveTemplateBool = true;
                                                 }
                                             }

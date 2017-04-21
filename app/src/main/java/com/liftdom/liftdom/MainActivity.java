@@ -88,6 +88,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                     mRootRef = FirebaseDatabase.getInstance().getReference();
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    DatabaseReference settingsRef = mRootRef.child("users").child(uid).child("heightUnit");
+                    settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getValue() == null){
+                                DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
+                                heightRef.setValue("footInches");
+                                DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child("bodyWeightUnit");
+                                bodyWeightRef.setValue("pounds");
+                                DatabaseReference weightRef = mRootRef.child("users").child(uid).child("weightUnit");
+                                weightRef.setValue("pounds");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -221,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                                     (mFirebaseUser.getDisplayName()).withEmail
                                     (mFirebaseUser.getEmail()), 0);
         }
+
 
     }
 

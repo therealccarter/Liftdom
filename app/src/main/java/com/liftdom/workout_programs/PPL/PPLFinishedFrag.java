@@ -52,6 +52,10 @@ public class PPLFinishedFrag extends Fragment {
      PushB.add("Thursday");
      PullB.add("Friday");
      LegsB.add("Saturday");
+     pull up
+     row
+     deadlift
+     curl
      */
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -152,46 +156,69 @@ public class PPLFinishedFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int pplInc = 1;
-                int inc = 0;
 
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    String key = dataSnapshot1.getKey();
+                if(dataSnapshot.getValue() == null){
+                    DatabaseReference templateRef = mRootRef.child("templates").child(uid).child("PushPullLegs" +
+                            String.valueOf(pplInc));
 
-                    try{
-                        if(key.substring(0,12).equals("PushPullLegs")){
+                    templateRef.child("Monday").setValue(list1);
+                    templateRef.child("Tuesday").setValue(list2);
+                    templateRef.child("Wednesday").setValue(list3);
+                    templateRef.child("Thursday").setValue(list4);
+                    templateRef.child("Friday").setValue(list5);
+                    templateRef.child("Saturday").setValue(list6);
+                    templateRef.child("algorithm").setValue(algList);
+                    templateRef.child("algorithmExercises").setValue(algeExList);
 
-                            try{
-                                String pplStringInc = key.substring(12, key.length());
-                                int pplNew = Integer.parseInt(pplStringInc);
-                                pplInc = pplNew;
-                            } catch (NumberFormatException e){
-
-                            }
-                            pplInc++;
-                        }
-                    } catch (StringIndexOutOfBoundsException e){
-                        Log.i("info", "index out of bounds");
-                    }
-
-                    inc++;
-                    if(inc == dataSnapshot.getChildrenCount()){
-                        DatabaseReference templateRef = mRootRef.child("templates").child(uid).child("PushPullLegs" +
+                    DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                            ("active_template");
+                    if(isActive){
+                        activeTemplateRef.setValue("PushPullLegs" +
                                 String.valueOf(pplInc));
+                    }
+                } else{
 
-                        templateRef.child("Monday").setValue(list1);
-                        templateRef.child("Tuesday").setValue(list2);
-                        templateRef.child("Wednesday").setValue(list3);
-                        templateRef.child("Thursday").setValue(list4);
-                        templateRef.child("Friday").setValue(list5);
-                        templateRef.child("Saturday").setValue(list6);
-                        templateRef.child("algorithm").setValue(algList);
-                        templateRef.child("algorithmExercises").setValue(algeExList);
+                    int inc = 0;
 
-                        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
-                                ("active_template");
-                        if(isActive){
-                            activeTemplateRef.setValue("PushPullLegs" +
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        String key = dataSnapshot1.getKey();
+
+                        try{
+                            if(key.substring(0,12).equals("PushPullLegs")){
+
+                                try{
+                                    String pplStringInc = key.substring(12, key.length());
+                                    int pplNew = Integer.parseInt(pplStringInc);
+                                    pplInc = pplNew;
+                                } catch (NumberFormatException e){
+
+                                }
+                                pplInc++;
+                            }
+                        } catch (StringIndexOutOfBoundsException e){
+                            Log.i("info", "index out of bounds");
+                        }
+
+                        inc++;
+                        if(inc == dataSnapshot.getChildrenCount()){
+                            DatabaseReference templateRef = mRootRef.child("templates").child(uid).child("PushPullLegs" +
                                     String.valueOf(pplInc));
+
+                            templateRef.child("Monday").setValue(list1);
+                            templateRef.child("Tuesday").setValue(list2);
+                            templateRef.child("Wednesday").setValue(list3);
+                            templateRef.child("Thursday").setValue(list4);
+                            templateRef.child("Friday").setValue(list5);
+                            templateRef.child("Saturday").setValue(list6);
+                            templateRef.child("algorithm").setValue(algList);
+                            templateRef.child("algorithmExercises").setValue(algeExList);
+
+                            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                    ("active_template");
+                            if(isActive){
+                                activeTemplateRef.setValue("PushPullLegs" +
+                                        String.valueOf(pplInc));
+                            }
                         }
                     }
                 }

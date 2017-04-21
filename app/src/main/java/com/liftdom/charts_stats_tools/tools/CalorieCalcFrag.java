@@ -135,7 +135,7 @@ public class CalorieCalcFrag extends Fragment {
                             if(savedInstanceState == null){
                                 age = Integer.parseInt(ageEdit.getText().toString());
                                 bodyWeight = Double.parseDouble(weightEdit.getText().toString());
-                                if(heightUnit.equals("pounds")){
+                                if(heightUnit.equals("footInches")){ 
                                     height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
                                 }
                                 if(maleRadioButton.isChecked()){
