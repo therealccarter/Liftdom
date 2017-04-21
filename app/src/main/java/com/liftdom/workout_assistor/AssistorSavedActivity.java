@@ -97,7 +97,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
 
         // [START auth_state_listener]
@@ -111,7 +111,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(AssistorSavedActivity.this, LoginActivity.class));
+                    startActivity(new Intent(AssistorSavedActivity.this, SignInActivity.class));
                 }
 
             }

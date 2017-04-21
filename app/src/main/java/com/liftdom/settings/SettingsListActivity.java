@@ -25,9 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
-import com.liftdom.liftdom.LoginActivity;
-import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.PremiumFeaturesActivity;
+import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
@@ -182,6 +180,7 @@ public class SettingsListActivity extends AppCompatActivity implements
                 0);
 
         DatabaseReference settingsRef = mRootRef.child("users").child(uid);
+
         settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -246,8 +245,8 @@ public class SettingsListActivity extends AppCompatActivity implements
         signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                //Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                Intent intent = new Intent(v.getContext(), SignInActivity.class);
                 startActivity(intent);
             }
         });

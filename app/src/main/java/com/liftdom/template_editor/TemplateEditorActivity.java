@@ -168,7 +168,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(TemplateEditorActivity.this, LoginActivity.class));
+                    startActivity(new Intent(TemplateEditorActivity.this, SignInActivity.class));
                 }
 
             }

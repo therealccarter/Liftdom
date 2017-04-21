@@ -108,7 +108,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
 
         // [START auth_state_listener]
@@ -123,7 +123,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(WorkoutAssistorActivity.this, LoginActivity.class));
+                    startActivity(new Intent(WorkoutAssistorActivity.this, SignInActivity.class));
                 }
 
             }

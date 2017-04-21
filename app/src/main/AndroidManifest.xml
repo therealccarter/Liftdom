@@ -15,9 +15,7 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name=".MainActivity"
-                >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,8 +32,8 @@
         </activity>
         <activity
                 android:name="com.liftdom.workout_assistor.SaveAssistorDialog"
-                android:theme="@android:style/Theme.Holo.Dialog"
-                android:noHistory="true">
+                android:noHistory="true"
+                android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
         <activity android:name="com.liftdom.template_editor.TemplateSavedActivity">
         </activity>
@@ -56,8 +54,9 @@
                 android:name="com.liftdom.template_editor.ExercisePickerActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.user_profile.ProfileInfoActivity"
-                  android:noHistory="true">
+        <activity
+                android:name="com.liftdom.user_profile.ProfileInfoActivity"
+                android:noHistory="true">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExtraOptionsActivity"
@@ -69,8 +68,8 @@
         </activity>
         <activity
                 android:name="com.liftdom.template_housing.RenameTemplateDialog"
-                android:theme="@android:style/Theme.Holo.Dialog"
-                android:noHistory="true">
+                android:noHistory="true"
+                android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
         <meta-data
@@ -81,12 +80,8 @@
                 android:name="com.facebook.FacebookActivity"
                 android:label="@string/app_name"/>
         <activity
-                android:name=".LoginActivity"
-                android:label="@string/title_activity_login"
-                android:noHistory="true">
-        </activity>
-        <activity android:name="com.liftdom.settings.SettingsListActivity"
-                  android:label="">
+                android:name="com.liftdom.settings.SettingsListActivity"
+                android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog"
@@ -96,8 +91,9 @@
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.charts_stats_tools.ChartsStatsToolsActivity"
-                  android:label="">
+        <activity
+                android:name="com.liftdom.charts_stats_tools.ChartsStatsToolsActivity"
+                android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
@@ -121,14 +117,19 @@
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
-        <activity android:name=".PremiumFeaturesActivity"
-                  android:label="">
+        <activity
+                android:name=".PremiumFeaturesActivity"
+                android:label="">
         </activity>
-        <activity android:name="com.liftdom.workout_programs.PPL.PPLHolderActivity"
-                    android:noHistory="true">
+        <activity
+                android:name="com.liftdom.workout_programs.PPL.PPLHolderActivity"
+                android:noHistory="true">
         </activity>
-        <activity android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
-                    android:noHistory="true">
+        <activity
+                android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
+                android:noHistory="true">
+        </activity>
+        <activity android:name=".SignInActivity">
         </activity>
     </application>
 

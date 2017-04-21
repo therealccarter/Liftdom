@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     //DatabaseReference mRootRef;
     //String uid;
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    DatabaseReference mRootRef;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
 
         // [START auth_state_listener]
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 }
 
             }

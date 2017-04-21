@@ -81,7 +81,7 @@ public class TemplateHousingActivity extends AppCompatActivity {
                     } else {
                         // User is signed out
                         Log.d(TAG, "onAuthStateChanged:signed_out");
-                        startActivity(new Intent(TemplateHousingActivity.this, LoginActivity.class));
+                        startActivity(new Intent(TemplateHousingActivity.this, SignInActivity.class));
                     }
 
                 }

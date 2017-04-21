@@ -50,20 +50,6 @@ dependencies {
         transitive = true
     }
 
-    // Android stuff
-
-    // Login stuff
-
-    // RxJava & Retrofit
-
-    // Calendar & Time & Chart
-    //compile "com.androidplot:androidplot-core:1.4.1"
-
-    // Butterknife
-
-    // Misc libraries
-
-
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -96,6 +82,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
+
 
 
 
