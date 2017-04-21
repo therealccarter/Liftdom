@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
               android:orientation="vertical"
-             tools:context="com.liftdom.liftdom.com.liftdom.charts.exercise_selector.UpperBodyExListFrag">
+             tools:context="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity">
 
         <LinearLayout
                 android:layout_width="match_parent"
