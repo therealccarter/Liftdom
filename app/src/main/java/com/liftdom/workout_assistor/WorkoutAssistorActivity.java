@@ -68,6 +68,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     Boolean isRunningAssistor = false;
     Boolean isRunningDate = false;
 
+    Boolean noActiveTemplateBool = false;
+
     int ArrayListIterator = 0;
 
     //boolean firstEx = true;
@@ -706,6 +708,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                             exerciseNameFrag);
                                                     fragmentTransaction.commitAllowingStateLoss();
+                                                    noActiveTemplateBool = true;
                                                 }
                                             }
 
@@ -1008,6 +1011,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                 fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                         exerciseNameFrag);
                                                 fragmentTransaction.commitAllowingStateLoss();
+                                                noActiveTemplateBool = true;
                                             }
                                         }
 
@@ -1080,6 +1084,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
 
+        if(!noActiveTemplateBool){
+
         final DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
                 ("isRunningBoolDate");
 
@@ -1087,9 +1093,11 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                if(value == null){
+
+
+                if (value == null) {
                     runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-                } else{
+                } else {
                     String delims = "[_]";
 
                     String[] tokens1 = value.split(delims);
@@ -1104,7 +1112,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                     // (true, false) = yesterday's workout not finished - set to (true, true)
                     if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
                         runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-                    }else if(Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)){
+                    } else if (Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
                         runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
                     }
                 }
@@ -1116,27 +1124,18 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             }
         });
 
-
-        //DatabaseReference runningDateRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
-        //        ("isRunningDate");
-//
-        //String date = LocalDate.now().toString();
-//
-        //runningDateRef.setValue(date);
-
-
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
                 ("isRunningInfo");
 
         runningAssistorRef.setValue(null);
 
-        for(ExerciseNameFrag exNameFrag : exerciseNameFragList){
+        for (ExerciseNameFrag exNameFrag : exerciseNameFragList) {
             String exName = exNameFrag.exerciseName;
             DatabaseReference exNameRef = runningAssistorRef.child(exName);
             int inc = 0;
             ArrayList<String> exerciseStringList = new ArrayList<>();
 
-            for(RepsWeightFrag repsWeightFrag : repsWeightFragList){
+            for (RepsWeightFrag repsWeightFrag : repsWeightFragList) {
                 if (repsWeightFrag.getParentExercise().equals(exName)) {
                     String infoString = repsWeightFrag.fullString + "_" + repsWeightFrag.getCheckedStatus();
                     exerciseStringList.add(infoString);
@@ -1144,7 +1143,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                 inc++;
 
-                if(inc == repsWeightFragList.size()){
+                if (inc == repsWeightFragList.size()) {
                     List<String> list = exerciseStringList;
                     exNameRef.setValue(list);
                 }
@@ -1152,17 +1151,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
             }
         }
-
-        //AsyncTask.execute(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //
-        //    }
-        //});
-
-
-
-
+        }
     }
     // [END on_stop_remove_listener]
 

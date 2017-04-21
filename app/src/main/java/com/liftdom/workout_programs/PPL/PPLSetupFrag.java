@@ -82,9 +82,9 @@ public class PPLSetupFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 PPLFinishedFrag pplFinishedFrag = new PPLFinishedFrag();
-                pplFinishedFrag.benchMax = benchMax;
-                pplFinishedFrag.squatMax = squatMax;
-                pplFinishedFrag.deadliftMax = deadliftMax;
+                pplFinishedFrag.benchMax = benchPress1rm.getText().toString();
+                pplFinishedFrag.squatMax = squat1rm.getText().toString();
+                pplFinishedFrag.deadliftMax = deadlift1rm.getText().toString();
                 if(activeTemplateCheckbox.isChecked()){
                     pplFinishedFrag.isActive = true;
                 }
