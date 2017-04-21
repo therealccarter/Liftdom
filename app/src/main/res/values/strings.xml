@@ -409,7 +409,8 @@
     <string name="squat1rm">Barbell Squat 1-rep Max:</string>
     <string name="deadlift1rm">Deadlift 1-rep Max:</string>
     <string name="saveButton">Save</string>
-    <string name="dummyLevel">- level .0</string>
+    <string name="levelValue">0</string>
+    <string name="level">Level:\u0020</string>
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
 
