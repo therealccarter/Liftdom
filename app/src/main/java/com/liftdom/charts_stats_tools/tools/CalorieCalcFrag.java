@@ -281,6 +281,11 @@ public class CalorieCalcFrag extends Fragment {
         return cm;
     }
 
+    //public double heightFormatter(String unFormattedHeight){
+        //TODO: Hopefully we won't hit this problem...will have to update firebase user values on settings change to
+        //TODO:  be sure
+    //}
+
 
 
 }
