@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:background="@color/black"
+      app:bbn_alwaysShowLabels="false"
+      app:bbn_itemColorActive="@color/liftrGold1"
+      app:bbn_itemColorDisabled="#33ffffff"
+      app:bbn_itemColorInactive="#99ffffff"
+      app:bbn_rippleColor="@color/liftrGold2"
+>
+    <item
+            android:id="@+id/bbn_item1"
+            android:icon="@drawable/ic_templating_black_24dp"
+            android:title="@string/templating"
+    />
+    <item
+            android:id="@+id/bbn_item2"
+            android:icon="@drawable/ic_view_list_black_24dp"
+            android:title="@string/activityFeed"
+    />
+    <item
+            android:id="@+id/bbn_item3"
+            android:icon="@drawable/right_chevron_gold"
+            android:title="@string/TodaysWorkout"
+    />
+    <item
+            android:id="@+id/bbn_item4"
+            android:icon="@drawable/ic_forum_black_24dp"
+            android:title="@string/forum"
+    />
+
+    <item
+            android:id="@+id/bbn_item5"
+            android:icon="@drawable/ic_message_black_24dp"
+            android:title="@string/chat"
+    />
+</menu>

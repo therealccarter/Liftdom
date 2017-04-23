@@ -3,8 +3,14 @@ package com.liftdom.liftdom;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +24,7 @@ import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.settings.SettingsListActivity;
+import com.liftdom.template_editor.ViewPagerAdapter;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
@@ -30,14 +37,19 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
-public class MainActivity extends AppCompatActivity {
+import static android.util.Log.INFO;
+import static it.sephiroth.android.library.bottomnavigation.MiscUtils.log;
+
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "EmailPassword";
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
+    ViewPager viewPager;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -242,8 +254,66 @@ public class MainActivity extends AppCompatActivity {
                                     (mFirebaseUser.getEmail()), 0);
         }
 
+        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
+            @Override
+            public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
+                Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
+            }
 
+            @Override
+            public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
+                Log.i("info", "menu item re-selected");
+            }
+        });
+
+        //viewPager = getViewPager();
+//
+        //if(viewPager != null) {
+        //    getBottomNavigation().setOnMenuChangedListener(new BottomNavigation.OnMenuChangedListener() {
+        //        @Override
+        //        public void onMenuChanged(final BottomNavigation parent) {
+        //            viewPager.setAdapter(new ViewPagerAdapter1(MainActivity.this, parent.getMenuItemCount()));
+        //            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        //                @Override
+        //                public void onPageScrolled(
+        //                        final int position, final float positionOffset, final int positionOffsetPixels) { }
+//
+        //                @Override
+        //                public void onPageSelected(final int position) {
+        //                    if (getBottomNavigation().getSelectedIndex() != position) {
+        //                        getBottomNavigation().setSelectedIndex(position, false);
+        //                    }
+        //                }
+//
+        //                @Override
+        //                public void onPageScrollStateChanged(final int state) { }
+        //            });
+        //        }
+        //    });
+//
+        //}
     }
+
+    //@Override
+    //public void onMenuItemSelect(final int itemId, final int position, final boolean fromUser) {
+    //    log(TAG, INFO, "onMenuItemSelect(" + itemId + ", " + position + ", " + fromUser + ")");
+    //    if (fromUser) {
+    //        getBottomNavigation().getBadgeProvider().remove(itemId);
+    //        if (null != getViewPager()) {
+    //            getViewPager().setCurrentItem(position);
+    //        }
+    //    }
+    //}
+//
+    //@Override
+    //public void onMenuItemReselect(@IdRes final int itemId, final int position, final boolean fromUser) {
+    //    log(TAG, INFO, "onMenuItemReselect(" + itemId + ", " + position + ", " + fromUser + ")");
+//
+    //    if (fromUser) {
+//
+    //    }
+    //}
 
     // [START on_start_add_listener]
     @Override

@@ -414,6 +414,11 @@
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
 
+    <string name="activityFeed">Feed</string>
+    <string name="forum">Forum</string>
+    <string name="chat">Chat</string>
+    <string name="templating">Templating</string>
+
     <string name="graphing">Choose item(s) to graph\u0020</string>
     <string name="mode">Choose data mode:\u0020</string>
     <string name="totalPoundage">Total weight lifted</string>
