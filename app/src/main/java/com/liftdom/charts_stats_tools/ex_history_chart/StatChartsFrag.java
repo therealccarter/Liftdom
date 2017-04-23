@@ -45,20 +45,13 @@ public class StatChartsFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.lineChart)
-    LineChart lineChart;
-    @BindView(R.id.graphingSelectorButton)
-    Button graphingSelector;
-    @BindView(R.id.overallRadioButton)
-    RadioButton overallRadioButton;
-    @BindView(R.id.maxWeightRadioButton)
-    RadioButton maxWeightRadioButton;
-    @BindView(R.id.itemsBeingGraphed)
-    TextView itemsTextView;
-    @BindView(R.id.reloadChartButton)
-    Button reloadChart;
-    @BindView(R.id.clearChartButton)
-    Button clearChart;
+    @BindView(R.id.lineChart) LineChart lineChart;
+    @BindView(R.id.graphingSelectorButton) Button graphingSelector;
+    @BindView(R.id.overallRadioButton) RadioButton overallRadioButton;
+    @BindView(R.id.maxWeightRadioButton) RadioButton maxWeightRadioButton;
+    @BindView(R.id.itemsBeingGraphed) TextView itemsTextView;
+    @BindView(R.id.reloadChartButton) Button reloadChart;
+    @BindView(R.id.clearChartButton) Button clearChart;
 
     List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 
