@@ -196,15 +196,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    CharSequence toastText = "(+) Added to Algorithm List";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                    toast.show();
+                    // Possibly update with ex name?
+                    //CharSequence toastText = "(+) Added to Algorithm List";
+                    //int duration = Toast.LENGTH_SHORT;
+                    //Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                    //toast.show();
                 } else {
-                    CharSequence toastText = "(-) Removed from Algorithm List";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                    toast.show();
+                    //CharSequence toastText = "(-) Removed from Algorithm List";
+                    //int duration = Toast.LENGTH_SHORT;
+                    //Toast toast = Toast.makeText(getActivity(), toastText, duration);
+                    //toast.show();
                 }
             }
         });

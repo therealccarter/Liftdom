@@ -21,6 +21,10 @@ public class ExSelectorActivity extends AppCompatActivity {
 
     @BindView(R.id.confirmButton) Button confirmButton;
 
+    //public ExSelectorActivity(Boolean isExclusive){
+//
+    //}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +35,14 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
-
+            // is from template editor
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true);
+            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
             confirmButton.setVisibility(View.GONE);
         }else{
+            // is from ex-chart frag
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs);
+            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, false, true);
         }
 
         // Assigning ViewPager View and setting the adapter

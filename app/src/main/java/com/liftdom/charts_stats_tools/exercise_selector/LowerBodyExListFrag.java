@@ -25,6 +25,7 @@ public class LowerBodyExListFrag extends Fragment {
     @BindView(R.id.stickyList2) StickyListHeadersListView stickyList;
 
     boolean noCheckbox = false;
+    boolean isExclusive = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +35,8 @@ public class LowerBodyExListFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "lower", noCheckbox);
+        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "lower",
+                noCheckbox, isExclusive);
 
         stickyList.setAdapter(adapter);
 

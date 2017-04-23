@@ -30,7 +30,8 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     boolean mNoCheckbox = false;
     FragmentActivity fragActivity;
 
-    public ExSelectorStickyAdapter(Context context, FragmentActivity activity,  String bodyString, boolean noCheckbox){
+    public ExSelectorStickyAdapter(Context context, FragmentActivity activity,  String bodyString, boolean
+            noCheckbox, boolean isExclusive){
         fragActivity = activity;
 
         inflater = LayoutInflater.from(context);
@@ -39,50 +40,62 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
         mNoCheckbox = noCheckbox;
 
-        ArrayList<String> completedUpperList = ExSelectorSingleton.getInstance().completedExercises;
+        if(isExclusive){
+            ArrayList<String> completedUpperList = ExSelectorSingleton.getInstance().completedExercises;
 
-        if(bodyString.equals("upper")){
+            if(bodyString.equals("upper")){
 
-            String[] upperArray = context.getResources().getStringArray(R.array.upperBodyList);
-            ArrayList<String> upperList = new ArrayList<>(Arrays.asList(upperArray));
-            ArrayList<String> newList = new ArrayList<>();
-            for(String string : completedUpperList){
-                if(upperList.contains(string)){
-                    newList.add(string);
+                String[] upperArray = context.getResources().getStringArray(R.array.upperBodyList);
+                ArrayList<String> upperList = new ArrayList<>(Arrays.asList(upperArray));
+                ArrayList<String> newList = new ArrayList<>();
+                for(String string : completedUpperList){
+                    if(upperList.contains(string)){
+                        newList.add(string);
+                    }
                 }
-            }
 
-            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
-            exercises = newList.toArray(new String[0]);
+                Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+                exercises = newList.toArray(new String[0]);
 
-        }else if(bodyString.equals("lower")){
+            }else if(bodyString.equals("lower")){
 
-            String[] lowerArray = context.getResources().getStringArray(R.array.lowerBodyList);
-            ArrayList<String> lowerList = new ArrayList<>(Arrays.asList(lowerArray));
-            ArrayList<String> newList = new ArrayList<>();
-            for(String string : completedUpperList){
-                if(lowerList.contains(string)){
-                    newList.add(string);
+                String[] lowerArray = context.getResources().getStringArray(R.array.lowerBodyList);
+                ArrayList<String> lowerList = new ArrayList<>(Arrays.asList(lowerArray));
+                ArrayList<String> newList = new ArrayList<>();
+                for(String string : completedUpperList){
+                    if(lowerList.contains(string)){
+                        newList.add(string);
+                    }
                 }
-            }
 
-            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
-            exercises = newList.toArray(new String[0]);
+                Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+                exercises = newList.toArray(new String[0]);
 
-        }else if(bodyString.equals("other")){
+            }else if(bodyString.equals("other")){
 
-            String[] otherArray = context.getResources().getStringArray(R.array.upperBodyList);
-            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
-            ArrayList<String> newList = new ArrayList<>();
-            for(String string : completedUpperList){
-                if(otherList.contains(string)){
-                    newList.add(string);
+                String[] otherArray = context.getResources().getStringArray(R.array.upperBodyList);
+                ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
+                ArrayList<String> newList = new ArrayList<>();
+                for(String string : completedUpperList){
+                    if(otherList.contains(string)){
+                        newList.add(string);
+                    }
                 }
-            }
 
-            Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
-            exercises = newList.toArray(new String[0]);
+                Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
+                exercises = newList.toArray(new String[0]);
+            }
+        } else {
+            if(bodyString.equals("upper")){
+                exercises = context.getResources().getStringArray(R.array.upperBodyList);
+            }else if(bodyString.equals("lower")){
+                exercises = context.getResources().getStringArray(R.array.lowerBodyList);
+            }else if(bodyString.equals("other")){
+                exercises = context.getResources().getStringArray(R.array.otherBodyList);
+            }
         }
+
+
     }
 
     @Override

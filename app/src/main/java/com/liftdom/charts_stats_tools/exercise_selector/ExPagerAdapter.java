@@ -13,6 +13,7 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
     CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
     int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
     boolean mNoCheckbox = false;
+    boolean mIsExclusive = false;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ExPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
@@ -24,9 +25,11 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ExPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb, boolean noCheckbox) {
+    public ExPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb, boolean noCheckbox, boolean
+     isExclusive                     ) {
         super(fm);
         mNoCheckbox = noCheckbox;
+        mIsExclusive = isExclusive;
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
 
@@ -41,6 +44,9 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
             if(mNoCheckbox){
                 tab1.noCheckbox = true;
             }
+            if(mIsExclusive){
+                tab1.isExclusive = true;
+            }
             return tab1;
         }
         else if(position == 1){
@@ -48,11 +54,17 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
             if(mNoCheckbox){
                 tab2.noCheckbox = true;
             }
+            if(mIsExclusive){
+                tab2.isExclusive = true;
+            }
             return tab2;
         }else {
             OtherExListFrag tab3 = new OtherExListFrag();
             if(mNoCheckbox){
                 tab3.noCheckbox = true;
+            }
+            if(mIsExclusive){
+                tab3.isExclusive = true;
             }
             return tab3;
         }

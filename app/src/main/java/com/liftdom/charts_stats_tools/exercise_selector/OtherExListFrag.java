@@ -25,6 +25,7 @@ public class OtherExListFrag extends Fragment {
     @BindView(R.id.stickyList3) StickyListHeadersListView stickyList;
 
     boolean noCheckbox = false;
+    boolean isExclusive = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +35,8 @@ public class OtherExListFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "other", noCheckbox);
+        ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "other",
+                noCheckbox, isExclusive);
 
         stickyList.setAdapter(adapter);
 
