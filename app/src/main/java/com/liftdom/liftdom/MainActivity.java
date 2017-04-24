@@ -306,8 +306,12 @@ public class MainActivity extends BaseActivity {
                 bottomNavigation.setSelectedIndex(2, false);
             }
         } else{
-            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-            bottomNavigation.setSelectedIndex(1, false);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+            fragmentTransaction.commit();
+
         }
 
         BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
