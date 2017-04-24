@@ -91,8 +91,8 @@ public class PremiumFeaturesActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(3),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
                         new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
@@ -109,12 +109,18 @@ public class PremiumFeaturesActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(PremiumFeaturesActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 1);
+                                startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(PremiumFeaturesActivity.this, TemplateHousingActivity.class);
+                                intent = new Intent(PremiumFeaturesActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 2);
+                                startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(PremiumFeaturesActivity.this, WorkoutAssistorActivity.class);
+                                intent = new Intent(PremiumFeaturesActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 0);
+                                startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(PremiumFeaturesActivity.this, KnowledgeCenterHolderActivity.class);
