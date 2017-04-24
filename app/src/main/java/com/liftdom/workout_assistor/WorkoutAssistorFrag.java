@@ -1,19 +1,16 @@
 package com.liftdom.workout_assistor;
 
+
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,24 +20,8 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
-import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
-import com.liftdom.liftdom.*;
-
 import com.liftdom.liftdom.R;
-import com.liftdom.settings.SettingsListActivity;
-import com.liftdom.template_housing.TemplateHousingActivity;
-import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_programs.Smolov.Smolov;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -50,7 +31,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WorkoutAssistorActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class WorkoutAssistorFrag extends Fragment {
+
+
+    public WorkoutAssistorFrag() {
+        // Required empty public constructor
+    }
 
     private static final String TAG = "EmailPassword";
 
@@ -92,146 +81,19 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.journalAndSave) LinearLayout journalAndSave;
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
-    @BindView(R.id.WATitleView) TextView WATitleView;
+    //@BindView(R.id.WATitleView) TextView WATitleView;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_assistor);
-        // [START AUTH AND NAV-DRAWER BOILERPLATE]
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_workout_assistor, container, false);
 
-        ButterKnife.bind(this);
-
+        ButterKnife.bind(this, view);
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
-
-        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-
-        currentTemplateView.setTypeface(lobster);
-        WATitleView.setTypeface(lobster);
-
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
-        }
-
-        // [START auth_state_listener]
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    email = user.getEmail();
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    startActivity(new Intent(WorkoutAssistorActivity.this, SignInActivity.class));
-                }
-
-            }
-        };
-        // [END auth_state_listener]
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        String email = user.getEmail();
-
-        // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Today's Workout");
-
-        AccountHeader header = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .withSelectionListEnabledForSingleProfile(false)
-                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader
-                .OnAccountHeaderSelectionViewClickListener() {
-                    @Override
-                    public boolean onClick(View view, IProfile profile) {
-                        Intent intent = new Intent(WorkoutAssistorActivity.this, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
-                    @Override
-                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                        Intent intent = new Intent(WorkoutAssistorActivity.this, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-                        return false;
-                    }
-                })
-                .build();
-
-        // create the drawer
-        Drawer drawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(header)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIdentifier(1),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(2),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // Handle clicks
-                     if (drawerItem != null) {
-                            Intent intent = null;
-                            if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(WorkoutAssistorActivity.this, MainActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(WorkoutAssistorActivity.this, TemplateHousingActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(WorkoutAssistorActivity.this, WorkoutAssistorActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(WorkoutAssistorActivity.this, KnowledgeCenterHolderActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(WorkoutAssistorActivity.this, ChartsStatsToolsActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(WorkoutAssistorActivity.this, PremiumFeaturesActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(WorkoutAssistorActivity.this, SettingsListActivity.class);
-                            }
-                            if (intent != null) {
-                                WorkoutAssistorActivity.this.startActivity(intent);
-                            }
-                        }
-                        return true;
-                    }
-                })
-                .build();
-
-        // Later
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                        .withName
-                                (mFirebaseUser.getDisplayName()).withEmail(email),
-                0);
-        // [END AUTH AND NAV-DRAWER BOILERPLATE]
-
-
-
 
         if(savedInstanceState == null){
             isSavedInstanceBool = true;
@@ -239,54 +101,15 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
             isSavedInstanceBool = false;
         }
 
-
-
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //TODO: Change this to frag version
                 Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
                 startActivity(intent);
             }
         });
-
-        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(2, false);
-        bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
-            @Override
-            public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
-                Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
-
-                if (i1 == 0) {
-                    Intent intent = new Intent(WorkoutAssistorActivity.this, TemplateHousingActivity.class);
-                    startActivity(intent);
-                } else if (i1 == 1) {
-                    // TODO: Set to feed fragment
-                    Intent intent = new Intent(WorkoutAssistorActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else if (i1 == 2) {
-                    Intent intent = new Intent(WorkoutAssistorActivity.this, WorkoutAssistorActivity.class);
-                    startActivity(intent);
-                } else if (i1 == 3) {
-                    // TODO: Set to forum fragment
-                    Intent intent = new Intent(WorkoutAssistorActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else if (i1 == 4) {
-                    // TODO: Set to chat
-                }
-            }
-
-            @Override
-            public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
-                Log.i("info", "menu item re-selected");
-            }
-        });
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(2, false);
+        
+        return view;
     }
 
     ArrayList<String> dayFormat(String dayString){
@@ -326,7 +149,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        EditText privateJournalView = (EditText) findViewById(R.id.privateJournal);
+        EditText privateJournalView = (EditText) getActivity().findViewById(R.id.privateJournal);
 
         String privateJournal = privateJournalView.getText().toString();
 
@@ -347,7 +170,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+
 
         if(isSavedInstanceBool) {
 
@@ -433,7 +256,8 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                             Log.i("info", "what");
                                                         }
 
-                                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                                        FragmentManager fragmentManager = 
+                                                                getActivity().getSupportFragmentManager();
                                                         FragmentTransaction fragmentTransaction = fragmentManager
                                                                 .beginTransaction();
                                                         ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
@@ -442,7 +266,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                 exerciseNameFrag);
                                                         exerciseNameFragList.add(exerciseNameFrag);
 
-                                                        if (!isFinishing()) {
+                                                        if (!getActivity().isFinishing()) {
                                                             fragmentTransaction.commitAllowingStateLoss();
                                                         }
 
@@ -454,7 +278,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                             String[] tokens = stringSansSpaces.split(delims);
 
                                                             FragmentManager fragmentManager2 =
-                                                                    getSupportFragmentManager();
+                                                                    getActivity().getSupportFragmentManager();
                                                             FragmentTransaction fragmentTransaction2 = fragmentManager2
                                                                     .beginTransaction();
                                                             RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
@@ -471,7 +295,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                             repsWeightFragList.add(repsWeightFrag);
 
-                                                            if (!isFinishing()) {
+                                                            if (!getActivity().isFinishing()) {
                                                                 fragmentTransaction2.commitAllowingStateLoss();
 
                                                             }
@@ -556,13 +380,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                         for (String routine : smolovWorkout) {
                                                                             if (routine.equals("rest")) {
-                                                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                                                         .beginTransaction();
                                                                                 RestDayFrag exerciseNameFrag = new RestDayFrag();
                                                                                 fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                         exerciseNameFrag);
-                                                                                if (!isFinishing()) {
+                                                                                if (!getActivity().isFinishing()) {
                                                                                     fragmentTransaction.commitAllowingStateLoss();
                                                                                 }
                                                                             } else if (routine.equals("build to 1rm")) {
@@ -571,13 +395,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                             } else {
                                                                                 if (isExerciseName(routine)) {
-                                                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                                                             .beginTransaction();
                                                                                     ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
                                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                             exerciseNameFrag);
-                                                                                    if (!isFinishing()) {
+                                                                                    if (!getActivity().isFinishing()) {
                                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                                     }
                                                                                     exerciseNameFrag.exerciseName = WorkoutAssistorAssemblerClass.getInstance().exName;
@@ -591,14 +415,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                                     for (int i = 0; i < setAmount; i++) {
                                                                                         FragmentManager fragmentManager =
-                                                                                                getSupportFragmentManager();
+                                                                                                getActivity().getSupportFragmentManager();
                                                                                         FragmentTransaction fragmentTransaction =
                                                                                                 fragmentManager
                                                                                                         .beginTransaction();
                                                                                         RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
                                                                                         fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                                 repsWeightFrag);
-                                                                                        if (!isFinishing()) {
+                                                                                        if (!getActivity().isFinishing()) {
                                                                                             fragmentTransaction.commitAllowingStateLoss();
                                                                                         }
                                                                                         repsWeightFrag.parentExercise = exerciseString;
@@ -670,7 +494,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                 String snapshotString = daySnapshot.getValue(String.class);
 
                                                                                 if (isExerciseName(snapshotString)) {
-                                                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                                                             .beginTransaction();
                                                                                     ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
@@ -680,7 +504,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                             exerciseNameFrag);
                                                                                     exerciseNameFragList.add(exerciseNameFrag);
 
-                                                                                    if (!isFinishing()) {
+                                                                                    if (!getActivity().isFinishing()) {
                                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                                     }
                                                                                 } else {
@@ -693,7 +517,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                     int setAmount = Integer.parseInt(tokens[0]);
 
                                                                                     for (int i = 0; i < setAmount; i++) {
-                                                                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                         FragmentTransaction fragmentTransaction = fragmentManager
                                                                                                 .beginTransaction();
                                                                                         RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
@@ -705,7 +529,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                                 repsWeightFrag);
                                                                                         repsWeightFragList.add(repsWeightFrag);
 
-                                                                                        if (!isFinishing()) {
+                                                                                        if (!getActivity().isFinishing()) {
                                                                                             fragmentTransaction.commitAllowingStateLoss();
                                                                                         }
                                                                                     }
@@ -720,13 +544,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                     });
                                                                     journalAndSave.setVisibility(View.VISIBLE);
                                                                 } else {
-                                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                                             .beginTransaction();
                                                                     RestDayFrag exerciseNameFrag = new RestDayFrag();
                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                             exerciseNameFrag);
-                                                                    if (!isFinishing()) {
+                                                                    if (!getActivity().isFinishing()) {
                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                     }
 
@@ -741,13 +565,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                         });
                                                     }
                                                 } else {
-                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                             .beginTransaction();
                                                     NoActiveTemplateFrag exerciseNameFrag = new NoActiveTemplateFrag();
                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                             exerciseNameFrag);
-                                                    if (!isFinishing()) {
+                                                    if (!getActivity().isFinishing()) {
                                                         fragmentTransaction.commitAllowingStateLoss();
                                                     }
                                                     noActiveTemplateBool = true;
@@ -779,14 +603,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                        FragmentManager fragmentManager = getSupportFragmentManager();
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager
                                                 .beginTransaction();
                                         WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
 
                                         fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                 workoutFinishedFrag);
-                                        if (!isFinishing()) {
+                                        if (!getActivity().isFinishing()) {
                                             fragmentTransaction.commitAllowingStateLoss();
                                         }
 
@@ -861,13 +685,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                     for (String routine : smolovWorkout) {
                                                                         if (routine.equals("rest")) {
-                                                                            FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                             FragmentTransaction fragmentTransaction = fragmentManager
                                                                                     .beginTransaction();
                                                                             RestDayFrag exerciseNameFrag = new RestDayFrag();
                                                                             fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                     exerciseNameFrag);
-                                                                            if (!isFinishing()) {
+                                                                            if (!getActivity().isFinishing()) {
                                                                                 fragmentTransaction.commitAllowingStateLoss();
                                                                             }
                                                                         } else if (routine.equals("build to 1rm")) {
@@ -876,13 +700,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                         } else {
                                                                             if (isExerciseName(routine)) {
-                                                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                                                         .beginTransaction();
                                                                                 ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
                                                                                 fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                         exerciseNameFrag);
-                                                                                if (!isFinishing()) {
+                                                                                if (!getActivity().isFinishing()) {
                                                                                     fragmentTransaction.commitAllowingStateLoss();
                                                                                 }
                                                                                 exerciseNameFrag.exerciseName = WorkoutAssistorAssemblerClass.getInstance().exName;
@@ -896,14 +720,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
                                                                                 for (int i = 0; i < setAmount; i++) {
                                                                                     FragmentManager fragmentManager =
-                                                                                            getSupportFragmentManager();
+                                                                                            getActivity().getSupportFragmentManager();
                                                                                     FragmentTransaction fragmentTransaction =
                                                                                             fragmentManager
                                                                                                     .beginTransaction();
                                                                                     RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
                                                                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                                             repsWeightFrag);
-                                                                                    if (!isFinishing()) {
+                                                                                    if (!getActivity().isFinishing()) {
                                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                                     }
                                                                                     repsWeightFrag.parentExercise = exerciseString;
@@ -975,7 +799,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                             String snapshotString = daySnapshot.getValue(String.class);
 
                                                                             if (isExerciseName(snapshotString)) {
-                                                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                                                         .beginTransaction();
                                                                                 ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
@@ -985,7 +809,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                         exerciseNameFrag);
                                                                                 exerciseNameFragList.add(exerciseNameFrag);
 
-                                                                                if (!isFinishing()) {
+                                                                                if (!getActivity().isFinishing()) {
                                                                                     fragmentTransaction.commitAllowingStateLoss();
                                                                                 }
                                                                             } else {
@@ -998,7 +822,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                 int setAmount = Integer.parseInt(tokens[0]);
 
                                                                                 for (int i = 0; i < setAmount; i++) {
-                                                                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                                     FragmentTransaction fragmentTransaction = fragmentManager
                                                                                             .beginTransaction();
                                                                                     RepsWeightFrag repsWeightFrag = new RepsWeightFrag();
@@ -1010,7 +834,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                                             repsWeightFrag);
                                                                                     repsWeightFragList.add(repsWeightFrag);
 
-                                                                                    if (!isFinishing()) {
+                                                                                    if (!getActivity().isFinishing()) {
                                                                                         fragmentTransaction.commitAllowingStateLoss();
                                                                                     }
                                                                                 }
@@ -1025,13 +849,13 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                                 });
                                                                 journalAndSave.setVisibility(View.VISIBLE);
                                                             } else {
-                                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                                         .beginTransaction();
                                                                 RestDayFrag exerciseNameFrag = new RestDayFrag();
                                                                 fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                                                         exerciseNameFrag);
-                                                                if (!isFinishing()) {
+                                                                if (!getActivity().isFinishing()) {
                                                                     fragmentTransaction.commitAllowingStateLoss();
                                                                 }
 
@@ -1046,7 +870,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                                     });
                                                 }
                                             } else {
-                                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager
                                                         .beginTransaction();
                                                 NoActiveTemplateFrag exerciseNameFrag = new NoActiveTemplateFrag();
@@ -1082,14 +906,14 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    FragmentManager fragmentManager = getSupportFragmentManager();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager
                                             .beginTransaction();
                                     WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
 
                                     fragmentTransaction.add(R.id.eachExerciseFragHolder,
                                             workoutFinishedFrag);
-                                    if (!isFinishing()) {
+                                    if (!getActivity().isFinishing()) {
                                         fragmentTransaction.commitAllowingStateLoss();
                                     }
 
@@ -1128,71 +952,71 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         if(!noActiveTemplateBool){
 
-        final DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
-                ("isRunningBoolDate");
+            final DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
+                    ("isRunningBoolDate");
 
-        runningBoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+            runningBoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
 
 
-                if (value == null) {
-                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-                } else {
-                    String delims = "[_]";
-
-                    String[] tokens1 = value.split(delims);
-
-                    LocalDate localDate = LocalDate.now();
-                    LocalDate convertedDate = new LocalDate(tokens1[1]);
-
-                    // (isEditing, isDate)
-                    // (false, true) = workout has been finished - do nothing
-                    // (true, true) = workout is being edited - do nothing
-                    // (false, false) = workout has not been finished - set to (true, true)
-                    // (true, false) = yesterday's workout not finished - set to (true, true)
-                    if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                    if (value == null) {
                         runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-                    } else if (Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
-                        runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                    } else {
+                        String delims = "[_]";
+
+                        String[] tokens1 = value.split(delims);
+
+                        LocalDate localDate = LocalDate.now();
+                        LocalDate convertedDate = new LocalDate(tokens1[1]);
+
+                        // (isEditing, isDate)
+                        // (false, true) = workout has been finished - do nothing
+                        // (true, true) = workout is being edited - do nothing
+                        // (false, false) = workout has not been finished - set to (true, true)
+                        // (true, false) = yesterday's workout not finished - set to (true, true)
+                        if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                            runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                        } else if (Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
+                            runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
-                ("isRunningInfo");
-
-        runningAssistorRef.setValue(null);
-
-        for (ExerciseNameFrag exNameFrag : exerciseNameFragList) {
-            String exName = exNameFrag.exerciseName;
-            DatabaseReference exNameRef = runningAssistorRef.child(exName);
-            int inc = 0;
-            ArrayList<String> exerciseStringList = new ArrayList<>();
-
-            for (RepsWeightFrag repsWeightFrag : repsWeightFragList) {
-                if (repsWeightFrag.getParentExercise().equals(exName)) {
-                    String infoString = repsWeightFrag.fullString + "_" + repsWeightFrag.getCheckedStatus();
-                    exerciseStringList.add(infoString);
                 }
+            });
 
-                inc++;
+            DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child("isRunning").child
+                    ("isRunningInfo");
 
-                if (inc == repsWeightFragList.size()) {
-                    List<String> list = exerciseStringList;
-                    exNameRef.setValue(list);
+            runningAssistorRef.setValue(null);
+
+            for (ExerciseNameFrag exNameFrag : exerciseNameFragList) {
+                String exName = exNameFrag.exerciseName;
+                DatabaseReference exNameRef = runningAssistorRef.child(exName);
+                int inc = 0;
+                ArrayList<String> exerciseStringList = new ArrayList<>();
+
+                for (RepsWeightFrag repsWeightFrag : repsWeightFragList) {
+                    if (repsWeightFrag.getParentExercise().equals(exName)) {
+                        String infoString = repsWeightFrag.fullString + "_" + repsWeightFrag.getCheckedStatus();
+                        exerciseStringList.add(infoString);
+                    }
+
+                    inc++;
+
+                    if (inc == repsWeightFragList.size()) {
+                        List<String> list = exerciseStringList;
+                        exNameRef.setValue(list);
+                    }
+
+
                 }
-
-
             }
-        }
         }
     }
     // [END on_stop_remove_listener]
@@ -1228,5 +1052,6 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         return arrayList;
     }
+    
 
 }

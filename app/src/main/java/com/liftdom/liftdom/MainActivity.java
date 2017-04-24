@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -23,11 +24,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
+import com.liftdom.liftdom.main_social_feed.ActivityFeed;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_editor.ViewPagerAdapter;
+import com.liftdom.template_housing.PremadeTemplatesFrag;
 import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
+import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -95,7 +99,7 @@ public class MainActivity extends BaseActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    if(getIntent().getStringExtra("username") != null) {
+                    if (getIntent().getStringExtra("username") != null) {
 
                     }
                     mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -105,7 +109,7 @@ public class MainActivity extends BaseActivity {
                     settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.getValue() == null){
+                            if (dataSnapshot.getValue() == null) {
                                 DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
                                 heightRef.setValue("footInches");
                                 DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child("bodyWeightUnit");
@@ -140,31 +144,31 @@ public class MainActivity extends BaseActivity {
 
 
         AccountHeader header = new AccountHeaderBuilder()
-            .withActivity(this)
-            .withHeaderBackground(R.drawable.header)
-            .withSelectionListEnabledForSingleProfile(false)
-            .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
-                @Override
-                public boolean onClick(View view, IProfile profile) {
-                    Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
-                    startActivity(intent);
-                    return false;
-                }
-            })
-            .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
-                @Override
-                public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                    Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
-                    startActivity(intent);
-                    return false;
-                }
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .withSelectionListEnabledForSingleProfile(false)
+                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                    @Override
+                    public boolean onClick(View view, IProfile profile) {
+                        Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+                })
+                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
 
-                @Override
-                public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-                    return false;
-                }
-            })
-            .build();
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
+                        return false;
+                    }
+                })
+                .build();
 
         // create the drawer
         Drawer drawer = new DrawerBuilder()
@@ -232,9 +236,9 @@ public class MainActivity extends BaseActivity {
             usernameRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot usernameSnap : dataSnapshot.getChildren()){
+                    for (DataSnapshot usernameSnap : dataSnapshot.getChildren()) {
                         String key = usernameSnap.getKey();
-                        if(key.equals("username")) {
+                        if (key.equals("username")) {
                             String username;
                             username = usernameSnap.getValue(String.class);
                         }
@@ -248,17 +252,50 @@ public class MainActivity extends BaseActivity {
             });
 
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
-                            .drawable.usertest))
-                            .withName
-                                    (mFirebaseUser.getDisplayName()).withEmail
-                                    (mFirebaseUser.getEmail()), 0);
+                    .drawable.usertest))
+                    .withName
+                            (mFirebaseUser.getDisplayName()).withEmail
+                            (mFirebaseUser.getEmail()), 0);
+        }
+
+        if(savedInstanceState == null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+            fragmentTransaction.commit();
         }
 
         BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(1, false);
         bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
                 Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
+
+                if (i1 == 0) {
+                    Intent intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 1) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } else if (i1 == 2) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } else if (i1 == 3) {
+                    // TODO: Set to forum fragment
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 4) {
+                    // TODO: Set to chat
+                }
             }
 
             @Override
@@ -266,54 +303,14 @@ public class MainActivity extends BaseActivity {
                 Log.i("info", "menu item re-selected");
             }
         });
-
-        //viewPager = getViewPager();
-//
-        //if(viewPager != null) {
-        //    getBottomNavigation().setOnMenuChangedListener(new BottomNavigation.OnMenuChangedListener() {
-        //        @Override
-        //        public void onMenuChanged(final BottomNavigation parent) {
-        //            viewPager.setAdapter(new ViewPagerAdapter1(MainActivity.this, parent.getMenuItemCount()));
-        //            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-        //                @Override
-        //                public void onPageScrolled(
-        //                        final int position, final float positionOffset, final int positionOffsetPixels) { }
-//
-        //                @Override
-        //                public void onPageSelected(final int position) {
-        //                    if (getBottomNavigation().getSelectedIndex() != position) {
-        //                        getBottomNavigation().setSelectedIndex(position, false);
-        //                    }
-        //                }
-//
-        //                @Override
-        //                public void onPageScrollStateChanged(final int state) { }
-        //            });
-        //        }
-        //    });
-//
-        //}
     }
 
-    //@Override
-    //public void onMenuItemSelect(final int itemId, final int position, final boolean fromUser) {
-    //    log(TAG, INFO, "onMenuItemSelect(" + itemId + ", " + position + ", " + fromUser + ")");
-    //    if (fromUser) {
-    //        getBottomNavigation().getBadgeProvider().remove(itemId);
-    //        if (null != getViewPager()) {
-    //            getViewPager().setCurrentItem(position);
-    //        }
-    //    }
-    //}
-//
-    //@Override
-    //public void onMenuItemReselect(@IdRes final int itemId, final int position, final boolean fromUser) {
-    //    log(TAG, INFO, "onMenuItemReselect(" + itemId + ", " + position + ", " + fromUser + ")");
-//
-    //    if (fromUser) {
-//
-    //    }
-    //}
+    @Override
+    public void onResume(){
+        super.onResume();
+        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(1, false);
+    }
 
     // [START on_start_add_listener]
     @Override

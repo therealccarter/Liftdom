@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,6 +33,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 public class TemplateHousingActivity extends AppCompatActivity {
 
@@ -195,6 +197,45 @@ public class TemplateHousingActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         //}
+
+        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(0, false);
+        bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
+            @Override
+            public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
+                Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
+
+                if (i1 == 0) {
+                    Intent intent = new Intent(TemplateHousingActivity.this, TemplateHousingActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 1) {
+                    // TODO: Set to feed fragment
+                    Intent intent = new Intent(TemplateHousingActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 2) {
+                    Intent intent = new Intent(TemplateHousingActivity.this, WorkoutAssistorActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 3) {
+                    // TODO: Set to forum fragment
+                    Intent intent = new Intent(TemplateHousingActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else if (i1 == 4) {
+                    // TODO: Set to chat
+                }
+            }
+
+            @Override
+            public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
+                Log.i("info", "menu item re-selected");
+            }
+        });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(0, false);
     }
 
 

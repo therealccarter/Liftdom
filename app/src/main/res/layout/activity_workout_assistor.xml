@@ -1,110 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_workout_assistor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="com.liftdom.workout_assistor.WorkoutAssistorActivity"
-        android:orientation="vertical"
-        android:background="@color/grey"
 >
 
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <LinearLayout
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/workoutAssistor"
-                android:textSize="26sp"
-                android:id="@+id/WATitleView"
-                android:textColor="@color/liftrGold1"
-        />
-
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/elipses"
-            android:textSize="35sp"
-            android:layout_gravity="end"
-            android:background="@color/liftrGold1"
-            android:textColor="@color/black"
-            android:paddingEnd="30dp"
-            android:paddingStart="15dp"
-            android:layout_marginStart="70dp"
-            android:id="@+id/currentTemplateView"
-    />
-
-
-    <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_workout_assistor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/grey"
     >
 
-
-        <LinearLayout
-                android:id="@+id/resultsLayout1"
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:background="@color/black"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/workoutAssistor"
+                    android:textSize="26sp"
+                    android:id="@+id/WATitleView"
+                    android:textColor="@color/liftrGold1"
+            />
+
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/elipses"
+                android:textSize="35sp"
+                android:layout_gravity="end"
+                android:background="@color/liftrGold1"
+                android:textColor="@color/black"
+                android:paddingEnd="30dp"
+                android:paddingStart="15dp"
+                android:layout_marginStart="70dp"
+                android:id="@+id/currentTemplateView"
+        />
+
+
+        <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
         >
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/eachExerciseFragHolder"
-                    android:orientation="vertical"
-            >
 
-            </LinearLayout>
 
             <LinearLayout
+                    android:id="@+id/resultsLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:id="@+id/journalAndSave"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:visibility="gone"
             >
-                <EditText
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:hint="Private Workout Journal"
-                        android:id="@+id/privateJournal"
-                        android:imeOptions="actionDone"
-                />
+                        android:id="@+id/eachExerciseFragHolder"
+                        android:orientation="vertical"
+                >
 
-                <Button
+                </LinearLayout>
+
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/save"
-                        android:textSize="24sp"
-                        android:background="@color/confirmgreen"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="25dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:id="@+id/saveButton"
-                />
+                        android:orientation="vertical"
+                        android:id="@+id/journalAndSave"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:visibility="gone"
+                >
+                    <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                            android:hint="Private Workout Journal"
+                            android:id="@+id/privateJournal"
+                            android:imeOptions="actionDone"
+                    />
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/save"
+                            android:textSize="24sp"
+                            android:background="@color/confirmgreen"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="75dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                            android:id="@+id/saveButton"
+                    />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:bbn_entries="@menu/bottombar_menu_5items"
+            app:layout_behavior="@string/bbn_default_view_behavior"
+            android:id="@+id/BottomNavigation"
+    >
+
+    </it.sephiroth.android.library.bottomnavigation.BottomNavigation>
+
+</RelativeLayout>

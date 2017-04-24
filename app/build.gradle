@@ -11,6 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "0.3"
+        multiDexEnabled true
         //jackOptions {
         //    enabled true
         //}
@@ -83,6 +84,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
+
+
 
 
 
