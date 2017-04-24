@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -94,6 +95,9 @@ public class WorkoutAssistorFrag extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+        currentTemplateView.setTypeface(lobster);
 
         if(savedInstanceState == null){
             isSavedInstanceBool = true;
