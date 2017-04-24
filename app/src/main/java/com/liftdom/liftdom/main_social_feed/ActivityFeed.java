@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liftdom.liftdom.R;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +25,12 @@ public class ActivityFeed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activity_feed, container, false);
+        View view = inflater.inflate(R.layout.fragment_activity_feed, container, false);
+
+        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(1, false);
+
+        return view;
     }
 
 }

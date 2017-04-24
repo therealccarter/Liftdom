@@ -106,7 +106,6 @@ public class WorkoutAssistorFrag extends Fragment {
         }
 
 
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
@@ -614,9 +613,9 @@ public class WorkoutAssistorFrag extends Fragment {
                                                 .beginTransaction();
                                         WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
 
-                                        fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                                workoutFinishedFrag);
                                         if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.replace(R.id.eachExerciseFragHolder,
+                                                    workoutFinishedFrag);
                                             fragmentTransaction.commitAllowingStateLoss();
                                         }
 
@@ -917,9 +916,10 @@ public class WorkoutAssistorFrag extends Fragment {
                                             .beginTransaction();
                                     WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
 
-                                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                                            workoutFinishedFrag);
+
                                     if (!getActivity().isFinishing()) {
+                                        fragmentTransaction.replace(R.id.eachExerciseFragHolder,
+                                                workoutFinishedFrag);
                                         fragmentTransaction.commitAllowingStateLoss();
                                     }
 

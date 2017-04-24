@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import com.liftdom.liftdom.utils.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +66,9 @@ public class TemplateMenuFrag extends Fragment {
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();
 
-        //TODO: Find broken quote
+        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(0, false);
+
         if(savedInstanceState == null){
             quoteBody.setText(quoteArray[0]);
             quoteAuthor.setText(quoteArray[1]);

@@ -262,14 +262,50 @@ public class MainActivity extends BaseActivity {
         }
 
         if(savedInstanceState == null){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
-            fragmentTransaction.commit();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            //fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+            //fragmentTransaction.commit();
+        }
+
+        if (getIntent().getExtras() != null) {
+
+            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+
+            int id = getIntent().getExtras().getInt("fragID");
+
+            if(id == 0){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(0, false);
+            }else if(id == 1){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(1, false);
+            } else if(id == 2){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(2, false);
+            }
+        } else{
+            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+            bottomNavigation.setSelectedIndex(1, false);
         }
 
         BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(1, false);
+
         bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
@@ -318,8 +354,37 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onResume(){
         super.onResume();
-        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(1, false);
+        if (getIntent().getExtras() != null) {
+            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+
+            int id = getIntent().getExtras().getInt("fragID");
+
+            if(id == 0){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }else if(id == 1){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            } else if(id == 2){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        } else{
+            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+            bottomNavigation.setSelectedIndex(1, false);
+        }
     }
 
     // [START on_start_add_listener]
