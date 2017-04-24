@@ -6,7 +6,7 @@
       app:bbn_itemColorActive="@color/liftrGold1"
       app:bbn_itemColorDisabled="#33ffffff"
       app:bbn_itemColorInactive="#99ffffff"
-      app:bbn_rippleColor="@color/liftrGold2"
+      app:bbn_rippleColor="@color/transparent"
 >
     <item
             android:id="@+id/bbn_item1"
