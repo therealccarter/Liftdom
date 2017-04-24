@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import org.joda.time.LocalDate;
 
@@ -251,7 +250,7 @@ public class SelectedTemplateFrag extends Fragment {
                                 //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                                //fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(),
+                                //fragmentTransaction.replace(R.id.templateMenuFragContainer, new SavedTemplatesFrag(),
                                         //"myTemplatesTag");
                                 //fragmentTransaction.commit();
 
@@ -367,7 +366,7 @@ public class SelectedTemplateFrag extends Fragment {
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
+            fragmentTransaction.replace(R.id.mainFragHolder, new SavedTemplatesFrag(), "myTemplatesTag");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

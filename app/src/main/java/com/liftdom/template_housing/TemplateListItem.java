@@ -83,7 +83,7 @@ public class TemplateListItem extends Fragment {
                 SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                 selectedTemplateFrag.templateName = templateName;
 
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, selectedTemplateFrag,
+                fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag,
                         "selectedTemplatesTag");
 
                 fragmentTransaction.addToBackStack(null);

@@ -81,7 +81,7 @@ public class TemplateMenuFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, new MyTemplatesFrag(), "myTemplatesTag");
+                fragmentTransaction.replace(R.id.mainFragHolder, new SavedTemplatesFrag(), "myTemplatesTag");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -135,7 +135,7 @@ public class TemplateMenuFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, new PremadeTemplatesFrag(),
+                fragmentTransaction.replace(R.id.mainFragHolder, new PremadeTemplatesFrag(),
                         "premadeTemplatesTag");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();

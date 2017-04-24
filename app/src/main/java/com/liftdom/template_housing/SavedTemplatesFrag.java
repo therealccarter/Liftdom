@@ -33,7 +33,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyTemplatesFrag extends Fragment {
+public class SavedTemplatesFrag extends Fragment {
 
     // declare_auth
     private FirebaseAuth mAuth;
@@ -42,7 +42,7 @@ public class MyTemplatesFrag extends Fragment {
 
     int templateOptionsCheck = 0;
 
-    public MyTemplatesFrag() {
+    public SavedTemplatesFrag() {
         // Required empty public constructor
     }
 
@@ -209,7 +209,7 @@ public class MyTemplatesFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.templateMenuFragContainer, new PremadeTemplatesFrag(),
+                fragmentTransaction.replace(R.id.mainFragHolder, new PremadeTemplatesFrag(),
                         "premadeTemplatesTag");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();

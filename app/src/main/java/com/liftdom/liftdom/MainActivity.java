@@ -24,11 +24,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
+import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.ActivityFeed;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_editor.ViewPagerAdapter;
 import com.liftdom.template_housing.PremadeTemplatesFrag;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.template_housing.TemplateHousingFrag;
+import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
@@ -273,8 +276,12 @@ public class MainActivity extends BaseActivity {
                 Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
                 if (i1 == 0) {
-                    Intent intent = new Intent(MainActivity.this, TemplateHousingActivity.class);
-                    startActivity(intent);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 } else if (i1 == 1) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -290,9 +297,12 @@ public class MainActivity extends BaseActivity {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 3) {
-                    // TODO: Set to forum fragment
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 } else if (i1 == 4) {
                     // TODO: Set to chat
                 }
