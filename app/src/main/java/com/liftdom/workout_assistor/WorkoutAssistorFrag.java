@@ -105,10 +105,12 @@ public class WorkoutAssistorFrag extends Fragment {
             isSavedInstanceBool = false;
         }
 
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: Change this to frag version
                 Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
+
                 startActivity(intent);
             }
         });
