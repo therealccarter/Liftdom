@@ -162,7 +162,8 @@ public class SmolovFinishedFrag extends Fragment {
         goToTemplates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                intent.putExtra("fragID", 0);
                 startActivity(intent);
             }
         });

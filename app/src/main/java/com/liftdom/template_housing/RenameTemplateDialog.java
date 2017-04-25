@@ -71,7 +71,7 @@ public class RenameTemplateDialog extends Activity {
 
         final DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName1);
 
-                templateRef.addValueEventListener(new ValueEventListener() {
+        templateRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -297,6 +297,9 @@ public class RenameTemplateDialog extends Activity {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                templateRef.setValue(null);
+
                 final String templateNameNew = templateNameEditText.getText().toString();
 
                 final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
@@ -317,11 +320,7 @@ public class RenameTemplateDialog extends Activity {
                     }
                 });
 
-
-
-
                 DatabaseReference newTemplateRef = mRootRef.child("templates").child(uid).child(templateNameNew);
-
 
                 if(!arrayList1.isEmpty()){
                     List<String> list = new ArrayList<>();
@@ -421,7 +420,7 @@ public class RenameTemplateDialog extends Activity {
                     newTemplateRef.child("algorithmExercises").setValue(list);
                 }
 
-                templateRef.setValue(null);
+
 
                 setResult(1);
 

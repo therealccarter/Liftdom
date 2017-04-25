@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import org.joda.time.LocalDate;
@@ -361,14 +362,10 @@ public class SelectedTemplateFrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 3
         if(requestCode == 1){
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            fragmentTransaction.replace(R.id.mainFragHolder, new SavedTemplatesFrag(), "myTemplatesTag");
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.putExtra("fragID", 0);
+            startActivity(intent);
         }
     }
 
@@ -379,7 +376,6 @@ public class SelectedTemplateFrag extends Fragment {
 
         super.onSaveInstanceState(savedInstanceState);
     }
-
 
 
 
