@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -21,6 +24,7 @@ public class MainFeed extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,6 +33,12 @@ public class MainFeed extends Fragment {
 
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setSelectedIndex(1, false);
+
+        ButterKnife.bind(this, view);
+
+
+
+
 
         return view;
     }

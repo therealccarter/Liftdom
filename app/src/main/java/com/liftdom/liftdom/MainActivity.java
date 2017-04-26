@@ -5,12 +5,15 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -50,8 +53,10 @@ public class MainActivity extends BaseActivity {
 
     String username = "failed";
 
+
     // butterknife
     @BindView(R.id.title) TextView title;
+
 
     //DatabaseReference mRootRef;
     //String uid;
@@ -363,7 +368,11 @@ public class MainActivity extends BaseActivity {
                 Log.i("info", "menu item re-selected");
             }
         });
+
+
     }
+
+
 
     @Override
     public void onResume(){
@@ -418,5 +427,7 @@ public class MainActivity extends BaseActivity {
         }
     }
     // [END on_stop_remove_listener]
+
+
 }
 
