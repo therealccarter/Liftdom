@@ -49,14 +49,14 @@
         </activity>
         <activity android:name="com.liftdom.workout_assistor.AssistorSavedActivity">
         </activity>
-        <activity android:name="com.liftdom.user_profile.CurrentUserProfile">
+        <activity android:name="com.liftdom.user_profile.your_profile.CurrentUserProfile">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExercisePickerActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
         <activity
-                android:name="com.liftdom.user_profile.ProfileInfoActivity"
+                android:name="com.liftdom.user_profile.your_profile.ProfileInfoActivity"
                 android:noHistory="true">
         </activity>
         <activity

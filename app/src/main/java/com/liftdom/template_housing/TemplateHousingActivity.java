@@ -22,7 +22,7 @@ import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.settings.SettingsListActivity;
-import com.liftdom.user_profile.CurrentUserProfile;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;

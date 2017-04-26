@@ -1,4 +1,4 @@
-package com.liftdom.user_profile;
+package com.liftdom.user_profile.your_profile;
 
 
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.liftdom.user_profile;
+package com.liftdom.user_profile.your_profile;
 
 
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
-import com.liftdom.template_editor.ViewPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

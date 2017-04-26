@@ -6,7 +6,7 @@
         android:id="@+id/activity_workout_assistor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.liftdom.user_profile.CurrentUserProfile"
+        tools:context="com.liftdom.user_profile.your_profile.CurrentUserProfile"
 >
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
@@ -28,7 +28,7 @@
             <fragment android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:id="@+id/fragment2"
-                      android:name="com.liftdom.user_profile.ProfileHeaderFrag"
+                      android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag"
                       tools:layout="@layout/fragment_profile_info"
             />
 

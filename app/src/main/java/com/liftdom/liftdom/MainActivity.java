@@ -5,14 +5,10 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -27,13 +23,8 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.ActivityFeed;
 import com.liftdom.settings.SettingsListActivity;
-import com.liftdom.template_editor.ViewPagerAdapter;
-import com.liftdom.template_housing.PremadeTemplatesFrag;
-import com.liftdom.template_housing.TemplateHousingActivity;
-import com.liftdom.template_housing.TemplateHousingFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
-import com.liftdom.user_profile.CurrentUserProfile;
-import com.liftdom.workout_assistor.WorkoutAssistorActivity;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -45,9 +36,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-
-import static android.util.Log.INFO;
-import static it.sephiroth.android.library.bottomnavigation.MiscUtils.log;
 
 public class MainActivity extends BaseActivity {
 
