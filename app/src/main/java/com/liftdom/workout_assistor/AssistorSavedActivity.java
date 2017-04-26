@@ -662,9 +662,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                         }
 
                         //daySpecificRef1.setValue(null);
-
                         daySpecificRef1.setValue(list);
-
                         //isFirstupload2 = false;
                     }
                 }

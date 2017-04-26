@@ -96,6 +96,22 @@ public class MainActivity extends BaseActivity {
                     mRootRef = FirebaseDatabase.getInstance().getReference();
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+                    final DatabaseReference userListRef = mRootRef.child("userList").child(uid);
+                    userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.exists()){
+                                userListRef.setValue("yes");
+                                
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     DatabaseReference settingsRef = mRootRef.child("users").child(uid).child("heightUnit");
                     settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
