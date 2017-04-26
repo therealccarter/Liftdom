@@ -1,7 +1,6 @@
 package com.liftdom.workout_assistor;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,9 +15,8 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.main_social_feed.ActivityFeed;
+import com.liftdom.liftdom.main_social_feed.MainFeed;
 import com.liftdom.liftdom.utils.PlateRounderClass;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -463,7 +461,7 @@ public class AssistorSavedFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new ActivityFeed());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

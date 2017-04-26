@@ -1,9 +1,6 @@
 package com.liftdom.workout_assistor;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +8,6 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.main_social_feed.ActivityFeed;
 
 public class SaveAssistorDialog extends AppCompatActivity {
 
