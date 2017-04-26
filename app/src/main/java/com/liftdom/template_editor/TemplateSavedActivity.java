@@ -219,7 +219,6 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
