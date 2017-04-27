@@ -323,6 +323,7 @@
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
     <string name="searchUsers">Search users...</string>
+    <string name="noResults">No Results</string>
 
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>

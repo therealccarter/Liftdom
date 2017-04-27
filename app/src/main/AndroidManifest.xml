@@ -133,8 +133,6 @@
         </activity>
         <activity android:name=".SignInActivity">
         </activity>
-        <activity android:name=".main_social_feed.UserSearchActivity">
-        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 <resources>
 
     <item name="liftrGold1" type="color">#D1B91D</item>
+    <color name="liftrGold2">#a79413</color>
+    <color name="liftrGold3">#6b6014</color>
 
     <item name="colorPrimary" type="color">#000000</item>
     <item name="colorPrimaryDark" type="color">#D1B91D</item>
@@ -31,7 +33,6 @@
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="transblack2">#bf000000</color>
-    <color name="liftrGold2">#a79413</color>
     <color name="grey1">#edb9b9b9</color>
     <color name="transparent">#00000000</color>
 

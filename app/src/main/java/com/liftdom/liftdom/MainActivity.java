@@ -24,6 +24,7 @@ import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
+import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -380,6 +381,14 @@ public class MainActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                UserSearchFrag userSearchFrag = new UserSearchFrag();
+                userSearchFrag.searchString = query;
+                fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
                 return false;
             }
