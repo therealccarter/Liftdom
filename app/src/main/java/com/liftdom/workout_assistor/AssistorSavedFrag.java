@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.main_social_feed.MainFeed;
+import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.utils.PlateRounderClass;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -461,7 +461,7 @@ public class AssistorSavedFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

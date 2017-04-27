@@ -15,10 +15,10 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFeed extends Fragment {
+public class MainFeedFrag extends Fragment {
 
 
-    public MainFeed() {
+    public MainFeedFrag() {
         // Required empty public constructor
     }
 

@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -24,7 +23,7 @@ import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.forum.ForumMainFrag;
-import com.liftdom.liftdom.main_social_feed.MainFeed;
+import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -284,7 +283,7 @@ public class MainActivity extends BaseActivity {
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
             //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+            //fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
             //fragmentTransaction.commit();
         }
 
@@ -306,7 +305,7 @@ public class MainActivity extends BaseActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(1, false);
@@ -323,7 +322,7 @@ public class MainActivity extends BaseActivity {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+            fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
             fragmentTransaction.commit();
 
         }
@@ -346,7 +345,7 @@ public class MainActivity extends BaseActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+                    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 2) {
@@ -381,6 +380,7 @@ public class MainActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
@@ -411,8 +411,6 @@ public class MainActivity extends BaseActivity {
 
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -553,7 +551,7 @@ public class MainActivity extends BaseActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeed());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else if(id == 2){
