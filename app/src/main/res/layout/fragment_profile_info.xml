@@ -16,9 +16,26 @@
 
         <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="220dp"
+                android:layout_height="190dp"
                 android:src="@drawable/header_pattern"
                 android:scaleType="centerCrop"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/profileInfo"
+                android:background="@color/black"
+                android:textColor="@color/liftrGold1"
+                android:text="@string/profileInfo"
+                android:layout_gravity="end"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:drawableStart="@drawable/settings_small"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="5dp"
         />
 
         <LinearLayout
@@ -28,6 +45,7 @@
                 android:layout_marginTop="30dp"
                 android:paddingTop="20dp"
         >
+
 
             <ImageView
                     android:layout_width="wrap_content"
@@ -120,6 +138,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black"
                         android:orientation="horizontal"
+                        android:paddingBottom="5dp"
                 >
 
                     <TextView
@@ -141,23 +160,6 @@
 
                 </LinearLayout>
 
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/profileInfo"
-                        android:background="@color/black"
-                        android:textColor="@color/liftrGold1"
-                        android:text="@string/profileInfo"
-                        android:layout_gravity="end"
-                        android:textSize="16sp"
-                        android:padding="5dp"
-                        android:drawableStart="@drawable/settings_small"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                />
 
             </LinearLayout>
 

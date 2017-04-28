@@ -60,13 +60,16 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/fragHolder"
         >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/fragHolder2"
+            >
 
-            <fragment android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:name="com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab"
-                      tools:layout="@layout/fragment_history_calendar_tab"
-                      android:id="@+id/fragment"
-            />
+            </LinearLayout>
+
+
 
             <TextView
                     android:layout_width="match_parent"

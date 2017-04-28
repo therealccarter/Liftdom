@@ -40,6 +40,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         // Required empty public constructor
     }
 
+    public Boolean isOtherUser = false;
+    public String xUid = "null";
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -86,6 +89,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         //TODO: Add missed days in the past
 
         ButterKnife.bind(this, view);
+
+        if(isOtherUser){
+            uid = xUid;
+        }
 
         // things that only happen upon action
 

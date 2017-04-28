@@ -56,10 +56,10 @@ public class UserSearchFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        if(toolbar.getVisibility() == View.GONE){
-            toolbar.setVisibility(View.VISIBLE);
-        }
+        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //if(toolbar.getVisibility() == View.GONE){
+        //    toolbar.setVisibility(View.VISIBLE);
+        //}
 
         if(searchString.equals("")){
             loadingView.setVisibility(View.GONE);

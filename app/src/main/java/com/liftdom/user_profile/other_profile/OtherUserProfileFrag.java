@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +51,13 @@ public class OtherUserProfileFrag extends Fragment {
             otherUserProfileHeaderFrag.xUid = xUid;
 
             fragmentTransaction.add(R.id.profileHeaderHolder, otherUserProfileHeaderFrag);
+
+            HistoryCalendarTab historyCalendarTab = new HistoryCalendarTab();
+            historyCalendarTab.isOtherUser = true;
+            historyCalendarTab.xUid = xUid;
+
+            fragmentTransaction.add(R.id.fragHolder2, historyCalendarTab);
+
             fragmentTransaction.commit();
         }
 
@@ -65,5 +73,15 @@ public class OtherUserProfileFrag extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
+
+    }
+
 
 }
