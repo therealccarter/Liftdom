@@ -1,13 +1,20 @@
 package com.liftdom.liftdom.main_social_feed.user_search;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.liftdom.liftdom.PremiumFeaturesActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,12 +26,37 @@ public class UserSearchResultFrag extends Fragment {
         // Required empty public constructor
     }
 
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    public String userName;
+    public String xUid;
+
+    @BindView(R.id.userName) TextView userNameTextView;
+    @BindView(R.id.userLevel) TextView userLevelTextView;
+    @BindView(R.id.profilePic) ImageView profilePicImageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_search_result, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_search_result, container, false);
+
+        ButterKnife.bind(this, view);
+
+        userNameTextView.setText(userName);
+
+        userNameTextView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(uid.equals(xUid)){
+                    Intent intent = new Intent(getContext(), CurrentUserProfile.class);
+                    startActivity(intent);
+                } else {
+
+                }
+            }
+        });
+
+        return view;
     }
 
 }

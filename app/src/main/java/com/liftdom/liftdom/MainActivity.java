@@ -254,26 +254,6 @@ public class MainActivity extends BaseActivity {
 
             //username = KeyAccountValuesActivity.getInstance().getUserName();
 
-            DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
-
-            usernameRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot usernameSnap : dataSnapshot.getChildren()) {
-                        String key = usernameSnap.getKey();
-                        if (key.equals("username")) {
-                            String username;
-                            username = usernameSnap.getValue(String.class);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
                     .drawable.usertest))
                     .withName
