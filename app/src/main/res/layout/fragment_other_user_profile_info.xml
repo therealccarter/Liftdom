@@ -1,0 +1,171 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+              android:orientation="horizontal"
+             tools:context="com.liftdom.user_profile.other_profile.OtherUserProfileHeaderFrag">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="220dp"
+                android:src="@drawable/header_pattern"
+                android:scaleType="centerCrop"
+        />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:paddingTop="20dp"
+        >
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/usertest"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummyUsername"
+                        android:textSize="24sp"
+                        android:textColor="@color/white"
+                        android:id="@+id/userName"
+                        android:layout_marginStart="10dp"
+                />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@color/black"
+                        android:paddingBottom="2dp"
+                >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:text="@string/level"
+                            android:textSize="20sp"
+                            android:padding="5dp"
+
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/currentLevel"
+                            android:text="@string/levelValue"
+                            android:textSize="22sp"
+                            android:textColor="@color/liftrGold1"
+                    />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@color/black"
+
+                >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bodyWeight"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:id="@+id/textView"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/bodyWeight"
+                            android:text="@string/zero_zero"
+                            android:textSize="17sp"
+                            android:textColor="@color/liftrGold1"
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pounds"
+                            android:textSize="17sp"
+                            android:textColor="@color/liftrGold1"
+                    />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black"
+                        android:orientation="horizontal"
+                >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/currentFocus"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/currentFocus"
+                            android:text="@string/bodybuilding"
+                            android:textSize="17sp"
+                            android:textColor="@color/liftrGold1"
+                    />
+
+                </LinearLayout>
+
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/followUser"
+                        android:padding="0dp"
+                        android:background="@color/confirmgreen"
+                        android:visibility="gone"
+                        android:id="@+id/followUserButton"
+                />
+
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/unfollowUser"
+                        android:padding="0dp"
+                        android:background="@color/black"
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        android:id="@+id/unFollowUserButton"
+                />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

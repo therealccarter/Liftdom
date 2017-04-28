@@ -48,11 +48,6 @@ public class CurrentUserProfile extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    //@BindView(R.id.historyButton) Button historyButton;
-    //@BindView(R.id.savedTemplates) Button savedTemplatesButton;
-    //@BindView(R.id.basicProfileStats) Button basicProfileStats;
-    //@BindView(R.id.settingsButton) ImageView settingsButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +89,7 @@ public class CurrentUserProfile extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Chris Carter"); //TODO: Set to user's display name
+        toolbar.setTitle(mFirebaseUser.getDisplayName()); //TODO: Set to user's display name
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)

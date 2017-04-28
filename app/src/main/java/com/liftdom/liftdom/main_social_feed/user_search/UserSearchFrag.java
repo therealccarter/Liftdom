@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateMenuFrag;
-import com.pitt.loadingview.library.LoadingView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class UserSearchFrag extends Fragment {
     private HashMap<String, String> fullUserHashMap = new HashMap<>();
     private ArrayList<String> resultsUserList = new ArrayList<>();
 
-    @BindView(R.id.loadingView) LoadingView loadingView;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.resultsHolder) LinearLayout resultsHolder;
 
