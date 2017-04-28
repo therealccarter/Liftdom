@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,11 @@ public class UserSearchFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_search, container, false);
 
         ButterKnife.bind(this, view);
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        if(toolbar.getVisibility() == View.GONE){
+            toolbar.setVisibility(View.VISIBLE);
+        }
 
         if(searchString.equals("")){
             loadingView.setVisibility(View.GONE);
