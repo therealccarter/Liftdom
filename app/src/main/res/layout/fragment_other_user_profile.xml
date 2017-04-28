@@ -33,14 +33,6 @@
 
             </LinearLayout>
 
-            <!--
-            <fragment android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/fragment2"
-                      android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag"
-                      tools:layout="@layout/fragment_profile_info"
-            />
-            -->
 
             <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar1"
@@ -56,9 +48,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity"
@@ -76,8 +65,17 @@
                       android:layout_height="wrap_content"
                       android:name="com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab"
                       tools:layout="@layout/fragment_history_calendar_tab"
-                      android:id="@+id/fragment"/>
+                      android:id="@+id/fragment"
+            />
 
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/longLatin"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_margin="20dp"
+            />
 
         </LinearLayout>
 
