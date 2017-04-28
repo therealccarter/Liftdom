@@ -71,9 +71,9 @@ UPCOMING FEATURES TO DO:
 
 *v0.6* - Begin Social features!
 * Understand and plan the right NoSQL architecture for efficient social media features
-* Search for other users
-* Friend other users
-* View other users' profiles
+**DONE** Search for other users
+**DONE** Friend other users
+**DONE** View other users' profiles
 * Add friends' workouts and your workouts to main feed
 * Clear current BugList
 
