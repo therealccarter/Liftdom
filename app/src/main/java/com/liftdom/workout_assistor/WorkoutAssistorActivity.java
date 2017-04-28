@@ -100,6 +100,7 @@ public class WorkoutAssistorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //TODO: Perhaps we could literally put the order number in the title of the exercises? Ex: 1. Curl, 2.Bench;
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
