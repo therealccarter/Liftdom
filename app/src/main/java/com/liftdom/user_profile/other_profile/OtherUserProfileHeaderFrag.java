@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
@@ -34,6 +35,10 @@ public class OtherUserProfileHeaderFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    // declare_auth
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
+
     @BindView(R.id.userName) TextView userNameTextView;
     @BindView(R.id.currentLevel) TextView currentLevel;
     @BindView(R.id.bodyWeight) TextView bodyWeight;
@@ -48,6 +53,9 @@ public class OtherUserProfileHeaderFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_other_user_profile_info, container, false);
 
         ButterKnife.bind(this, view);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
 
         userNameTextView.setText(userName);
 
@@ -78,6 +86,7 @@ public class OtherUserProfileHeaderFrag extends Fragment {
         });
 
         final DatabaseReference followingUsersRef = mRootRef.child("following").child(uid);
+        final DatabaseReference followerUsersRef = mRootRef.child("followers").child(xUid);
         followingUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,7 +119,10 @@ public class OtherUserProfileHeaderFrag extends Fragment {
 
         followUserButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // currentUser is following xUid
                 followingUsersRef.child(xUid).setValue(userName);
+                // xUid is being followed by currentUser
+                followerUsersRef.child(uid).setValue(mFirebaseUser.getDisplayName());
                 followUserButton.setVisibility(View.GONE);
                 unfollowUserButton.setVisibility(View.VISIBLE);
             }
@@ -119,6 +131,7 @@ public class OtherUserProfileHeaderFrag extends Fragment {
         unfollowUserButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 followingUsersRef.child(xUid).setValue(null);
+                followerUsersRef.child(uid).setValue(null);
                 unfollowUserButton.setVisibility(View.GONE);
                 followUserButton.setVisibility(View.VISIBLE);
             }
