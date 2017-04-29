@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-             tools:context="com.liftdom.workout_assistor.WorkoutAssistorFrag">
+              tools:context="com.liftdom.workout_assistor.WorkoutAssistorFrag">
 
 
     <ScrollView
@@ -31,6 +31,16 @@
                     android:paddingStart="15dp"
                     android:layout_marginStart="70dp"
                     android:id="@+id/currentTemplateView"
+            />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:indicatorName="BallClipRotateMultipleIndicator"
+                    android:id="@+id/loadingView"
+                    android:layout_marginTop="200dp"
+                    app:indicatorColor="@color/liftrGold2"
+                    android:layout_gravity="center"
             />
 
             <LinearLayout

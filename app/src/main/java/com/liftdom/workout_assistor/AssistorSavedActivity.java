@@ -244,6 +244,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
             }
         });
 
+        MainActivitySingleton.getInstance().isWorkoutFinished = true;
 
 
         // HERE WE'RE GETTING THE ORIGINAL VALUES FROM THE TEMPLATE NODE
