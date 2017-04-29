@@ -546,8 +546,8 @@ public class AssistorSavedActivity extends AppCompatActivity {
                 String date = LocalDate.now().toString();
 
                 DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
-                DatabaseReference specificDate = workoutHistoryRef.child(date);
-                DatabaseReference journalRef = specificDate.child("private_journal");
+                DatabaseReference specificDateRef = workoutHistoryRef.child(date);
+                DatabaseReference journalRef = specificDateRef.child("private_journal");
                 String privateJournalString = WorkoutAssistorAssemblerClass.getInstance().privateJournal;
                 ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
 
@@ -557,21 +557,24 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                 if(WorkoutAssistorAssemblerClass.getInstance().isRestDay){
 
-                    specificDate.child("restDay").setValue("Rested");
+                    specificDateRef.child("restDay").setValue("Rested");
 
                     if (privateJournalString != null) {
                         journalRef.setValue(privateJournalString);
                     }
                 }else{
                     if(savedInstanceState == null) {
+
                         for (String item : assistorArrayList) {
+
                             list.add(item);
+
                             if(isExerciseName(item)){
                                 exList.add(item);
                             }
                         }
 
-                        specificDate.setValue(list);
+                        specificDateRef.setValue(list);
                         completedExercises(exList);
 
                         if (privateJournalString != null) {
