@@ -302,10 +302,15 @@ public class MainActivity extends BaseActivity {
             }
         } else{
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
-            fragmentTransaction.commit();
+            if(mFirebaseUser == null){
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            } else{
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                fragmentTransaction.commit();
+            }
+
 
         }
 

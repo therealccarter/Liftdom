@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +38,7 @@ public class MainFeedFrag extends Fragment {
 
     @BindView(R.id.postsHolder) LinearLayout postsHolder;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.noResultsView) TextView noResultsView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,31 +55,36 @@ public class MainFeedFrag extends Fragment {
         feedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int inc = 0;
+                if(!dataSnapshot.exists()){
+                    loadingView.setVisibility(View.GONE);
+                    noResultsView.setVisibility(View.VISIBLE);
+                } else {
+                    int inc = 0;
 
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    if(inc == 0){
-                        loadingView.setVisibility(View.GONE);
+                        if (inc == 0) {
+                            loadingView.setVisibility(View.GONE);
+                        }
+
+                        //CompletedWorkoutClass completedWorkoutClass = (CompletedWorkoutClass) dataSnapshot1.getValue();
+                        Map<String, Object> map = (Map<String, Object>) dataSnapshot1.getValue();
+
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        CompletedWorkoutPostFrag completedWorkoutPostFrag = new CompletedWorkoutPostFrag();
+                        completedWorkoutPostFrag.userId = (String) map.get("userId");
+                        completedWorkoutPostFrag.userName = (String) map.get("userName");
+                        completedWorkoutPostFrag.publicComment = (String) map.get("publicComment");
+                        completedWorkoutPostFrag.workoutInfoList = (List) map.get("workoutInfoList");
+
+                        fragmentTransaction.add(R.id.postsHolder, completedWorkoutPostFrag);
+                        fragmentTransaction.commit();
+
+                        inc++;
+
                     }
-
-                    //CompletedWorkoutClass completedWorkoutClass = (CompletedWorkoutClass) dataSnapshot1.getValue();
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot1.getValue();
-
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    CompletedWorkoutPostFrag completedWorkoutPostFrag = new CompletedWorkoutPostFrag();
-                    completedWorkoutPostFrag.userId = (String) map.get("userId");
-                    completedWorkoutPostFrag.userName = (String) map.get("userName");
-                    completedWorkoutPostFrag.publicComment = (String) map.get("publicComment");
-                    completedWorkoutPostFrag.workoutInfoList = (List) map.get("workoutInfoList");
-
-                    fragmentTransaction.add(R.id.postsHolder, completedWorkoutPostFrag);
-                    fragmentTransaction.commit();
-
-                    inc++;
-
                 }
             }
 

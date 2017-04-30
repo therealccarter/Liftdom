@@ -4,7 +4,7 @@
              android:layout_height="wrap_content"
               android:orientation="vertical"
               android:layout_margin="15dp"
-              android:background="@color/white"
+              android:background="@drawable/border_shadow1"
              tools:context="com.liftdom.liftdom.main_social_feed.CompletedWorkoutPostFrag">
 
     <LinearLayout
