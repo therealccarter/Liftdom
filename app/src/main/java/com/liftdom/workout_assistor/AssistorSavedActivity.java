@@ -19,6 +19,7 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.CompletedWorkoutClass;
 import com.liftdom.liftdom.utils.PlateRounderClass;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -575,6 +576,43 @@ public class AssistorSavedActivity extends AppCompatActivity {
                         }
 
                         specificDateRef.setValue(list);
+
+                        final CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid, mFirebaseUser
+                                .getDisplayName(), "public comment", list);
+
+                        DatabaseReference followerListRef = mRootRef.child("following").child(uid);
+                        followerListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                int inc = 0;
+                                ArrayList<String> followerList = new ArrayList<String>();
+
+                                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                                    String xUid = dataSnapshot1.getKey();
+                                    followerList.add(xUid);
+
+                                    inc++;
+                                    if(inc == dataSnapshot.getChildrenCount()){
+
+                                        DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
+                                        selfFeedRef.push().setValue(completedWorkoutClass);
+
+                                        for(String string : followerList){
+                                            DatabaseReference feedRef = mRootRef.child("feed").child(string);
+                                            feedRef.push().setValue(completedWorkoutClass);
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                         completedExercises(exList);
 
                         if (privateJournalString != null) {
