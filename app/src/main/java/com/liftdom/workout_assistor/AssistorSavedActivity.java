@@ -553,7 +553,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
                 ArrayList<String> assistorArrayList = WorkoutAssistorAssemblerClass.getInstance().DoWAL1;
 
 
-                List<String> list = new ArrayList<>();
+                final List<String> list = new ArrayList<>();
                 List<String> exList = new ArrayList<>();
 
                 if(WorkoutAssistorAssemblerClass.getInstance().isRestDay){
@@ -577,9 +577,6 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                         specificDateRef.setValue(list);
 
-                        final CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid, mFirebaseUser
-                                .getDisplayName(), "public comment", list);
-
                         DatabaseReference followerListRef = mRootRef.child("following").child(uid);
                         followerListRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -595,12 +592,19 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     inc++;
                                     if(inc == dataSnapshot.getChildrenCount()){
 
+                                        CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid, mFirebaseUser
+                                                .getDisplayName(), "public comment", list);
+
+                                        Map<String, Object> postValues = completedWorkoutClass.toMap();
+
                                         DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
-                                        selfFeedRef.push().setValue(completedWorkoutClass);
+                                        DatabaseReference myFeed = mRootRef.child("feed").child(uid);
+                                        selfFeedRef.push().setValue(postValues);
+                                        myFeed.push().setValue(postValues);
 
                                         for(String string : followerList){
                                             DatabaseReference feedRef = mRootRef.child("feed").child(string);
-                                            feedRef.push().setValue(completedWorkoutClass);
+                                            feedRef.push().setValue(postValues);
 
                                         }
                                     }

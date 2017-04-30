@@ -1,11 +1,17 @@
 package com.liftdom.liftdom.main_social_feed;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 4/29/2017.
  */
 
+@IgnoreExtraProperties
 public class CompletedWorkoutClass {
 
     public String userId;
@@ -15,14 +21,27 @@ public class CompletedWorkoutClass {
 
 
     public CompletedWorkoutClass(){
-
+        // Default constructor
     }
 
-    public CompletedWorkoutClass(String xUserId, String xUserName, String xPublicComment, List xWorkoutInfoList){
-        userId = xUserId;
-        userName = xUserName;
-        publicComment = xPublicComment;
-        workoutInfoList = xWorkoutInfoList;
+    public CompletedWorkoutClass(String userId, String userName, String publicComment, List workoutInfoList){
+        this.userId = userId;
+        this.userName = userName;
+        this.publicComment = publicComment;
+        this.workoutInfoList = workoutInfoList;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap(){
+
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("userId", userId);
+        result.put("userName", userName);
+        result.put("publicComment", publicComment);
+        result.put("workoutInfoList", workoutInfoList);
+
+        return result;
     }
 
 }
