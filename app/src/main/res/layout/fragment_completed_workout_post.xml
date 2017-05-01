@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
             >
                 <TextView
                         android:layout_width="match_parent"
@@ -52,12 +52,52 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/userLevel"
                         android:textSize="16sp"
-                        android:textColor="@color/liftrGold1"
+                        android:textColor="@color/backgroundgrey1"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeStampView"
+                        android:textSize="14sp"
+                        android:textColor="@color/backgroundgrey1"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="-10dp"
+                        android:layout_marginEnd="15dp"
                 />
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <!--
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/liftrGold1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+        />
+        -->
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/liftrGold1"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="15dp"
+        />
 
         <LinearLayout
                 android:layout_width="match_parent"

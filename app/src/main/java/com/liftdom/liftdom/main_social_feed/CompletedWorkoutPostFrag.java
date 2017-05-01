@@ -16,6 +16,9 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.HousingExNameFrag;
 import com.liftdom.template_housing.HousingSetSchemeFrag;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,7 @@ public class CompletedWorkoutPostFrag extends Fragment {
     //@BindView(R.id.workoutContents) TextView workoutContentsView;
     @BindView(R.id.userLevel) TextView userLevelView;
     @BindView(R.id.publicComment) TextView publicCommentView;
+    @BindView(R.id.timeStampView) TextView timeStampView;
 
 
     @Override
@@ -97,6 +101,12 @@ public class CompletedWorkoutPostFrag extends Fragment {
         userNameView.setText(userName);
 
         //workoutContentsView.setText(workoutInfoTestString);
+
+        DateTime dateTimeOriginal = DateTime.parse(dateAndTime);
+        DateTime localDate = dateTimeOriginal.withZone(DateTimeZone.getDefault());
+        String formattedLocalDate = localDate.toString("MM/dd/yyyy");
+
+        timeStampView.setText(formattedLocalDate);
 
         publicCommentView.setText(publicComment);
 

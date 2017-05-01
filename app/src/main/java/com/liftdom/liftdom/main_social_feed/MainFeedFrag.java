@@ -76,7 +76,7 @@ public class MainFeedFrag extends Fragment {
                         completedWorkoutPostFrag.userName = (String) map.get("userName");
                         completedWorkoutPostFrag.publicComment = (String) map.get("publicComment");
                         completedWorkoutPostFrag.workoutInfoList = (List) map.get("workoutInfoList");
-                        completedWorkoutPostFrag.dateAndTime = (String) map.get("dateAndTime");
+                        completedWorkoutPostFrag.dateAndTime = (String) map.get("dateTime");
                         completedWorkoutPostFrag.repsMap = (HashMap<String, Boolean>) map.get("repsMap");
 
                         postFragArrayList.add(completedWorkoutPostFrag);
