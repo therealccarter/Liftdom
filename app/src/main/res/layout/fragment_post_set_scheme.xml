@@ -9,11 +9,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginStart="10dp"
     >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/setSchemeView"
+                android:id="@+id/repsView"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:padding="2dp"
+                android:text="@string/hello_blank_fragment"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reps"
+                android:text="@string/repsAt"
+                android:textColor="@color/black"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weightView"
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:padding="2dp"

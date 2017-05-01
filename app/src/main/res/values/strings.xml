@@ -267,7 +267,7 @@
     <string name="close">Close</string>
 
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
-
+    <string name="repsAt">reps @</string>
 
     <string name="todo">TO-DO</string>
     <string name="templates">Templates</string>

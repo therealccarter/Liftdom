@@ -69,16 +69,6 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
         >
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/workoutContents"
-                    android:textSize="18sp"
-                    android:textColor="@color/darkgrey"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="30dp"
-            />
 
         </LinearLayout>
 

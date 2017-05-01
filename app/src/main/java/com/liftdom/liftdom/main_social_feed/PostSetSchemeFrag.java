@@ -25,7 +25,8 @@ public class PostSetSchemeFrag extends Fragment {
     String setSchemeString = "error";
     boolean differentType = false;
 
-    @BindView(R.id.setSchemeView) TextView setSchemesView;
+    @BindView(R.id.repsView) TextView repsView;
+    @BindView(R.id.weightView) TextView weightView;
     @BindView(R.id.pounds) TextView pounds;
 
     @Override
@@ -36,7 +37,12 @@ public class PostSetSchemeFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        setSchemesView.setText(setSchemeString);
+        String delims = "[@]";
+        String[] tokens = setSchemeString.split(delims);
+
+        repsView.setText(tokens[0]);
+        weightView.setText(tokens[1]);
+
 
         return view;
     }
