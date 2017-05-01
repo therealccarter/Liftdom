@@ -70,27 +70,31 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.6* - Begin Social features!
-* Understand and plan the right NoSQL architecture for efficient social media features
+**DONE** Understand and plan the right NoSQL architecture for efficient social media features
 **DONE** Search for other users
 **DONE** Friend other users
 **DONE** View other users' profiles
-* Add friends' workouts and your workouts to main feed
+**DONE** Add basic friends' workouts and your workouts to main feed
 * Clear current BugList
 
 *v0.7*
 * DM other users (including group chat)
 * Send templates to other users via chat/share via url
 * Ability to "fork" workouts and collaborate
+* Custom exercises
+* View public templates
 * Workout Timer
 * Clear current BugList
 
 *v0.8*
 * Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
+* Add real-time commenting to posts.
 * Look for other lifters at various gyms (mark on Google Maps maybe?)
 * DM workout invite
 * for the workout assistor, give spaces between different rep types
 
 *v0.9*
+* Re-haul template editor & assistor (algorithm fixes, supersets, layout fixes, etc)
 * Level up structure based on daily multiplier, lifts, etc.
 
 
@@ -106,7 +110,7 @@ UPCOMING FEATURES TO DO:
 ***TBD***
 
 *v2.0*
-* Full forum integration.
+* Full forum & coaching module integration, fully featured existing modules.
 
 
 
