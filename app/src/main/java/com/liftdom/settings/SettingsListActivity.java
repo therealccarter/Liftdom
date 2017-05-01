@@ -249,6 +249,9 @@ public class SettingsListActivity extends AppCompatActivity implements
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(MainActivitySingleton.getInstance().isWorkoutFinished){
+                    MainActivitySingleton.getInstance().isWorkoutFinished = false;
+                }
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {

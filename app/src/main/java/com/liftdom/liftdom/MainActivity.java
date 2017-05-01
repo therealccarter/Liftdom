@@ -126,13 +126,18 @@ public class MainActivity extends BaseActivity {
                     settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() == null) {
+                            if (!dataSnapshot.exists()) {
+                                // initializing values
                                 DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
                                 heightRef.setValue("footInches");
                                 DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child("bodyWeightUnit");
                                 bodyWeightRef.setValue("pounds");
                                 DatabaseReference weightRef = mRootRef.child("users").child(uid).child("weightUnit");
                                 weightRef.setValue("pounds");
+                                DatabaseReference userLevelRef = mRootRef.child("users").child(uid).child("userLevel");
+                                userLevelRef.setValue("0");
+                                DatabaseReference followerRef = mRootRef.child("followers").child(uid).child(uid);
+                                followerRef.setValue(mFirebaseUser.getDisplayName());
                             }
                         }
 
@@ -356,6 +361,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
+                //TODO: if not on first fragment, come back to original frag
                 Log.i("info", "menu item re-selected");
             }
         });

@@ -20,8 +20,7 @@ import com.liftdom.liftdom.main_social_feed.user_search.UserSearchResultFrag;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +51,8 @@ public class MainFeedFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         DatabaseReference feedRef = mRootRef.child("feed").child(uid);
-        feedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query feedQuery = feedRef.limitToLast(10);
+        feedQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
@@ -60,14 +60,12 @@ public class MainFeedFrag extends Fragment {
                     noResultsView.setVisibility(View.VISIBLE);
                 } else {
                     int inc = 0;
-
+                    ArrayList<CompletedWorkoutPostFrag> postFragArrayList = new ArrayList<CompletedWorkoutPostFrag>();
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                        if (inc == 0) {
-                            loadingView.setVisibility(View.GONE);
-                        }
-
                         //CompletedWorkoutClass completedWorkoutClass = (CompletedWorkoutClass) dataSnapshot1.getValue();
+                        // Could have a variable here with however many things to load, and then increase it on pull
+                        // to refresh?
                         Map<String, Object> map = (Map<String, Object>) dataSnapshot1.getValue();
 
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -78,12 +76,27 @@ public class MainFeedFrag extends Fragment {
                         completedWorkoutPostFrag.userName = (String) map.get("userName");
                         completedWorkoutPostFrag.publicComment = (String) map.get("publicComment");
                         completedWorkoutPostFrag.workoutInfoList = (List) map.get("workoutInfoList");
+                        completedWorkoutPostFrag.dateAndTime = (String) map.get("dateAndTime");
+                        completedWorkoutPostFrag.repsMap = (HashMap<String, Boolean>) map.get("repsMap");
 
-                        fragmentTransaction.add(R.id.postsHolder, completedWorkoutPostFrag);
-                        fragmentTransaction.commit();
+                        postFragArrayList.add(completedWorkoutPostFrag);
+
+                        //fragmentTransaction.add(R.id.postsHolder, completedWorkoutPostFrag);
+                        //fragmentTransaction.commit();
 
                         inc++;
+                        if(inc == dataSnapshot.getChildrenCount()){
 
+                            loadingView.setVisibility(View.GONE);
+
+                            Collections.reverse(postFragArrayList);
+
+                            for(CompletedWorkoutPostFrag completedWorkoutPost : postFragArrayList){
+                                fragmentTransaction.add(R.id.postsHolder, completedWorkoutPost);
+                            }
+
+                            fragmentTransaction.commit();
+                        }
                     }
                 }
             }
@@ -93,6 +106,7 @@ public class MainFeedFrag extends Fragment {
 
             }
         });
+
 
         return view;
     }

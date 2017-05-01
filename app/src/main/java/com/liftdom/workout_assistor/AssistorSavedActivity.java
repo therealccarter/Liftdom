@@ -32,6 +32,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -577,7 +579,7 @@ public class AssistorSavedActivity extends AppCompatActivity {
 
                         specificDateRef.setValue(list);
 
-                        DatabaseReference followerListRef = mRootRef.child("following").child(uid);
+                        DatabaseReference followerListRef = mRootRef.child("followers").child(uid);
                         followerListRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -592,15 +594,18 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     inc++;
                                     if(inc == dataSnapshot.getChildrenCount()){
 
+                                        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                                        String dateTimeString = dateTime.toString();
+
                                         CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid, mFirebaseUser
-                                                .getDisplayName(), "public comment", list);
+                                                .getDisplayName(), "public comment", list, dateTimeString);
 
                                         Map<String, Object> postValues = completedWorkoutClass.toMap();
 
                                         DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
-                                        DatabaseReference myFeed = mRootRef.child("feed").child(uid);
+                                        //DatabaseReference myFeed = mRootRef.child("feed").child(uid);
                                         selfFeedRef.push().setValue(postValues);
-                                        myFeed.push().setValue(postValues);
+                                        //myFeed.push().setValue(postValues);
 
                                         for(String string : followerList){
                                             DatabaseReference feedRef = mRootRef.child("feed").child(string);

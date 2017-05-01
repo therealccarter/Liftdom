@@ -18,17 +18,20 @@ public class CompletedWorkoutClass {
     public String userName;
     public String publicComment;
     public List workoutInfoList;
-
+    public String dateAndTime;
+    public HashMap<String, Boolean> repsMap;
 
     public CompletedWorkoutClass(){
         // Default constructor
     }
 
-    public CompletedWorkoutClass(String userId, String userName, String publicComment, List workoutInfoList){
+    public CompletedWorkoutClass(String userId, String userName, String publicComment, List workoutInfoList, String
+            dateAndTime){
         this.userId = userId;
         this.userName = userName;
         this.publicComment = publicComment;
         this.workoutInfoList = workoutInfoList;
+        this.dateAndTime = dateAndTime;
     }
 
     @Exclude
@@ -40,6 +43,8 @@ public class CompletedWorkoutClass {
         result.put("userName", userName);
         result.put("publicComment", publicComment);
         result.put("workoutInfoList", workoutInfoList);
+        result.put("dateTime", dateAndTime);
+        result.put("repsMap", repsMap);
 
         return result;
     }

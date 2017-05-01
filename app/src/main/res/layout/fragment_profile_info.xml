@@ -21,22 +21,23 @@
                 android:scaleType="centerCrop"
         />
 
-        <TextView
+        <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:id="@+id/profileInfo"
+                android:drawableStart="@drawable/settings_small"
                 android:background="@color/black"
                 android:textColor="@color/liftrGold1"
                 android:text="@string/profileInfo"
                 android:layout_gravity="end"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:drawableStart="@drawable/settings_small"
-                android:drawablePadding="5dp"
+                android:textAllCaps="false"
                 android:gravity="center"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="5dp"
         />
+
 
         <LinearLayout
                 android:layout_width="match_parent"
