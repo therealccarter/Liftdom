@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="com.liftdom.liftdom.main_social_feed.PostSetSchemeFrag">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setSchemeView"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:padding="2dp"
+                android:text="@string/hello_blank_fragment"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pounds"
+                android:text="@string/pounds"
+                android:textColor="@color/black"
+        />
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/liftrGold2"
+    />
+
+
+</LinearLayout>

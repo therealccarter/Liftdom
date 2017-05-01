@@ -1,4 +1,4 @@
-package com.liftdom.template_housing;
+package com.liftdom.liftdom.main_social_feed;
 
 
 import android.os.Bundle;
@@ -15,14 +15,14 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HousingExNameFrag extends Fragment {
+public class PostExNameFrag extends Fragment {
 
 
-    public HousingExNameFrag() {
+    public PostExNameFrag() {
         // Required empty public constructor
     }
 
-    public String exNameString = "error";
+    String exNameString = "error";
 
     @BindView(R.id.exerciseName) TextView exerciseName;
 
@@ -30,28 +30,13 @@ public class HousingExNameFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_housing_ex_name, container, false);
+        View view = inflater.inflate(R.layout.fragment_post_ex_name, container, false);
 
         ButterKnife.bind(this, view);
-
-
-        if(savedInstanceState != null){
-            exNameString = savedInstanceState.getString("ex_name");
-            exerciseName.setText(exNameString);
-        }
 
         exerciseName.setText(exNameString);
 
         return view;
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        savedInstanceState.putString("ex_name", exNameString);
-
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
 
 }

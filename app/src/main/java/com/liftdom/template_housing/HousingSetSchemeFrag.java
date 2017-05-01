@@ -22,7 +22,7 @@ public class HousingSetSchemeFrag extends Fragment {
         // Required empty public constructor
     }
 
-    String setSchemeString = "error";
+    public String setSchemeString = "error";
     boolean differentType = false;
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;

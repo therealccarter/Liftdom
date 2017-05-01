@@ -3,6 +3,8 @@ package com.liftdom.liftdom.main_social_feed;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_housing.HousingExNameFrag;
+import com.liftdom.template_housing.HousingSetSchemeFrag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +41,7 @@ public class CompletedWorkoutPostFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
     @BindView(R.id.userName) TextView userNameView;
-    @BindView(R.id.workoutContents) TextView workoutContentsView;
+    //@BindView(R.id.workoutContents) TextView workoutContentsView;
     @BindView(R.id.userLevel) TextView userLevelView;
     @BindView(R.id.publicComment) TextView publicCommentView;
 
@@ -50,10 +54,29 @@ public class CompletedWorkoutPostFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        String workoutInfoTestString = "";
+        //String workoutInfoTestString = "";
 
         for(int i = 0; i < workoutInfoList.size(); i++){
-            workoutInfoTestString = workoutInfoTestString + workoutInfoList.get(i) + "\n";
+            //workoutInfoTestString = workoutInfoTestString + workoutInfoList.get(i) + "\n";
+            String infoString = (String) workoutInfoList.get(i);
+
+            if(isExerciseName(infoString)){
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager
+                        .beginTransaction();
+                PostExNameFrag exNameFrag = new PostExNameFrag();
+                exNameFrag.exNameString = infoString;
+                fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
+                fragmentTransaction.commit();
+            }else{
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager
+                        .beginTransaction();
+                PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
+                setSchemesFrag.setSchemeString = infoString;
+                fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
+                fragmentTransaction.commit();
+            }
         }
 
         DatabaseReference userLevelRef = mRootRef.child("users").child(userId).child("userLevel");
@@ -73,11 +96,25 @@ public class CompletedWorkoutPostFrag extends Fragment {
 
         userNameView.setText(userName);
 
-        workoutContentsView.setText(workoutInfoTestString);
+        //workoutContentsView.setText(workoutInfoTestString);
 
         publicCommentView.setText(publicComment);
 
         return view;
+    }
+
+    boolean isExerciseName(String input){
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
+
     }
 
 }

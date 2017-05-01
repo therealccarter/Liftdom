@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/backgroundgrey1"
+             tools:context="com.liftdom.liftdom.main_social_feed.PostExNameFrag">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exerciseName"
+            android:text="@string/hello_blank_fragment"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:padding="3dp"
+            android:gravity="center"
+    />
+
+</FrameLayout>

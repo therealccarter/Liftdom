@@ -62,6 +62,7 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/exContentsHolder"
                 android:orientation="vertical"
                 android:background="@color/offWhite"
                 android:layout_marginBottom="10dp"
