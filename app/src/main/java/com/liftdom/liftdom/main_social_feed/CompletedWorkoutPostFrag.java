@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.main_social_feed;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,17 +9,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_housing.HousingExNameFrag;
-import com.liftdom.template_housing.HousingSetSchemeFrag;
+import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,12 +43,14 @@ public class CompletedWorkoutPostFrag extends Fragment {
     private String userLevel;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.userName) TextView userNameView;
     //@BindView(R.id.workoutContents) TextView workoutContentsView;
     @BindView(R.id.userLevel) TextView userLevelView;
     @BindView(R.id.publicComment) TextView publicCommentView;
     @BindView(R.id.timeStampView) TextView timeStampView;
+    @BindView(R.id.postInfoHolder) LinearLayout postInfoHolder;
 
 
     @Override
@@ -109,6 +112,26 @@ public class CompletedWorkoutPostFrag extends Fragment {
         timeStampView.setText(formattedLocalDate);
 
         publicCommentView.setText(publicComment);
+
+        postInfoHolder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(uid.equals(userId)){
+                    Intent intent = new Intent(getContext(), CurrentUserProfile.class);
+                    startActivity(intent);
+                } else {
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    otherUserProfileFrag.userName = userName;
+                    otherUserProfileFrag.xUid = userId;
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
 
         return view;
     }

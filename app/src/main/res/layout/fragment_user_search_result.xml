@@ -13,7 +13,7 @@
             app:mrl_rippleOverlay="false"
             app:mrl_rippleColor="@color/liftrGold1"
             app:mrl_rippleDuration="550"
-            app:mrl_rippleFadeDuration="75"
+            app:mrl_rippleFadeDuration="175"
             app:mrl_rippleHover="true"
             app:mrl_rippleDimension="10dp"
     >
