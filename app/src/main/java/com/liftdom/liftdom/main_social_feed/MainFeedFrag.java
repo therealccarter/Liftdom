@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchResultFrag;
+import com.lovejjfg.powerrefresh.OnRefreshListener;
+import com.lovejjfg.powerrefresh.PowerRefreshLayout;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
@@ -39,6 +41,7 @@ public class MainFeedFrag extends Fragment {
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MainFeedFrag extends Fragment {
         bottomNavigation.setSelectedIndex(1, false);
 
         ButterKnife.bind(this, view);
+
 
         DatabaseReference feedRef = mRootRef.child("feed").child(uid);
         Query feedQuery = feedRef.limitToLast(10);
