@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
+import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
@@ -355,7 +356,12 @@ public class MainActivity extends BaseActivity {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 4) {
-                    // TODO: Set to chat
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             }
 

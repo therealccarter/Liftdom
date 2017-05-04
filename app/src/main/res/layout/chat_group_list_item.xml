@@ -9,25 +9,41 @@
             android:layout_height="40dp"
             android:id="@+id/profilePic"
             android:src="@drawable/usertest"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
     />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
             android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
     >
         <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/chatNameView"
+                android:text="Squad Up"
+                android:textSize="22sp"
+                android:textColor="@color/black"
         />
 
         <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:id="@+id/previewTextView"
+                android:text="Hey fags, get your shit together..."
+                android:textSize="16sp"
         />
-
     </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activeDayView"
+            android:text="5/4/2017"
+            android:layout_marginTop="10dp"
+    />
 
 </LinearLayout>
