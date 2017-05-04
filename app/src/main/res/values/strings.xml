@@ -249,6 +249,7 @@
     <string name="saveAs">SAVE AS</string>
     <string name="save">SAVE</string>
 
+    <string name="newChat">New Chat</string>
 
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>

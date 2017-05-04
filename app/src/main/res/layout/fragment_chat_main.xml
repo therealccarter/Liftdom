@@ -1,13 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context="com.liftdom.liftdom.chat.ChatMainFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="40dp"
+            android:id="@+id/newChatButton"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:src="@drawable/ic_add_white_24dp"
+            android:layout_margin="5dp"
+    />
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"
+            android:layout_marginTop="10dp"
+    >
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

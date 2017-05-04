@@ -103,6 +103,7 @@ public class MainActivity extends BaseActivity {
                     if (getIntent().getStringExtra("username") != null) {
 
                     }
+
                     mRootRef = FirebaseDatabase.getInstance().getReference();
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -112,7 +113,6 @@ public class MainActivity extends BaseActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(!dataSnapshot.exists()){
                                 userListRef.setValue(user.getDisplayName());
-                                
                             }
                         }
 

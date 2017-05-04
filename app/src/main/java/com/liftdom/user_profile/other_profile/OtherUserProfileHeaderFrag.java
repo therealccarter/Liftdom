@@ -104,7 +104,6 @@ public class OtherUserProfileHeaderFrag extends Fragment {
                                 followUserButton.setVisibility(View.VISIBLE);
                             }
                         }
-
                     }
                 } else {
                     followUserButton.setVisibility(View.VISIBLE);
