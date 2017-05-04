@@ -24,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/chatNameView"
-                android:text="Squad Up"
                 android:textSize="22sp"
                 android:textColor="@color/black"
         />
@@ -33,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:id="@+id/previewTextView"
-                android:text="Hey fags, get your shit together..."
                 android:textSize="16sp"
         />
     </LinearLayout>
@@ -42,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activeDayView"
-            android:text="5/4/2017"
             android:layout_marginTop="10dp"
     />
 
