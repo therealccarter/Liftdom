@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.chat.ChatGroup.ChatGroupClass;
+import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class ChatMainFrag extends Fragment {
                 LocalDate localDate = LocalDate.now();
                 chatGroupClass.setActiveDate(localDate.toString());
                 mChatGroupReference.push().setValue(chatGroupClass);
+
+                // For each person in the member list, push them a new chatGroupClass with a mChatId. That
+                //  mChatId will be what allows them in.
             }
         });
 
@@ -68,16 +72,17 @@ public class ChatMainFrag extends Fragment {
         return view;
     }
 
-
     private void setUpFirebaseAdapter(){
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupClass, ChatGroupViewHolder>
                 (ChatGroupClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, mChatGroupReference) {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
                                               ChatGroupClass model, int position) {
-                    viewHolder.setChatName(model.getChatName());
-                    viewHolder.setPreview(model.getPreviewString());
-                    viewHolder.setActiveDay(model.getActiveDate());
+                viewHolder.setChatName(model.getChatName());
+                viewHolder.setPreview(model.getPreviewString());
+                viewHolder.setActiveDay(model.getActiveDate());
+                viewHolder.setChatId(model.getChatId());
+                viewHolder.setActivity(getActivity());
             }
         };
 

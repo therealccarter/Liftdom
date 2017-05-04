@@ -250,6 +250,7 @@
     <string name="save">SAVE</string>
 
     <string name="newChat">New Chat</string>
+    <string name="sendMessage">Send Message...</string>
 
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>

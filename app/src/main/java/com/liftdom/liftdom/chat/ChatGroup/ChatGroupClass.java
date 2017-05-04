@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.chat;
+package com.liftdom.liftdom.chat.ChatGroup;
 
 import java.util.List;
 

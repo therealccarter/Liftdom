@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+    >
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/profilePic"
+                android:src="@drawable/usertest"
+                android:layout_gravity="top"
+                android:layout_marginStart="5dp"
+        />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="20dp"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userNameView"
+                    android:text="Chris Carter"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+            />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textMessageView"
+                    android:text="@string/shorterLatin"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+            />
+
+        </LinearLayout>
+
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/repCountView"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeStampView"
+            android:text="5/3/2017"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+    />
+
+
+</LinearLayout>
