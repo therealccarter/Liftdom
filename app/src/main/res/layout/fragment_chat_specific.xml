@@ -1,8 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag">
+              android:orientation="vertical"
+              android:background="@color/white"
+              android:gravity="bottom"
+              tools:context="com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag">
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -20,7 +23,8 @@
             android:orientation="horizontal"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:id="@+id/linearLayout1"
     >
         <EditText
                 android:layout_width="0dp"
@@ -44,4 +48,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
