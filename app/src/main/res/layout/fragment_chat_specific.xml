@@ -1,10 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-              android:orientation="vertical"
               android:background="@color/white"
-              android:gravity="bottom"
               tools:context="com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag">
 
     <android.support.v7.widget.RecyclerView
@@ -13,9 +11,12 @@
             android:id="@+id/recycler_view"
             android:layout_marginTop="10dp"
             android:background="@color/offWhite"
+            android:layout_marginBottom="150dp"
     >
 
     </android.support.v7.widget.RecyclerView>
+
+    <!-- TODO: fix this layout problem. Need to get the LL to stay sticky on the bottom -->
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +24,10 @@
             android:orientation="horizontal"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="70dp"
             android:background="@color/white"
             android:id="@+id/linearLayout1"
+            android:layout_alignParentBottom="true"
     >
         <EditText
                 android:layout_width="0dp"
@@ -48,4 +51,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
