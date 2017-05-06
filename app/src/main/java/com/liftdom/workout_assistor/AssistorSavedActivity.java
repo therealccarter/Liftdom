@@ -21,6 +21,7 @@ import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.CompletedWorkoutClass;
 import com.liftdom.liftdom.utils.PlateRounderClass;
+import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -588,12 +589,14 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                 ArrayList<String> followerList = new ArrayList<String>();
 
                                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                                    String xUid = dataSnapshot1.getKey();
+                                    UserNameIdModelClass modelClass = dataSnapshot1.getValue(UserNameIdModelClass.class);
+                                    String xUid = modelClass.getUserId();
                                     followerList.add(xUid);
 
                                     inc++;
                                     if(inc == dataSnapshot.getChildrenCount()){
 
+                                        //TODO: redo this with new method, class based totally
                                         DateTime dateTime = new DateTime(DateTimeZone.UTC);
                                         String dateTimeString = dateTime.toString();
 

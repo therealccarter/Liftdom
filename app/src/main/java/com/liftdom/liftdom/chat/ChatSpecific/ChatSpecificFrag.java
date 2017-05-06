@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.chat;
+package com.liftdom.liftdom.chat.ChatSpecific;
 
 
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageClass;
+import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageModelClass;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageViewHolder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -68,10 +68,10 @@ public class ChatSpecificFrag extends Fragment {
                     DateTime dateTime = new DateTime(DateTimeZone.UTC);
                     String dateTimeString = dateTime.toString();
 
-                    ChatMessageClass chatMessageClass = new ChatMessageClass(newMessageView.getText().toString(),
+                    ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(newMessageView.getText().toString(),
                             uid, mFirebaseUser.getDisplayName(), dateTimeString, 0, "none");
 
-                    mChatGroupReference.push().setValue(chatMessageClass);
+                    mChatGroupReference.push().setValue(chatMessageModelClass);
 
                     newMessageView.setText("");
                 }
@@ -84,11 +84,11 @@ public class ChatSpecificFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(DatabaseReference databaseReference){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageClass, ChatMessageViewHolder>
-                (ChatMessageClass.class, R.layout.chat_message_list_item, ChatMessageViewHolder.class, databaseReference) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageModelClass, ChatMessageViewHolder>
+                (ChatMessageModelClass.class, R.layout.chat_message_list_item, ChatMessageViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(ChatMessageViewHolder viewHolder,
-                                              ChatMessageClass model, int position) {
+                                              ChatMessageModelClass model, int position) {
                 viewHolder.setMessage(model.getTextMessage());
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setTimeStamp(model.getTimeStamp());

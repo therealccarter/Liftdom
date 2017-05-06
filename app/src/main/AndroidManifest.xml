@@ -133,6 +133,9 @@
         </activity>
         <activity android:name=".SignInActivity">
         </activity>
+        <activity android:name=".chat.ChatGroup.NewChatGroupDialog"
+                  android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
     </application>
 
 </manifest>

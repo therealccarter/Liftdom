@@ -4,7 +4,7 @@ package com.liftdom.liftdom.chat.ChatSpecific;
  * Created by Brodin on 5/4/2017.
  */
 
-public class ChatMessageClass {
+public class ChatMessageModelClass {
 
     private String mTextMessage;
     private String mUserId;
@@ -13,11 +13,11 @@ public class ChatMessageClass {
     private String mMediaResource;
     private int mRepCount;
 
-    public ChatMessageClass(){
+    public ChatMessageModelClass(){
         // necessary for Firebase
     }
 
-    public ChatMessageClass(String textMessage, String userId, String userName, String timeStamp, int repCount, String
+    public ChatMessageModelClass(String textMessage, String userId, String userName, String timeStamp, int repCount, String
             mediaResource){
         mTextMessage = textMessage;
         mUserId = userId;

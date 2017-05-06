@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.chat.ChatSpecificFrag;
+import com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag;
 
 /**
  * Created by Brodin on 5/3/2017.

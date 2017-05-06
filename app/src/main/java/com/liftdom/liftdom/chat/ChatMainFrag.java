@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.chat;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +17,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.chat.ChatGroup.ChatGroupClass;
+import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
+import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,19 +53,9 @@ public class ChatMainFrag extends Fragment {
 
         newChatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<String> memberList = new ArrayList<String>();
+                Intent intent = new Intent(v.getContext(), NewChatGroupDialog.class);
+                startActivityForResult(intent, 1);
 
-                memberList.add("Chris Carter");
-                memberList.add("David D");
-                memberList.add("Chris Bourque");
-
-                ChatGroupClass chatGroupClass = new ChatGroupClass("Real Ones", "get rekt fam", memberList, "1");
-                LocalDate localDate = LocalDate.now();
-                chatGroupClass.setActiveDate(localDate.toString());
-                mChatGroupReference.push().setValue(chatGroupClass);
-
-                // For each person in the member list, push them a new chatGroupClass with a mChatId. That
-                //  mChatId will be what allows them in.
             }
         });
 
@@ -73,11 +65,11 @@ public class ChatMainFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupClass, ChatGroupViewHolder>
-                (ChatGroupClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, mChatGroupReference) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>
+                (ChatGroupModelClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, mChatGroupReference) {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
-                                              ChatGroupClass model, int position) {
+                                              ChatGroupModelClass model, int position) {
                 viewHolder.setChatName(model.getChatName());
                 viewHolder.setPreview(model.getPreviewString());
                 viewHolder.setActiveDay(model.getActiveDate());
@@ -89,6 +81,50 @@ public class ChatMainFrag extends Fragment {
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null){
+            if (requestCode == 1) {
+                if (data.getStringArrayListExtra("userList") != null) {
+
+                    List<String> memberList = data.getStringArrayListExtra("userList");
+                    memberList.add(uid);
+
+                    String uniqueID = UUID.randomUUID().toString();
+
+                    if(data.getStringExtra("chatName") != null){
+                        String chatName = data.getStringExtra("chatName");
+                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName, "preview text", memberList, uniqueID);
+                        LocalDate localDate = LocalDate.now();
+                        chatGroupModelClass.setActiveDate(localDate.toString());
+
+                        for(String userId : memberList){
+                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
+                                    .child("chatGroups").child(userId);
+                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                        }
+                    }else{
+                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass("Default", "preview " +
+                                "text",
+                                memberList, uniqueID);
+                        LocalDate localDate = LocalDate.now();
+                        chatGroupModelClass.setActiveDate(localDate.toString());
+
+                        for(String userId : memberList){
+                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
+                                    .child("chatGroups").child(userId);
+                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                        }
+                    }
+
+                    // For each person in the member list, push them a new chatGroupClass with a mChatId. That
+                    //  mChatId will be what allows them in.
+                }
+            }
+        }
     }
 
     @Override

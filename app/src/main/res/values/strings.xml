@@ -522,6 +522,9 @@
 
     <string name="beginRoutine">Begin Routine</string>
 
+    <string name="startNewChat">Start New Chat</string>
+    <string name="enterChatName">Chat Name:\u0020</string>
+
     <string name="chooseAnExercise">Choose an Exercise</string>
     <string name="clickToAddAnExercise">Click to add an exercise</string>
 

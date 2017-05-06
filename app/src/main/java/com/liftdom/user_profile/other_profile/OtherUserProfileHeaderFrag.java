@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.UserNameIdModelClass;
 
 import java.util.ArrayList;
 
@@ -118,10 +119,16 @@ public class OtherUserProfileHeaderFrag extends Fragment {
 
         followUserButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                UserNameIdModelClass otherUserModel = new UserNameIdModelClass(userName, xUid);
+                //followingUsersRef.child(xUid).setValue(userName);
                 // currentUser is following xUid
-                followingUsersRef.child(xUid).setValue(userName);
+                followingUsersRef.child(xUid).setValue(otherUserModel);
+
+                UserNameIdModelClass currentUserModel = new UserNameIdModelClass(mFirebaseUser.getDisplayName(), uid);
                 // xUid is being followed by currentUser
-                followerUsersRef.child(uid).setValue(mFirebaseUser.getDisplayName());
+                followerUsersRef.child(uid).setValue(currentUserModel);
+                //followerUsersRef.child(uid).setValue(mFirebaseUser.getDisplayName());
+
                 followUserButton.setVisibility(View.GONE);
                 unfollowUserButton.setVisibility(View.VISIBLE);
             }

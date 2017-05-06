@@ -29,6 +29,11 @@ make workout assistor keep in order.
 //default settings page to certain values
 //dialog for save button in settings
 
+ No view found for id 0x7f0d014f (com.liftdom.liftdom:id/postsHolder) for fragment CompletedWorkoutPostFrag{4d49fbd #2 id=0x7f0d014f}
+05-05 10:59:00.606 30048-30048/com.liftdom.liftdom E/FragmentManager: Activity state:
+05-05 10:59:00.626 30048-30048/com.liftdom.liftdom E/UncaughtException: java.lang.IllegalArgumentException: No view found for id 0x7f0d014f
+(com.liftdom.liftdom:id/postsHolder) for fragment CompletedWorkoutPostFrag{4d49fbd #2 id=0x7f0d014f}
+
 java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
                                 at com.liftdom.charts_stats_tools.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
 

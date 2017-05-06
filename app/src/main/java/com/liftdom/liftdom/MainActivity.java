@@ -26,6 +26,7 @@ import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
+import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.settings.SettingsListActivity;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -137,8 +138,9 @@ public class MainActivity extends BaseActivity {
                                 weightRef.setValue("pounds");
                                 DatabaseReference userLevelRef = mRootRef.child("users").child(uid).child("userLevel");
                                 userLevelRef.setValue("0");
-                                DatabaseReference followerRef = mRootRef.child("followers").child(uid).child(uid);
-                                followerRef.setValue(mFirebaseUser.getDisplayName());
+                                DatabaseReference followerRef = mRootRef.child("followers").child(uid);
+                                followerRef.push().setValue(new UserNameIdModelClass(mFirebaseUser.getDisplayName(),
+                                        uid));
                             }
                         }
 

@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Brodin on 5/3/2017.
  */
 
-public class ChatGroupClass {
+public class ChatGroupModelClass {
 
     private String mChatName;
     private String mPreviewString;
@@ -14,11 +14,11 @@ public class ChatGroupClass {
     private String mChatId;
     private List<String> mMemberList;
 
-    public ChatGroupClass(){
+    public ChatGroupModelClass(){
         // necessary for Firebase
     }
 
-    public ChatGroupClass(String chatName, String previewString, List<String> memberList, String chatId){
+    public ChatGroupModelClass(String chatName, String previewString, List<String> memberList, String chatId){
         mChatName = chatName;
         mPreviewString = previewString;
         mMemberList = memberList;
