@@ -15,6 +15,7 @@ public class CompletedWorkoutModelClass {
     private String mDateTime;
     private List<String> mWorkoutInfoList;
     private String mUserLevel;
+    private String mRef;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -78,5 +79,8 @@ public class CompletedWorkoutModelClass {
     //    mUserLevel = userLevel;
     //}
 
+    public void setRef(String ref){
+        mRef = ref;
+    }
 
 }

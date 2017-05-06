@@ -45,7 +45,7 @@ public class MainFeedFrag extends Fragment {
             .child(uid);
     private FirebaseRecyclerAdapter mFirebaseAdapter;
 
-    @BindView(R.id.postsHolder) LinearLayout postsHolder;
+
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
@@ -67,6 +67,9 @@ public class MainFeedFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
+        if(loadingView.getVisibility() == View.VISIBLE){
+            loadingView.setVisibility(View.GONE);
+        }
         mFirebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
                 (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class
                 , mFeedRef) {

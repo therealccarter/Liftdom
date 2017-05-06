@@ -20,6 +20,7 @@ import com.liftdom.liftdom.*;
 
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.CompletedWorkoutClass;
+import com.liftdom.liftdom.main_social_feed.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.utils.PlateRounderClass;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.settings.SettingsListActivity;
@@ -596,23 +597,40 @@ public class AssistorSavedActivity extends AppCompatActivity {
                                     inc++;
                                     if(inc == dataSnapshot.getChildrenCount()){
 
-                                        //TODO: redo this with new method, class based totally
                                         DateTime dateTime = new DateTime(DateTimeZone.UTC);
                                         String dateTimeString = dateTime.toString();
 
-                                        CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid, mFirebaseUser
-                                                .getDisplayName(), "public comment", list, dateTimeString);
+                                        //CompletedWorkoutClass completedWorkoutClass = new CompletedWorkoutClass(uid,
+                                        //        mFirebaseUser
+                                        //        .getDisplayName(), "public comment", list, dateTimeString);
+                                        //Map<String, Object> postValues = completedWorkoutClass.toMap();
 
-                                        Map<String, Object> postValues = completedWorkoutClass.toMap();
+                                        //TODO: get the public comment working
+                                        //TODO: Loading view that ghosts here
+
+                                        CompletedWorkoutModelClass workoutModelClass1 = new CompletedWorkoutModelClass
+                                                (uid, mFirebaseUser.getDisplayName(), "public comment",
+                                                        dateTimeString, list);
 
                                         DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
+                                        DatabaseReference selfRef = mRootRef.child("feed").child(uid);
                                         //DatabaseReference myFeed = mRootRef.child("feed").child(uid);
-                                        selfFeedRef.push().setValue(postValues);
+                                        String selfRefString = selfFeedRef.push().getKey();
+                                        workoutModelClass1.setRef(selfRefString);
+                                        selfFeedRef.push().setValue(workoutModelClass1);
+                                        selfRef.push().setValue(workoutModelClass1);
                                         //myFeed.push().setValue(postValues);
 
                                         for(String string : followerList){
+                                            CompletedWorkoutModelClass workoutModelClass2 = new
+                                                    CompletedWorkoutModelClass
+                                                    (uid, mFirebaseUser.getDisplayName(), "public comment",
+                                                            dateTimeString, list);
+
                                             DatabaseReference feedRef = mRootRef.child("feed").child(string);
-                                            feedRef.push().setValue(postValues);
+                                            String ref = feedRef.push().getKey();
+                                            workoutModelClass2.setRef(ref);
+                                            feedRef.push().setValue(workoutModelClass2);
 
                                         }
                                     }
