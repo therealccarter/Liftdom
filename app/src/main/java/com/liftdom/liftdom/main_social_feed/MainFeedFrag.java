@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -37,10 +40,15 @@ public class MainFeedFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
+    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed")
+            .child(uid);
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+
     @BindView(R.id.postsHolder) LinearLayout postsHolder;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
-
+    @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,66 +61,28 @@ public class MainFeedFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
-        DatabaseReference feedRef = mRootRef.child("feed").child(uid);
-        Query feedQuery = feedRef.limitToLast(10);
-        feedQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
-                    loadingView.setVisibility(View.GONE);
-                    noResultsView.setVisibility(View.VISIBLE);
-                } else {
-                    int inc = 0;
-                    ArrayList<CompletedWorkoutPostFrag> postFragArrayList = new ArrayList<CompletedWorkoutPostFrag>();
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                        //CompletedWorkoutClass completedWorkoutClass = (CompletedWorkoutClass) dataSnapshot1.getValue();
-                        // Could have a variable here with however many things to load, and then increase it on pull
-                        // to refresh?
-                        Map<String, Object> map = (Map<String, Object>) dataSnapshot1.getValue();
-
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                        CompletedWorkoutPostFrag completedWorkoutPostFrag = new CompletedWorkoutPostFrag();
-                        completedWorkoutPostFrag.userId = (String) map.get("userId");
-                        completedWorkoutPostFrag.userName = (String) map.get("userName");
-                        completedWorkoutPostFrag.publicComment = (String) map.get("publicComment");
-                        completedWorkoutPostFrag.workoutInfoList = (List) map.get("workoutInfoList");
-                        completedWorkoutPostFrag.dateAndTime = (String) map.get("dateTime");
-                        completedWorkoutPostFrag.repsMap = (HashMap<String, Boolean>) map.get("repsMap");
-
-                        postFragArrayList.add(completedWorkoutPostFrag);
-
-                        //fragmentTransaction.add(R.id.postsHolder, completedWorkoutPostFrag);
-                        //fragmentTransaction.commit();
-
-                        inc++;
-                        if(inc == dataSnapshot.getChildrenCount()){
-
-                            loadingView.setVisibility(View.GONE);
-
-                            Collections.reverse(postFragArrayList);
-
-                            for(CompletedWorkoutPostFrag completedWorkoutPost : postFragArrayList){
-                                fragmentTransaction.add(R.id.postsHolder, completedWorkoutPost);
-                            }
-
-                            fragmentTransaction.commit();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        setUpFirebaseAdapter();
 
         return view;
+    }
+
+    private void setUpFirebaseAdapter(){
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class
+                , mFeedRef) {
+            @Override
+            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder, CompletedWorkoutModelClass model, int position) {
+                viewHolder.setUserName(model.getUserName());
+                viewHolder.setUserLevel(model.getUserId());
+                viewHolder.setPublicDescription(model.getPublicDescription());
+                viewHolder.setTimeStamp(model.getDateTime());
+                viewHolder.setPostInfo(model.getWorkoutInfoList());
+            }
+        };
+
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+        mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
 }
