@@ -71,6 +71,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     public void setPostInfo(List<String> postInfo, FragmentActivity activity){
         for(String infoString : postInfo){
+
             if(isExerciseName(infoString)){
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager
