@@ -79,7 +79,7 @@ public class MainFeedFrag extends Fragment {
                 viewHolder.setUserLevel(model.getUserId());
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
-                viewHolder.setPostInfo(model.getWorkoutInfoList());
+                viewHolder.setPostInfo(model.getWorkoutInfoList(), getActivity());
             }
         };
 

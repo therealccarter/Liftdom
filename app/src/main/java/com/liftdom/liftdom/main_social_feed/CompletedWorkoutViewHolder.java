@@ -1,11 +1,16 @@
 package com.liftdom.liftdom.main_social_feed;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +25,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final TextView mUserLevelView;
     private final TextView mPublicDescriptionView;
     private final TextView mTimestampView;
+
     private final LinearLayout mPostInfoHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -41,7 +47,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userLevel = dataSnapshot.getValue(String.class);
-                mUserLevelView.setText(userLevel);
+                String fullString = "Level " + userLevel;
+                mUserLevelView.setText(fullString);
             }
 
             @Override
@@ -56,10 +63,46 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setTimeStamp(String timeStamp){
-        mTimestampView.setText(timeStamp);
+        DateTime dateTimeOriginal = DateTime.parse(timeStamp);
+        DateTime localDate = dateTimeOriginal.withZone(DateTimeZone.getDefault());
+        String formattedLocalDate = localDate.toString("MM/dd/yyyy");
+        mTimestampView.setText(formattedLocalDate);
     }
 
-    public void setPostInfo(List<String> postInfo){
+    public void setPostInfo(List<String> postInfo, FragmentActivity activity){
+        for(String infoString : postInfo){
+            if(isExerciseName(infoString)){
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager
+                        .beginTransaction();
+                PostExNameFrag exNameFrag = new PostExNameFrag();
+                exNameFrag.exNameString = infoString;
+                fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
+                fragmentTransaction.commit();
+            }else{
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager
+                        .beginTransaction();
+                PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
+                setSchemesFrag.setSchemeString = infoString;
+                fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
+                fragmentTransaction.commit();
+            }
+        }
+    }
+
+    boolean isExerciseName(String input) {
+
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
 
     }
 }
