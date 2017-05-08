@@ -1,5 +1,6 @@
 package com.liftdom.liftdom.main_social_feed;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,12 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,7 +29,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final TextView mUserLevelView;
     private final TextView mPublicDescriptionView;
     private final TextView mTimestampView;
-
+    private String xUid;
+    private FragmentActivity mActivity;
+    private String mUserName;
+    private final LinearLayout exContentsHolder;
     private final LinearLayout mPostInfoHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -34,11 +41,44 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mUserLevelView = (TextView) itemView.findViewById(R.id.userLevel);
         mTimestampView = (TextView) itemView.findViewById(R.id.timeStampView);
         mPublicDescriptionView = (TextView) itemView.findViewById(R.id.publicDescription);
-        mPostInfoHolder = (LinearLayout) itemView.findViewById(R.id.exContentsHolder);
+        exContentsHolder = (LinearLayout) itemView.findViewById(R.id.exContentsHolder);
+        mPostInfoHolder = (LinearLayout) itemView.findViewById(R.id.postInfoHolder);
+
+        mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if(uid.equals(xUid)){
+                    Intent intent = new Intent(mActivity, CurrentUserProfile.class);
+                    mActivity.startActivity(intent);
+                } else {
+                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    otherUserProfileFrag.userName = mUserName;
+                    otherUserProfileFrag.xUid = xUid;
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
+    }
+
+
+
+    public void setUserId(String userId){
+        xUid = userId;
+    }
+
+    public void setActivity(FragmentActivity fragmentActivity){
+        mActivity = fragmentActivity;
     }
 
     public void setUserName(String userName){
         mUserNameView.setText(userName);
+        mUserName = userName;
     }
 
     public void setUserLevel(String xUid){

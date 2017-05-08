@@ -318,8 +318,6 @@ public class MainActivity extends BaseActivity {
                 fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.commit();
             }
-
-
         }
 
         BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);

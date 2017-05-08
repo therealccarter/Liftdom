@@ -77,6 +77,8 @@ public class MainFeedFrag extends Fragment {
             protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder, CompletedWorkoutModelClass model, int position) {
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setUserLevel(model.getUserId());
+                viewHolder.setActivity(getActivity());
+                viewHolder.setUserId(model.getUserId());
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoList(), getActivity());
