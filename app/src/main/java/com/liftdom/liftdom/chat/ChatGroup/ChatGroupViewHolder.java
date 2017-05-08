@@ -33,6 +33,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
         mPreviewView = (TextView) itemView.findViewById(R.id.previewTextView);
         mActiveDayView = (TextView) itemView.findViewById(R.id.activeDayView);
         itemView.setOnClickListener(this);
+        //TODO: if user hasn't read message, set to black. Otherwise set to grey
     }
 
     @Override
@@ -51,6 +52,10 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
     }
 
     public void setChatName(String chatName){
+        if(chatName.length() > 30){
+            chatName = chatName.substring(0, Math.min(chatName.length(), 30));
+            chatName = chatName + "...";
+        }
         mChatNameView.setText(chatName);
     }
 

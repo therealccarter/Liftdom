@@ -40,6 +40,7 @@
                 android:textColor="@color/liftrGold1"
         />
 
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,15 +52,9 @@
 
     </LinearLayout>
 
-    <!--
-    <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="com.liftdom.liftdom.MainToAssistorFrag"
-            tools:layout="@layout/fragment_main_to_assistor"
-            android:id="@+id/toWorkoutAssistor"
-    />
-    -->
+
+
+
 
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
             android:layout_width="match_parent"

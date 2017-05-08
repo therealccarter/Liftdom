@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFeedFrag extends Fragment {
+public class MainFeedFrag extends Fragment{
 
 
     public MainFeedFrag() {
@@ -46,7 +46,8 @@ public class MainFeedFrag extends Fragment {
     private FirebaseRecyclerAdapter mFirebaseAdapter;
 
 
-    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+
+    //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
 
@@ -67,9 +68,6 @@ public class MainFeedFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        if(loadingView.getVisibility() == View.VISIBLE){
-            loadingView.setVisibility(View.GONE);
-        }
         mFirebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
                 (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class
                 , mFeedRef) {
@@ -82,12 +80,26 @@ public class MainFeedFrag extends Fragment {
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoList(), getActivity());
+                if(position == 0){
+                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
+                            .loadingView1);
+                    if(loadingView != null){
+                        loadingView.setVisibility(View.GONE);
+                    }
+                }
             }
         };
 
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
     }
 
 }

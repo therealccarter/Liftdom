@@ -369,6 +369,43 @@ public class MainActivity extends BaseActivity {
             public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
                 //TODO: if not on first fragment, come back to original frag
                 Log.i("info", "menu item re-selected");
+
+                //if (i1 == 0) {
+                //    FragmentManager fragmentManager = getSupportFragmentManager();
+                //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                //    fragmentTransaction.addToBackStack(null);
+                //    fragmentTransaction.commit();
+                //} else if (i1 == 1) {
+                //    FragmentManager fragmentManager = getSupportFragmentManager();
+                //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                //    fragmentTransaction.addToBackStack(null);
+                //    fragmentTransaction.commit();
+                //} else if (i1 == 2) {
+                //    FragmentManager fragmentManager = getSupportFragmentManager();
+                //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                //    fragmentTransaction.addToBackStack(null);
+                //    fragmentTransaction.commit();
+                //} else if (i1 == 3) {
+                //    FragmentManager fragmentManager = getSupportFragmentManager();
+                //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                //    fragmentTransaction.addToBackStack(null);
+                //    fragmentTransaction.commit();
+                //} else if (i1 == 4) {
+                //    FragmentManager fragmentManager = getSupportFragmentManager();
+                //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
+                //    fragmentTransaction.addToBackStack(null);
+                //    fragmentTransaction.commit();
+                //}
             }
         });
 

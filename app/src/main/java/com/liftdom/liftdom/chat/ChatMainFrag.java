@@ -14,14 +14,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
 import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +39,6 @@ public class ChatMainFrag extends Fragment {
     private DatabaseReference mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chatGroups")
             .child(uid);
     private FirebaseRecyclerAdapter mFirebaseAdapter;
-
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.newChatButton) ImageButton newChatButton;
 
@@ -70,6 +69,7 @@ public class ChatMainFrag extends Fragment {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
                                               ChatGroupModelClass model, int position) {
+
                 viewHolder.setChatName(model.getChatName());
                 viewHolder.setPreview(model.getPreviewString());
                 viewHolder.setActiveDay(model.getActiveDate());
@@ -83,17 +83,19 @@ public class ChatMainFrag extends Fragment {
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
+    private int inc = 0;
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data != null){
             if (requestCode == 1) {
                 if (data.getStringArrayListExtra("userList") != null) {
 
-                    List<String> memberList = data.getStringArrayListExtra("userList");
+                    final List<String> memberList = data.getStringArrayListExtra("userList");
                     memberList.add(uid);
 
-                    String uniqueID = UUID.randomUUID().toString();
+                    final String uniqueID = UUID.randomUUID().toString();
 
                     if(data.getStringExtra("chatName") != null){
                         String chatName = data.getStringExtra("chatName");
@@ -107,17 +109,51 @@ public class ChatMainFrag extends Fragment {
                             nChatGroupReference.push().setValue(chatGroupModelClass);
                         }
                     }else{
-                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass("Default", "preview " +
-                                "text",
-                                memberList, uniqueID);
-                        LocalDate localDate = LocalDate.now();
-                        chatGroupModelClass.setActiveDate(localDate.toString());
 
-                        for(String userId : memberList){
-                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
-                                    .child("chatGroups").child(userId);
-                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                        inc = 0;
+
+                        final List<String> newList = new ArrayList<>();
+
+                        for(String user : memberList){
+
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("userList").child(user);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String value = dataSnapshot.getValue(String.class);
+
+                                    newList.add(value);
+                                    inc++;
+                                    if(inc == memberList.size()){
+
+                                        String cat = "";
+                                        for(String user : newList){
+                                            cat = cat + user + ", ";
+                                        }
+
+                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(cat, "preview " +
+                                                "text",
+                                                memberList, uniqueID);
+                                        LocalDate localDate = LocalDate.now();
+                                        chatGroupModelClass.setActiveDate(localDate.toString());
+
+                                        for(String userId : memberList){
+                                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
+                                                    .child("chatGroups").child(userId);
+                                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
+
+
                     }
 
                     // For each person in the member list, push them a new chatGroupClass with a mChatId. That
