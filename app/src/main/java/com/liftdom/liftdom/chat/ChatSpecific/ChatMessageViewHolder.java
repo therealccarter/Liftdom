@@ -1,9 +1,11 @@
 package com.liftdom.liftdom.chat.ChatSpecific;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
 
@@ -19,6 +21,7 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
     private final TextView mUserNameView;
     private final TextView mTimeStampView;
     private final Button mRepCountView;
+    private final LinearLayout mMessageLayout;
 
     public ChatMessageViewHolder(View itemView){
         super(itemView);
@@ -28,7 +31,7 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
         mUserNameView = (TextView) itemView.findViewById(R.id.userNameView);
         mTimeStampView = (TextView) itemView.findViewById(R.id.timeStampView);
         mRepCountView = (Button) itemView.findViewById(R.id.repCountView);
-
+        mMessageLayout = (LinearLayout) itemView.findViewById(R.id.chatMessageLinearLayout);
     }
 
     public void setMessage(String message){
@@ -45,5 +48,11 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
 
     public void setTimeStamp(String timeStamp){
         mTimeStampView.setText(timeStamp);
+    }
+
+    public void setBackground(){
+        mMessageLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mUserNameView.setTextColor(Color.parseColor("#000000"));
+
     }
 }

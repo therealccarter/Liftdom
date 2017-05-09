@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageModelClass;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageViewHolder;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -40,6 +41,8 @@ public class ChatSpecificFrag extends Fragment {
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
+    private LinearLayoutManager layoutManager;
+    private boolean isFirstTime = true;
 
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.newMessageView) EditText newMessageView;
@@ -56,10 +59,16 @@ public class ChatSpecificFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
+        layoutManager = new LinearLayoutManager(getActivity());
+
+        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        bottomNavigation.setVisibility(View.GONE);
+
         String chatId = getArguments().getString("chatId");
 
         mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chats")
                 .child(chatId);
+
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -74,6 +83,7 @@ public class ChatSpecificFrag extends Fragment {
                     mChatGroupReference.push().setValue(chatMessageModelClass);
 
                     newMessageView.setText("");
+                    layoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
                 }
             }
         });
@@ -92,12 +102,28 @@ public class ChatSpecificFrag extends Fragment {
                 viewHolder.setMessage(model.getTextMessage());
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setTimeStamp(model.getTimeStamp());
+                if(model.getUserId().equals(uid)){
+                    viewHolder.setBackground();
+                }
+                //if(position != 0){
+                //    mRecyclerView.scrollToPosition(mFirebaseAdapter.getItemCount());
+                //
+                //}
             }
         };
 
         mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mFirebaseAdapter);
+
+
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        bottomNavigation.setVisibility(View.VISIBLE);
     }
 
     @Override
