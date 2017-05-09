@@ -52,7 +52,7 @@ java.lang.IllegalStateException: Fragment has not been attached yet.
 
 
 java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.String.equals(java.lang.Object)' on a null object reference
-                                 at com.liftdom.template_editor.TemplateEditorActivity$5.onDataChange(TemplateEditorActivity.java:318)
+                                 at com.liftdom.template_editor.Activities.TemplateEditorActivity$5.onDataChange(TemplateEditorActivity.java:318)
 
 =========================================================
 

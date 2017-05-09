@@ -63,7 +63,7 @@
                 android:noHistory="true">
         </activity>
         <activity
-                android:name="com.liftdom.template_editor.ExtraOptionsActivity"
+                android:name="com.liftdom.template_editor.ExtraOptionsDialog"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
         <activity

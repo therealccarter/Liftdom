@@ -10,11 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+
+import com.liftdom.template_editor.EditTemplateAssemblerClass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +83,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExtraOptionsActivity.class);
+                Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
                 intent.putExtra("repsText", repsText);

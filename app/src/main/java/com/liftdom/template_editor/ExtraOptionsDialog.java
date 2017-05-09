@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
-public class ExtraOptionsActivity extends AppCompatActivity {
+public class ExtraOptionsDialog extends AppCompatActivity {
 
     @BindView(R.id.confirmButton) Button confirm;
     //@BindView(R.id.defaultRepsOptionButton) LinearLayout defaultRepsOptionButton;
