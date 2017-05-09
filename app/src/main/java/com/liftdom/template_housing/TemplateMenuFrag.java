@@ -1,6 +1,7 @@
 package com.liftdom.template_housing;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -47,6 +48,16 @@ public class TemplateMenuFrag extends Fragment {
     @BindView(R.id.quoteBody) TextView quoteBody;
     @BindView(R.id.quoteAuthor) TextView quoteAuthor;
 
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +66,8 @@ public class TemplateMenuFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_template_menu, container, false);
 
         ButterKnife.bind(this, view);
+
+        headerChanger("Workout Templating");
 
         templateOptions.setVisibility(View.GONE);
 
@@ -156,6 +169,19 @@ public class TemplateMenuFrag extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (headerChangeFromFrag) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
 
 
 }

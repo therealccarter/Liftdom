@@ -4,6 +4,8 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_housing.TemplateHousingActivity;
+import com.liftdom.template_housing.TemplateMenuFrag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +38,11 @@ public class NoActiveTemplateFrag extends Fragment {
 
         toTemplatesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TemplateHousingActivity.class);
-                startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                fragmentTransaction.commit();
             }
         });
 

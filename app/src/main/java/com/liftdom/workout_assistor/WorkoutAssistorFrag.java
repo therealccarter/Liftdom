@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -43,6 +44,16 @@ public class WorkoutAssistorFrag extends Fragment {
 
     public WorkoutAssistorFrag() {
         // Required empty public constructor
+    }
+
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
     }
 
     private static final String TAG = "EmailPassword";
@@ -96,6 +107,8 @@ public class WorkoutAssistorFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_workout_assistor, container, false);
 
         ButterKnife.bind(this, view);
+
+        headerChanger("Workout Assistor");
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -829,6 +842,20 @@ public class WorkoutAssistorFrag extends Fragment {
 
 
         return arrayList;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (headerChangeFromFrag) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
     
 

@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.chat;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
 import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
+import com.liftdom.template_housing.TemplateMenuFrag;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
@@ -35,6 +37,16 @@ public class ChatMainFrag extends Fragment {
         // Required empty public constructor
     }
 
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
+    }
+
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private DatabaseReference mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chatGroups")
             .child(uid);
@@ -49,6 +61,8 @@ public class ChatMainFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat_main, container, false);
 
         ButterKnife.bind(this, view);
+
+        headerChanger("Chat");
 
         newChatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -167,6 +181,20 @@ public class ChatMainFrag extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         mFirebaseAdapter.cleanup();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (headerChangeFromFrag) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
 }

@@ -46,7 +46,12 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity
+    implements TemplateMenuFrag.headerChangeFromFrag,
+    ChatMainFrag.headerChangeFromFrag,
+    ForumMainFrag.headerChangeFromFrag,
+    WorkoutAssistorFrag.headerChangeFromFrag,
+    MainFeedFrag.headerChangeFromFrag{
 
     private static final String TAG = "EmailPassword";
 
@@ -69,6 +74,11 @@ public class MainActivity extends BaseActivity {
     //String uid;
     DatabaseReference mRootRef;
     String uid;
+
+    public void changeHeaderTitle(String title){
+        TextView titleView = (TextView) findViewById(R.id.title);
+        titleView.setText(title);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -456,6 +466,8 @@ public class MainActivity extends BaseActivity {
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
