@@ -77,8 +77,15 @@ UPCOMING FEATURES TO DO:
 **DONE** Add basic friends' workouts and your workouts to main feed
 * Clear current BugList
 
+*v0.6.1*
+* fix state issues in main activity frags
+* add callbacks for title bar changes in main activity frags
+
 *v0.7*
-* DM other users (including group chat)
+* Redo entire backend of workout templating/assisting
+
+*v0.7.5*
+**DONE** DM other users (including group chat)
 * Send templates to other users via chat/share via url
 * Ability to "fork" workouts and collaborate
 * Custom exercises
