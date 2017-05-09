@@ -98,6 +98,7 @@ public class ChatMainFrag extends Fragment {
     }
 
     private int inc = 0;
+    private int nameInc = 0;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
@@ -124,7 +125,10 @@ public class ChatMainFrag extends Fragment {
                         }
                     }else{
 
+                        final String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
                         inc = 0;
+                        nameInc = 0;
 
                         final List<String> newList = new ArrayList<>();
 
@@ -137,13 +141,21 @@ public class ChatMainFrag extends Fragment {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     String value = dataSnapshot.getValue(String.class);
 
-                                    newList.add(value);
+                                    if (!value.equals(userName)) {
+                                        newList.add(value);
+                                    }
                                     inc++;
                                     if(inc == memberList.size()){
 
                                         String cat = "";
                                         for(String user : newList){
-                                            cat = cat + user + ", ";
+                                            nameInc++;
+                                            if(nameInc == newList.size()){
+                                                cat = cat + user;
+                                            } else{
+                                                cat = cat + user + ", ";
+                                            }
+
                                         }
 
                                         ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(cat, "preview " +

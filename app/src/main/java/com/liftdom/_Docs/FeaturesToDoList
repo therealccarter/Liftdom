@@ -78,7 +78,7 @@ UPCOMING FEATURES TO DO:
 * Clear current BugList
 
 *v0.6.5*
-* fix state issues in main activity frags (onPause, onResume, etc)
+**DONE** fix state issues in main activity frags (onPause, onResume, etc)
 **DONE** add callbacks for title bar changes in main activity frags
 
 *v0.7*

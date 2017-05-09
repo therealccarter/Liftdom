@@ -591,37 +591,37 @@ public class MainActivity extends BaseActivity
     @Override
     public void onResume(){
         super.onResume();
-        if (getIntent().getExtras() != null) {
-            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-
-            int id = getIntent().getExtras().getInt("fragID");
-
-            if(id == 0){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }else if(id == 1){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            } else if(id == 2){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        } else{
-            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-            bottomNavigation.setSelectedIndex(1, false);
-        }
+        //if (getIntent().getExtras() != null) {
+        //    BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+//
+        //    int id = getIntent().getExtras().getInt("fragID");
+//
+        //    if(id == 0){
+        //        FragmentManager fragmentManager = getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+        //        fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+        //        fragmentTransaction.addToBackStack(null);
+        //        fragmentTransaction.commit();
+        //    }else if(id == 1){
+        //        FragmentManager fragmentManager = getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+        //        fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+        //        fragmentTransaction.addToBackStack(null);
+        //        fragmentTransaction.commit();
+        //    } else if(id == 2){
+        //        FragmentManager fragmentManager = getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+        //        fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+        //        fragmentTransaction.addToBackStack(null);
+        //        fragmentTransaction.commit();
+        //    }
+        //} else{
+        //    BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        //    bottomNavigation.setSelectedIndex(1, false);
+        //}
     }
 
     // [START on_start_add_listener]
