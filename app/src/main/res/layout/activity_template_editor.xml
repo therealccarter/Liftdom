@@ -34,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
         >
             <TextView
                     android:text="@string/customizeYour"
@@ -181,20 +183,6 @@
 
             </LinearLayout>
 
-            <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/algoButton"
-                    android:background="@color/liftrGold1"
-                    android:text="@string/templateAlgorithm"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:paddingStart="10dp"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="15dp"
-            />
 
             <CheckBox
                     android:layout_width="match_parent"
@@ -202,6 +190,30 @@
                     android:text="@string/makeCurrentTemplate"
                     android:textColor="@color/white"
                     android:id="@+id/activeTemplateCheckbox"
+            />
+
+            <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/makePublicCheckbox"
+                    android:text="@string/makePublic"
+                    android:textColor="@color/white"
+            />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descriptionEditText"
+                    android:hint="@string/descriptionHint"
+                    android:background="@color/offWhite"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:minHeight="60dp"
+                    android:gravity="start"
             />
 
             <Button

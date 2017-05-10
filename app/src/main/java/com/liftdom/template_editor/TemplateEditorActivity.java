@@ -63,8 +63,9 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     @BindView(R.id.removeDay) Button removeDay;
     @BindView(R.id.saveButton) Button onSave;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
-    //@BindView(R.id.applyAlgorithmCheckbox) CheckBox applyAlgorithmCheckbox;
-    @BindView(R.id.algoButton) Button algoButton;
+    @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
+    @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
+    //@BindView(R.id.algoButton) Button algoButton;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
@@ -623,13 +624,13 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
             }
         });
 
-        algoButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
-
-                startActivityForResult(intent, 4);
-            }
-        });
+        //algoButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
+//
+        //        startActivityForResult(intent, 4);
+        //    }
+        //});
 
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -637,6 +638,9 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
                 boolean checkBool = activeTemplateCheckbox.isChecked();
                 boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
+                boolean isPublic = makePublicCheckbox.isChecked();
+                String descriptionString = templateDescriptionEdit.getText().toString();
+                TemplateEditorSingleton.getInstance().mDescription = descriptionString;
 
                 //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
 
@@ -648,6 +652,8 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         intent.putExtra("templateName", templateName);
                         intent.putExtra("isActiveTemplate", checkBool);
                         intent.putExtra("isAlgorithm", algBool);
+                        intent.putExtra("isPublic", isPublic);
+                        //intent.putExtra("description", descriptionString);
                         //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                         startActivity(intent);
                     }
@@ -655,6 +661,8 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     intent.putExtra("isEdit", "no");
                     intent.putExtra("isActiveTemplate", checkBool);
                     intent.putExtra("isAlgorithm", algBool);
+                    intent.putExtra("isPublic", isPublic);
+                    intent.putExtra("description", descriptionString);
                     //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                     startActivity(intent);
                 }
@@ -739,6 +747,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
 
+                        TemplateEditorSingleton.getInstance().clearAll();
                         Intent intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
                         startActivity(intent);
 

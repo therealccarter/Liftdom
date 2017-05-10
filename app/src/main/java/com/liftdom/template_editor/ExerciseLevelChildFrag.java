@@ -250,6 +250,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 20));
             String exerciseName2 = exerciseName.substring(20, exerciseName.length());
             newExNameString = exerciseName1 + "\n" + exerciseName2;
+        } else{
+            newExNameString = exerciseName;
         }
         return newExNameString;
     }

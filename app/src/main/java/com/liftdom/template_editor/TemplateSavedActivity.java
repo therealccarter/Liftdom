@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -30,9 +33,11 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.wang.avi.AVLoadingIndicatorView;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -52,6 +57,8 @@ public class TemplateSavedActivity extends AppCompatActivity {
     // Butterknife binds
     @BindView(R.id.goBackHome) Button goHome;
     @BindView(R.id.goBackToTemplates) Button goToTemplates;
+    @BindView(R.id.templateSavedHolder) RelativeLayout templateHolder;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     String templateName;
     Boolean checkBool;
@@ -225,96 +232,134 @@ public class TemplateSavedActivity extends AppCompatActivity {
         super.onStart();
 
         if(mSaved == null && getIntent().getExtras().getBoolean("isFromEditor")) {
-            // BEGIN UPLOAD OF TEMPLATE
+
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
             checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
-            algBool = getIntent().getExtras().getBoolean("isAlgorithm");
-
-            DatabaseReference mTemplateRef = mRootRef.child("templates").child(uid); // creates
-            // /templates
-
-            ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
-
-            ArrayList<ArrayList> algorithmMasterList = EditTemplateAssemblerClass.getInstance().algorithmMasterList;
-
-            DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
-            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+            TemplateEditorSingleton.getInstance().makeDummies();
 
-            if (getIntent().getExtras().getString("isEdit") != null) {
-                if (getIntent().getExtras().getString("isEdit").equals("yes")) {
-                    selectedTemplateDataRef.setValue(null);
+            String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
+            String xUserId = TemplateEditorSingleton.getInstance().mUserId;
+            String xUserName= TemplateEditorSingleton.getInstance().mUserName;
+            boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
+            String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
+            String xDescription = TemplateEditorSingleton.getInstance().mDescription;
+            HashMap<String, List<String>> xMondayMap =  TemplateEditorSingleton.getInstance().mMondayMap;
+            HashMap<String, List<String>> xTuesdayMap = TemplateEditorSingleton.getInstance().mTuesdayMap;
+            HashMap<String, List<String>> xWednesdayMap = TemplateEditorSingleton.getInstance().mWednesdayMap;
+            HashMap<String, List<String>> xThursdayMap = TemplateEditorSingleton.getInstance().mThursdayMap;
+            HashMap<String, List<String>> xFridayMap = TemplateEditorSingleton.getInstance().mFridayMap;
+            HashMap<String, List<String>> xSaturdayMap = TemplateEditorSingleton.getInstance().mSaturdayMap;
+            HashMap<String, List<String>> xSundayMap = TemplateEditorSingleton.getInstance().mSundayMap;
+            boolean xIsAlgorithm = TemplateEditorSingleton.getInstance().mIsAlgorithm;
+            HashMap<String, List<String>> xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
+
+            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xUserId, xUserName, xIsPublic,
+                                                xDateCreated, xDescription, xMondayMap, xTuesdayMap,
+                                                xWednesdayMap, xThursdayMap, xFridayMap, xSaturdayMap,
+                                                xSundayMap, xIsAlgorithm, xAlgorithmInfo);
+
+            selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    loadingView.setVisibility(View.GONE);
+                    templateHolder.setVisibility(View.VISIBLE);
                 }
-            }
+            });
 
-            if(checkBool){
-                activeTemplateRef.setValue(templateName);
-            }
-
-            /**
-             * So, we need to first create a node with the template name
-             * Next, we need to create a node for each day/days
-             * After that, we need to add each set/reps/weights to the appropriate day/days
-             */
-
-            /**
-             * What appears to be happening...
-             * When we open up a template asEdit, it's adding replica sets to the template Editor
-             */
-
-            DatabaseReference originalSetsRepsRef = mRootRef.child("templates").child(uid)
-                    .child(templateName)
-                    .child("originalSetsReps");
-
-
-            for (ArrayList<String> doWAL : masterListTemplate) {
-                // for each entry in a specific day's list
-
-                List<String> list = new ArrayList<>();
-
-
-                //doWAL = DowAL1
-                for(int i = 1; i < doWAL.size(); i++){
-                    String[] array = stringSplitter(doWAL.get(i));
-                    for(String string : array){
-                        list.add(string);
-                    }
-                }
-
-                templateSpecific.child(doWAL.get(0)).setValue(list);
-                //originalSetsRepsRef.child(doWAL.get(0)).setValue(list);
-            }
-
-
-
-            // maybe we could add a boolean that would add those things.
-
-            if(algBool){
-
-                List<String> list = new ArrayList<>();
-                List<String> exAlgList = new ArrayList<>();
-
-                for(int i = 0; i < 7; i++){
-                    list.add(EditTemplateAssemblerClass.getInstance().algorithmDataList[i]);
-                }
-
-                for(String exercise : EditTemplateAssemblerClass.getInstance().algorithmExercisesAL){
-                    exAlgList.add(exercise);
-                }
-
-                templateSpecific.child("algorithm").setValue(list);
-                templateSpecific.child("algorithmExercises").setValue(exAlgList);
-
-                //DatabaseReference runningAlgoRef = mRootRef.child(uid)
-                //        .child(templateName )
-                //        .child(completedEx);
-            }
-
-            EditTemplateAssemblerClass.getInstance().clearAllLists();
-            EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
+            // BEGIN UPLOAD OF TEMPLATE
+            //Intent intent = getIntent();
+            //templateName = intent.getStringExtra("key1");
+            //checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
+            //algBool = getIntent().getExtras().getBoolean("isAlgorithm");
+//
+            //DatabaseReference mTemplateRef = mRootRef.child("templates").child(uid); // creates
+            //// /templates
+//
+            //ArrayList<ArrayList> masterListTemplate = EditTemplateAssemblerClass.getInstance().MasterEditTemplateAL;
+//
+            //ArrayList<ArrayList> algorithmMasterList = EditTemplateAssemblerClass.getInstance().algorithmMasterList;
+//
+            //DatabaseReference templateSpecific = mTemplateRef.child(templateName); // creates /bruh
+//
+            //DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
+//
+            //DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+//
+            //if (getIntent().getExtras().getString("isEdit") != null) {
+            //    if (getIntent().getExtras().getString("isEdit").equals("yes")) {
+            //        selectedTemplateDataRef.setValue(null);
+            //    }
+            //}
+//
+            //if(checkBool){
+            //    activeTemplateRef.setValue(templateName);
+            //}
+//
+            ///**
+            // * So, we need to first create a node with the template name
+            // * Next, we need to create a node for each day/days
+            // * After that, we need to add each set/reps/weights to the appropriate day/days
+            // */
+//
+            ///**
+            // * What appears to be happening...
+            // * When we open up a template asEdit, it's adding replica sets to the template Editor
+            // */
+//
+            //DatabaseReference originalSetsRepsRef = mRootRef.child("templates").child(uid)
+            //        .child(templateName)
+            //        .child("originalSetsReps");
+//
+//
+            //for (ArrayList<String> doWAL : masterListTemplate) {
+            //    // for each entry in a specific day's list
+//
+            //    List<String> list = new ArrayList<>();
+//
+//
+            //    //doWAL = DowAL1
+            //    for(int i = 1; i < doWAL.size(); i++){
+            //        String[] array = stringSplitter(doWAL.get(i));
+            //        for(String string : array){
+            //            list.add(string);
+            //        }
+            //    }
+//
+            //    templateSpecific.child(doWAL.get(0)).setValue(list);
+            //    //originalSetsRepsRef.child(doWAL.get(0)).setValue(list);
+            //}
+//
+//
+//
+            //// maybe we could add a boolean that would add those things.
+//
+            //if(algBool){
+//
+            //    List<String> list = new ArrayList<>();
+            //    List<String> exAlgList = new ArrayList<>();
+//
+            //    for(int i = 0; i < 7; i++){
+            //        list.add(EditTemplateAssemblerClass.getInstance().algorithmDataList[i]);
+            //    }
+//
+            //    for(String exercise : EditTemplateAssemblerClass.getInstance().algorithmExercisesAL){
+            //        exAlgList.add(exercise);
+            //    }
+//
+            //    templateSpecific.child("algorithm").setValue(list);
+            //    templateSpecific.child("algorithmExercises").setValue(exAlgList);
+//
+            //    //DatabaseReference runningAlgoRef = mRootRef.child(uid)
+            //    //        .child(templateName )
+            //    //        .child(completedEx);
+            //}
+//
+            //EditTemplateAssemblerClass.getInstance().clearAllLists();
+            //EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
 
         }
 

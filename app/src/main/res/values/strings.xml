@@ -346,6 +346,8 @@
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Template</string>
+    <string name="makePublic">Make public?</string>
+    <string name="descriptionHint">Add template description...</string>
     <string name="editThisTemplate">Edit Template</string>
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete Template</string>

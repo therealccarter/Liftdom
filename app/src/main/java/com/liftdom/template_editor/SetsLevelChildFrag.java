@@ -167,12 +167,13 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             String value = null;
 
             if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-                value = setsString + " x " + repsString + " @ " +
+                value = setsString + "x" + repsString + "@" +
                         weightString;
             }
 
             if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
                 EditTemplateAssemblerClass.getInstance().setSetSchemeValue(value, parentSpinnerValue, doWSelected);
+                TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
             }
         }
 

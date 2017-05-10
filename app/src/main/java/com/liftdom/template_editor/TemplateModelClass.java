@@ -14,13 +14,14 @@ public class TemplateModelClass {
     private String mUserName;
     private boolean mIsPublic;
     private String mDateCreated;
-    private HashMap<Integer, List<String>> mMondayMap;
-    private HashMap<Integer, List<String>> mTuesdayMap;
-    private HashMap<Integer, List<String>> mWednesdayMap;
-    private HashMap<Integer, List<String>> mThursdayMap;
-    private HashMap<Integer, List<String>> mFridayMap;
-    private HashMap<Integer, List<String>> mSaturdayMap;
-    private HashMap<Integer, List<String>> mSundayMap;
+    private String mDescription;
+    private HashMap<String, List<String>> mMondayMap;
+    private HashMap<String, List<String>> mTuesdayMap;
+    private HashMap<String, List<String>> mWednesdayMap;
+    private HashMap<String, List<String>> mThursdayMap;
+    private HashMap<String, List<String>> mFridayMap;
+    private HashMap<String, List<String>> mSaturdayMap;
+    private HashMap<String, List<String>> mSundayMap;
     private boolean mIsAlgorithm;
     private HashMap<String, List<String>> mAlgorithmInfo;
 
@@ -30,19 +31,20 @@ public class TemplateModelClass {
     }
 
     public TemplateModelClass(String templateName, String userId, String userName, boolean isPublic,
-                              String dateCreated,
-                              HashMap<Integer, List<String>> mondayMap,
-                              HashMap<Integer, List<String>> tuesdayMap,
-                              HashMap<Integer, List<String>> wednesdayMap,
-                              HashMap<Integer, List<String>> thursdayMap,
-                              HashMap<Integer, List<String>> fridayMap,
-                              HashMap<Integer, List<String>> saturdayMap,
-                              HashMap<Integer, List<String>> sundayMap,
+                              String dateCreated, String description,
+                              HashMap<String, List<String>> mondayMap,
+                              HashMap<String, List<String>> tuesdayMap,
+                              HashMap<String, List<String>> wednesdayMap,
+                              HashMap<String, List<String>> thursdayMap,
+                              HashMap<String, List<String>> fridayMap,
+                              HashMap<String, List<String>> saturdayMap,
+                              HashMap<String, List<String>> sundayMap,
                               boolean isAlgorithm, HashMap<String, List<String>> algorithmInfo){
 
         mTemplateName = templateName;
         mUserId = userId;
         mUserName = userName;
+        mDescription = description;
         mIsPublic = isPublic;
         mDateCreated = dateCreated;
         mMondayMap = mondayMap;
@@ -54,6 +56,14 @@ public class TemplateModelClass {
         mSundayMap = sundayMap;
         mIsAlgorithm = isAlgorithm;
         mAlgorithmInfo = algorithmInfo;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 
     public String getTemplateName() {
@@ -96,59 +106,59 @@ public class TemplateModelClass {
         mDateCreated = dateCreated;
     }
 
-    public HashMap<Integer, List<String>> getMondayMap() {
+    public HashMap<String, List<String>> getMondayMap() {
         return mMondayMap;
     }
 
-    public void setMondayMap(HashMap<Integer, List<String>> mondayMap) {
+    public void setMondayMap(HashMap<String, List<String>> mondayMap) {
         mMondayMap = mondayMap;
     }
 
-    public HashMap<Integer, List<String>> getTuesdayMap() {
+    public HashMap<String, List<String>> getTuesdayMap() {
         return mTuesdayMap;
     }
 
-    public void setTuesdayMap(HashMap<Integer, List<String>> tuesdayMap) {
+    public void setTuesdayMap(HashMap<String, List<String>> tuesdayMap) {
         mTuesdayMap = tuesdayMap;
     }
 
-    public HashMap<Integer, List<String>> getWednesdayMap() {
+    public HashMap<String, List<String>> getWednesdayMap() {
         return mWednesdayMap;
     }
 
-    public void setWednesdayMap(HashMap<Integer, List<String>> wednesdayMap) {
+    public void setWednesdayMap(HashMap<String, List<String>> wednesdayMap) {
         mWednesdayMap = wednesdayMap;
     }
 
-    public HashMap<Integer, List<String>> getThursdayMap() {
+    public HashMap<String, List<String>> getThursdayMap() {
         return mThursdayMap;
     }
 
-    public void setThursdayMap(HashMap<Integer, List<String>> thursdayMap) {
+    public void setThursdayMap(HashMap<String, List<String>> thursdayMap) {
         mThursdayMap = thursdayMap;
     }
 
-    public HashMap<Integer, List<String>> getFridayMap() {
+    public HashMap<String, List<String>> getFridayMap() {
         return mFridayMap;
     }
 
-    public void setFridayMap(HashMap<Integer, List<String>> fridayMap) {
+    public void setFridayMap(HashMap<String, List<String>> fridayMap) {
         mFridayMap = fridayMap;
     }
 
-    public HashMap<Integer, List<String>> getSaturdayMap() {
+    public HashMap<String, List<String>> getSaturdayMap() {
         return mSaturdayMap;
     }
 
-    public void setSaturdayMap(HashMap<Integer, List<String>> saturdayMap) {
+    public void setSaturdayMap(HashMap<String, List<String>> saturdayMap) {
         mSaturdayMap = saturdayMap;
     }
 
-    public HashMap<Integer, List<String>> getSundayMap() {
+    public HashMap<String, List<String>> getSundayMap() {
         return mSundayMap;
     }
 
-    public void setSundayMap(HashMap<Integer, List<String>> sundayMap) {
+    public void setSundayMap(HashMap<String, List<String>> sundayMap) {
         mSundayMap = sundayMap;
     }
 

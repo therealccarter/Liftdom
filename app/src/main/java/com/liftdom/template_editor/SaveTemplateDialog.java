@@ -13,8 +13,11 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 public class SaveTemplateDialog extends AppCompatActivity {
 
@@ -22,22 +25,25 @@ public class SaveTemplateDialog extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.saveButtonCancel) Button cancel;
-    @BindView(R.id.saveButtonSave) Button save;
-    @BindView(R.id.templateName) EditText templateName;
+    // declare_auth
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
 
     String templateName1;
     Boolean activeTemplateCheckBool;
     Boolean algBool;
+    boolean isPublic;
+    //String descriptionString;
 
+    @BindView(R.id.saveButtonCancel) Button cancel;
+    @BindView(R.id.saveButtonSave) Button save;
+    @BindView(R.id.templateName) EditText templateName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_save_template_dialog);
-
-        //TODO: input validation, don't allow no-name templates
 
         ButterKnife.bind(this);
 
@@ -47,7 +53,14 @@ public class SaveTemplateDialog extends AppCompatActivity {
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
             templateName1 = getIntent().getExtras().getString("templateName");
             templateName.setText(templateName1);
+            isPublic = getIntent().getBooleanExtra("isPublic", false);
+            //descriptionString = getIntent().getExtras().getString("description");
         }
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+
+        final String userName = mFirebaseUser.getDisplayName();
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,6 +73,9 @@ public class SaveTemplateDialog extends AppCompatActivity {
             @Override
             public void onClick(final View v){
 
+                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                String dateTimeString = dateTime.toString();
+
                 if(templateName != null && !templateName.getText().toString().equals("")){
                     String isEdit = "yes";
                     Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
@@ -68,6 +84,13 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     intent.putExtra("isFromEditor", true);
                     intent.putExtra("isEdit", isEdit );
                     intent.putExtra("isAlgorithm", algBool);
+
+                    TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                    TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
+                    //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+                    TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
+                    TemplateEditorSingleton.getInstance().mUserId = uid;
+                    TemplateEditorSingleton.getInstance().mUserName = userName;
                     startActivity(intent);
                     EditTemplateAssemblerClass.getInstance().assembleMasterList();
                 }else{
