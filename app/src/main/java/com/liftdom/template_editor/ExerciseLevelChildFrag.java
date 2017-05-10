@@ -5,13 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Toast;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +19,8 @@ import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
 
-public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback{
+public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback,
+                SetsLevelChildFrag.removeFragCallback{
 
     int fragIdCount2 = 0;
 
@@ -31,17 +30,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     String templateName;
     String selectedDaysReference;
 
+    String fragTag;
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    // Butterknife
-    @BindView(R.id.movementName) Button exerciseButton;
-    @BindView(R.id.addSet) Button addSet;
-    @BindView(R.id.removeSet) Button removeSet;
-    @BindView(R.id.algorithmCheckBox) CheckBox algoCheckBox;
-
     ArrayList<String> algoExAL = new ArrayList<>();
-
 
     public ExerciseLevelChildFrag() {
         // Required empty public constructor
@@ -51,11 +45,24 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     public interface doWCallback{
         String getDoW();
     }
+
+    public interface removeFragCallback{
+        void removeFrag(String fragTag);
+    }
+
     private doWCallback callback;
+    private removeFragCallback removeFragCallback;
 
     ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
 
     ArrayList<String> stringSnapshotAL = new ArrayList<>();
+
+    // Butterknife
+    @BindView(R.id.movementName) Button exerciseButton;
+    @BindView(R.id.addSet) Button addSet;
+    @BindView(R.id.algorithmCheckBox) CheckBox algoCheckBox;
+    @BindView(R.id.destroyFrag) ImageButton destroyFrag;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,6 +160,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 String fragString2 = Integer.toString(fragIdCount2);
                 SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
                 setsLevelChildFragAL.add(frag1);
+                frag1.fragTag = fragString2;
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
                 fragmentTransaction.commit();
@@ -170,27 +178,15 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             }
         });
 
-        removeSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                String fragString2 = Integer.toString(fragIdCount2);
-                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                if(fragIdCount2 != 0){
-                    fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString2)).commit();
-                    --fragIdCount2;
-                }
+        removeFragCallback = (removeFragCallback) getParentFragment();
 
-                CharSequence toastText = "Set-scheme Removed";
-                int duration = Toast.LENGTH_SHORT;
-
-                try{
-                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                    snackbar.show();
-                } catch (NullPointerException e){
-
-                }
+        destroyFrag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                removeFragCallback.removeFrag(fragTag);
+                Log.i("tag", "fragbutton pushed");
             }
         });
+
 
         algoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -232,7 +228,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         if (requestCode == 2) {
                 if (data.getStringExtra("MESSAGE") != null) {
                     String message = data.getStringExtra("MESSAGE");
-                    exerciseButton.setText(message);
+                    String newMessage = newLineExname(message);
+                    exerciseButton.setText(newMessage);
                     if (message.equals("Pullups") || message.equals("Crunches")
                             || message.equals("Sit-ups")
                             || message.equals("Leg Raises")) {
@@ -243,6 +240,26 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public String newLineExname(String exerciseName){
+        String newExNameString = "null";
+        if(exerciseName.length() > 20){
+            String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 20));
+            String exerciseName2 = exerciseName.substring(20, exerciseName.length());
+            newExNameString = exerciseName1 + "\n" + exerciseName2;
+        }
+        return newExNameString;
+    }
+
+    public void removeFrag(String tag){
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        if(fragIdCount2 != 0){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                --fragIdCount2;
             }
         }
     }

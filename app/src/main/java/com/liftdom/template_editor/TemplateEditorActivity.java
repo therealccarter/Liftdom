@@ -51,7 +51,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
     int fragIdCount = 0;
 
-
     String activeTemplateName = null;
     String selectedTemplateDayValue = null;
     String activeTemplateToday = null;
@@ -459,7 +458,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
             @Override
             public void onClick(View v) {
 
-                    ++fragIdCount;
+                ++fragIdCount;
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

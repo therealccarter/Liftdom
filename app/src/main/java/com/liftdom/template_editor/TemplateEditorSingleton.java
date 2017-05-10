@@ -9,6 +9,17 @@ import java.util.List;
 
 public class TemplateEditorSingleton {
 
+    // Singleton boilerplate
+    private static TemplateEditorSingleton controller;
+    static TemplateEditorSingleton getInstance() {
+        if (controller == null) {
+            controller = new TemplateEditorSingleton();
+        }
+        return controller;
+    }
+
+    //TODO: at the end, if a map is empty, but a dummy value in there so we can later update the child
+
     String mTemplateName;
     String mUserId;
     String mUserName;
@@ -24,6 +35,7 @@ public class TemplateEditorSingleton {
     boolean mIsAlgorithm = false;
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<String, List<String>>();
 
-    //TODO: at the end, if a map is empty, but a dummy value in there so we can later update the child
+
+
 
 }

@@ -120,7 +120,7 @@
 
             <Button
                     android:id="@+id/addExercise"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="38dp"
                     android:text="@string/addExercise"
                     android:layout_gravity="start|bottom"
@@ -133,19 +133,6 @@
 
             />
 
-            <Button
-                    android:id="@+id/removeExercise"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:text="@string/removeExercise"
-                    android:layout_gravity="end|bottom"
-                    android:textSize="14sp"
-                    android:background="@color/darkerGrey"
-                    android:textColor="@color/white"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:layout_marginStart="10dp"
-            />
         </LinearLayout>
 
 

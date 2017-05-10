@@ -423,6 +423,9 @@
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
 
+    <string name="superset">SuperSet</string>
+    <string name="setAlgorithm">Algorithm</string>
+
     <string name="activityFeed">Feed</string>
     <string name="forum">Forum</string>
     <string name="chat">Chat</string>
@@ -526,7 +529,7 @@
     <string name="enterChatName">Chat Name:\u0020</string>
 
     <string name="chooseAnExercise">Choose an Exercise</string>
-    <string name="clickToAddAnExercise">Click to add an exercise</string>
+    <string name="clickToAddAnExercise">Click to select exercise</string>
 
     <string name="repsWord">reps</string>
 

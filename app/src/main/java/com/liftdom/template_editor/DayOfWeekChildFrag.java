@@ -30,7 +30,8 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 
-public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback{
+public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback,
+                ExerciseLevelChildFrag.removeFragCallback{
 
 
     //private OnFragmentInteractionListener mListener;
@@ -69,7 +70,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
     @BindView(R.id.Sa) ToggleButton satToggle;
     @BindView(R.id.Su) ToggleButton sunToggle;
     @BindView(R.id.addExercise) Button addExercise;
-    @BindView(R.id.removeExercise) Button removeExercise;
+
 
 
     public DayOfWeekChildFrag() {
@@ -253,6 +254,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 ++fragIdCount1;
                 String fragString1 = Integer.toString(fragIdCount1);
                 ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+                //Bundle fragTagBundle = new Bundle();
+                //fragTagBundle.putString("fragTag", fragString1);
+                frag1.fragTag = fragString1;
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                 fragmentTransaction.commit();
@@ -269,27 +273,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             }
         });
 
-        removeExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                String fragString1 = Integer.toString(fragIdCount1);
-                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                if(fragIdCount1 != 0){
-                    fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString1)).commit();
-                    --fragIdCount1;
-                }
-
-                CharSequence toastText = "Exercise Removed";
-                int duration = Toast.LENGTH_SHORT;
-
-                try{
-                    Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                    snackbar.show();
-                } catch (NullPointerException e){
-
-                }
-            }
-        });
 
         if(isEdit && isFirstTime) {
             for (String day : daysArray) {
@@ -322,11 +305,11 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
             ++fragIdCount1;
             String fragString1 = Integer.toString(fragIdCount1);
             ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+            frag1.fragTag = fragString1;
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
             fragmentTransaction.commit();
         }
-
         return view;
     }
 
@@ -436,6 +419,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
                                 frag1.isEdit = true;
+                                frag1.fragTag = fragString1;
                                 frag1.exerciseName = snapshotString;
                                 frag1.selectedDaysReference = selectedDaysReference;
                                 frag1.templateName = templateName;
@@ -460,6 +444,26 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
     }
 
+    public void removeFrag(String tag){
+
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        if(fragIdCount1 != 0){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                --fragIdCount1;
+            }
+        }
+
+        CharSequence toastText = "Exercise Removed";
+        int duration = Toast.LENGTH_SHORT;
+
+        try{
+            Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+            snackbar.show();
+        } catch (NullPointerException e){
+
+        }
+    }
 
 
     boolean isExerciseName(String input) {

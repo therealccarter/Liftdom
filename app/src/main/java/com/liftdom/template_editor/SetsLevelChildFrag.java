@@ -9,26 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
-import com.liftdom.template_editor.EditTemplateAssemblerClass;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SetsLevelChildFrag extends android.app.Fragment {
 
-    // Butterknife
-    @BindView(R.id.sets) EditText setsEditText;
-    @BindView(R.id.reps) EditText repsEditText;
-    @BindView(R.id.weight) EditText weightEditText;
-    //@BindView(R.id.extraOptions) Spinner extraOptions;
-    @BindView(R.id.lbs) TextView pounds;
-    @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
 
     public SetsLevelChildFrag() {
         // Required empty public constructor
@@ -38,7 +30,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     String setSchemeEdited;
     Boolean isEditFirstEdit = false;
 
-
     // Callback
     public interface setSchemesCallback{
         String getExerciseValue();
@@ -46,7 +37,23 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         Boolean getCheckBoxValue();
     }
 
+    public interface removeFragCallback{
+        void removeFrag(String fragTag);
+    }
+
     private setSchemesCallback callback;
+    private removeFragCallback fragCallback;
+
+    public String fragTag;
+
+    // Butterknife
+    @BindView(R.id.sets) EditText setsEditText;
+    @BindView(R.id.reps) EditText repsEditText;
+    @BindView(R.id.weight) EditText weightEditText;
+    //@BindView(R.id.extraOptions) Spinner extraOptions;
+    @BindView(R.id.lbs) TextView pounds;
+    @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
+    @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +87,13 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         }
 
+        fragCallback = (removeFragCallback) getParentFragment();
+
+        destroyFrag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                fragCallback.removeFrag(fragTag);
+            }
+        });
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
