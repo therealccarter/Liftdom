@@ -1,9 +1,6 @@
 package com.liftdom.template_editor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Brodin on 5/9/2017.
@@ -28,191 +25,209 @@ public class TemplateEditorSingleton {
     boolean mIsPublic = false;
     String mDateCreated;
     String mDescription;
-    HashMap<String, List<String>> mMondayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mTuesdayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mWednesdayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mThursdayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mFridayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mSaturdayMap = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mSundayMap = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapOne = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapTwo = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapThree = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapFour = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapFive = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapSix = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapSeven = new HashMap<String, List<String>>();
     boolean mIsAlgorithm = false;
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<String, List<String>>();
 
-    public void setValues(String dayOfWeek, String exerciseValue, String setSchemeValue){
-        String[] days = doWFormatter(dayOfWeek);
+    // gets called for each paused set scheme frag
+    public void setValues(String daysOfWeek, String exerciseValue, String setSchemeValue){
         String exName = exNameFormatter(exerciseValue);
-        for(String day : days){
-            setMapValue(day, exName, setSchemeValue);
+        List<String> dayEntry = new ArrayList<>();
+        dayEntry.add(daysOfWeek);
+
+        if(mapOne.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && mapTwo.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && mapThree.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
+                && mapFour.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
+                && !mapFour.isEmpty() && mapFive.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
+                && !mapFour.isEmpty() && !mapFive.isEmpty() && mapSix.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
+                && !mapFour.isEmpty() && !mapFive.isEmpty() && !mapSix.isEmpty()
+                    && mapSeven.isEmpty()){
+            mapOne.put("0", dayEntry);
+        }
+        setMapValue(daysOfWeek, exName, setSchemeValue);
+    }
+
+    private void setMapValue(String days, String exName, String setScheme){
+        if(mapOne.get("0").contains(days)){
+            int inc = mapOne.size();
+
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapOne);
+
+            for(Map.Entry<String, List<String>> entry : mapOne.entrySet()){
+                List<String> valueList = entry.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    temp.put(String.valueOf(inc), mapList);
+                }else {
+                    List<String> xValueList = temp.get(entry.getKey());
+                    xValueList.add(setScheme);
+                    temp.put(entry.getKey(), xValueList);
+                }
+            }
+
+            mapOne.clear();
+            mapOne.putAll(temp);
+
+        }else if(mapTwo.get("0").contains(days)){
+            int inc = mapTwo.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapTwo.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapTwo.put(String.valueOf(inc), mapList);
+                }else {
+                    mapTwo.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
+        }else if(mapThree.get("0").contains(days)){
+            int inc = mapThree.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapThree.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapThree.put(String.valueOf(inc), mapList);
+                }else {
+                    mapThree.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
+        }else if(mapFour.get("0").contains(days)){
+            int inc = mapFour.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapFour.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapFour.put(String.valueOf(inc), mapList);
+                }else {
+                    mapFour.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
+        }else if(mapFive.get("0").contains(days)){
+            int inc = mapFive.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapFive.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapFive.put(String.valueOf(inc), mapList);
+                }else {
+                    mapFive.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
+        }else if(mapSix.get("0").contains(days)){
+            int inc = mapSix.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapSix.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapSix.put(String.valueOf(inc), mapList);
+                }else {
+                    mapSix.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
+        }else if(mapSeven.get("0").contains(days)){
+            int inc = mapSeven.size();
+            inc++;
+
+            Iterator<Map.Entry<String, List<String>>> iterator = mapSeven.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+
+                List<String> valueList = pair.getValue();
+
+                if(!containsEx(valueList, exName)){
+                    List<String> mapList = new ArrayList<>();
+                    mapList.add(exName);
+                    mapList.add(setScheme);
+                    mapSeven.put(String.valueOf(inc), mapList);
+                }else {
+                    mapSeven.get(pair.getKey()).add(setScheme);
+                }
+
+                //iterator.remove();
+            }
         }
     }
 
-    private void setMapValue(String day, String exName, String setScheme){
-        if(day.equals("Monday")){
-            int inc = mMondayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mMondayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mMondayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Tuesday")){
-            int inc = mTuesdayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mTuesdayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mTuesdayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Wednesday")){
-            int inc = mWednesdayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mWednesdayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mWednesdayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Thursday")){
-            int inc = mThursdayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mThursdayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mThursdayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Friday")){
-            int inc = mFridayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mFridayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mFridayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Saturday")){
-            int inc = mSaturdayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mSaturdayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mSaturdayMap.get(split[1]).add(setScheme);
-            }
-        }else if(day.equals("Sunday")){
-            int inc = mSundayMap.size();
-            inc++;
-            if(containsEx(day, exName).equals("false")){
-                List<String> mapList = new ArrayList<>();
-                mapList.add(exName);
-                mapList.add(setScheme);
-                mSundayMap.put(String.valueOf(inc), mapList);
-            }else {
-                String delims = "[_]";
-                String info = containsEx(day, exName);
-                String[] split = info.split(delims);
-                mSundayMap.get(split[1]).add(setScheme);
-            }
+    private boolean containsEx(List<String> list, String exName){
+        if(list.contains(exName)){
+            return true;
+        }else{
+            return false;
         }
-    }
-
-    private String containsEx(String day, String exName){
-        String containsEx = "false";
-
-        if(day.equals("Monday")){
-            for(Map.Entry<String, List<String>> entry : mMondayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Tuesday")){
-            for(Map.Entry<String, List<String>> entry : mTuesdayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Wednesday")){
-            for(Map.Entry<String, List<String>> entry : mWednesdayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Thursday")){
-            for(Map.Entry<String, List<String>> entry : mThursdayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Friday")){
-            for(Map.Entry<String, List<String>> entry : mFridayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Saturday")){
-            for(Map.Entry<String, List<String>> entry : mSaturdayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }else if(day.equals("Sunday")){
-            for(Map.Entry<String, List<String>> entry : mSundayMap.entrySet()){
-                List<String> mapList = entry.getValue();
-                if(mapList.contains(exName)){
-                    containsEx = "true_" + String.valueOf(entry.getKey());
-                }
-            }
-        }
-
-        return containsEx;
     }
 
     private String exNameFormatter(String exNameUn){
         return exNameUn.replaceAll("\n", "");
-    }
-
-    private String[] doWFormatter(String dowUn){
-        String delims = "[_]";
-        String[] split = dowUn.split(delims);
-        return split;
     }
 
     public void clearAll(){
@@ -222,38 +237,17 @@ public class TemplateEditorSingleton {
         mIsPublic = false;
         mDateCreated = null;
         mDescription = null;
-        mMondayMap = null;
-        mTuesdayMap = null;
-        mWednesdayMap = null;
-        mThursdayMap = null;
-        mFridayMap = null;
-        mSaturdayMap = null;
-        mSundayMap = null;
+        mapOne = null;
+        mapTwo = null;
+        mapThree = null;
+        mapFour = null;
+        mapFive = null;
+        mapSix = null;
+        mapSeven = null;
         mIsAlgorithm = false;
         mAlgorithmInfo = null;
     }
 
-    public void makeDummies(){
-
-        List<String> dummy = new ArrayList<>();
-        dummy.add("null");
-
-        if(mMondayMap.isEmpty()){
-            mMondayMap.put(String.valueOf(0), dummy);
-        }else if(mTuesdayMap.isEmpty()){
-            mTuesdayMap.put(String.valueOf(0), dummy);
-        }else if(mWednesdayMap.isEmpty()){
-            mWednesdayMap.put(String.valueOf(0), dummy);
-        }else if(mThursdayMap.isEmpty()){
-            mThursdayMap.put(String.valueOf(0), dummy);
-        }else if(mFridayMap.isEmpty()){
-            mFridayMap.put(String.valueOf(0), dummy);
-        }else if(mSaturdayMap.isEmpty()){
-            mSaturdayMap.put(String.valueOf(0), dummy);
-        }else if(mSundayMap.isEmpty()){
-            mSundayMap.put(String.valueOf(0), dummy);
-        }
-    }
 }
 
 

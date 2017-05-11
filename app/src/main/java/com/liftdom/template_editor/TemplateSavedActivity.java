@@ -36,7 +36,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.wang.avi.AVLoadingIndicatorView;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -239,7 +238,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
-            TemplateEditorSingleton.getInstance().makeDummies();
+            //TemplateEditorSingleton.getInstance().makeDummies();
 
             String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
             String xUserId = TemplateEditorSingleton.getInstance().mUserId;
@@ -247,20 +246,20 @@ public class TemplateSavedActivity extends AppCompatActivity {
             boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
             String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
             String xDescription = TemplateEditorSingleton.getInstance().mDescription;
-            HashMap<String, List<String>> xMondayMap =  TemplateEditorSingleton.getInstance().mMondayMap;
-            HashMap<String, List<String>> xTuesdayMap = TemplateEditorSingleton.getInstance().mTuesdayMap;
-            HashMap<String, List<String>> xWednesdayMap = TemplateEditorSingleton.getInstance().mWednesdayMap;
-            HashMap<String, List<String>> xThursdayMap = TemplateEditorSingleton.getInstance().mThursdayMap;
-            HashMap<String, List<String>> xFridayMap = TemplateEditorSingleton.getInstance().mFridayMap;
-            HashMap<String, List<String>> xSaturdayMap = TemplateEditorSingleton.getInstance().mSaturdayMap;
-            HashMap<String, List<String>> xSundayMap = TemplateEditorSingleton.getInstance().mSundayMap;
+            HashMap<String, List<String>> xMapOne =  TemplateEditorSingleton.getInstance().mapOne;
+            HashMap<String, List<String>> xMapTwo = TemplateEditorSingleton.getInstance().mapTwo;
+            HashMap<String, List<String>> xMapThree = TemplateEditorSingleton.getInstance().mapThree;
+            HashMap<String, List<String>> xMapFour = TemplateEditorSingleton.getInstance().mapFour;
+            HashMap<String, List<String>> xMapFive = TemplateEditorSingleton.getInstance().mapFive;
+            HashMap<String, List<String>> xMapSix = TemplateEditorSingleton.getInstance().mapSix;
+            HashMap<String, List<String>> xMapSeven = TemplateEditorSingleton.getInstance().mapSeven;
             boolean xIsAlgorithm = TemplateEditorSingleton.getInstance().mIsAlgorithm;
             HashMap<String, List<String>> xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
 
             TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xUserId, xUserName, xIsPublic,
-                                                xDateCreated, xDescription, xMondayMap, xTuesdayMap,
-                                                xWednesdayMap, xThursdayMap, xFridayMap, xSaturdayMap,
-                                                xSundayMap, xIsAlgorithm, xAlgorithmInfo);
+                                                xDateCreated, xDescription, xMapOne, xMapTwo,
+                                                xMapThree, xMapFour, xMapFive, xMapSix,
+                                                xMapSeven, xIsAlgorithm, xAlgorithmInfo);
 
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
