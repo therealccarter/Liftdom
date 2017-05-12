@@ -289,8 +289,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")) {
 
-                //EditTemplateAssemblerClass.getInstance().clearAllLists();
-
                 final String templateName = getIntent().getExtras().getString("templateName");
 
                 /**
@@ -342,11 +340,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
                                 ++index;
                             }
-
-                            //EditTemplateAssemblerClass.getInstance().isEditAndFirstTime = false;
-
                         }
-
                     }
 
                     @Override
@@ -653,8 +647,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         intent.putExtra("isActiveTemplate", checkBool);
                         intent.putExtra("isAlgorithm", algBool);
                         intent.putExtra("isPublic", isPublic);
-                        //intent.putExtra("description", descriptionString);
-                        //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                         startActivity(intent);
                     }
                 }else{
@@ -663,7 +655,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     intent.putExtra("isAlgorithm", algBool);
                     intent.putExtra("isPublic", isPublic);
                     intent.putExtra("description", descriptionString);
-                    //EditTemplateAssemblerClass.getInstance().algorithmMasterList = algorithmMasterList;
                     startActivity(intent);
                 }
 
@@ -734,7 +725,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        EditTemplateAssemblerClass.getInstance().clearAllLists();
         EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
 
         // set title

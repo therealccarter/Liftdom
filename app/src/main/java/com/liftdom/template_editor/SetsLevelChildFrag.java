@@ -157,8 +157,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             String parentSpinnerValue = callback.getExerciseValue();
             String doWSelected = callback.getDoWValue();
             Boolean isChecked = callback.getCheckBoxValue();
-            EditTemplateAssemblerClass.getInstance().setDoW(doWSelected);
-            EditTemplateAssemblerClass.getInstance().setExerciseValue(parentSpinnerValue, doWSelected, isChecked);
 
             String setsString = setsEditText.getText().toString();
             String repsString = repsEditText.getText().toString();
@@ -172,7 +170,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }
 
             if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
-                EditTemplateAssemblerClass.getInstance().setSetSchemeValue(value, parentSpinnerValue, doWSelected);
                 TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
             }
         }

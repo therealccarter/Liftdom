@@ -58,8 +58,10 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map two added: " + daysOfWeek);
-            mapTwo.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0))){
+                Log.i("info", "Map two added: " + daysOfWeek);
+                mapTwo.put("0", dayEntry);
+            }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
                 mapThree.isEmpty() &&
@@ -68,8 +70,11 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map three added: " + daysOfWeek);
-            mapThree.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0").get(0))){
+                Log.i("info", "Map three added: " + daysOfWeek);
+                mapThree.put("0", dayEntry);
+            }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
                 !mapThree.isEmpty() &&
@@ -78,8 +83,12 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map four added: " + daysOfWeek);
-            mapFour.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0").get(0))){
+                Log.i("info", "Map four added: " + daysOfWeek);
+                mapFour.put("0", dayEntry);
+            }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
                 !mapThree.isEmpty() &&
@@ -88,8 +97,13 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map five added: " + daysOfWeek);
-            mapFive.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0").get(0))){
+                Log.i("info", "Map five added: " + daysOfWeek);
+                mapFive.put("0", dayEntry);
+            }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
                 !mapThree.isEmpty() &&
@@ -98,8 +112,14 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map six added: " + daysOfWeek);
-            mapSix.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapFive.get("0").get(0))){
+                Log.i("info", "Map six added: " + daysOfWeek);
+                mapSix.put("0", dayEntry);
+            }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
                 !mapThree.isEmpty() &&
@@ -108,10 +128,19 @@ public class TemplateEditorSingleton {
                 !mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            Log.i("info", "Map seven added: " + daysOfWeek);
-            mapSeven.put("0", dayEntry);
+            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapFive.get("0").get(0)) &&
+                    !daysOfWeek.equals(mapSix.get("0").get(0))){
+                Log.i("info", "Map seven added: " + daysOfWeek);
+                mapSeven.put("0", dayEntry);
+            }
         }
+
         setMapValue(daysOfWeek, exName, setSchemeValue);
+
     }
 
     private void setMapValue(String days, String exName, String setScheme){
@@ -348,11 +377,6 @@ public class TemplateEditorSingleton {
     }
 
 }
-
-
-
-
-
 
 
 

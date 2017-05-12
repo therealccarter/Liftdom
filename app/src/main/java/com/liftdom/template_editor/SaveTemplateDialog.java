@@ -92,7 +92,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     TemplateEditorSingleton.getInstance().mUserId = uid;
                     TemplateEditorSingleton.getInstance().mUserName = userName;
                     startActivity(intent);
-                    EditTemplateAssemblerClass.getInstance().assembleMasterList();
+
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);
 
