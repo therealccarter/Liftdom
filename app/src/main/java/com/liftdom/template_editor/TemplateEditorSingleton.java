@@ -17,8 +17,6 @@ public class TemplateEditorSingleton {
         return controller;
     }
 
-    //TODO: at the end, if a map is empty, but a dummy value in there so we can later update the child
-
     String mTemplateName;
     String mUserId;
     String mUserName;
@@ -41,28 +39,78 @@ public class TemplateEditorSingleton {
         List<String> dayEntry = new ArrayList<>();
         dayEntry.add(daysOfWeek);
 
-        if(mapOne.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && mapTwo.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && mapThree.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
-                && mapFour.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
-                && !mapFour.isEmpty() && mapFive.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
-                && !mapFour.isEmpty() && !mapFive.isEmpty() && mapSix.isEmpty()){
-            mapOne.put("0", dayEntry);
-        }else if(!mapOne.isEmpty() && !mapTwo.isEmpty() && !mapThree.isEmpty()
-                && !mapFour.isEmpty() && !mapFive.isEmpty() && !mapSix.isEmpty()
-                    && mapSeven.isEmpty()){
+        //setDayOfWeek(daysOfWeek);
+
+        if(mapOne.isEmpty() &&
+           mapTwo.isEmpty() &&
+           mapThree.isEmpty() &&
+           mapFour.isEmpty() &&
+           mapFive.isEmpty() &&
+           mapSix.isEmpty() &&
+           mapSeven.isEmpty()
+           ){
             mapOne.put("0", dayEntry);
         }
+
         setMapValue(daysOfWeek, exName, setSchemeValue);
     }
+
+    private void setDayOfWeek(String days){
+        List<String> dayEntry = new ArrayList<>();
+        dayEntry.add(days);
+
+        String mapDays1 = mapOne.get("0").get(0);
+        String mapDays2 = mapTwo.get("0").get(0);
+        String mapDays3 = mapThree.get("0").get(0);
+        String mapDays4 = mapFour.get("0").get(0);
+        String mapDays5 = mapFive.get("0").get(0);
+        String mapDays6 = mapSix.get("0").get(0);
+        String mapDays7 = mapSeven.get("0").get(0);
+
+        ArrayList<String> mapList = new ArrayList<>();
+        mapList.add(mapDays1);
+        mapList.add(mapDays2);
+        mapList.add(mapDays3);
+        mapList.add(mapDays4);
+        mapList.add(mapDays5);
+        mapList.add(mapDays6);
+        mapList.add(mapDays7);
+
+        if(!mapList.contains(days)){
+            if(mapDays1 == null){
+                mapOne.put("0", dayEntry);
+            }
+        }
+    }
+
+    /**
+     *  int inc = mapOne.size();
+        HashMap<String, List<String>> temp = new HashMap<>();
+        temp.putAll(mapOne);
+
+        for(Map.Entry<String, List<String>> entry : mapOne.entrySet()){
+            List<String> valueList = entry.getValue();
+            String exNameFromList = valueList.get(0);
+
+            if(!containsEx(temp, exName)){
+
+                List<String> mapList = new ArrayList<>();
+                mapList.add(exName);
+                mapList.add(setScheme);
+                temp.put(String.valueOf(inc), mapList);
+
+                }else {
+
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                    List<String> xValueList = temp.get(entry.getKey());
+                    xValueList.add(setScheme);
+                    temp.put(entry.getKey(), xValueList);
+
+                }
+            }
+        }
+     */
 
     private void setMapValue(String days, String exName, String setScheme){
         if(mapOne.get("0").contains(days)){
@@ -73,16 +121,20 @@ public class TemplateEditorSingleton {
 
             for(Map.Entry<String, List<String>> entry : mapOne.entrySet()){
                 List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
                     temp.put(String.valueOf(inc), mapList);
                 }else {
-                    List<String> xValueList = temp.get(entry.getKey());
-                    xValueList.add(setScheme);
-                    temp.put(entry.getKey(), xValueList);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
             }
 
@@ -91,139 +143,186 @@ public class TemplateEditorSingleton {
 
         }else if(mapTwo.get("0").contains(days)){
             int inc = mapTwo.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapTwo.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapTwo);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapTwo.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapTwo.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapTwo.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapTwo.clear();
+            mapTwo.putAll(temp);
+
         }else if(mapThree.get("0").contains(days)){
             int inc = mapThree.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapThree.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapThree);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapThree.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapThree.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapThree.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapThree.clear();
+            mapThree.putAll(temp);
+
         }else if(mapFour.get("0").contains(days)){
             int inc = mapFour.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapFour.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapFour);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapFour.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapFour.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapFour.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapFour.clear();
+            mapFour.putAll(temp);
+
         }else if(mapFive.get("0").contains(days)){
             int inc = mapFive.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapFive.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapFive);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapFive.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapFive.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapFive.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapFive.clear();
+            mapFive.putAll(temp);
+
         }else if(mapSix.get("0").contains(days)){
             int inc = mapSix.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapSix.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapSix);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapSix.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapSix.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapSix.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapSix.clear();
+            mapSix.putAll(temp);
+
         }else if(mapSeven.get("0").contains(days)){
             int inc = mapSeven.size();
-            inc++;
 
-            Iterator<Map.Entry<String, List<String>>> iterator = mapSeven.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iterator.next();
+            HashMap<String, List<String>> temp = new HashMap<>();
+            temp.putAll(mapSeven);
 
-                List<String> valueList = pair.getValue();
+            for(Map.Entry<String, List<String>> entry : mapSeven.entrySet()){
+                List<String> valueList = entry.getValue();
+                String exNameFromList = valueList.get(0);
 
-                if(!containsEx(valueList, exName)){
+                if(!containsEx(temp, exName)){
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    mapSeven.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc), mapList);
                 }else {
-                    mapSeven.get(pair.getKey()).add(setScheme);
+                    // if ex name has already been added
+                    if(exNameFromList.equals(exName)){
+                        List<String> xValueList = temp.get(entry.getKey());
+                        xValueList.add(setScheme);
+                        temp.put(entry.getKey(), xValueList);
+                    }
                 }
-
-                //iterator.remove();
             }
+
+            mapSeven.clear();
+            mapSeven.putAll(temp);
+
         }
     }
 
-    private boolean containsEx(List<String> list, String exName){
-        if(list.contains(exName)){
-            return true;
-        }else{
-            return false;
+
+
+    private boolean containsEx(HashMap<String, List<String>> temp, String exName){
+        boolean contains = false;
+        for(Map.Entry<String, List<String>> entry : temp.entrySet()){
+            List<String> valueList = entry.getValue();
+            if(valueList.get(0).equals(exName)){
+                contains = true;
+            }
         }
+        return contains;
     }
 
     private String exNameFormatter(String exNameUn){
