@@ -242,6 +242,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
                         String exName = exerciseButton.getText().toString();
                         intent.putExtra("exName", exName);
+                        if(getDoWValue() != null){
+                            intent.putExtra("day", getDoWValue());
+                        }
                         startActivityForResult(intent, 4);
                     }else if(message.equals("superset")){
                         Intent intent = new Intent(getActivity(), ExSelectorActivity.class);

@@ -4,6 +4,7 @@ package com.liftdom.template_editor;
 
 import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class EditTemplateAssemblerClass {
@@ -16,6 +17,8 @@ class EditTemplateAssemblerClass {
         }
         return controller;
     }
+
+    HashMap<String, List<String>> tempAlgoInfo = new HashMap<>();
 
     String[] algorithmDataList = new String[7];
 
