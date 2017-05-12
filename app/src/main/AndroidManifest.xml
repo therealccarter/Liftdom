@@ -13,13 +13,13 @@
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:supportsRtl="true"
             android:largeHeap="true"
+            android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
                 android:name=".MainActivity"
-                android:windowSoftInputMode="adjustPan"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -55,19 +55,11 @@
         <activity android:name="com.liftdom.user_profile.your_profile.CurrentUserProfile">
         </activity>
         <activity
-                android:name="com.liftdom.template_editor.ExercisePickerActivity"
-                android:theme="@style/Theme.AppCompat.Dialog">
-        </activity>
-        <activity
                 android:name="com.liftdom.user_profile.your_profile.ProfileInfoActivity"
                 android:noHistory="true">
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExtraOptionsDialog"
-                android:theme="@style/Theme.AppCompat.Dialog">
-        </activity>
-        <activity
-                android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
         <activity
@@ -135,7 +127,15 @@
         </activity>
         <activity android:name=".SignInActivity">
         </activity>
-        <activity android:name=".chat.ChatGroup.NewChatGroupDialog"
+        <activity
+                android:name=".chat.ChatGroup.NewChatGroupDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity
+                android:name="com.liftdom.template_editor.AlgorithmOrSuperSetDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>

@@ -284,9 +284,9 @@
     </string>
     <string name="every">Every\u0020</string>
     <string name="weeks">week(s),</string>
-    <string name="increaseSets">\u0020 increase sets by</string>
-    <string name="increaseReps">\u0020 increase reps by</string>
-    <string name="increaseWeight">\u0020 increase weight by</string>
+    <string name="increaseSets">\u0020 increase SETS by</string>
+    <string name="increaseReps">\u0020 increase REPS by</string>
+    <string name="increaseWeight">\u0020 increase WEIGHT by</string>
     <string name="defaultWeightOptionButton">Numeric Weights</string>
     <string name="bodyWeightOptionButton">Bodyweight</string>
     <string name="toFailureOptionButton">To Failure</string>
@@ -426,7 +426,9 @@
     <string name="profileInfo">Profile Info</string>
 
     <string name="superset">SuperSet</string>
-    <string name="setAlgorithm">Algorithm</string>
+    <string name="algorithm">Algorithm</string>
+    <string name="setAlgorithm">Set Auto-Growth Algorithm</string>
+    <string name="addSuperset">Add Superset Exercise</string>
 
     <string name="activityFeed">Feed</string>
     <string name="forum">Forum</string>
@@ -498,7 +500,7 @@
     <string name="saveTemplateAs">SAVE TEMPLATE AS...</string>
     <string name="templateNameHint">TEMPLATE NAME</string>
     <string name="format">Format:</string>
-    <string name="formatSRW">SETS x REPS @ WEIGHT</string>
+    <string name="formatSRW">Format: SETS x REPS @ WEIGHT</string>
     <string name="formatAlg">Algorithm\n Checkbox</string>
     <string name="formatExtra">Extra\n Options</string>
 

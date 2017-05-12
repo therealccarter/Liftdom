@@ -620,7 +620,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
         //algoButton.setOnClickListener(new View.OnClickListener() {
         //    public void onClick(View v) {
-        //        Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity.class);
+        //        Intent intent = new Intent(v.getContext(), AlgorithmSelectorActivity1.class);
 //
         //        startActivityForResult(intent, 4);
         //    }

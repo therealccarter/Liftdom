@@ -55,6 +55,8 @@ public class SaveTemplateDialog extends AppCompatActivity {
             templateName.setText(templateName1);
             isPublic = getIntent().getBooleanExtra("isPublic", false);
             //descriptionString = getIntent().getExtras().getString("description");
+        }else{
+            isPublic = getIntent().getBooleanExtra("isPublic", false);
         }
 
         mAuth = FirebaseAuth.getInstance();

@@ -10,19 +10,7 @@
         android:orientation="vertical"
 >
 
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    </android.support.v7.widget.Toolbar>
-
     <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
     >
@@ -49,86 +37,35 @@
                     android:layout_margin="5dp"
                     android:id="@+id/textView11"/>
 
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/format"
-                    android:gravity="center_horizontal"
-                    android:textSize="16sp"
-                    android:textColor="@color/liftrGold1"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/black"
-                    android:layout_marginBottom="-2dp"
-            />
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:paddingStart="-10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:weightSum="3">
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/formatAlg"
-                        android:textColor="@color/liftrGold1"
-                        android:layout_marginStart="-70dp"
-                        android:layout_marginEnd="40dp"
-                        android:gravity="center"
-                />
-
-                <View
-                        android:background="#000000"
-                        android:layout_width = "2dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="-20dp"
-                />
-
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+            >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/formatSRW"
-                        android:textColor="@color/liftrGold1"
-                        android:layout_marginEnd="40dp"
-                />
-
-                <View
-                        android:background="#000000"
-                        android:layout_width = "2dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="-20dp"
-                />
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/formatExtra"
-                        android:textColor="@color/liftrGold1"
-                        android:layout_gravity="end"
-                        android:gravity="center"
-                        android:layout_marginEnd="-80dp"
-
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:background="@color/black"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
                 />
 
             </LinearLayout>
 
             <View
-                  android:background="#000000"
-                  android:layout_width = "fill_parent"
-                  android:layout_height="7dp"
-                  android:layout_marginBottom="20dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
             />
-
-
-
 
 
             <LinearLayout
@@ -141,47 +78,56 @@
             </LinearLayout>
 
 
-
             <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/LinearLayoutChild2"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-        >
-
-            <Button
-                    android:layout_width="wrap_content"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/addDay"
-                    android:layout_marginStart="10dp"
-                    android:padding="10dp"
-                    android:textSize="18sp"
-                    android:id="@+id/addDay"
-                    android:layout_gravity="start|bottom"
-                    android:background="#000000"
-                    android:textColor="#FFFFFF"
+                    android:id="@+id/LinearLayoutChild2"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+            >
 
-            />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/addDay"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:id="@+id/addDay"
+                        android:background="@color/black"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:minHeight="0dp"
+                />
 
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/removeDay"
-                    android:padding="10dp"
-                    android:textSize="18sp"
-                    android:id="@+id/removeDay"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginTop="-50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#000000"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginEnd="10dp"
-
-            />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/removeDay"
+                        android:padding="10dp"
+                        android:textSize="18sp"
+                        android:id="@+id/removeDay"
+                        android:background="@color/black"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:minHeight="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                />
 
             </LinearLayout>
+
+            <View
+                    android:background="@color/liftrGold1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+            />
 
 
             <CheckBox
@@ -231,5 +177,14 @@
         </LinearLayout>
 
     </ScrollView>
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

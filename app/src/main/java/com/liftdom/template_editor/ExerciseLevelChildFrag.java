@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +21,7 @@ import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback,
                 SetsLevelChildFrag.removeFragCallback{
@@ -36,6 +40,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ArrayList<String> algoExAL = new ArrayList<>();
+    List<String> algorithmList = new ArrayList<>();
 
     public ExerciseLevelChildFrag() {
         // Required empty public constructor
@@ -60,9 +65,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     // Butterknife
     @BindView(R.id.movementName) Button exerciseButton;
     @BindView(R.id.addSet) Button addSet;
-    @BindView(R.id.algorithmCheckBox) CheckBox algoCheckBox;
     @BindView(R.id.destroyFrag) ImageButton destroyFrag;
-
+    @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +86,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         String value = dataSnapshot1.getValue(String.class);
                         if(value.equals(exerciseName)){
-                            algoCheckBox.setChecked(true);
+                            //algoCheckBox.setChecked(true);
                         }
                     }
                 }
@@ -187,25 +191,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             }
         });
 
-
-        algoCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // Possibly update with ex name?
-                    //CharSequence toastText = "(+) Added to Algorithm List";
-                    //int duration = Toast.LENGTH_SHORT;
-                    //Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                    //toast.show();
-                } else {
-                    //CharSequence toastText = "(-) Removed from Algorithm List";
-                    //int duration = Toast.LENGTH_SHORT;
-                    //Toast toast = Toast.makeText(getActivity(), toastText, duration);
-                    //toast.show();
-                }
-            }
-        });
-
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
@@ -214,6 +199,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 startActivityForResult(intent, 2);
             }
         });
+
+        extraOptionsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AlgorithmOrSuperSetDialog.class);
+                String exName = exerciseButton.getText().toString();
+                intent.putExtra("exName", exName);
+                startActivityForResult(intent, 3);
+            }
+        });
+
 
         callback = (doWCallback) getParentFragment();
 
@@ -225,7 +220,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
         if(data != null){
-        if (requestCode == 2) {
+            if (requestCode == 2) {
                 if (data.getStringExtra("MESSAGE") != null) {
                     String message = data.getStringExtra("MESSAGE");
                     String newMessage = newLineExname(message);
@@ -240,14 +235,53 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         }
                     }
                 }
+            } else if(requestCode == 3){
+                if(data.getStringExtra("choice") != null){
+                    String message = data.getStringExtra("choice");
+                    if(message.equals("algo")){
+                        Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
+                        String exName = exerciseButton.getText().toString();
+                        intent.putExtra("exName", exName);
+                        startActivityForResult(intent, 4);
+                    }else if(message.equals("superset")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        String exName = exerciseButton.getText().toString();
+                        intent.putExtra("exName", exName);
+                        startActivityForResult(intent, 5);
+                    }
+                }
+            } else if(requestCode == 4){
+                if(data.getStringArrayListExtra("list") != null){
+                    ArrayList<String> arrayList = data.getStringArrayListExtra("list");
+                    if(!algorithmList.isEmpty()){
+                        algorithmList.clear();
+                    }
+                    algorithmList = ((List<String>) arrayList);
+                }
+
+            } else if(requestCode == 5){
+
+            }
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        if(EditTemplateAssemblerClass.getInstance().isOnSaveClick){
+            if(!algorithmList.isEmpty()){
+                algorithmList.add(getDoWValue());
+                TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
+                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(getExerciseValueFormatted(), algorithmList);
             }
         }
     }
 
     public String newLineExname(String exerciseName){
         String newExNameString = "null";
-        if(exerciseName.length() > 20){
-            String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 20));
+        if(exerciseName.length() > 21){
+            String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 21));
             String exerciseName2 = exerciseName.substring(20, exerciseName.length());
             newExNameString = exerciseName1 + "\n" + exerciseName2;
         } else{
@@ -293,12 +327,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         return spinnerText;
     }
 
-    public Boolean getCheckBoxValue(){
+    private String getExerciseValueFormatted(){
+        String spinnerText = exerciseButton.getText().toString();
 
-        Boolean isChecked = algoCheckBox.isChecked();
-
-        return isChecked;
+        return spinnerText.replaceAll("\n", "");
     }
+
 
 
 
