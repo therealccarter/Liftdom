@@ -33,6 +33,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.algorithmLooper) CheckBox algorithmLooper;
     @BindView(R.id.applyAlgoToExs) CheckBox applyAlgoToExs;
     @BindView(R.id.title) TextView titleView;
+    @BindView(R.id.exNameAndDowView) TextView exNameDowView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +46,25 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         exName = getIntent().getExtras().getString("exName");
         if(getIntent().getExtras().getString("day") != null){
             day = getIntent().getExtras().getString("day");
+            String cat = exName + " - " + day;
+            exNameDowView.setText(cat);
+        }else{
+            exNameDowView.setText(exName);
         }
-
-        String concat = "Set Algorithm For: " + exName;
-        titleView.setText(concat);
-
 
         if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()){
             for(Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
-                if(entry.getKey().equals(exName)){
-                    List<String> tempList = entry.getValue();
+                List<String> tempList = entry.getValue();
+                if(tempList.get(0).equals(exName)){
 
-                    if(Boolean.valueOf(tempList.get(7))){
-                        setsWeeksEditText.setText(tempList.get(0));
-                        setsIncreasedEditText.setText(tempList.get(1));
-                        repsWeeksEditText.setText(tempList.get(2));
-                        repsIncreasedEditText.setText(tempList.get(3));
-                        weightsWeeksEditText.setText(tempList.get(4));
-                        weightsIncreasedEditText.setText(tempList.get(5));
-                        boolean isLoop = Boolean.valueOf(tempList.get(6));
+                    if(Boolean.valueOf(tempList.get(9))){
+                        setsWeeksEditText.setText(tempList.get(1));
+                        setsIncreasedEditText.setText(tempList.get(2));
+                        repsWeeksEditText.setText(tempList.get(3));
+                        repsIncreasedEditText.setText(tempList.get(4));
+                        weightsWeeksEditText.setText(tempList.get(5));
+                        weightsIncreasedEditText.setText(tempList.get(6));
+                        boolean isLoop = Boolean.valueOf(tempList.get(7));
                         if(isLoop){
                             algorithmLooper.setChecked(true);
                         }
@@ -71,13 +72,13 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     }else{
                         if(!day.equals("null")){
                             if(tempList.get(8).equals(day)){
-                                setsWeeksEditText.setText(tempList.get(0));
-                                setsIncreasedEditText.setText(tempList.get(1));
-                                repsWeeksEditText.setText(tempList.get(2));
-                                repsIncreasedEditText.setText(tempList.get(3));
-                                weightsWeeksEditText.setText(tempList.get(4));
-                                weightsIncreasedEditText.setText(tempList.get(5));
-                                boolean isLoop = Boolean.valueOf(tempList.get(6));
+                                setsWeeksEditText.setText(tempList.get(1));
+                                setsIncreasedEditText.setText(tempList.get(2));
+                                repsWeeksEditText.setText(tempList.get(3));
+                                repsIncreasedEditText.setText(tempList.get(4));
+                                weightsWeeksEditText.setText(tempList.get(5));
+                                weightsIncreasedEditText.setText(tempList.get(6));
+                                boolean isLoop = Boolean.valueOf(tempList.get(7));
                                 if(isLoop){
                                     algorithmLooper.setChecked(true);
                                 }
@@ -90,8 +91,6 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                //TODO: Just realized I'm going to have to not have exercise names as keys if there can be multiples...
 
                 String setsWeeks = setsWeeksEditText.getText().toString();
                 String repsWeeks = repsWeeksEditText.getText().toString();
@@ -107,25 +106,28 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 algoInfoList.clear();
                 tempAlgoInfoList.clear();
 
-                algoInfoList.add(setsWeeks);
-                algoInfoList.add(setsIncrease);
-                algoInfoList.add(repsWeeks);
-                algoInfoList.add(repsIncrease);
-                algoInfoList.add(weightWeeks);
-                algoInfoList.add(weightIncrease);
-                algoInfoList.add(isLooper);
+                algoInfoList.add(exName);                   //0
+                algoInfoList.add(setsWeeks);                //1
+                algoInfoList.add(setsIncrease);             //2
+                algoInfoList.add(repsWeeks);                //3
+                algoInfoList.add(repsIncrease);             //4
+                algoInfoList.add(weightWeeks);              //5
+                algoInfoList.add(weightIncrease);           //6
+                algoInfoList.add(isLooper);                 //7
 
-                tempAlgoInfoList.add(setsWeeks);
-                tempAlgoInfoList.add(setsIncrease);
-                tempAlgoInfoList.add(repsWeeks);
-                tempAlgoInfoList.add(repsIncrease);
-                tempAlgoInfoList.add(weightWeeks);
-                tempAlgoInfoList.add(weightIncrease);
-                tempAlgoInfoList.add(isLooper);
-                tempAlgoInfoList.add(applyToAllExs);
-                tempAlgoInfoList.add(day);
+                tempAlgoInfoList.add(exName);               //0
+                tempAlgoInfoList.add(setsWeeks);            //1
+                tempAlgoInfoList.add(setsIncrease);         //2
+                tempAlgoInfoList.add(repsWeeks);            //3
+                tempAlgoInfoList.add(repsIncrease);         //4
+                tempAlgoInfoList.add(weightWeeks);          //5
+                tempAlgoInfoList.add(weightIncrease);       //6
+                tempAlgoInfoList.add(isLooper);             //7
+                tempAlgoInfoList.add(day);                  //8
+                tempAlgoInfoList.add(applyToAllExs);        //9
 
-                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(exName, tempAlgoInfoList);
+
+                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize(), tempAlgoInfoList);
 
                 Intent intent = new Intent();
                 intent.putExtra("list", algoInfoList);
@@ -141,5 +143,13 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private String stringSize(){
+        int intSize = EditTemplateAssemblerClass.getInstance().tempAlgoInfo.size();
+        intSize++;
+
+        String stringVersion = String.valueOf(intSize);
+        return stringVersion;
     }
 }

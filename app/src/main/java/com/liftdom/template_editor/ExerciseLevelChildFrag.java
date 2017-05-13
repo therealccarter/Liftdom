@@ -240,7 +240,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     String message = data.getStringExtra("choice");
                     if(message.equals("algo")){
                         Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
-                        String exName = exerciseButton.getText().toString();
+                        String exName = getExerciseValueFormatted();
                         intent.putExtra("exName", exName);
                         if(getDoWValue() != null){
                             intent.putExtra("day", getDoWValue());
@@ -248,7 +248,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         startActivityForResult(intent, 4);
                     }else if(message.equals("superset")){
                         Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        String exName = exerciseButton.getText().toString();
+                        String exName = getExerciseValueFormatted();
                         intent.putExtra("exName", exName);
                         startActivityForResult(intent, 5);
                     }
@@ -276,7 +276,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
             if(!algorithmList.isEmpty()){
                 algorithmList.add(getDoWValue());
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(getExerciseValueFormatted(), algorithmList);
+                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(stringSize(), algorithmList);
             }
         }
     }
@@ -336,6 +336,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         return spinnerText.replaceAll("\n", "");
     }
 
+    private String stringSize(){
+        int intSize = TemplateEditorSingleton.getInstance().mAlgorithmInfo.size();
+        intSize++;
+
+        String stringVersion = String.valueOf(intSize);
+        return stringVersion;
+    }
 
 
 
