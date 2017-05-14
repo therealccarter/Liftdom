@@ -90,21 +90,29 @@
             android:layout_marginTop="10dp"
     />
 
-        <Button
-                android:id="@+id/addSet"
-                android:layout_height="31dp"
-                android:layout_width="180dp"
-                android:text="@string/addSet"
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:onClick="addSet"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginEnd="2dp"
-                android:background="@color/darkgrey"
-                android:textColor="@color/white"
-        />
+    <Button
+            android:id="@+id/addSet"
+            android:layout_height="31dp"
+            android:layout_width="180dp"
+            android:text="@string/addSet"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:onClick="addSet"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/darkgrey"
+            android:textColor="@color/white"
+    />
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/superSetHolder"
+            android:orientation="vertical"
+    >
+
+    </LinearLayout>
 
 
     <View android:id="@+id/separator"
