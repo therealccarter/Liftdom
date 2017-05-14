@@ -18,6 +18,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
     ArrayList<String> algoInfoList = new ArrayList<>();
     List<String> tempAlgoInfoList = new ArrayList<>();
+    List<String> tempAlgoInfoList2 = new ArrayList<>();
     boolean isLoop = false;
     String day = "null";
     String exName = "null";
@@ -32,8 +33,11 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.confirmButton) ImageButton confirmButton;
     @BindView(R.id.algorithmLooper) CheckBox algorithmLooper;
     @BindView(R.id.applyAlgoToExs) CheckBox applyAlgoToExs;
+    @BindView(R.id.applyAlgoToAllExs) CheckBox applyAlgoToAllExs;
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.exNameAndDowView) TextView exNameDowView;
+    @BindView(R.id.clearButton) Button clearButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,41 +50,59 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         exName = getIntent().getExtras().getString("exName");
         if(getIntent().getExtras().getString("day") != null){
             day = getIntent().getExtras().getString("day");
-            String cat = exName + " - " + day;
+            String cat = exName + "\n" + dayFormatter(day);
             exNameDowView.setText(cat);
         }else{
             exNameDowView.setText(exName);
         }
 
-        if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()){
-            for(Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
-                List<String> tempList = entry.getValue();
-                if(tempList.get(0).equals(exName)){
+        if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
+            if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.isEmpty()){
 
-                    if(Boolean.valueOf(tempList.get(9))){
-                        setsWeeksEditText.setText(tempList.get(1));
-                        setsIncreasedEditText.setText(tempList.get(2));
-                        repsWeeksEditText.setText(tempList.get(3));
-                        repsIncreasedEditText.setText(tempList.get(4));
-                        weightsWeeksEditText.setText(tempList.get(5));
-                        weightsIncreasedEditText.setText(tempList.get(6));
-                        boolean isLoop = Boolean.valueOf(tempList.get(7));
-                        if(isLoop){
-                            algorithmLooper.setChecked(true);
-                        }
-                        applyAlgoToExs.setChecked(true);
-                    }else{
-                        if(!day.equals("null")){
-                            if(tempList.get(8).equals(day)){
-                                setsWeeksEditText.setText(tempList.get(1));
-                                setsIncreasedEditText.setText(tempList.get(2));
-                                repsWeeksEditText.setText(tempList.get(3));
-                                repsIncreasedEditText.setText(tempList.get(4));
-                                weightsWeeksEditText.setText(tempList.get(5));
-                                weightsIncreasedEditText.setText(tempList.get(6));
-                                boolean isLoop = Boolean.valueOf(tempList.get(7));
-                                if(isLoop){
-                                    algorithmLooper.setChecked(true);
+                List<String> tempList = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.get("0");
+
+                setsWeeksEditText.setText(tempList.get(1));
+                setsIncreasedEditText.setText(tempList.get(2));
+                repsWeeksEditText.setText(tempList.get(3));
+                repsIncreasedEditText.setText(tempList.get(4));
+                weightsWeeksEditText.setText(tempList.get(5));
+                weightsIncreasedEditText.setText(tempList.get(6));
+                boolean isLoop = Boolean.valueOf(tempList.get(7));
+                if(isLoop){
+                    algorithmLooper.setChecked(true);
+                }
+            }
+        }else{
+            if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()){
+                for(Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
+                    List<String> tempList = entry.getValue();
+                    if(tempList.get(0).equals(exName)){
+
+                        if(Boolean.valueOf(tempList.get(9))){
+                            setsWeeksEditText.setText(tempList.get(1));
+                            setsIncreasedEditText.setText(tempList.get(2));
+                            repsWeeksEditText.setText(tempList.get(3));
+                            repsIncreasedEditText.setText(tempList.get(4));
+                            weightsWeeksEditText.setText(tempList.get(5));
+                            weightsIncreasedEditText.setText(tempList.get(6));
+                            boolean isLoop = Boolean.valueOf(tempList.get(7));
+                            if(isLoop){
+                                algorithmLooper.setChecked(true);
+                            }
+                            applyAlgoToExs.setChecked(true);
+                        }else{
+                            if(!day.equals("null")){
+                                if(tempList.get(8).equals(day)){
+                                    setsWeeksEditText.setText(tempList.get(1));
+                                    setsIncreasedEditText.setText(tempList.get(2));
+                                    repsWeeksEditText.setText(tempList.get(3));
+                                    repsIncreasedEditText.setText(tempList.get(4));
+                                    weightsWeeksEditText.setText(tempList.get(5));
+                                    weightsIncreasedEditText.setText(tempList.get(6));
+                                    boolean isLoop = Boolean.valueOf(tempList.get(7));
+                                    if(isLoop){
+                                        algorithmLooper.setChecked(true);
+                                    }
                                 }
                             }
                         }
@@ -89,8 +111,58 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             }
         }
 
+        applyAlgoToAllExs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    EditTemplateAssemblerClass.getInstance().isApplyToAll = true;
+                }else{
+                    EditTemplateAssemblerClass.getInstance().isApplyToAll = false;
+                }
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String tag = "null";
+                setsWeeksEditText.setText("");
+                setsIncreasedEditText.setText("");
+                repsWeeksEditText.setText("");
+                repsIncreasedEditText.setText("");
+                weightsWeeksEditText.setText("");
+                weightsIncreasedEditText.setText("");
+                algoInfoList.clear();
+                tempAlgoInfoList.clear();
+                tempAlgoInfoList2.clear();
+                algorithmLooper.setChecked(false);
+                applyAlgoToExs.setChecked(false);
+                applyAlgoToAllExs.setChecked(false);
+
+                if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
+                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
+                }else{
+                    if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
+                        for (Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()) {
+                            List<String> tempList = entry.getValue();
+                            if (tempList.get(0).equals(exName) && tempList.get(8).equals(day)) {
+                                tag = entry.getKey();
+                            }
+                        }
+                    }
+
+                    if(!tag.equals("null")){
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.remove(tag);
+                    }
+                }
+
+
+            }
+        });
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                boolean isEmpty = false;
 
                 String setsWeeks = setsWeeksEditText.getText().toString();
                 String repsWeeks = repsWeeksEditText.getText().toString();
@@ -101,46 +173,123 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 String weightIncrease = weightsIncreasedEditText.getText().toString();
 
                 String isLooper = String.valueOf(algorithmLooper.isChecked());
-                String applyToAllExs = String.valueOf(applyAlgoToExs.isChecked());
+                String applyToAllExInstance = String.valueOf(applyAlgoToExs.isChecked());
+                String applyToAllExs = String.valueOf(applyAlgoToAllExs.isChecked());
 
                 algoInfoList.clear();
                 tempAlgoInfoList.clear();
+                tempAlgoInfoList2.clear();
 
-                algoInfoList.add(exName);                   //0
-                algoInfoList.add(setsWeeks);                //1
-                algoInfoList.add(setsIncrease);             //2
-                algoInfoList.add(repsWeeks);                //3
-                algoInfoList.add(repsIncrease);             //4
-                algoInfoList.add(weightWeeks);              //5
-                algoInfoList.add(weightIncrease);           //6
-                algoInfoList.add(isLooper);                 //7
+                if(setsIncrease.equals("") &&
+                        repsIncrease.equals("") &&
+                        weightIncrease.equals("")){
+                    isEmpty = true;
+                    Intent intent = new Intent();
+                    intent.putExtra("isEmpty", isEmpty);
+                    setResult(5, intent);
+                    finish();
+                }else{
+                    if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
 
-                tempAlgoInfoList.add(exName);               //0
-                tempAlgoInfoList.add(setsWeeks);            //1
-                tempAlgoInfoList.add(setsIncrease);         //2
-                tempAlgoInfoList.add(repsWeeks);            //3
-                tempAlgoInfoList.add(repsIncrease);         //4
-                tempAlgoInfoList.add(weightWeeks);          //5
-                tempAlgoInfoList.add(weightIncrease);       //6
-                tempAlgoInfoList.add(isLooper);             //7
-                tempAlgoInfoList.add(day);                  //8
-                tempAlgoInfoList.add(applyToAllExs);        //9
+                        algoInfoList.add(exName);                   //0
+                        algoInfoList.add(setsWeeks);                //1
+                        algoInfoList.add(setsIncrease);             //2
+                        algoInfoList.add(repsWeeks);                //3
+                        algoInfoList.add(repsIncrease);             //4
+                        algoInfoList.add(weightWeeks);              //5
+                        algoInfoList.add(weightIncrease);           //6
+                        algoInfoList.add(isLooper);                 //7
+
+                        tempAlgoInfoList2.add(exName);               //0
+                        tempAlgoInfoList2.add(setsWeeks);            //1
+                        tempAlgoInfoList2.add(setsIncrease);         //2
+                        tempAlgoInfoList2.add(repsWeeks);            //3
+                        tempAlgoInfoList2.add(repsIncrease);         //4
+                        tempAlgoInfoList2.add(weightWeeks);          //5
+                        tempAlgoInfoList2.add(weightIncrease);       //6
+                        tempAlgoInfoList2.add(isLooper);             //7
+                        tempAlgoInfoList2.add(day);                  //8
+                        tempAlgoInfoList2.add(applyToAllExInstance); //9
+                        tempAlgoInfoList2.add(applyToAllExs);        //10
+
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0", tempAlgoInfoList2);
+
+                        Intent intent = new Intent();
+                        intent.putExtra("list", algoInfoList);
+
+                        setResult(4, intent);
+
+                        finish();
+                    } else{
+
+                        algoInfoList.add(exName);                   //0
+                        algoInfoList.add(setsWeeks);                //1
+                        algoInfoList.add(setsIncrease);             //2
+                        algoInfoList.add(repsWeeks);                //3
+                        algoInfoList.add(repsIncrease);             //4
+                        algoInfoList.add(weightWeeks);              //5
+                        algoInfoList.add(weightIncrease);           //6
+                        algoInfoList.add(isLooper);                 //7
+
+                        tempAlgoInfoList.add(exName);               //0
+                        tempAlgoInfoList.add(setsWeeks);            //1
+                        tempAlgoInfoList.add(setsIncrease);         //2
+                        tempAlgoInfoList.add(repsWeeks);            //3
+                        tempAlgoInfoList.add(repsIncrease);         //4
+                        tempAlgoInfoList.add(weightWeeks);          //5
+                        tempAlgoInfoList.add(weightIncrease);       //6
+                        tempAlgoInfoList.add(isLooper);             //7
+                        tempAlgoInfoList.add(day);                  //8
+                        tempAlgoInfoList.add(applyToAllExInstance); //9
+                        tempAlgoInfoList.add(applyToAllExs);        //10
 
 
-                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize(), tempAlgoInfoList);
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize(), tempAlgoInfoList);
 
-                Intent intent = new Intent();
-                intent.putExtra("list", algoInfoList);
+                        Intent intent = new Intent();
+                        intent.putExtra("list", algoInfoList);
 
-                setResult(4, intent);
+                        setResult(4, intent);
 
-                finish();
+                        finish();
+                    }
+                }
+
+
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                finish();
+
+                boolean isEmpty = false;
+
+                String setsWeeks = setsWeeksEditText.getText().toString();
+                String repsWeeks = repsWeeksEditText.getText().toString();
+                String weightWeeks = weightsWeeksEditText.getText().toString();
+
+                String setsIncrease = setsIncreasedEditText.getText().toString();
+                String repsIncrease = repsIncreasedEditText.getText().toString();
+                String weightIncrease = weightsIncreasedEditText.getText().toString();
+
+                String isLooper = String.valueOf(algorithmLooper.isChecked());
+                String applyToAllExInstance = String.valueOf(applyAlgoToExs.isChecked());
+                String applyToAllExs = String.valueOf(applyAlgoToAllExs.isChecked());
+
+                if(setsIncrease.isEmpty() &&
+                   repsIncrease.isEmpty() &&
+                   weightIncrease.isEmpty()){
+                    isEmpty = true;
+                    Intent intent = new Intent();
+                    intent.putExtra("isEmpty", isEmpty);
+                    setResult(5, intent);
+                    finish();
+                }else{
+                    finish();
+                }
+
+
             }
         });
     }
@@ -151,5 +300,15 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
         String stringVersion = String.valueOf(intSize);
         return stringVersion;
+    }
+
+    private String dayFormatter(String dayUn){
+        String formatted = "/";
+        String delims = "[_]";
+        String[] tokens = dayUn.split(delims);
+        for(String string : tokens){
+            formatted = formatted + string + "/";
+        }
+        return formatted;
     }
 }

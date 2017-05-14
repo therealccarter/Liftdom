@@ -40,9 +40,10 @@ public class PostSetSchemeFrag extends Fragment {
         String delims = "[@]";
         String[] tokens = setSchemeString.split(delims);
 
-        repsView.setText(tokens[0]);
-        weightView.setText(tokens[1]);
-
+        if(tokens.length != 1){
+            repsView.setText(tokens[0]);
+            weightView.setText(tokens[1]);
+        }
 
         return view;
     }

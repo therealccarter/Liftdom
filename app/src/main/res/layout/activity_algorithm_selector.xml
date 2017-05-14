@@ -70,6 +70,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
             <TextView
@@ -98,6 +99,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
         </LinearLayout>
@@ -126,6 +128,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
             <TextView
@@ -156,6 +159,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
         </LinearLayout>
@@ -188,6 +192,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
             <TextView
@@ -218,6 +223,7 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
             <TextView
@@ -241,7 +247,29 @@
             android:layout_marginTop="-5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginBottom="2dp"
+    />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clearButton"
+            android:text="@string/clear"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="3dp"
+    />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="15dp"
+
     />
 
     <CheckBox
@@ -267,6 +295,20 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:text="@string/algoExApply"
+            android:layout_marginBottom="20dp"
+
+    />
+
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/applyAlgoToAllExs"
+            android:buttonTint="@color/liftrGold1"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/algoAllExApply"
             android:layout_marginBottom="20dp"
 
     />

@@ -219,6 +219,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
+        if(resultCode == 5){
+            extraOptionsButton.setImageResource(R.drawable.three_dot_menu);
+        }
         if(data != null){
             if (requestCode == 2) {
                 if (data.getStringExtra("MESSAGE") != null) {
@@ -260,9 +263,17 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         algorithmList.clear();
                     }
                     algorithmList = ((List<String>) arrayList);
-                }
 
-            } else if(requestCode == 5){
+                    try{
+                        Snackbar snackbar = Snackbar.make(getView(), "Algorithm added", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    } catch (NullPointerException e){
+
+                    }
+
+                    extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
+
+                }
 
             }
         }

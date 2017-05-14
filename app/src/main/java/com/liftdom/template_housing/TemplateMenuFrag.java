@@ -67,8 +67,6 @@ public class TemplateMenuFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        headerChanger("Workout Templating");
-
         templateOptions.setVisibility(View.GONE);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
@@ -170,6 +168,12 @@ public class TemplateMenuFrag extends Fragment {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        headerChanger("Workout Templating");
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
@@ -178,8 +182,8 @@ public class TemplateMenuFrag extends Fragment {
         try {
             mCallback = (headerChangeFromFrag) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+            //throw new ClassCastException(activity.toString()
+            //        + " must implement OnHeadlineSelectedListener");
         }
     }
 

@@ -19,8 +19,11 @@ class EditTemplateAssemblerClass {
     }
 
     HashMap<String, List<String>> tempAlgoInfo = new HashMap<>();
+    HashMap<String, List<String>> tempAlgoInfo2 = new HashMap<>();
 
     String[] algorithmDataList = new String[7];
+
+    Boolean isApplyToAll = false;
 
     Boolean isAlgoLooper = true;
 

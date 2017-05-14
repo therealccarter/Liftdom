@@ -738,9 +738,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     public void onClick(DialogInterface dialog,int id) {
 
                         TemplateEditorSingleton.getInstance().clearAll();
-                        Intent intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
+                        //startActivity(intent);
 
+                        //TemplateEditorActivity.super.onBackPressed();
                         finish();
                     }
                 })
