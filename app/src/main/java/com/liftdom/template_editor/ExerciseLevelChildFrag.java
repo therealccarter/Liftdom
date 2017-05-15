@@ -180,9 +180,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 fragmentTransaction.commit();
                 fragmentManager.executePendingTransactions();
 
-                for(SuperSetExFrag exFrag : superSetFragList){
-                    exFrag.addSetScheme(fragString2);
+                if(!superSetFragList.isEmpty()){
+                    for(SuperSetExFrag exFrag : superSetFragList){
+                        exFrag.addSetScheme(fragString2);
+                    }
                 }
+
 
                 CharSequence toastText = "Set-scheme Added";
                 int duration = Toast.LENGTH_SHORT;
@@ -271,6 +274,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         SuperSetExFrag superSetExFrag = new SuperSetExFrag();
                         superSetExFrag.fragTag = fragString;
+                        superSetExFrag.initialSchemeCount = fragIdCount2 + 1;
                         fragmentTransaction.add(R.id.superSetHolder, superSetExFrag, fragString);
                         fragmentTransaction.commitAllowingStateLoss();
                         hasSupersets = true;
@@ -347,6 +351,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         if(supersetFragCount != 0){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                superSetFragList.remove(supersetFragCount - 1);
                 --supersetFragCount;
                 if(supersetFragCount == 0){
                     hasSupersets = false;

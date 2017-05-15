@@ -26,6 +26,7 @@ public class SuperSetExFrag extends android.app.Fragment {
 
     String fragTag;
     boolean isEdit;
+    int initialSchemeCount = 0;
 
 
     public interface removeFragCallback2{
@@ -36,7 +37,6 @@ public class SuperSetExFrag extends android.app.Fragment {
 
     // Butterknife
     @BindView(R.id.movementName) Button exerciseButton;
-    @BindView(R.id.addSet) Button addSet;
     @BindView(R.id.destroyFrag) ImageButton destroyFrag;
 
     @Override
@@ -55,12 +55,14 @@ public class SuperSetExFrag extends android.app.Fragment {
             }
         });
 
-        if(!isEdit){
+        for(int i = 0; i < initialSchemeCount; i++){
+            String fragString = "sss" + Integer.toString(i + 1);
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
-            fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag);
+            fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
             fragmentTransaction.commitAllowingStateLoss();
         }
+
         return view;
     }
 
