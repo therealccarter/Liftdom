@@ -23,10 +23,13 @@ import com.liftdom.liftdom.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseLevelChildFrag extends android.app.Fragment implements SetsLevelChildFrag.setSchemesCallback,
-                SetsLevelChildFrag.removeFragCallback{
+public class ExerciseLevelChildFrag extends android.app.Fragment
+        implements SetsLevelChildFrag.setSchemesCallback,
+                SetsLevelChildFrag.removeFragCallback,
+                SuperSetExFrag.removeFragCallback2{
 
     int fragIdCount2 = 0;
+    int supersetFragCount = 0;
 
     Boolean isEdit = false;
     Boolean toastInvalidator = true;
@@ -35,6 +38,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
     String selectedDaysReference;
 
     String fragTag;
+
+    boolean hasSupersets = false;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -55,8 +60,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         void removeFrag(String fragTag);
     }
 
+    public interface removeFragCallback2{
+        void removeFrag2(String fragTag);
+    }
+
     private doWCallback callback;
     private removeFragCallback removeFragCallback;
+    private removeFragCallback2 removeFragCallback2;
 
     ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
 
@@ -170,6 +180,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                 fragmentTransaction.commit();
                 fragmentManager.executePendingTransactions();
 
+                for(SuperSetExFrag exFrag : superSetFragList){
+                    exFrag.addSetScheme(fragString2);
+                }
+
                 CharSequence toastText = "Set-scheme Added";
                 int duration = Toast.LENGTH_SHORT;
 
@@ -215,6 +229,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         return view;
     }
 
+    ArrayList<SuperSetExFrag> superSetFragList = new ArrayList<>();
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -250,10 +266,15 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                         }
                         startActivityForResult(intent, 4);
                     }else if(message.equals("superset")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        String exName = getExerciseValueFormatted();
-                        intent.putExtra("exName", exName);
-                        startActivityForResult(intent, 5);
+                        supersetFragCount++;
+                        String fragString = "ss" + Integer.toString(supersetFragCount);
+                        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        SuperSetExFrag superSetExFrag = new SuperSetExFrag();
+                        superSetExFrag.fragTag = fragString;
+                        fragmentTransaction.add(R.id.superSetHolder, superSetExFrag, fragString);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        hasSupersets = true;
+                        superSetFragList.add(superSetExFrag);
                     }
                 }
             } else if(requestCode == 4){
@@ -270,11 +291,14 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
                     } catch (NullPointerException e){
 
                     }
-
                     extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
-
                 }
 
+            } else if(requestCode == 6){
+                if(data.getStringExtra("exercise") != null){
+                    String exerciseName = data.getStringExtra("exercise");
+
+                }
             }
         }
     }
@@ -308,8 +332,25 @@ public class ExerciseLevelChildFrag extends android.app.Fragment implements Sets
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         if(fragIdCount2 != 0){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                String fragString2 = Integer.toString(fragIdCount2);
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                for(SuperSetExFrag exFrag : superSetFragList){
+                    exFrag.removeSetScheme(fragString2);
+                }
                 --fragIdCount2;
+            }
+        }
+    }
+
+    public void removeFrag2(String tag){
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        if(supersetFragCount != 0){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                --supersetFragCount;
+                if(supersetFragCount == 0){
+                    hasSupersets = false;
+                }
             }
         }
     }

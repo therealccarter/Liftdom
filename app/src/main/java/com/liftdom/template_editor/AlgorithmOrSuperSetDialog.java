@@ -48,7 +48,7 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("choice", "superset");
-                setResult(3, intent);
+                setResult(6, intent);
                 finish();
             }
         });
