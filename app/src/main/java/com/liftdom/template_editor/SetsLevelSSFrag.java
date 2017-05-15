@@ -13,6 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -38,6 +41,17 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    public String getInfoList(){
+        String setsString = setsEditText.getText().toString();
+        String repsString = repsEditText.getText().toString();
+        String weightString = weightEditText.getText().toString();
+
+        String infoList = setsString + "x" + repsString + "@" +
+                weightString;
+
+        return infoList;
     }
 
 }

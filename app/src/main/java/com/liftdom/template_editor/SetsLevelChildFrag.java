@@ -172,7 +172,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
             }
         }
-
     }
 
     boolean isNumber(String input){

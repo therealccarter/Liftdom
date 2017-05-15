@@ -317,8 +317,21 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
                 TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(stringSize(), algorithmList);
             }
+            if(hasSupersets){
+                List<String> supersetInfoList = new ArrayList<>();
+                supersetInfoList.add("superset");
+                for(SuperSetExFrag exFrag : superSetFragList){
+                    supersetInfoList.addAll(exFrag.getExInfo());
+                }
+                String exName = getExerciseValueFormatted();
+                String days = getDoWValue();
+                String cat = days + "+" + exName;
+
+                TemplateEditorSingleton.getInstance().supersetInfoList.put(cat, supersetInfoList);
+            }
         }
     }
+
 
     public String newLineExname(String exerciseName){
         String newExNameString = "null";
