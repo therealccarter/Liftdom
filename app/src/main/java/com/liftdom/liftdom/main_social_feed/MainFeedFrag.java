@@ -56,8 +56,6 @@ public class MainFeedFrag extends Fragment{
             .child(uid);
     private FirebaseRecyclerAdapter mFirebaseAdapter;
 
-
-
     //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;

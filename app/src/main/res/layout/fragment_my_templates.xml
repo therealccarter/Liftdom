@@ -5,19 +5,13 @@
         tools:context="com.liftdom.template_housing.SavedTemplatesFrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundgrey2"
 >
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/gymbackground1"
-            android:scaleType="centerCrop"
-    />
-
-<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
->
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+    >
 
         <TextView
                 android:layout_width="match_parent"
@@ -76,63 +70,83 @@
                     android:layout_height="30dp"
                     android:src="@drawable/simple_down_arrow_small"
             />
-
-
         </LinearLayout>
-
-
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:id="@+id/createTemplateLinearLayout"
-            android:background="@color/transDarkGrey"
-            android:layout_marginBottom="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="gone"
-    >
-        <Button
-                android:id="@+id/button_premade_templates"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/note_plus_gold"
-                android:textAllCaps="false"
-                android:text="@string/premade_templates"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                style="?android:attr/borderlessButtonStyle"
-
-        />
-
-        <Button
-                android:id="@+id/button_from_scratch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/note_plus_gold"
-                android:textAllCaps="false"
-                android:text="@string/fromScratch1"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                style="?android:attr/borderlessButtonStyle"
-
-        />
-
-    </LinearLayout>
 
         <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/myTemplatesList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/createTemplateLinearLayout"
+                android:background="@color/transDarkGrey"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
         >
+            <Button
+                android:id="@+id/button_from_scratch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/newTemplateFromScratch"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:background="@color/confirmgreen"
+                android:minHeight="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+            />
+
+            <Button
+                    android:id="@+id/button_premade_templates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/simple_right_arrow_verysmall"
+                    android:textAllCaps="false"
+                    android:text="@string/premade_templates"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:background="@color/darkerGrey"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:minHeight="0dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="-50dp"
+                    android:paddingEnd="10dp"
+            />
+
+            <Button
+                    android:id="@+id/userMadeTemplates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/simple_right_arrow_verysmall"
+                    android:textAllCaps="false"
+                    android:text="@string/userMadeTemplates"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:background="@color/darkerGrey"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:minHeight="0dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="-50dp"
+                    android:paddingEnd="10dp"
+            />
 
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_saved_templates"
+                android:layout_marginTop="10dp"
+        >
+
+        </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
 </FrameLayout>

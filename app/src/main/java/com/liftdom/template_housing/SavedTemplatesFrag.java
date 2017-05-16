@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_editor.TemplateModelClass;
 
 import java.util.ArrayList;
-
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +44,11 @@ public class SavedTemplatesFrag extends Fragment {
         // Required empty public constructor
     }
 
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("templates")
+            .child(uid);
+
     ArrayList<String> templateNamesList = new ArrayList<>();
 
     @BindView(R.id.savedTemplatesTitle) TextView savedTemplatesTitle;
@@ -52,6 +59,7 @@ public class SavedTemplatesFrag extends Fragment {
     @BindView(R.id.new_template_image) ImageView new_template_image;
     @BindView(R.id.button_premade_templates) Button button_premade_templates;
     @BindView(R.id.button_from_scratch) Button button_from_scratch;
+    @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,8 +73,7 @@ public class SavedTemplatesFrag extends Fragment {
 
         savedTemplatesTitle.setTypeface(lobster);
 
-        //TODO: loading symbol until it loads...
-        if(savedInstanceState == null) {//
+        if(savedInstanceState == null) {
             savedTemplatesTitle.setTypeface(lobster);
             DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
 
@@ -215,4 +222,23 @@ public class SavedTemplatesFrag extends Fragment {
         return view;
     }
 
+    private void setUpFirebaseAdapter(){
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>
+                (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, mFeedRef) {
+            @Override
+            protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
+
+            }
+        };
+
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
+    }
 }
