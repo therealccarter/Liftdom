@@ -319,7 +319,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             }
             if(hasSupersets){
                 List<String> supersetInfoList = new ArrayList<>();
-                supersetInfoList.add("superset");
                 for(SuperSetExFrag exFrag : superSetFragList){
                     supersetInfoList.addAll(exFrag.getExInfo());
                 }
