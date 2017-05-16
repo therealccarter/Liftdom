@@ -37,14 +37,10 @@ public class TemplateMenuFrag extends Fragment {
         // Required empty public constructor
     }
 
-    @BindView(R.id.createTemplateLinearLayout) LinearLayout templateOptions;
-    @BindView(R.id.button_new_template) LinearLayout newTemplateButton;
-    @BindView(R.id.button_from_scratch) Button fromScratch;
-    @BindView(R.id.button_my_templates) LinearLayout myTemplatesButton;
-    @BindView(R.id.button_premade_templates) Button premadeTemplatesButton;
-    @BindView(R.id.text_my_templates) TextView textMyTemplates;
-    @BindView(R.id.text_new_template) TextView textNewTemplate;
-    @BindView(R.id.new_template_image) ImageView newTemplateImage;
+    @BindView(R.id.fromScratch) Button fromScratch;
+    @BindView(R.id.savedTemplates) Button savedTemplates;
+    @BindView(R.id.userMadeTemplates) Button userMadeTemplates;
+    @BindView(R.id.premadeTemplates) Button premadeTemplates;
     @BindView(R.id.quoteBody) TextView quoteBody;
     @BindView(R.id.quoteAuthor) TextView quoteAuthor;
 
@@ -67,12 +63,8 @@ public class TemplateMenuFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        templateOptions.setVisibility(View.GONE);
-
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        textMyTemplates.setTypeface(lobster);
-        textNewTemplate.setTypeface(lobster);
 
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();
@@ -89,7 +81,7 @@ public class TemplateMenuFrag extends Fragment {
             quoteAuthor.setText(quoteArray[1]);
         }
 
-        myTemplatesButton.setOnClickListener(new View.OnClickListener(){
+        savedTemplates.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -101,37 +93,9 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
+
         final int padding = getResources().getDimensionPixelOffset(R.dimen.seven_dip);
 
-
-        newTemplateButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(final View v){
-
-
-                if (templateOptionsCheck == 0) {
-                    templateOptions.setVisibility(View.VISIBLE);
-
-                    newTemplateImage.setImageResource(android.R.color.transparent);
-                    newTemplateImage.setBackgroundResource(R.drawable.simple_up_arrow_small);
-                    //newTemplateImage.setPadding(padding,0,padding,0);
-                    newTemplateButton.setBackgroundColor(Color.parseColor("#FF131313"));
-                    textMyTemplates.setTextColor(Color.parseColor("#FFFFFF"));
-
-                    templateOptionsCheck = 1;
-                }else if (templateOptionsCheck == 1) {
-                    templateOptions.setVisibility(View.GONE);
-
-                    newTemplateImage.setImageResource(android.R.color.transparent);
-                    newTemplateImage.setBackgroundResource(R.drawable.simple_down_arrow_small);
-                    //newTemplateImage.setPadding(padding,0,padding,0);
-                    newTemplateButton.setBackgroundColor(Color.parseColor("#000000"));
-                    textMyTemplates.setTextColor(Color.parseColor("#FFFFFF"));
-
-                    templateOptionsCheck = 0;
-                }
-            }
-        });
 
         fromScratch.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -143,7 +107,8 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
-        premadeTemplatesButton.setOnClickListener(new View.OnClickListener(){
+
+        premadeTemplates.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

@@ -37,6 +37,8 @@
     <color name="transparent">#00000000</color>
 
     <item name="backgroundgrey1" type="color">#454545</item>
+    <item name="backgroundgrey2" type="color">#595959</item>
 
     <item name="confirmgreen" type="color">#388e3c</item>
+    <item name="confirmgreenDark" type="color">#27632a</item>
 </resources>
