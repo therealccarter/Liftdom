@@ -33,7 +33,7 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setDaysView(String days){
-        String daysFormatted = "/";
+        String daysFormatted = "";
         String delims = "[_]";
         String[] tokens = days.split(delims);
         for(String string : tokens){
