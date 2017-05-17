@@ -13,22 +13,32 @@
                 android:orientation="vertical"
     >
 
+        <!-- TODO: Update toolbar with "Saved Templates" -->
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/saved_templates"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:textColor="@color/liftrGold1"
-                android:background="@color/black"
-                android:gravity="start"
+                android:background="@color/darkerGrey"
+                android:gravity="center"
                 android:padding="5dp"
                 android:layout_marginBottom="7dp"
                 android:id="@+id/savedTemplatesTitle"
                 android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:paddingBottom="18dp"
                 android:paddingStart="15dp"
+        />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/liftrGold1"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
         />
 
         <TextView

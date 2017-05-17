@@ -165,6 +165,7 @@ public class SavedTemplatesFrag extends Fragment {
                 viewHolder.setTimeStampView(model.getDateCreated());
                 viewHolder.setDaysView(model.getDays());
                 viewHolder.setDescriptionView(model.getDescription());
+                viewHolder.setActivity(getActivity());
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                             .loadingView2);

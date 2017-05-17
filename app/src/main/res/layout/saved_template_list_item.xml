@@ -17,8 +17,7 @@
                 android:id="@+id/ripple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:mrl_rippleOverlay="false"
+                app:mrl_rippleOverlay="true"
                 app:mrl_rippleColor="@color/liftrGold1"
                 app:mrl_rippleDuration="450"
                 app:mrl_rippleFadeDuration="155"
@@ -28,16 +27,19 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/savedTemplateHeader"
                     android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:background="@color/backgroundgrey1"
             >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/templateName"
                         android:text="TemplateName"
-                        android:textSize="24sp"
+                        android:textSize="26sp"
                         android:layout_marginStart="5dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:layout_weight="2"
                 />
 
@@ -48,6 +50,7 @@
                         android:text="3/11/17"
                         android:layout_weight="0"
                         android:layout_marginEnd="10dp"
+                        android:textColor="@color/grey"
                 />
 
             </LinearLayout>
@@ -55,34 +58,50 @@
 
         </com.balysv.materialripple.MaterialRippleLayout>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/liftrGold1"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-        />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/daysView"
-                android:gravity="center"
-                android:textSize="20sp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/offWhite"
+        >
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="3dp"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/descriptionView"
-                android:background="@color/grey"
-                android:layout_margin="10dp"
-                android:text="@string/elipses"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/daysView"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"
+            />
+
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/descriptionView"
+                    android:background="@color/grey"
+                    android:text="@string/elipses"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+
+            />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 
