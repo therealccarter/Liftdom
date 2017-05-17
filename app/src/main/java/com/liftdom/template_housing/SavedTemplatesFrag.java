@@ -25,6 +25,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,7 @@ public class SavedTemplatesFrag extends Fragment {
     @BindView(R.id.button_premade_templates) Button button_premade_templates;
     @BindView(R.id.button_from_scratch) Button button_from_scratch;
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
+    @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,6 +165,13 @@ public class SavedTemplatesFrag extends Fragment {
                 viewHolder.setTimeStampView(model.getDateCreated());
                 viewHolder.setDaysView(model.getDays());
                 viewHolder.setDescriptionView(model.getDescription());
+                if(position == 0){
+                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
+                            .loadingView2);
+                    if(loadingView != null){
+                        loadingView.setVisibility(View.GONE);
+                    }
+                }
             }
         };
 

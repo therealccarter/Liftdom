@@ -6,16 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey2"
-        android:paddingBottom="90dp"
-
+        android:background="@color/grey"
 >
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:layout_marginEnd="10dp"
@@ -37,7 +35,7 @@
                         android:layout_height="50dp"
                         android:id="@+id/fromScratch"
                         android:layout_margin="10dp"
-                        android:background="@color/confirmgreenDark"
+                        android:background="@color/confirmgreen"
                         android:text="@string/newTemplateFromScratch"
                         android:textColor="@color/white"
                         android:textSize="26sp"

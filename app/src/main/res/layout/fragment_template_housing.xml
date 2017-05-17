@@ -4,21 +4,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
 >
-
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/gymbackground1"
-            android:scaleType="center"
-    />
-
 
     <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
     >
 
         <LinearLayout
@@ -29,7 +22,7 @@
         >
             <fragment
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:name="com.liftdom.template_housing.TemplateMenuFrag"
                     tools:layout="@layout/fragment_template_menu"/>
 
