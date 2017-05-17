@@ -52,7 +52,6 @@ public class SavedTemplatesFrag extends Fragment {
     ArrayList<String> templateNamesList = new ArrayList<>();
 
     @BindView(R.id.savedTemplatesTitle) TextView savedTemplatesTitle;
-    @BindView(R.id.myTemplatesList) LinearLayout myTemplatesLL;
     @BindView(R.id.noSavedTemplates) TextView noSavedTemplates;
     @BindView(R.id.button_new_template) LinearLayout linearLayout_new_template;
     @BindView(R.id.createTemplateLinearLayout) LinearLayout createTemplateLinearLayout;
@@ -81,79 +80,11 @@ public class SavedTemplatesFrag extends Fragment {
 
             final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
 
-            myTemplatesLL.removeAllViewsInLayout();
-
             mTemplateRef.addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.getValue() != null) {
-                                for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
-                                    //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
-
-                                    String templateClassName = templateSnapshot.getKey();
-
-                                    //templateNamesList.add(templateClassName);
-
-                                    TemplateListItem templateListItem = new TemplateListItem();
-
-                                    templateListItem.templateName = templateClassName;
-
-                                    if (getActivity() != null) {
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
-                                        fragmentTransaction.commitAllowingStateLoss();
-                                    }
-                                }
-                            } else {
-                                noSavedTemplates.setVisibility(View.VISIBLE);
-                                linearLayout_new_template.setVisibility(View.VISIBLE);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-        }else{
-            myTemplatesLL.removeAllViewsInLayout();
-
-            savedTemplatesTitle.setTypeface(lobster);
-            DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
-
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-            final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
-
-            myTemplatesLL.removeAllViewsInLayout();
-
-            mTemplateRef.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.getValue() != null) {
-                                int inc = 0;
-                                for (DataSnapshot templateSnapshot : dataSnapshot.getChildren()) {
-                                    //MasterListTemplateClass templateClass = templateSnapshot.getValue(MasterListTemplateClass.class);
-
-                                    String templateClassName = templateSnapshot.getKey();
-
-                                    //templateNamesList.add(templateClassName);
-
-                                    TemplateListItem templateListItem = new TemplateListItem();
-
-                                    templateListItem.templateName = templateClassName;
-
-                                    if (getActivity() != null) {
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.add(R.id.myTemplatesList, templateListItem);
-                                        fragmentTransaction.commitAllowingStateLoss();
-                                    }
-                                }
-                            } else {
+                            if(dataSnapshot.getValue() == null) {
                                 noSavedTemplates.setVisibility(View.VISIBLE);
                                 linearLayout_new_template.setVisibility(View.VISIBLE);
                             }
@@ -169,7 +100,6 @@ public class SavedTemplatesFrag extends Fragment {
         linearLayout_new_template.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-
 
                 if (templateOptionsCheck == 0) {
                     createTemplateLinearLayout.setVisibility(View.VISIBLE);
@@ -219,6 +149,8 @@ public class SavedTemplatesFrag extends Fragment {
             }
         });
 
+        setUpFirebaseAdapter();
+
         return view;
     }
 
@@ -227,7 +159,10 @@ public class SavedTemplatesFrag extends Fragment {
                 (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, mFeedRef) {
             @Override
             protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
-
+                viewHolder.setTemplateNameView(model.getTemplateName());
+                viewHolder.setTimeStampView(model.getDateCreated());
+                viewHolder.setDaysView(model.getDays());
+                viewHolder.setDescriptionView(model.getDescription());
             }
         };
 

@@ -50,7 +50,7 @@ public class TemplateEditorSingleton {
            mapSeven.isEmpty()
            ){
             Log.i("info", "Map one added: " + daysOfWeek);
-            mapOne.put("0", dayEntry);
+            mapOne.put("0_key", dayEntry);
         } else if(!mapOne.isEmpty() &&
                 mapTwo.isEmpty() &&
                 mapThree.isEmpty() &&
@@ -59,9 +59,9 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
                 Log.i("info", "Map two added: " + daysOfWeek);
-                mapTwo.put("0", dayEntry);
+                mapTwo.put("0_key", dayEntry);
             }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
@@ -71,10 +71,10 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
                 Log.i("info", "Map three added: " + daysOfWeek);
-                mapThree.put("0", dayEntry);
+                mapThree.put("0_key", dayEntry);
             }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
@@ -84,11 +84,11 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0_key").get(0))){
                 Log.i("info", "Map four added: " + daysOfWeek);
-                mapFour.put("0", dayEntry);
+                mapFour.put("0_key", dayEntry);
             }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
@@ -98,12 +98,12 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0_key").get(0))){
                 Log.i("info", "Map five added: " + daysOfWeek);
-                mapFive.put("0", dayEntry);
+                mapFive.put("0_key", dayEntry);
             }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
@@ -113,13 +113,13 @@ public class TemplateEditorSingleton {
                 mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapFive.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapFive.get("0_key").get(0))){
                 Log.i("info", "Map six added: " + daysOfWeek);
-                mapSix.put("0", dayEntry);
+                mapSix.put("0_key", dayEntry);
             }
         } else if(!mapOne.isEmpty() &&
                 !mapTwo.isEmpty() &&
@@ -129,14 +129,14 @@ public class TemplateEditorSingleton {
                 !mapSix.isEmpty() &&
                 mapSeven.isEmpty()
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapFive.get("0").get(0)) &&
-                    !daysOfWeek.equals(mapSix.get("0").get(0))){
+            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapFive.get("0_key").get(0)) &&
+                    !daysOfWeek.equals(mapSix.get("0_key").get(0))){
                 Log.i("info", "Map seven added: " + daysOfWeek);
-                mapSeven.put("0", dayEntry);
+                mapSeven.put("0_key", dayEntry);
             }
         }
 
@@ -154,7 +154,7 @@ public class TemplateEditorSingleton {
 
                 List<String> setSchemeList = entry.getValue();
 
-                if(mapOne.get("0").contains(days)){
+                if(mapOne.get("0_key").contains(days)){
                     int inc = mapOne.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -174,7 +174,7 @@ public class TemplateEditorSingleton {
                     mapOne.clear();
                     mapOne.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapTwo.get("0").contains(days)){
+                }else if(mapTwo.get("0_key").contains(days)){
                     int inc = mapTwo.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -194,7 +194,7 @@ public class TemplateEditorSingleton {
                     mapTwo.clear();
                     mapTwo.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapThree.get("0").contains(days)){
+                }else if(mapThree.get("0_key").contains(days)){
                     int inc = mapThree.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -214,7 +214,7 @@ public class TemplateEditorSingleton {
                     mapThree.clear();
                     mapThree.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapFour.get("0").contains(days)){
+                }else if(mapFour.get("0_key").contains(days)){
                     int inc = mapFour.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -234,7 +234,7 @@ public class TemplateEditorSingleton {
                     mapFour.clear();
                     mapFour.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapFive.get("0").contains(days)){
+                }else if(mapFive.get("0_key").contains(days)){
                     int inc = mapFive.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -254,7 +254,7 @@ public class TemplateEditorSingleton {
                     mapFive.clear();
                     mapFive.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapSix.get("0").contains(days)){
+                }else if(mapSix.get("0_key").contains(days)){
                     int inc = mapSix.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -274,7 +274,7 @@ public class TemplateEditorSingleton {
                     mapSix.clear();
                     mapSix.putAll(temp);
                     Log.i("info", "completed");
-                }else if(mapSeven.get("0").contains(days)){
+                }else if(mapSeven.get("0_key").contains(days)){
                     int inc = mapSeven.size();
 
                     HashMap<String, List<String>> temp = new HashMap<>();
@@ -300,7 +300,7 @@ public class TemplateEditorSingleton {
     }
 
     private void setMapValue(String days, String exName, String setScheme){
-        if(mapOne.get("0").contains(days)){
+        if(mapOne.get("0_key").contains(days)){
             int inc = mapOne.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -314,7 +314,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -328,7 +328,7 @@ public class TemplateEditorSingleton {
             mapOne.clear();
             mapOne.putAll(temp);
 
-        }else if(mapTwo.get("0").contains(days)){
+        }else if(mapTwo.get("0_key").contains(days)){
             int inc = mapTwo.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -342,7 +342,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -356,7 +356,7 @@ public class TemplateEditorSingleton {
             mapTwo.clear();
             mapTwo.putAll(temp);
 
-        }else if(mapThree.get("0").contains(days)){
+        }else if(mapThree.get("0_key").contains(days)){
             int inc = mapThree.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -370,7 +370,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -384,7 +384,7 @@ public class TemplateEditorSingleton {
             mapThree.clear();
             mapThree.putAll(temp);
 
-        }else if(mapFour.get("0").contains(days)){
+        }else if(mapFour.get("0_key").contains(days)){
             int inc = mapFour.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -398,7 +398,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -412,7 +412,7 @@ public class TemplateEditorSingleton {
             mapFour.clear();
             mapFour.putAll(temp);
 
-        }else if(mapFive.get("0").contains(days)){
+        }else if(mapFive.get("0_key").contains(days)){
             int inc = mapFive.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -426,7 +426,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -440,7 +440,7 @@ public class TemplateEditorSingleton {
             mapFive.clear();
             mapFive.putAll(temp);
 
-        }else if(mapSix.get("0").contains(days)){
+        }else if(mapSix.get("0_key").contains(days)){
             int inc = mapSix.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -454,7 +454,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){
@@ -468,7 +468,7 @@ public class TemplateEditorSingleton {
             mapSix.clear();
             mapSix.putAll(temp);
 
-        }else if(mapSeven.get("0").contains(days)){
+        }else if(mapSeven.get("0_key").contains(days)){
             int inc = mapSeven.size();
 
             HashMap<String, List<String>> temp = new HashMap<>();
@@ -482,7 +482,7 @@ public class TemplateEditorSingleton {
                     List<String> mapList = new ArrayList<>();
                     mapList.add(exName);
                     mapList.add(setScheme);
-                    temp.put(String.valueOf(inc), mapList);
+                    temp.put(String.valueOf(inc) + "_key", mapList);
                 }else {
                     // if ex name has already been added
                     if(exNameFromList.equals(exName)){

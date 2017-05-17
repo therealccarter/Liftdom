@@ -264,18 +264,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 boolean isEmpty = false;
-
-                String setsWeeks = setsWeeksEditText.getText().toString();
-                String repsWeeks = repsWeeksEditText.getText().toString();
-                String weightWeeks = weightsWeeksEditText.getText().toString();
-
                 String setsIncrease = setsIncreasedEditText.getText().toString();
                 String repsIncrease = repsIncreasedEditText.getText().toString();
                 String weightIncrease = weightsIncreasedEditText.getText().toString();
-
-                String isLooper = String.valueOf(algorithmLooper.isChecked());
-                String applyToAllExInstance = String.valueOf(applyAlgoToExs.isChecked());
-                String applyToAllExs = String.valueOf(applyAlgoToAllExs.isChecked());
 
                 if(setsIncrease.isEmpty() &&
                    repsIncrease.isEmpty() &&
