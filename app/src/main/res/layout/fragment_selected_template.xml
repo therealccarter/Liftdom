@@ -1,134 +1,168 @@
-<FrameLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="com.liftdom.template_housing.SelectedTemplateFrag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/gymbackground1"
-            android:scaleType="centerCrop"
-    />
-
-<LinearLayout
         android:id="@+id/myChosenTemplateMainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context="com.liftdom.template_housing.SelectedTemplateFrag"
         android:orientation="vertical"
->
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
+        android:background="@color/grey"
     >
-        <TextView
-                android:id="@+id/selectedTemplateTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/elipses"
-                android:textSize="34sp"
-                android:layout_gravity="end"
-                android:background="@color/liftrGold1"
-                android:textColor="@color/black"
-                android:paddingBottom="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="80dp"
-        />
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="45.5dp"
-                android:src="@drawable/edit_pen_small"
-                android:background="@color/liftrGold1"
-                android:paddingEnd="10dp"
-                android:id="@+id/editPenSmall"
-        />
-
-    </LinearLayout>
-
-
-    <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-    >
-
         <LinearLayout
-                android:id="@+id/myChosenTemplateSecondaryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/transblack2"
-                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:gravity="end"
         >
-            <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/makeCurrentTemplate"
-                    android:textColor="@color/liftrGold1"
-                    android:id="@+id/activeTemplateCheckbox"
-                    android:layout_marginTop="10dp"
-                    android:textSize="16sp"
-            />
-
-            <Button
+            <TextView
+                    android:id="@+id/selectedTemplateTitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:id="@+id/editThisTemplate"
-                    android:text="@string/editThisTemplate"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:padding="5dp"
-                    android:background="@color/black"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elipses"
+                    android:textSize="34sp"
                     android:layout_gravity="end"
-                    android:gravity="center"
+                    android:background="@color/liftrGold1"
+                    android:textColor="@color/black"
+                    android:paddingBottom="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="80dp"
             />
 
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45.5dp"
+                    android:src="@drawable/edit_pen_small"
+                    android:background="@color/liftrGold1"
+                    android:paddingEnd="10dp"
+                    android:id="@+id/editPenSmall"
+            />
+
+        </LinearLayout>
+
+
+        <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+        >
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/templateListedView"
-                    android:orientation="vertical"
-            >
-
-            </LinearLayout>
-
-            <LinearLayout
+                    android:id="@+id/myChosenTemplateSecondaryContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@color/transblack2"
+                    android:layout_marginBottom="20dp"
             >
-                <Button
+                <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:id="@+id/deleteThisTemplate"
-                        android:text="@string/deleteThisTemplate"
-                        android:textColor="@color/white"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/authorNameView"
+                        android:text="Originally authored by: "
+                        android:textColor="@color/offWhite"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                />
+
+                <TextView 
+                        android:layout_width="match_parent" 
+                        android:layout_height="wrap_content"
+                        android:id="@+id/descriptionView"
+                        android:background="@color/grey"
+                        android:layout_margin="10dp"
+                        android:text="@string/elipses"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:padding="5dp"
-                        android:background="@color/black"
-                        android:layout_marginEnd="5dp"
-                        android:layout_gravity="start"
-                        android:layout_marginBottom="80dp"
+                />
+                
+                <CheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/makeCurrentTemplate"
+                        android:textColor="@color/liftrGold1"
+                        android:id="@+id/activeTemplateCheckbox"
+                        android:textSize="16sp"
+                />
+                
+                <LinearLayout 
+                        android:layout_width="match_parent" 
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="10dp"
+                >
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:id="@+id/editThisTemplate"
+                            android:text="@string/edit"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:background="@color/black"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="5dp"
+                    />
+                    
+                    <Button 
+                            android:layout_width="wrap_content" 
+                            android:layout_height="30dp"
+                            android:id="@+id/shareThisTemplate"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:background="@color/black"
+                            android:text="@string/share"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="5dp"
+                    />
+
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:id="@+id/deleteThisTemplate"
+                            android:text="@string/delete"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:background="@color/black"
+                            android:layout_weight="1"
+                    />
+                    
+                </LinearLayout>
+                
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/liftrGold1"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="10dp"
+                />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/templateListedView"
+                        android:orientation="vertical"
+                >
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/liftrGold1"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                 />
 
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
 
 </LinearLayout>
-</FrameLayout>

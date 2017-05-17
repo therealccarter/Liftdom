@@ -351,6 +351,9 @@
     <string name="makePublic">Make public?</string>
     <string name="descriptionHint">Add template description...</string>
     <string name="editThisTemplate">Edit Template</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete Template</string>
 

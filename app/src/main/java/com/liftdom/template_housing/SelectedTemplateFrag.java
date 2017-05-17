@@ -21,10 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.SetsLevelSSFrag;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,15 +49,16 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.activeTemplateCheckbox) CheckBox setAsActiveTemplate;
     @BindView(R.id.templateListedView) LinearLayout templateListedViewHolder;
     @BindView(R.id.editPenSmall) ImageView editPenSmall;
+    @BindView(R.id.descriptionView) TextView descriptionView;
+    @BindView(R.id.shareThisTemplate) Button shareTemplate;
+    @BindView(R.id.authorNameView) TextView authorNameView;
 
     int colorIncrement = 0;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    ArrayList<String> daysArrayList = new ArrayList<>();
-
-    String[] daysArray = new String[7];
+    ArrayList<HashMap<String, List<String>>> mapList = new ArrayList<>();
 
 
     @Override
@@ -63,13 +69,7 @@ public class SelectedTemplateFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
-        for(int i = 0; i < 7; i++){
-            daysArray[i] = "false";
-        }
-
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
-
 
         selectedTemplateNameView.setText(templateName);
         selectedTemplateNameView.setTypeface(lobster);
@@ -90,97 +90,70 @@ public class SelectedTemplateFrag extends Fragment {
 
         if(savedInstanceState == null){
             final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-            specificTemplateRef.addValueEventListener(new ValueEventListener() {
+            specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        String daysOfTheWeek = dataSnapshot1.getKey();
 
-                        if(!daysOfTheWeek.equals("algorithm") || !daysOfTheWeek.equals("algorithmExercises")){
+                    TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                    descriptionView.setText(templateClass.getDescription());
+                    String cat = "Originally authored by: " + templateClass.getUserName();
+                    authorNameView.setText(cat);
 
-                            String delims = "[_]";
-
-                            String[] dayArray = daysOfTheWeek.split(delims);
-
-                            if(dayArray[0].equals("Monday")){
-                                daysArray[0] = daysOfTheWeek;
-                            } else if(dayArray[0].equals("Tuesday")){
-                                daysArray[1] = daysOfTheWeek;
-                            }else if(dayArray[0].equals("Wednesday")){
-                                daysArray[2] = daysOfTheWeek;
-                            }else if(dayArray[0].equals("Thursday")){
-                                daysArray[3] = daysOfTheWeek;
-                            }else if(dayArray[0].equals("Friday")){
-                                daysArray[4] = daysOfTheWeek;
-                            }else if(dayArray[0].equals("Saturday")){
-                                daysArray[5] = daysOfTheWeek;
-                            }else if(dayArray[0].equals("Sunday")){
-                                daysArray[6] = daysOfTheWeek;
-                            }
-                        }
-
-                        if(daysOfTheWeek.equals("1rm")){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                            housingDoWFrag.otherTitle = daysOfTheWeek;
-                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
-                            fragmentTransaction.add(R.id.templateListedView,
-                                    housingDoWFrag);
-                            if(!getActivity().isFinishing()){
-                                fragmentTransaction.commitAllowingStateLoss();
-                            }
-                        }
-
-                        if(daysOfTheWeek.equals("exName")){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                            housingDoWFrag.otherTitle = "Exercise: ";
-                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
-                            fragmentTransaction.add(R.id.templateListedView,
-                                    housingDoWFrag);
-                            if(!getActivity().isFinishing()){
-                                fragmentTransaction.commitAllowingStateLoss();
-                            }
-                        }
-
-                        if(daysOfTheWeek.equals("id")){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                            housingDoWFrag.otherTitle = "Workout Type: ";
-                            housingDoWFrag.otherSub = dataSnapshot1.getValue(String.class);
-                            fragmentTransaction.add(R.id.templateListedView,
-                                    housingDoWFrag);
-                            if(!getActivity().isFinishing()){
-                                fragmentTransaction.commitAllowingStateLoss();
-                            }
-                        }
-
+                    if(templateClass.getMapOne() != null){
+                        mapList.add(templateClass.getMapOne());
+                    }
+                    if(templateClass.getMapTwo() != null){
+                        mapList.add(templateClass.getMapTwo());
+                    }
+                    if(templateClass.getMapThree() != null){
+                        mapList.add(templateClass.getMapThree());
+                    }
+                    if(templateClass.getMapFour() != null){
+                        mapList.add(templateClass.getMapFour());
+                    }
+                    if(templateClass.getMapFive() != null){
+                        mapList.add(templateClass.getMapFive());
+                    }
+                    if(templateClass.getMapSix() != null){
+                        mapList.add(templateClass.getMapSix());
+                    }
+                    if(templateClass.getMapSeven() != null){
+                        mapList.add(templateClass.getMapSeven());
                     }
 
-                    for(int i = 0; i < 7; i++){
-                        if(!daysArray[i].equals("false")){
-                            try{
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager
-                                        .beginTransaction();
-                                HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                                housingDoWFrag.dOWString = daysArray[i];
-                                housingDoWFrag.templateName = templateName;
-                                fragmentTransaction.add(R.id.templateListedView,
-                                        housingDoWFrag);
-                                if(!getActivity().isFinishing()){
-                                    fragmentTransaction.commitAllowingStateLoss();
+                    for(HashMap<String, List<String>> map : mapList){
+                        if(containsDay("Monday", map.get("0_key").get(0))){
+                            for(Map.Entry<String, List<String>> entry : map.entrySet()){
+                                if(entry.getKey().equals("0_key")){
+                                    // add day of week frag
+
+                                }else{
+                                    List<String> valueList = entry.getValue();
+
+                                    // if ex name, add ex name frag
+                                    // if not, add set scheme frag
                                 }
-                            } catch (IllegalStateException e){
-                                Log.i("info", "illegal error");
                             }
 
+                            break;
+                        } else if(containsDay("Tuesday", map.get("0_key").get(0))){
+
+                            break;
+                        } else if(containsDay("Wednesday", map.get("0_key").get(0))){
+
+                            break;
+                        } else if(containsDay("Thursday", map.get("0_key").get(0))){
+
+                            break;
+                        } else if(containsDay("Friday", map.get("0_key").get(0))){
+
+                            break;
+                        } else if(containsDay("Saturday", map.get("0_key").get(0))){
+
+                            break;
+                        } else if(containsDay("Sunday", map.get("0_key").get(0))){
+
+                            break;
                         }
                     }
 
@@ -193,6 +166,19 @@ public class SelectedTemplateFrag extends Fragment {
             });
         }
 
+        /**
+         * FragmentManager fragmentManager = getChildFragmentManager();
+         FragmentTransaction fragmentTransaction = fragmentManager
+         .beginTransaction();
+         HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+         housingDoWFrag.dOWString = daysArray[i];
+         housingDoWFrag.templateName = templateName;
+         fragmentTransaction.add(R.id.templateListedView,
+         housingDoWFrag);
+         if(!getActivity().isFinishing()){
+         fragmentTransaction.commitAllowingStateLoss();
+         }
+         */
 
         editTemplate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -247,14 +233,6 @@ public class SelectedTemplateFrag extends Fragment {
                                     }
                                 });
 
-
-                                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                                //fragmentTransaction.replace(R.id.templateMenuFragContainer, new SavedTemplatesFrag(),
-                                        //"myTemplatesTag");
-                                //fragmentTransaction.commit();
-
                                 Intent intent = new Intent(getContext(), TemplateHousingActivity.class);
                                 startActivity(intent);
 
@@ -263,8 +241,6 @@ public class SelectedTemplateFrag extends Fragment {
                         })
                         .setNegativeButton("No",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
                                 dialog.cancel();
                             }
                         });
@@ -350,12 +326,19 @@ public class SelectedTemplateFrag extends Fragment {
         return view;
     }
 
-    public void updateActiveDays(){
+    private boolean containsDay(String day, String unformatted){
 
-    }
+        boolean contains = false;
+        String delims = "[_]";
+        String[] tokens = unformatted.split(delims);
 
-    public void clearActiveDays(){
+        for(String string : tokens){
+            if(day.equals(string)){
+                contains = true;
+            }
+        }
 
+        return contains;
     }
 
     @Override
