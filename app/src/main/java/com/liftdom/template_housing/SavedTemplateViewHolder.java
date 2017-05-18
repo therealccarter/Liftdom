@@ -1,5 +1,6 @@
 package com.liftdom.template_housing;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

@@ -65,7 +65,6 @@ public class TemplateMenuFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();
 

@@ -12,52 +12,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/grey"
     >
         <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:mrl_rippleOverlay="true"
-                app:mrl_rippleColor="@color/liftrGold1"
+                app:mrl_rippleColor="@color/black"
                 app:mrl_rippleDuration="450"
                 app:mrl_rippleFadeDuration="155"
                 app:mrl_rippleHover="true"
                 app:mrl_rippleDimension="10dp"
-        >
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/savedTemplateHeader"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:background="@color/backgroundgrey1"
             >
-                <TextView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/templateName"
-                        android:text="TemplateName"
-                        android:textSize="26sp"
-                        android:layout_marginStart="5dp"
-                        android:textColor="@color/white"
-                        android:layout_weight="2"
-                />
+                        android:id="@+id/savedTemplateHeader"
+                        android:orientation="horizontal"
+                        android:background="@color/black"
+                        android:paddingTop="10dp"
+                >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/templateName"
+                            android:text="TemplateName"
+                            android:textSize="26sp"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/liftrGold1"
+                            android:layout_weight="2"
+                    />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/timeStampView"
-                        android:text="3/11/17"
-                        android:layout_weight="0"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/grey"
-                />
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/timeStampView"
+                            android:text="3/11/17"
+                            android:layout_weight="0"
+                            android:layout_marginEnd="10dp"
+                            android:textColor="@color/liftrGold2"
+                    />
 
-            </LinearLayout>
+                </LinearLayout>
 
-
-        </com.balysv.materialripple.MaterialRippleLayout>
-
+            </com.balysv.materialripple.MaterialRippleLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,15 +64,6 @@
             android:orientation="vertical"
             android:background="@color/offWhite"
         >
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/liftrGold1"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="3dp"
-            />
-
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

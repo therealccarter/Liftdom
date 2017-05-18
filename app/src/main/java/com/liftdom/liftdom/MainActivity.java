@@ -28,6 +28,7 @@ import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.settings.SettingsListActivity;
+import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
@@ -46,12 +47,13 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity
-    implements TemplateMenuFrag.headerChangeFromFrag,
-    ChatMainFrag.headerChangeFromFrag,
-    ForumMainFrag.headerChangeFromFrag,
-    WorkoutAssistorFrag.headerChangeFromFrag,
-    MainFeedFrag.headerChangeFromFrag{
+public class MainActivity extends BaseActivity implements
+        TemplateMenuFrag.headerChangeFromFrag,
+        ChatMainFrag.headerChangeFromFrag,
+        ForumMainFrag.headerChangeFromFrag,
+        WorkoutAssistorFrag.headerChangeFromFrag,
+        MainFeedFrag.headerChangeFromFrag,
+        SavedTemplatesFrag.headerChangeFromFrag {
 
     private static final String TAG = "EmailPassword";
 

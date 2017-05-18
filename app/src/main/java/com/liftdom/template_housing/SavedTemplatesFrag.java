@@ -1,6 +1,7 @@
 package com.liftdom.template_housing;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -45,6 +46,16 @@ public class SavedTemplatesFrag extends Fragment {
         // Required empty public constructor
     }
 
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
+    }
+
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("templates")
@@ -52,7 +63,6 @@ public class SavedTemplatesFrag extends Fragment {
 
     ArrayList<String> templateNamesList = new ArrayList<>();
 
-    @BindView(R.id.savedTemplatesTitle) TextView savedTemplatesTitle;
     @BindView(R.id.noSavedTemplates) TextView noSavedTemplates;
     @BindView(R.id.button_new_template) LinearLayout linearLayout_new_template;
     @BindView(R.id.createTemplateLinearLayout) LinearLayout createTemplateLinearLayout;
@@ -72,10 +82,8 @@ public class SavedTemplatesFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        savedTemplatesTitle.setTypeface(lobster);
 
         if(savedInstanceState == null) {
-            savedTemplatesTitle.setTypeface(lobster);
             DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -182,8 +190,28 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        headerChanger("Saved Templates");
+    }
+
+    @Override
     public void onDestroy(){
         super.onDestroy();
         mFirebaseAdapter.cleanup();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (headerChangeFromFrag) activity;
+        } catch (ClassCastException e) {
+            //throw new ClassCastException(activity.toString()
+            //        + " must implement OnHeadlineSelectedListener");
+        }
     }
 }
