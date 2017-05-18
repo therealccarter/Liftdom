@@ -46,6 +46,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
     ArrayList<String> algoExAL = new ArrayList<>();
     List<String> algorithmList = new ArrayList<>();
+    List<String> fromEditList;
 
     public ExerciseLevelChildFrag() {
         // Required empty public constructor
@@ -87,6 +88,34 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         ButterKnife.bind(this, view);
 
         if(isEdit){
+
+            exerciseButton.setText(fromEditList.get(0));
+
+            // let's split this bitch up
+
+
+
+            boolean isFirstEx = true;
+            boolean isFirstSetSchemes = true;
+            int inc = 0;
+            for(String string : fromEditList){
+                inc++;
+                if(inc != 1){
+                    if(!isExerciseName(string) && isFirstEx){
+                        // first exercise
+                        isFirstEx = false;
+                    }else if(isExerciseName(string) && !isFirstEx){
+                        // superset ex
+                        isFirstSetSchemes = false;
+                    }else if(!isExerciseName(string) && isFirstSetSchemes){
+                        // first set schemes
+                    }else if(!isExerciseName(string) && !isFirstSetSchemes){
+                        // superset set schemes
+                    }
+                }
+            }
+
+
             DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
                     ("algorithmExercises");
 

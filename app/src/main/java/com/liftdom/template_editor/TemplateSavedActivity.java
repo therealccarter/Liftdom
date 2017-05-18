@@ -61,7 +61,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
     String templateName;
     Boolean checkBool;
-    Boolean algBool;
+    //Boolean algBool;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -25,7 +25,6 @@ public class TemplateModelClass {
     private boolean mIsAlgorithm;
     private HashMap<String, List<String>> mAlgorithmInfo;
 
-
     public TemplateModelClass(){
         //necessary for Firebase
     }

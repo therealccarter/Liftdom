@@ -31,7 +31,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
 
     String templateName1;
     Boolean activeTemplateCheckBool;
-    Boolean algBool;
+    //Boolean algBool;
     boolean isPublic;
     //String descriptionString;
 
@@ -48,7 +48,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
         ButterKnife.bind(this);
 
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
-        algBool = getIntent().getExtras().getBoolean("isAlgorithm");
+        //algBool = getIntent().getExtras().getBoolean("isAlgorithm");
 
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
             templateName1 = getIntent().getExtras().getString("templateName");
@@ -85,7 +85,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
                     intent.putExtra("isFromEditor", true);
                     intent.putExtra("isEdit", isEdit );
-                    intent.putExtra("isAlgorithm", algBool);
+                    //intent.putExtra("isAlgorithm", algBool);
 
                     TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
                     TemplateEditorSingleton.getInstance().mIsPublic = isPublic;

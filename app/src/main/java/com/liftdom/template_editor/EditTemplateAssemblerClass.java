@@ -25,11 +25,9 @@ class EditTemplateAssemblerClass {
 
     Boolean isApplyToAll = false;
 
-    Boolean isAlgoLooper = true;
-
-    Boolean isAlgoFirstTime = true;
-
-    Boolean isApplyAlgo = false;
+    //Boolean isAlgoLooper = true;
+    //Boolean isAlgoFirstTime = true;
+    //Boolean isApplyAlgo = false;
 
     Boolean isOnSaveClick = false;
 
