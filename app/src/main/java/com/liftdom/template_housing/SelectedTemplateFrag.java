@@ -59,6 +59,7 @@ public class SelectedTemplateFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ArrayList<HashMap<String, List<String>>> mapList = new ArrayList<>();
+    HashMap<String, List<String>>[] sortedMapList = new HashMap[7];
 
 
     @Override
@@ -123,37 +124,48 @@ public class SelectedTemplateFrag extends Fragment {
 
                     for(HashMap<String, List<String>> map : mapList){
                         if(containsDay("Monday", map.get("0_key").get(0))){
-                            for(Map.Entry<String, List<String>> entry : map.entrySet()){
-                                if(entry.getKey().equals("0_key")){
-                                    // add day of week frag
-
-                                }else{
-                                    List<String> valueList = entry.getValue();
-
-                                    // if ex name, add ex name frag
-                                    // if not, add set scheme frag
-                                }
-                            }
-
+                            sortedMapList[0] = map;
                             break;
                         } else if(containsDay("Tuesday", map.get("0_key").get(0))){
-
+                            sortedMapList[1] = map;
                             break;
                         } else if(containsDay("Wednesday", map.get("0_key").get(0))){
-
+                            sortedMapList[2] = map;
                             break;
                         } else if(containsDay("Thursday", map.get("0_key").get(0))){
-
+                            sortedMapList[3] = map;
                             break;
                         } else if(containsDay("Friday", map.get("0_key").get(0))){
-
+                            sortedMapList[4] = map;
                             break;
                         } else if(containsDay("Saturday", map.get("0_key").get(0))){
-
+                            sortedMapList[5] = map;
                             break;
                         } else if(containsDay("Sunday", map.get("0_key").get(0))){
-
+                            sortedMapList[6] = map;
                             break;
+                        }
+                    }
+
+                    for(HashMap<String, List<String>> map : sortedMapList){
+                        if(map != null){
+                            for(Map.Entry<String, List<String>> entry : map.entrySet()){
+                                if(entry.getKey().equals("0_key")) {
+                                    // add day of week frag
+                                    FragmentManager fragmentManager = getChildFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager
+                                            .beginTransaction();
+                                    HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                                    housingDoWFrag.dOWString = entry.getValue().get(0);
+                                    housingDoWFrag.templateName = templateName;
+                                    housingDoWFrag.map = map;
+                                    fragmentTransaction.add(R.id.templateListedView,
+                                            housingDoWFrag);
+                                    if (!getActivity().isFinishing()) {
+                                        fragmentTransaction.commitAllowingStateLoss();
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -166,19 +178,6 @@ public class SelectedTemplateFrag extends Fragment {
             });
         }
 
-        /**
-         * FragmentManager fragmentManager = getChildFragmentManager();
-         FragmentTransaction fragmentTransaction = fragmentManager
-         .beginTransaction();
-         HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-         housingDoWFrag.dOWString = daysArray[i];
-         housingDoWFrag.templateName = templateName;
-         fragmentTransaction.add(R.id.templateListedView,
-         housingDoWFrag);
-         if(!getActivity().isFinishing()){
-         fragmentTransaction.commitAllowingStateLoss();
-         }
-         */
 
         editTemplate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -267,7 +266,6 @@ public class SelectedTemplateFrag extends Fragment {
                 }
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -339,6 +337,20 @@ public class SelectedTemplateFrag extends Fragment {
         }
 
         return contains;
+    }
+
+    private boolean isExerciseName(String input){
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
+
     }
 
     @Override

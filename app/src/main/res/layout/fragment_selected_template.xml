@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@color/transblack2"
+                    android:background="@color/offWhite"
                     android:layout_marginBottom="20dp"
             >
                 <TextView
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/authorNameView"
                         android:text="Originally authored by: "
-                        android:textColor="@color/offWhite"
+                        android:textColor="@color/darkgrey"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                 />
@@ -82,9 +82,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/makeCurrentTemplate"
-                        android:textColor="@color/liftrGold1"
+                        android:textColor="@color/black"
                         android:id="@+id/activeTemplateCheckbox"
                         android:textSize="16sp"
+
                 />
                 
                 <LinearLayout 

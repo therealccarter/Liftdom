@@ -2,11 +2,11 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              tools:context="com.liftdom.template_housing.TemplateHousingActivity"
+              tools:context="com.liftdom.template_housing.SetSchemeSupersetFrag"
               android:orientation="horizontal"
-              android:background="@color/offWhite"
+              android:background="@color/grey"
               android:id="@+id/repsWeightContainer"
->
+    >
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,7 +16,8 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:gravity="center_vertical"
-            android:background="@color/offWhite"
+            android:background="@color/grey"
+            android:layout_marginStart="20dp"
     />
 
     <TextView
@@ -26,7 +27,7 @@
             android:textColor="@color/black"
             android:paddingEnd="30dp"
             android:gravity="center_vertical"
-            android:background="@color/offWhite"
+            android:background="@color/grey"
             android:id="@+id/pounds"
     />
 
