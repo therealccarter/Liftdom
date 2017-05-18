@@ -5,6 +5,7 @@
               tools:context="com.liftdom.template_housing.TemplateHousingActivity"
               android:orientation="vertical"
               android:id="@+id/repsWeightContainer"
+              android:background="@color/grey"
 >
 
     <TextView
@@ -14,9 +15,10 @@
             android:textSize="22sp"
             android:id="@+id/exerciseName"
             android:textColor="@color/white"
-            android:paddingEnd="10dp"
-            android:paddingStart="30dp"
-            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:background="@color/black"
     />
 

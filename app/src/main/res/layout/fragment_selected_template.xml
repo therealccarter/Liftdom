@@ -6,31 +6,34 @@
         android:layout_height="match_parent"
         tools:context="com.liftdom.template_housing.SelectedTemplateFrag"
         android:orientation="vertical"
-        android:background="@color/grey"
+        android:background="@color/backgroundgrey1"
     >
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="end"
+                android:background="@color/offWhite"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="7dp"
         >
             <TextView
                     android:id="@+id/selectedTemplateTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/elipses"
-                    android:textSize="34sp"
-                    android:layout_gravity="end"
+                    android:textSize="30sp"
                     android:background="@color/liftrGold1"
                     android:textColor="@color/black"
-                    android:paddingBottom="5dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="80dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:paddingStart="20dp"
             />
 
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="45.5dp"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
                     android:src="@drawable/edit_pen_small"
                     android:background="@color/liftrGold1"
                     android:paddingEnd="10dp"
@@ -45,7 +48,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:background="@color/backgroundgrey1"
         >
 
             <LinearLayout
@@ -53,113 +56,123 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@color/offWhite"
-                    android:layout_marginBottom="20dp"
+                    android:background="@color/backgroundgrey1"
+                    android:layout_marginBottom="60dp"
             >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/authorNameView"
-                        android:text="Originally authored by: "
-                        android:textColor="@color/darkgrey"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                />
-
-                <TextView 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content"
-                        android:id="@+id/descriptionView"
-                        android:background="@color/grey"
-                        android:layout_margin="10dp"
-                        android:text="@string/elipses"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:padding="5dp"
-                />
-                
-                <CheckBox
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/makeCurrentTemplate"
-                        android:textColor="@color/black"
-                        android:id="@+id/activeTemplateCheckbox"
-                        android:textSize="16sp"
-
-                />
-                
-                <LinearLayout 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical"
+                        android:background="@color/offWhite"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
                 >
-                    <Button
+                    <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:id="@+id/editThisTemplate"
-                            android:text="@string/edit"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:background="@color/black"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="5dp"
-                    />
-                    
-                    <Button 
-                            android:layout_width="wrap_content" 
-                            android:layout_height="30dp"
-                            android:id="@+id/shareThisTemplate"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            android:background="@color/black"
-                            android:text="@string/share"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="5dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/authorNameView"
+                            android:text="Originally authored by: "
+                            android:textColor="@color/darkgrey"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                     />
 
-                    <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:id="@+id/deleteThisTemplate"
-                            android:text="@string/delete"
-                            android:textColor="@color/white"
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/descriptionView"
+                            android:background="@color/grey"
+                            android:layout_margin="10dp"
+                            android:text="@string/elipses"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:background="@color/black"
-                            android:layout_weight="1"
+                            android:padding="5dp"
                     />
-                    
-                </LinearLayout>
-                
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/liftrGold1"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginBottom="10dp"
-                />
+
+                    <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/makeCurrentTemplate"
+                            android:textColor="@color/black"
+                            android:id="@+id/activeTemplateCheckbox"
+                            android:textSize="16sp"
+
+                    />
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="10dp"
+                    >
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:id="@+id/editThisTemplate"
+                                android:text="@string/edit"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:background="@color/black"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="5dp"
+                        />
+
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:id="@+id/shareThisTemplate"
+                                android:textSize="18sp"
+                                android:textColor="@color/white"
+                                android:background="@color/black"
+                                android:text="@string/share"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="5dp"
+                        />
+
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:id="@+id/deleteThisTemplate"
+                                android:text="@string/delete"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:background="@color/black"
+                                android:layout_weight="1"
+                        />
+
+                    </LinearLayout>
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/liftrGold1"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                    />
+
+            </LinearLayout>
 
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/templateListedView"
                         android:orientation="vertical"
+                        android:background="@color/grey"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
                 >
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/templateListedView"
+                            android:orientation="vertical"
+                    >
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/liftrGold1"
-                        android:layout_marginEnd="50dp"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                />
 
 
             </LinearLayout>

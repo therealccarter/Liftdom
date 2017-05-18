@@ -15,11 +15,8 @@
             android:textSize="28sp"
             android:id="@+id/doWName"
             android:textColor="@color/black"
-            android:paddingEnd="10dp"
-            android:paddingStart="4dp"
-            android:layout_gravity="end"
-            android:background="@color/liftrGold2"
-            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:background="@color/liftrGold1"
     />
 
     <LinearLayout
