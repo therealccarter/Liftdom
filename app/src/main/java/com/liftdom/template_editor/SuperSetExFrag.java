@@ -24,13 +24,13 @@ import java.util.List;
  */
 public class SuperSetExFrag extends android.app.Fragment {
 
-
     public SuperSetExFrag() {
         // Required empty public constructor
     }
 
     String fragTag;
     boolean isEdit;
+    ArrayList<String> isEditSetSchemeList = new ArrayList<>();
     int initialSchemeCount = 0;
     ArrayList<SetsLevelSSFrag> setSchemeList = new ArrayList<>();
 
@@ -69,14 +69,34 @@ public class SuperSetExFrag extends android.app.Fragment {
             }
         });
 
-        for(int i = 0; i < initialSchemeCount; i++){
-            String fragString = "sss" + Integer.toString(i + 1);
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
-            fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
-            fragmentTransaction.commitAllowingStateLoss();
-            setSchemeList.add(superSetSetFrag);
+        if(isEdit){
+            int inc = 0;
+            for(String string : isEditSetSchemeList){
+                if(inc == 0){
+                    exerciseButton.setText(string);
+                }else{
+                    String fragString = "sss" + Integer.toString(inc);
+                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
+                    superSetSetFrag.isEdit = true;
+                    superSetSetFrag.isEditSetScheme = string;
+                    fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    setSchemeList.add(superSetSetFrag);
+                }
+                inc++;
+            }
+        }else{
+            for(int i = 0; i < initialSchemeCount; i++){
+                String fragString = "sss" + Integer.toString(i + 1);
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
+                fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
+                fragmentTransaction.commitAllowingStateLoss();
+                setSchemeList.add(superSetSetFrag);
+            }
         }
+
         return view;
     }
 

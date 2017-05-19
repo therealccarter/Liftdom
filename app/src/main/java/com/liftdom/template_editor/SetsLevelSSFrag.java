@@ -26,6 +26,9 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         // Required empty public constructor
     }
 
+    boolean isEdit;
+    String isEditSetScheme;
+
     // Butterknife
     @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
@@ -39,6 +42,14 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_sets_level_s, container, false);
 
         ButterKnife.bind(this, view);
+
+        if(isEdit){
+            String delims = "[x,@]";
+            String[] tokens = isEditSetScheme.split(delims);
+            setsEditText.setText(tokens[0]);
+            repsEditText.setText(tokens[1]);
+            weightEditText.setText(tokens[2]);
+        }
 
         return view;
     }

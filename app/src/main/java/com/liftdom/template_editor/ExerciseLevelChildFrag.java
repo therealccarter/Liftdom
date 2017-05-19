@@ -93,97 +93,125 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
             // let's split this bitch up
 
-
-
             boolean isFirstEx = true;
             boolean isFirstSetSchemes = true;
             int inc = 0;
+            int supersetInc = 0;
+            ArrayList<ArrayList<String>> supersetList = new ArrayList<>();
             for(String string : fromEditList){
                 inc++;
                 if(inc != 1){
-                    if(!isExerciseName(string) && isFirstEx){
-                        // first exercise
-                        isFirstEx = false;
-                    }else if(isExerciseName(string) && !isFirstEx){
+                    if(isExerciseName(string)){
                         // superset ex
                         isFirstSetSchemes = false;
+                        ArrayList<String> list = new ArrayList<>();
+                        list.add(string);
+                        supersetList.add(list);
+                        supersetInc++;
                     }else if(!isExerciseName(string) && isFirstSetSchemes){
                         // first set schemes
+                        ++fragIdCount2;
+                        String fragString2 = Integer.toString(fragIdCount2);
+                        SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+                        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        frag1.isEdit = true;
+                        frag1.setSchemeEdited = string;
+                        fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
+                        if (getActivity() != null) {
+                            fragmentTransaction.commitAllowingStateLoss();
+                        }
                     }else if(!isExerciseName(string) && !isFirstSetSchemes){
                         // superset set schemes
+                        supersetList.get(supersetInc - 1).add(string);
+                    }
+                }
+                if(inc == fromEditList.size()){
+                    for(ArrayList<String> arrayList : supersetList){
+                        supersetFragCount++;
+                        String fragString = "ss" + Integer.toString(supersetFragCount);
+                        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        SuperSetExFrag superSetExFrag = new SuperSetExFrag();
+                        superSetExFrag.fragTag = fragString;
+                        superSetExFrag.isEdit = true;
+                        //superSetExFrag.initialSchemeCount = fragIdCount2 + 1;
+                        superSetExFrag.isEditSetSchemeList = arrayList;
+                        fragmentTransaction.add(R.id.superSetHolder, superSetExFrag, fragString);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        hasSupersets = true;
+                        superSetFragList.add(superSetExFrag);
                     }
                 }
             }
 
-
-            DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
-                    ("algorithmExercises");
-
-            algoExercises.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        String value = dataSnapshot1.getValue(String.class);
-                        if(value.equals(exerciseName)){
-                            //algoCheckBox.setChecked(true);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-            exerciseButton.setText(exerciseName);
+            //DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
+            //        ("algorithmExercises");
+//
+            //algoExercises.addValueEventListener(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(DataSnapshot dataSnapshot) {
+            //        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+            //            String value = dataSnapshot1.getValue(String.class);
+            //            if(value.equals(exerciseName)){
+            //                //algoCheckBox.setChecked(true);
+            //            }
+            //        }
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(DatabaseError databaseError) {
+//
+            //    }
+            //});
 
 
-            DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
-                    (templateName).child(selectedDaysReference);
+            //exerciseButton.setText(exerciseName);
 
-            selectedDayRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
-                        String stringSnapshot = daySnapshot.getValue(String.class);
 
-                        stringSnapshotAL.add(stringSnapshot);
-
-                    }
-
-                    int specificExerciseIndex = stringSnapshotAL.indexOf(exerciseName);
-                    // we need to somehow get the index of the next occurring exercise name
-                    int arrayListLength = stringSnapshotAL.size();
-
-                    Boolean isFirstEx = true;
-
-                    for(int i = specificExerciseIndex; i < arrayListLength; i++){
-                        if(isFirstEx) {
-                            if (!isExerciseName(stringSnapshotAL.get(i))) {
-                                ++fragIdCount2;
-                                String fragString2 = Integer.toString(fragIdCount2);
-                                SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
-                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                                frag1.isEdit = true;
-                                frag1.setSchemeEdited = stringSnapshotAL.get(i);
-                                fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
-                                if (getActivity() != null) {
-                                    fragmentTransaction.commitAllowingStateLoss();
-                                }
-                            } else if(!stringSnapshotAL.get(i).equals(exerciseName)){
-                                isFirstEx = false;
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            //DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
+            //        (templateName).child(selectedDaysReference);
+//
+            //selectedDayRef.addValueEventListener(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(DataSnapshot dataSnapshot) {
+            //        for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
+            //            String stringSnapshot = daySnapshot.getValue(String.class);
+//
+            //            stringSnapshotAL.add(stringSnapshot);
+//
+            //        }
+//
+            //        int specificExerciseIndex = stringSnapshotAL.indexOf(exerciseName);
+            //        // we need to somehow get the index of the next occurring exercise name
+            //        int arrayListLength = stringSnapshotAL.size();
+//
+            //        Boolean isFirstEx = true;
+//
+            //        for(int i = specificExerciseIndex; i < arrayListLength; i++){
+            //            if(isFirstEx) {
+            //                if (!isExerciseName(stringSnapshotAL.get(i))) {
+            //                    ++fragIdCount2;
+            //                    String fragString2 = Integer.toString(fragIdCount2);
+            //                    SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
+            //                    FragmentTransaction fragmentTransaction = getChildFragmentManager()
+            // .beginTransaction();
+            //                    frag1.isEdit = true;
+            //                    frag1.setSchemeEdited = stringSnapshotAL.get(i);
+            //                    fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
+            //                    if (getActivity() != null) {
+            //                        fragmentTransaction.commitAllowingStateLoss();
+            //                    }
+            //                } else if(!stringSnapshotAL.get(i).equals(exerciseName)){
+            //                    isFirstEx = false;
+            //                }
+            //            }
+            //        }
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(DatabaseError databaseError) {
+//
+            //    }
+            //});
         }
 
         if(!isEdit){

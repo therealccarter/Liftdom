@@ -383,39 +383,40 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
                 }
             }
 
-            DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
-                    (templateName).child(selectedDaysReference);
-
-            selectedDayRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
-                        String snapshotString = daySnapshot.getValue(String.class);
-                            if (isExerciseName(snapshotString)) {
-                                String fragString1 = Integer.toString(fragIdCount1);
-                                ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
-                                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-
-                                frag1.isEdit = true;
-                                frag1.fragTag = fragString1;
-                                frag1.exerciseName = snapshotString;
-                                frag1.selectedDaysReference = selectedDaysReference;
-                                frag1.templateName = templateName;
-
-                                fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
-                                if(!getActivity().isFinishing()){
-                                    fragmentTransaction.commitAllowingStateLoss();
-                                }
-                                ++fragIdCount1;
-                            }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            //DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
+            //        (templateName).child(selectedDaysReference);
+//
+            //selectedDayRef.addValueEventListener(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(DataSnapshot dataSnapshot) {
+            //        for(DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
+            //            String snapshotString = daySnapshot.getValue(String.class);
+            //                if (isExerciseName(snapshotString)) {
+            //                    String fragString1 = Integer.toString(fragIdCount1);
+            //                    ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+            //                    FragmentTransaction fragmentTransaction = getChildFragmentManager()
+            // .beginTransaction();
+//
+            //                    frag1.isEdit = true;
+            //                    frag1.fragTag = fragString1;
+            //                    frag1.exerciseName = snapshotString;
+            //                    frag1.selectedDaysReference = selectedDaysReference;
+            //                    frag1.templateName = templateName;
+//
+            //                    fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+            //                    if(!getActivity().isFinishing()){
+            //                        fragmentTransaction.commitAllowingStateLoss();
+            //                    }
+            //                    ++fragIdCount1;
+            //                }
+            //        }
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(DatabaseError databaseError) {
+//
+            //    }
+            //});
 
 
         }
