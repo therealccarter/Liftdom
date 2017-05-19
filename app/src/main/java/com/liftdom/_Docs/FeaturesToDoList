@@ -83,6 +83,7 @@ UPCOMING FEATURES TO DO:
 
 *v0.7*
 * Redo entire backend of workout templating/assisting
+    - for assistor, allow freestyling
 
 *v0.7.5*
 **DONE** DM other users (including group chat)
@@ -99,12 +100,9 @@ UPCOMING FEATURES TO DO:
 * Add rep button to posts
 * Look for other lifters at various gyms (mark on Google Maps maybe?)
 * DM workout invite
-* for the workout assistor, give spaces between different rep types
 
 *v0.9*
-* Re-haul template editor & assistor (algorithm fixes, supersets, layout fixes, etc)
 * Level up structure based on daily multiplier, lifts, etc.
-
 
 *v1.0*
 * Polish everything, beautify, make the app look sleek and pro

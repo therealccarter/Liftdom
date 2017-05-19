@@ -318,6 +318,10 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
+                        if(templateClass.getIsAlgorithm()){
+
+                        }
+
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
