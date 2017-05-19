@@ -185,7 +185,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Template Editor");
+
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -319,7 +319,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
                         if(templateClass.getIsAlgorithm()){
-
                         }
 
                         FragmentManager fragmentManager = getFragmentManager();

@@ -64,28 +64,40 @@ public class TemplateModelClass {
             days = days + "_" + daysOne;
         }
         if(mMapTwo != null){
-            String daysOne = mMapTwo.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapTwo.get("0_key") != null){
+                String daysOne = mMapTwo.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
         if(mMapThree != null){
-            String daysOne = mMapThree.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapThree.get("0_key") != null){
+                String daysOne = mMapThree.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
         if(mMapFour != null){
-            String daysOne = mMapFour.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapFour.get("0_key") != null){
+                String daysOne = mMapFour.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
         if(mMapFive != null){
-            String daysOne = mMapFive.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapFive.get("0_key") != null){
+                String daysOne = mMapFive.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
         if(mMapSix != null){
-            String daysOne = mMapSix.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapSix.get("0_key") != null){
+                String daysOne = mMapSix.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
         if(mMapSeven != null){
-            String daysOne = mMapSeven.get("0_key").get(0);
-            days = days + "_" + daysOne;
+            if(mMapSeven.get("0_key") != null){
+                String daysOne = mMapSeven.get("0_key").get(0);
+                days = days + "_" + daysOne;
+            }
         }
 
         return days;

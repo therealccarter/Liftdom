@@ -196,6 +196,14 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
+        /**
+         * What we need to do:
+         * Change the keys of algorithmInfo
+         * Add a boolean isApplyToAll to template model class
+         * have superset exercises inherit parent exercise algorithm
+         * read all this into singleton
+         */
+
         deleteTemplate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
@@ -228,7 +236,6 @@ public class SelectedTemplateFrag extends Fragment {
                                                 activeTemplateRef.setValue(null);
                                             }
                                         }
-
                                     }
 
                                     @Override
@@ -237,7 +244,8 @@ public class SelectedTemplateFrag extends Fragment {
                                     }
                                 });
 
-                                Intent intent = new Intent(getContext(), TemplateHousingActivity.class);
+                                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                                intent.putExtra("fragID", 0);
                                 startActivity(intent);
 
                                 getActivity().finish();
