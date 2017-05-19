@@ -240,8 +240,6 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
-            //TemplateEditorSingleton.getInstance().makeDummies();
-
             String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
             String xUserId = TemplateEditorSingleton.getInstance().mUserId;
             String xUserName= TemplateEditorSingleton.getInstance().mUserName;
@@ -256,12 +254,13 @@ public class TemplateSavedActivity extends AppCompatActivity {
             HashMap<String, List<String>> xMapSix = TemplateEditorSingleton.getInstance().mapSix;
             HashMap<String, List<String>> xMapSeven = TemplateEditorSingleton.getInstance().mapSeven;
             boolean xIsAlgorithm = TemplateEditorSingleton.getInstance().mIsAlgorithm;
+            boolean xIsAlgoApplyToAll = TemplateEditorSingleton.getInstance().isAlgoApplyToAll;
             HashMap<String, List<String>> xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
 
             TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xUserId, xUserName, xIsPublic,
                                                 xDateCreated, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
-                                                xMapSeven, xIsAlgorithm, xAlgorithmInfo);
+                                                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo);
 
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

@@ -23,6 +23,7 @@ public class TemplateModelClass {
     private HashMap<String, List<String>> mMapSix;
     private HashMap<String, List<String>> mMapSeven;
     private boolean mIsAlgorithm;
+    private boolean mIsAlgoApplyToAll;
     private HashMap<String, List<String>> mAlgorithmInfo;
 
     public TemplateModelClass(){
@@ -38,7 +39,8 @@ public class TemplateModelClass {
                               HashMap<String, List<String>> mapFive,
                               HashMap<String, List<String>> mapSix,
                               HashMap<String, List<String>> mapSeven,
-                              boolean isAlgorithm, HashMap<String, List<String>> algorithmInfo){
+                              boolean isAlgorithm, boolean isAlgoApplyToAll,
+                              HashMap<String, List<String>> algorithmInfo){
 
         mTemplateName = templateName;
         mUserId = userId;
@@ -54,6 +56,7 @@ public class TemplateModelClass {
         mMapSix = mapSix;
         mMapSeven = mapSeven;
         mIsAlgorithm = isAlgorithm;
+        mIsAlgoApplyToAll = isAlgoApplyToAll;
         mAlgorithmInfo = algorithmInfo;
     }
 
@@ -105,6 +108,14 @@ public class TemplateModelClass {
 
     public String getDescription() {
         return mDescription;
+    }
+
+    public boolean getIsAlgoApplyToAll() {
+        return mIsAlgoApplyToAll;
+    }
+
+    public void setIsAlgoApplyToAll(boolean isAlgoApplyToAll){
+        mIsAlgoApplyToAll = isAlgoApplyToAll;
     }
 
     public void setDescription(String description) {

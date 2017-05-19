@@ -279,13 +279,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                                 (mFirebaseUser.getDisplayName()).withEmail(email),
                 0);
 
-        /**
-         * How would we implement this new idea...
-         * From text message:
-         *  Simply remove or add fragment depending on the action and use the incrementor,
-         *  if 1, doW1, etc.
-         */
-
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
 
@@ -319,6 +312,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                         TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
                         if(templateClass.getIsAlgorithm()){
+
                         }
 
                         FragmentManager fragmentManager = getFragmentManager();
@@ -424,14 +418,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 String fragString = Integer.toString(fragIdCount);
 
-                /**
-                 * Only problem we're having now is that when a new day-set is added,
-                 *  the new day-set is unaware of current/existing selected days
-                 *
-                 *  So what we need to do is call a check out to see what days are selected
-                 *  in existing day-set fragments.
-                 */
-
                 if(fragIdCount == 1){
                     fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
                     fragmentTransaction.commit();
@@ -509,7 +495,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
                     }
                 }
-
 
                 if (fragIdCount != 0) {
                     if(fragIdCount == 2){
@@ -672,8 +657,6 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     public void onBackPressed(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        //EditTemplateAssemblerClass.getInstance().isAlgoFirstTime = true;
 
         // set title
         builder.setTitle("Discard template?");

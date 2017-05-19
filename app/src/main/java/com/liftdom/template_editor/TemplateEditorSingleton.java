@@ -25,6 +25,7 @@ public class TemplateEditorSingleton {
     boolean mIsPublic = false;
     String mDateCreated;
     String mDescription;
+    boolean isAlgoApplyToAll = false;
     HashMap<String, List<String>> mapOne = new HashMap<String, List<String>>();
     HashMap<String, List<String>> mapTwo = new HashMap<String, List<String>>();
     HashMap<String, List<String>> mapThree = new HashMap<String, List<String>>();

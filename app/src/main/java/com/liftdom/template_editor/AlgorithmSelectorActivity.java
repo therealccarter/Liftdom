@@ -56,10 +56,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             exNameDowView.setText(exName);
         }
 
-        if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
+        if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
             if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.isEmpty()){
 
-                List<String> tempList = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.get("0");
+                List<String> tempList = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.get("0_key");
 
                 setsWeeksEditText.setText(tempList.get(1));
                 setsIncreasedEditText.setText(tempList.get(2));
@@ -115,9 +115,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    EditTemplateAssemblerClass.getInstance().isApplyToAll = true;
+                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
                 }else{
-                    EditTemplateAssemblerClass.getInstance().isApplyToAll = false;
+                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = false;
                 }
             }
         });
@@ -138,7 +138,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 applyAlgoToExs.setChecked(false);
                 applyAlgoToAllExs.setChecked(false);
 
-                if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
+                if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
                     EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
                 }else{
                     if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
@@ -189,7 +189,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     setResult(5, intent);
                     finish();
                 }else{
-                    if(EditTemplateAssemblerClass.getInstance().isApplyToAll){
+                    if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
 
                         algoInfoList.add(exName);                   //0
                         algoInfoList.add(setsWeeks);                //1
@@ -213,7 +213,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         tempAlgoInfoList2.add(applyToAllExs);        //10
 
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
-                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0", tempAlgoInfoList2);
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
 
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
@@ -245,7 +245,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         tempAlgoInfoList.add(applyToAllExs);        //10
 
 
-                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize(), tempAlgoInfoList);
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize() + "_key", 
+                                tempAlgoInfoList);
 
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
