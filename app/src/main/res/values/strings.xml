@@ -345,6 +345,7 @@
     <string name="TodaysWorkout">Today\'s Workout</string>
     <string name="fromScratch1">From Scratch</string>
     <string name="my_templates">My Templates</string>
+    <string name="templateEditor">Template Editor</string>
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Template</string>

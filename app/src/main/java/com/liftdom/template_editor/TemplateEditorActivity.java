@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -66,6 +67,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
     @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
+    @BindView(R.id.title) TextView title;
     //@BindView(R.id.algoButton) Button algoButton;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
@@ -148,9 +150,11 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         final DayOfWeekChildFrag doW7 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW7);
 
-
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
         ButterKnife.bind(this);
+
+        title.setTypeface(lobster);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -673,7 +677,7 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
 
         // set dialog message
         builder
-                .setMessage("Are you sure you want to discard this template?")
+                .setMessage("Are you sure you want to discard changes to this template?")
                 .setCancelable(false)
                 .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

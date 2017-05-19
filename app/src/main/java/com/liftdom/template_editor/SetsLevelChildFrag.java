@@ -49,7 +49,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
-    //@BindView(R.id.extraOptions) Spinner extraOptions;
     @BindView(R.id.lbs) TextView pounds;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;

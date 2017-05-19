@@ -133,7 +133,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         SuperSetExFrag superSetExFrag = new SuperSetExFrag();
                         superSetExFrag.fragTag = fragString;
                         superSetExFrag.isEdit = true;
-                        //superSetExFrag.initialSchemeCount = fragIdCount2 + 1;
                         superSetExFrag.isEditSetSchemeList = arrayList;
                         fragmentTransaction.add(R.id.superSetHolder, superSetExFrag, fragString);
                         fragmentTransaction.commitAllowingStateLoss();
@@ -142,76 +141,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
             }
-
-            //DatabaseReference algoExercises = mRootRef.child("templates").child(uid).child(templateName).child
-            //        ("algorithmExercises");
-//
-            //algoExercises.addValueEventListener(new ValueEventListener() {
-            //    @Override
-            //    public void onDataChange(DataSnapshot dataSnapshot) {
-            //        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-            //            String value = dataSnapshot1.getValue(String.class);
-            //            if(value.equals(exerciseName)){
-            //                //algoCheckBox.setChecked(true);
-            //            }
-            //        }
-            //    }
-//
-            //    @Override
-            //    public void onCancelled(DatabaseError databaseError) {
-//
-            //    }
-            //});
-
-
-            //exerciseButton.setText(exerciseName);
-
-
-            //DatabaseReference selectedDayRef = mRootRef.child("templates").child(uid).child
-            //        (templateName).child(selectedDaysReference);
-//
-            //selectedDayRef.addValueEventListener(new ValueEventListener() {
-            //    @Override
-            //    public void onDataChange(DataSnapshot dataSnapshot) {
-            //        for(DataSnapshot daySnapshot : dataSnapshot.getChildren()){
-            //            String stringSnapshot = daySnapshot.getValue(String.class);
-//
-            //            stringSnapshotAL.add(stringSnapshot);
-//
-            //        }
-//
-            //        int specificExerciseIndex = stringSnapshotAL.indexOf(exerciseName);
-            //        // we need to somehow get the index of the next occurring exercise name
-            //        int arrayListLength = stringSnapshotAL.size();
-//
-            //        Boolean isFirstEx = true;
-//
-            //        for(int i = specificExerciseIndex; i < arrayListLength; i++){
-            //            if(isFirstEx) {
-            //                if (!isExerciseName(stringSnapshotAL.get(i))) {
-            //                    ++fragIdCount2;
-            //                    String fragString2 = Integer.toString(fragIdCount2);
-            //                    SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
-            //                    FragmentTransaction fragmentTransaction = getChildFragmentManager()
-            // .beginTransaction();
-            //                    frag1.isEdit = true;
-            //                    frag1.setSchemeEdited = stringSnapshotAL.get(i);
-            //                    fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
-            //                    if (getActivity() != null) {
-            //                        fragmentTransaction.commitAllowingStateLoss();
-            //                    }
-            //                } else if(!stringSnapshotAL.get(i).equals(exerciseName)){
-            //                    isFirstEx = false;
-            //                }
-            //            }
-            //        }
-            //    }
-//
-            //    @Override
-            //    public void onCancelled(DatabaseError databaseError) {
-//
-            //    }
-            //});
         }
 
         if(!isEdit){
