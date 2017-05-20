@@ -21,15 +21,16 @@ class EditTemplateAssemblerClass {
     HashMap<String, List<String>> tempAlgoInfo = new HashMap<>();
     HashMap<String, List<String>> tempAlgoInfo2 = new HashMap<>();
 
-    //String[] algorithmDataList = new String[7];
-    //Boolean isApplyToAll = false;
-    //Boolean isAlgoLooper = true;
-    //Boolean isAlgoFirstTime = true;
-    //Boolean isApplyAlgo = false;
-
     Boolean isOnSaveClick = false;
 
     boolean isEditAndFirstTime = false;
+
+    void clearAll(){
+        tempAlgoInfo.clear();
+        tempAlgoInfo2.clear();
+        isOnSaveClick = false;
+        isEditAndFirstTime = false;
+    }
 
 }
 

@@ -500,6 +500,15 @@ public class TemplateEditorSingleton {
         }
     }
 
+    public void setAlgorithmList(String exName, List<String> algoList){
+        int listSize = mAlgorithmInfo.size();
+        String key = String.valueOf(listSize + 1) + "_key";
+
+        algoList.set(0, exName);
+
+        mAlgorithmInfo.put(key, algoList);
+    }
+
     private boolean containsEx(HashMap<String, List<String>> temp, String exName){
         boolean contains = false;
         for(Map.Entry<String, List<String>> entry : temp.entrySet()){

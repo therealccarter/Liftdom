@@ -32,7 +32,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
     // Callback
     public interface setSchemesCallback{
-        String getExerciseValue();
+        String getExerciseValueFormatted();
         String getDoWValue();
     }
 
@@ -151,8 +151,9 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     public void onPause(){
         super.onPause();
 
-        if(!callback.getExerciseValue().equals("Click to add exercise") && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
-            String parentSpinnerValue = callback.getExerciseValue();
+        if(!callback.getExerciseValueFormatted().equals("Click to add exercise") && EditTemplateAssemblerClass.getInstance()
+                .isOnSaveClick) {
+            String parentSpinnerValue = callback.getExerciseValueFormatted();
             String doWSelected = callback.getDoWValue();
             //Boolean isChecked = callback.getCheckBoxValue();
 

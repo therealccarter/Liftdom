@@ -134,7 +134,7 @@ public class SuperSetExFrag extends android.app.Fragment {
         String newExNameString = "null";
         if(exerciseName.length() > 21){
             String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 21));
-            String exerciseName2 = exerciseName.substring(20, exerciseName.length());
+            String exerciseName2 = exerciseName.substring(21, exerciseName.length());
             newExNameString = exerciseName1 + "\n" + exerciseName2;
         } else{
             newExNameString = exerciseName;
@@ -170,7 +170,7 @@ public class SuperSetExFrag extends android.app.Fragment {
         return exInfoList;
     }
 
-    private String getExerciseValueFormatted(){
+    public String getExerciseValueFormatted(){
         String spinnerText = exerciseButton.getText().toString();
 
         return spinnerText.replaceAll("\n", "");
@@ -185,26 +185,25 @@ public class SuperSetExFrag extends android.app.Fragment {
             final String parentEx = getParentExCallback.getParentEx1();
             final String doW = getParentDoWCallback.getDoW1();
 
-            //TODO: We need to sort out the whole naming issue
-
-            if(!parentEx.equals("Click to select exercise")){
-                if (!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
-                    if (!TemplateEditorSingleton.getInstance().isAlgoApplyToAll) {
-                        List<String> tempList = new ArrayList<>();
-                        HashMap<String, List<String>> map = EditTemplateAssemblerClass.getInstance().tempAlgoInfo;
-                        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                            List<String> list = entry.getValue();
-                            if (list.get(0).equals(parentEx) && list.get(8).equals(doW)) {
-                                tempList = list;
-                            }
-                        }
-                        if(!tempList.isEmpty()){
-                            EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(EditTemplateAssemblerClass.getInstance
-                                    ().tempAlgoInfo.size() + "_key", tempList);
-                        }
-                    }
-                }
-            }
+            //if(!parentEx.equals("Click to select exercise")){
+            //    if (!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
+            //        if (!TemplateEditorSingleton.getInstance().isAlgoApplyToAll) {
+            //            List<String> tempList = new ArrayList<>();
+            //            HashMap<String, List<String>> map = TemplateEditorSingleton
+            //                    .getInstance().mAlgorithmInfo;
+            //            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            //                List<String> list = entry.getValue();
+            //                if (list.get(0).equals(parentEx) && list.get(8).equals(doW)) {
+            //                    tempList = list;
+            //                }
+            //            }
+            //            if(!tempList.isEmpty()){
+            //                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(TemplateEditorSingleton
+            //                        .getInstance().mAlgorithmInfo.size() + "_key", tempList);
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }

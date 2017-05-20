@@ -208,7 +208,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AlgorithmOrSuperSetDialog.class);
-                String exName = exerciseButton.getText().toString();
+                String exName = getExerciseValueFormatted();
                 intent.putExtra("exName", exName);
                 startActivityForResult(intent, 3);
             }
@@ -303,7 +303,17 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             if(!algorithmList.isEmpty()){
                 algorithmList.add(getDoWValue());
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(stringSize(), algorithmList);
+                TemplateEditorSingleton.getInstance().setAlgorithmList(getExerciseValueFormatted(), algorithmList);
+                if(hasSupersets){
+                    for(SuperSetExFrag exFrag : superSetFragList){
+                        String exName = exFrag.getExerciseValueFormatted();
+                        if(!exName.equals("Click to select exercise")){
+                            List<String> stringList = new ArrayList<>();
+                            stringList.addAll(algorithmList);
+                            TemplateEditorSingleton.getInstance().setAlgorithmList(exFrag.getExerciseValueFormatted(), stringList);
+                        }
+                    }
+                }
             }
             if(hasSupersets){
                 List<String> supersetInfoList = new ArrayList<>();
@@ -329,7 +339,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         String newExNameString = "null";
         if(exerciseName.length() > 21){
             String exerciseName1 = exerciseName.substring(0, Math.min(exerciseName.length(), 21));
-            String exerciseName2 = exerciseName.substring(20, exerciseName.length());
+            String exerciseName2 = exerciseName.substring(21, exerciseName.length());
             newExNameString = exerciseName1 + "\n" + exerciseName2;
         } else{
             newExNameString = exerciseName;
@@ -389,14 +399,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         return getDoWValue();
     }
 
-    public String getExerciseValue(){
-
-        String spinnerText = exerciseButton.getText().toString();
-
-        return spinnerText;
-    }
-
-    private String getExerciseValueFormatted(){
+    public String getExerciseValueFormatted(){
         String spinnerText = exerciseButton.getText().toString();
 
         return spinnerText.replaceAll("\n", "");
