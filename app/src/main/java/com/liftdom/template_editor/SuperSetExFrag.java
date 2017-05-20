@@ -185,6 +185,8 @@ public class SuperSetExFrag extends android.app.Fragment {
             final String parentEx = getParentExCallback.getParentEx1();
             final String doW = getParentDoWCallback.getDoW1();
 
+            //TODO: We need to sort out the whole naming issue
+
             if(!parentEx.equals("Click to select exercise")){
                 if (!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
                     if (!TemplateEditorSingleton.getInstance().isAlgoApplyToAll) {
@@ -196,9 +198,10 @@ public class SuperSetExFrag extends android.app.Fragment {
                                 tempList = list;
                             }
                         }
-                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(EditTemplateAssemblerClass.getInstance
-                                ().tempAlgoInfo.size() + "_key", tempList);
-
+                        if(!tempList.isEmpty()){
+                            EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(EditTemplateAssemblerClass.getInstance
+                                    ().tempAlgoInfo.size() + "_key", tempList);
+                        }
                     }
                 }
             }
