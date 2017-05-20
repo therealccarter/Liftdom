@@ -33,7 +33,8 @@ import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
 
-public class DayOfWeekChildFrag extends android.app.Fragment implements ExerciseLevelChildFrag.doWCallback,
+public class DayOfWeekChildFrag extends android.app.Fragment
+        implements ExerciseLevelChildFrag.doWCallback,
                 ExerciseLevelChildFrag.removeFragCallback{
 
 
@@ -406,7 +407,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment implements Exercise
 
         }
     }
-
 
     boolean isExerciseName(String input) {
 

@@ -26,7 +26,9 @@ import java.util.List;
 public class ExerciseLevelChildFrag extends android.app.Fragment
         implements SetsLevelChildFrag.setSchemesCallback,
                 SetsLevelChildFrag.removeFragCallback,
-                SuperSetExFrag.removeFragCallback2{
+                SuperSetExFrag.removeFragCallback2,
+                SuperSetExFrag.getParentEx,
+                SuperSetExFrag.getParentDoW{
 
     int fragIdCount2 = 0;
     int supersetFragCount = 0;
@@ -318,6 +320,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     }
 
 
+    public String getParentEx1(){
+        return exerciseButton.getText().toString();
+    }
+
+
     public String newLineExname(String exerciseName){
         String newExNameString = "null";
         if(exerciseName.length() > 21){
@@ -376,6 +383,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     public String getDoWValue(){
         String doWSelected = callback.getDoW();
         return doWSelected;
+    }
+
+    public String getDoW1(){
+        return getDoWValue();
     }
 
     public String getExerciseValue(){

@@ -41,11 +41,11 @@ public class SuperSetExFrag extends android.app.Fragment {
     }
 
     public interface getParentEx{
-        String getParentEx();
+        String getParentEx1();
     }
 
     public interface getParentDoW{
-        String getParentDoWs();
+        String getDoW1();
     }
 
     private removeFragCallback2 removeFragCallback;
@@ -65,8 +65,10 @@ public class SuperSetExFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         removeFragCallback = (removeFragCallback2) getParentFragment();
+
         getParentExCallback = (getParentEx) getParentFragment();
         getParentDoWCallback = (getParentDoW) getParentFragment();
+
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -175,29 +177,29 @@ public class SuperSetExFrag extends android.app.Fragment {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
 
-        if(EditTemplateAssemblerClass.getInstance().isOnSaveClick){
+        if (EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
 
-            final String parentEx = getParentExCallback.getParentEx();
-            final String doW = getParentDoWCallback.getParentDoWs();
+            final String parentEx = getParentExCallback.getParentEx1();
+            final String doW = getParentDoWCallback.getDoW1();
 
-            if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()){
-                if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
-                    List<String> tempList = new ArrayList<>();
-                    HashMap<String, List<String>> map = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2;
-                }else{
-                    List<String> tempList = new ArrayList<>();
-                    HashMap<String, List<String>> map = EditTemplateAssemblerClass.getInstance().tempAlgoInfo;
-                    for(Map.Entry<String, List<String>> entry : map.entrySet()){
-                        List<String> list = entry.getValue();
-                        if(list.get(0).equals(parentEx) && list.get(8).equals(doW)){
-                            tempList = list;
+            if(!parentEx.equals("Click to select exercise")){
+                if (!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
+                    if (!TemplateEditorSingleton.getInstance().isAlgoApplyToAll) {
+                        List<String> tempList = new ArrayList<>();
+                        HashMap<String, List<String>> map = EditTemplateAssemblerClass.getInstance().tempAlgoInfo;
+                        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                            List<String> list = entry.getValue();
+                            if (list.get(0).equals(parentEx) && list.get(8).equals(doW)) {
+                                tempList = list;
+                            }
                         }
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(EditTemplateAssemblerClass.getInstance
+                                ().tempAlgoInfo.size() + "_key", tempList);
+
                     }
-                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(EditTemplateAssemblerClass.getInstance
-                            ().tempAlgoInfo.size() + "_key", tempList);
                 }
             }
         }
