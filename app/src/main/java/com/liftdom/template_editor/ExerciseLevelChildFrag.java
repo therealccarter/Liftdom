@@ -299,6 +299,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     public void onPause(){
         super.onPause();
 
+        //TODO: Get the all-ex algorithm both uploading and callbacking to every ex. Then we begin reading in of algo
+        //TODO:  info
+
         if(EditTemplateAssemblerClass.getInstance().isOnSaveClick){
             if(!algorithmList.isEmpty()){
                 algorithmList.add(getDoWValue());
