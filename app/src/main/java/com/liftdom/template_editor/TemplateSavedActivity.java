@@ -255,7 +255,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
             HashMap<String, List<String>> xMapSeven = TemplateEditorSingleton.getInstance().mapSeven;
             boolean xIsAlgorithm = TemplateEditorSingleton.getInstance().mIsAlgorithm;
             boolean xIsAlgoApplyToAll = TemplateEditorSingleton.getInstance().isAlgoApplyToAll;
-            HashMap<String, List<String>> xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
+            HashMap<String, List<String>> xAlgorithmInfo;
+            if(xIsAlgoApplyToAll){
+                xAlgorithmInfo = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2;
+            }else{
+                xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
+            }
 
             TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xUserId, xUserName, xIsPublic,
                                                 xDateCreated, xDescription, xMapOne, xMapTwo,
