@@ -510,7 +510,8 @@
     <string name="formatAlg">Algorithm\n Checkbox</string>
     <string name="formatExtra">Extra\n Options</string>
     <string name="algoExApply">Apply algorithm to every instance of this exercise?</string>
-    <string name="algoAllExApply">Apply algorithm to every single exercise?</string>
+    <string name="algoAllExApply">Apply algorithm to every exercise? (CAUTION: Wipes all previously set
+        exercise algorithms)</string>
 
     <string name="clear">Clear</string>
 
