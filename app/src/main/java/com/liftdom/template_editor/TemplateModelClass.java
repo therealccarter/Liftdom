@@ -10,6 +10,7 @@ import java.util.List;
 public class TemplateModelClass {
 
     private String mTemplateName;
+    private String mDays;
     private String mUserId;
     private String mUserName;
     private boolean mIsPublic;
@@ -30,7 +31,7 @@ public class TemplateModelClass {
         //necessary for Firebase
     }
 
-    public TemplateModelClass(String templateName, String userId, String userName, boolean isPublic,
+    public TemplateModelClass(String templateName, String days, String userId, String userName, boolean isPublic,
                               String dateCreated, String description,
                               HashMap<String, List<String>> mapOne,
                               HashMap<String, List<String>> mapTwo,
@@ -43,6 +44,7 @@ public class TemplateModelClass {
                               HashMap<String, List<String>> algorithmInfo){
 
         mTemplateName = templateName;
+        mDays = days;
         mUserId = userId;
         mUserName = userName;
         mDescription = description;
@@ -61,49 +63,11 @@ public class TemplateModelClass {
     }
 
     public String getDays(){
-        String days = "";
-        if(!mMapOne.isEmpty()){
-            String daysOne = mMapOne.get("0_key").get(0);
-            days = days + "_" + daysOne;
-        }
-        if(mMapTwo != null){
-            if(mMapTwo.get("0_key") != null){
-                String daysOne = mMapTwo.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
-        if(mMapThree != null){
-            if(mMapThree.get("0_key") != null){
-                String daysOne = mMapThree.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
-        if(mMapFour != null){
-            if(mMapFour.get("0_key") != null){
-                String daysOne = mMapFour.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
-        if(mMapFive != null){
-            if(mMapFive.get("0_key") != null){
-                String daysOne = mMapFive.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
-        if(mMapSix != null){
-            if(mMapSix.get("0_key") != null){
-                String daysOne = mMapSix.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
-        if(mMapSeven != null){
-            if(mMapSeven.get("0_key") != null){
-                String daysOne = mMapSeven.get("0_key").get(0);
-                days = days + "_" + daysOne;
-            }
-        }
+        return mDays;
+    }
 
-        return days;
+    public void setDays(String days){
+        mDays = days;
     }
 
     public String getDescription() {

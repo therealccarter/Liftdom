@@ -262,7 +262,9 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
             }
 
-            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xUserId, xUserName, xIsPublic,
+            String xDays = getDays(xMapOne, xMapTwo, xMapThree, xMapFour, xMapFive, xMapSix, xMapSeven);
+
+            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName, xIsPublic,
                                                 xDateCreated, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo);
@@ -287,6 +289,58 @@ public class TemplateSavedActivity extends AppCompatActivity {
         String delims = "[,]";
         String[] splitted = unSplitted.split(delims);
         return splitted;
+    }
+
+    String getDays(HashMap<String, List<String>> mMapOne,
+            HashMap<String, List<String>> mMapTwo,
+            HashMap<String, List<String>> mMapThree,
+            HashMap<String, List<String>> mMapFour,
+            HashMap<String, List<String>> mMapFive,
+            HashMap<String, List<String>> mMapSix,
+            HashMap<String, List<String>> mMapSeven){
+        String days = "";
+        if(mMapOne != null && !mMapOne.isEmpty()){
+            String daysOne = mMapOne.get("0_key").get(0);
+            days = days + daysOne;
+        }
+        if(mMapTwo != null && !mMapTwo.isEmpty()){
+            if(mMapTwo.get("0_key") != null){
+                String daysOne = mMapTwo.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapThree != null && !mMapThree.isEmpty()){
+            if(mMapThree.get("0_key") != null){
+                String daysOne = mMapThree.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapFour != null && !mMapFour.isEmpty()){
+            if(mMapFour.get("0_key") != null){
+                String daysOne = mMapFour.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapFive != null && !mMapFive.isEmpty()){
+            if(mMapFive.get("0_key") != null){
+                String daysOne = mMapFive.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapSix != null && !mMapSix.isEmpty()){
+            if(mMapSix.get("0_key") != null){
+                String daysOne = mMapSix.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapSeven != null && !mMapSeven.isEmpty()){
+            if(mMapSeven.get("0_key") != null){
+                String daysOne = mMapSeven.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+
+        return days;
     }
 
     @Override

@@ -42,104 +42,114 @@ public class TemplateEditorSingleton {
         List<String> dayEntry = new ArrayList<>();
         dayEntry.add(daysOfWeek);
 
-        if(mapOne.isEmpty() &&
-           mapTwo.isEmpty() &&
-           mapThree.isEmpty() &&
-           mapFour.isEmpty() &&
-           mapFive.isEmpty() &&
-           mapSix.isEmpty() &&
-           mapSeven.isEmpty()
-           ){
-            Log.i("info", "Map one added: " + daysOfWeek);
-            mapOne.put("0_key", dayEntry);
-        } else if(!mapOne.isEmpty() &&
-                mapTwo.isEmpty() &&
-                mapThree.isEmpty() &&
-                mapFour.isEmpty() &&
-                mapFive.isEmpty() &&
-                mapSix.isEmpty() &&
-                mapSeven.isEmpty()
+        if(mapOne != null &&
+                mapTwo != null &&
+                mapThree != null &&
+                mapFour != null &&
+                mapFive != null &&
+                mapSix != null &&
+                mapSeven != null
                 ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
-                Log.i("info", "Map two added: " + daysOfWeek);
-                mapTwo.put("0_key", dayEntry);
+
+            if(mapOne.isEmpty() &&
+               mapTwo.isEmpty() &&
+               mapThree.isEmpty() &&
+               mapFour.isEmpty() &&
+               mapFive.isEmpty() &&
+               mapSix.isEmpty() &&
+               mapSeven.isEmpty()
+               ){
+                Log.i("info", "Map one added: " + daysOfWeek);
+                mapOne.put("0_key", dayEntry);
+            } else if(!mapOne.isEmpty() &&
+                    mapTwo.isEmpty() &&
+                    mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
+                    Log.i("info", "Map two added: " + daysOfWeek);
+                    mapTwo.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
+                    Log.i("info", "Map three added: " + daysOfWeek);
+                    mapThree.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0))){
+                    Log.i("info", "Map four added: " + daysOfWeek);
+                    mapFour.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0))){
+                    Log.i("info", "Map five added: " + daysOfWeek);
+                    mapFive.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    !mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFive.get("0_key").get(0))){
+                    Log.i("info", "Map six added: " + daysOfWeek);
+                    mapSix.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    !mapFive.isEmpty() &&
+                    !mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFive.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapSix.get("0_key").get(0))){
+                    Log.i("info", "Map seven added: " + daysOfWeek);
+                    mapSeven.put("0_key", dayEntry);
+                }
             }
-        } else if(!mapOne.isEmpty() &&
-                !mapTwo.isEmpty() &&
-                mapThree.isEmpty() &&
-                mapFour.isEmpty() &&
-                mapFive.isEmpty() &&
-                mapSix.isEmpty() &&
-                mapSeven.isEmpty()
-                ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
-                Log.i("info", "Map three added: " + daysOfWeek);
-                mapThree.put("0_key", dayEntry);
             }
-        } else if(!mapOne.isEmpty() &&
-                !mapTwo.isEmpty() &&
-                !mapThree.isEmpty() &&
-                mapFour.isEmpty() &&
-                mapFive.isEmpty() &&
-                mapSix.isEmpty() &&
-                mapSeven.isEmpty()
-                ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0_key").get(0))){
-                Log.i("info", "Map four added: " + daysOfWeek);
-                mapFour.put("0_key", dayEntry);
-            }
-        } else if(!mapOne.isEmpty() &&
-                !mapTwo.isEmpty() &&
-                !mapThree.isEmpty() &&
-                !mapFour.isEmpty() &&
-                mapFive.isEmpty() &&
-                mapSix.isEmpty() &&
-                mapSeven.isEmpty()
-                ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0_key").get(0))){
-                Log.i("info", "Map five added: " + daysOfWeek);
-                mapFive.put("0_key", dayEntry);
-            }
-        } else if(!mapOne.isEmpty() &&
-                !mapTwo.isEmpty() &&
-                !mapThree.isEmpty() &&
-                !mapFour.isEmpty() &&
-                !mapFive.isEmpty() &&
-                mapSix.isEmpty() &&
-                mapSeven.isEmpty()
-                ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapFive.get("0_key").get(0))){
-                Log.i("info", "Map six added: " + daysOfWeek);
-                mapSix.put("0_key", dayEntry);
-            }
-        } else if(!mapOne.isEmpty() &&
-                !mapTwo.isEmpty() &&
-                !mapThree.isEmpty() &&
-                !mapFour.isEmpty() &&
-                !mapFive.isEmpty() &&
-                !mapSix.isEmpty() &&
-                mapSeven.isEmpty()
-                ){
-            if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapFive.get("0_key").get(0)) &&
-                    !daysOfWeek.equals(mapSix.get("0_key").get(0))){
-                Log.i("info", "Map seven added: " + daysOfWeek);
-                mapSeven.put("0_key", dayEntry);
-            }
-        }
 
         setMapValue(daysOfWeek, exName, setSchemeValue);
 

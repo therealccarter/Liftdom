@@ -244,6 +244,7 @@ public class SelectedTemplateFrag extends Fragment {
                                     }
                                 });
 
+                                //TODO: Just go back to the saved templates page
                                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                                 intent.putExtra("fragID", 0);
                                 startActivity(intent);

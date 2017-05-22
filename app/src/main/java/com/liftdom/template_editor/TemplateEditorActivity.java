@@ -38,6 +38,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TemplateEditorActivity extends AppCompatActivity
         implements DayOfWeekChildFrag.onDaySelectedListener,
@@ -318,7 +319,14 @@ public class TemplateEditorActivity extends AppCompatActivity
                         TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
                         if(templateClass.getIsAlgorithm()){
-
+                            if(templateClass.getIsAlgoApplyToAll()){
+                                TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                                List<String> tempAlgoInfoList2 = new ArrayList<>();
+                                tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                                EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                            }else{
+                                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                            }
                         }
 
                         FragmentManager fragmentManager = getFragmentManager();
@@ -333,7 +341,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW1.map = templateClass.getMapOne();
                             doW1.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapTwo() != null){
                             ++fragIdCount;
@@ -344,7 +351,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW2.map = templateClass.getMapTwo();
                             doW2.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapThree() != null){
                             ++fragIdCount;
@@ -355,7 +361,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW3.map = templateClass.getMapThree();
                             doW3.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapFour() != null){
                             ++fragIdCount;
@@ -366,7 +371,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW4.map = templateClass.getMapFour();
                             doW4.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapFive() != null){
                             ++fragIdCount;
@@ -377,7 +381,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW5.map = templateClass.getMapFive();
                             doW5.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapSix() != null){
                             ++fragIdCount;
@@ -388,7 +391,6 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW6.map = templateClass.getMapSix();
                             doW6.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
                         if(templateClass.getMapSeven() != null){
                             ++fragIdCount;
@@ -399,8 +401,8 @@ public class TemplateEditorActivity extends AppCompatActivity
                             doW7.map = templateClass.getMapSeven();
                             doW7.templateName = templateClass.getTemplateName();
                             fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-                            fragmentTransaction.commitAllowingStateLoss();
                         }
+                        fragmentTransaction.commitAllowingStateLoss();
                     }
 
                     @Override

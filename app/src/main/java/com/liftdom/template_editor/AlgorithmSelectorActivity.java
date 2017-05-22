@@ -79,7 +79,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     List<String> tempList = entry.getValue();
                     if(tempList.get(0).equals(exName)){
 
-                        if(Boolean.valueOf(tempList.get(9))){
+                        if(Boolean.valueOf(tempList.get(8))){
                             setsWeeksEditText.setText(tempList.get(1));
                             setsIncreasedEditText.setText(tempList.get(2));
                             repsWeeksEditText.setText(tempList.get(3));
@@ -93,7 +93,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                             applyAlgoToExs.setChecked(true);
                         }else{
                             if(!day.equals("null")){
-                                if(tempList.get(8).equals(day)){
+                                if(tempList.get(10).equals(day)){
                                     setsWeeksEditText.setText(tempList.get(1));
                                     setsIncreasedEditText.setText(tempList.get(2));
                                     repsWeeksEditText.setText(tempList.get(3));
@@ -145,7 +145,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
                         for (Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()) {
                             List<String> tempList = entry.getValue();
-                            if (tempList.get(0).equals(exName) && tempList.get(8).equals(day)) {
+                            if (tempList.get(0).equals(exName) && tempList.get(10).equals(day)) {
                                 tag = entry.getKey();
                             }
                         }
@@ -200,6 +200,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
                         algoInfoList.add(isLooper);                 //7
+                        tempAlgoInfoList.add(applyToAllExInstance); //8
+                        tempAlgoInfoList.add(applyToAllExs);        //9
 
                         tempAlgoInfoList2.add(exName);               //0
                         tempAlgoInfoList2.add(setsWeeks);            //1
@@ -209,9 +211,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         tempAlgoInfoList2.add(weightWeeks);          //5
                         tempAlgoInfoList2.add(weightIncrease);       //6
                         tempAlgoInfoList2.add(isLooper);             //7
-                        tempAlgoInfoList2.add(day);                  //8
-                        tempAlgoInfoList2.add(applyToAllExInstance); //9
-                        tempAlgoInfoList2.add(applyToAllExs);        //10
+                        tempAlgoInfoList.add(applyToAllExInstance); //8
+                        tempAlgoInfoList.add(applyToAllExs);        //9
+                        tempAlgoInfoList.add(day);                  //10
 
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
@@ -232,6 +234,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
                         algoInfoList.add(isLooper);                 //7
+                        tempAlgoInfoList.add(applyToAllExInstance); //8
+                        tempAlgoInfoList.add(applyToAllExs);        //9
 
                         tempAlgoInfoList.add(exName);               //0
                         tempAlgoInfoList.add(setsWeeks);            //1
@@ -241,9 +245,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         tempAlgoInfoList.add(weightWeeks);          //5
                         tempAlgoInfoList.add(weightIncrease);       //6
                         tempAlgoInfoList.add(isLooper);             //7
-                        tempAlgoInfoList.add(day);                  //8
-                        tempAlgoInfoList.add(applyToAllExInstance); //9
-                        tempAlgoInfoList.add(applyToAllExs);        //10
+                        tempAlgoInfoList.add(applyToAllExInstance); //8
+                        tempAlgoInfoList.add(applyToAllExs);        //9
+                        tempAlgoInfoList.add(day);                  //10
+
 
 
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize() + "_key", 

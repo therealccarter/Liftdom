@@ -94,9 +94,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         ButterKnife.bind(this, view);
 
-        if(isEdit){
+        if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
+            setToGoldFromDoW();
+        }
 
-            exerciseButton.setText(fromEditList.get(0));
+        if(isEdit){
+            exerciseButton.setText(newLineExname(fromEditList.get(0)));
 
             // let's split this bitch up
 

@@ -14,9 +14,9 @@
             android:text="@string/hello_blank_fragment"
             android:textSize="28sp"
             android:id="@+id/doWName"
-            android:textColor="@color/black"
+            android:textColor="@color/liftrGold1"
             android:gravity="center"
-            android:background="@color/liftrGold1"
+            android:background="@color/black"
     />
 
     <LinearLayout
