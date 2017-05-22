@@ -26,16 +26,16 @@ public class TemplateEditorSingleton {
     String mDateCreated;
     String mDescription;
     boolean isAlgoApplyToAll = false;
-    HashMap<String, List<String>> mapOne = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapTwo = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapThree = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapFour = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapFive = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapSix = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> mapSeven = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mapOne = new HashMap<>();
+    HashMap<String, List<String>> mapTwo = new HashMap<>();
+    HashMap<String, List<String>> mapThree = new HashMap<>();
+    HashMap<String, List<String>> mapFour = new HashMap<>();
+    HashMap<String, List<String>> mapFive = new HashMap<>();
+    HashMap<String, List<String>> mapSix = new HashMap<>();
+    HashMap<String, List<String>> mapSeven = new HashMap<>();
     boolean mIsAlgorithm = false;
-    HashMap<String, List<String>> mAlgorithmInfo = new HashMap<String, List<String>>();
-    HashMap<String, List<String>> supersetInfoList = new HashMap<String, List<String>>();
+    HashMap<String, List<String>> mAlgorithmInfo = new HashMap<>();
+    HashMap<String, List<String>> supersetInfoList = new HashMap<>();
 
     public void setValues(String daysOfWeek, String exerciseValue, String setSchemeValue){
         String exName = exNameFormatter(exerciseValue);

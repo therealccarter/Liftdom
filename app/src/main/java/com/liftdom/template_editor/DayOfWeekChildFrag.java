@@ -53,43 +53,27 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     String isSun = null;
 
     Boolean isEdit = false;
-    Boolean toastInvalidator = true;
     Boolean isAdded = false;
-    Boolean isRemoved = false;
     String[] daysArray;
-    String[][] doWArray1;
-    String selectedDaysReference;
     HashMap<String, List<String>> map;
     String templateName;
 
+    ArrayList<ExerciseLevelChildFrag> exLevelFragList = new ArrayList<>();
+
+    onDaySelectedListener mCallback;
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-    // Butterknife
-    @BindView(R.id.M) ToggleButton monToggle;
-    @BindView(R.id.Tu) ToggleButton tuesToggle;
-    @BindView(R.id.W) ToggleButton wedToggle;
-    @BindView(R.id.Th) ToggleButton thurToggle;
-    @BindView(R.id.F) ToggleButton friToggle;
-    @BindView(R.id.Sa) ToggleButton satToggle;
-    @BindView(R.id.Su) ToggleButton sunToggle;
-    @BindView(R.id.addExercise) Button addExercise;
-
-
 
     public DayOfWeekChildFrag() {
         // Required empty public constructor
     }
 
-    onDaySelectedListener mCallback;
-
     public interface onDaySelectedListener{
-        public void daySelectedFromFrag(String doW, String tag);
-        public void dayUnselectedFromFrag(String doW, String tag);
-        public ArrayList<String> getSelectedDaysOtherThan(String tag);
+        void daySelectedFromFrag(String doW, String tag);
+        void dayUnselectedFromFrag(String doW, String tag);
+        ArrayList<String> getSelectedDaysOtherThan(String tag);
     }
-
 
     public void daySelectedToFrag(String doW){
         setGreyChecked(doW);
@@ -98,7 +82,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     public void dayUnselectedToFrag(String doW){
         setGreyUnChecked(doW);
     }
-
 
     public ArrayList<String> getSelectedDays(){
         ArrayList<String> selectedDays = new ArrayList<>();
@@ -130,6 +113,16 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         return selectedDays;
     }
+
+    // Butterknife
+    @BindView(R.id.M) ToggleButton monToggle;
+    @BindView(R.id.Tu) ToggleButton tuesToggle;
+    @BindView(R.id.W) ToggleButton wedToggle;
+    @BindView(R.id.Th) ToggleButton thurToggle;
+    @BindView(R.id.F) ToggleButton friToggle;
+    @BindView(R.id.Sa) ToggleButton satToggle;
+    @BindView(R.id.Su) ToggleButton sunToggle;
+    @BindView(R.id.addExercise) Button addExercise;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -264,6 +257,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                 frag1.fragTag = fragString1;
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+                exLevelFragList.add(frag1);
                 fragmentTransaction.commit();
 
                 CharSequence toastText = "Exercise Added";
@@ -313,6 +307,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             frag1.fragTag = fragString1;
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+            exLevelFragList.add(frag1);
             fragmentTransaction.commit();
         }
         return view;
@@ -323,16 +318,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     @Override
     public void onStart() {
         super.onStart();
-
-
-        // BEGINS BUTTON BAR TOGGLE
-        final ToggleButton monToggle = (ToggleButton) getView().findViewById(R.id.M);
-        final ToggleButton tuesToggle = (ToggleButton) getView().findViewById(R.id.Tu);
-        final ToggleButton wedToggle = (ToggleButton) getView().findViewById(R.id.W);
-        final ToggleButton thurToggle = (ToggleButton) getView().findViewById(R.id.Th);
-        final ToggleButton friToggle = (ToggleButton) getView().findViewById(R.id.F);
-        final ToggleButton satToggle = (ToggleButton) getView().findViewById(R.id.Sa);
-        final ToggleButton sunToggle = (ToggleButton) getView().findViewById(R.id.Su);
 
         if(isAdded){
             for(String day : daysArray){
@@ -378,6 +363,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
                     fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                     if(!getActivity().isFinishing()){
+                        exLevelFragList.add(frag1);
                         fragmentTransaction.commitAllowingStateLoss();
                     }
                     ++fragIdCount1;
@@ -385,6 +371,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             }
         }
 
+    }
+
+    public void setToGold(){
+        for(ExerciseLevelChildFrag childFrag : exLevelFragList){
+            childFrag.setToGoldFromDoW();
+        }
     }
 
     public void removeFrag(String tag){

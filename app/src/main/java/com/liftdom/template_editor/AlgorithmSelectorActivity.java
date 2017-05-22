@@ -71,6 +71,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 if(isLoop){
                     algorithmLooper.setChecked(true);
                 }
+                applyAlgoToAllExs.setChecked(true);
             }
         }else{
             if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()){
@@ -217,12 +218,12 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
+                        intent.putExtra("applyToAll", "yes");
 
                         setResult(4, intent);
 
                         finish();
                     } else{
-
                         algoInfoList.add(exName);                   //0
                         algoInfoList.add(setsWeeks);                //1
                         algoInfoList.add(setsIncrease);             //2

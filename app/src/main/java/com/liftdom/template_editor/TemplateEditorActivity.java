@@ -39,7 +39,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 
-public class TemplateEditorActivity extends AppCompatActivity implements DayOfWeekChildFrag.onDaySelectedListener{
+public class TemplateEditorActivity extends AppCompatActivity
+        implements DayOfWeekChildFrag.onDaySelectedListener,
+        ExerciseLevelChildFrag.setToGoldCallback{
 
     private static final String TAG = "EmailPassword";
 
@@ -47,15 +49,13 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
     private FirebaseAuth mAuth;
     private FirebaseUser mFirebaseUser;
 
-
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     int fragIdCount = 0;
 
-    String activeTemplateName = null;
-    String selectedTemplateDayValue = null;
-    String activeTemplateToday = null;
     String templateNameEdit;
+
+
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -122,6 +122,12 @@ public class TemplateEditorActivity extends AppCompatActivity implements DayOfWe
         }
 
         return selectedDaysAL;
+    }
+
+    public void setToGold(){
+        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+            dayOfWeekChildFrag.setToGold();
+        }
     }
 
     @Override

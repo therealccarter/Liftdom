@@ -67,9 +67,14 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         void removeFrag2(String fragTag);
     }
 
+    public interface setToGoldCallback{
+        void setToGold();
+    }
+
     private doWCallback callback;
     private removeFragCallback removeFragCallback;
     private removeFragCallback2 removeFragCallback2;
+    private setToGoldCallback setToGoldCallback;
 
     ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
 
@@ -188,6 +193,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         });
 
         removeFragCallback = (removeFragCallback) getParentFragment();
+        setToGoldCallback = (setToGoldCallback) getActivity();
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -285,6 +291,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                     extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
                 }
+                if(data.getStringExtra("applyToAll") != null){
+                    if(data.getStringExtra("applyToAll").equals("yes")){
+                        setToGoldCallback.setToGold();
+                    }
+                }
 
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
@@ -293,6 +304,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 }
             }
         }
+    }
+
+    public void setToGoldFromDoW(){
+        extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
     }
 
     @Override
