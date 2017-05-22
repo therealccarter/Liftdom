@@ -4,12 +4,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="com.liftdom.template_housing.TemplateMenuFrag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/grey"
 >
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -19,6 +17,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
                 android:paddingBottom="30dp"
         >
             <View
@@ -32,17 +31,20 @@
 
                 <Button
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:id="@+id/fromScratch"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
                         android:background="@color/confirmgreen"
                         android:text="@string/newTemplateFromScratch"
                         android:textColor="@color/white"
                         android:textSize="26sp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:paddingBottom="7dp"
                         android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                 />
 
                 <View
@@ -54,19 +56,22 @@
                 />
 
                 <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/savedTemplates"
-                        android:layout_margin="10dp"
                         android:background="@color/darkerGrey"
                         android:text="@string/saved_templates"
                         android:textColor="@color/offWhite"
                         android:textAllCaps="false"
-                        android:textSize="24sp"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="40dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="7dp"
                         android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                 />
 
@@ -79,36 +84,42 @@
                 />
 
                 <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/userMadeTemplates"
-                        android:layout_margin="10dp"
-                        android:background="@color/darkerGrey"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/backgroundgrey1"
                         android:text="@string/userMadeTemplates"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="40dp"
                         android:textColor="@color/offWhite"
                         android:textAllCaps="false"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:paddingStart="10dp"
+                        android:paddingStart="30dp"
                         android:paddingEnd="7dp"
                         android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                 />
 
 
                 <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/premadeTemplates"
-                        android:layout_margin="10dp"
-                        android:background="@color/darkerGrey"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/backgroundgrey1"
                         android:text="@string/premade_templates"
                         android:textColor="@color/offWhite"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="40dp"
                         android:textAllCaps="false"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:paddingStart="10dp"
+                        android:paddingStart="30dp"
                         android:paddingEnd="7dp"
                         android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                 />
@@ -119,45 +130,52 @@
                     android:background="@color/black"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
             />
 
-            <LinearLayout
+            <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
             >
-                <TextView
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/quoteBody"
-                        android:text="Test text"
-                        android:textColor="@color/white"
-                        android:background="@color/darkerGrey"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="40dp"
-                        android:padding="10dp"
-                        android:gravity="center"
-                        android:textSize="17sp"
-                />
+                        android:orientation="vertical"
+                        android:background="@color/offWhite"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                >
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/quoteBody"
+                            android:text="Test text"
+                            android:textColor="@color/white"
+                            android:background="@color/darkerGrey"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:textSize="17sp"
+                            android:layout_marginTop="15dp"
+                    />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/quoteAuthor"
-                        android:background="@color/darkerGrey"
-                        android:textColor="@color/liftrGold1"
-                        android:text="Example name"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:padding="10dp"
-                        android:layout_gravity="end"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="10dp"
-                />
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/quoteAuthor"
+                            android:background="@color/darkerGrey"
+                            android:textColor="@color/liftrGold1"
+                            android:text="Example name"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:padding="10dp"
+                            android:layout_gravity="end"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="15dp"
+                    />
 
-            </LinearLayout>
-
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

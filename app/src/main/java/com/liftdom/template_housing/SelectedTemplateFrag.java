@@ -130,25 +130,18 @@ public class SelectedTemplateFrag extends Fragment {
                     for(HashMap<String, List<String>> map : mapList){
                         if(containsDay("Monday", map.get("0_key").get(0))){
                             sortedMapList[0] = map;
-                            break;
                         } else if(containsDay("Tuesday", map.get("0_key").get(0))){
                             sortedMapList[1] = map;
-                            break;
                         } else if(containsDay("Wednesday", map.get("0_key").get(0))){
                             sortedMapList[2] = map;
-                            break;
                         } else if(containsDay("Thursday", map.get("0_key").get(0))){
                             sortedMapList[3] = map;
-                            break;
                         } else if(containsDay("Friday", map.get("0_key").get(0))){
                             sortedMapList[4] = map;
-                            break;
                         } else if(containsDay("Saturday", map.get("0_key").get(0))){
                             sortedMapList[5] = map;
-                            break;
                         } else if(containsDay("Sunday", map.get("0_key").get(0))){
                             sortedMapList[6] = map;
-                            break;
                         }
                     }
 

@@ -337,9 +337,9 @@
     <!-- TEMPLATE LANDER TEXT -->
     <string name="new_template">New Template</string>
     <string name="newTemplateFromScratch">(+) New Template</string>
-    <string name="premade_templates">Pre-made Templates</string>
+    <string name="premade_templates">Pre-made</string>
     <string name="saved_templates">Saved Templates</string>
-    <string name="userMadeTemplates">User-made Templates</string>
+    <string name="userMadeTemplates">User-made</string>
 
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>
