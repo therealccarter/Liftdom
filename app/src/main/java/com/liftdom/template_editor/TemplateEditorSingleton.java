@@ -310,6 +310,11 @@ public class TemplateEditorSingleton {
         }
     }
 
+    /**
+     * So, everything works until we get multiple exercises on the same day.
+     *
+     */
+
     private void setMapValue(String days, String exName, String setScheme){
         if(mapOne.get("0_key").contains(days)){
             int inc = mapOne.size();
