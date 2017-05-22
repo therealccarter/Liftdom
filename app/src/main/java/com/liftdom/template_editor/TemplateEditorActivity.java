@@ -574,38 +574,86 @@ public class TemplateEditorActivity extends AppCompatActivity
         });
 
         onSave.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+            public void onClick(final View v) {
 
-                boolean checkBool = activeTemplateCheckbox.isChecked();
-                //boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
-                boolean isPublic = makePublicCheckbox.isChecked();
-                String descriptionString = templateDescriptionEdit.getText().toString();
-                TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+                boolean hasEmptyDays = false;
 
-                //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
-
-
-                if(getIntent().getExtras().getString("isEdit") != null) {
-                    if(getIntent().getExtras().getString("isEdit").equals("yes")) {
-                        String templateName = getIntent().getExtras().getString("templateName");
-                        intent.putExtra("isEdit", "yes");
-                        intent.putExtra("templateName", templateName);
-                        intent.putExtra("isActiveTemplate", checkBool);
-                        //intent.putExtra("isAlgorithm", algBool);
-                        intent.putExtra("isPublic", isPublic);
-                        startActivity(intent);
-                    }
-                }else{
-                    intent.putExtra("isEdit", "no");
-                    intent.putExtra("isActiveTemplate", checkBool);
-                    //intent.putExtra("isAlgorithm", algBool);
-                    intent.putExtra("isPublic", isPublic);
-                    intent.putExtra("description", descriptionString);
-                    startActivity(intent);
+                if(doW1 != null && doW1.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW2 != null && doW2.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW3 != null && doW3.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW4 != null && doW4.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW5 != null && doW5.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW6 != null && doW6.getDoW().equals("")){
+                    hasEmptyDays = true;
+                }if(doW7 != null && doW7.getDoW().equals("")){
+                    hasEmptyDays = true;
                 }
 
-                EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;
+                if(hasEmptyDays){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TemplateEditorActivity.this);
+                    // set title
+                    builder.setTitle("Error");
+                    // set dialog message
+                    builder
+                            .setMessage("One or more day-sets do not have selected days. Their contents will not be " +
+                                    "saved!")
+                            .setCancelable(false)
+                            .setPositiveButton("Save anyway",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+
+                                    Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+
+                                    boolean checkBool = activeTemplateCheckbox.isChecked();
+                                    //boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
+                                    boolean isPublic = makePublicCheckbox.isChecked();
+                                    String descriptionString = templateDescriptionEdit.getText().toString();
+                                    TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+
+                                    //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
+
+
+                                    if(getIntent().getExtras().getString("isEdit") != null) {
+                                        if(getIntent().getExtras().getString("isEdit").equals("yes")) {
+                                            String templateName = getIntent().getExtras().getString("templateName");
+                                            intent.putExtra("isEdit", "yes");
+                                            intent.putExtra("templateName", templateName);
+                                            intent.putExtra("isActiveTemplate", checkBool);
+                                            //intent.putExtra("isAlgorithm", algBool);
+                                            intent.putExtra("isPublic", isPublic);
+                                            startActivity(intent);
+                                        }
+                                    }else{
+                                        intent.putExtra("isEdit", "no");
+                                        intent.putExtra("isActiveTemplate", checkBool);
+                                        //intent.putExtra("isAlgorithm", algBool);
+                                        intent.putExtra("isPublic", isPublic);
+                                        intent.putExtra("description", descriptionString);
+                                        startActivity(intent);
+                                    }
+
+                                    EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;
+
+                                }
+                            })
+                            .setNegativeButton("Continue editing",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, just close
+                                    // the dialog box and do nothing
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+
+                    // show it
+                    alertDialog.show();
+                }
             }
         });
 
