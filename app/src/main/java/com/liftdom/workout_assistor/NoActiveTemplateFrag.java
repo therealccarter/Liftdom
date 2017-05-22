@@ -1,7 +1,6 @@
 package com.liftdom.workout_assistor;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.template_housing.TemplateMenuFrag;
 
 /**

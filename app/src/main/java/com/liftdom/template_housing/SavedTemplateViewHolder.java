@@ -64,6 +64,8 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
         mTimeStampView.setText(formattedLocalDate);
     }
 
+    //TODO: Active template checking here and in SelectedTemplateFrag
+
     public void setDaysView(String days){
         String daysFormatted = "";
         String delims = "[_]";

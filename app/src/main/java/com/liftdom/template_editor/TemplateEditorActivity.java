@@ -25,7 +25,6 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.settings.SettingsListActivity;
-import com.liftdom.template_housing.TemplateHousingActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;

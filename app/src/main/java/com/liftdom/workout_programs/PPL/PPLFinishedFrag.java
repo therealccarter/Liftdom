@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_housing.TemplateHousingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
