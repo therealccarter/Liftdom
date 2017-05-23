@@ -318,6 +318,24 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         super.onPause();
 
         if(EditTemplateAssemblerClass.getInstance().isOnSaveClick){
+
+            List<String> infoList = new ArrayList<>();
+            if(!getExerciseValueFormatted().equals("Click to select exercise")){
+                infoList.add(getExerciseValueFormatted());
+
+                for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                    infoList.add(setsLevelChildFrag.getSetSchemeString());
+                }
+
+                for(SuperSetExFrag superSetExFrag : superSetFragList){
+                    if(!superSetExFrag.getSupersetInfoList().isEmpty()){
+                        infoList.addAll(superSetExFrag.getSupersetInfoList());
+                    }
+                }
+
+                TemplateEditorSingleton.getInstance().setValues2(getDoW1(), infoList);
+            }
+
             if(!algorithmList.isEmpty()){
                 algorithmList.add(getDoWValue());
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
@@ -333,17 +351,17 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
             }
-            if(hasSupersets){
-                List<String> supersetInfoList = new ArrayList<>();
-                for(SuperSetExFrag exFrag : superSetFragList){
-                    supersetInfoList.addAll(exFrag.getExInfo());
-                }
-                String exName = getExerciseValueFormatted();
-                String days = getDoWValue();
-                String cat = days + "+" + exName;
-
-                TemplateEditorSingleton.getInstance().supersetInfoList.put(cat, supersetInfoList);
-            }
+            //if(hasSupersets){
+            //    List<String> supersetInfoList = new ArrayList<>();
+            //    for(SuperSetExFrag exFrag : superSetFragList){
+            //        supersetInfoList.addAll(exFrag.getExInfo());
+            //    }
+            //    String exName = getExerciseValueFormatted();
+            //    String days = getDoWValue();
+            //    String cat = days + "+" + exName;
+//
+            //    TemplateEditorSingleton.getInstance().supersetInfoList.put(cat, supersetInfoList);
+            //}
         }
     }
 

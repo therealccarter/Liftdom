@@ -130,6 +130,20 @@ public class SuperSetExFrag extends android.app.Fragment {
         }
     }
 
+    public List<String> getSupersetInfoList(){
+        List<String> infoList = new ArrayList<>();
+        if(!getExerciseValueFormatted().equals("Click to select exercise")){
+            infoList.add(getExerciseValueFormatted());
+
+            for(SetsLevelSSFrag setsLevelSSFrag : setSchemeList){
+                infoList.add(setsLevelSSFrag.getInfoList());
+            }
+        }
+
+        return infoList;
+    }
+
+
     public String newLineExname(String exerciseName){
         String newExNameString = "null";
         if(exerciseName.length() > 21){
@@ -176,34 +190,4 @@ public class SuperSetExFrag extends android.app.Fragment {
         return spinnerText.replaceAll("\n", "");
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
-
-            final String parentEx = getParentExCallback.getParentEx1();
-            final String doW = getParentDoWCallback.getDoW1();
-
-            //if(!parentEx.equals("Click to select exercise")){
-            //    if (!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
-            //        if (!TemplateEditorSingleton.getInstance().isAlgoApplyToAll) {
-            //            List<String> tempList = new ArrayList<>();
-            //            HashMap<String, List<String>> map = TemplateEditorSingleton
-            //                    .getInstance().mAlgorithmInfo;
-            //            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-            //                List<String> list = entry.getValue();
-            //                if (list.get(0).equals(parentEx) && list.get(8).equals(doW)) {
-            //                    tempList = list;
-            //                }
-            //            }
-            //            if(!tempList.isEmpty()){
-            //                TemplateEditorSingleton.getInstance().mAlgorithmInfo.put(TemplateEditorSingleton
-            //                        .getInstance().mAlgorithmInfo.size() + "_key", tempList);
-            //            }
-            //        }
-            //    }
-            //}
-        }
-    }
 }

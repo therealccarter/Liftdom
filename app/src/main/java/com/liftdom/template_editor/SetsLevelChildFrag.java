@@ -66,22 +66,29 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         String delims = "[x,@]";
 
         if(isEdit){
-            String[] setSchemesEachArray = setSchemeEdited.split(delims);
 
-            // sets
-            String setsWithSpaces = setSchemesEachArray[0];
-            String setsWithoutSpaces = setsWithSpaces.replaceAll("\\s+","");
-            //int setsInt = Integer.parseInt(setsWithoutSpaces);
-            setsEditText.setText(setsWithoutSpaces);
+            if(setSchemeEdited.equals("")){
+                setsEditText.setText("");
+                repsEditText.setText("");
+                weightEditText.setText("");
+            }else{
+                String[] setSchemesEachArray = setSchemeEdited.split(delims);
 
-            // reps
-            String repsWithSpaces = setSchemesEachArray[1];
-            String repsWithout = repsWithSpaces.replaceAll("\\s+","");
-            repsEditText.setText(repsWithout);
+                // sets
+                String setsWithSpaces = setSchemesEachArray[0];
+                String setsWithoutSpaces = setsWithSpaces.replaceAll("\\s+","");
+                //int setsInt = Integer.parseInt(setsWithoutSpaces);
+                setsEditText.setText(setsWithoutSpaces);
 
-            String weightWithSpaces = setSchemesEachArray[2];
-            String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
-            weightEditText.setText(weightWithoutSpaces);
+                // reps
+                String repsWithSpaces = setSchemesEachArray[1];
+                String repsWithout = repsWithSpaces.replaceAll("\\s+","");
+                repsEditText.setText(repsWithout);
+
+                String weightWithSpaces = setSchemesEachArray[2];
+                String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+                weightEditText.setText(weightWithoutSpaces);
+            }
 
         }
 
@@ -151,27 +158,40 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     public void onPause(){
         super.onPause();
 
-        if(!callback.getExerciseValueFormatted().equals("Click to add exercise") && EditTemplateAssemblerClass.getInstance()
-                .isOnSaveClick) {
-            String parentSpinnerValue = callback.getExerciseValueFormatted();
-            String doWSelected = callback.getDoWValue();
-            //Boolean isChecked = callback.getCheckBoxValue();
+        //if(!callback.getExerciseValueFormatted().equals("Click to add exercise") && EditTemplateAssemblerClass
+        //        .getInstance()
+        //        .isOnSaveClick) {
+        //    String parentSpinnerValue = callback.getExerciseValueFormatted();
+        //    String doWSelected = callback.getDoWValue();
+        //    //Boolean isChecked = callback.getCheckBoxValue();
+//
+        //    String setsString = setsEditText.getText().toString();
+        //    String repsString = repsEditText.getText().toString();
+        //    String weightString = weightEditText.getText().toString();
+//
+        //    String value = null;
+//
+        //    if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
+        //        value = setsString + "x" + repsString + "@" +
+        //                weightString;
+        //    }
+//
+        //    if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
+        //        TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
+        //    }
+        //}
+    }
 
-            String setsString = setsEditText.getText().toString();
-            String repsString = repsEditText.getText().toString();
-            String weightString = weightEditText.getText().toString();
-
-            String value = null;
-
-            if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-                value = setsString + "x" + repsString + "@" +
-                        weightString;
-            }
-
-            if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
-                TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
-            }
+    public String getSetSchemeString(){
+        String setSchemeString = "";
+        String setsString = setsEditText.getText().toString();
+        String repsString = repsEditText.getText().toString();
+        String weightString = weightEditText.getText().toString();
+        if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
+            setSchemeString = setsString + "x" + repsString + "@" +
+                    weightString;
         }
+        return setSchemeString;
     }
 
     boolean isNumber(String input){

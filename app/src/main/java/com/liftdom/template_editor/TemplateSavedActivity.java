@@ -231,11 +231,16 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
         if(mSaved == null && getIntent().getExtras().getBoolean("isFromEditor")) {
 
-            TemplateEditorSingleton.getInstance().setValuesForSuperset();
+            //TemplateEditorSingleton.getInstance().setValuesForSuperset();
 
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
             checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
+
+            if(checkBool){
+                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                activeTemplateRef.setValue(templateName);
+            }
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 

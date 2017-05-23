@@ -37,7 +37,7 @@ public class TemplateEditorSingleton {
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<>();
     HashMap<String, List<String>> supersetInfoList = new HashMap<>();
 
-    public void setValues(String daysOfWeek, String exerciseValue, String setSchemeValue){
+    public void setValues1(String daysOfWeek, String exerciseValue, String setSchemeValue){
         String exName = exNameFormatter(exerciseValue);
         List<String> dayEntry = new ArrayList<>();
         dayEntry.add(daysOfWeek);
@@ -151,7 +151,142 @@ public class TemplateEditorSingleton {
             }
             }
 
-        setMapValue(daysOfWeek, exName, setSchemeValue);
+        setMapValue1(daysOfWeek, exName, setSchemeValue);
+    }
+
+    public void setValues2(String daysOfWeek, List<String> infoList){
+        List<String> dayEntry = new ArrayList<>();
+        dayEntry.add(daysOfWeek);
+
+        if(mapOne != null &&
+                mapTwo != null &&
+                mapThree != null &&
+                mapFour != null &&
+                mapFive != null &&
+                mapSix != null &&
+                mapSeven != null
+                ){
+
+            if(mapOne.isEmpty() &&
+                    mapTwo.isEmpty() &&
+                    mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                Log.i("info", "Map one added: " + daysOfWeek);
+                mapOne.put("0_key", dayEntry);
+            } else if(!mapOne.isEmpty() &&
+                    mapTwo.isEmpty() &&
+                    mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
+                    Log.i("info", "Map two added: " + daysOfWeek);
+                    mapTwo.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
+                    Log.i("info", "Map three added: " + daysOfWeek);
+                    mapThree.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0))){
+                    Log.i("info", "Map four added: " + daysOfWeek);
+                    mapFour.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0))){
+                    Log.i("info", "Map five added: " + daysOfWeek);
+                    mapFive.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    !mapFive.isEmpty() &&
+                    mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFive.get("0_key").get(0))){
+                    Log.i("info", "Map six added: " + daysOfWeek);
+                    mapSix.put("0_key", dayEntry);
+                }
+            } else if(!mapOne.isEmpty() &&
+                    !mapTwo.isEmpty() &&
+                    !mapThree.isEmpty() &&
+                    !mapFour.isEmpty() &&
+                    !mapFive.isEmpty() &&
+                    !mapSix.isEmpty() &&
+                    mapSeven.isEmpty()
+                    ){
+                if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapFive.get("0_key").get(0)) &&
+                        !daysOfWeek.equals(mapSix.get("0_key").get(0))){
+                    Log.i("info", "Map seven added: " + daysOfWeek);
+                    mapSeven.put("0_key", dayEntry);
+                }
+            }
+        }
+
+        setMapValues(daysOfWeek, infoList);
+    }
+
+    public void setMapValues(String days, List<String> infoList){
+
+        if(mapOne.get("0_key").contains(days)){
+            mapOne.put(String.valueOf(mapOne.size()) + "_key", infoList);
+        }else if(mapTwo.get("0_key").contains(days)){
+            mapTwo.put(String.valueOf(mapTwo.size()) + "_key", infoList);
+        }else if(mapThree.get("0_key").contains(days)){
+            mapThree.put(String.valueOf(mapThree.size()) + "_key", infoList);
+        }else if(mapFour.get("0_key").contains(days)){
+            mapFour.put(String.valueOf(mapFour.size()) + "_key", infoList);
+        }else if(mapFive.get("0_key").contains(days)){
+            mapFive.put(String.valueOf(mapFive.size()) + "_key", infoList);
+        }else if(mapSix.get("0_key").contains(days)){
+            mapSix.put(String.valueOf(mapSix.size()) + "_key", infoList);
+        }else if(mapSeven.get("0_key").contains(days)){
+            mapSeven.put(String.valueOf(mapSeven.size()) + "_key", infoList);
+        }
 
     }
 
@@ -315,7 +450,7 @@ public class TemplateEditorSingleton {
      *
      */
 
-    private void setMapValue(String days, String exName, String setScheme){
+    private void setMapValue1(String days, String exName, String setScheme){
         if(mapOne.get("0_key").contains(days)){
             int inc = mapOne.size();
 

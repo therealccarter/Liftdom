@@ -577,19 +577,19 @@ public class TemplateEditorActivity extends AppCompatActivity
 
                 boolean hasEmptyDays = false;
 
-                if(doW1 != null && doW1.getDoW().equals("")){
+                if(doW1.getView() != null && doW1.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW2 != null && doW2.getDoW().equals("")){
+                }if(doW2.getView() != null && doW2.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW3 != null && doW3.getDoW().equals("")){
+                }if(doW3.getView() != null && doW3.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW4 != null && doW4.getDoW().equals("")){
+                }if(doW4.getView() != null && doW4.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW5 != null && doW5.getDoW().equals("")){
+                }if(doW5.getView() != null && doW5.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW6 != null && doW6.getDoW().equals("")){
+                }if(doW6.getView() != null && doW6.getDoW().equals("")){
                     hasEmptyDays = true;
-                }if(doW7 != null && doW7.getDoW().equals("")){
+                }if(doW7.getView() != null && doW7.getDoW().equals("")){
                     hasEmptyDays = true;
                 }
 
@@ -652,6 +652,38 @@ public class TemplateEditorActivity extends AppCompatActivity
 
                     // show it
                     alertDialog.show();
+                }else{
+                    Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+
+                    boolean checkBool = activeTemplateCheckbox.isChecked();
+                    //boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
+                    boolean isPublic = makePublicCheckbox.isChecked();
+                    String descriptionString = templateDescriptionEdit.getText().toString();
+                    TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+
+                    //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
+
+
+                    if(getIntent().getExtras().getString("isEdit") != null) {
+                        if(getIntent().getExtras().getString("isEdit").equals("yes")) {
+                            String templateName = getIntent().getExtras().getString("templateName");
+                            intent.putExtra("isEdit", "yes");
+                            intent.putExtra("templateName", templateName);
+                            intent.putExtra("isActiveTemplate", checkBool);
+                            //intent.putExtra("isAlgorithm", algBool);
+                            intent.putExtra("isPublic", isPublic);
+                            startActivity(intent);
+                        }
+                    }else{
+                        intent.putExtra("isEdit", "no");
+                        intent.putExtra("isActiveTemplate", checkBool);
+                        //intent.putExtra("isAlgorithm", algBool);
+                        intent.putExtra("isPublic", isPublic);
+                        intent.putExtra("description", descriptionString);
+                        startActivity(intent);
+                    }
+
+                    EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;
                 }
             }
         });
