@@ -154,34 +154,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         }
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-
-        //if(!callback.getExerciseValueFormatted().equals("Click to add exercise") && EditTemplateAssemblerClass
-        //        .getInstance()
-        //        .isOnSaveClick) {
-        //    String parentSpinnerValue = callback.getExerciseValueFormatted();
-        //    String doWSelected = callback.getDoWValue();
-        //    //Boolean isChecked = callback.getCheckBoxValue();
-//
-        //    String setsString = setsEditText.getText().toString();
-        //    String repsString = repsEditText.getText().toString();
-        //    String weightString = weightEditText.getText().toString();
-//
-        //    String value = null;
-//
-        //    if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-        //        value = setsString + "x" + repsString + "@" +
-        //                weightString;
-        //    }
-//
-        //    if (value != null && EditTemplateAssemblerClass.getInstance().isOnSaveClick) {
-        //        TemplateEditorSingleton.getInstance().setValues(doWSelected, parentSpinnerValue, value);
-        //    }
-        //}
-    }
-
     public String getSetSchemeString(){
         String setSchemeString = "";
         String setsString = setsEditText.getText().toString();

@@ -656,13 +656,9 @@ public class TemplateEditorActivity extends AppCompatActivity
                     Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
 
                     boolean checkBool = activeTemplateCheckbox.isChecked();
-                    //boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
                     boolean isPublic = makePublicCheckbox.isChecked();
                     String descriptionString = templateDescriptionEdit.getText().toString();
                     TemplateEditorSingleton.getInstance().mDescription = descriptionString;
-
-                    //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
-
 
                     if(getIntent().getExtras().getString("isEdit") != null) {
                         if(getIntent().getExtras().getString("isEdit").equals("yes")) {
@@ -757,10 +753,7 @@ public class TemplateEditorActivity extends AppCompatActivity
 
                         TemplateEditorSingleton.getInstance().clearAll();
                         EditTemplateAssemblerClass.getInstance().clearAll();
-                        //Intent intent = new Intent(TemplateEditorActivity.this, TemplateHousingActivity.class);
-                        //startActivity(intent);
 
-                        //TemplateEditorActivity.super.onBackPressed();
                         finish();
                     }
                 })

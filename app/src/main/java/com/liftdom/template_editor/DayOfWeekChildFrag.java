@@ -252,8 +252,6 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                 ++fragIdCount1;
                 String fragString1 = Integer.toString(fragIdCount1);
                 ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
-                //Bundle fragTagBundle = new Bundle();
-                //fragTagBundle.putString("fragTag", fragString1);
                 frag1.fragTag = fragString1;
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);

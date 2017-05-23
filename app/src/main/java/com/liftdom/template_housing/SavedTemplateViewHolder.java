@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -44,6 +47,23 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+            }
+        });
+
+        DatabaseReference activeTemplateRef = FirebaseDatabase.getInstance().getReference().child("users").child
+                (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("active_template");
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String activeTemplateString = dataSnapshot.getValue(String.class);
+                if(mTemplateNameView.getText().toString().equals(activeTemplateString)){
+                    mTemplateNameView.setTextColor(Color.parseColor("#D1B91D"));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
