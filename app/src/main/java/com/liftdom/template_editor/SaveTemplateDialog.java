@@ -47,6 +47,8 @@ public class SaveTemplateDialog extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        final String userName = mFirebaseUser.getDisplayName();
+
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 
         if(getIntent().getExtras().getString("isEdit").equals("yes")){
@@ -56,12 +58,12 @@ public class SaveTemplateDialog extends AppCompatActivity {
             //descriptionString = getIntent().getExtras().getString("description");
         }else{
             isPublic = getIntent().getBooleanExtra("isPublic", false);
+            TemplateEditorSingleton.getInstance().mUserId = uid;
+            TemplateEditorSingleton.getInstance().mUserName = userName;
         }
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
-
-        final String userName = mFirebaseUser.getDisplayName();
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,15 +85,14 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     intent.putExtra("key1", templateName.getText().toString());
                     intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
                     intent.putExtra("isFromEditor", true);
-                    intent.putExtra("isEdit", isEdit );
+                    intent.putExtra("isEdit", isEdit);
                     //intent.putExtra("isAlgorithm", algBool);
 
                     TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
                     TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
                     //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
                     TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
-                    TemplateEditorSingleton.getInstance().mUserId = uid;
-                    TemplateEditorSingleton.getInstance().mUserName = userName;
+
                     startActivity(intent);
 
                 }else{

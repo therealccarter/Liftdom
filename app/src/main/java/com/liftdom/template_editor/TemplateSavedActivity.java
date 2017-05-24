@@ -60,6 +60,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
     String templateName;
     Boolean checkBool;
+    boolean isEdit = false;
     //Boolean algBool;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -236,6 +237,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
         if(mSaved == null && getIntent().getExtras().getBoolean("isFromEditor")) {
 
+            if(getIntent().getExtras().getString("isEdit") != null){
+                if(getIntent().getExtras().getString("isEdit").equals("yes")){
+                    isEdit = true;
+                }
+            }
+
             Intent intent = getIntent();
             templateName = intent.getStringExtra("key1");
             checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
@@ -247,9 +254,12 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
 
+
             String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
             String xUserId = TemplateEditorSingleton.getInstance().mUserId;
             String xUserName= TemplateEditorSingleton.getInstance().mUserName;
+            String xUserId2 = TemplateEditorSingleton.getInstance().mUserId2;
+            String xUserName2 = TemplateEditorSingleton.getInstance().mUserName2;
             boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
             String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
             String xDescription = TemplateEditorSingleton.getInstance().mDescription;
@@ -278,7 +288,8 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             String xDays = getDays(xMapOne, xMapTwo, xMapThree, xMapFour, xMapFive, xMapSix, xMapSeven);
 
-            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName, xIsPublic,
+            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
+                                                xUserId2, xUserName2, xIsPublic,
                                                 xDateCreated, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo);

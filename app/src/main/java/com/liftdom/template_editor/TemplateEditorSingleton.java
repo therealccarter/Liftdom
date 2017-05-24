@@ -22,6 +22,8 @@ public class TemplateEditorSingleton {
     String mTemplateName;
     String mUserId;
     String mUserName;
+    String mUserId2;
+    String mUserName2;
     boolean mIsPublic = false;
     String mDateCreated;
     String mDescription;

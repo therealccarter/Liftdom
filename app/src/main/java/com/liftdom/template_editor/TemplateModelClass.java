@@ -13,6 +13,8 @@ public class TemplateModelClass {
     private String mDays;
     private String mUserId;
     private String mUserName;
+    private String mUserId2;
+    private String mUserName2;
     private boolean mIsPublic;
     private String mDateCreated;
     private String mDescription;
@@ -31,7 +33,8 @@ public class TemplateModelClass {
         //necessary for Firebase
     }
 
-    public TemplateModelClass(String templateName, String days, String userId, String userName, boolean isPublic,
+    public TemplateModelClass(String templateName, String days, String userId, String userName,
+                              String userId2, String userName2, boolean isPublic,
                               String dateCreated, String description,
                               HashMap<String, List<String>> mapOne,
                               HashMap<String, List<String>> mapTwo,
@@ -47,6 +50,8 @@ public class TemplateModelClass {
         mDays = days;
         mUserId = userId;
         mUserName = userName;
+        mUserId2 = userId2;
+        mUserName2 = userName2;
         mDescription = description;
         mIsPublic = isPublic;
         mDateCreated = dateCreated;
@@ -108,6 +113,22 @@ public class TemplateModelClass {
 
     public void setUserName(String userName) {
         mUserName = userName;
+    }
+
+    public String getUserId2() {
+        return mUserId2;
+    }
+
+    public void setUserId2(String userId2) {
+        mUserId2 = userId2;
+    }
+
+    public String getUserName2() {
+        return mUserName2;
+    }
+
+    public void setUserName2(String userName2) {
+        mUserName2 = userName2;
     }
 
     public boolean isPublic() {

@@ -185,7 +185,7 @@ public class TemplateEditorActivity extends AppCompatActivity
         };
         // [END auth_state_listener]
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         String email = user.getEmail();
 
         // Handle Toolbar
@@ -325,6 +325,14 @@ public class TemplateEditorActivity extends AppCompatActivity
                             }else{
                                 EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
                             }
+                        }
+
+                        if(!templateClass.getUserId().equals(uid)){
+                            // if editing someone else's template
+                            TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
+                            TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
+                            TemplateEditorSingleton.getInstance().mUserId2 = uid;
+                            TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
                         }
 
                         FragmentManager fragmentManager = getFragmentManager();
