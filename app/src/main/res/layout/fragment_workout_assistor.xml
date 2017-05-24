@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="wrap_content"
               android:orientation="vertical"
               tools:context="com.liftdom.workout_assistor.WorkoutAssistorFrag">
 
@@ -10,7 +11,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
     >
 
         <LinearLayout
@@ -19,19 +20,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
         >
-            <TextView
+            <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/currentTemplateView"
                     android:text="@string/elipses"
                     android:textSize="35sp"
-                    android:layout_gravity="end"
                     android:background="@color/liftrGold1"
                     android:textColor="@color/black"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="15dp"
-                    android:layout_marginStart="70dp"
-                    android:id="@+id/currentTemplateView"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:layout_marginTop="5dp"
+                    android:textAllCaps="false"
+                    android:gravity="center"
             />
+
+            <!-- TODO: workout timer. can have extra options button for stopwatch or timer -->
 
             <com.wang.avi.AVLoadingIndicatorView
                     android:layout_width="70dp"
@@ -46,47 +50,12 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/eachExerciseFragHolder"
+                    android:id="@+id/exInfoHolder"
                     android:orientation="vertical"
             >
 
             </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/journalAndSave"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:visibility="gone"
-            >
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:hint="Private Workout Journal"
-                        android:id="@+id/privateJournal"
-                        android:imeOptions="actionDone"
-                />
-
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/save"
-                        android:textSize="24sp"
-                        android:background="@color/confirmgreen"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="75dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:id="@+id/saveButton"
-                />
-
-            </LinearLayout>
 
         </LinearLayout>
 
