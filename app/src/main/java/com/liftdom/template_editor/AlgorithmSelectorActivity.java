@@ -192,6 +192,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 }else{
                     if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
 
+                        // this is what is going down to the exlevelfrag
                         algoInfoList.add(exName);                   //0
                         algoInfoList.add(setsWeeks);                //1
                         algoInfoList.add(setsIncrease);             //2
@@ -200,9 +201,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
                         algoInfoList.add(isLooper);                 //7
-                        tempAlgoInfoList.add(applyToAllExInstance); //8
-                        tempAlgoInfoList.add(applyToAllExs);        //9
+                        algoInfoList.add(applyToAllExInstance);     //8
+                        algoInfoList.add(applyToAllExs);            //9
 
+                        // this is what's going to the singleton
                         tempAlgoInfoList2.add(exName);               //0
                         tempAlgoInfoList2.add(setsWeeks);            //1
                         tempAlgoInfoList2.add(setsIncrease);         //2
@@ -226,6 +228,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
                         finish();
                     } else{
+
+                        // this is what is going down to the exlevelfrag
                         algoInfoList.add(exName);                   //0
                         algoInfoList.add(setsWeeks);                //1
                         algoInfoList.add(setsIncrease);             //2
@@ -234,9 +238,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
                         algoInfoList.add(isLooper);                 //7
-                        tempAlgoInfoList.add(applyToAllExInstance); //8
-                        tempAlgoInfoList.add(applyToAllExs);        //9
+                        algoInfoList.add(applyToAllExInstance);     //8
+                        algoInfoList.add(applyToAllExs);            //9
 
+                        // this is what's going to the singleton
                         tempAlgoInfoList.add(exName);               //0
                         tempAlgoInfoList.add(setsWeeks);            //1
                         tempAlgoInfoList.add(setsIncrease);         //2

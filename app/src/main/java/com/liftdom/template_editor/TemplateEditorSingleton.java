@@ -204,15 +204,15 @@ public class TemplateEditorSingleton {
         mIsPublic = false;
         mDateCreated = null;
         mDescription = null;
-        mapOne = null;
-        mapTwo = null;
-        mapThree = null;
-        mapFour = null;
-        mapFive = null;
-        mapSix = null;
-        mapSeven = null;
+        mapOne.clear();
+        mapTwo.clear();
+        mapThree.clear();
+        mapFour.clear();
+        mapFive.clear();
+        mapSix.clear();
+        mapSeven.clear();
         mIsAlgorithm = false;
-        mAlgorithmInfo = null;
+        mAlgorithmInfo.clear();
     }
 }
 

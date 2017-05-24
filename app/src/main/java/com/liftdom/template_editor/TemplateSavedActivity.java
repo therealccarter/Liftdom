@@ -225,6 +225,11 @@ public class TemplateSavedActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Ok, so on the first edit everything works out correctly.
+     * But on the second time we edit, TemplateEditorSingleton mapOne is null...
+     */
+
     @Override
     protected void onStart(){
         super.onStart();
@@ -283,12 +288,10 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     loadingView.setVisibility(View.GONE);
                     templateHolder.setVisibility(View.VISIBLE);
+                    TemplateEditorSingleton.getInstance().clearAll();
+                    EditTemplateAssemblerClass.getInstance().clearAll();
                 }
             });
-
-            TemplateEditorSingleton.getInstance().clearAll();
-            EditTemplateAssemblerClass.getInstance().clearAll();
-
         }
 
         // END UPLOAD OF TEMPLATE

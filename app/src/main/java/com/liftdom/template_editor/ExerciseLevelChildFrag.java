@@ -124,6 +124,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         String fragString2 = Integer.toString(fragIdCount2);
                         SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
                         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        setsLevelChildFragAL.add(frag1);
+                        frag1.fragTag = fragString2;
                         frag1.isEdit = true;
                         frag1.setSchemeEdited = string;
                         fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
