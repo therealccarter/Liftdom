@@ -286,6 +286,9 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 }
             });
 
+            TemplateEditorSingleton.getInstance().clearAll();
+            EditTemplateAssemblerClass.getInstance().clearAll();
+
         }
 
         // END UPLOAD OF TEMPLATE

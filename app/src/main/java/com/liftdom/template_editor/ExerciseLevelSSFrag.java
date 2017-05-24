@@ -24,9 +24,9 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SuperSetExFrag extends android.app.Fragment {
+public class ExerciseLevelSSFrag extends android.app.Fragment {
 
-    public SuperSetExFrag() {
+    public ExerciseLevelSSFrag() {
         // Required empty public constructor
     }
 
