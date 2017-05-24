@@ -22,6 +22,7 @@ import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ExerciseLevelChildFrag extends android.app.Fragment
         implements SetsLevelChildFrag.setSchemesCallback,
@@ -100,7 +101,14 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         if(isEdit){
             exerciseButton.setText(newLineExname(fromEditList.get(0)));
-
+            if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
+                for (Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()) {
+                    List<String> tempList = entry.getValue();
+                    if (tempList.get(0).equals(getExerciseValueFormatted())) {
+                        setToGoldFromDoW();
+                    }
+                }
+            }
             // let's split this bitch up
 
             boolean isFirstEx = true;
