@@ -148,28 +148,41 @@ public class TemplateEditorSingleton {
                 }
             }
         }
-
         setMapValues(daysOfWeek, infoList);
     }
 
+    //TODO: Ok, we have a bug on edit save.
+
     public void setMapValues(String days, List<String> infoList){
-
-        if(mapOne.get("0_key").contains(days)){
-            mapOne.put(String.valueOf(mapOne.size()) + "_key", infoList);
-        }else if(mapTwo.get("0_key").contains(days)){
-            mapTwo.put(String.valueOf(mapTwo.size()) + "_key", infoList);
-        }else if(mapThree.get("0_key").contains(days)){
-            mapThree.put(String.valueOf(mapThree.size()) + "_key", infoList);
-        }else if(mapFour.get("0_key").contains(days)){
-            mapFour.put(String.valueOf(mapFour.size()) + "_key", infoList);
-        }else if(mapFive.get("0_key").contains(days)){
-            mapFive.put(String.valueOf(mapFive.size()) + "_key", infoList);
-        }else if(mapSix.get("0_key").contains(days)){
-            mapSix.put(String.valueOf(mapSix.size()) + "_key", infoList);
-        }else if(mapSeven.get("0_key").contains(days)){
-            mapSeven.put(String.valueOf(mapSeven.size()) + "_key", infoList);
+        if(!mapOne.isEmpty()){
+            if(mapOne.get("0_key").contains(days)){
+                mapOne.put(String.valueOf(mapOne.size()) + "_key", infoList);
+            }
+        }else if(!mapTwo.isEmpty()){
+            if(mapTwo.get("0_key").contains(days)){
+                mapTwo.put(String.valueOf(mapTwo.size()) + "_key", infoList);
+            }
+        }else if(!mapThree.isEmpty()){
+            if(mapThree.get("0_key").contains(days)){
+                mapThree.put(String.valueOf(mapThree.size()) + "_key", infoList);
+            }
+        }else if(!mapFour.isEmpty()){
+            if(mapFour.get("0_key").contains(days)){
+                mapFour.put(String.valueOf(mapFour.size()) + "_key", infoList);
+            }
+        }else if(!mapFive.isEmpty()){
+            if(mapFive.get("0_key").contains(days)){
+                mapFive.put(String.valueOf(mapFive.size()) + "_key", infoList);
+            }
+        }else if(!mapSix.isEmpty()){
+            if(mapSix.get("0_key").contains(days)){
+                mapSix.put(String.valueOf(mapSix.size()) + "_key", infoList);
+            }
+        }else if(!mapSeven.isEmpty()){
+            if(mapSeven.get("0_key").contains(days)){
+                mapSeven.put(String.valueOf(mapSeven.size()) + "_key", infoList);
+            }
         }
-
     }
 
     public void setAlgorithmList(String exName, List<String> algoList){
@@ -198,7 +211,6 @@ public class TemplateEditorSingleton {
         mIsAlgorithm = false;
         mAlgorithmInfo = null;
     }
-
 }
 
 
