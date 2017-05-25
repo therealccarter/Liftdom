@@ -67,6 +67,80 @@ public class TemplateModelClass {
         mAlgorithmInfo = algorithmInfo;
     }
 
+    private boolean containsToday(String dayUnformatted, String day){
+        boolean contains = false;
+        String[] tokens = dayUnformatted.split("_");
+
+        try{
+            for(String string : tokens){
+                if(string.equals(day)){
+                    contains = true;
+                }
+            }
+        } catch (IndexOutOfBoundsException e){
+
+        }
+
+        return contains;
+    }
+
+    public HashMap<String, List<String>> getMapForDay(String day){
+
+        HashMap<String, List<String>> returnMap = new HashMap<>();
+
+        if(mMapOne != null){
+            if(!mMapOne.isEmpty()){
+                if(containsToday(mMapOne.get("0_key").get(0), day)){
+                    returnMap = mMapOne;
+                }
+            }
+        }
+        if(mMapTwo != null){
+            if(!mMapTwo.isEmpty()){
+                if(containsToday(mMapTwo.get("0_key").get(0), day)){
+                    returnMap = mMapTwo;
+                }
+            }
+        }
+        if(mMapThree != null){
+            if(!mMapThree.isEmpty()){
+                if(containsToday(mMapThree.get("0_key").get(0), day)){
+                    returnMap = mMapThree;
+                }
+            }
+        }
+        if(mMapFour != null){
+            if(!mMapFour.isEmpty()){
+                if(containsToday(mMapFour.get("0_key").get(0), day)){
+                    returnMap = mMapFour;
+                }
+            }
+        }
+        if(mMapFive != null){
+            if(!mMapFive.isEmpty()){
+                if(containsToday(mMapFive.get("0_key").get(0), day)){
+                    returnMap = mMapFive;
+                }
+            }
+        }
+        if(mMapSix != null){
+            if(!mMapSix.isEmpty()){
+                if(containsToday(mMapSix.get("0_key").get(0), day)){
+                    returnMap = mMapSix;
+                }
+            }
+        }
+        if(mMapSeven != null){
+            if(!mMapSeven.isEmpty()){
+                if(containsToday(mMapSeven.get("0_key").get(0), day)){
+                    returnMap = mMapSeven;
+                }
+            }
+        }
+
+        return returnMap;
+    }
+
     public String getDays(){
         return mDays;
     }

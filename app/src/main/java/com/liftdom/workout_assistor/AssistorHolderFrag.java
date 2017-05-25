@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.template_housing.HousingExNameFrag;
+import org.joda.time.DateTime;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +26,7 @@ public class AssistorHolderFrag extends Fragment {
         // Required empty public constructor
     }
 
-    TemplateModelClass modelClass;
+    TemplateModelClass templateClass;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,9 +34,81 @@ public class AssistorHolderFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_assistor_holder, container, false);
 
+        DateTime dateTime = new DateTime();
+        int currentWeekday = dateTime.getDayOfWeek();
 
+        if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
+            if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
+
+                HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
+                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                    if(!entry.getKey().equals("0_key")){
+                        //TODO: Eventually we'll have full callbacks for deletion and addition of exercises and set
+                        //TODO: schemes
+                        //TODO: For this, should we possibly just send the list over to the exlevelfrag for parsing?
+                        List<String> stringList = entry.getValue();
+                        for(String string : stringList){
+                            if(isExerciseName(string)){
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return view;
     }
 
+    boolean isExerciseName(String input){
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
+    }
+
+    String intToWeekday(int inc){
+        String weekday = "";
+
+        if(inc == 1){
+            weekday = "Monday";
+        }else if(inc == 2){
+            weekday = "Tuesday";
+        }else if(inc == 3){
+            weekday = "Wednesday";
+        }else if(inc == 4){
+            weekday = "Thursday";
+        }else if(inc == 5){
+            weekday = "Friday";
+        }else if(inc == 6){
+            weekday = "Saturday";
+        }else if(inc == 7){
+            weekday = "Sunday";
+        }
+
+        return weekday;
+    }
+
+    boolean containsToday(String dayUnformatted, int inc){
+        boolean contains = false;
+        String[] tokens = dayUnformatted.split("_");
+
+        try{
+            for(String string : tokens){
+                if(string.equals(intToWeekday(inc))){
+                    contains = true;
+                }
+            }
+        } catch (IndexOutOfBoundsException e){
+
+        }
+
+        return contains;
+    }
 }

@@ -29,6 +29,7 @@ import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -173,16 +174,29 @@ public class WorkoutAssistorFrag extends Fragment {
 
                                     TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                    assistorHolderFrag.modelClass = templateModelClass;
-                                    if (!getActivity().isFinishing()) {
-                                        fragmentTransaction.replace(R.id.exInfoHolder, assistorHolderFrag);
-                                        fragmentTransaction.commitAllowingStateLoss();
+                                    DateTime dateTime = new DateTime();
+                                    int currentWeekday = dateTime.getDayOfWeek();
+
+                                    if(containsToday(templateModelClass.getDays(), currentWeekday)){
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                        assistorHolderFrag.templateClass = templateModelClass;
+                                        if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.replace(R.id.exInfoHolder, assistorHolderFrag);
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }
+                                    } else{
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        RestDayFrag restDayFrag = new RestDayFrag();
+                                        if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.replace(R.id.exInfoHolder, restDayFrag);
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }
                                     }
 
-                                }else{
+                                } else{
                                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
@@ -231,6 +245,45 @@ public class WorkoutAssistorFrag extends Fragment {
         ////TODO: Look at ramifications of below line
         //isSavedInstanceBool = false;
 
+    }
+
+    String intToWeekday(int inc){
+        String weekday = "";
+
+        if(inc == 1){
+            weekday = "Monday";
+        }else if(inc == 2){
+            weekday = "Tuesday";
+        }else if(inc == 3){
+            weekday = "Wednesday";
+        }else if(inc == 4){
+            weekday = "Thursday";
+        }else if(inc == 5){
+            weekday = "Friday";
+        }else if(inc == 6){
+            weekday = "Saturday";
+        }else if(inc == 7){
+            weekday = "Sunday";
+        }
+
+        return weekday;
+    }
+
+    boolean containsToday(String dayUnformatted, int inc){
+        boolean contains = false;
+        String[] tokens = dayUnformatted.split("_");
+
+        try{
+            for(String string : tokens){
+                if(string.equals(intToWeekday(inc))){
+                    contains = true;
+                }
+            }
+        } catch (IndexOutOfBoundsException e){
+
+        }
+
+        return contains;
     }
 
     ArrayList<String> dayFormat(String dayString){

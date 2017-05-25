@@ -256,6 +256,5 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         }
 
         return isExercise;
-
     }
 }
