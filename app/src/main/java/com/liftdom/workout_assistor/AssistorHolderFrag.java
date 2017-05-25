@@ -3,6 +3,8 @@ package com.liftdom.workout_assistor;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,12 +47,14 @@ public class AssistorHolderFrag extends Fragment {
                     if(!entry.getKey().equals("0_key")){
                         //TODO: Eventually we'll have full callbacks for deletion and addition of exercises and set
                         //TODO: schemes
-                        //TODO: For this, should we possibly just send the list over to the exlevelfrag for parsing?
                         List<String> stringList = entry.getValue();
-                        for(String string : stringList){
-                            if(isExerciseName(string)){
-
-                            }
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ExerciseNameFrag exNameFrag = new ExerciseNameFrag();
+                        exNameFrag.infoList = stringList;
+                        if (!getActivity().isFinishing()) {
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag);
+                            fragmentTransaction.commitAllowingStateLoss();
                         }
                     }
                 }
