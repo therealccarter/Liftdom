@@ -1,10 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              tools:context="com.liftdom.workout_assistor.ExNameWAFrag"
-             android:orientation="horizontal"
-             android:id="@+id/repsWeightContainer"
+             android:orientation="vertical"
              android:layout_marginTop="10dp"
 >
 
@@ -20,4 +19,13 @@
             android:paddingStart="4dp"
     />
 
-</FrameLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repsWeightContainer"
+            android:orientation="vertical"
+    >
+
+    </LinearLayout>
+
+</LinearLayout>

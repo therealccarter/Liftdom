@@ -4,6 +4,8 @@ package com.liftdom.workout_assistor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,8 @@ public class ExNameWAFrag extends Fragment {
 
         exerciseNameView.setTypeface(lobster);
 
-        exerciseNameView.setText(exerciseName);
+        exerciseNameView.setText(infoList.get(0));
+
 
         boolean isFirstEx = true;
         boolean isFirstSetSchemes = true;
@@ -75,15 +78,46 @@ public class ExNameWAFrag extends Fragment {
          * So each exercise and set scheme needs an extra options button and a delete button
          */
 
+        /**
+         *  Here we have:
+         *
+         *  0: Bench Press (Barbell - Flat)    0: Bench Press (Barbell - Incline)     0: Bench Press (Barbell - Decline)
+         *     1: 1@1                            1: 2@2                                  1: 3@3
+         *                                       2: 2@2                                  2: 3@3
+         *                                                                               3: 3@3
+         */
+
         if(splitInfoList.size() > 1){
             // has supersets
             ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
             int smallestSize = getSmallestSize(finalList);
-            for(int i = 0; i < smallestSize; i++){
+            for(int i = 0; i < smallestSize - 1; i++){
+                int count = 0;
                 for(ArrayList<String> list : finalList){
-
+                    if(count == 0){
+                        // add reps weight frag
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                        repsWeightFrag.repsWeightString = list.get(i + 1);
+                        fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag);
+                        fragmentTransaction.commit();
+                    }else{
+                        // add an exname ss frag with name value of .get(0) and reps weight value of .get(i)
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                        ArrayList<String> newSubList = new ArrayList<>();
+                        newSubList.add(list.get(0));
+                        newSubList.add(list.get(i + 1));
+                        exNameFrag.infoList.addAll(newSubList);
+                        fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag);
+                        fragmentTransaction.commit();
+                    }
+                    count++;
                 }
             }
+            // now for each list that is bigger than the smallest size, add reps weight frags or ss exname frags
         } else{
             // no supersets
         }
@@ -122,7 +156,6 @@ public class ExNameWAFrag extends Fragment {
                 }
             }
             newList.add(newSubList);
-            newSubList.clear();
         }
 
         return newList;

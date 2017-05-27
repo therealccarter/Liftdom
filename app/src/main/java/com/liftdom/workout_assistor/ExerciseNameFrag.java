@@ -56,32 +56,6 @@ public class ExerciseNameFrag extends Fragment {
     }
 
 
-    //if(inc == 1){
-    //    firstList.add(string);
-    //}else{
-    //    if(isExerciseName(string)){
-    //        isFirstSetSchemes = false;
-    //        splitInfoList.add(firstList);
-    //        ArrayList<String> list = new ArrayList<>();
-    //        list.add(string);
-    //        supersetList.add(list);
-    //        supersetInc++;
-    //    }else if(!isExerciseName(string) && isFirstSetSchemes){
-    //        firstList.add(string);
-    //        //++fragIdCount2;
-    //        //String fragString2 = Integer.toString(fragIdCount2);
-    //        //RepsWeightFrag frag1 = new RepsWeightFrag();
-    //        //FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-    //        //repsWeightList.add(frag1);
-    //        //fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
-    //        //if (getActivity() != null) {
-    //        //    fragmentTransaction.commitAllowingStateLoss();
-    //        //}
-    //    }else if(!isExerciseName(string) && !isFirstSetSchemes){
-    //        supersetList.get(supersetInc - 1).add(string);
-    //    }
-    //}
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
 

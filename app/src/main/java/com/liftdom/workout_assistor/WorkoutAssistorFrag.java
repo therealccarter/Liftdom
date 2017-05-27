@@ -66,23 +66,7 @@ public class WorkoutAssistorFrag extends Fragment {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    String email = "error";
-
-    String activeTemplateName = null;
-    String activeTemplateDayValue = null;
-    String activeTemplateToday = null;
-    String exerciseString = "fail";
-
-    Boolean isSavedInstanceBool;
-    Boolean isRunningAssistor = false;
-    Boolean isRunningDate = false;
-
     Boolean noActiveTemplateBool = false;
-
-    int ArrayListIterator = 0;
-
-    //boolean firstEx = true;
-    //boolean setSchemesFinished = true;
 
     int assistorInfoInc = 0;
     ArrayList<ArrayList<String>> assistorInfoLists = new ArrayList<ArrayList<String>>();
@@ -116,21 +100,6 @@ public class WorkoutAssistorFrag extends Fragment {
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
         currentTemplateView.setTypeface(lobster);
 
-        //if(savedInstanceState == null){
-        //    isSavedInstanceBool = true;
-        //}else{
-        //    isSavedInstanceBool = false;
-        //}
-
-        //saveButton.setOnClickListener(new View.OnClickListener() {
-            //public void onClick(View v) {
-        ///        Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
-
-        //        startActivity(intent);
-        //
-        //    }
-        //});
-        
         return view;
     }
 
@@ -166,6 +135,7 @@ public class WorkoutAssistorFrag extends Fragment {
                     loadingView.setVisibility(View.GONE);
                     if(dataSnapshot.exists()){
                         String activeTemplateString = dataSnapshot.getValue(String.class);
+                        currentTemplateView.setText(activeTemplateString);
                         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child
                                 (activeTemplateString);
                         templateRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -14,6 +14,7 @@ import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.template_housing.HousingExNameFrag;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class AssistorHolderFrag extends Fragment {
     }
 
     TemplateModelClass templateClass;
+    ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

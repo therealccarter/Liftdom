@@ -111,13 +111,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }
         });
 
-
         return view;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 3
         if(requestCode == 3)

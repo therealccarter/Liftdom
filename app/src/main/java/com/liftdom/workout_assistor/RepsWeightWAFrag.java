@@ -25,11 +25,12 @@ public class RepsWeightWAFrag extends Fragment {
         // Required empty public constructor
     }
 
+    String repsWeightString = "false";
+
     // Butterknife
-    @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
-    @BindView(R.id.lbs) TextView pounds;
+    @BindView(R.id.unit) TextView unitView;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
 
@@ -40,6 +41,11 @@ public class RepsWeightWAFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reps_weight_wa, container, false);
 
         ButterKnife.bind(this, view);
+
+        String[] tokens = repsWeightString.split("@");
+
+        repsEditText.setText(tokens[0]);
+        weightEditText.setText(tokens[1]);
 
         return view;
     }

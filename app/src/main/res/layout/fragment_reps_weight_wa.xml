@@ -16,27 +16,6 @@
     />
 
     <EditText
-            android:id="@+id/sets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/set"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="22sp"
-            android:imeOptions="actionDone"
-    />
-
-    <TextView
-            android:id="@+id/by"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/x"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-    />
-
-    <EditText
             android:id="@+id/reps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +52,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lbs"
+            android:id="@+id/unit"
             android:text="@string/pounds"
             android:textColor="@color/black"
             android:textSize="18sp"

@@ -333,6 +333,9 @@ public class TemplateEditorActivity extends AppCompatActivity
                             TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
                             TemplateEditorSingleton.getInstance().mUserId2 = uid;
                             TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
+                        }else{
+                            TemplateEditorSingleton.getInstance().mUserId = uid;
+                            TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
                         }
 
                         FragmentManager fragmentManager = getFragmentManager();
