@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExerciseNameFrag extends android.app.Fragment {
+public class ExerciseNameFrag extends Fragment {
 
 
     public ExerciseNameFrag() {
@@ -29,11 +29,6 @@ public class ExerciseNameFrag extends android.app.Fragment {
     }
 
     public String exerciseName = "fail";
-    List<String> infoList = new ArrayList<>();
-    int fragIdCount2 = 0;
-    int supersetFragCount = 0;
-    ArrayList<RepsWeightFrag> repsWeightList = new ArrayList<>();
-    ArrayList<ArrayList<String>> splitInfoList = new ArrayList<>();
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
@@ -57,87 +52,9 @@ public class ExerciseNameFrag extends android.app.Fragment {
 
         exerciseNameView.setText(exerciseName);
 
-        boolean isFirstEx = true;
-        boolean isFirstSetSchemes = true;
-        int inc = 0;
-        int supersetInc = 0;
-        ArrayList<ArrayList<String>> supersetList = new ArrayList<>();
-
-        for(String string : infoList){
-            if(isExerciseName(string)){
-                inc++;
-                ArrayList<String> subList = new ArrayList<>();
-                subList.add(string);
-                splitInfoList.add(subList);
-            }else{
-                splitInfoList.get(inc - 1).add(string);
-            }
-        }
-
-        if(splitInfoList.size() > 1){
-            // has supersets
-            ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
-            int smallestSize = getSmallestSize(finalList);
-            for(int i = 0; i < smallestSize; i++){
-                for(ArrayList<String> list : finalList){
-
-                }
-            }
-        } else{
-            // no supersets
-        }
-
         return view;
     }
 
-    int getSmallestSize(ArrayList<ArrayList<String>> list){
-        int smallest = 0;
-
-        int inc = 0;
-        for(ArrayList<String> arrayList : list){
-            inc++;
-            if(inc == 1){
-                smallest = arrayList.size();
-            }
-            int mapSize = arrayList.size();
-            if(mapSize < smallest){
-                smallest = mapSize;
-            }
-        }
-
-        return smallest;
-    }
-
-    ArrayList<ArrayList<String>> expandSplitList(ArrayList<ArrayList<String>> splitList){
-        ArrayList<ArrayList<String>> newList = new ArrayList<>();
-
-        for(ArrayList<String> list : splitList){
-            ArrayList<String> newSubList = new ArrayList<>();
-            for(int i = 0; i < list.size(); i++){
-                if(i == 0){
-                    newSubList.add(list.get(i));
-                }else{
-                    newSubList.addAll(generateRepsWeightList(list.get(i)));
-                }
-            }
-            newList.add(newSubList);
-            newSubList.clear();
-        }
-
-        return newList;
-    }
-
-    ArrayList<String> generateRepsWeightList(String infoString){
-        ArrayList<String> generatedList = new ArrayList<>();
-
-        String[] tokens = infoString.split("x");
-        int setsNumber = Integer.valueOf(tokens[0]);
-        for(int i = 0; i < setsNumber; i++){
-            generatedList.add(tokens[1]);
-        }
-
-        return generatedList;
-    }
 
     //if(inc == 1){
     //    firstList.add(string);

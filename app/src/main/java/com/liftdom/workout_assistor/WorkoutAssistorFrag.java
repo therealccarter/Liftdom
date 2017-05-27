@@ -95,7 +95,7 @@ public class WorkoutAssistorFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.saveButton) Button saveButton;
+    //@BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
@@ -122,13 +122,14 @@ public class WorkoutAssistorFrag extends Fragment {
         //    isSavedInstanceBool = false;
         //}
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
+        //saveButton.setOnClickListener(new View.OnClickListener() {
+            //public void onClick(View v) {
+        ///        Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
 
-                startActivity(intent);
-            }
-        });
+        //        startActivity(intent);
+        //
+        //    }
+        //});
         
         return view;
     }
@@ -158,11 +159,11 @@ public class WorkoutAssistorFrag extends Fragment {
             }
 
         } else {
-
-            DatabaseReference activeTemplateRef = mRootRef.child("users").child("active_template");
+            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
             activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    loadingView.setVisibility(View.GONE);
                     if(dataSnapshot.exists()){
                         String activeTemplateString = dataSnapshot.getValue(String.class);
                         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child
@@ -186,7 +187,7 @@ public class WorkoutAssistorFrag extends Fragment {
                                             fragmentTransaction.replace(R.id.exInfoHolder, assistorHolderFrag);
                                             fragmentTransaction.commitAllowingStateLoss();
                                         }
-                                    } else{
+                                    }else{
                                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         RestDayFrag restDayFrag = new RestDayFrag();
@@ -196,7 +197,7 @@ public class WorkoutAssistorFrag extends Fragment {
                                         }
                                     }
 
-                                } else{
+                                }else{
                                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();

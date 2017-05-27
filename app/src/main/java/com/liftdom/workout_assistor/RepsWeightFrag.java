@@ -18,7 +18,7 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RepsWeightFrag extends android.app.Fragment {
+public class RepsWeightFrag extends Fragment {
 
 
     public RepsWeightFrag() {
@@ -67,7 +67,6 @@ public class RepsWeightFrag extends android.app.Fragment {
         if(isFromCalendar){
             checkBox.setVisibility(View.GONE);
         }
-
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

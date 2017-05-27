@@ -45,12 +45,10 @@ public class AssistorHolderFrag extends Fragment {
                 HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
                 for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
-                        //TODO: Eventually we'll have full callbacks for deletion and addition of exercises and set
-                        //TODO: schemes
                         List<String> stringList = entry.getValue();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        ExerciseNameFrag exNameFrag = new ExerciseNameFrag();
+                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
                         exNameFrag.infoList = stringList;
                         if (!getActivity().isFinishing()) {
                             fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag);

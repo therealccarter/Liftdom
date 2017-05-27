@@ -47,6 +47,9 @@ public class SaveTemplateDialog extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mAuth.getCurrentUser();
+
         final String userName = mFirebaseUser.getDisplayName();
 
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
@@ -62,8 +65,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
             TemplateEditorSingleton.getInstance().mUserName = userName;
         }
 
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mAuth.getCurrentUser();
+
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
