@@ -29,6 +29,7 @@ public class ExNameSSWAFrag extends Fragment {
     }
 
     String exName = "null";
+    String tag;
     ArrayList<String> infoList = new ArrayList<>();
     int fragCount = 0;
 
@@ -48,7 +49,6 @@ public class ExNameSSWAFrag extends Fragment {
         for(int i = 1; i < infoList.size(); i++){
             fragCount++;
             String countString = String.valueOf(fragCount) + "ss";
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
             repsWeightFrag.repsWeightString = infoList.get(i);

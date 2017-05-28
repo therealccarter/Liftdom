@@ -26,6 +26,7 @@ public class RepsWeightWAFrag extends Fragment {
     }
 
     String repsWeightString = "false";
+    String tag;
 
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;

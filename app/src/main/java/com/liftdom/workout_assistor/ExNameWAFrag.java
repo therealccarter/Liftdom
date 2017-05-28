@@ -31,10 +31,12 @@ public class ExNameWAFrag extends Fragment {
 
     public String exerciseName = "fail";
     List<String> infoList = new ArrayList<>();
-    int fragIdCount2 = 0;
-    int supersetFragCount = 0;
-    ArrayList<RepsWeightFrag> repsWeightList = new ArrayList<>();
+    int repsWeightInc = 0;
+    int exNameSupersetInc = 0;
+    ArrayList<RepsWeightWAFrag> repsWeightFragList = new ArrayList<>();
+    ArrayList<ExNameSSWAFrag> exNameSupersetFragList = new ArrayList<>();
     ArrayList<ArrayList<String>> splitInfoList = new ArrayList<>();
+
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
@@ -92,18 +94,24 @@ public class ExNameWAFrag extends Fragment {
             ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
             int smallestSize = getSmallestSize(finalList);
             for(int i = 0; i < smallestSize - 1; i++){
-                int count = 0;
+                int count1 = 0;
                 for(ArrayList<String> list : finalList){
-                    if(count == 0){
+                    if(count1 == 0){
                         // add reps weight frag
+                        repsWeightInc++;
+                        String tag = String.valueOf(repsWeightInc);
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                         repsWeightFrag.repsWeightString = list.get(i + 1);
-                        fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag);
+                        repsWeightFrag.tag = tag;
+                        repsWeightFragList.add(repsWeightFrag);
+                        fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
                         fragmentTransaction.commit();
                     }else{
                         // add an exname ss frag with name value of .get(0) and reps weight value of .get(i)
+                        exNameSupersetInc++;
+                        String tag = String.valueOf(exNameSupersetInc);
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
@@ -111,15 +119,65 @@ public class ExNameWAFrag extends Fragment {
                         newSubList.add(list.get(0));
                         newSubList.add(list.get(i + 1));
                         exNameFrag.infoList.addAll(newSubList);
+                        exNameFrag.tag = tag;
+                        exNameSupersetFragList.add(exNameFrag);
                         fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag);
                         fragmentTransaction.commit();
                     }
-                    count++;
+                    count1++;
                 }
             }
             // now for each list that is bigger than the smallest size, add reps weight frags or ss exname frags
+            int count2 = 0;
+            for(ArrayList<String> list : finalList){
+                if(list.size() > smallestSize){
+                    if(count2 == 0){
+                        for(int i = smallestSize; i < list.size(); i++){
+                            repsWeightInc++;
+                            String tag = String.valueOf(repsWeightInc);
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                            repsWeightFrag.repsWeightString = list.get(i + 1);
+                            repsWeightFrag.tag = tag;
+                            repsWeightFragList.add(repsWeightFrag);
+                            fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag);
+                            fragmentTransaction.commit();
+                        }
+                    }else{
+                        ArrayList<String> subList = new ArrayList<>();
+                        subList.add(list.get(0));
+                        for(int i = smallestSize; i < list.size(); i++){
+                            subList.add(list.get(i));
+                        }
+                        exNameSupersetInc++;
+                        String tag = String.valueOf(exNameSupersetInc);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                        exNameFrag.infoList.addAll(subList);
+                        exNameFrag.tag = tag;
+                        exNameSupersetFragList.add(exNameFrag);
+                        fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag);
+                        fragmentTransaction.commit();
+                    }
+                }
+                count2++;
+            }
         } else{
             // no supersets
+            ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
+            for(int i = 1; i < finalList.get(0).size(); i++){
+                repsWeightInc++;
+                String tag = String.valueOf(repsWeightInc);
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                repsWeightFrag.repsWeightString = finalList.get(0).get(i);
+                repsWeightFrag.tag = tag;
+                repsWeightFragList.add(repsWeightFrag);
+                fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag);
+                fragmentTransaction.commit();
+            }
         }
 
         return view;
