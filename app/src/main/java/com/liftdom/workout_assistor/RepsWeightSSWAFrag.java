@@ -26,6 +26,13 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     }
 
     String repsWeightString = "false";
+    String tag;
+
+    public interface removeFragCallback{
+        void removeFrag(String fragTag);
+    }
+
+    private removeFragCallback removeFrag;
 
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
@@ -42,10 +49,18 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         ButterKnife.bind(this, view);
 
+        removeFrag = (removeFragCallback) getParentFragment();
+
         String[] tokens = repsWeightString.split("@");
 
         repsEditText.setText(tokens[0]);
         weightEditText.setText(tokens[1]);
+
+        destroyFrag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                removeFrag.removeFrag(tag);
+            }
+        });
 
         return view;
     }

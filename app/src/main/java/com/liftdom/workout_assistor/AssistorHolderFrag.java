@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,8 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssistorHolderFrag extends android.app.Fragment {
+public class AssistorHolderFrag extends android.app.Fragment
+                implements ExNameWAFrag.removeFragCallback{
 
 
     public AssistorHolderFrag() {
@@ -31,6 +33,7 @@ public class AssistorHolderFrag extends android.app.Fragment {
 
     TemplateModelClass templateClass;
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
+    int exNameInc = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,13 +50,18 @@ public class AssistorHolderFrag extends android.app.Fragment {
                 HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
                 for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
+                        exNameInc++;
+                        String tag = String.valueOf(exNameInc) + "ex";
                         List<String> stringList = entry.getValue();
                         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExNameWAFrag exNameFrag = new ExNameWAFrag();
                         exNameFrag.infoList = stringList;
+                        exNameFrag.fragTag = tag;
                         if (!getActivity().isFinishing()) {
-                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag);
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
                             fragmentTransaction.commitAllowingStateLoss();
+                            getChildFragmentManager().executePendingTransactions();
+                            exNameFragList.add(exNameFrag);
                         }
                     }
                 }
@@ -61,6 +69,30 @@ public class AssistorHolderFrag extends android.app.Fragment {
         }
 
         return view;
+    }
+
+    public void removeFrag(String tag){
+        getChildFragmentManager().executePendingTransactions();
+        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        if(exNameInc != 0){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                int inc = 0;
+                int index = 0;
+                boolean hasIndex = false;
+                for(ExNameWAFrag exNameWAFrag : exNameFragList){
+                    if(exNameWAFrag.fragTag.equals(tag)){
+                        index = inc;
+                        hasIndex = true;
+                    }
+                    inc++;
+                }
+                if(hasIndex){
+                    exNameFragList.remove(index);
+                }
+                --exNameInc;
+            }
+        }
     }
 
     boolean isExerciseName(String input){

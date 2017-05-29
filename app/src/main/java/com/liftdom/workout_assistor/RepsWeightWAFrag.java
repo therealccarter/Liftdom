@@ -28,7 +28,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     }
 
     String repsWeightString = "false";
-    String tag;
+    String fragTag1;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -60,8 +60,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                removeFrag.removeFrag(tag);
-                Log.i("info", "info");
+                removeFrag.removeFrag(fragTag1);
             }
         });
 

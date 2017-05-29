@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -23,7 +24,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ExNameWAFrag extends android.app.Fragment
-        implements RepsWeightWAFrag.removeFragCallback{
+        implements RepsWeightWAFrag.removeFragCallback,
+                    ExNameSSWAFrag.removeFragCallback1{
 
 
     public ExNameWAFrag() {
@@ -34,13 +36,21 @@ public class ExNameWAFrag extends android.app.Fragment
     List<String> infoList = new ArrayList<>();
     int repsWeightInc = 0;
     int exNameSupersetInc = 0;
+    String fragTag;
     ArrayList<RepsWeightWAFrag> repsWeightFragList = new ArrayList<>();
     ArrayList<ExNameSSWAFrag> exNameSupersetFragList = new ArrayList<>();
     ArrayList<ArrayList<String>> splitInfoList = new ArrayList<>();
 
+    public interface removeFragCallback{
+        void removeFrag(String fragTag);
+    }
+
+    private removeFragCallback removeFrag;
+
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
+    @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,18 +60,22 @@ public class ExNameWAFrag extends android.app.Fragment
 
         ButterKnife.bind(this, view);
 
+        removeFrag = (removeFragCallback) getParentFragment();
+
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
         exerciseNameView.setTypeface(lobster);
 
         exerciseNameView.setText(infoList.get(0));
 
+        destroyFrag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                removeFrag.removeFrag(fragTag);
+            }
+        });
 
-        boolean isFirstEx = true;
-        boolean isFirstSetSchemes = true;
+
         int inc = 0;
-        int supersetInc = 0;
-        ArrayList<ArrayList<String>> supersetList = new ArrayList<>();
 
         for(String string : infoList){
             if(isExerciseName(string)){
@@ -74,22 +88,6 @@ public class ExNameWAFrag extends android.app.Fragment
             }
         }
 
-        /**
-         * What we want to do:
-         * Have every exercise and set scheme addable and deletable
-         * Have each supersetted set alternated, and then any left over sets be added at the bottom
-         * So each exercise and set scheme needs an extra options button and a delete button
-         */
-
-        /**
-         *  Here we have:
-         *
-         *  0: Bench Press (Barbell - Flat)    0: Bench Press (Barbell - Incline)     0: Bench Press (Barbell - Decline)
-         *     1: 1@1                            1: 2@2                                  1: 3@3
-         *                                       2: 2@2                                  2: 3@3
-         *                                                                               3: 3@3
-         */
-
         if(splitInfoList.size() > 1){
             // has supersets
             ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
@@ -100,19 +98,21 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(count1 == 0){
                         // add reps weight frag
                         repsWeightInc++;
-                        String tag = String.valueOf(repsWeightInc);
+                        String tag = String.valueOf(repsWeightInc) + "rwSS";
                         android.app.FragmentManager fragmentManager = getChildFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                         repsWeightFrag.repsWeightString = list.get(i + 1);
-                        repsWeightFrag.tag = tag;
-                        repsWeightFragList.add(repsWeightFrag);
+                        repsWeightFrag.fragTag1 = tag;
                         fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
-                        fragmentTransaction.commit();
+                        fragmentTransaction.commitAllowingStateLoss();
+                        fragmentManager.executePendingTransactions();
+                        repsWeightFragList.add(repsWeightFrag);
+
                     }else{
                         // add an exname ss frag with name value of .get(0) and reps weight value of .get(i)
                         exNameSupersetInc++;
-                        String tag = String.valueOf(exNameSupersetInc);
+                        String tag = String.valueOf(exNameSupersetInc) + "exSS";
                         android.app.FragmentManager fragmentManager = getChildFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
@@ -120,10 +120,12 @@ public class ExNameWAFrag extends android.app.Fragment
                         newSubList.add(list.get(0));
                         newSubList.add(list.get(i + 1));
                         exNameFrag.infoList.addAll(newSubList);
-                        exNameFrag.tag = tag;
+                        exNameFrag.fragTag2 = tag;
+                        fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        fragmentManager.executePendingTransactions();
                         exNameSupersetFragList.add(exNameFrag);
-                        fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag);
-                        fragmentTransaction.commit();
+
                     }
                     count1++;
                 }
@@ -135,16 +137,17 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(count2 == 0){
                         for(int i = smallestSize; i < list.size(); i++){
                             repsWeightInc++;
-                            String tag = String.valueOf(repsWeightInc);
+                            String tag = String.valueOf(repsWeightInc) + "rwSS";
                             android.app.FragmentManager fragmentManager = getChildFragmentManager();
                             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                             repsWeightFrag.repsWeightString = list.get(i + 1);
-                            repsWeightFrag.tag = tag;
-                            repsWeightFragList.add(repsWeightFrag);
+                            repsWeightFrag.fragTag1 = tag;
                             fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
-                            fragmentTransaction.commit();
+                            fragmentTransaction.commitAllowingStateLoss();
                             fragmentManager.executePendingTransactions();
+                            repsWeightFragList.add(repsWeightFrag);
+
                         }
                     }else{
                         ArrayList<String> subList = new ArrayList<>();
@@ -153,16 +156,17 @@ public class ExNameWAFrag extends android.app.Fragment
                             subList.add(list.get(i));
                         }
                         exNameSupersetInc++;
-                        String tag = String.valueOf(exNameSupersetInc);
+                        String tag = String.valueOf(exNameSupersetInc) + "exSS";
                         android.app.FragmentManager fragmentManager = getChildFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
                         exNameFrag.infoList.addAll(subList);
-                        exNameFrag.tag = tag;
-                        exNameSupersetFragList.add(exNameFrag);
+                        exNameFrag.fragTag2 = tag;
                         fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
-                        fragmentTransaction.commit();
+                        fragmentTransaction.commitAllowingStateLoss();
                         fragmentManager.executePendingTransactions();
+                        exNameSupersetFragList.add(exNameFrag);
+
                     }
                 }
                 count2++;
@@ -172,15 +176,15 @@ public class ExNameWAFrag extends android.app.Fragment
             ArrayList<ArrayList<String>> finalList = expandSplitList(splitInfoList);
             for(int i = 1; i < finalList.get(0).size(); i++){
                 repsWeightInc++;
-                String tag = String.valueOf(repsWeightInc);
+                String tag = String.valueOf(repsWeightInc) + "rwSS";
                 android.app.FragmentManager fragmentManager = getChildFragmentManager();
                 android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                 repsWeightFrag.repsWeightString = finalList.get(0).get(i);
-                repsWeightFrag.tag = tag;
-                repsWeightFragList.add(repsWeightFrag);
+                repsWeightFrag.fragTag1 = tag;
                 fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
+                repsWeightFragList.add(repsWeightFrag);
                 fragmentManager.executePendingTransactions();
             }
         }
@@ -191,12 +195,28 @@ public class ExNameWAFrag extends android.app.Fragment
     public void removeFrag(String tag){
         android.app.FragmentManager fragmentManager = getChildFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String[] tokens = tag.split("r");
+        int inc = Integer.valueOf(tokens[0]);
         if(repsWeightInc != 0){
             //String fragString = Integer.toString(repsWeightInc);
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                repsWeightFragList.remove(repsWeightInc - 1);
+                repsWeightFragList.remove(inc - 1);
                 --repsWeightInc;
+            }
+        }
+    }
+
+    public void removeFrag2(String tag){
+        getChildFragmentManager().executePendingTransactions();
+        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        String[] tokens = tag.split("e");
+        int inc = Integer.valueOf(tokens[0]);
+        if(exNameSupersetInc != 0){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                exNameSupersetFragList.remove(inc - 1);
+                --exNameSupersetInc;
             }
         }
     }
