@@ -3,16 +3,14 @@ package com.liftdom.workout_assistor;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
-import com.liftdom.template_housing.HousingExNameFrag;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -35,14 +33,34 @@ public class AssistorHolderFrag extends android.app.Fragment
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
     int exNameInc = 0;
 
+    @BindView(R.id.addExerciseButton) Button addExButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_assistor_holder, container, false);
 
+        ButterKnife.bind(this, view);
+
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
+
+        addExButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                exNameInc++;
+                String tag = String.valueOf(exNameInc) + "ex";
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                exNameFrag.fragTag = tag;
+                if (!getActivity().isFinishing()) {
+                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    getChildFragmentManager().executePendingTransactions();
+                    exNameFragList.add(exNameFrag);
+                }
+            }
+        });
 
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
             if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
