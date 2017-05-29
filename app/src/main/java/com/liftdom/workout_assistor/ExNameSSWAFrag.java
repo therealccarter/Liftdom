@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExNameSSWAFrag extends Fragment {
+public class ExNameSSWAFrag extends android.app.Fragment {
 
 
     public ExNameSSWAFrag() {
@@ -49,7 +49,7 @@ public class ExNameSSWAFrag extends Fragment {
         for(int i = 1; i < infoList.size(); i++){
             fragCount++;
             String countString = String.valueOf(fragCount) + "ss";
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
             repsWeightFrag.repsWeightString = infoList.get(i);
             fragmentTransaction.add(R.id.repsWeightContainerSS, repsWeightFrag, countString);

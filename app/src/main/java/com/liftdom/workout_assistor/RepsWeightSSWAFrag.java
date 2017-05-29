@@ -18,7 +18,7 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RepsWeightSSWAFrag extends Fragment {
+public class RepsWeightSSWAFrag extends android.app.Fragment {
 
 
     public RepsWeightSSWAFrag() {

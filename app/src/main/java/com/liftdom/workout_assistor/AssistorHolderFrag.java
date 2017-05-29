@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssistorHolderFrag extends Fragment {
+public class AssistorHolderFrag extends android.app.Fragment {
 
 
     public AssistorHolderFrag() {
@@ -48,8 +48,7 @@ public class AssistorHolderFrag extends Fragment {
                 for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
                         List<String> stringList = entry.getValue();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExNameWAFrag exNameFrag = new ExNameWAFrag();
                         exNameFrag.infoList = stringList;
                         if (!getActivity().isFinishing()) {

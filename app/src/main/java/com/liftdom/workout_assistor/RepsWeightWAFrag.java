@@ -3,6 +3,7 @@ package com.liftdom.workout_assistor;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.SetsLevelChildFrag;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RepsWeightWAFrag extends Fragment {
+public class RepsWeightWAFrag extends android.app.Fragment {
 
 
     public RepsWeightWAFrag() {
@@ -27,6 +29,12 @@ public class RepsWeightWAFrag extends Fragment {
 
     String repsWeightString = "false";
     String tag;
+
+    public interface removeFragCallback{
+        void removeFrag(String fragTag);
+    }
+
+    private removeFragCallback removeFrag;
 
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
@@ -43,10 +51,19 @@ public class RepsWeightWAFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        removeFrag = (removeFragCallback) getParentFragment();
+
         String[] tokens = repsWeightString.split("@");
 
         repsEditText.setText(tokens[0]);
         weightEditText.setText(tokens[1]);
+
+        destroyFrag.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                removeFrag.removeFrag(tag);
+                Log.i("info", "info");
+            }
+        });
 
         return view;
     }

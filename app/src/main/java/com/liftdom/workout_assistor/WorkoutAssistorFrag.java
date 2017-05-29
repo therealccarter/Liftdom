@@ -149,8 +149,8 @@ public class WorkoutAssistorFrag extends Fragment {
                                     int currentWeekday = dateTime.getDayOfWeek();
 
                                     if(containsToday(templateModelClass.getDays(), currentWeekday)){
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
                                         assistorHolderFrag.templateClass = templateModelClass;
                                         if (!getActivity().isFinishing()) {
