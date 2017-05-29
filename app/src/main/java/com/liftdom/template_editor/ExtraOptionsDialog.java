@@ -17,10 +17,6 @@ import com.liftdom.liftdom.R;
 public class ExtraOptionsDialog extends AppCompatActivity {
 
     @BindView(R.id.confirmButton) Button confirm;
-    //@BindView(R.id.defaultRepsOptionButton) LinearLayout defaultRepsOptionButton;
-    //@BindView(R.id.toFailureOptionButton) LinearLayout toFailureOptionButton;
-    //@BindView(R.id.defaultWeightOptionButton) LinearLayout defaultWeightOptionButton;
-    //@BindView(R.id.bodyWeightOptionButton) LinearLayout bodyWeightOptionButton;
     @BindView(R.id.weightRadioGroup) RadioGroup weightRadioGroup;
     @BindView(R.id.repsRadioGroup) RadioGroup repsRadioGroup;
     @BindView(R.id.numericalWeightRadioButton) RadioButton numericalWeightRadioButton;
@@ -36,19 +32,9 @@ public class ExtraOptionsDialog extends AppCompatActivity {
         //setTitle("Options:");
         setContentView(R.layout.activity_extra_options);
         //this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_1);
-        this.setFinishOnTouchOutside(false);
+        this.setFinishOnTouchOutside(true);
 
         ButterKnife.bind(this);
-
-        /**
-         * So what are we trying to do here?...
-         * if weight is a number, show bodyweight option and hide default weight
-         * if reps is a number, show to failure option and hide default reps
-         * else if weight is text, show default weight option
-         * else if reps is text, show default reps option
-         */
-
-
 
         String repsText = getIntent().getExtras().getString("repsText");
         String weightText = getIntent().getExtras().getString("weightText");
@@ -59,73 +45,11 @@ public class ExtraOptionsDialog extends AppCompatActivity {
             numericalWeightRadioButton.setChecked(true);
         }
 
-        if(!isNumber(repsText)){ // if reps is text
+        if(!isNumber(repsText)){ // if reps are text
             toFailureRadioButton.setChecked(true);
         }else{
             numericalRepsRadioButton.setChecked(true);
         }
-
-        //repsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-        //    @Override
-        //    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        //        if(checkedId == numericalRepsRadioButton.getId()){
-        //            isNumericalReps = true;
-        //        }else if(checkedId == toFailureRadioButton.getId()){
-        //            isNumericalReps = false;
-        //        }
-        //    }
-        //});
-//
-        //weightRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-        //    @Override
-        //    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        //        if(checkedId == numericalWeightRadioButton.getId()){
-        //            isNumericalWeight = true;
-        //        }else if(checkedId == bodyWeightRadioButton.getId()){
-        //            isNumericalWeight = false;
-        //        }
-        //    }
-        //});
-//
-        //defaultRepsOptionButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        String message = "defaultReps";
-        //        Intent intent = new Intent();
-        //        intent.putExtra("MESSAGE", message);
-        //        setResult(3, intent);
-        //        finish();
-        //    }
-        //});
-//
-        //toFailureOptionButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        String message = "to failure";
-        //        Intent intent = new Intent();
-        //        intent.putExtra("MESSAGE", message);
-        //        setResult(3, intent);
-        //        finish();
-        //    }
-        //});
-//
-        //defaultWeightOptionButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        String message = "defaultWeight";
-        //        Intent intent = new Intent();
-        //        intent.putExtra("MESSAGE", message);
-        //        setResult(3, intent);
-        //        finish();
-        //    }
-        //});
-//
-        //bodyWeightOptionButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        String message = "bodyweight";
-        //        Intent intent = new Intent();
-        //        intent.putExtra("MESSAGE", message);
-        //        setResult(3, intent);
-        //        finish();
-        //    }
-        //});
 
         confirm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -15,6 +15,7 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
     @BindView(R.id.exerciseName) TextView exNameView;
     @BindView(R.id.addAlgorithmButton) Button addAlgoButton;
     @BindView(R.id.addSupersetButton) Button addSupersetButton;
+    @BindView(R.id.view) View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
         if(exName.equals("Click to select exercise")){
             addAlgoButton.setVisibility(View.GONE);
             addSupersetButton.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
             String dummy = "First choose an exercise";
             exNameView.setText(dummy);
         }else{

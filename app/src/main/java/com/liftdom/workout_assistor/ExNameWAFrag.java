@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
@@ -68,6 +70,15 @@ public class ExNameWAFrag extends android.app.Fragment
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 removeFrag.removeFrag(fragTag);
+            }
+        });
+
+        exerciseNameView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ExInfoOrSelectorDialog.class);
+                String exName = getExerciseValueFormatted();
+                intent.putExtra("exName", exName);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -218,6 +229,35 @@ public class ExNameWAFrag extends android.app.Fragment
         }
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1){
+            if(data != null){
+                if(data.getStringExtra("choice") != null){
+                    if(data.getStringExtra("choice").equals("selectEx")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("exID", exID);
+                        startActivityForResult(intent, 2);
+                    }else if(data.getStringExtra("choice").equals("infoEx")){
+                        //TODO: get exercise info popup
+                    }
+                }
+            }
+        }else if(resultCode == 2){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE") != null){
+                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                }
+            }
+        }
+    }
+
+    public String getExerciseValueFormatted(){
+        return exerciseNameView.getText().toString();
     }
 
     public void removeFrag(String tag){

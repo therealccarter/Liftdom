@@ -27,6 +27,8 @@ public class RepsWeightFrag extends Fragment {
 
     int setNumber;
 
+    //TODO: Delete this bitch
+
     public String reps = "fail";
     public String weight = "fail";
     public String parentExercise = "failed";

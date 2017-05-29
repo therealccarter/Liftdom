@@ -1,8 +1,10 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.ExtraOptionsDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +65,77 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             }
         });
 
+        extraOptionsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
+                String weightText = weightEditText.getText().toString();
+                String repsText = repsEditText.getText().toString();
+                intent.putExtra("repsText", repsText);
+                intent.putExtra("weightText", weightText);
+                startActivityForResult(intent, 3);
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(requestCode == 3){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE1") != null) {
+                    String message = data.getStringExtra("MESSAGE1");
+                    if(message.equals("bodyweight")){
+                        weightEditText.setText("B.W.");
+                        unitView.setVisibility(View.GONE);
+                        weightEditText.setEnabled(false);
+                    } else if(message.equals("defaultWeight")){
+                        if(!isNumber(weightEditText.getText().toString())){
+                            weightEditText.setText("");
+                            weightEditText.setEnabled(true);
+                            weightEditText.setHint("W");
+                            unitView.setVisibility(View.VISIBLE);
+                            weightEditText.setEnabled(true);
+                        }
+                    }
+                }
+                if(data.getStringExtra("MESSAGE2") != null) {
+                    String message = data.getStringExtra("MESSAGE2");
+                    if(message.equals("to failure")){
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    } else if(message.equals("defaultReps")){
+                        if(!isNumber(repsEditText.getText().toString())){
+                            repsEditText.setText("");
+                            repsEditText.setEnabled(true);
+                            repsEditText.setHint("R");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    boolean isNumber(String input){
+        boolean isNumber = false;
+
+        String inputWithout = input.replaceAll("\\s+","");
+
+        if(inputWithout.equals("")){
+            isNumber = true;
+        } else{
+            try {
+                int num = Integer.parseInt(input);
+                Log.i("",num+" is a number");
+                isNumber = true;
+            } catch (NumberFormatException e) {
+                isNumber = false;
+            }
+        }
+
+        return isNumber;
     }
 
 }

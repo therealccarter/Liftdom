@@ -343,6 +343,12 @@
 
     <string name="completeWorkout">Complete Workout</string>
 
+    <string name="viewExInfo">View Exercise Info</string>
+
+    <string name="selectOtherEx">Select Exercise</string>
+
+    <string name="noSelectedEx">No selected exercise</string>
+
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>
     <string name="fromScratch1">From Scratch</string>

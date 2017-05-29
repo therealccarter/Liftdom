@@ -102,6 +102,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //TODO: Have percentage option
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
@@ -118,34 +119,35 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 3
-        if(requestCode == 3)
-        {
-            if(data.getStringExtra("MESSAGE1") != null && data != null ) {
-                String message = data.getStringExtra("MESSAGE1");
-                if(message.equals("bodyweight")){
-                    weightEditText.setText("B.W.");
-                    pounds.setVisibility(View.GONE);
-                    weightEditText.setEnabled(false);
-                } else if(message.equals("defaultWeight")){
-                    if(!isNumber(weightEditText.getText().toString())){
-                        weightEditText.setText("");
-                        weightEditText.setEnabled(true);
-                        weightEditText.setHint("W");
-                        pounds.setVisibility(View.VISIBLE);
-                        weightEditText.setEnabled(true);
+        if(requestCode == 3){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE1") != null) {
+                    String message = data.getStringExtra("MESSAGE1");
+                    if(message.equals("bodyweight")){
+                        weightEditText.setText("B.W.");
+                        pounds.setVisibility(View.GONE);
+                        weightEditText.setEnabled(false);
+                    } else if(message.equals("defaultWeight")){
+                        if(!isNumber(weightEditText.getText().toString())){
+                            weightEditText.setText("");
+                            weightEditText.setEnabled(true);
+                            weightEditText.setHint("W");
+                            pounds.setVisibility(View.VISIBLE);
+                            weightEditText.setEnabled(true);
+                        }
                     }
                 }
-            }
-            if(data.getStringExtra("MESSAGE2") != null && data != null ) {
-                String message = data.getStringExtra("MESSAGE2");
-                if(message.equals("to failure")){
-                    repsEditText.setText("T.F.");
-                    repsEditText.setEnabled(false);
-                } else if(message.equals("defaultReps")){
-                    if(!isNumber(repsEditText.getText().toString())){
-                        repsEditText.setText("");
-                        repsEditText.setEnabled(true);
-                        repsEditText.setHint("R");
+                if(data.getStringExtra("MESSAGE2") != null) {
+                    String message = data.getStringExtra("MESSAGE2");
+                    if(message.equals("to failure")){
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    } else if(message.equals("defaultReps")){
+                        if(!isNumber(repsEditText.getText().toString())){
+                            repsEditText.setText("");
+                            repsEditText.setEnabled(true);
+                            repsEditText.setHint("R");
+                        }
                     }
                 }
             }
