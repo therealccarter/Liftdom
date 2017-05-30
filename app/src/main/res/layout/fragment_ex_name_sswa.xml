@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:background="@color/grey"
+              android:background="@color/offWhite"
               tools:context="com.liftdom.workout_assistor.ExNameSSWAFrag">
 
     <LinearLayout
@@ -14,21 +14,21 @@
         <View
                 android:layout_width="40dp"
                 android:layout_height="26dp"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/darkerGrey"
         />
 
         <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:src="@drawable/ic_arrow_upward_gold_24dp"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/darkerGrey"
         />
 
         <TextView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/hello_blank_fragment"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/darkerGrey"
                 android:textSize="22sp"
                 android:id="@+id/exerciseName"
                 android:textColor="@color/white"

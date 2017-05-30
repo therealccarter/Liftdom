@@ -347,6 +347,8 @@
 
     <string name="selectOtherEx">Select Exercise</string>
 
+    <string name="addRepsWeight">(+) Add reps @ weight</string>
+
     <string name="noSelectedEx">No selected exercise</string>
 
     <!-- Rando -->

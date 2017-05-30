@@ -8,10 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
@@ -51,7 +48,7 @@ public class ExNameWAFrag extends android.app.Fragment
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
-    @BindView(R.id.addRepsWeightButton) ImageView addSchemeButton;
+    @BindView(R.id.addRepsWeightButton) Button addSchemeButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

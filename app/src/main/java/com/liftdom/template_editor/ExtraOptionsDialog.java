@@ -24,8 +24,6 @@ public class ExtraOptionsDialog extends AppCompatActivity {
     @BindView(R.id.numericalRepsRadioButton) RadioButton numericalRepsRadioButton;
     @BindView(R.id.toFailureRadioButton) RadioButton toFailureRadioButton;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

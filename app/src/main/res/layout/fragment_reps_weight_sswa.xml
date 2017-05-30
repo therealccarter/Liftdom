@@ -6,69 +6,99 @@
               android:background="@color/grey"
              tools:context="com.liftdom.workout_assistor.RepsWeightSSWAFrag">
 
-    <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/three_dot_menu"
-            android:layout_marginTop="10dp"
-            android:id="@+id/extraOptionsButton"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="60dp"
-    />
-
-    <EditText
-            android:id="@+id/reps"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/reps"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"
-    />
+            android:orientation="horizontal"
+            android:layout_weight="1"
+    >
+        <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/three_dot_menu"
+                android:layout_marginTop="10dp"
+                android:id="@+id/extraOptionsButton"
+                android:layout_marginStart="10dp"
+        />
+    </LinearLayout>
 
 
-    <TextView
-            android:id="@+id/at"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/at"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-    />
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:gravity="center"
+    >
+        <EditText
+                android:id="@+id/reps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/reps"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                android:imeOptions="actionDone"
+        />
 
-    <EditText
-            android:id="@+id/weight"
-            android:layout_width="wrap_content"
+        <TextView
+                android:id="@+id/at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/at"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+        />
+
+        <EditText
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/weight"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                android:imeOptions="actionDone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/unit"
+                android:text="@string/pounds"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+        />
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+        />
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/weight"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"
-    />
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="end"
+    >
+        <ImageButton
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:id="@+id/destroyFrag1"
+                android:src="@drawable/close_button_grey"
+                android:scaleType="centerCrop"
+                android:padding="2dp"
+                android:background="@color/transparent"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/unit"
-            android:text="@string/pounds"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_marginEnd="40dp"
-    />
-
-    <ImageButton
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:id="@+id/destroyFrag1"
-            android:src="@drawable/close_button_grey"
-            android:scaleType="centerCrop"
-            android:padding="2dp"
-            android:background="@color/transparent"
-            android:layout_marginTop="10dp"
-    />
+        />
+    </LinearLayout>
 
 </LinearLayout>
