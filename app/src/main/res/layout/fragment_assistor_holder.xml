@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:background="@color/backgroundgrey1"
+              android:background="@color/offerGrey"
              tools:context="com.liftdom.workout_assistor.AssistorHolderFrag">
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:padding="5dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
     />
 
@@ -38,12 +38,12 @@
             android:text="@string/completeWorkout"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="32sp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="70dp"
 
     />
 

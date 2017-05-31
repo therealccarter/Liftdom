@@ -3,7 +3,8 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:background="@color/grey"
+              android:background="@color/offWhite"
+              android:id="@+id/holderView"
              tools:context="com.liftdom.workout_assistor.RepsWeightSSWAFrag">
 
     <LinearLayout
@@ -75,6 +76,7 @@
         <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/checkBox"
                 android:layout_marginStart="20dp"
         />
     </LinearLayout>
@@ -91,7 +93,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:id="@+id/destroyFrag1"
-                android:src="@drawable/close_button_grey"
+                android:src="@drawable/close_button_light_grey"
                 android:scaleType="centerCrop"
                 android:padding="2dp"
                 android:background="@color/transparent"

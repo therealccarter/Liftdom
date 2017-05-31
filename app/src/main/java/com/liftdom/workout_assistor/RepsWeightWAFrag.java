@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,10 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -44,6 +42,8 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     @BindView(R.id.unit) TextView unitView;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
+    @BindView(R.id.holderView) LinearLayout holderView;
+    @BindView(R.id.checkBox) CheckBox checkBox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +59,17 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         repsEditText.setText(tokens[0]);
         weightEditText.setText(tokens[1]);
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+                }else{
+                    holderView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+            }
+        });
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

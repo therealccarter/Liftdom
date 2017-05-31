@@ -11,6 +11,7 @@
 
     <color name="grey" type="color">#cccccc</color>
     <color name="offWhite" type="color">#ededed</color>
+    <color name="offerGrey" type="color">#b4b4b4</color>
     <item name="blue" type="color">#FF33B5E5</item>
     <item name="purple" type="color">#FFAA66CC</item>
     <item name="green" type="color">#FF99CC00</item>
@@ -25,7 +26,6 @@
     <item name="white" type="color">#FFFFFF</item>
     <color name="darkerGrey" type="color">#1d1d1d</color>
     <color name="darkgrey" type="color">#bb040404</color>
-    <color name="verylightgrey" type="color">#b4b4b4</color>
     <color name="transBlack1" type="color">#c9000000</color>
     <color name="transDarkGrey" type="color">#b9353535</color>
 
