@@ -12,7 +12,7 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssistorSavedFrag extends Fragment {
+public class AssistorSavedFrag extends android.app.Fragment {
 
 
     public AssistorSavedFrag() {

@@ -111,14 +111,12 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data != null){
-            if(resultCode == 1){
-
-                //android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                //android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                //AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
-                //fragmentManager.r
-            }
+        if(resultCode == 1){
+            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+            fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
+            fragmentTransaction.commit();
         }
     }
 
