@@ -4,6 +4,7 @@
              android:layout_height="wrap_content"
               android:orientation="vertical"
               android:background="@color/offerGrey"
+              android:id="@+id/assistorHolder"
              tools:context="com.liftdom.workout_assistor.AssistorHolderFrag">
 
     <LinearLayout
@@ -30,21 +31,156 @@
             android:layout_marginTop="20dp"
     />
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkgrey"
+            android:layout_margin="10dp"
+    />
+
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/saveButton"
-            android:background="@color/confirmgreen"
-            android:text="@string/completeWorkout"
+            android:id="@+id/saveProgressButton"
+            android:background="@color/liftrGold1"
+            android:textSize="18sp"
+            android:text="@string/saveProgress"
+            android:textColor="@color/black"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:textColor="@color/white"
-            android:textSize="32sp"
+            android:padding="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:textAllCaps="false"
+    />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkgrey"
+            android:layout_margin="10dp"
+    />
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            app:cardElevation="7dp"
+            app:cardCornerRadius="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privateJournal"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:background="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/privateJournal"
+                    android:background="@color/grey"
+            />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardElevation="7dp"
+            app:cardCornerRadius="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+    >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/publicComment"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:background="@color/black"
+            />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/publicComment"
+                    android:background="@color/grey"
+            />
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkgrey"
+            android:layout_margin="10dp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="90dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp"
+            android:background="@color/confirmgreen"
+            android:id="@+id/saveHolder"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="5dp"
+    >
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveButton"
+                android:background="@color/confirmgreen"
+                android:text="@string/completeWorkout"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:layout_weight="2"
+                android:layout_marginStart="5dp"
+        />
 
-    />
+        <ImageButton
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/right_chevron"
+                android:background="@color/transparent"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+        />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

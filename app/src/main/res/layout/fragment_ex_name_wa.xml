@@ -7,10 +7,11 @@
         tools:context="com.liftdom.workout_assistor.ExNameWAFrag"
         android:orientation="vertical"
         android:layout_marginTop="15dp"
-        app:cardElevation="5dp"
-        app:cardCornerRadius="0dp"
+        app:cardElevation="7dp"
+        app:cardCornerRadius="1dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
+        android:id="@+id/exNameCardView"
 >
     <LinearLayout
             android:layout_width="match_parent"

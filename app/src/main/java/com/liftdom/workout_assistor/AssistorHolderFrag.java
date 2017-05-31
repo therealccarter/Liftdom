@@ -4,12 +4,12 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -35,9 +35,14 @@ public class AssistorHolderFrag extends android.app.Fragment
     TemplateModelClass templateClass;
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
     int exNameInc = 0;
+    boolean savedState = false;
 
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
+    @BindView(R.id.saveHolder) LinearLayout saveHolder;
+    @BindView(R.id.saveProgressButton) Button saveProgressButton;
+    @BindView(R.id.publicComment) EditText publicCommentView;
+    @BindView(R.id.privateJournal) EditText privateJournalView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,23 +54,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
-
-        addExButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                exNameInc++;
-                String tag = String.valueOf(exNameInc) + "ex";
-                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                exNameFrag.fragTag = tag;
-                if (!getActivity().isFinishing()) {
-                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                    fragmentTransaction.commitAllowingStateLoss();
-                    getChildFragmentManager().executePendingTransactions();
-                    exNameFragList.add(exNameFrag);
-                }
-            }
-        });
-
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
             if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
 
@@ -90,9 +78,23 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         }
 
+        addExButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                exNameInc++;
+                String tag = String.valueOf(exNameInc) + "ex";
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                exNameFrag.fragTag = tag;
+                if (!getActivity().isFinishing()) {
+                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    getChildFragmentManager().executePendingTransactions();
+                    exNameFragList.add(exNameFrag);
+                }
+            }
+        });
 
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 List<String> exInfo = new ArrayList<>();
                 for(ExNameWAFrag exNameFrag : exNameFragList){
@@ -105,8 +107,15 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
+        saveProgressButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
         return view;
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

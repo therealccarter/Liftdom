@@ -242,6 +242,10 @@
     <string name="Sa">SA</string>
     <string name="Su">SU</string>
 
+    <string name="saveProgress">Save Workout Progress</string>
+
+    <string name="publicComment">Public Comment:</string>
+
     <string name="addExercise">(+) Add Exercise</string>
     <string name="removeExercise">(-) Remove Exercise</string>
     <string name="addDay">(+) Add Day</string>
@@ -505,7 +509,7 @@
     <string name="weightColon">Weight:\u0020</string>
     <string name="activityLevel">Activity level:\u0020</string>
 
-    <string name="privateJournal">Private Journal</string>
+    <string name="privateJournal">Private Journal:</string>
 
     <!-- save assistor -->
     <string name="finishWorkoutQuestion">FINISH TODAY\'S WORKOUT?</string>

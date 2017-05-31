@@ -68,7 +68,6 @@ public class TemplateEditorActivity extends AppCompatActivity
     @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
     @BindView(R.id.title) TextView title;
-    //@BindView(R.id.algoButton) Button algoButton;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
@@ -767,7 +766,7 @@ public class TemplateEditorActivity extends AppCompatActivity
                         finish();
                     }
                 })
-                .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+                .setNegativeButton("Continue Editing",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing

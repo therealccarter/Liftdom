@@ -19,4 +19,14 @@ public class AssistorSingleton {
 
     List<String> endList = new ArrayList<>();
 
+    /**
+     *  What we need for saving of workout progress:
+     *
+     *
+     *
+     *  What we need for algorithm checking:
+     *
+     *
+     */
+
 }
