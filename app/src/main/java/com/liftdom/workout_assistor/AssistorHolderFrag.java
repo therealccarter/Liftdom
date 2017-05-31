@@ -1,8 +1,11 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     int exNameInc = 0;
 
     @BindView(R.id.addExerciseButton) Button addExButton;
+    @BindView(R.id.saveButton) Button saveButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +90,36 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         }
 
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                List<String> exInfo = new ArrayList<>();
+                for(ExNameWAFrag exNameFrag : exNameFragList){
+                    exInfo.addAll(exNameFrag.getExInfo());
+                }
+                AssistorSingleton.getInstance().endList.clear();
+                AssistorSingleton.getInstance().endList.addAll(exInfo);
+                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null){
+            if(resultCode == 1){
+
+                //android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                //android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+                //fragmentManager.r
+            }
+        }
     }
 
     public void removeFrag(String tag){

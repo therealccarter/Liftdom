@@ -18,6 +18,7 @@ public class SaveAssistorDialog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_assistor_dialog);
+        this.setFinishOnTouchOutside(true);
 
         ButterKnife.bind(this);
 
@@ -31,9 +32,9 @@ public class SaveAssistorDialog extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                Intent intent = new Intent(v.getContext(), AssistorSavedActivity.class);
-                startActivity(intent);
 
+                setResult(1);
+                finish();
             }
         });
 

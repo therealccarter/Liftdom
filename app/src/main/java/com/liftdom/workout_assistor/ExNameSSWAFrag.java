@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,6 +108,16 @@ public class ExNameSSWAFrag extends android.app.Fragment
         });
 
         return view;
+    }
+
+    public List<String> getExInfo(){
+        List<String> exInfo = new ArrayList<>();
+
+        for(RepsWeightSSWAFrag repsWeightSSWAFrag : repsWeightFragList){
+            exInfo.add(repsWeightSSWAFrag.getInfo());
+        }
+
+        return exInfo;
     }
 
     boolean isExerciseName(String input) {

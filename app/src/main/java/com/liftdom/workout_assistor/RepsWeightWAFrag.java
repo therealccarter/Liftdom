@@ -91,6 +91,13 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         return view;
     }
 
+    public String getInfo(){
+        //TODO: Just like a lot of things, we'll have to adjust for different units later
+        //TODO: Gotta keep the algorithm in mind too though
+        String info = repsEditText.getText().toString() + weightEditText.getText().toString();
+        return info;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
