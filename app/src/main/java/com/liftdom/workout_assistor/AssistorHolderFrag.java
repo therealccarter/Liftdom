@@ -162,9 +162,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
+    //TODO: Algorithm not being saved on edit
+
     private void trueProgressInflateViews(HashMap<String, List<String>> runningMap, String privateJournal, String
             publicComment){
-
+        // look at firebase for direction
     }
 
     private void noProgressInflateViews(){
@@ -172,7 +174,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         int currentWeekday = dateTime.getDayOfWeek();
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
             if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
-
                 HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
                 for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
