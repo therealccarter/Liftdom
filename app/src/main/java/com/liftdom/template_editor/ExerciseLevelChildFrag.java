@@ -105,7 +105,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 if(map.getValue().get(0).equals(fromEditList.get(0))){
                     if(map.getValue().get(10).equals(editInitialDays)){
                         algorithmList.clear();
-                        map.getValue().remove(10);
+                        //map.getValue().remove(10);
                         algorithmList.addAll(map.getValue());
                     }
                 }
@@ -358,7 +358,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             }
 
             if(!algorithmList.isEmpty()){
-                algorithmList.add(getDoWValue());
+                if(algorithmList.size() > 9){
+                    algorithmList.set(10, getDoWValue());
+                }else{
+                    algorithmList.add(getDoWValue());
+                }
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
                 TemplateEditorSingleton.getInstance().setAlgorithmList(getExerciseValueFormatted(), algorithmList);
                 if(hasSupersets){
@@ -367,6 +371,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         if(!exName.equals("Click to select exercise")){
                             List<String> stringList = new ArrayList<>();
                             stringList.addAll(algorithmList);
+                            stringList.add("ss");
                             TemplateEditorSingleton.getInstance().setAlgorithmList(exFrag.getExerciseValueFormatted(), stringList);
                         }
                     }

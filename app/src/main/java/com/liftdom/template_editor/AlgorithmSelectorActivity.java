@@ -78,31 +78,32 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 for(Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
                     List<String> tempList = entry.getValue();
                     if(tempList.get(0).equals(exName)){
-
-                        if(Boolean.valueOf(tempList.get(8))){
-                            setsWeeksEditText.setText(tempList.get(1));
-                            setsIncreasedEditText.setText(tempList.get(2));
-                            repsWeeksEditText.setText(tempList.get(3));
-                            repsIncreasedEditText.setText(tempList.get(4));
-                            weightsWeeksEditText.setText(tempList.get(5));
-                            weightsIncreasedEditText.setText(tempList.get(6));
-                            boolean isLoop = Boolean.valueOf(tempList.get(7));
-                            if(isLoop){
-                                algorithmLooper.setChecked(true);
-                            }
-                            applyAlgoToExs.setChecked(true);
-                        }else{
-                            if(!day.equals("null")){
-                                if(tempList.get(10).equals(day)){
-                                    setsWeeksEditText.setText(tempList.get(1));
-                                    setsIncreasedEditText.setText(tempList.get(2));
-                                    repsWeeksEditText.setText(tempList.get(3));
-                                    repsIncreasedEditText.setText(tempList.get(4));
-                                    weightsWeeksEditText.setText(tempList.get(5));
-                                    weightsIncreasedEditText.setText(tempList.get(6));
-                                    boolean isLoop = Boolean.valueOf(tempList.get(7));
-                                    if(isLoop){
-                                        algorithmLooper.setChecked(true);
+                        if(tempList.size() < 12){
+                            if(Boolean.valueOf(tempList.get(8))){ // apply to all
+                                setsWeeksEditText.setText(tempList.get(1));
+                                setsIncreasedEditText.setText(tempList.get(2));
+                                repsWeeksEditText.setText(tempList.get(3));
+                                repsIncreasedEditText.setText(tempList.get(4));
+                                weightsWeeksEditText.setText(tempList.get(5));
+                                weightsIncreasedEditText.setText(tempList.get(6));
+                                boolean isLoop = Boolean.valueOf(tempList.get(7));
+                                if(isLoop){
+                                    algorithmLooper.setChecked(true);
+                                }
+                                applyAlgoToExs.setChecked(true);
+                            }else{
+                                if(!day.equals("null")){
+                                    if(tempList.get(10).equals(day)){
+                                        setsWeeksEditText.setText(tempList.get(1));
+                                        setsIncreasedEditText.setText(tempList.get(2));
+                                        repsWeeksEditText.setText(tempList.get(3));
+                                        repsIncreasedEditText.setText(tempList.get(4));
+                                        weightsWeeksEditText.setText(tempList.get(5));
+                                        weightsIncreasedEditText.setText(tempList.get(6));
+                                        boolean isLoop = Boolean.valueOf(tempList.get(7));
+                                        if(isLoop){
+                                            algorithmLooper.setChecked(true);
+                                        }
                                     }
                                 }
                             }
