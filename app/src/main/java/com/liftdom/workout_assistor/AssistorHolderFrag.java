@@ -3,6 +3,8 @@ package com.liftdom.workout_assistor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,31 +62,37 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         ButterKnife.bind(this, view);
 
-        DateTime dateTime = new DateTime();
-        int currentWeekday = dateTime.getDayOfWeek();
-        if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
-            if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
-
-                HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
-                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
-                    if(!entry.getKey().equals("0_key")){
-                        exNameInc++;
-                        String tag = String.valueOf(exNameInc) + "ex";
-                        List<String> stringList = entry.getValue();
-                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                        exNameFrag.infoList = stringList;
-                        exNameFrag.fragTag = tag;
-                        if (!getActivity().isFinishing()) {
-                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            getChildFragmentManager().executePendingTransactions();
-                            exNameFragList.add(exNameFrag);
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                    String dateTimeString = dateTime.toString();
+                    WorkoutProgressModelClass modelClass = new WorkoutProgressModelClass();
+                    modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                    if(dateTimeString.equals(modelClass.getDate())){
+                        if(!modelClass.isCompletedBool()){
+                            trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                                    modelClass.getPublicComment());
+                        }else{
+                            noProgressInflateViews();
                         }
+                    }else{
+                        noProgressInflateViews();
                     }
+                }else{
+                    noProgressInflateViews();
                 }
             }
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         addExButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -119,12 +129,32 @@ public class AssistorHolderFrag extends android.app.Fragment
                         ("assistorModel");
                 HashMap<String, List<String>> runningMap = new HashMap<String, List<String>>();
                 int inc = 0;
-                DateTime dateTime = new DateTime();
+                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                String dateTimeString = dateTime.toString();
+                String privateJournal = privateJournalView.getText().toString();
+                String publicComment = publicCommentView.getText().toString();
+                boolean completedBool = false; // obviously this will be set to true in assistor saved
+                String mediaResource = "";
+
                 for(ExNameWAFrag exNameFrag : exNameFragList){
                     inc++;
                     runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
                 }
-                WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass();
+
+                WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                        completedBool, runningMap, privateJournal, publicComment, mediaResource);
+
+                runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        try{
+                            Snackbar snackbar = Snackbar.make(getView(), "Progress Saved", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                        } catch (NullPointerException e){
+
+                        }
+                    }
+                });
 
             }
         });
@@ -132,6 +162,38 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
+    private void trueProgressInflateViews(HashMap<String, List<String>> runningMap, String privateJournal, String
+            publicComment){
+
+    }
+
+    private void noProgressInflateViews(){
+        DateTime dateTime = new DateTime();
+        int currentWeekday = dateTime.getDayOfWeek();
+        if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
+            if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
+
+                HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
+                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                    if(!entry.getKey().equals("0_key")){
+                        exNameInc++;
+                        String tag = String.valueOf(exNameInc) + "ex";
+                        List<String> stringList = entry.getValue();
+                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                        exNameFrag.infoList = stringList;
+                        exNameFrag.fragTag = tag;
+                        if (!getActivity().isFinishing()) {
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                            fragmentTransaction.commitAllowingStateLoss();
+                            getChildFragmentManager().executePendingTransactions();
+                            exNameFragList.add(exNameFrag);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
