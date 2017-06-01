@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.DateTime;
@@ -31,6 +34,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     public AssistorHolderFrag() {
         // Required empty public constructor
     }
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     TemplateModelClass templateClass;
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
@@ -109,6 +115,16 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         saveProgressButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                        ("assistorModel");
+                HashMap<String, List<String>> runningMap = new HashMap<String, List<String>>();
+                int inc = 0;
+                DateTime dateTime = new DateTime();
+                for(ExNameWAFrag exNameFrag : exNameFragList){
+                    inc++;
+                    runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                }
+                WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass();
 
             }
         });

@@ -248,6 +248,27 @@ public class ExNameWAFrag extends android.app.Fragment
         return exInfoList;
     }
 
+    public List<String> getInfoForMap(){
+        List<String> exInfoList = new ArrayList<>();
+
+        exInfoList.add(getExerciseValueFormatted());
+
+        for(RepsWeightWAFrag repsWeightFrag : repsWeightFragList1){
+            exInfoList.add(repsWeightFrag.getInfo());
+        }
+
+        for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+            exInfoList.addAll(exNameSSWAFrag.getInfoForMap());
+        }
+
+        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+            exInfoList.add(repsWeightWAFrag.getInfo());
+        }
+
+
+        return exInfoList;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);

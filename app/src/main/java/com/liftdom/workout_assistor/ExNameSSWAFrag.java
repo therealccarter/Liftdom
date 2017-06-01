@@ -110,6 +110,18 @@ public class ExNameSSWAFrag extends android.app.Fragment
         return view;
     }
 
+    public List<String> getInfoForMap(){
+        List<String> exInfo = new ArrayList<>();
+
+        exInfo.add(getExName());
+
+        for(RepsWeightSSWAFrag repsWeightSSWAFrag : repsWeightFragList){
+            exInfo.add(repsWeightSSWAFrag.getInfo());
+        }
+
+        return exInfo;
+    }
+
     public List<String> getExInfo(){
         List<String> exInfo = new ArrayList<>();
 
@@ -118,6 +130,10 @@ public class ExNameSSWAFrag extends android.app.Fragment
         }
 
         return exInfo;
+    }
+
+    private String getExName(){
+        return exNameView.getText().toString();
     }
 
     boolean isExerciseName(String input) {
