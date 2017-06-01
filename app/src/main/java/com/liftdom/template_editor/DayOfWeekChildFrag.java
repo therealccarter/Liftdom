@@ -358,6 +358,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     frag1.fragTag = fragString1;
                     frag1.fromEditList = list;
                     frag1.templateName = templateName;
+                    frag1.editInitialDays = getDowForEdit(daysArray);
 
                     fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
                     if(!getActivity().isFinishing()){
@@ -434,6 +435,16 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         return doWConstructor;
 
+    }
+
+    private String getDowForEdit(String[] daysArray){
+        String doWConstructor = "";
+
+        for(String day : daysArray){
+            doWConstructor = doWConstructor + day + "_";
+        }
+
+        return doWConstructor;
     }
 
     private void setGreyChecked(String doW){

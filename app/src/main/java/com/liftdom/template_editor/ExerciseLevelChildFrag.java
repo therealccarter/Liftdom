@@ -39,6 +39,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     String exerciseName;
     String templateName;
     String selectedDaysReference;
+    String editInitialDays;
 
     String fragTag;
 
@@ -100,6 +101,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         }
 
         if(isEdit){
+            for(Map.Entry<String, List<String>> map : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
+                if(map.getValue().get(0).equals(fromEditList.get(0))){
+                    if(map.getValue().get(10).equals(editInitialDays)){
+                        algorithmList.clear();
+                        map.getValue().remove(10);
+                        algorithmList.addAll(map.getValue());
+                    }
+                }
+            }
+
             exerciseButton.setText(newLineExname(fromEditList.get(0)));
             if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo.isEmpty()) {
                 for (Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()) {
