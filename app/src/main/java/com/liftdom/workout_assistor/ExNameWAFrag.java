@@ -216,6 +216,9 @@ public class ExNameWAFrag extends android.app.Fragment
                                 newSubList.add(arrayList.get(i + 1));
                                 exNameFrag.infoList.addAll(newSubList);
                                 exNameFrag.fragTag2 = tag;
+                                if(count + 1 == finalList.size()){
+                                    exNameFrag.inflateBottomView = true;
+                                }
                                 fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
                                 fragmentTransaction.commitAllowingStateLoss();
                                 fragmentManager.executePendingTransactions();

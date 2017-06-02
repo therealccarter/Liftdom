@@ -31,6 +31,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     String fragTag1;
     boolean isEdit = false;
 
+
     public interface removeFragCallback{
         void removeFrag(String fragTag);
     }
@@ -45,6 +46,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.holderView) LinearLayout holderView;
     @BindView(R.id.checkBox) CheckBox checkBox;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +75,6 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             repsEditText.setText(tokens[0]);
             weightEditText.setText(tokens[1]);
         }
-
-
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

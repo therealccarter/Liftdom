@@ -39,6 +39,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
     ArrayList<String> infoList = new ArrayList<>();
     ArrayList<RepsWeightSSWAFrag> repsWeightFragList = new ArrayList<>();
     int fragCount = 0;
+    boolean inflateBottomView;
 
     public interface removeFragCallback1{
         void removeFrag2(String fragTag);
@@ -69,6 +70,9 @@ public class ExNameSSWAFrag extends android.app.Fragment
             RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
             repsWeightFrag.repsWeightString = infoList.get(i);
             repsWeightFrag.tag = countString;
+            if(inflateBottomView && i + 1 == infoList.size()){
+                repsWeightFrag.inflateBottomView = true;
+            }
             repsWeightFragList.add(repsWeightFrag);
             fragmentTransaction.add(R.id.repsWeightContainerSS, repsWeightFrag, countString);
             fragmentTransaction.commitAllowingStateLoss();

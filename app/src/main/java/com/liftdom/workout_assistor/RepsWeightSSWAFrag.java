@@ -28,6 +28,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
     String repsWeightString = "false";
     String tag;
+    boolean inflateBottomView = false;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -43,6 +44,8 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.holderView) LinearLayout holderView;
     @BindView(R.id.checkBox) CheckBox checkBox;
+    @BindView(R.id.bottomView) View bottomView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +61,10 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         repsEditText.setText(tokens[0]);
         weightEditText.setText(tokens[1]);
+
+        if(inflateBottomView){
+            bottomView.setVisibility(View.VISIBLE);
+        }
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
