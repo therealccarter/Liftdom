@@ -29,6 +29,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
     String repsWeightString = "false";
     String fragTag1;
+    boolean isEdit = false;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -55,10 +56,25 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         removeFrag = (removeFragCallback) getParentFragment();
 
-        String[] tokens = repsWeightString.split("@");
+        if(isEdit){
+            String delims = "[@,_]";
+            String[] tokens = repsWeightString.split(delims);
 
-        repsEditText.setText(tokens[0]);
-        weightEditText.setText(tokens[1]);
+            repsEditText.setText(tokens[0]);
+            weightEditText.setText(tokens[1]);
+            if(tokens[2].equals("checked")){
+                checkBox.setChecked(true);
+            }else{
+                checkBox.setChecked(false);
+            }
+        }else{
+            String[] tokens = repsWeightString.split("@");
+
+            repsEditText.setText(tokens[0]);
+            weightEditText.setText(tokens[1]);
+        }
+
+
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -94,6 +110,11 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     public String getInfo(){
         //TODO: Just like a lot of things, we'll have to adjust for different units later
         String info = repsEditText.getText().toString() + "@" + weightEditText.getText().toString();
+        if(checkBox.isChecked()){
+            info = info + "_checked";
+        }else{
+            info = info + "_unchecked";
+        }
         return info;
     }
 

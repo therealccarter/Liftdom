@@ -77,4 +77,5 @@ public class WorkoutProgressModelClass {
     public void setPublicComment(String mPublicComment) {
         this.mPublicComment = mPublicComment;
     }
+
 }

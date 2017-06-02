@@ -93,6 +93,12 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     public String getInfo(){
         //TODO: Just like a lot of things, we'll have to adjust for different units later
         String info = repsEditText.getText().toString() + "@" + weightEditText.getText().toString();
+        if(checkBox.isChecked()){
+            info = info + "_checked";
+        }else{
+            info = info + "_unchecked";
+        }
+        info = info + "_ss";
         return info;
     }
 

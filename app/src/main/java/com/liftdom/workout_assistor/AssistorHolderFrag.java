@@ -22,6 +22,9 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,8 +71,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    DateTime dateTime = new DateTime(DateTimeZone.UTC);
-                    String dateTimeString = dateTime.toString();
+                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                    LocalDate localDate = LocalDate.now();
+                    String dateTimeString = fmt.print(localDate);
                     WorkoutProgressModelClass modelClass = new WorkoutProgressModelClass();
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
@@ -129,8 +133,11 @@ public class AssistorHolderFrag extends android.app.Fragment
                         ("assistorModel");
                 HashMap<String, List<String>> runningMap = new HashMap<String, List<String>>();
                 int inc = 0;
-                DateTime dateTime = new DateTime(DateTimeZone.UTC);
-                String dateTimeString = dateTime.toString();
+
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.now();
+                String dateTimeString = fmt.print(localDate);
+
                 String privateJournal = privateJournalView.getText().toString();
                 String publicComment = publicCommentView.getText().toString();
                 boolean completedBool = false; // obviously this will be set to true in assistor saved
@@ -164,9 +171,23 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private void trueProgressInflateViews(HashMap<String, List<String>> runningMap, String privateJournal, String
             publicComment){
-        // look at firebase for direction
         //TODO: On change of active template, delete this node so we don't accidentally get info from old template
-        // gonna probably need an isEdit thing here
+        for(Map.Entry<String, List<String>> entry : runningMap.entrySet()) {
+            exNameInc++;
+            String tag = String.valueOf(exNameInc) + "ex";
+            List<String> stringList = entry.getValue();
+            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            ExNameWAFrag exNameFrag = new ExNameWAFrag();
+            exNameFrag.isEditInfoList = stringList;
+            exNameFrag.fragTag = tag;
+            exNameFrag.isEdit = true;
+            if (!getActivity().isFinishing()) {
+                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                fragmentTransaction.commitAllowingStateLoss();
+                getChildFragmentManager().executePendingTransactions();
+                exNameFragList.add(exNameFrag);
+            }
+        }
     }
 
     private void noProgressInflateViews(){
