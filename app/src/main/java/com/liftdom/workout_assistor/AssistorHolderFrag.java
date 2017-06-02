@@ -162,11 +162,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
-    //TODO: Algorithm not being saved on edit
-
     private void trueProgressInflateViews(HashMap<String, List<String>> runningMap, String privateJournal, String
             publicComment){
         // look at firebase for direction
+        //TODO: On change of active template, delete this node so we don't accidentally get info from old template
+        // gonna probably need an isEdit thing here
     }
 
     private void noProgressInflateViews(){

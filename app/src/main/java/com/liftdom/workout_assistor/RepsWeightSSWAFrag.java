@@ -92,7 +92,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
     public String getInfo(){
         //TODO: Just like a lot of things, we'll have to adjust for different units later
-        String info = repsEditText.getText().toString() + weightEditText.getText().toString();
+        String info = repsEditText.getText().toString() + "@" + weightEditText.getText().toString();
         return info;
     }
 
