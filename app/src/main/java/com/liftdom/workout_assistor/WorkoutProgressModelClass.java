@@ -11,7 +11,7 @@ public class WorkoutProgressModelClass {
 
     private String mDate;
     private boolean mCompletedBool;
-    private HashMap<String, List<String>> mExInfoHashMap;
+    private HashMap<String, HashMap<String, List<String>>> mExInfoHashMap;
     private String mPrivateJournal;
     private String mPublicComment;
     private String mMediaResource;
@@ -20,7 +20,7 @@ public class WorkoutProgressModelClass {
         // necessary for Firebase
     }
 
-    public WorkoutProgressModelClass(String date, boolean completedBool, HashMap<String, List<String>> exInfoHashMap,
+    public WorkoutProgressModelClass(String date, boolean completedBool, HashMap<String, HashMap<String, List<String>>> exInfoHashMap,
                                      String privateJournal, String publicComment, String mediaResource){
         mDate = date;
         mCompletedBool = completedBool;
@@ -54,11 +54,11 @@ public class WorkoutProgressModelClass {
         this.mCompletedBool = mCompletedBool;
     }
 
-    public HashMap<String, List<String>> getExInfoHashMap() {
+    public HashMap<String, HashMap<String, List<String>>> getExInfoHashMap() {
         return mExInfoHashMap;
     }
 
-    public void setExInfoHashMap(HashMap<String, List<String>> mExInfoHashMap) {
+    public void setExInfoHashMap(HashMap<String, HashMap<String, List<String>>> mExInfoHashMap) {
         this.mExInfoHashMap = mExInfoHashMap;
     }
 

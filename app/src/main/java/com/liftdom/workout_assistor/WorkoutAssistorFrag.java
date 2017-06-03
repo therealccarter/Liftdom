@@ -100,14 +100,14 @@ public class WorkoutAssistorFrag extends Fragment {
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
         currentTemplateView.setTypeface(lobster);
 
+        if(savedInstanceState == null){
+            initiliazeFrags();
+        }
+
         return view;
     }
 
-
-    // [START on_start_add_listener]
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void initiliazeFrags(){
         if (MainActivitySingleton.getInstance().isWorkoutFinished) {
 
             // faux cache mechanism
@@ -200,6 +200,13 @@ public class WorkoutAssistorFrag extends Fragment {
                 }
             });
         }
+    }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+
 
     }
     // [END on_start_add_listener]

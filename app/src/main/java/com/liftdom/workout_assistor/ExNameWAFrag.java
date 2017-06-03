@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -268,25 +270,85 @@ public class ExNameWAFrag extends android.app.Fragment
         return exInfoList;
     }
 
-    public List<String> getInfoForMap(){
+    public HashMap<String, List<String>> getInfoForMap(){
         List<String> exInfoList = new ArrayList<>();
+        List<String> parentExInfoList = new ArrayList<>();
 
-        exInfoList.add(getExerciseValueFormatted());
+        parentExInfoList.add(getExerciseValueFormatted());
 
-        for(RepsWeightWAFrag repsWeightFrag : repsWeightFragList1){
-            exInfoList.add(repsWeightFrag.getInfo());
+        if(getExerciseValueFormatted().equals("Chest Fly (Machine)")){
+            Log.i("info", "info");
         }
+
+        ArrayList<List<String>> collectedExInfoByExList = new ArrayList<>();
+
+
+        if(repsWeightFragList1.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                parentExInfoList.add(repsWeightWAFrag.getInfo());
+            }
+        }
+
+        if(repsWeightFragList2.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                parentExInfoList.add(repsWeightWAFrag.getInfo());
+            }
+        }
+
+        collectedExInfoByExList.add(parentExInfoList);
 
         for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
-            exInfoList.addAll(exNameSSWAFrag.getInfoForMap());
+            if(listHasEx(collectedExInfoByExList, exNameSSWAFrag.getInfoForMap().get(0))){
+                int index = getListHasExInt(collectedExInfoByExList, exNameSSWAFrag.getInfoForMap().get(0));
+                collectedExInfoByExList.get(index).add(exNameSSWAFrag.getInfoForMap().get(1));
+            }else{
+                collectedExInfoByExList.add(exNameSSWAFrag.getInfoForMap());
+            }
         }
 
-        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-            exInfoList.add(repsWeightWAFrag.getInfo());
+        HashMap<String, List<String>> exMap = new HashMap<>();
+
+        int inc = 0;
+        for(List<String> list : collectedExInfoByExList){
+            List<String> newList = new ArrayList<>();
+            newList.addAll(list);
+            exMap.put(String.valueOf(inc) + "_key", newList);
+            inc++;
         }
 
+        return exMap;
+    }
 
-        return exInfoList;
+    private boolean listHasEx(ArrayList<List<String>> parentList, String exName){
+        boolean bool = false;
+
+        int inc = 0;
+        for(List<String> list : parentList){
+            if(inc != 0){
+                if(list.get(0).equals(exName)){
+                    bool = true;
+                }
+            }
+            inc++;
+        }
+
+        return bool;
+    }
+
+    private int getListHasExInt(ArrayList<List<String>> parentList, String exName){
+        int index = 0;
+
+        int inc = 0;
+        for(List<String> list : parentList){
+            if(inc != 0){
+                if(list.get(0).equals(exName)){
+                  index = inc;
+                }
+            }
+            inc++;
+        }
+
+        return index;
     }
 
     @Override
@@ -359,24 +421,6 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
-    int getSmallestSize(ArrayList<ArrayList<String>> list){
-        int smallest = 0;
-
-        int inc = 0;
-        for(ArrayList<String> arrayList : list){
-            inc++;
-            if(inc == 1){
-                smallest = arrayList.size();
-            }
-            int mapSize = arrayList.size();
-            if(mapSize < smallest){
-                smallest = mapSize;
-            }
-        }
-
-        return smallest;
-    }
-
     int getBiggestSize(ArrayList<ArrayList<String>> list){
         int biggest = 0;
 
@@ -387,6 +431,14 @@ public class ExNameWAFrag extends android.app.Fragment
         }
 
         return biggest;
+    }
+
+    int getBiggestForMap(int p, int s){
+        if(p > s){
+            return p;
+        }else{
+            return s;
+        }
     }
 
     ArrayList<ArrayList<String>> expandSplitList(ArrayList<ArrayList<String>> splitList){

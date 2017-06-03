@@ -78,8 +78,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
-                            trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                                    modelClass.getPublicComment());
+                            //trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                            //        modelClass.getPublicComment());
+                            noProgressInflateViews();
                         }else{
                             noProgressInflateViews();
                         }
@@ -96,6 +97,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+
+
 
 
         addExButton.setOnClickListener(new View.OnClickListener() {
@@ -131,18 +134,18 @@ public class AssistorHolderFrag extends android.app.Fragment
             public void onClick(View v) {
                 DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                         ("assistorModel");
-                HashMap<String, List<String>> runningMap = new HashMap<String, List<String>>();
+                HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
                 int inc = 0;
-
                 DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                 LocalDate localDate = LocalDate.now();
                 String dateTimeString = fmt.print(localDate);
-
                 String privateJournal = privateJournalView.getText().toString();
                 String publicComment = publicCommentView.getText().toString();
                 boolean completedBool = false; // obviously this will be set to true in assistor saved
                 String mediaResource = "";
 
+
+                // might need to make this not clickable without inflated views so it isn't set to null
                 for(ExNameWAFrag exNameFrag : exNameFragList){
                     inc++;
                     runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
