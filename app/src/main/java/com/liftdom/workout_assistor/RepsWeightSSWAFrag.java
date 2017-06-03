@@ -29,6 +29,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     String repsWeightString = "false";
     String tag;
     boolean inflateBottomView = false;
+    boolean isEdit = false;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -57,10 +58,24 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         removeFrag = (removeFragCallback) getParentFragment();
 
-        String[] tokens = repsWeightString.split("@");
+        if(isEdit){
+            String delims = "[@,_]";
+            String[] tokens = repsWeightString.split(delims);
 
-        repsEditText.setText(tokens[0]);
-        weightEditText.setText(tokens[1]);
+            repsEditText.setText(tokens[0]);
+            weightEditText.setText(tokens[1]);
+            if(tokens[2].equals("checked")){
+                checkBox.setChecked(true);
+                holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+            }else{
+                checkBox.setChecked(false);
+            }
+        }else{
+            String[] tokens = repsWeightString.split("@");
+
+            repsEditText.setText(tokens[0]);
+            weightEditText.setText(tokens[1]);
+        }
 
         if(inflateBottomView){
             bottomView.setVisibility(View.VISIBLE);

@@ -106,53 +106,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 finalList.add(entry.getValue());
             }
             int biggestSize = getBiggestSizeList(finalList);
-            for(int i = 0; i < biggestSize; i++){
-                int count = 0;
-                for(List<String> arrayList : finalList){
-                    if(count == 0){
-                        // parent ex
-                        try{
-                            repsWeightInc++;
-                            String tag = String.valueOf(repsWeightInc) + "rwSS";
-                            android.app.FragmentManager fragmentManager = getChildFragmentManager();
-                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
-                            repsWeightFrag.repsWeightString = arrayList.get(i + 1);
-                            repsWeightFrag.fragTag1 = tag;
-                            fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            fragmentManager.executePendingTransactions();
-                            repsWeightFragList1.add(repsWeightFrag);
-                        } catch(IndexOutOfBoundsException e){
-
-                        }
-                    }else{
-                        // superset ex
-                        try{
-                            exNameSupersetInc++;
-                            String tag = String.valueOf(exNameSupersetInc) + "exSS";
-                            android.app.FragmentManager fragmentManager = getChildFragmentManager();
-                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
-                            ArrayList<String> newSubList = new ArrayList<>();
-                            newSubList.add(arrayList.get(0));
-                            newSubList.add(arrayList.get(i + 1));
-                            exNameFrag.infoList.addAll(newSubList);
-                            exNameFrag.fragTag2 = tag;
-                            if(count + 1 == finalList.size()){
-                                exNameFrag.inflateBottomView = true;
-                            }
-                            fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            fragmentManager.executePendingTransactions();
-                            exNameSupersetFragList.add(exNameFrag);
-                        } catch(IndexOutOfBoundsException e){
-
-                        }
-                    }
-                    count++;
-                }
-            }
+            inflateFragsFromEdit(finalList, biggestSize);
         }else{
             inflateFrags();
         }
@@ -260,8 +214,59 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
-    private void inflateFragsFromEdit(){
+    private void inflateFragsFromEdit(ArrayList<List<String>> finalList, int biggestSize){
 
+        exerciseNameView.setText(finalList.get(0).get(0));
+
+        for(int i = 0; i < biggestSize; i++){
+            int count = 0;
+            for(List<String> arrayList : finalList){
+                if(count == 0){
+                    // parent ex
+                    try{
+                        repsWeightInc++;
+                        String tag = String.valueOf(repsWeightInc) + "rwSS";
+                        android.app.FragmentManager fragmentManager = getChildFragmentManager();
+                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                        repsWeightFrag.repsWeightString = arrayList.get(i + 1);
+                        repsWeightFrag.fragTag1 = tag;
+                        repsWeightFrag.isEdit = true;
+                        fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        fragmentManager.executePendingTransactions();
+                        repsWeightFragList1.add(repsWeightFrag);
+                    } catch(IndexOutOfBoundsException e){
+
+                    }
+                }else{
+                    // superset ex
+                    try{
+                        exNameSupersetInc++;
+                        String tag = String.valueOf(exNameSupersetInc) + "exSS";
+                        android.app.FragmentManager fragmentManager = getChildFragmentManager();
+                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                        ArrayList<String> newSubList = new ArrayList<>();
+                        newSubList.add(arrayList.get(0));
+                        newSubList.add(arrayList.get(i + 1));
+                        exNameFrag.infoList.addAll(newSubList);
+                        exNameFrag.fragTag2 = tag;
+                        exNameFrag.isEdit = true;
+                        if(count + 1 == finalList.size()){
+                            exNameFrag.inflateBottomView = true;
+                        }
+                        fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        fragmentManager.executePendingTransactions();
+                        exNameSupersetFragList.add(exNameFrag);
+                    } catch(IndexOutOfBoundsException e){
+
+                    }
+                }
+                count++;
+            }
+        }
     }
 
     public List<String> getExInfo(){

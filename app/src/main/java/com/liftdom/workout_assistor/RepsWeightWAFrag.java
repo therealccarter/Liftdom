@@ -66,6 +66,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             weightEditText.setText(tokens[1]);
             if(tokens[2].equals("checked")){
                 checkBox.setChecked(true);
+                holderView.setBackgroundColor(Color.parseColor("#cccccc"));
             }else{
                 checkBox.setChecked(false);
             }
