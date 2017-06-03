@@ -408,7 +408,27 @@ public class ExNameWAFrag extends android.app.Fragment
                 //String fragString = Integer.toString(repsWeightInc);
                 if(getChildFragmentManager().findFragmentByTag(tag) != null){
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                    repsWeightFragList1.remove(inc - 1);
+                    /**
+                     * Let's say we've got this list: [1rwSS, 2rwSS, 3rwSS, 4rwSS] size = 4;
+                     * If we delete, say, 3rwSS, we're removing the frag at index (2) (size = 3 now)
+                     * but then if we next remove 4rwSS, we're removing at index (3), which is now out of bounds.
+                     */
+
+                    //repsWeightFragList1.remove(inc - 1);
+
+                    Integer index = null;
+                    int newInc = 0;
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                        if(repsWeightWAFrag.getTag().equals(tag)){
+                            index = newInc;
+                        }
+                        newInc++;
+                    }
+
+                    if(index != null){
+                        int newIndex = index;
+                        repsWeightFragList1.remove(newIndex);
+                    }
                     --repsWeightInc;
                 }
             }
@@ -417,7 +437,19 @@ public class ExNameWAFrag extends android.app.Fragment
                 //String fragString = Integer.toString(repsWeightInc);
                 if(getChildFragmentManager().findFragmentByTag(tag) != null){
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                    repsWeightFragList2.remove(inc - 1);
+                    Integer index = null;
+                    int newInc = 0;
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                        if(repsWeightWAFrag.getTag().equals(tag)){
+                            index = newInc;
+                        }
+                        newInc++;
+                    }
+
+                    if(index != null){
+                        int newIndex = index;
+                        repsWeightFragList2.remove(newIndex);
+                    }
                     --repsWeightInc;
                 }
             }
@@ -432,7 +464,19 @@ public class ExNameWAFrag extends android.app.Fragment
         if(exNameSupersetInc != 0){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                exNameSupersetFragList.remove(inc - 1);
+                Integer index = null;
+                int newInc = 0;
+                for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+                    if(exNameSSWAFrag.getTag().equals(tag)){
+                        index = newInc;
+                    }
+                    newInc++;
+                }
+
+                if(index != null){
+                    int newIndex = index;
+                    exNameSupersetFragList.remove(newIndex);
+                }
                 --exNameSupersetInc;
             }
         }
