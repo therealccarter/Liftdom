@@ -78,9 +78,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
-                            //trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                            //        modelClass.getPublicComment());
-                            noProgressInflateViews();
+                            trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                                    modelClass.getPublicComment());
+                            //noProgressInflateViews();
                         }else{
                             noProgressInflateViews();
                         }
@@ -172,16 +172,17 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
-    private void trueProgressInflateViews(HashMap<String, List<String>> runningMap, String privateJournal, String
+    private void trueProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
+            privateJournal, String
             publicComment){
         //TODO: On change of active template, delete this node so we don't accidentally get info from old template
-        for(Map.Entry<String, List<String>> entry : runningMap.entrySet()) {
+        for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
             exNameInc++;
             String tag = String.valueOf(exNameInc) + "ex";
-            List<String> stringList = entry.getValue();
+            HashMap<String, List<String>> exerciseMap = entry.getValue();
             android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             ExNameWAFrag exNameFrag = new ExNameWAFrag();
-            exNameFrag.isEditInfoList = stringList;
+            exNameFrag.isEditInfoList = exerciseMap;
             exNameFrag.fragTag = tag;
             exNameFrag.isEdit = true;
             if (!getActivity().isFinishing()) {
