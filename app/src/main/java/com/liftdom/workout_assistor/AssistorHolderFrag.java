@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,13 +50,16 @@ public class AssistorHolderFrag extends android.app.Fragment
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
     int exNameInc = 0;
     boolean savedState = false;
+    WorkoutProgressModelClass modelClass;
 
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.saveHolder) LinearLayout saveHolder;
     @BindView(R.id.saveProgressButton) Button saveProgressButton;
-    @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.privateJournal) EditText privateJournalView;
+    @BindView(R.id.publicComment) EditText publicCommentView;
+    @BindView(R.id.saveImage) ImageButton saveImage;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +78,6 @@ public class AssistorHolderFrag extends android.app.Fragment
                     DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                     LocalDate localDate = LocalDate.now();
                     String dateTimeString = fmt.print(localDate);
-                    WorkoutProgressModelClass modelClass = new WorkoutProgressModelClass();
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
@@ -118,6 +121,32 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
 
         saveHolder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                List<String> exInfo = new ArrayList<>();
+                for(ExNameWAFrag exNameFrag : exNameFragList){
+                    exInfo.addAll(exNameFrag.getExInfo());
+                }
+                AssistorSingleton.getInstance().endList.clear();
+                AssistorSingleton.getInstance().endList.addAll(exInfo);
+                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                List<String> exInfo = new ArrayList<>();
+                for(ExNameWAFrag exNameFrag : exNameFragList){
+                    exInfo.addAll(exNameFrag.getExInfo());
+                }
+                AssistorSingleton.getInstance().endList.clear();
+                AssistorSingleton.getInstance().endList.addAll(exInfo);
+                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        saveImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 List<String> exInfo = new ArrayList<>();
                 for(ExNameWAFrag exNameFrag : exNameFragList){
@@ -192,6 +221,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                 exNameFragList.add(exNameFrag);
             }
         }
+
+        privateJournalView.setText(privateJournal);
+        publicCommentView.setText(publicComment);
+
     }
 
     private void noProgressInflateViews(){
@@ -225,9 +258,19 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 1){
+
+            HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+            int inc = 0;
+            for(ExNameWAFrag exNameFrag : exNameFragList){
+                inc++;
+                runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            }
+
             android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+            assistorSavedFrag.templateClass = templateClass;
+            assistorSavedFrag.completedMap = runningMap;
             fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
             fragmentTransaction.commit();
         }

@@ -556,7 +556,6 @@ public class ExNameWAFrag extends android.app.Fragment
         }
 
         return isExercise;
-
     }
 
 }
