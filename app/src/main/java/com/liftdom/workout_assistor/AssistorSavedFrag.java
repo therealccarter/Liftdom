@@ -58,7 +58,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     int totalPoundage = getTotalPoundage(map1.getValue());
                     for(Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()){
                         if(map2.getValue().get(0).equals(exName)){
+                            int totalPoundage2 = getTotalPoundage(map2.getValue());
+                            if(totalPoundage2 >= totalPoundage){
+                                // algo
 
+                            }
                         }
                     }
                 }
@@ -68,6 +72,20 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return view;
     }
+
+    private HashMap<String, List<String>> generateAlgo(String exName, boolean isSuperset){
+        HashMap<String, List<String>> newMap = new HashMap<>();
+
+        if(isSuperset){
+
+        }else{
+
+        }
+
+        return newMap;
+    }
+
+
 
     private int getTotalPoundage(List<String> list){
         int totalPoundage = 0;

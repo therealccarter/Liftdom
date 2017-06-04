@@ -205,20 +205,24 @@ public class AssistorHolderFrag extends android.app.Fragment
             privateJournal, String
             publicComment){
         //TODO: On change of active template, delete this node so we don't accidentally get info from old template
-        for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
-            exNameInc++;
-            String tag = String.valueOf(exNameInc) + "ex";
-            HashMap<String, List<String>> exerciseMap = entry.getValue();
-            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            ExNameWAFrag exNameFrag = new ExNameWAFrag();
-            exNameFrag.isEditInfoList = exerciseMap;
-            exNameFrag.fragTag = tag;
-            exNameFrag.isEdit = true;
-            if (!getActivity().isFinishing()) {
-                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                fragmentTransaction.commitAllowingStateLoss();
-                getChildFragmentManager().executePendingTransactions();
-                exNameFragList.add(exNameFrag);
+        for(int i = 0; i < runningMap.size(); i ++){
+            for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
+                if(isOfIndex(i, entry.getKey())){
+                    exNameInc++;
+                    String tag = String.valueOf(exNameInc) + "ex";
+                    HashMap<String, List<String>> exerciseMap = entry.getValue();
+                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                    exNameFrag.isEditInfoList = exerciseMap;
+                    exNameFrag.fragTag = tag;
+                    exNameFrag.isEdit = true;
+                    if (!getActivity().isFinishing()) {
+                        fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                        fragmentTransaction.commitAllowingStateLoss();
+                        getChildFragmentManager().executePendingTransactions();
+                        exNameFragList.add(exNameFrag);
+                    }
+                }
             }
         }
 
@@ -233,25 +237,63 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
             if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
                 HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
-                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
-                    if(!entry.getKey().equals("0_key")){
-                        exNameInc++;
-                        String tag = String.valueOf(exNameInc) + "ex";
-                        List<String> stringList = entry.getValue();
-                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                        exNameFrag.infoList = stringList;
-                        exNameFrag.fragTag = tag;
-                        if (!getActivity().isFinishing()) {
-                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            getChildFragmentManager().executePendingTransactions();
-                            exNameFragList.add(exNameFrag);
+                for(int i = 0; i < map.size(); i++){
+                    for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                        if(!entry.getKey().equals("0_key")){
+                            if(isOfIndex(i, entry.getKey())){
+                                exNameInc++;
+                                String tag = String.valueOf(exNameInc) + "ex";
+                                List<String> stringList = entry.getValue();
+                                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                                exNameFrag.infoList = stringList;
+                                exNameFrag.fragTag = tag;
+                                if (!getActivity().isFinishing()) {
+                                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                    getChildFragmentManager().executePendingTransactions();
+                                    exNameFragList.add(exNameFrag);
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    private boolean isOfIndex(int index, String key){
+        String delims = "[_]";
+        String tokens[] = key.split(delims);
+        int index2 = Integer.valueOf(tokens[0]);
+        if(index + 1 == index2){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private HashMap<String, List<String>> reorderMap(HashMap<String, List<String>> map){
+        HashMap<String, List<String>> orderedMap = new HashMap<>();
+
+        String dummyString = "dummy";
+        List<String> dummyList = new ArrayList<>();
+        dummyList.add(dummyString);
+
+        int mapSize = map.size();
+        for(int i = 0; i < mapSize; i++){
+            orderedMap.put(dummyString, dummyList);
+        }
+
+        for(Map.Entry<String, List<String>> subMap : map.entrySet()){
+            String delims = "[_]";
+            //int index = Integer.valueOf(subMap.getValue().get(0));
+            String tokens[] = subMap.getValue().get(0).split(delims);
+            int index = Integer.valueOf(tokens[0]);
+
+        }
+
+        return orderedMap;
     }
 
     @Override
