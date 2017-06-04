@@ -53,14 +53,35 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 // init done
 
+                for(Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()){
+                    String exName = map1.getValue().get(0);
+                    int totalPoundage = getTotalPoundage(map1.getValue());
+                    for(Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()){
+                        if(map2.getValue().get(0).equals(exName)){
 
+                        }
+                    }
+                }
             }
         }
 
 
-
-
         return view;
+    }
+
+    private int getTotalPoundage(List<String> list){
+        int totalPoundage = 0;
+
+        for(String string : list){
+            String delims = "[@,_]";
+            String tokens[] = string.split(delims);
+            int int1 = Integer.parseInt(tokens[0]);
+            int int2 = Integer.parseInt(tokens[1]);
+            int int3 = int1 * int2;
+            totalPoundage = totalPoundage + int3;
+        }
+
+        return totalPoundage;
     }
 
     private HashMap<String, List<String>> formatModelClass(HashMap<String, List<String>> map){
