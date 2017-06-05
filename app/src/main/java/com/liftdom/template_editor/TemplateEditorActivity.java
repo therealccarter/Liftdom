@@ -315,6 +315,8 @@ public class TemplateEditorActivity extends AppCompatActivity
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
+                        TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+
                         if(templateClass.getIsAlgorithm()){
                             if(templateClass.getIsAlgoApplyToAll()){
                                 TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;

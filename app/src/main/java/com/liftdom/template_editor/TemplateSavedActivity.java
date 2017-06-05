@@ -285,6 +285,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
             }else{
                 xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
             }
+            HashMap<String, List<String>> xAlgorithmDateMap = TemplateEditorSingleton.getInstance().mAlgorithmDateMap;
 
             String xDays = getDays(xMapOne, xMapTwo, xMapThree, xMapFour, xMapFive, xMapSix, xMapSeven);
 
@@ -292,7 +293,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
                                                 xUserId2, xUserName2, xIsPublic,
                                                 xDateCreated, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
-                                                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo);
+                                                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo, xAlgorithmDateMap);
 
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

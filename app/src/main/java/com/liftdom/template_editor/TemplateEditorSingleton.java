@@ -37,6 +37,7 @@ public class TemplateEditorSingleton {
     HashMap<String, List<String>> mapSeven = new HashMap<>();
     boolean mIsAlgorithm = false;
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<>();
+    HashMap<String, List<String>> mAlgorithmDateMap = new HashMap<>();
 
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();

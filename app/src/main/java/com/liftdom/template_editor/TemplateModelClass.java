@@ -28,6 +28,7 @@ public class TemplateModelClass {
     private boolean mIsAlgorithm;
     private boolean mIsAlgoApplyToAll;
     private HashMap<String, List<String>> mAlgorithmInfo;
+    private HashMap<String, List<String>> mAlgorithmDateMap;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -44,7 +45,8 @@ public class TemplateModelClass {
                               HashMap<String, List<String>> mapSix,
                               HashMap<String, List<String>> mapSeven,
                               boolean isAlgorithm, boolean isAlgoApplyToAll,
-                              HashMap<String, List<String>> algorithmInfo){
+                              HashMap<String, List<String>> algorithmInfo,
+                              HashMap<String, List<String>> algorithmDateMap){
 
         mTemplateName = templateName;
         mDays = days;
@@ -65,6 +67,15 @@ public class TemplateModelClass {
         mIsAlgorithm = isAlgorithm;
         mIsAlgoApplyToAll = isAlgoApplyToAll;
         mAlgorithmInfo = algorithmInfo;
+        mAlgorithmDateMap = algorithmDateMap;
+    }
+
+    public HashMap<String, List<String>> getAlgorithmDateMap() {
+        return mAlgorithmDateMap;
+    }
+
+    public void setAlgorithmDateMap(HashMap<String, List<String>> mAlgorithmDateMap) {
+        this.mAlgorithmDateMap = mAlgorithmDateMap;
     }
 
     private boolean containsToday(String dayUnformatted, String day){
