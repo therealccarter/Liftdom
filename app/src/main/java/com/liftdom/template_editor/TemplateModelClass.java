@@ -1,7 +1,12 @@
 package com.liftdom.template_editor;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 5/9/2017.
@@ -78,6 +83,106 @@ public class TemplateModelClass {
         this.mAlgorithmDateMap = mAlgorithmDateMap;
     }
 
+    public void updateAlgorithmDateMap(String key, String exName, String isCompareOldDateBool){
+        /**
+         * if the bool is true and WAS false, we set a new date.
+         * if the bool is true and WAS true, we keep the date.
+         *
+         */
+        if(Boolean.parseBoolean(isCompareOldDateBool)){
+            // we must compare if it's CURRENTLY false or true
+            boolean changeDate = false;
+            String subKey = "";
+            String oldDate = "";
+            for(Map.Entry<String, List<String>> map : getAlgorithmDateMap().entrySet()){
+                if(isToday(map.getKey())) {
+                    if (map.getValue().get(0).equals(exName)) {
+                        if (!Boolean.parseBoolean(map.getValue().get(2))) {
+                            // WAS false
+                            subKey = map.getKey();
+                            changeDate = true;
+                            oldDate = map.getValue().get(1);
+                        }else{
+                            // WAS true
+                        }
+                    }
+                }
+            }
+            if(changeDate){
+                // if the bool is true and WAS false, we keep the date.
+                LocalDate newDate = LocalDate.now();
+                List<String> subList = new ArrayList<>();
+                subList.add(exName);
+                subList.add(newDate.toString());
+                subList.add("true");
+                HashMap<String, List<String>> newMap = new HashMap<>();
+                newMap.putAll(getAlgorithmDateMap());
+                newMap.remove(subKey);
+                newMap.put(key, subList);
+                setAlgorithmDateMap(newMap);
+            }else{
+                // if the bool is true and WAS true, we keep the date, but update the key.
+                LocalDate newDate = LocalDate.now();
+                List<String> subList = new ArrayList<>();
+                HashMap<String, List<String>> newMap = new HashMap<>();
+                newMap.putAll(getAlgorithmDateMap());
+                newMap.remove(subKey);
+
+                for(Map.Entry<String, List<String>> map : newMap.entrySet()){
+                    if(isToday(map.getKey())) {
+                        if (map.getValue().get(0).equals(exName)) {
+                            subList.addAll(map.getValue());
+                        }
+                    }
+                }
+
+                newMap.put(key, subList);
+            }
+        }
+    }
+
+    String intToWeekday(int inc){
+        String weekday = "";
+
+        if(inc == 1){
+            weekday = "Monday";
+        }else if(inc == 2){
+            weekday = "Tuesday";
+        }else if(inc == 3){
+            weekday = "Wednesday";
+        }else if(inc == 4){
+            weekday = "Thursday";
+        }else if(inc == 5){
+            weekday = "Friday";
+        }else if(inc == 6){
+            weekday = "Saturday";
+        }else if(inc == 7){
+            weekday = "Sunday";
+        }
+
+        return weekday;
+    }
+
+    private boolean isToday(String dayUnformatted){
+        boolean todayBool = false;
+
+        DateTime dateTime = new DateTime();
+        int currentWeekday = dateTime.getDayOfWeek();
+
+        String today = intToWeekday(currentWeekday);
+
+        String delims = "[_]";
+        String[] tokens = dayUnformatted.split(delims);
+
+        for(String string : tokens){
+            if(string.equals(today)){
+                todayBool = true;
+            }
+        }
+
+        return todayBool;
+    }
+
     private boolean containsToday(String dayUnformatted, String day){
         boolean contains = false;
         String[] tokens = dayUnformatted.split("_");
@@ -93,6 +198,62 @@ public class TemplateModelClass {
         }
 
         return contains;
+    }
+
+    public String getMapNameForDay(String day){
+        String mapName = "";
+
+        if(mMapOne != null){
+            if(!mMapOne.isEmpty()){
+                if(containsToday(mMapOne.get("0_key").get(0), day)){
+                    mapName = "mMapOne";
+                }
+            }
+        }
+        if(mMapTwo != null){
+            if(!mMapTwo.isEmpty()){
+                if(containsToday(mMapTwo.get("0_key").get(0), day)){
+                    mapName = "mMapTwo";
+                }
+            }
+        }
+        if(mMapThree != null){
+            if(!mMapThree.isEmpty()){
+                if(containsToday(mMapThree.get("0_key").get(0), day)){
+                    mapName = "mMapThree";
+                }
+            }
+        }
+        if(mMapFour != null){
+            if(!mMapFour.isEmpty()){
+                if(containsToday(mMapFour.get("0_key").get(0), day)){
+                    mapName = "mMapFour";
+                }
+            }
+        }
+        if(mMapFive != null){
+            if(!mMapFive.isEmpty()){
+                if(containsToday(mMapFive.get("0_key").get(0), day)){
+                    mapName = "mMapFive";
+                }
+            }
+        }
+        if(mMapSix != null){
+            if(!mMapSix.isEmpty()){
+                if(containsToday(mMapSix.get("0_key").get(0), day)){
+                    mapName = "mMapSix";
+                }
+            }
+        }
+        if(mMapSeven != null){
+            if(!mMapSeven.isEmpty()){
+                if(containsToday(mMapSeven.get("0_key").get(0), day)){
+                    mapName = "mMapSeven";
+                }
+            }
+        }
+
+        return mapName;
     }
 
     public HashMap<String, List<String>> getMapForDay(String day){
@@ -268,7 +429,7 @@ public class TemplateModelClass {
         return mMapFive;
     }
 
-    public void getMapFive(HashMap<String, List<String>> mapFive) {
+    public void setMapFive(HashMap<String, List<String>> mapFive) {
         mMapFive = mapFive;
     }
 
