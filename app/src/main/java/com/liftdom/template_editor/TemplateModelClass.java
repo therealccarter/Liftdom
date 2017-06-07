@@ -95,7 +95,7 @@ public class TemplateModelClass {
             String subKey = "";
             String oldDate = "";
             for(Map.Entry<String, List<String>> map : getAlgorithmDateMap().entrySet()){
-                if(isToday(map.getKey())) {
+                if(isToday(map.getValue().get(3))) {
                     if (map.getValue().get(0).equals(exName)) {
                         if (!Boolean.parseBoolean(map.getValue().get(2))) {
                             // WAS false
@@ -115,10 +115,11 @@ public class TemplateModelClass {
                 subList.add(exName);
                 subList.add(newDate.toString());
                 subList.add("true");
+                subList.add(key);
                 HashMap<String, List<String>> newMap = new HashMap<>();
                 newMap.putAll(getAlgorithmDateMap());
                 newMap.remove(subKey);
-                newMap.put(key, subList);
+                newMap.put(subKey, subList);
                 setAlgorithmDateMap(newMap);
             }else{
                 // if the bool is true and WAS true, we keep the date, but update the key.
@@ -126,17 +127,22 @@ public class TemplateModelClass {
                 List<String> subList = new ArrayList<>();
                 HashMap<String, List<String>> newMap = new HashMap<>();
                 newMap.putAll(getAlgorithmDateMap());
-                newMap.remove(subKey);
+
+                String newKey = "";
 
                 for(Map.Entry<String, List<String>> map : newMap.entrySet()){
-                    if(isToday(map.getKey())) {
+                    if(isToday(map.getValue().get(3))) {
                         if (map.getValue().get(0).equals(exName)) {
+                            newKey = map.getKey();
                             subList.addAll(map.getValue());
+                            subList.set(3, key);
                         }
                     }
                 }
 
-                newMap.put(key, subList);
+                newMap.remove(subKey);
+
+                newMap.put(newKey, subList);
             }
         }
     }
