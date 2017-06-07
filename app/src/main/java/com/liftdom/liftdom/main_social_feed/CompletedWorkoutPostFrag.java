@@ -74,6 +74,7 @@ public class CompletedWorkoutPostFrag extends Fragment {
                 PostExNameFrag exNameFrag = new PostExNameFrag();
                 exNameFrag.exNameString = infoString;
                 fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
+                //java.lang.IllegalArgumentException: No view found for id 0x7f0d014c (com.liftdom.liftdom:id/exContentsHolder) for fragment PostExNameFrag{24579c90 #2 id=0x7f0d014c}
                 fragmentTransaction.commit();
             }else{
                 FragmentManager fragmentManager = getChildFragmentManager();

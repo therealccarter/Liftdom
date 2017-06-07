@@ -63,11 +63,28 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedMapFormatted = formatCompletedMap(completedMap);
 
                 // init done
+                /**
+                 * Ok so we've decided that we should do a blanket incrementation for superset lists.
+                 * BUT we've got all this shit with separate exercises..we need to tally up everything in the
+                 * superset completed exercises and the expected superset exercises, and THEN pass it as isSuperset
+                 * into the generator. Read the chat logs to remember.
+                 *
+                 * What we need to do:
+                 * Add superset all superset exercises to parent exname string with number
+                 * Then for each superset exercise give it the tag of "ss" and the number
+                 * Now IF the exercise name can be split up, we find those child exercises
+                 * and tally them all up. Then IF they all tally up to what they should,
+                 * we send it to the algo generator.
+                 *
+                 * Ok, so now the maps are formatted correctly.
+                 */
 
                 for(Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()){
+                    // For each list in the model/expected maps
                     String exName = map1.getValue().get(0);
                     int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
                     for(Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()){
+                        // For each list in the completed/actual maps
                         boolean isSuperset = false;
                         String delims = "[_]";
                         String[] tokens = map2.getValue().get(0).split(delims);
@@ -115,28 +132,30 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return isSS;
     }
 
+    //TODO: Template re-save got the map orders wrong somehow
+
     private void generateAlgo(String exName, boolean isSuperset){
         //HashMap<String, List<String>> newMap = new HashMap<>();
         List<String> algorithmList = new ArrayList<>();
 
-        if(isSuperset){
-            // superset
-            for(Map.Entry<String, List<String>> map : templateClass.getAlgorithmInfo().entrySet()){
-                if(map.getValue().size() > 11){
-                    /**
-                     * So what would we have to do differently?
-                     * We could just do a blanket incrementation...
-                     *
-                     */
-                }
-            }
-        }else{
+        //if(isSuperset){
+        //    // superset
+        //    for(Map.Entry<String, List<String>> map : templateClass.getAlgorithmInfo().entrySet()){
+        //        if(map.getValue().size() > 11){
+        //            /**
+        //             * So what would we have to do differently?
+        //             * We could just do a blanket incrementation...
+        //             *
+        //             */
+        //        }
+        //    }
+        //}else{
             // not superset
             List<String> valueList = new ArrayList<>();
             String key = null;
             for(Map.Entry<String, List<String>> map1 : originalHashmap.entrySet()){
                 if(map1.getValue().get(0).equals(exName)){
-                    if(!isSupersetList(map1.getValue())){
+                    if(isSuperset == isSupersetList(map1.getValue())){
                         valueList.addAll(map1.getValue());
                         key = map1.getKey();
                     }
@@ -144,7 +163,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
             LocalDate newDate = LocalDate.now();
             for(Map.Entry<String, List<String>> map2 : templateClass.getAlgorithmInfo().entrySet()){
-                if(map2.getValue().size() < 12){
+                //if(map2.getValue().size() < 12){
                     if(map2.getValue().get(0).equals(exName)){
                         List<String> newValueList = new ArrayList<>();
                         newValueList.add(exName);
@@ -284,9 +303,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             Log.i("info", "String");
                         }
                     }
-                }
+                //}
             }
-        }
+        //}
 
         //return newMap;
 
@@ -344,8 +363,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return todayBool;
     }
 
-
-
     private int getTotalPoundage(HashMap<String, List<String>> map, String exName){
         int totalPoundage = 0;
 
@@ -368,20 +385,100 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return totalPoundage;
     }
 
+    private String getExercisesInSupersetList(List<String> list){
+        String cat = "";
+
+        int inc = 0;
+        for(String string : list){
+            if(isExerciseName(string) && inc != 0){
+                cat = cat + "_" + string;
+            }
+            inc++;
+        }
+
+        return cat;
+    }
+
+    private String getExercisesInSupersetMap(Map<String, List<String>> map){
+        String cat = "";
+
+        for(Map.Entry<String, List<String>> subMap : map.entrySet()){
+            if(!subMap.getKey().equals("0_key")){
+                cat = cat + "_" + subMap.getValue().get(0);
+            }
+        }
+
+        return cat;
+    }
+
+    private String getNamesWithoutInt(String unformatted){
+        String name = "";
+
+        String delims = "[_]";
+        String[] tokens = unformatted.split(delims);
+
+        for(int i = 0; i < tokens.length - 1; i++){
+            name = "_" + name + tokens[i];
+        }
+
+        return name;
+    }
+
     private HashMap<String, List<String>> formatModelClass(HashMap<String, List<String>> map){
         HashMap<String, List<String>> formattedMap = new HashMap<>();
 
         for(Map.Entry<String, List<String>> entry : map.entrySet()) {
             ArrayList<List<String>> subList = new ArrayList<>();
             if(!entry.getKey().equals("0_key")){
-                for(String string : entry.getValue()){
-                    if(isExerciseName(string)){
-                        List<String> list = new ArrayList<>();
-                        list.add(string);
-                        subList.add(list);
-                    }else{
-                        List<String> list = expandList(string);
-                        subList.get(subList.size() - 1).addAll(list);
+                if(isSupersetList(entry.getValue())){
+                    // superset list
+                    int inc = 0;
+                    int numberOfInstances = 0;
+                    String parent = "";
+                    List<String> childList = new ArrayList<>();
+                    for(String string : entry.getValue()){
+                        if(isExerciseName(string)){
+                            if(inc == 0){
+                                // parent ex of superset list
+                                List<String> list = new ArrayList<>();
+                                String extraExercises = getExercisesInSupersetList(entry.getValue());
+                                parent = string;
+                                for(Map.Entry<String, List<String>> map2 : formattedMap.entrySet()){
+                                    if(getNamesWithoutInt(map2.getValue().get(0)).equals(string + extraExercises)){
+                                        numberOfInstances++;
+                                    }
+                                }
+                                list.add(string + extraExercises + String.valueOf(numberOfInstances));
+                                subList.add(list);
+                            }else{
+                                // child ex of superset list
+                                List<String> list = new ArrayList<>();
+                                list.add(string + "_" + parent + "_" + String.valueOf(numberOfInstances));
+                                subList.add(list);
+                                childList.add(string);
+                            }
+                        }else{
+                            List<String> list = expandList(string);
+                            subList.get(subList.size() - 1).addAll(list);
+                        }
+                        inc++;
+                    }
+                    String newString = "";
+                    for(String string : childList){
+                        newString = newString + "_" + string;
+                    }
+                    subList.get(0).set(0, parent + "_" + "p" + newString + "_" + numberOfInstances);
+                }else{
+                    // normal list
+                    for(String string : entry.getValue()){
+                        if(isExerciseName(string)){
+                            List<String> list = new ArrayList<>();
+                            list.add(string);
+                            subList.add(list);
+                        }else{
+                            List<String> list = expandList(string);
+                            subList.get(subList.size() - 1).addAll(list);
+                        }
                     }
                 }
             }
@@ -395,32 +492,73 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     private HashMap<String, List<String>> formatCompletedMap(HashMap<String, HashMap<String, List<String>>> map){
         HashMap<String, List<String>> formattedMap = new HashMap<>();
+        ArrayList<String> instanceList = new ArrayList<>();
 
         for(Map.Entry<String, HashMap<String, List<String>>> subMap : map.entrySet()){
-            for(Map.Entry<String, List<String>> subHashMap : subMap.getValue().entrySet()){
-                boolean isSuperset = false;
-                List<String> subList = new ArrayList<>();
-                for(String string : subHashMap.getValue()){
-                    if(isExerciseName(string)){
-                        subList.add(string);
-                    }else{
-                        String delims = "[_]";
-                        String[] tokens = string.split(delims);
-                        if(tokens[1].equals("checked")){
-                            subList.add(tokens[0]);
-                        }
-                        if(tokens.length > 2){
-                            if(tokens[2].equals("ss")){
-                                isSuperset = true;
+            if(subMap.getValue().size() > 1){
+                String parent = subMap.getValue().get("0_key").get(0);
+                List<String> childList = new ArrayList<>();
+                int instanceInc = 0;
+                for(Map.Entry<String, List<String>> subHashMap : subMap.getValue().entrySet()){
+                    // is superset map
+                    boolean isSuperset = false;
+                    List<String> subList = new ArrayList<>();
+                    for(String string : subHashMap.getValue()){
+                        if(isExerciseName(string)){
+
+                            if(subHashMap.getKey().equals("0_key")){
+                                String extraExercises = getExercisesInSupersetMap(subMap.getValue());
+                                if(instanceList.contains(string + extraExercises)){
+                                    instanceInc++;
+                                }
+                                subList.add(string + "_" + "p" + extraExercises + "_" + String.valueOf(instanceInc));
+                            }else{
+                                subList.add(string + "_" + parent + "_" + String.valueOf(instanceInc));
+                                childList.add(string);
+                            }
+                        }else{
+                            String delims = "[_]";
+                            String[] tokens = string.split(delims);
+                            if(tokens[1].equals("checked")){
+                                subList.add(tokens[0]);
+                            }
+                            if(tokens.length > 2){
+                                if(tokens[2].equals("ss")){
+                                    isSuperset = true;
+                                }
                             }
                         }
                     }
+                    formattedMap.put(formattedMap.size() + "_key", subList);
                 }
-                if(isSuperset){
-                    String newName = subList.get(0) + "_ss";
-                    subList.set(0, newName);
+
+            }else{
+                // not superset map
+                for(Map.Entry<String, List<String>> subHashMap : subMap.getValue().entrySet()){
+                    boolean isSuperset = false;
+                    List<String> subList = new ArrayList<>();
+                    for(String string : subHashMap.getValue()){
+                        if(isExerciseName(string)){
+                            subList.add(string);
+                        }else{
+                            String delims = "[_]";
+                            String[] tokens = string.split(delims);
+                            if(tokens[1].equals("checked")){
+                                subList.add(tokens[0]);
+                            }
+                            if(tokens.length > 2){
+                                if(tokens[2].equals("ss")){
+                                    isSuperset = true;
+                                }
+                            }
+                        }
+                    }
+                    if(isSuperset){
+                        String newName = subList.get(0) + "_ss";
+                        subList.set(0, newName);
+                    }
+                    formattedMap.put(formattedMap.size() + "_key", subList);
                 }
-                formattedMap.put(formattedMap.size() + "_key", subList);
             }
         }
 
