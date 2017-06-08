@@ -201,16 +201,16 @@ public class AssistorSavedFrag extends android.app.Fragment {
     //TODO: Template re-save got the map orders wrong somehow
 
     private void generateAlgoForSuperset(String exName, String tag, String exNameUnformatted){
-        /**
-         * What are we doing here?
-         * We need to find the entry in the original hashmap that contains all of the exercises in the ex name,
-         * then check to see if there is a corresponding entry in the algorithm date map.
-         * If there is, we compare to its date and increment accordingly.
-         * If there isn't, we create a new entry and add today's date.
-         */
 
         HashMap<String, List<String>> hashMapCopy = new HashMap<>();
         hashMapCopy.putAll(originalHashmap);
+
+        String delims1 = "[_]";
+        String[] exNameTokens = exNameUnformatted.split(delims1);
+        String exNameFormatted = "";
+        for(int i = 0; i < exNameTokens.length - 1; i++){
+            exNameFormatted = exNameFormatted + exNameTokens[i] + "_";
+        }
 
         LocalDate newDate = LocalDate.now();
         for(Map.Entry<String, List<String>> algoMap : templateClass.getAlgorithmInfo().entrySet()){
@@ -233,7 +233,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     for(Map.Entry<String, List<String>> algoDateMap : templateClass
                                             .getAlgorithmDateMap().entrySet()){
                                         if(isToday(algoDateMap.getValue().get(3))){
-                                            if(algoDateMap.getValue().get(0).equals(exNameUnformatted)){
+                                            if(algoDateMap.getValue().get(0).equals(exNameFormatted)){
                                                 //if(Boolean.parseBoolean(algoDateMap.getValue().get(2))){
                                                     // compare, keep everything the same, set to true.
                                                     hasEx = true;
@@ -306,7 +306,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
                                         .get(0);
                                 List<String> newList = new ArrayList<>();
-                                newList.add(exNameUnformatted);
+                                newList.add(exNameFormatted);
                                 newList.add(newDate.toString());
                                 newList.add("true");
                                 newList.add(todayString);
@@ -318,7 +318,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
                                         .get(0);
                                 List<String> newList = new ArrayList<>();
-                                newList.add(exNameUnformatted);
+                                newList.add(exNameFormatted);
                                 newList.add(newDate.toString());
                                 newList.add("true");
                                 newList.add(todayString);
@@ -646,8 +646,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return name;
     }
-
-    //TODO: If multiple instances of single exercise, add instance inc
 
     private HashMap<String, List<String>> formatModelClass(HashMap<String, List<String>> map){
         HashMap<String, List<String>> formattedMap = new HashMap<>();
