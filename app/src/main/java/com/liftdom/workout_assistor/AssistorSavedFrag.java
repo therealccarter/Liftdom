@@ -64,6 +64,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 // init done
 
+                ArrayList<String> exercisesAlreadyGenerated = new ArrayList<>();
+
                 for(Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()){
                     // For each list in the model/expected maps
                     String exName = map1.getValue().get(0);
@@ -105,16 +107,19 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 }
                             }else{
                                 int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
-                                if(totalPoundage2 >= totalPoundage){
-                                    // algo
-                                    generateAlgo(exName, false);
-                                }else{
-                                    // set to false
-                                    String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                            ("0_key")
-                                            .get(0);
-                                    String bool = "false";
-                                    templateClass.updateAlgorithmDateMap(todayString, exName, bool);
+                                if(!exercisesAlreadyGenerated.contains(exName)){
+                                    if(totalPoundage2 >= totalPoundage){
+                                        // algo
+                                        generateAlgo(exName, false);
+                                        exercisesAlreadyGenerated.add(exName);
+                                    }else{
+                                        // set to false
+                                        String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                ("0_key")
+                                                .get(0);
+                                        String bool = "false";
+                                        templateClass.updateAlgorithmDateMap(todayString, exName, bool);
+                                    }
                                 }
                             }
                         }
@@ -358,109 +363,134 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     }
 
-    private void generateAlgo(String exName, boolean isSuperset){
+    private void generateAlgo(String exName, boolean isSuperset) {
 
         isSuperset = false;
 
+        /**
+         * What I want it to do:
+         * Increase the sets/reps/weight for each exercise with the ex name of "exName"
+         */
+
+        HashMap<String, List<String>> valueMap = new HashMap<>();
+        HashMap<String, List<String>> newValueMap = new HashMap<>();
+
         List<String> valueList = new ArrayList<>();
         String key = null;
-        for(Map.Entry<String, List<String>> map1 : originalHashmap.entrySet()){
-            if(map1.getValue().get(0).equals(exName)){
-                if(isSuperset == isSupersetList(map1.getValue())){
+        for (Map.Entry<String, List<String>> map1 : originalHashmap.entrySet()) {
+            if (map1.getValue().get(0).equals(exName)) {
+                if (isSuperset == isSupersetList(map1.getValue())) {
                     valueList.addAll(map1.getValue());
                     key = map1.getKey();
+                    valueMap.put(map1.getKey(), map1.getValue());
                 }
             }
         }
-        LocalDate newDate = LocalDate.now();
-        for(Map.Entry<String, List<String>> map2 : templateClass.getAlgorithmInfo().entrySet()){
-            //if(map2.getValue().size() < 12){
-                if(map2.getValue().get(0).equals(exName)){
-                    List<String> newValueList = new ArrayList<>();
-                    newValueList.add(exName);
-                    boolean instantiateList = false;
-                    for(String string : valueList){
-                        if(!isExerciseName(string)){
-                            String delims = "[x,@]";
-                            String[] tokens = string.split(delims);
-                            if(templateClass.getAlgorithmDateMap() != null){
-                                boolean hasEx = false;
-                                // need to check for the case of if empty or if no entries were found
-                                for(Map.Entry<String, List<String>> map : templateClass.getAlgorithmDateMap().entrySet()){
-                                    if(isToday(map.getValue().get(3))){
-                                        if(map.getValue().get(0).equals(exName)){
-                                            if(Boolean.parseBoolean(map.getValue().get(2))){
-                                                // compare, keep everything the same, set to true.
-                                                hasEx = true;
-                                                int weeksSinceLast = getWeeksSinceLast(map.getValue().get(1));
 
-                                                int sets = 0;
-                                                int reps = 0;
-                                                int weight = 0;
-                                                if(weeksSinceLast >= Integer.parseInt(map2.getValue().get(1))){
-                                                    sets = Integer.parseInt(tokens[0]);
-                                                    sets += Integer.parseInt(map2.getValue().get(2));
-                                                } else{
-                                                    sets = Integer.parseInt(tokens[0]);
-                                                }
-                                                if(weeksSinceLast >= Integer.parseInt(map2.getValue().get(3))){
-                                                    reps = Integer.parseInt(tokens[1]);
-                                                    reps += Integer.parseInt(map2.getValue().get(4));
-                                                } else{
-                                                    reps = Integer.parseInt(tokens[1]);
-                                                }
-                                                if(weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
-                                                    if(!isExerciseName(tokens[2])) {
-                                                        weight = Integer.parseInt(tokens[2]);
-                                                        weight += Integer.parseInt(map2.getValue().get(6));
-                                                        if(Boolean.parseBoolean(map2.getValue().get(7))) {
-                                                            /**
-                                                             *
-                                                             */
-                                                            for (int j = 1; j < weeksSinceLast; j++) {
-                                                                sets = sets - Integer.parseInt(map2.getValue().get(2));
-                                                                reps = reps - Integer.parseInt(map2.getValue().get(4));
+        newValueMap.putAll(valueMap);
+
+        boolean goneThroughOnce = false;
+
+        LocalDate newDate = LocalDate.now();
+        for (Map.Entry<String, List<String>> map2 : templateClass.getAlgorithmInfo().entrySet()) {
+            //if(map2.getValue().size() < 12){
+                if(!goneThroughOnce){
+                    if(map2.getValue().get(0).equals(exName)) {
+                    goneThroughOnce = true;
+                    //List<String> newValueList = new ArrayList<>();
+                    //newValueList.add(exName);
+                    boolean instantiateList = false;
+                    for (Map.Entry<String, List<String>> valueMapEntry : valueMap.entrySet()) {
+                        List<String> subList = new ArrayList<>();
+                        subList.addAll(valueMapEntry.getValue());
+                        List<String> newValueList = new ArrayList<>();
+                        newValueList.add(exName);
+                        for (String string : subList) {
+                            if (!isExerciseName(string)) {
+                                String delims = "[x,@]";
+                                String[] tokens = string.split(delims);
+                                if (templateClass.getAlgorithmDateMap() != null) {
+                                    boolean hasEx = false;
+                                    // need to check for the case of if empty or if no entries were found
+                                    for (Map.Entry<String, List<String>> map : templateClass.getAlgorithmDateMap().entrySet()) {
+                                        if(isToday(map.getValue().get(3))) {
+                                            if (map.getValue().get(0).equals(exName)) {
+                                                if (Boolean.parseBoolean(map.getValue().get(2))) {
+                                                    // compare, keep everything the same, set to true.
+                                                    hasEx = true;
+                                                    int weeksSinceLast = getWeeksSinceLast(map.getValue().get(1));
+
+                                                    int sets = 0;
+                                                    int reps = 0;
+                                                    int weight = 0;
+                                                    if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(1))) {
+                                                        sets = Integer.parseInt(tokens[0]);
+                                                        sets += Integer.parseInt(map2.getValue().get(2));
+                                                    } else {
+                                                        sets = Integer.parseInt(tokens[0]);
+                                                    }
+                                                    if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(3))) {
+                                                        reps = Integer.parseInt(tokens[1]);
+                                                        reps += Integer.parseInt(map2.getValue().get(4));
+                                                    } else {
+                                                        reps = Integer.parseInt(tokens[1]);
+                                                    }
+                                                    if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
+                                                        if (!isExerciseName(tokens[2])) {
+                                                            weight = Integer.parseInt(tokens[2]);
+                                                            weight += Integer.parseInt(map2.getValue().get(6));
+                                                            if (Boolean.parseBoolean(map2.getValue().get(7))) {
+                                                                /**
+                                                                 *
+                                                                 */
+                                                                for (int j = 1; j < weeksSinceLast; j++) {
+                                                                    sets = sets - Integer.parseInt(map2.getValue().get(2));
+                                                                    reps = reps - Integer.parseInt(map2.getValue().get(4));
+                                                                }
                                                             }
                                                         }
+                                                    } else {
+                                                        if (!isExerciseName(tokens[2])) {
+                                                            weight = Integer.parseInt(tokens[2]);
+                                                        }
                                                     }
-                                                }else{
-                                                    if(!isExerciseName(tokens[2])){
-                                                        weight = Integer.parseInt(tokens[2]);
-                                                    }
+
+                                                    String concat = Integer.toString
+                                                            (sets) + "x" + Integer.toString(reps)
+                                                            + "@" + Integer.toString
+                                                            (weight);
+
+                                                    newValueList.add(concat);
+                                                    //newValueMap.get(valueMapEntry.getKey()).add(concat);
+                                                } else {
+                                                    // don't compare, set the date to today, and set bool to true.
+                                                    newValueList.add(string);
+                                                    //newValueMap.get(valueMapEntry.getKey()).add(string);
                                                 }
-
-                                                String concat = Integer.toString
-                                                        (sets) + "x" + Integer.toString(reps)
-                                                        + "@" + Integer.toString
-                                                        (weight);
-
-                                                newValueList.add(concat);
-                                            }else{
-                                                // don't compare, set the date to today, and set bool to true.
-                                                newValueList.add(string);
                                             }
                                         }
                                     }
-                                }
-                                if(!hasEx){
-                                    // no recorded instance of this ex on this day
-                                    instantiateList = true;
+                                    newValueMap.put(valueMapEntry.getKey(), newValueList);
+                                    if (!hasEx) {
+                                        // no recorded instance of this ex on this day
+                                        instantiateList = true;
 
+                                    }
+                                } else {
+                                    // no algo completed info at all
+                                    instantiateList = true;
                                 }
-                            }else{
-                                // no algo completed info at all
-                                instantiateList = true;
                             }
                         }
                     }
 
-                    if(instantiateList){
+                    if (instantiateList) {
                         // instantiate datemap with this exercise
 
                         DateTime dateTime = new DateTime();
                         int currentWeekday = dateTime.getDayOfWeek();
 
-                        if(templateClass.getAlgorithmDateMap() == null){
+                        if (templateClass.getAlgorithmDateMap() == null) {
                             HashMap<String, List<String>> newHashMap = new HashMap<>();
                             String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
                                     .get(0);
@@ -471,7 +501,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             newList.add(todayString);
                             newHashMap.put("0_key", newList);
                             templateClass.setAlgorithmDateMap(newHashMap);
-                        }else{
+                        } else {
                             HashMap<String, List<String>> newHashMap = new HashMap<>();
                             newHashMap.putAll(templateClass.getAlgorithmDateMap());
                             String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
@@ -485,9 +515,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             templateClass.setAlgorithmDateMap(newHashMap);
                         }
 
-                    }else{
-                        // UPDATE maps
-                        originalHashmap.put(key, newValueList);
+                    } else {
+                        // UPDATE maps (increment)
+
+                        originalHashmap.putAll(newValueMap);
+
+                        //originalHashmap.put(key, newValueList);
                         DateTime dateTime = new DateTime();
                         int currentWeekday = dateTime.getDayOfWeek();
                         String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
@@ -497,26 +530,27 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                         String mapName = templateClass.getMapNameForDay(intToWeekday(currentWeekday));
 
-                        if(mapName.equals("mMapOne")){
+                        if (mapName.equals("mMapOne")) {
                             templateClass.setMapOne(originalHashmap);
-                        }else if(mapName.equals("mMapTwo")){
+                        } else if (mapName.equals("mMapTwo")) {
                             templateClass.setMapTwo(originalHashmap);
-                        }else if(mapName.equals("mMapThree")){
+                        } else if (mapName.equals("mMapThree")) {
                             templateClass.setMapThree(originalHashmap);
-                        }else if(mapName.equals("mMapFour")){
+                        } else if (mapName.equals("mMapFour")) {
                             templateClass.setMapFour(originalHashmap);
-                        }else if(mapName.equals("mMapFive")){
+                        } else if (mapName.equals("mMapFive")) {
                             templateClass.setMapFive(originalHashmap);
-                        }else if(mapName.equals("mMapSix")){
+                        } else if (mapName.equals("mMapSix")) {
                             templateClass.setMapSix(originalHashmap);
-                        }else if(mapName.equals("mMapSeven")){
+                        } else if (mapName.equals("mMapSeven")) {
                             templateClass.setMapSeven(originalHashmap);
                         }
 
                         Log.i("info", "String");
                     }
                 }
-            //}
+                //}
+            }
         }
     }
 
