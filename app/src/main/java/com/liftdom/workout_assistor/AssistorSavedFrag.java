@@ -1,13 +1,16 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,11 +45,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> completedMapFormatted;
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
 
+    @BindView(R.id.goBackHome) Button goHomeButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_assistor_saved, container, false);
+
+        ButterKnife.bind(this, view);
+
+        goHomeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if(templateClass.getIsAlgorithm()){
             if(templateClass.getIsAlgoApplyToAll()){
@@ -839,42 +853,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return isExercise;
     }
 
-    /**
-     * Ok so we've decided that we should do a blanket incrementation for superset lists.
-     * BUT we've got all this shit with separate exercises..we need to tally up everything in the
-     * superset completed exercises and the expected superset exercises, and THEN pass it as isSuperset
-     * into the generator. Read the chat logs to remember.
-     *
-     * What we need to do:
-     * Add superset all superset exercises to parent exname string with number
-     * Then for each superset exercise give it the tag of "ss" and the number
-     * Now IF the exercise name can be split up, we find those child exercises
-     * and tally them all up. Then IF they all tally up to what they should,
-     * we send it to the algo generator.
-     *
-     * Ok, so now the maps are formatted correctly.
-     */
-
-    /**
-     * Let's define our problem:
-     * If you don't totally complete an exercise's requirements,
-     * we need to know so that we can skip all this and keep the values
-     * the same.
-     * If you did complete the workout, we need to be comparing to the
-     * OLDEST completed date, not the newest one.
-     *  We should also somehow store the original values
-     *  When do we set a new oldest date?
-     *  The first time you miss a workout, the NEXT time you complete one
-     *  will be the new oldest date. So if that boolean is false, we
-     *  can add a new oldest date, today. If that boolean is true, we
-     *  can compare with it.
-     *
-     *
-     *  If you complete a workout and that boolean is false, you make
-     *  this the new oldest date.
-     *  If you complete a workout and that boolean is true,
-     *  you compare with the old date.
-     */
 
 }
 
