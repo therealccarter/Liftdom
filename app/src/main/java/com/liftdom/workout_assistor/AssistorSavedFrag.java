@@ -99,13 +99,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                         if(exName.equals(exNameCompleted)){
                             // same ex names
-                            /**
-                             * What do we need to do?
-                             * if it's a parent exercise, we need to tally up its expected poundage, as well as the
-                             * poundage of its children. Then we'll do the same for the completed version.
-                             * Then if the completed poundage is >= the model poundage, we need to increment
-                             * the parent and its children and update the original hashmap with those values.
-                             */
                             if(tokens.length > 2 && tokens[1].equals("p")){
                                 // is parent superset ex
                                 int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
@@ -217,14 +210,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
     }
 
     //TODO: Template re-save got the map orders wrong somehow
-
-    /**
-     * What do we need to do here?
-     * Every time a user completes a workout we keep the original date at a certain index
-     * and then also add the date you've just completed. The next time you complete a workout
-     * we'll check against the running date and if it's been over a week since then, we set it to false.
-     *
-     */
 
     private void generateAlgoForSuperset(String exName, String tag, String exNameUnformatted){
 
@@ -687,7 +672,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             List<String> newList = new ArrayList<>();
                             newList.add(exName);
                             newList.add(newDate.toString());
-                            newList.add("my ass 1");
+                            newList.add("true");
                             newList.add(todayString);
                             newList.add(newDate.toString());
                             newHashMap.put("0_key", newList);
@@ -700,7 +685,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             List<String> newList = new ArrayList<>();
                             newList.add(exName);
                             newList.add(newDate.toString());
-                            newList.add("my ass 2");
+                            newList.add("true");
                             newList.add(todayString);
                             newList.add(newDate.toString());
                             newHashMap.put(templateClass.getAlgorithmDateMap().size() + "_key", newList);
