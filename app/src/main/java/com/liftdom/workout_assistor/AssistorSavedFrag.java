@@ -294,8 +294,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         boolean isRunning = true; // isRunning aka "is your last completed workout under 2 weeks ago?"
 
-
-
         if(templateClass.getAlgorithmDateMap() == null){
             isRunning = false;
         }else{
@@ -332,7 +330,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         LocalDate newDate = LocalDate.now();
         for(Map.Entry<String, List<String>> algoMap : templateClass.getAlgorithmInfo().entrySet()){
-            if(algoMap.getValue().get(0).equals(exName)){
+            if(algoMap.getValue().get(0).equals("all")){
                 // so now we're in the correct algorithm map
                 List<String> newValueList = new ArrayList<>();
                 boolean instantiateList = false;
@@ -622,7 +620,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
         for (Map.Entry<String, List<String>> map2 : templateClass.getAlgorithmInfo().entrySet()) {
             //if(map2.getValue().size() < 12){
             if(!goneThroughOnce){
-                if(map2.getValue().get(0).equals(exName)) {
+                if(map2.getValue().get(0).equals("all")) {
                     goneThroughOnce = true;
                     //List<String> newValueList = new ArrayList<>();
                     //newValueList.add(exName);
