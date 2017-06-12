@@ -838,7 +838,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         }
     }
 
-
     private void generateAlgoForSuperset(String exName, String tag, String exNameUnformatted){
 
         HashMap<String, List<String>> hashMapCopy = new HashMap<>();

@@ -88,31 +88,32 @@ UPCOMING FEATURES TO DO:
 *v0.7.5*
 **DONE** DM other users (including group chat)
 * Send templates to other users via chat/share via url
-* Ability to "fork" workouts and collaborate
-* Custom exercises
 * View public templates
-* Workout Timer
+* Ability to edit/save public templates
+* Custom exercises
 * Clear current BugList
 
 *v0.8*
-* Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
 * Add real-time commenting to posts.
 * Add rep button to posts
-* Look for other lifters at various gyms (mark on Google Maps maybe?)
-* DM workout invite
+* Fix up the chat
 
 *v0.9*
 * Level up structure based on daily multiplier, lifts, etc.
 
 *v1.0*
+* Create first-time user tutorial/profile setup
 * Polish everything, beautify, make the app look sleek and pro
 * Fix all current bugs
-* Create first-time user tutorial/profile setup
 * Release.
-
 
 ***TBD***
 *v1.1 - v1.9*
+* Look for other lifters at various gyms (mark on Google Maps maybe?)
+* DM workout invite
+* Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
+* Workout Timer (possible right side nav drawer?)
+* Send templates to other users via url
 ***TBD***
 
 *v2.0*
