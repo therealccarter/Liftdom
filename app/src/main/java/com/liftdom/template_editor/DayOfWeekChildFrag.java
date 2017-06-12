@@ -378,6 +378,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         }
     }
 
+    public void removeGold(){
+        for(ExerciseLevelChildFrag childFrag : exLevelFragList){
+            childFrag.removeGoldFromDoW();
+        }
+    }
+
     public void removeFrag(String tag){
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();

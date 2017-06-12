@@ -73,10 +73,14 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         void setToGold();
     }
 
+    public interface removeGoldCallback{
+        void removeGold();
+    }
     private doWCallback callback;
     private removeFragCallback removeFragCallback;
     private removeFragCallback2 removeFragCallback2;
     private setToGoldCallback setToGoldCallback;
+    private removeGoldCallback removeGoldCallback;
 
     ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
 
@@ -218,6 +222,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         removeFragCallback = (removeFragCallback) getParentFragment();
         setToGoldCallback = (setToGoldCallback) getActivity();
+        removeGoldCallback = (removeGoldCallback) getActivity();
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -320,6 +325,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         setToGoldCallback.setToGold();
                     }
                 }
+                if(data.getStringExtra("wasApplyToAll") != null){
+                    if(data.getStringExtra("wasApplyToAll").equals("yes")){
+                        removeGoldCallback.removeGold();
+                        setToGoldFromDoW();
+                    }
+                }
 
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
@@ -332,6 +343,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
     public void setToGoldFromDoW(){
         extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
+    }
+
+    public void removeGoldFromDoW(){
+        extraOptionsButton.setImageResource(R.drawable.three_dot_menu);
     }
 
     @Override
@@ -358,7 +373,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             }
 
             if(!algorithmList.isEmpty()){
-                if(algorithmList.size() > 9){
+                if(algorithmList.size() > 10){
                     algorithmList.set(10, getDoWValue());
                 }else{
                     algorithmList.add(getDoWValue());

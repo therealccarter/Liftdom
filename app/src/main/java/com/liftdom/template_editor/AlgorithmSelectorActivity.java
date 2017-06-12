@@ -22,6 +22,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     boolean isLoop = false;
     String day = "null";
     String exName = "null";
+    boolean wasApplyToAll;
 
     @BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
     @BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
@@ -57,6 +58,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         }
 
         if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
+            wasApplyToAll = true;
             if(!EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.isEmpty()){
 
                 List<String> tempList = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.get("0_key");
@@ -194,8 +196,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
 
                         // this is what is going down to the exlevelfrag
-                        algoInfoList.add(exName);                   //0
-                        algoInfoList.add(setsWeeks);                //1
+                        algoInfoList.add("all");                     //0
+                        algoInfoList.add(setsWeeks);                 //1
                         algoInfoList.add(setsIncrease);             //2
                         algoInfoList.add(repsWeeks);                //3
                         algoInfoList.add(repsIncrease);             //4
@@ -206,7 +208,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(applyToAllExs);            //9
 
                         // this is what's going to the singleton
-                        tempAlgoInfoList2.add(exName);               //0
+                        tempAlgoInfoList2.add("all");               //0
                         tempAlgoInfoList2.add(setsWeeks);            //1
                         tempAlgoInfoList2.add(setsIncrease);         //2
                         tempAlgoInfoList2.add(repsWeeks);            //3
@@ -224,6 +226,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
                         intent.putExtra("applyToAll", "yes");
+
 
                         setResult(4, intent);
 
@@ -262,6 +265,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
+                        if(wasApplyToAll){
+                            intent.putExtra("wasApplyToAll", "yes");
+                        }
 
                         setResult(4, intent);
 

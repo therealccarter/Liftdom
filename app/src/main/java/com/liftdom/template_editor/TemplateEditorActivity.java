@@ -41,7 +41,8 @@ import java.util.List;
 
 public class TemplateEditorActivity extends AppCompatActivity
         implements DayOfWeekChildFrag.onDaySelectedListener,
-        ExerciseLevelChildFrag.setToGoldCallback{
+        ExerciseLevelChildFrag.setToGoldCallback,
+        ExerciseLevelChildFrag.removeGoldCallback{
 
     private static final String TAG = "EmailPassword";
 
@@ -126,6 +127,12 @@ public class TemplateEditorActivity extends AppCompatActivity
     public void setToGold(){
         for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
             dayOfWeekChildFrag.setToGold();
+        }
+    }
+
+    public void removeGold(){
+        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+            dayOfWeekChildFrag.removeGold();
         }
     }
 
