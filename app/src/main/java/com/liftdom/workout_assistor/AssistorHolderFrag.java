@@ -308,11 +308,16 @@ public class AssistorHolderFrag extends android.app.Fragment
                 runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
             }
 
+            String privateJournal = privateJournalView.getText().toString();
+            String publicComment = publicCommentView.getText().toString();
+
             android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
             assistorSavedFrag.templateClass = templateClass;
             assistorSavedFrag.completedMap = runningMap;
+            assistorSavedFrag.privateJournal = privateJournal;
+            assistorSavedFrag.publicDescription = publicComment;
             fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
             fragmentTransaction.commit();
         }

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -40,6 +41,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     TemplateModelClass templateClass;
+    String publicDescription = null;
+    String privateJournal = null;
+    String mediaRef = null;
     HashMap<String, HashMap<String, List<String>>> completedMap;
     HashMap<String, List<String>> modelMapFormatted;
     HashMap<String, List<String>> completedMapFormatted;
@@ -208,10 +212,70 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         }
 
+        String date = LocalDate.now().toString();
+        HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
+        WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(publicDescription, privateJournal,
+                date, mediaRef, workoutInfoMap);
+
         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
+        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
+                .toString());
+        //DatabaseReference feedRef = mRootRef.child("feed") we're going to need to look into this hard
+
         templateRef.setValue(templateClass);
+        workoutHistoryRef.setValue(historyModelClass);
+
 
         return view;
+    }
+
+    //TODO: check if today's been done you retard
+
+    private HashMap<String, List<String>> getMapForHistory(HashMap<String, HashMap<String, List<String>>> completedMap){
+        HashMap<String, List<String>> historyMap = new HashMap<>();
+
+        for(int i = 0; i < completedMap.size(); i++){
+            for(Map.Entry<String, HashMap<String, List<String>>> mapEntry1 : completedMap.entrySet()){
+                List<String> exerciseList = new ArrayList<>();
+                String[] keyTokens = mapEntry1.getKey().split("_");
+                int keyInc = Integer.parseInt(keyTokens[0]);
+                if(keyInc == i + 1){
+                    for(int j = 0; j < mapEntry1.getValue().size(); j++){
+                        for(Map.Entry<String, List<String>> mapEntry2 : mapEntry1.getValue().entrySet()){
+                            String[] keyTokens2 = mapEntry2.getKey().split("_");
+                            int keyInc2 = Integer.parseInt(keyTokens2[0]);
+                            if(keyInc2 == j){
+                                for(String string : mapEntry2.getValue()){
+                                    String[] exTokens = string.split("_");
+                                    if(isExerciseName(string)){
+                                        exerciseList.add(string);
+                                    }else{
+                                        if(isChecked(string)){
+                                            exerciseList.add(exTokens[0]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    historyMap.put(historyMap.size() + "_key", exerciseList);
+                }
+            }
+        }
+
+        return historyMap;
+    }
+
+    private boolean isChecked(String string){
+        boolean bool = false;
+
+        String[] tokens = string.split("_");
+
+        if(tokens[1].equals("checked")){
+            bool = true;
+        }
+
+        return bool;
     }
 
     private int getPoundageForModelSuperset(String exName, String tag, HashMap<String, List<String>> map){
