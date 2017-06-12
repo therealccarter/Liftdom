@@ -1,12 +1,10 @@
 package com.liftdom.template_editor;
 
+import android.util.Log;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Brodin on 5/9/2017.
@@ -83,31 +81,86 @@ public class TemplateModelClass {
         this.mAlgorithmDateMap = mAlgorithmDateMap;
     }
 
+
+    public void setNewDateMapValues(String exName, String isCompareOldDateBool, String daysUnformatted){
+        String key = null;
+        String oldDate = null;
+
+        if(Boolean.parseBoolean(isCompareOldDateBool)){
+            for(Map.Entry<String, List<String>> map : getAlgorithmDateMap().entrySet()){
+                if(isToday(map.getValue().get(3))) {
+                    if (map.getValue().get(0).equals(exName)) {
+                        if (!Boolean.parseBoolean(map.getValue().get(2))) {
+                            key = map.getKey();
+                            oldDate = map.getValue().get(1);
+                        }
+                    }
+                }
+            }
+
+            if(key != null){
+                HashMap<String, List<String>> newMap = new HashMap<>();
+                newMap.putAll(getAlgorithmDateMap());
+                List<String> newList = new ArrayList<>();
+                newList.add(exName);
+                newList.add(oldDate);
+                newList.add("true");
+                newList.add(daysUnformatted);
+                newList.add(LocalDate.now().toString());
+                newMap.put(key, newList);
+                setAlgorithmDateMap(newMap);
+            }else{
+                HashMap<String, List<String>> newMap = new HashMap<>();
+                newMap.putAll(getAlgorithmDateMap());
+                List<String> newList = new ArrayList<>();
+                newList.add(exName);
+                if(oldDate == null){
+                    newList.add(LocalDate.now().toString());
+                }else{
+                    newList.add(oldDate);
+                }
+                newList.add("true");
+                newList.add(daysUnformatted);
+                newList.add(LocalDate.now().toString());
+                newMap.put(getAlgorithmDateMap().size() + "_key", newList);
+                setAlgorithmDateMap(newMap);
+            }
+        }
+    }
+
+
+
     public void updateAlgorithmDateMap(String key, String exName, String isCompareOldDateBool){
         /**
          * if the bool is true and WAS false, we set a new date.
          * if the bool is true and WAS true, we keep the date.
          *
          */
+        String string = "ayo";
         if(Boolean.parseBoolean(isCompareOldDateBool)){
             // we must compare if it's CURRENTLY false or true
             boolean changeDate = false;
             String subKey = "";
             String oldDate = "";
             for(Map.Entry<String, List<String>> map : getAlgorithmDateMap().entrySet()){
-                if(isToday(map.getValue().get(3))) {
-                    if (map.getValue().get(0).equals(exName)) {
-                        if (!Boolean.parseBoolean(map.getValue().get(2))) {
-                            // WAS false
-                            subKey = map.getKey();
-                            changeDate = true;
-                            oldDate = map.getValue().get(1);
-                        }else{
-                            // WAS true
+                try {
+                    if(isToday(map.getValue().get(3))) {
+                        if (map.getValue().get(0).equals(exName)) {
+                            if (!Boolean.parseBoolean(map.getValue().get(2))) {
+                                // WAS false
+                                subKey = map.getKey();
+                                changeDate = true;
+                                oldDate = map.getValue().get(1);
+                            } else {
+                                // WAS true
+                            }
                         }
                     }
+                } catch (IndexOutOfBoundsException e){
+
                 }
             }
+
             if(changeDate){
                 // if the bool is true and WAS false, we keep the date.
                 LocalDate newDate = LocalDate.now();
@@ -119,6 +172,11 @@ public class TemplateModelClass {
                 HashMap<String, List<String>> newMap = new HashMap<>();
                 newMap.putAll(getAlgorithmDateMap());
                 newMap.remove(subKey);
+                if(subList.size() < 5){
+                    subList.add(newDate.toString());
+                }else{
+                    subList.set(4, newDate.toString());
+                }
                 newMap.put(subKey, subList);
                 setAlgorithmDateMap(newMap);
             }else{
@@ -131,23 +189,33 @@ public class TemplateModelClass {
                 String newKey = "";
 
                 for(Map.Entry<String, List<String>> map : newMap.entrySet()){
-                    if(isToday(map.getValue().get(3))) {
-                        if (map.getValue().get(0).equals(exName)) {
-                            newKey = map.getKey();
-                            subList.addAll(map.getValue());
-                            subList.set(3, key);
+                    try{
+                        if(isToday(map.getValue().get(3))) {
+                            if (map.getValue().get(0).equals(exName)) {
+                                newKey = map.getKey();
+                                subList.addAll(map.getValue());
+                                subList.set(3, key);
+                            }
                         }
+                    } catch (IndexOutOfBoundsException e){
+
                     }
+
                 }
 
                 newMap.remove(subKey);
-
-                newMap.put(newKey, subList);
+                if(subList.size() < 5){
+                    subList.add(newDate.toString());
+                }else{
+                    subList.set(4, newDate.toString());
+                }
+                newMap.put(subKey, subList);
+                setAlgorithmDateMap(newMap);
             }
         }
     }
 
-    String intToWeekday(int inc){
+    private String intToWeekday(int inc){
         String weekday = "";
 
         if(inc == 1){
