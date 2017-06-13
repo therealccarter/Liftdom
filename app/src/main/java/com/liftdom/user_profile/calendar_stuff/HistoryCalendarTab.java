@@ -305,6 +305,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         ArrayList<String> days = getDayStrings(map.get("0_key").get(0));
         ArrayList<Integer> daysAsInts = new ArrayList<>();
 
+        constructorInc++;
+
         for(String string : days){
             daysAsInts.add(dayIntFromString(string));
         }
@@ -320,11 +322,25 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                 CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
 
-                FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
+                if(constructorInc == 1){
+                    FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
+                }else if(constructorInc == 2){
+                    FutureDateHelperClass.getInstance().DateCollection2.add(convertedDateTime);
+                }else if(constructorInc == 3){
+                    FutureDateHelperClass.getInstance().DateCollection3.add(convertedDateTime);
+                }else if(constructorInc == 4){
+                    FutureDateHelperClass.getInstance().DateCollection4.add(convertedDateTime);
+                }else if(constructorInc == 5){
+                    FutureDateHelperClass.getInstance().DateCollection5.add(convertedDateTime);
+                }else if(constructorInc == 6){
+                    FutureDateHelperClass.getInstance().DateCollection6.add(convertedDateTime);
+                }else if(constructorInc == 7){
+                    FutureDateHelperClass.getInstance().DateCollection7.add(convertedDateTime);
+                }
+
             }
         }
 
-        constructorInc++;
 
         if(constructorInc == 1){
             if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){

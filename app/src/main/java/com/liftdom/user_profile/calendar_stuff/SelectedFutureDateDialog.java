@@ -15,6 +15,8 @@ import com.liftdom.liftdom.R;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SelectedFutureDateDialog extends AppCompatActivity {
 
@@ -23,6 +25,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
+
+    //TODO: Add buttons to go forward or backwards in time. Get current position in collection and add or subtrack
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,216 +49,66 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             }
         });
 
-
-        if(collectionNumber == 1){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(0);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 2){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(1);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 3){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(2);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 4){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(3);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 5){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(4);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 6){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(5);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }else if(collectionNumber == 7){
-            ArrayList<String> dataCollection = FutureDateHelperClass.getInstance().DataCollection.get(6);
-
-            for(String data : dataCollection){
-                if(isExerciseName(data)){
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            exerciseNameFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    exerciseNameFrag.exerciseName = data;
-                }else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-                    fragmentTransaction.add(R.id.eachExerciseFragHolder,
-                            repsWeightFrag);
-                    if (!isFinishing()) {
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-                    repsWeightFrag.repsWeight = data;
-                }
-            }
-        }
+        generateLayout();
     }
 
-    boolean isExerciseName(String input){
-        boolean isExercise = true;
-
-        if(input.length() != 0) {
-            char c = input.charAt(0);
-            if (Character.isDigit(c)) {
-                isExercise = false;
-            }
+    private void generateLayout(){
+        if(collectionNumber == 1){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("0_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 2){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("1_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 3){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("2_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 4){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("3_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 5){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("4_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 6){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("5_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
+        }else if(collectionNumber == 7){
+            HashMap<String, List<String>> map = new HashMap<>();
+            map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("6_key"));
+            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.map = map;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            fragmentTransaction.commit();
         }
-
-        return isExercise;
     }
 }
