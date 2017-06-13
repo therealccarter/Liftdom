@@ -233,7 +233,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     private HashMap<String, List<String>> getMapForHistory(HashMap<String, HashMap<String, List<String>>> completedMap){
         HashMap<String, List<String>> historyMap = new HashMap<>();
-
         for(int i = 0; i < completedMap.size(); i++){
             for(Map.Entry<String, HashMap<String, List<String>>> mapEntry1 : completedMap.entrySet()){
                 List<String> exerciseList = new ArrayList<>();
@@ -252,6 +251,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     }else{
                                         if(isChecked(string)){
                                             exerciseList.add(exTokens[0]);
+                                            // TODO: unit here. Units everywhere that we see "@"
                                         }
                                     }
                                 }
