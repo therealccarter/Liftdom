@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.calendar_stuff.decorators.OneDayDecorator;
 import com.liftdom.user_profile.calendar_stuff.decorators.PastEventDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -28,6 +29,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +55,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     ArrayList<CalendarDay> futureDates = new ArrayList<>();
 
     long futureIncrementor = 0;
+    int constructorInc = 0;
     long futureSubInc1 = 0;
     long futureSubInc2 = 0;
     long futureSubInc3 = 0;
@@ -69,6 +73,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     boolean subIncBool7 = true;
 
     ArrayList<String> firstAL = new ArrayList<>();
+    HashMap<String, List<String>> firstMap = new HashMap<>();
+
     ArrayList<String> secondAL = new ArrayList<>();
     ArrayList<String> thirdAL = new ArrayList<>();
     ArrayList<String> fourthAL = new ArrayList<>();
@@ -85,8 +91,6 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history_calendar_tab, container, false);
-
-        //TODO: Add missed days in the past
 
         ButterKnife.bind(this, view);
 
@@ -171,7 +175,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //TODO: Apply algorithm
+                //TODO: Apply fully predictive algorithm
 
                 String activeTemplate = dataSnapshot.getValue(String.class);
 
@@ -182,237 +186,44 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            ++futureIncrementor;
 
-                            String keyValue = dataSnapshot1.getKey();
+                        TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                            if (!keyValue.equals("algorithm") && !keyValue.equals("algorithmExercises")) {
-                                if (futureIncrementor == 1) {
-                                    firstAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool1 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc1;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                firstAL.add(value);
-
-                                                subIncBool1 = subIncValidator(futureSubInc1, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool1) {
-                                                    futureConstructor1();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 2) {
-                                    secondAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool2 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc2;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                secondAL.add(value);
-
-                                                subIncBool2 = subIncValidator(futureSubInc2, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool2) {
-                                                    futureConstructor2();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 3) {
-                                    thirdAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool3 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc3;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                thirdAL.add(value);
-
-                                                subIncBool3 = subIncValidator(futureSubInc3, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool3) {
-                                                    futureConstructor3();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 4) {
-                                    fourthAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool4 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc4;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                fourthAL.add(value);
-
-                                                subIncBool4 = subIncValidator(futureSubInc4, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool4) {
-                                                    futureConstructor4();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 5) {
-                                    fifthAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool5 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc5;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                fifthAL.add(value);
-
-                                                subIncBool5 = subIncValidator(futureSubInc5, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool5) {
-                                                    futureConstructor5();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 6) {
-                                    sixthAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool6 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc6;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                sixthAL.add(value);
-
-                                                subIncBool6 = subIncValidator(futureSubInc6, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool6) {
-                                                    futureConstructor6();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                } else if (futureIncrementor == 7) {
-                                    seventhAL.add(keyValue);
-                                    DatabaseReference specificDayRef = futureRef.child(keyValue);
-
-
-                                    specificDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                            subIncBool7 = false;
-
-                                            for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-
-                                                ++futureSubInc7;
-
-                                                String value = dataSnapshot2.getValue(String.class);
-                                                seventhAL.add(value);
-
-                                                subIncBool7 = subIncValidator(futureSubInc7, dataSnapshot
-                                                        .getChildrenCount());
-
-                                                if (subIncBool7) {
-                                                    futureConstructor7();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                }
-
-
+                        if(templateModelClass.getMapOne() != null){
+                            if(!templateModelClass.getMapOne().isEmpty()){
+                                futureConstructor(templateModelClass.getMapOne());
                             }
-
                         }
-
+                        if(templateModelClass.getMapTwo() != null){
+                            if(!templateModelClass.getMapTwo().isEmpty()){
+                                futureConstructor(templateModelClass.getMapTwo());
+                            }
+                        }
+                        if(templateModelClass.getMapThree() != null){
+                            if(!templateModelClass.getMapThree().isEmpty()){
+                                futureConstructor(templateModelClass.getMapThree());
+                            }
+                        }
+                        if(templateModelClass.getMapFour() != null){
+                            if(!templateModelClass.getMapFour().isEmpty()){
+                                futureConstructor(templateModelClass.getMapFour());
+                            }
+                        }
+                        if(templateModelClass.getMapFive() != null){
+                            if(!templateModelClass.getMapFive().isEmpty()){
+                                futureConstructor(templateModelClass.getMapFive());
+                            }
+                        }
+                        if(templateModelClass.getMapSix() != null){
+                            if(!templateModelClass.getMapSix().isEmpty()){
+                                futureConstructor(templateModelClass.getMapSix());
+                            }
+                        }
+                        if(templateModelClass.getMapSeven() != null){
+                            if(!templateModelClass.getMapSeven().isEmpty()){
+                                futureConstructor(templateModelClass.getMapSeven());
+                            }
+                        }
                     }
 
                     @Override
@@ -490,284 +301,70 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         widget.invalidateDecorators();
     }
 
-    public void futureConstructor1(){
-        if(!firstAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(firstAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
+    private void futureConstructor(HashMap<String, List<String>> map){
+        ArrayList<String> days = getDayStrings(map.get("0_key").get(0));
+        ArrayList<Integer> daysAsInts = new ArrayList<>();
 
-            ArrayList<String> data = new ArrayList<>();
+        for(String string : days){
+            daysAsInts.add(dayIntFromString(string));
+        }
 
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
+        FutureDateHelperClass.getInstance().DataCollectionMap.put(FutureDateHelperClass.getInstance()
+                .DataCollectionMap.size() + "_key", map);
 
-            for(int i = 1; i < firstAL.size(); i++){
-                data.add(firstAL.get(i));
+        for(int i = 1; i < 90; i++){
+            LocalDate dateTime = LocalDate.now();
+            dateTime = dateTime.plusDays(i);
 
-                if(i == (firstAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(0, data);
-                }
-            }
+            if(daysAsInts.contains(dateTime.getDayOfWeek())){
 
-            // so now we have an arraylist of, say, Monday & Thursday
-            // we could get dates for the remainder of the year, and somehow associate those dates with the info
-            // in a singleton helper class...
+                CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
 
-            // So, this part works fine..
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
-                }
+                FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
             }
         }
 
-        if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection1, 7));
+        constructorInc++;
+
+        if(constructorInc == 1){
+            if(!FutureDateHelperClass.getInstance().DateCollection1.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection1, 7));
+            }
+        }else if(constructorInc == 2){
+            if(!FutureDateHelperClass.getInstance().DateCollection2.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection2, 7));
+            }
+        }else if(constructorInc == 3){
+            if(!FutureDateHelperClass.getInstance().DateCollection3.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection3, 7));
+            }
+        }else if(constructorInc == 4){
+            if(!FutureDateHelperClass.getInstance().DateCollection4.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection4, 7));
+            }
+        }else if(constructorInc == 5){
+            if(!FutureDateHelperClass.getInstance().DateCollection5.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection5, 7));
+            }
+        }else if(constructorInc == 6){
+            if(!FutureDateHelperClass.getInstance().DateCollection6.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection6, 7));
+            }
+        }else if(constructorInc == 7){
+            if(!FutureDateHelperClass.getInstance().DateCollection7.isEmpty()){
+                widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                        .DateCollection7, 7));
+            }
         }
+
+
     }
-
-    public void futureConstructor2(){
-        if(!secondAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(secondAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < secondAL.size(); i++){
-                data.add(secondAL.get(i));
-
-                if(i == (secondAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(1, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection2.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection2.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection2, 7));
-        }
-    }
-
-    public void futureConstructor3(){
-        if(!thirdAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(thirdAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < thirdAL.size(); i++){
-                data.add(thirdAL.get(i));
-
-                if(i == (thirdAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(2, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection3.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection3.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection3, 7));
-        }
-    }
-
-    public void futureConstructor4(){
-        if(!fourthAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(fourthAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < fourthAL.size(); i++){
-                data.add(fourthAL.get(i));
-
-                if(i == (fourthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(3, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection4.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection4.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection4, 7));
-        }
-    }
-
-    public void futureConstructor5(){
-        if(!fifthAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(fifthAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < fifthAL.size(); i++){
-                data.add(fifthAL.get(i));
-
-                if(i == (fifthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(4, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection5.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection5.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection5, 7));
-        }
-    }
-
-    public void futureConstructor6(){
-        if(!sixthAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(sixthAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < sixthAL.size(); i++){
-                data.add(sixthAL.get(i));
-
-                if(i == (sixthAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(5, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection6.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection6.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection6, 7));
-        }
-    }
-
-    public void futureConstructor7(){
-        if(!seventhAL.isEmpty()){
-            ArrayList<String> days = getDayStrings(seventhAL.get(0));
-            ArrayList<Integer> daysAsInts = new ArrayList<>();
-
-            ArrayList<String> data = new ArrayList<>();
-
-            for(String string : days){
-                daysAsInts.add(dayIntFromString(string));
-            }
-
-            for(int i = 1; i < seventhAL.size(); i++){
-                data.add(seventhAL.get(i));
-
-                if(i == (seventhAL.size() - 1)){
-                    FutureDateHelperClass.getInstance().DataCollection.add(6, data);
-                }
-            }
-
-
-            for(int i = 1; i < 90; i++){
-                DateTime dateTime = new DateTime(DateTime.now());
-                dateTime = dateTime.plusDays(i);
-
-                if(daysAsInts.contains(dateTime.getDayOfWeek())){
-
-                    CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
-
-                    FutureDateHelperClass.getInstance().DateCollection7.add(convertedDateTime);
-                }
-            }
-        }
-
-        if(!FutureDateHelperClass.getInstance().DateCollection7.isEmpty()){
-            widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
-                    .DateCollection7, 7));
-        }
-    }
-
-
 
     int dayIntFromString(String day){
         int dayInt = 0;
@@ -805,13 +402,6 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         return daysBroken;
     }
 
-    boolean subIncValidator(long inc, long size){
-        if(inc == size){
-            return true;
-        }else {
-            return false;
-        }
-    }
 
 }
 

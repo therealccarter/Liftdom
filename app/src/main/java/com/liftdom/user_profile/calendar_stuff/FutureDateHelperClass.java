@@ -3,6 +3,8 @@ package com.liftdom.user_profile.calendar_stuff;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Brodin on 3/10/2017.
@@ -36,6 +38,8 @@ public class FutureDateHelperClass {
     public ArrayList<CalendarDay> DateCollection7 = new ArrayList<>();
 
     public ArrayList<ArrayList<String>> DataCollection = new ArrayList<>();
+
+    HashMap<String, HashMap<String, List<String>>> DataCollectionMap = new HashMap<>();
 
 
 
