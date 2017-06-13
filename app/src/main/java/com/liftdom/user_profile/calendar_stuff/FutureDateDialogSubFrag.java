@@ -45,6 +45,7 @@ public class FutureDateDialogSubFrag extends Fragment {
                         SimpleExNameFrag exNameFrag = new SimpleExNameFrag();
                         exNameFrag.exInfoList = mapEntry.getValue();
                         fragmentTransaction.add(R.id.exInfoSubHolder, exNameFrag);
+                        fragmentTransaction.commit();
                     }
                 }
             }

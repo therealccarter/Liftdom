@@ -36,7 +36,9 @@ public class SimpleSetSchemeFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        String[] tokens = setSchemeString.split("_");
+        String delims = "[x, @]";
+
+        String[] tokens = setSchemeString.split(delims);
         setsView.setText(tokens[0]);
         repsView.setText(tokens[1]);
         weightView.setText(tokens[2]);
