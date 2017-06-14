@@ -214,8 +214,10 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         String date = LocalDate.now().toString();
         HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
+        //TODO get units
+        String units = "lbs";
         WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(publicDescription, privateJournal,
-                date, mediaRef, workoutInfoMap);
+                date, mediaRef, workoutInfoMap, units);
 
         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
         DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()

@@ -65,59 +65,6 @@ public class SelectedPastDateDialog extends AppCompatActivity {
             }
         });
 
-        //dateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        //    @Override
-        //    public void onDataChange(DataSnapshot dataSnapshot) {
-        //        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-        //            String snapshotString = dataSnapshot1.getValue(String.class);
-        //            String keyString = dataSnapshot1.getKey();
-//
-        //            if (isExerciseName(snapshotString) && !keyString.equals("private_journal") && !keyString.equals
-        //                    ("restDay")) {
-        //                FragmentManager fragmentManager = getSupportFragmentManager();
-        //                FragmentTransaction fragmentTransaction = fragmentManager
-        //                        .beginTransaction();
-        //                ExerciseNameFrag exerciseNameFrag = new ExerciseNameFrag();
-        //                fragmentTransaction.add(R.id.eachExerciseFragHolder,
-        //                        exerciseNameFrag);
-        //                if (!isFinishing()) {
-        //                    fragmentTransaction.commitAllowingStateLoss();
-        //                }
-        //                exerciseNameFrag.exerciseName = snapshotString;
-        //            } else if(isExerciseName(snapshotString) && keyString.equals("private_journal")
-        //                && !snapshotString.equals("")){
-        //                FragmentManager fragmentManager = getSupportFragmentManager();
-        //                FragmentTransaction fragmentTransaction = fragmentManager
-        //                        .beginTransaction();
-        //                PastJournalFrag pastJournalFrag = new PastJournalFrag();
-        //                fragmentTransaction.add(R.id.eachExerciseFragHolder,
-        //                        pastJournalFrag);
-        //                if (!isFinishing()) {
-        //                    fragmentTransaction.commitAllowingStateLoss();
-        //                }
-        //                pastJournalFrag.journalString = snapshotString;
-        //            } else {
-        //                FragmentManager fragmentManager = getSupportFragmentManager();
-        //                FragmentTransaction fragmentTransaction = fragmentManager
-        //                        .beginTransaction();
-        //                PastDateRepsWeightFrag repsWeightFrag = new PastDateRepsWeightFrag();
-        //                fragmentTransaction.add(R.id.eachExerciseFragHolder,
-        //                        repsWeightFrag);
-        //                if (!isFinishing()) {
-        //                    fragmentTransaction.commitAllowingStateLoss();
-        //                }
-        //                repsWeightFrag.repsWeight = snapshotString;
-//
-        //            }
-        //        }
-        //    }
-//
-        //    @Override
-        //    public void onCancelled(DatabaseError databaseError) {
-//
-        //    }
-        //});
-
         closeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
