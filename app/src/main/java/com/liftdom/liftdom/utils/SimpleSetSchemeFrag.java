@@ -23,10 +23,14 @@ public class SimpleSetSchemeFrag extends Fragment {
     }
 
     public String setSchemeString;
+    public boolean isPastDate;
 
     @BindView(R.id.setsView) TextView setsView;
     @BindView(R.id.repsView) TextView repsView;
     @BindView(R.id.weightView) TextView weightView;
+    @BindView(R.id.xView) TextView xView;
+    @BindView(R.id.unitsView) TextView unitsView;
+    @BindView(R.id.atView) TextView atView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,12 +40,24 @@ public class SimpleSetSchemeFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        String delims = "[x, @]";
+        if(!isPastDate){
+            String delims = "[x, @]";
 
-        String[] tokens = setSchemeString.split(delims);
-        setsView.setText(tokens[0]);
-        repsView.setText(tokens[1]);
-        weightView.setText(tokens[2]);
+            String[] tokens = setSchemeString.split(delims);
+            setsView.setText(tokens[0]);
+            repsView.setText(tokens[1]);
+            weightView.setText(tokens[2]);
+        }else{
+            setsView.setVisibility(View.GONE);
+            xView.setVisibility(View.GONE);
+            atView.setText(" reps @ ");
+
+            String delims = "[@]";
+
+            String[] tokens = setSchemeString.split(delims);
+            repsView.setText(tokens[0]);
+            weightView.setText(tokens[1]);
+        }
 
         return view;
     }

@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/x"
+            android:id="@+id/xView"
     />
 
     <TextView
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/at"
+            android:id="@+id/atView"
     />
 
     <TextView
@@ -43,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pounds"
+            android:id="@+id/unitsView"
     />
 
 </LinearLayout>

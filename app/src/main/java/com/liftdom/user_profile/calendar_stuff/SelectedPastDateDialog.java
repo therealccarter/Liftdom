@@ -132,6 +132,7 @@ public class SelectedPastDateDialog extends AppCompatActivity {
         PastDateDialogSubFrag pastDateDialogSubFrag = new PastDateDialogSubFrag();
         pastDateDialogSubFrag.workoutHistoryModelClass = modelClass;
         fragmentTransaction.replace(R.id.eachExerciseFragHolder, pastDateDialogSubFrag);
+        fragmentTransaction.commit();
     }
 
     boolean isExerciseName(String input){

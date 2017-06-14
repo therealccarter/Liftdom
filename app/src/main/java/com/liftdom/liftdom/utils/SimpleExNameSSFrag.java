@@ -26,6 +26,7 @@ public class SimpleExNameSSFrag extends Fragment {
     }
 
     List<String> exInfoList;
+    public boolean isPastDate;
 
     @BindView(R.id.exNameView) Button exNameView;
 
@@ -44,6 +45,7 @@ public class SimpleExNameSSFrag extends Fragment {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 SimpleSetSchemeSSFrag setSchemeSSFrag = new SimpleSetSchemeSSFrag();
                 setSchemeSSFrag.setSchemeString = string;
+                setSchemeSSFrag.isPastDate = true;
                 fragmentTransaction.add(R.id.setSchemeHolder, setSchemeSSFrag);
                 fragmentTransaction.commit();
             }
