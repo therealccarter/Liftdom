@@ -12,8 +12,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
@@ -41,6 +40,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     TemplateModelClass templateClass;
+    CompletedExercisesModelClass exercisesModelClass;
     String publicDescription = null;
     String privateJournal = null;
     String mediaRef = null;
@@ -48,6 +48,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> modelMapFormatted;
     HashMap<String, List<String>> completedMapFormatted;
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
+    List<String> completedExerciseList;
 
     @BindView(R.id.goBackHome) Button goHomeButton;
 
@@ -92,10 +93,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         String delims = "[_]";
                         String[] tokens = map2.getValue().get(0).split(delims);
                         String splitExName = tokens[0];
-
-                        if(splitExName.equals("Bench Press (Barbell - Incline)")){
-                            Log.i("info", "info");
-                        }
+                        completedExerciseList.add(splitExName);
 
                         String exNameCompleted = map2.getValue().get(0);
 
@@ -212,6 +210,29 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         }
 
+
+
+        DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
+        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
+                .toString());
+        DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid).child
+                ("completed_exercises");
+        //DatabaseReference feedRef = mRootRef.child("feed") we're going to need to look into this hard
+
+        completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                 exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        exercisesModelClass.addItems(completedExerciseList);
+
         String date = LocalDate.now().toString();
         HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
         //TODO get units
@@ -219,13 +240,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
         WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(publicDescription, privateJournal,
                 date, mediaRef, workoutInfoMap, units);
 
-        DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
-        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
-                .toString());
-        //DatabaseReference feedRef = mRootRef.child("feed") we're going to need to look into this hard
-
         templateRef.setValue(templateClass);
         workoutHistoryRef.setValue(historyModelClass);
+        completedExercisesRef.setValue(exercisesModelClass);
 
 
         return view;

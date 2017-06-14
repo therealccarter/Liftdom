@@ -26,6 +26,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
+import com.liftdom.workout_assistor.CompletedExercisesModelClass;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -66,13 +67,17 @@ public class StatChartsFrag extends Fragment {
         maxWeightRadioButton.setChecked(true);
 
 
-        DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid);
+        DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid).child("completed_exercises");
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String value = dataSnapshot1.getValue(String.class);
-                    ExSelectorSingleton.getInstance().completedExercises.add(value);
+                if(!dataSnapshot.exists()){
+                    //TODO: Let user know they have no completed exercises
+                }else{
+                    CompletedExercisesModelClass completedExercisesModelClass = dataSnapshot.getValue
+                            (CompletedExercisesModelClass.class);
+                    ExSelectorSingleton.getInstance().completedExercises.addAll(completedExercisesModelClass
+                            .getCompletedExercisesList());
                 }
             }
 
