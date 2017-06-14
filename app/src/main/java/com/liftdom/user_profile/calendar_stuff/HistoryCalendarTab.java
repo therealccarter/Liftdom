@@ -337,7 +337,6 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 }else if(constructorInc == 7){
                     FutureDateHelperClass.getInstance().DateCollection7.add(convertedDateTime);
                 }
-
             }
         }
 
