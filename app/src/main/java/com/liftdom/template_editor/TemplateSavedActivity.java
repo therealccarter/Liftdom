@@ -263,7 +263,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
             String xUserName= TemplateEditorSingleton.getInstance().mUserName;
             String xUserId2 = TemplateEditorSingleton.getInstance().mUserId2;
             String xUserName2 = TemplateEditorSingleton.getInstance().mUserName2;
-            boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
+            final boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
             String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
             String xDescription = TemplateEditorSingleton.getInstance().mDescription;
             HashMap<String, List<String>> xMapOne = new HashMap<>();
@@ -303,7 +303,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
             //TODO: add radio group for template type
             String workoutType = "placeholder";
 
-            TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
+            final TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
                                                 xUserId2, xUserName2, xIsPublic,
                                                 xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
@@ -312,10 +312,24 @@ public class TemplateSavedActivity extends AppCompatActivity {
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    loadingView.setVisibility(View.GONE);
-                    templateHolder.setVisibility(View.VISIBLE);
-                    TemplateEditorSingleton.getInstance().clearAll();
-                    EditTemplateAssemblerClass.getInstance().clearAll();
+                    if(xIsPublic){
+                        DatabaseReference publicRef = mRootRef.child("public_templates");
+                        publicRef.push().setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                loadingView.setVisibility(View.GONE);
+                                templateHolder.setVisibility(View.VISIBLE);
+                                TemplateEditorSingleton.getInstance().clearAll();
+                                EditTemplateAssemblerClass.getInstance().clearAll();
+                            }
+                        });
+                    }else{
+                        loadingView.setVisibility(View.GONE);
+                        templateHolder.setVisibility(View.VISIBLE);
+                        TemplateEditorSingleton.getInstance().clearAll();
+                        EditTemplateAssemblerClass.getInstance().clearAll();
+                    }
+
                 }
             });
         }
