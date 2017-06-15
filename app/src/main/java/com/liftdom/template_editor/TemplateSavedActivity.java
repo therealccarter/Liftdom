@@ -33,6 +33,9 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.wang.avi.AVLoadingIndicatorView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
 
 
 import java.util.HashMap;
@@ -289,9 +292,20 @@ public class TemplateSavedActivity extends AppCompatActivity {
 
             String xDays = getDays(xMapOne, xMapTwo, xMapThree, xMapFour, xMapFive, xMapSix, xMapSeven);
 
+            String dateUpdated = null;
+            if(isEdit){
+                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                dateUpdated = dateTime.toString();
+            }else{
+                dateUpdated = xDateCreated;
+            }
+
+            //TODO: add radio group for template type
+            String workoutType = "placeholder";
+
             TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
                                                 xUserId2, xUserName2, xIsPublic,
-                                                xDateCreated, xDescription, xMapOne, xMapTwo,
+                                                xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo, xAlgorithmDateMap);
 

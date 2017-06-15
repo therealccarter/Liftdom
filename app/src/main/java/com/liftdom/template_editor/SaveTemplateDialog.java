@@ -33,6 +33,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
     Boolean activeTemplateCheckBool;
     //Boolean algBool;
     boolean isPublic;
+    boolean isEditBool;
     //String descriptionString;
 
     @BindView(R.id.saveButtonCancel) Button cancel;
@@ -58,6 +59,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
             templateName1 = getIntent().getExtras().getString("templateName");
             templateName.setText(templateName1);
             isPublic = getIntent().getBooleanExtra("isPublic", false);
+            isEditBool = true;
             //descriptionString = getIntent().getExtras().getString("description");
         }else{
             isPublic = getIntent().getBooleanExtra("isPublic", false);
@@ -90,7 +92,10 @@ public class SaveTemplateDialog extends AppCompatActivity {
                     intent.putExtra("isEdit", isEdit);
                     //intent.putExtra("isAlgorithm", algBool);
 
-                    TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                    if(!isEditBool){
+                        TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                    }
+
                     TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
                     //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
                     TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();

@@ -335,6 +335,8 @@ public class TemplateEditorActivity extends AppCompatActivity
                             }
                         }
 
+                        TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+
                         if(!templateClass.getUserId().equals(uid)){
                             // if editing someone else's template
                             TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();

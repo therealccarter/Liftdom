@@ -87,11 +87,9 @@ UPCOMING FEATURES TO DO:
 
 *v0.7.5*
 **DONE** DM other users (including group chat)
-* Send templates to other users via chat/share via url
 * View public templates
 * Ability to edit/save public templates
 * Custom exercises
-* Clear current BugList
 
 *v0.8*
 * Add real-time commenting to posts.
@@ -114,6 +112,7 @@ UPCOMING FEATURES TO DO:
 * Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
 * Workout Timer (possible right side nav drawer?)
 * Send templates to other users via url
+* Send templates to other users via chat
 ***TBD***
 
 *v2.0*

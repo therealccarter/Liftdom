@@ -1,6 +1,5 @@
 package com.liftdom.template_editor;
 
-import android.util.Log;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -20,6 +19,8 @@ public class TemplateModelClass {
     private String mUserName2;
     private boolean mIsPublic;
     private String mDateCreated;
+    private String mDateUpdated;
+    private String mWorkoutType;
     private String mDescription;
     private HashMap<String, List<String>> mMapOne;
     private HashMap<String, List<String>> mMapTwo;
@@ -39,7 +40,8 @@ public class TemplateModelClass {
 
     public TemplateModelClass(String templateName, String days, String userId, String userName,
                               String userId2, String userName2, boolean isPublic,
-                              String dateCreated, String description,
+                              String dateCreated, String dateUpdated,
+                              String workoutType, String description,
                               HashMap<String, List<String>> mapOne,
                               HashMap<String, List<String>> mapTwo,
                               HashMap<String, List<String>> mapThree,
@@ -60,6 +62,8 @@ public class TemplateModelClass {
         mDescription = description;
         mIsPublic = isPublic;
         mDateCreated = dateCreated;
+        mDateUpdated = dateUpdated;
+        mWorkoutType = workoutType;
         mMapOne = mapOne;
         mMapTwo = mapTwo;
         mMapThree = mapThree;
@@ -80,7 +84,6 @@ public class TemplateModelClass {
     public void setAlgorithmDateMap(HashMap<String, List<String>> mAlgorithmDateMap) {
         this.mAlgorithmDateMap = mAlgorithmDateMap;
     }
-
 
     public void setNewDateMapValues(String exName, String isCompareOldDateBool, String daysUnformatted){
         String key = null;
@@ -128,7 +131,21 @@ public class TemplateModelClass {
         }
     }
 
+    public String getDateUpdated() {
+        return mDateUpdated;
+    }
 
+    public void setDateUpdated(String mDateUpdated) {
+        this.mDateUpdated = mDateUpdated;
+    }
+
+    public String getWorkoutType() {
+        return mWorkoutType;
+    }
+
+    public void setWorkoutType(String mWorkoutType) {
+        this.mWorkoutType = mWorkoutType;
+    }
 
     public void updateAlgorithmDateMap(String key, String exName, String isCompareOldDateBool){
         /**
