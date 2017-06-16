@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
@@ -41,6 +44,7 @@ public class SelectedTemplateFrag extends Fragment {
 
     String templateName;
     boolean isFromPublicList;
+    boolean isFromMyPublicList;
     String firebaseKey;
 
     @BindView(R.id.selectedTemplateTitle) TextView selectedTemplateNameView;
@@ -53,7 +57,8 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.shareThisTemplate) Button shareTemplate;
     @BindView(R.id.authorNameView) TextView authorNameView;
     @BindView(R.id.choicesBar) LinearLayout choicesBar;
-    @BindView(R.id.saveButton) Button saveButton;
+    @BindView(R.id.publishButton) Button publishButton;
+    @BindView(R.id.saveTemplateButton) Button saveTemplateButton;
 
     int colorIncrement = 0;
 
@@ -91,18 +96,105 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        saveTemplateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
+                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child(firebaseKey);
+                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                        String templateName = modelClass.getTemplateName();
+                        modelClass.setUserId2(uid);
+                        //TODO: new display name method
+                        modelClass.setUserName2(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                        DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                        myTemplateRef.setValue(modelClass);
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        publishButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                // set title
+                builder.setTitle("Publish Template?");
+
+                // set dialog message
+                builder
+                        .setMessage("This will create a new Public Template. Access your public templates via the " +
+                                "Public Templates page.")
+                        .setCancelable(false)
+                        .setPositiveButton("Publish Template",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        TemplateModelClass templateModelClass = dataSnapshot.getValue
+                                                (TemplateModelClass.class);
+                                        DatabaseReference publicTemplateRef = mRootRef.child("public_templates")
+                                                .child("public").push();
+                                        String keyId = publicTemplateRef.getKey();
+                                        publicTemplateRef.setValue(templateModelClass);
+                                        templateModelClass.setPublicTemplateKeyId(keyId);
+                                        DatabaseReference myPublicTemplateRef = mRootRef.child("public_templates")
+                                                .child("my_public").child(templateName);
+                                        myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                try{
+                                                    Snackbar snackbar = Snackbar.make(getView(), "Template Published", Snackbar.LENGTH_SHORT);
+                                                    snackbar.show();
+                                                } catch (NullPointerException e){
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                        })
+                        .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = builder.create();
+
+                // show it
+                alertDialog.show();
             }
         });
 
         if(savedInstanceState == null){
 
+            if(isFromMyPublicList){
+
+            }
+
             if(isFromPublicList){
 
                 choicesBar.setVisibility(View.GONE);
-                saveButton.setVisibility(View.VISIBLE);
+                saveTemplateButton.setVisibility(View.VISIBLE);
 
                 final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child(firebaseKey);
                 specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {

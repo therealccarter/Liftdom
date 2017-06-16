@@ -339,6 +339,11 @@
 
     <string name="saveTemplate">Save Template</string>
 
+    <string name="publicTemplates">Public Templates</string>
+    <string name="myPublicTemplates">My Public Templates</string>
+
+    <string name="publishTemplate">Publish Template To Public Repo</string>
+
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
 

@@ -148,16 +148,34 @@
                     <Button
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/saveButton"
+                            android:id="@+id/saveTemplateButton"
                             android:text="@string/saveTemplate"
                             android:textColor="@color/white"
-                            android:textSize="22sp"
+                            android:textSize="18sp"
                             android:background="@color/confirmgreen"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:minHeight="0dp"
                             android:minWidth="0dp"
+                            android:textAllCaps="false"
+                            android:padding="2dp"
                             android:visibility="gone"
+                    />
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/publishButton"
+                            android:text="@string/publishTemplate"
+                            android:textColor="@color/liftrGold1"
+                            android:textSize="18sp"
+                            android:background="@color/darkerGrey"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:textAllCaps="false"
+                            android:padding="2dp"
                     />
 
                     <View

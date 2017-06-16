@@ -33,6 +33,7 @@ public class TemplateModelClass {
     private boolean mIsAlgoApplyToAll;
     private HashMap<String, List<String>> mAlgorithmInfo;
     private HashMap<String, List<String>> mAlgorithmDateMap;
+    private String publicTemplateKeyId;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -75,6 +76,14 @@ public class TemplateModelClass {
         mIsAlgoApplyToAll = isAlgoApplyToAll;
         mAlgorithmInfo = algorithmInfo;
         mAlgorithmDateMap = algorithmDateMap;
+    }
+
+    public String getPublicTemplateKeyId() {
+        return publicTemplateKeyId;
+    }
+
+    public void setPublicTemplateKeyId(String publicTemplateKeyId) {
+        this.publicTemplateKeyId = publicTemplateKeyId;
     }
 
     public HashMap<String, List<String>> getAlgorithmDateMap() {

@@ -151,6 +151,7 @@
                     android:id="@+id/makePublicCheckbox"
                     android:text="@string/makePublic"
                     android:textColor="@color/white"
+                    android:visibility="gone"
             />
 
             <EditText

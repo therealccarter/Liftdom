@@ -30,6 +30,7 @@ public class PublicTemplateViewHolder extends RecyclerView.ViewHolder{
     private final LinearLayout mEditedByLinearLayout;
     private String mKey;
     private FragmentActivity mActivity;
+    private boolean isMyPublicTemplate;
 
     public PublicTemplateViewHolder(View itemView){
         super(itemView);
@@ -49,7 +50,11 @@ public class PublicTemplateViewHolder extends RecyclerView.ViewHolder{
 
                 SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                 selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
-                selectedTemplateFrag.isFromPublicList = true;
+                if(isMyPublicTemplate){
+                    selectedTemplateFrag.isFromMyPublicList = true;
+                }else{
+                    selectedTemplateFrag.isFromPublicList = true;
+                }
                 selectedTemplateFrag.firebaseKey = mKey;
 
                 fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
@@ -57,6 +62,14 @@ public class PublicTemplateViewHolder extends RecyclerView.ViewHolder{
                 fragmentTransaction.commit();
             }
         });
+    }
+
+    public boolean getIsMyPublicTemplate() {
+        return isMyPublicTemplate;
+    }
+
+    public void setIsMyPublicTemplate(boolean myPublicTemplate) {
+        isMyPublicTemplate = myPublicTemplate;
     }
 
     public void setEditedBy(String editedBy){

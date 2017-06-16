@@ -312,24 +312,10 @@ public class TemplateSavedActivity extends AppCompatActivity {
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(xIsPublic){
-                        DatabaseReference publicRef = mRootRef.child("public_templates");
-                        publicRef.push().setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                loadingView.setVisibility(View.GONE);
-                                templateHolder.setVisibility(View.VISIBLE);
-                                TemplateEditorSingleton.getInstance().clearAll();
-                                EditTemplateAssemblerClass.getInstance().clearAll();
-                            }
-                        });
-                    }else{
-                        loadingView.setVisibility(View.GONE);
-                        templateHolder.setVisibility(View.VISIBLE);
-                        TemplateEditorSingleton.getInstance().clearAll();
-                        EditTemplateAssemblerClass.getInstance().clearAll();
-                    }
-
+                    loadingView.setVisibility(View.GONE);
+                    templateHolder.setVisibility(View.VISIBLE);
+                    TemplateEditorSingleton.getInstance().clearAll();
+                    EditTemplateAssemblerClass.getInstance().clearAll();
                 }
             });
         }
