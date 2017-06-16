@@ -28,6 +28,7 @@ import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.settings.SettingsListActivity;
+import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.PublicTemplatesFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
@@ -55,7 +56,7 @@ public class MainActivity extends BaseActivity implements
         WorkoutAssistorFrag.headerChangeFromFrag,
         MainFeedFrag.headerChangeFromFrag,
         SavedTemplatesFrag.headerChangeFromFrag,
-        PublicTemplatesFrag.headerChangeFromFrag{
+        PublicTemplateChooserFrag.headerChangeFromFrag{
 
     private static final String TAG = "EmailPassword";
 

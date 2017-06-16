@@ -90,9 +90,12 @@ public class SelectedTemplateFrag extends Fragment {
 
         editPenSmall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RenameTemplateDialog.class);
-                intent.putExtra("templateName", templateName);
-                startActivityForResult(intent, 1);
+                if(!isFromPublicList){
+                    Intent intent = new Intent(v.getContext(), RenameTemplateDialog.class);
+                    intent.putExtra("templateName", templateName);
+                    startActivityForResult(intent, 1);
+                }
+
             }
         });
 
@@ -146,7 +149,7 @@ public class SelectedTemplateFrag extends Fragment {
                                         publicTemplateRef.setValue(templateModelClass);
                                         templateModelClass.setPublicTemplateKeyId(keyId);
                                         DatabaseReference myPublicTemplateRef = mRootRef.child("public_templates")
-                                                .child("my_public").child(templateName);
+                                                .child("my_public").child(uid).child(templateName);
                                         myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -186,10 +189,6 @@ public class SelectedTemplateFrag extends Fragment {
         });
 
         if(savedInstanceState == null){
-
-            if(isFromMyPublicList){
-
-            }
 
             if(isFromPublicList){
 
@@ -277,7 +276,91 @@ public class SelectedTemplateFrag extends Fragment {
 
                     }
                 });
-            }else{
+            }else if(isFromMyPublicList){
+                publishButton.setVisibility(View.GONE);
+
+                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child
+                        ("my_public").child(uid).child(templateName);
+                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                        descriptionView.setText(templateClass.getDescription());
+                        String cat = "Originally authored by: " + templateClass.getUserName();
+                        authorNameView.setText(cat);
+
+                        if(templateClass.getMapOne() != null){
+                            mapList.add(templateClass.getMapOne());
+                        }
+                        if(templateClass.getMapTwo() != null){
+                            mapList.add(templateClass.getMapTwo());
+                        }
+                        if(templateClass.getMapThree() != null){
+                            mapList.add(templateClass.getMapThree());
+                        }
+                        if(templateClass.getMapFour() != null){
+                            mapList.add(templateClass.getMapFour());
+                        }
+                        if(templateClass.getMapFive() != null){
+                            mapList.add(templateClass.getMapFive());
+                        }
+                        if(templateClass.getMapSix() != null){
+                            mapList.add(templateClass.getMapSix());
+                        }
+                        if(templateClass.getMapSeven() != null){
+                            mapList.add(templateClass.getMapSeven());
+                        }
+
+                        for(HashMap<String, List<String>> map : mapList){
+                            if(containsDay("Monday", map.get("0_key").get(0))){
+                                sortedMapList[0] = map;
+                            } else if(containsDay("Tuesday", map.get("0_key").get(0))){
+                                sortedMapList[1] = map;
+                            } else if(containsDay("Wednesday", map.get("0_key").get(0))){
+                                sortedMapList[2] = map;
+                            } else if(containsDay("Thursday", map.get("0_key").get(0))){
+                                sortedMapList[3] = map;
+                            } else if(containsDay("Friday", map.get("0_key").get(0))){
+                                sortedMapList[4] = map;
+                            } else if(containsDay("Saturday", map.get("0_key").get(0))){
+                                sortedMapList[5] = map;
+                            } else if(containsDay("Sunday", map.get("0_key").get(0))){
+                                sortedMapList[6] = map;
+                            }
+                        }
+
+                        for(HashMap<String, List<String>> map : sortedMapList){
+                            if(map != null){
+                                for(Map.Entry<String, List<String>> entry : map.entrySet()){
+                                    if(entry.getKey().equals("0_key")) {
+                                        // add day of week frag
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                                        housingDoWFrag.dOWString = entry.getValue().get(0);
+                                        housingDoWFrag.templateName = templateName;
+                                        housingDoWFrag.map = map;
+                                        fragmentTransaction.add(R.id.templateListedView,
+                                                housingDoWFrag);
+                                        if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            else{
                 final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
                 specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -368,7 +451,9 @@ public class SelectedTemplateFrag extends Fragment {
                 Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
                 intent.putExtra("isEdit", isEdit );
                 intent.putExtra("templateName", templateName);
-
+                if(isFromMyPublicList){
+                    intent.putExtra("isFromPublic", "yes");
+                }
                 startActivity(intent);
             }
         });
@@ -399,27 +484,54 @@ public class SelectedTemplateFrag extends Fragment {
                             public void onClick(DialogInterface dialog,int id) {
                                 // if this button is clicked, close
                                 // current activity
-                                DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                                final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
-                                        ("active_template");
 
-                                selectedTemplateRef.setValue(null);
-                                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        String value = dataSnapshot.getValue(String.class);
-                                        if(value != null){
-                                            if(value.equals(templateName)){
-                                                activeTemplateRef.setValue(null);
+                                if(isFromMyPublicList){
+                                    DatabaseReference selectedTemplateRef = mRootRef.child("public_templates").child
+                                            (uid).child("my_public").child(templateName);
+                                    final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                            ("active_template");
+
+                                    selectedTemplateRef.setValue(null);
+                                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String value = dataSnapshot.getValue(String.class);
+                                            if(value != null){
+                                                if(value.equals(templateName)){
+                                                    activeTemplateRef.setValue(null);
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
+                                        }
+                                    });
+                                }else{
+                                    DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                                    final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
+                                            ("active_template");
+
+                                    selectedTemplateRef.setValue(null);
+                                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            String value = dataSnapshot.getValue(String.class);
+                                            if(value != null){
+                                                if(value.equals(templateName)){
+                                                    activeTemplateRef.setValue(null);
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+
 
                                 //TODO: Just go back to the saved templates page
                                 Intent intent = new Intent(v.getContext(), MainActivity.class);
@@ -548,15 +660,18 @@ public class SelectedTemplateFrag extends Fragment {
     {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            intent.putExtra("fragID", 0);
-            startActivity(intent);
+            if(resultCode == 1){
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("fragID", 0);
+                startActivity(intent);
+            }else{
+
+            }
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
         savedInstanceState.putString("template_name", templateName);
 
         super.onSaveInstanceState(savedInstanceState);

@@ -32,7 +32,7 @@ public class MyPublicTemplatesFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("public_templates")
-            .child("my_public");
+            .child("my_public").child(uid);
 
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
@@ -82,5 +82,10 @@ public class MyPublicTemplatesFrag extends Fragment {
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
+    }
 
 }

@@ -30,15 +30,6 @@ public class PublicTemplatesFrag extends Fragment {
         // Required empty public constructor
     }
 
-    headerChangeFromFrag mCallback;
-
-    public interface headerChangeFromFrag{
-        void changeHeaderTitle(String title);
-    }
-
-    private void headerChanger(String title){
-        mCallback.changeHeaderTitle(title);
-    }
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -93,29 +84,10 @@ public class PublicTemplatesFrag extends Fragment {
     }
 
     @Override
-    public void onStart(){
-        super.onStart();
-        headerChanger("Public Templates");
-    }
-
-    @Override
     public void onDestroy(){
         super.onDestroy();
         mFirebaseAdapter.cleanup();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (headerChangeFromFrag) activity;
-        } catch (ClassCastException e) {
-            //throw new ClassCastException(activity.toString()
-            //        + " must implement OnHeadlineSelectedListener");
-        }
-    }
 
 }

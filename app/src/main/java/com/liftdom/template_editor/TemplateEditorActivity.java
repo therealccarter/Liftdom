@@ -56,8 +56,6 @@ public class TemplateEditorActivity extends AppCompatActivity
 
     String templateNameEdit;
 
-
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
