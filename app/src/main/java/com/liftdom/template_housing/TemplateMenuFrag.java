@@ -92,6 +92,17 @@ public class TemplateMenuFrag extends Fragment {
             }
         });
 
+        userMadeTemplates.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v){
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new PublicTemplatesFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         final int padding = getResources().getDimensionPixelOffset(R.dimen.seven_dip);
 

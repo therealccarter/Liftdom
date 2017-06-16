@@ -102,6 +102,7 @@
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:id="@+id/choicesBar"
                             android:orientation="horizontal"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
@@ -143,6 +144,22 @@
                         />
 
                     </LinearLayout>
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/saveButton"
+                            android:text="@string/saveTemplate"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:background="@color/confirmgreen"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:visibility="gone"
+                    />
+
                     <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"

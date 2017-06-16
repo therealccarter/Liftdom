@@ -82,7 +82,6 @@ public class SavedTemplatesFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-
         if(savedInstanceState == null) {
             DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
 

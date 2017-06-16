@@ -3,30 +3,23 @@ package com.liftdom.template_housing;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.*;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import android.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.template_editor.SetsLevelSSFrag;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.LocalDate;
@@ -47,6 +40,8 @@ public class SelectedTemplateFrag extends Fragment {
     }
 
     String templateName;
+    boolean isFromPublicList;
+    String firebaseKey;
 
     @BindView(R.id.selectedTemplateTitle) TextView selectedTemplateNameView;
     @BindView(R.id.editThisTemplate) Button editTemplate;
@@ -57,6 +52,8 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.descriptionView) TextView descriptionView;
     @BindView(R.id.shareThisTemplate) Button shareTemplate;
     @BindView(R.id.authorNameView) TextView authorNameView;
+    @BindView(R.id.choicesBar) LinearLayout choicesBar;
+    @BindView(R.id.saveButton) Button saveButton;
 
     int colorIncrement = 0;
 
@@ -94,86 +91,179 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
         if(savedInstanceState == null){
-            final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-            specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
-                    descriptionView.setText(templateClass.getDescription());
-                    String cat = "Originally authored by: " + templateClass.getUserName();
-                    authorNameView.setText(cat);
+            if(isFromPublicList){
 
-                    if(templateClass.getMapOne() != null){
-                        mapList.add(templateClass.getMapOne());
-                    }
-                    if(templateClass.getMapTwo() != null){
-                        mapList.add(templateClass.getMapTwo());
-                    }
-                    if(templateClass.getMapThree() != null){
-                        mapList.add(templateClass.getMapThree());
-                    }
-                    if(templateClass.getMapFour() != null){
-                        mapList.add(templateClass.getMapFour());
-                    }
-                    if(templateClass.getMapFive() != null){
-                        mapList.add(templateClass.getMapFive());
-                    }
-                    if(templateClass.getMapSix() != null){
-                        mapList.add(templateClass.getMapSix());
-                    }
-                    if(templateClass.getMapSeven() != null){
-                        mapList.add(templateClass.getMapSeven());
-                    }
+                choicesBar.setVisibility(View.GONE);
+                saveButton.setVisibility(View.VISIBLE);
 
-                    for(HashMap<String, List<String>> map : mapList){
-                        if(containsDay("Monday", map.get("0_key").get(0))){
-                            sortedMapList[0] = map;
-                        } else if(containsDay("Tuesday", map.get("0_key").get(0))){
-                            sortedMapList[1] = map;
-                        } else if(containsDay("Wednesday", map.get("0_key").get(0))){
-                            sortedMapList[2] = map;
-                        } else if(containsDay("Thursday", map.get("0_key").get(0))){
-                            sortedMapList[3] = map;
-                        } else if(containsDay("Friday", map.get("0_key").get(0))){
-                            sortedMapList[4] = map;
-                        } else if(containsDay("Saturday", map.get("0_key").get(0))){
-                            sortedMapList[5] = map;
-                        } else if(containsDay("Sunday", map.get("0_key").get(0))){
-                            sortedMapList[6] = map;
+                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child(firebaseKey);
+                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                        descriptionView.setText(templateClass.getDescription());
+                        String cat = "Originally authored by: " + templateClass.getUserName();
+                        authorNameView.setText(cat);
+
+                        if(templateClass.getMapOne() != null){
+                            mapList.add(templateClass.getMapOne());
                         }
-                    }
+                        if(templateClass.getMapTwo() != null){
+                            mapList.add(templateClass.getMapTwo());
+                        }
+                        if(templateClass.getMapThree() != null){
+                            mapList.add(templateClass.getMapThree());
+                        }
+                        if(templateClass.getMapFour() != null){
+                            mapList.add(templateClass.getMapFour());
+                        }
+                        if(templateClass.getMapFive() != null){
+                            mapList.add(templateClass.getMapFive());
+                        }
+                        if(templateClass.getMapSix() != null){
+                            mapList.add(templateClass.getMapSix());
+                        }
+                        if(templateClass.getMapSeven() != null){
+                            mapList.add(templateClass.getMapSeven());
+                        }
 
-                    for(HashMap<String, List<String>> map : sortedMapList){
-                        if(map != null){
-                            for(Map.Entry<String, List<String>> entry : map.entrySet()){
-                                if(entry.getKey().equals("0_key")) {
-                                    // add day of week frag
-                                    FragmentManager fragmentManager = getChildFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager
-                                            .beginTransaction();
-                                    HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
-                                    housingDoWFrag.dOWString = entry.getValue().get(0);
-                                    housingDoWFrag.templateName = templateName;
-                                    housingDoWFrag.map = map;
-                                    fragmentTransaction.add(R.id.templateListedView,
-                                            housingDoWFrag);
-                                    if (!getActivity().isFinishing()) {
-                                        fragmentTransaction.commitAllowingStateLoss();
+                        for(HashMap<String, List<String>> map : mapList){
+                            if(containsDay("Monday", map.get("0_key").get(0))){
+                                sortedMapList[0] = map;
+                            } else if(containsDay("Tuesday", map.get("0_key").get(0))){
+                                sortedMapList[1] = map;
+                            } else if(containsDay("Wednesday", map.get("0_key").get(0))){
+                                sortedMapList[2] = map;
+                            } else if(containsDay("Thursday", map.get("0_key").get(0))){
+                                sortedMapList[3] = map;
+                            } else if(containsDay("Friday", map.get("0_key").get(0))){
+                                sortedMapList[4] = map;
+                            } else if(containsDay("Saturday", map.get("0_key").get(0))){
+                                sortedMapList[5] = map;
+                            } else if(containsDay("Sunday", map.get("0_key").get(0))){
+                                sortedMapList[6] = map;
+                            }
+                        }
+
+                        for(HashMap<String, List<String>> map : sortedMapList){
+                            if(map != null){
+                                for(Map.Entry<String, List<String>> entry : map.entrySet()){
+                                    if(entry.getKey().equals("0_key")) {
+                                        // add day of week frag
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                                        housingDoWFrag.dOWString = entry.getValue().get(0);
+                                        housingDoWFrag.templateName = templateName;
+                                        housingDoWFrag.map = map;
+                                        fragmentTransaction.add(R.id.templateListedView,
+                                                housingDoWFrag);
+                                        if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }
                                     }
                                 }
                             }
                         }
+
                     }
 
-                }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }else{
+                final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                }
-            });
+                        TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                        descriptionView.setText(templateClass.getDescription());
+                        String cat = "Originally authored by: " + templateClass.getUserName();
+                        authorNameView.setText(cat);
+
+                        if(templateClass.getMapOne() != null){
+                            mapList.add(templateClass.getMapOne());
+                        }
+                        if(templateClass.getMapTwo() != null){
+                            mapList.add(templateClass.getMapTwo());
+                        }
+                        if(templateClass.getMapThree() != null){
+                            mapList.add(templateClass.getMapThree());
+                        }
+                        if(templateClass.getMapFour() != null){
+                            mapList.add(templateClass.getMapFour());
+                        }
+                        if(templateClass.getMapFive() != null){
+                            mapList.add(templateClass.getMapFive());
+                        }
+                        if(templateClass.getMapSix() != null){
+                            mapList.add(templateClass.getMapSix());
+                        }
+                        if(templateClass.getMapSeven() != null){
+                            mapList.add(templateClass.getMapSeven());
+                        }
+
+                        for(HashMap<String, List<String>> map : mapList){
+                            if(containsDay("Monday", map.get("0_key").get(0))){
+                                sortedMapList[0] = map;
+                            } else if(containsDay("Tuesday", map.get("0_key").get(0))){
+                                sortedMapList[1] = map;
+                            } else if(containsDay("Wednesday", map.get("0_key").get(0))){
+                                sortedMapList[2] = map;
+                            } else if(containsDay("Thursday", map.get("0_key").get(0))){
+                                sortedMapList[3] = map;
+                            } else if(containsDay("Friday", map.get("0_key").get(0))){
+                                sortedMapList[4] = map;
+                            } else if(containsDay("Saturday", map.get("0_key").get(0))){
+                                sortedMapList[5] = map;
+                            } else if(containsDay("Sunday", map.get("0_key").get(0))){
+                                sortedMapList[6] = map;
+                            }
+                        }
+
+                        for(HashMap<String, List<String>> map : sortedMapList){
+                            if(map != null){
+                                for(Map.Entry<String, List<String>> entry : map.entrySet()){
+                                    if(entry.getKey().equals("0_key")) {
+                                        // add day of week frag
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HousingDoWFrag housingDoWFrag = new HousingDoWFrag();
+                                        housingDoWFrag.dOWString = entry.getValue().get(0);
+                                        housingDoWFrag.templateName = templateName;
+                                        housingDoWFrag.map = map;
+                                        fragmentTransaction.add(R.id.templateListedView,
+                                                housingDoWFrag);
+                                        if (!getActivity().isFinishing()) {
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
         }
 
 

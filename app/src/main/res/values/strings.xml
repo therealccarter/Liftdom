@@ -334,6 +334,10 @@
     <string name="followUser">(+) Follow User</string>
     <string name="unfollowUser">(-) Un-follow</string>
 
+    <string name="createdBy">Created by:\u0020</string>
+    <string name="editedBy">Edited by:\u0020</string>
+
+    <string name="saveTemplate">Save Template</string>
 
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
