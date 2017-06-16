@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +32,7 @@ public class MyPublicTemplatesFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("public_templates")
-            .child("my_public_templates");
+            .child("my_public");
 
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
@@ -41,6 +42,10 @@ public class MyPublicTemplatesFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_public_templates, container, false);
+
+        ButterKnife.bind(this, view);
+
+        setUpFirebaseAdapter();
 
         return view;
     }

@@ -194,9 +194,11 @@ public class SelectedTemplateFrag extends Fragment {
             if(isFromPublicList){
 
                 choicesBar.setVisibility(View.GONE);
+                publishButton.setVisibility(View.GONE);
                 saveTemplateButton.setVisibility(View.VISIBLE);
 
-                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child(firebaseKey);
+                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child
+                        ("public").child(firebaseKey);
                 specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

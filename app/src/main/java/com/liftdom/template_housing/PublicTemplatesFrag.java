@@ -42,7 +42,8 @@ public class PublicTemplatesFrag extends Fragment {
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
-    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("public_templates");
+    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("public_templates")
+            .child("public");
 
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
