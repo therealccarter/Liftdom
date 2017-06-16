@@ -25,6 +25,7 @@ public class TemplateEditorSingleton {
     String mUserId2;
     String mUserName2;
     boolean mIsPublic = false;
+    boolean isFromPublic = false;
     String mDateCreated;
     String mDescription;
     boolean isAlgoApplyToAll = false;
@@ -38,6 +39,7 @@ public class TemplateEditorSingleton {
     boolean mIsAlgorithm = false;
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<>();
     HashMap<String, List<String>> mAlgorithmDateMap = new HashMap<>();
+    String publicTemplateKeyId;
 
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();

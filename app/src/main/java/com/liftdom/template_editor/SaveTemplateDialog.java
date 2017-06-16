@@ -34,6 +34,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
     //Boolean algBool;
     boolean isPublic;
     boolean isEditBool;
+    boolean isFromPublicSelected;
     //String descriptionString;
 
     @BindView(R.id.saveButtonCancel) Button cancel;
@@ -55,16 +56,26 @@ public class SaveTemplateDialog extends AppCompatActivity {
 
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 
-        if(getIntent().getExtras().getString("isEdit").equals("yes")){
-            templateName1 = getIntent().getExtras().getString("templateName");
-            templateName.setText(templateName1);
-            isPublic = getIntent().getBooleanExtra("isPublic", false);
-            isEditBool = true;
-            //descriptionString = getIntent().getExtras().getString("description");
-        }else{
-            isPublic = getIntent().getBooleanExtra("isPublic", false);
-            TemplateEditorSingleton.getInstance().mUserId = uid;
-            TemplateEditorSingleton.getInstance().mUserName = userName;
+        if(getIntent().getExtras().getString("isFromPublicSelected") != null){
+            if(getIntent().getExtras().getString("isFromPublicSelected").equals("yes")){
+                isFromPublicSelected = true;
+                templateName1 = getIntent().getExtras().getString("templateName");
+                templateName.setText(templateName1);
+            }
+        }
+
+        if(getIntent().getExtras().getString("isEdit") != null){
+            if(getIntent().getExtras().getString("isEdit").equals("yes")){
+                templateName1 = getIntent().getExtras().getString("templateName");
+                templateName.setText(templateName1);
+                isPublic = getIntent().getBooleanExtra("isPublic", false);
+                isEditBool = true;
+                //descriptionString = getIntent().getExtras().getString("description");
+            }else{
+                isPublic = getIntent().getBooleanExtra("isPublic", false);
+                TemplateEditorSingleton.getInstance().mUserId = uid;
+                TemplateEditorSingleton.getInstance().mUserName = userName;
+            }
         }
 
 
@@ -80,50 +91,82 @@ public class SaveTemplateDialog extends AppCompatActivity {
             @Override
             public void onClick(final View v){
 
-                DateTime dateTime = new DateTime(DateTimeZone.UTC);
-                String dateTimeString = dateTime.toString();
+                if(isFromPublicSelected){
+                    if(templateName != null && !templateName.getText().toString().equals("")){
+                        Intent intent = new Intent();
+                        intent.putExtra("templateName", templateName.getText().toString());
+                        setResult(3, intent);
+                        finish();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);
 
-                if(templateName != null && !templateName.getText().toString().equals("")){
-                    String isEdit = "yes";
-                    Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
-                    intent.putExtra("key1", templateName.getText().toString());
-                    intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
-                    intent.putExtra("isFromEditor", true);
-                    intent.putExtra("isEdit", isEdit);
-                    //intent.putExtra("isAlgorithm", algBool);
+                        // set title
+                        builder.setTitle("Error");
 
-                    if(!isEditBool){
-                        TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                        // set dialog message
+                        builder.setMessage("You must enter a valid template name")
+                                .setCancelable(false)
+                                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+
+                                        dialog.dismiss();
+
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = builder.create();
+
+                        // show it
+                        alertDialog.show();
                     }
 
-                    TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
-                    //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
-                    TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
-
-                    startActivity(intent);
-
                 }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);
+                    DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                    String dateTimeString = dateTime.toString();
 
-                    // set title
-                    builder.setTitle("Error");
+                    if(templateName != null && !templateName.getText().toString().equals("")){
+                        String isEdit = "yes";
+                        Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
+                        intent.putExtra("key1", templateName.getText().toString());
+                        intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
+                        intent.putExtra("isFromEditor", true);
+                        intent.putExtra("isEdit", isEdit);
+                        //intent.putExtra("isAlgorithm", algBool);
 
-                    // set dialog message
-                    builder.setMessage("You must enter a valid template name")
-                            .setCancelable(false)
-                            .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
+                        if(!isEditBool){
+                            TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                        }
 
-                                    dialog.dismiss();
+                        TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
+                        //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+                        TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
 
-                                }
-                            });
+                        startActivity(intent);
 
-                    // create alert dialog
-                    AlertDialog alertDialog = builder.create();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);
 
-                    // show it
-                    alertDialog.show();
+                        // set title
+                        builder.setTitle("Error");
+
+                        // set dialog message
+                        builder.setMessage("You must enter a valid template name")
+                                .setCancelable(false)
+                                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+
+                                        dialog.dismiss();
+
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = builder.create();
+
+                        // show it
+                        alertDialog.show();
+                    }
                 }
             }
         });

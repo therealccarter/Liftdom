@@ -255,8 +255,14 @@ public class TemplateSavedActivity extends AppCompatActivity {
                 activeTemplateRef.setValue(templateName);
             }
 
-            DatabaseReference selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
+            DatabaseReference selectedTemplateDataRef;
 
+            if(TemplateEditorSingleton.getInstance().isFromPublic){
+                selectedTemplateDataRef = mRootRef.child("public_templates").child("my_public").child(uid).child
+                        (templateName);
+            }else{
+                selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
+            }
 
             String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
             String xUserId = TemplateEditorSingleton.getInstance().mUserId;
@@ -309,13 +315,32 @@ public class TemplateSavedActivity extends AppCompatActivity {
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo, xAlgorithmDateMap);
 
+            if(TemplateEditorSingleton.getInstance().isFromPublic){
+                modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);
+            }
+
             selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    loadingView.setVisibility(View.GONE);
-                    templateHolder.setVisibility(View.VISIBLE);
-                    TemplateEditorSingleton.getInstance().clearAll();
-                    EditTemplateAssemblerClass.getInstance().clearAll();
+
+                    if(TemplateEditorSingleton.getInstance().isFromPublic){
+                        String key = modelClass.getPublicTemplateKeyId();
+                        DatabaseReference publicRef = mRootRef.child("public_templates").child("public").child(key);
+                        publicRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                loadingView.setVisibility(View.GONE);
+                                templateHolder.setVisibility(View.VISIBLE);
+                                TemplateEditorSingleton.getInstance().clearAll();
+                                EditTemplateAssemblerClass.getInstance().clearAll();
+                            }
+                        });
+                    }else{
+                        loadingView.setVisibility(View.GONE);
+                        templateHolder.setVisibility(View.VISIBLE);
+                        TemplateEditorSingleton.getInstance().clearAll();
+                        EditTemplateAssemblerClass.getInstance().clearAll();
+                    }
                 }
             });
         }

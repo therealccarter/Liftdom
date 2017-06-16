@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import org.joda.time.LocalDate;
@@ -102,24 +103,10 @@ public class SelectedTemplateFrag extends Fragment {
         saveTemplateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child(firebaseKey);
-                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
-                        String templateName = modelClass.getTemplateName();
-                        modelClass.setUserId2(uid);
-                        //TODO: new display name method
-                        modelClass.setUserName2(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                        DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                        myTemplateRef.setValue(modelClass);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                Intent intent = new Intent(getContext(), SaveTemplateDialog.class);
+                intent.putExtra("isFromPublicSelected", "yes");
+                intent.putExtra("templateName", templateName);
+                startActivityForResult(intent, 3);
             }
         });
 
@@ -666,6 +653,44 @@ public class SelectedTemplateFrag extends Fragment {
                 startActivity(intent);
             }else{
 
+            }
+        }else if(requestCode == 3){
+            if(resultCode == 3){
+                if(data != null){
+                    final String returnedName = data.getExtras().getString("templateName");
+                    final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child("public").child
+                            (firebaseKey);
+                    specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                            String templateName = modelClass.getTemplateName();
+                            modelClass.setUserId2(uid);
+                            modelClass.setTemplateName(returnedName);
+                            //TODO: new display name method
+                            modelClass.setUserName2(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                            DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
+                            myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    CharSequence toastText = "Template Saved";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    try{
+                                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                                        snackbar.show();
+                                    } catch (NullPointerException e){
+
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         }
     }

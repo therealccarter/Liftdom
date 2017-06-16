@@ -294,140 +294,283 @@ public class TemplateEditorActivity extends AppCompatActivity
 
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")){
-                templateNameEdit = getIntent().getExtras().getString("templateName");
+                if (getIntent().getExtras().getString("isFromPublic") != null) {
+                    if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
 
-                // Check for active template
-                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                        TemplateEditorSingleton.getInstance().isFromPublic = true;
 
-                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String activeTemplateName = dataSnapshot.getValue(String.class);
-                        if(activeTemplateName.equals(templateNameEdit)){
-                            activeTemplateCheckbox.setChecked(true);
-                        }
+                        templateNameEdit = getIntent().getExtras().getString("templateName");
+
+                        // Check for active template
+                        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+
+                        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String activeTemplateName = dataSnapshot.getValue(String.class);
+                                if(activeTemplateName.equals(templateNameEdit)){
+                                    activeTemplateCheckbox.setChecked(true);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        DatabaseReference templateRef = mRootRef.child("public_templates").child("my_public").child(uid).child(templateNameEdit);
+
+                        templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                                TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+                                TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
+                                        .getPublicTemplateKeyId();
+
+                                if(templateClass.getIsAlgorithm()){
+                                    if(templateClass.getIsAlgoApplyToAll()){
+                                        TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                                        List<String> tempAlgoInfoList2 = new ArrayList<>();
+                                        tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                                    }else{
+                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                                    }
+                                }
+
+                                TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+
+                                if(!templateClass.getUserId().equals(uid)){
+                                    // if editing someone else's template
+                                    TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
+                                    TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
+                                    TemplateEditorSingleton.getInstance().mUserId2 = uid;
+                                    TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
+                                }else{
+                                    TemplateEditorSingleton.getInstance().mUserId = uid;
+                                    TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
+                                }
+
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                                if(templateClass.getMapOne() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW1.isEdit = true;
+                                    doW1.isFirstTime = true;
+                                    doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
+                                    doW1.map = templateClass.getMapOne();
+                                    doW1.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                                }
+                                if(templateClass.getMapTwo() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW2.isEdit = true;
+                                    doW2.isFirstTime = true;
+                                    doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
+                                    doW2.map = templateClass.getMapTwo();
+                                    doW2.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+                                }
+                                if(templateClass.getMapThree() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW3.isEdit = true;
+                                    doW3.isFirstTime = true;
+                                    doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
+                                    doW3.map = templateClass.getMapThree();
+                                    doW3.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+                                }
+                                if(templateClass.getMapFour() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW4.isEdit = true;
+                                    doW4.isFirstTime = true;
+                                    doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
+                                    doW4.map = templateClass.getMapFour();
+                                    doW4.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+                                }
+                                if(templateClass.getMapFive() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW5.isEdit = true;
+                                    doW5.isFirstTime = true;
+                                    doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
+                                    doW5.map = templateClass.getMapFive();
+                                    doW5.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+                                }
+                                if(templateClass.getMapSix() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW6.isEdit = true;
+                                    doW6.isFirstTime = true;
+                                    doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
+                                    doW6.map = templateClass.getMapSix();
+                                    doW6.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+                                }
+                                if(templateClass.getMapSeven() != null){
+                                    ++fragIdCount;
+                                    String fragString = Integer.toString(fragIdCount);
+                                    doW7.isEdit = true;
+                                    doW7.isFirstTime = true;
+                                    doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
+                                    doW7.map = templateClass.getMapSeven();
+                                    doW7.templateName = templateClass.getTemplateName();
+                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+                                }
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
+                }else{
+                    templateNameEdit = getIntent().getExtras().getString("templateName");
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    // Check for active template
+                    DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
-                    }
-                });
-
-                DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateNameEdit);
-                templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
-
-                        TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
-
-                        if(templateClass.getIsAlgorithm()){
-                            if(templateClass.getIsAlgoApplyToAll()){
-                                TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                                List<String> tempAlgoInfoList2 = new ArrayList<>();
-                                tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
-                            }else{
-                                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String activeTemplateName = dataSnapshot.getValue(String.class);
+                            if(activeTemplateName.equals(templateNameEdit)){
+                                activeTemplateCheckbox.setChecked(true);
                             }
                         }
 
-                        TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        if(!templateClass.getUserId().equals(uid)){
-                            // if editing someone else's template
-                            TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
-                            TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
-                            TemplateEditorSingleton.getInstance().mUserId2 = uid;
-                            TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
-                        }else{
-                            TemplateEditorSingleton.getInstance().mUserId = uid;
-                            TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
+                        }
+                    });
+
+                    DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateNameEdit);
+                    templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                            TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+
+                            if(templateClass.getIsAlgorithm()){
+                                if(templateClass.getIsAlgoApplyToAll()){
+                                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                                    List<String> tempAlgoInfoList2 = new ArrayList<>();
+                                    tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                                }else{
+                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                                }
+                            }
+
+                            TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+
+                            if(!templateClass.getUserId().equals(uid)){
+                                // if editing someone else's template
+                                TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
+                                TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
+                                TemplateEditorSingleton.getInstance().mUserId2 = uid;
+                                TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
+                            }else{
+                                TemplateEditorSingleton.getInstance().mUserId = uid;
+                                TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
+                            }
+
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                            if(templateClass.getMapOne() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW1.isEdit = true;
+                                doW1.isFirstTime = true;
+                                doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
+                                doW1.map = templateClass.getMapOne();
+                                doW1.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                            }
+                            if(templateClass.getMapTwo() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW2.isEdit = true;
+                                doW2.isFirstTime = true;
+                                doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
+                                doW2.map = templateClass.getMapTwo();
+                                doW2.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+                            }
+                            if(templateClass.getMapThree() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW3.isEdit = true;
+                                doW3.isFirstTime = true;
+                                doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
+                                doW3.map = templateClass.getMapThree();
+                                doW3.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+                            }
+                            if(templateClass.getMapFour() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW4.isEdit = true;
+                                doW4.isFirstTime = true;
+                                doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
+                                doW4.map = templateClass.getMapFour();
+                                doW4.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+                            }
+                            if(templateClass.getMapFive() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW5.isEdit = true;
+                                doW5.isFirstTime = true;
+                                doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
+                                doW5.map = templateClass.getMapFive();
+                                doW5.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+                            }
+                            if(templateClass.getMapSix() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW6.isEdit = true;
+                                doW6.isFirstTime = true;
+                                doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
+                                doW6.map = templateClass.getMapSix();
+                                doW6.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+                            }
+                            if(templateClass.getMapSeven() != null){
+                                ++fragIdCount;
+                                String fragString = Integer.toString(fragIdCount);
+                                doW7.isEdit = true;
+                                doW7.isFirstTime = true;
+                                doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
+                                doW7.map = templateClass.getMapSeven();
+                                doW7.templateName = templateClass.getTemplateName();
+                                fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+                            }
+                            fragmentTransaction.commitAllowingStateLoss();
                         }
 
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        if(templateClass.getMapOne() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW1.isEdit = true;
-                            doW1.isFirstTime = true;
-                            doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
-                            doW1.map = templateClass.getMapOne();
-                            doW1.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
                         }
-                        if(templateClass.getMapTwo() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW2.isEdit = true;
-                            doW2.isFirstTime = true;
-                            doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
-                            doW2.map = templateClass.getMapTwo();
-                            doW2.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-                        }
-                        if(templateClass.getMapThree() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW3.isEdit = true;
-                            doW3.isFirstTime = true;
-                            doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
-                            doW3.map = templateClass.getMapThree();
-                            doW3.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-                        }
-                        if(templateClass.getMapFour() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW4.isEdit = true;
-                            doW4.isFirstTime = true;
-                            doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
-                            doW4.map = templateClass.getMapFour();
-                            doW4.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-                        }
-                        if(templateClass.getMapFive() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW5.isEdit = true;
-                            doW5.isFirstTime = true;
-                            doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
-                            doW5.map = templateClass.getMapFive();
-                            doW5.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-                        }
-                        if(templateClass.getMapSix() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW6.isEdit = true;
-                            doW6.isFirstTime = true;
-                            doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
-                            doW6.map = templateClass.getMapSix();
-                            doW6.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-                        }
-                        if(templateClass.getMapSeven() != null){
-                            ++fragIdCount;
-                            String fragString = Integer.toString(fragIdCount);
-                            doW7.isEdit = true;
-                            doW7.isFirstTime = true;
-                            doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
-                            doW7.map = templateClass.getMapSeven();
-                            doW7.templateName = templateClass.getTemplateName();
-                            fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-                        }
-                        fragmentTransaction.commitAllowingStateLoss();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+                    });
+                }
             }
         }
 
