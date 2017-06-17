@@ -347,25 +347,31 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                 }
             }
 
-            for(Map.Entry<String, List<String>> entry : map.entrySet()) {
-                if (!entry.getKey().equals("0_key")) {
-                    List<String> list = entry.getValue();
-                    String fragString1 = Integer.toString(fragIdCount1);
-                    ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
-                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            for(int i = 0; i < map.size(); i++){
+                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                    if (!entry.getKey().equals("0_key")) {
+                        String[] tokens = entry.getKey().split("_");
+                        int keyInt = Integer.parseInt(tokens[0]);
+                        if(keyInt == i){
+                            List<String> list = entry.getValue();
+                            String fragString1 = Integer.toString(fragIdCount1);
+                            ExerciseLevelChildFrag frag1 = new ExerciseLevelChildFrag();
+                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
-                    frag1.isEdit = true;
-                    frag1.fragTag = fragString1;
-                    frag1.fromEditList = list;
-                    frag1.templateName = templateName;
-                    frag1.editInitialDays = getDowForEdit(daysArray);
+                            frag1.isEdit = true;
+                            frag1.fragTag = fragString1;
+                            frag1.fromEditList = list;
+                            frag1.templateName = templateName;
+                            frag1.editInitialDays = getDowForEdit(daysArray);
 
-                    fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
-                    if(!getActivity().isFinishing()){
-                        exLevelFragList.add(frag1);
-                        fragmentTransaction.commitAllowingStateLoss();
+                            fragmentTransaction.add(R.id.exerciseFragmentLayout, frag1, fragString1);
+                            if(!getActivity().isFinishing()){
+                                exLevelFragList.add(frag1);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }
+                            ++fragIdCount1;
+                        }
                     }
-                    ++fragIdCount1;
                 }
             }
         }
