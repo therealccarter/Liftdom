@@ -129,8 +129,11 @@
                 android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
-                  android:theme="@style/AppCompatDialogNoTitleBar">
+        <activity
+                android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".FirstTimeSetupActivity">
         </activity>
     </application>
 
