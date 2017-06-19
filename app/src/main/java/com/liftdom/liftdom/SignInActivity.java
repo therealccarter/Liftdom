@@ -120,7 +120,8 @@ public class SignInActivity extends BaseActivity implements
                                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }else{
-
+                                        Intent intent = new Intent(SignInActivity.this, FirstTimeSetupActivity.class);
+                                        startActivity(intent);
                                     }
                                 }
 

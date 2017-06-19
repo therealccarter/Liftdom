@@ -133,7 +133,8 @@
                 android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".FirstTimeSetupActivity">
+        <activity android:name=".FirstTimeSetupActivity"
+                    android:theme="@style/Theme.Intro">
         </activity>
     </application>
 
