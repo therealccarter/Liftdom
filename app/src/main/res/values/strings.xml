@@ -350,6 +350,11 @@
     <string name="userNameHint">UserName</string>
     <string name="userNameInstructions">(No spaces, at least 3 characters, under 12 characters)</string>
     <string name="invalidDisplayName">Please enter a valid user name</string>
+    <string name="setUpProfileValues">Now let\'s set up your body profile</string>
+
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
+
 
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
