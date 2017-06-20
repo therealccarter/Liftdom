@@ -1,4 +1,4 @@
-package com.liftdom.liftdom;
+package com.liftdom.misc_activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -14,7 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
-import com.liftdom.settings.SettingsListActivity;
+import com.liftdom.liftdom.MainActivity;
+import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;

@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class AssistorSingleton {
+
     // Singleton boilerplate
     private static AssistorSingleton controller;
     static AssistorSingleton getInstance() {

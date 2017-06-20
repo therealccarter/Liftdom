@@ -66,7 +66,7 @@
                 android:name="com.facebook.FacebookActivity"
                 android:label="@string/app_name"/>
         <activity
-                android:name="com.liftdom.settings.SettingsListActivity"
+                android:name="com.liftdom.misc_activities.SettingsListActivity"
                 android:label="">
         </activity>
         <activity
@@ -104,7 +104,7 @@
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
         <activity
-                android:name=".PremiumFeaturesActivity"
+                android:name="com.liftdom.misc_activities.PremiumFeaturesActivity"
                 android:label="">
         </activity>
         <activity
@@ -133,7 +133,7 @@
                 android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".FirstTimeSetupActivity"
+        <activity android:name=".intro.FirstTimeSetupActivity"
                     android:theme="@style/Theme.Intro">
         </activity>
     </application>

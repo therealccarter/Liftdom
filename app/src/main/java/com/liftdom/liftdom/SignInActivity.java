@@ -1,8 +1,8 @@
 package com.liftdom.liftdom;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.intro.FirstTimeSetupActivity;
 
 public class SignInActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -41,6 +42,9 @@ public class SignInActivity extends BaseActivity implements
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+        TextView titleText = (TextView) findViewById(R.id.signInTitle);
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        titleText.setTypeface(lobster);
 
         // [START config_signin]
         // Configure Google Sign In

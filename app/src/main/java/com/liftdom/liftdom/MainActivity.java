@@ -27,9 +27,9 @@ import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
-import com.liftdom.settings.SettingsListActivity;
+import com.liftdom.misc_activities.PremiumFeaturesActivity;
+import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.template_housing.PublicTemplateChooserFrag;
-import com.liftdom.template_housing.PublicTemplatesFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(!dataSnapshot.exists()){
-                                userListRef.setValue(user.getDisplayName());
+                                //userListRef.setValue(user.getDisplayName());
                             }
                         }
 
@@ -145,17 +145,19 @@ public class MainActivity extends BaseActivity implements
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (!dataSnapshot.exists()) {
                                 // initializing values
-                                DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
-                                heightRef.setValue("footInches");
-                                DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child("bodyWeightUnit");
-                                bodyWeightRef.setValue("pounds");
-                                DatabaseReference weightRef = mRootRef.child("users").child(uid).child("weightUnit");
-                                weightRef.setValue("pounds");
-                                DatabaseReference userLevelRef = mRootRef.child("users").child(uid).child("userLevel");
-                                userLevelRef.setValue("0");
-                                DatabaseReference followerRef = mRootRef.child("followers").child(uid);
-                                followerRef.push().setValue(new UserNameIdModelClass(mFirebaseUser.getDisplayName(),
-                                        uid));
+                                //DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
+                                //heightRef.setValue("footInches");
+                                //DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child
+                                //        ("bodyWeightUnit");
+                                //bodyWeightRef.setValue("pounds");
+                                //DatabaseReference weightRef = mRootRef.child("users").child(uid).child("weightUnit");
+                                //weightRef.setValue("pounds");
+                                //DatabaseReference userLevelRef = mRootRef.child("users").child(uid).child
+                                // ("userLevel");
+                                //userLevelRef.setValue("0");
+                                //DatabaseReference followerRef = mRootRef.child("followers").child(uid);
+                                //followerRef.push().setValue(new UserNameIdModelClass(mFirebaseUser.getDisplayName(),
+                                //        uid));
                             }
                         }
 

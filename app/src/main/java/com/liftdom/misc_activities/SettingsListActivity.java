@@ -1,4 +1,4 @@
-package com.liftdom.settings;
+package com.liftdom.misc_activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;

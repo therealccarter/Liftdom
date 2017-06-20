@@ -1,0 +1,42 @@
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        tools:context="com.liftdom.liftdom.intro.IntroFrag1">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/justknight1trans"
+            app:layout_parallaxFactor="0.8"
+
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcomeToLiftdom"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:gravity="center"
+            app:layout_parallaxFactor="0.1"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setUpProfile"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            app:layout_parallaxFactor="0.5"
+    />
+
+
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

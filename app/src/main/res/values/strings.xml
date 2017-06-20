@@ -344,6 +344,13 @@
 
     <string name="publishTemplate">Publish Template To Public Repo</string>
 
+    <string name="welcomeToLiftdom">Welcome to Liftdom</string>
+    <string name="setUpProfile">Let\'s set up your profile</string>
+    <string name="setDisplayName">What would you like as your display name?</string>
+    <string name="userNameHint">UserName</string>
+    <string name="userNameInstructions">(No spaces, at least 3 characters, under 12 characters)</string>
+    <string name="invalidDisplayName">Please enter a valid user name</string>
+
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
 

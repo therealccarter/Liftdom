@@ -15,7 +15,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
-import com.liftdom.liftdom.PremiumFeaturesActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
