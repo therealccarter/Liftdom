@@ -16,4 +16,17 @@ public class IntroSingleton {
 
     String displayName;
 
+    boolean isImperial = true;
+    boolean isMale = true;
+
+    String weightImperial;
+    String weightMetric;
+
+    String feet;
+    String inches;
+    String cm;
+
+    String age;
+
+
 }

@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/liftrGold1"
+        android:background="@color/transparent"
         android:gravity="center"
         android:orientation="vertical"
         tools:context="com.liftdom.liftdom.intro.IntroFrag3">
@@ -17,9 +17,17 @@
             android:textSize="35sp"
             android:gravity="center"
             app:layout_parallaxFactor="0.5"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+    />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
     />
 
     <RadioGroup
@@ -27,16 +35,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
+            android:layout_marginBottom="30dp"
     >
         <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/imperialRadioButton"
                 android:text="@string/imperial"
         />
 
         <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/metricRadioButton"
                 android:text="@string/metric"
         />
 
@@ -46,16 +57,127 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
     >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/height"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+        />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imperialHeight"
+                android:orientation="horizontal"
+                android:gravity="center"
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/feetEditText"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feet"
+                    android:textSize="20sp"
+                    android:textColor="@color/darkerGrey"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inchesEditText"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inches"
+                    android:textSize="20sp"
+                    android:textColor="@color/darkerGrey"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/metricHeight"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cmHeightEditText"
+                    android:inputType="number"
+
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cm"
+                    android:textSize="20sp"
+                    android:textColor="@color/darkerGrey"
+            />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bodyWeight"
+                android:textSize="24sp"
+                android:textColor="@color/black"
         />
 
         <EditText
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/weightEditText"
+                android:textColor="@color/black"
+                android:inputType="number"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/poundsTextView"
+                android:text="@string/pounds"
+                android:textSize="20sp"
+                android:textColor="@color/darkerGrey"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kgsTextView"
+                android:text="@string/kilos"
+                android:textSize="20sp"
+                android:textColor="@color/darkerGrey"
+                android:visibility="gone"
         />
 
     </LinearLayout>
@@ -64,21 +186,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
     >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/height"
+                android:text="@string/age"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textColor="@color/darkerGrey"
         />
 
         <EditText
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/ageEditText"
+                android:textColor="@color/black"
+                android:inputType="number"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yearsOld"
+                android:textSize="20sp"
+                android:textColor="@color/darkgrey"
         />
 
     </LinearLayout>
+
+    <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="60dp"
+    >
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/maleRadioButton"
+                android:text="@string/male"
+                android:textSize="20sp"
+                android:textColor="@color/darkgrey"
+        />
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/femaleRadioButton"
+                android:text="@string/female"
+                android:textSize="20sp"
+                android:textColor="@color/darkgrey"
+        />
+
+    </RadioGroup>
+
 
 </agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

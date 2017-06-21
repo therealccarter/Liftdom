@@ -253,6 +253,8 @@
     <string name="saveAs">SAVE AS</string>
     <string name="save">SAVE</string>
 
+    <string name="cm">cm</string>
+
     <string name="newChat">New Chat</string>
     <string name="sendMessage">Send Message...</string>
 
@@ -351,6 +353,7 @@
     <string name="userNameInstructions">(No spaces, at least 3 characters, under 12 characters)</string>
     <string name="invalidDisplayName">Please enter a valid user name</string>
     <string name="setUpProfileValues">Now let\'s set up your body profile</string>
+    <string name="invalidProfileFields">Please enter all values. These can be edited later!</string>
 
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>

@@ -19,11 +19,13 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         addSlide(new IntroFrag2());
 
+        addSlide(new IntroFrag3());
+
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.white)
+                .backgroundColor(R.color.liftrGold1)
                 .buttonsColor(R.color.black)
-                .title("That's it")
-                .description("Would you join us?")
+                .title("That's it!")
+                .description("May the gains be with you.")
                 .build());
     }
 
