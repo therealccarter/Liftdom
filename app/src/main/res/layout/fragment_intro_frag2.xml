@@ -36,6 +36,7 @@
             android:layout_marginTop="10dp"
             android:gravity="start"
             app:layout_parallaxFactor="0.1"
+            android:imeOptions="actionDone"
     />
 
     <TextView

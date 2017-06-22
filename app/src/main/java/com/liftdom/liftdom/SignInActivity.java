@@ -113,8 +113,8 @@ public class SignInActivity extends BaseActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            String userName = user.getDisplayName();
-                            String userId = user.getUid();
+                            final String userName = user.getDisplayName();
+                            final String userId = user.getUid();
                             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users")
                                     .child(userId);
                             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,6 +125,8 @@ public class SignInActivity extends BaseActivity implements
                                         startActivity(intent);
                                     }else{
                                         Intent intent = new Intent(SignInActivity.this, FirstTimeSetupActivity.class);
+                                        intent.putExtra("uid", userId);
+                                        intent.putExtra("defaultDisplayName", userName);
                                         startActivity(intent);
                                     }
                                 }

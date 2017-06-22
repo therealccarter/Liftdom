@@ -129,6 +129,9 @@ public class IntroFrag3 extends SlideFragment {
             if(!feetEditText.getText().toString().equals("")){
                 if(!inchesEditText.getText().toString().equals("")){
                     if(!weightEditText.getText().toString().equals("")){
+                        IntroSingleton.getInstance().feet = feetEditText.getText().toString();
+                        IntroSingleton.getInstance().inches = inchesEditText.getText().toString();
+                        IntroSingleton.getInstance().weightImperial = weightEditText.getText().toString();
                         validName = true;
                     }
                 }
@@ -137,9 +140,15 @@ public class IntroFrag3 extends SlideFragment {
             // check metric values
             if(!cmHeightEditText.getText().toString().equals("")){
                 if(!weightEditText.getText().toString().equals("")){
+                    IntroSingleton.getInstance().cm = cmHeightEditText.getText().toString();
+                    IntroSingleton.getInstance().weightMetric = weightEditText.getText().toString();
                     validName = true;
                 }
             }
+        }
+
+        if(validName){
+            IntroSingleton.getInstance().age = ageEditText.getText().toString();
         }
 
         return validName;

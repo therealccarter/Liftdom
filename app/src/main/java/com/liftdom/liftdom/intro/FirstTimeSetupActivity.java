@@ -15,18 +15,22 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_first_time_setup);
 
+        String userId = getIntent().getExtras().getString("uid");
+        String defaultDisplayName = null;
+        if(getIntent().getExtras().getString("defaultDisplayName") != null){
+            defaultDisplayName = getIntent().getExtras().getString("defaultDisplayName");
+        }
+
+        IntroSingleton.getInstance().userId = userId;
+        IntroSingleton.getInstance().defaultDisplayName = defaultDisplayName;
+
         addSlide(new IntroFrag1());
 
         addSlide(new IntroFrag2());
 
         addSlide(new IntroFrag3());
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.liftrGold1)
-                .buttonsColor(R.color.black)
-                .title("That's it!")
-                .description("May the gains be with you.")
-                .build());
+        addSlide(new IntroFrag4());
     }
 
     @Override
@@ -34,4 +38,5 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         super.onFinish();
         Toast.makeText(this, "On Finish!", Toast.LENGTH_SHORT).show();
     }
+
 }

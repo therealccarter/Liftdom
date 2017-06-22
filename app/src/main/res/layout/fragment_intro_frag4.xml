@@ -1,0 +1,62 @@
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.liftdom.intro.IntroFrag4">
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView1"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:orientation="vertical"
+            android:visibility="gone"
+    >
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/knightImage"
+                android:src="@drawable/justknight2"
+                app:layout_parallaxFactor="0.8"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setupFinished"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:gravity="center"
+                app:layout_parallaxFactor="0.1"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mayTheGains"
+                android:textColor="@color/grey"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_parallaxFactor="0.5"
+        />
+
+    </LinearLayout>
+
+
+
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

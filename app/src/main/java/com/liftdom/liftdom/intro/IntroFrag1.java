@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,4 +40,5 @@ public class IntroFrag1 extends SlideFragment {
     public int buttonsColor() {
         return R.color.black;
     }
+
 }

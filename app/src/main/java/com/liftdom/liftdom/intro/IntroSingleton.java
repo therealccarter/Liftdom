@@ -14,6 +14,10 @@ public class IntroSingleton {
         return controller;
     }
 
+    String userId;
+
+    String defaultDisplayName;
+
     String displayName;
 
     boolean isImperial = true;

@@ -81,6 +81,7 @@
                     android:id="@+id/feetEditText"
                     android:textColor="@color/black"
                     android:inputType="number"
+                    android:imeOptions="actionNext"
             />
 
             <TextView
@@ -97,6 +98,7 @@
                     android:id="@+id/inchesEditText"
                     android:textColor="@color/black"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
             />
 
             <TextView
@@ -123,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/cmHeightEditText"
                     android:inputType="number"
+                    android:imeOptions="actionDone"
 
             />
 
@@ -159,6 +162,7 @@
                 android:id="@+id/weightEditText"
                 android:textColor="@color/black"
                 android:inputType="number"
+                android:imeOptions="actionDone"
         />
 
         <TextView
@@ -203,6 +207,7 @@
                 android:id="@+id/ageEditText"
                 android:textColor="@color/black"
                 android:inputType="number"
+                android:imeOptions="actionDone"
         />
 
         <TextView
