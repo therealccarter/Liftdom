@@ -2,6 +2,7 @@ package com.liftdom.liftdom.intro;
 
 
 import agency.tango.materialintroscreen.SlideFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.LinearLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -32,6 +35,7 @@ public class IntroFrag4 extends SlideFragment {
 
     private AVLoadingIndicatorView loadingView;
     private LinearLayout linearLayout;
+    private Button finishSetupButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,42 +45,52 @@ public class IntroFrag4 extends SlideFragment {
 
         loadingView = (AVLoadingIndicatorView) view.findViewById(R.id.loadingView1);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        finishSetupButton = (Button) view.findViewById(R.id.finishButton);
 
-        String userName = IntroSingleton.getInstance().displayName;
-        String userId = IntroSingleton.getInstance().userId;
-        String age = IntroSingleton.getInstance().age;
-        boolean isImperial = IntroSingleton.getInstance().isImperial;
-
-        String feetInchesHeight = IntroSingleton.getInstance().feet + "_" + IntroSingleton.getInstance().inches;
-        String cmHeight = IntroSingleton.getInstance().cm;
-        String pounds = IntroSingleton.getInstance().weightImperial;
-
-        String kgs = IntroSingleton.getInstance().weightMetric;
-
-        HashMap<String, String> maxList = new HashMap<>();
-
-        String sex;
-        if(IntroSingleton.getInstance().isMale){
-            sex = "male";
-        }else{
-            sex = "female";
-        }
-
-        String repLevel = "0";
-        String powerLevel = "0";
-        String currentFocus = "General Fitness";
-
-        UserModelClass userModelClass = new UserModelClass(userName, userId, age, isImperial,
-                                                            feetInchesHeight, cmHeight, pounds,
-                                                            kgs, maxList, sex, repLevel, powerLevel,
-                                                            currentFocus);
-        DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
-
-        userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        finishSetupButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                loadingView.setVisibility(View.GONE);
-                linearLayout.setVisibility(View.VISIBLE);
+            public void onClick(View v) {
+
+                loadingView.setVisibility(View.VISIBLE);
+                finishSetupButton.setVisibility(View.GONE);
+
+                String userName = IntroSingleton.getInstance().displayName;
+                String userId = IntroSingleton.getInstance().userId;
+                String age = IntroSingleton.getInstance().age;
+                boolean isImperial = IntroSingleton.getInstance().isImperial;
+
+                String feetInchesHeight = IntroSingleton.getInstance().feet + "_" + IntroSingleton.getInstance().inches;
+                String cmHeight = IntroSingleton.getInstance().cm;
+                String pounds = IntroSingleton.getInstance().weightImperial;
+
+                String kgs = IntroSingleton.getInstance().weightMetric;
+
+                HashMap<String, String> maxList = new HashMap<>();
+
+                String sex;
+                if(IntroSingleton.getInstance().isMale){
+                    sex = "male";
+                }else{
+                    sex = "female";
+                }
+
+                String repLevel = "0";
+                String powerLevel = "0";
+                String currentFocus = "General Fitness";
+
+                UserModelClass userModelClass = new UserModelClass(userName, userId, age, isImperial,
+                        feetInchesHeight, cmHeight, pounds,
+                        kgs, maxList, sex, repLevel, powerLevel,
+                        currentFocus);
+                DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+
+                userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -90,7 +104,7 @@ public class IntroFrag4 extends SlideFragment {
 
     @Override
     public int buttonsColor() {
-        return R.color.black;
+        return R.color.liftrGold1;
     }
 
 }

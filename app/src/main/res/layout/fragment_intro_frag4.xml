@@ -9,6 +9,41 @@
         android:gravity="center"
         tools:context="com.liftdom.liftdom.intro.IntroFrag4">
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setupFinished"
+            android:textColor="@color/liftrGold1"
+            android:textSize="40sp"
+            android:gravity="center"
+            app:layout_parallaxFactor="0.1"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mayTheGains"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            app:layout_parallaxFactor="0.5"
+            android:layout_marginBottom="30dp"
+    />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/finishButton"
+            android:background="@color/black"
+            android:text="@string/finishSetup"
+            android:textColor="@color/white"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="3dp"
+            android:textSize="24sp"
+    />
+
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -16,6 +51,7 @@
             android:id="@+id/loadingView1"
             app:indicatorColor="@color/liftrGold2"
             android:layout_gravity="center"
+            android:visibility="gone"
     />
 
     <LinearLayout

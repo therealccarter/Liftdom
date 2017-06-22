@@ -358,6 +358,7 @@
     <string name="setupFinished">That\'s it, you\'re finished!</string>
     <string name="mayTheGains">May the gains be with you</string>
 
+    <string name="finishSetup">Finish Setup?</string>
 
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>

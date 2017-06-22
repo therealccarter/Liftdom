@@ -30,7 +30,19 @@ public class UserModelClass {
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
                           String repLevel, String powerLevel, String currentFocus){
-
+        mUserName = userName;
+        mUserId = userId;
+        mAge = age;
+        mIsImperial = isImperial;
+        mFeetInchesHeight = feetInchesHeight;
+        mCmHeight = cmHeight;
+        mPounds = pounds;
+        mKgs = kgs;
+        mMaxList = maxList;
+        mSex = sex;
+        mRepLevel = repLevel;
+        mPowerLevel = powerLevel;
+        mCurrentFocus = currentFocus;
     }
 
     public String getUserName() {
