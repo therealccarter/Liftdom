@@ -1,6 +1,8 @@
 package com.liftdom.misc_activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -142,11 +144,12 @@ public class PremiumFeaturesActivity extends AppCompatActivity {
                 })
                 .build();
 
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
-                        .drawable.usertest))
-                        .withName
-                                (mFirebaseUser.getDisplayName()).withEmail
-                                (mFirebaseUser.getEmail()),
-                0);
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (sharedPref.getString("email", "loading...")), 0);
     }
 }

@@ -1,9 +1,11 @@
 package com.liftdom.template_editor;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -284,10 +286,13 @@ public class TemplateEditorActivity extends AppCompatActivity
                 .build();
 
         // Later
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                        .withName
-                                (mFirebaseUser.getDisplayName()).withEmail(email),
-                0);
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (sharedPref.getString("email", "loading...")), 0);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 

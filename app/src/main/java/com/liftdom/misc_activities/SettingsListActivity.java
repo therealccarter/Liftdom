@@ -1,7 +1,9 @@
 package com.liftdom.misc_activities;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -177,12 +179,13 @@ public class SettingsListActivity extends AppCompatActivity implements
                 })
                 .build();
 
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
-                        .drawable.usertest))
-                        .withName
-                                (mFirebaseUser.getDisplayName()).withEmail
-                                (mFirebaseUser.getEmail()),
-                0);
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (sharedPref.getString("email", "loading...")), 0);
 
         DatabaseReference settingsRef = mRootRef.child("users").child(uid);
 

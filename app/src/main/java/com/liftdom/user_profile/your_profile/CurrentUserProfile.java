@@ -1,6 +1,8 @@
 package com.liftdom.user_profile.your_profile;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -179,10 +181,13 @@ public class CurrentUserProfile extends AppCompatActivity {
                 .build();
 
         // Later
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(this, R.drawable.usertest))
-                        .withName
-                                (mFirebaseUser.getDisplayName()).withEmail(email),
-                0);
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (sharedPref.getString("email", "loading...")), 0);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id
                 .collapsingToolbar1);
