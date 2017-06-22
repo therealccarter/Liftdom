@@ -1,7 +1,9 @@
 package com.liftdom.user_profile.your_profile;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -105,7 +107,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
         currentFocusSpinner.setAdapter(dataAdapter);
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-        usernameTextView.setText(mFirebaseUser.getDisplayName());
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        usernameTextView.setText(sharedPref.getString("userName", "loading..."));
         usernameTextView.setTypeface(lobster);
 
         final DatabaseReference userRef = mRootRef.child("users").child(uid);

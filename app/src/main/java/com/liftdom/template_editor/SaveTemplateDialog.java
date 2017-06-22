@@ -1,8 +1,10 @@
 package com.liftdom.template_editor;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +54,9 @@ public class SaveTemplateDialog extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-        final String userName = mFirebaseUser.getDisplayName();
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+
 
         activeTemplateCheckBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 

@@ -1,6 +1,8 @@
 package com.liftdom.user_profile.other_profile;
 
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -124,7 +126,9 @@ public class OtherUserProfileHeaderFrag extends Fragment {
                 // currentUser is following xUid
                 followingUsersRef.child(xUid).setValue(otherUserModel);
 
-                UserNameIdModelClass currentUserModel = new UserNameIdModelClass(mFirebaseUser.getDisplayName(), uid);
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+                UserNameIdModelClass currentUserModel = new UserNameIdModelClass(sharedPref.getString("userName", "loading..."), uid);
                 // xUid is being followed by currentUser
                 followerUsersRef.child(uid).setValue(currentUserModel);
                 //followerUsersRef.child(uid).setValue(mFirebaseUser.getDisplayName());

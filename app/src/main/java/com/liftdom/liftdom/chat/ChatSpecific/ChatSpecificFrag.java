@@ -1,6 +1,8 @@
 package com.liftdom.liftdom.chat.ChatSpecific;
 
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +71,8 @@ public class ChatSpecificFrag extends Fragment {
         mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chats")
                 .child(chatId);
 
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        final String userName = sharedPref.getString("userName", "loading...");
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -78,7 +82,7 @@ public class ChatSpecificFrag extends Fragment {
                     String dateTimeString = dateTime.toString();
 
                     ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(newMessageView.getText().toString(),
-                            uid, mFirebaseUser.getDisplayName(), dateTimeString, 0, "none");
+                            uid, userName, dateTimeString, 0, "none");
 
                     mChatGroupReference.push().setValue(chatMessageModelClass);
 

@@ -113,8 +113,6 @@ public class MainActivity extends BaseActivity implements
             startActivity(new Intent(this, SignInActivity.class));
         }
 
-
-
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -122,19 +120,24 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
-                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            MainActivitySingleton.getInstance().userModelClass = dataSnapshot.getValue(UserModelClass
-                                    .class);
-                        }
+                    SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                    if(sharedPref.getString("userName", "loading").equals("loading")){
+                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    }else{
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                MainActivitySingleton.getInstance().userModelClass = dataSnapshot.getValue(UserModelClass
+                                        .class);
+                            }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -383,8 +386,6 @@ public class MainActivity extends BaseActivity implements
                 //}
             }
         });
-
-
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 

@@ -89,10 +89,13 @@ public class CurrentUserProfile extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String email = user.getEmail();
 
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(mFirebaseUser.getDisplayName()); //TODO: Set to user's display name
+        toolbar.setTitle(userName);
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -181,17 +184,15 @@ public class CurrentUserProfile extends AppCompatActivity {
                 .build();
 
         // Later
-        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-
         header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
                 R.drawable.usertest))
                 .withName
-                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (userName).withEmail
                         (sharedPref.getString("email", "loading...")), 0);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id
                 .collapsingToolbar1);
-        collapsingToolbarLayout.setTitle(mFirebaseUser.getDisplayName());
+        collapsingToolbarLayout.setTitle(userName);
         collapsingToolbarLayout.setExpandedTitleTextColor(ColorStateList.valueOf(Color.TRANSPARENT));
 
     }

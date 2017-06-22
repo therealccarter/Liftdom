@@ -349,15 +349,18 @@ public class TemplateEditorActivity extends AppCompatActivity
 
                                 TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
+                                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                String userName = sharedPref.getString("userName", "loading...");
+
                                 if(!templateClass.getUserId().equals(uid)){
                                     // if editing someone else's template
                                     TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
                                     TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
                                     TemplateEditorSingleton.getInstance().mUserId2 = uid;
-                                    TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
+                                    TemplateEditorSingleton.getInstance().mUserName2 = userName;
                                 }else{
                                     TemplateEditorSingleton.getInstance().mUserId = uid;
-                                    TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
+                                    TemplateEditorSingleton.getInstance().mUserName = userName;
                                 }
 
                                 FragmentManager fragmentManager = getFragmentManager();
@@ -484,15 +487,18 @@ public class TemplateEditorActivity extends AppCompatActivity
 
                             TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
+                            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                            String userName = sharedPref.getString("userName", "loading...");
+
                             if(!templateClass.getUserId().equals(uid)){
                                 // if editing someone else's template
                                 TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
                                 TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
                                 TemplateEditorSingleton.getInstance().mUserId2 = uid;
-                                TemplateEditorSingleton.getInstance().mUserName2 = user.getDisplayName();
+                                TemplateEditorSingleton.getInstance().mUserName2 = userName;
                             }else{
                                 TemplateEditorSingleton.getInstance().mUserId = uid;
-                                TemplateEditorSingleton.getInstance().mUserName = user.getDisplayName();
+                                TemplateEditorSingleton.getInstance().mUserName = userName;
                             }
 
                             FragmentManager fragmentManager = getFragmentManager();

@@ -1,7 +1,9 @@
 package com.liftdom.user_profile.your_profile;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -51,7 +53,9 @@ public class ProfileHeaderFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-        userName.setText(mFirebaseUser.getDisplayName());
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+        userName.setText(sharedPref.getString("userName", "loading..."));
 
         DatabaseReference profileRef = mRootRef.child("users").child(uid);
 

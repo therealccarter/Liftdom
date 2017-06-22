@@ -1,8 +1,10 @@
 package com.liftdom.template_housing;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -667,8 +669,11 @@ public class SelectedTemplateFrag extends Fragment {
                             String templateName = modelClass.getTemplateName();
                             modelClass.setUserId2(uid);
                             modelClass.setTemplateName(returnedName);
-                            //TODO: new display name method
-                            modelClass.setUserName2(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+
+                            SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                            final String userName = sharedPref.getString("userName", "loading...");
+
+                            modelClass.setUserName2(userName);
                             DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
                             myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

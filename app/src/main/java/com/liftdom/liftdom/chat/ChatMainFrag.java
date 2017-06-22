@@ -3,6 +3,7 @@ package com.liftdom.liftdom.chat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -125,7 +126,8 @@ public class ChatMainFrag extends Fragment {
                         }
                     }else{
 
-                        final String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                        final String userName = sharedPref.getString("userName", "loading...");
 
                         inc = 0;
                         nameInc = 0;
