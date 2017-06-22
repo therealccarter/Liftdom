@@ -10,6 +10,7 @@ public class UserModelClass {
 
     private String mUserName;
     private String mUserId;
+    private String mEmail;
     private String mAge;
     private boolean mIsImperial;
     private String mFeetInchesHeight;
@@ -26,12 +27,13 @@ public class UserModelClass {
         // necessary for firebase
     }
 
-    public UserModelClass(String userName, String userId, String age, boolean isImperial,
+    public UserModelClass(String userName, String userId, String email, String age, boolean isImperial,
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
                           String repLevel, String powerLevel, String currentFocus){
         mUserName = userName;
         mUserId = userId;
+        mEmail = email;
         mAge = age;
         mIsImperial = isImperial;
         mFeetInchesHeight = feetInchesHeight;
@@ -43,6 +45,14 @@ public class UserModelClass {
         mRepLevel = repLevel;
         mPowerLevel = powerLevel;
         mCurrentFocus = currentFocus;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 
     public String getUserName() {

@@ -1,6 +1,9 @@
 package com.liftdom.liftdom;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -32,6 +35,7 @@ import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -109,6 +113,8 @@ public class MainActivity extends BaseActivity implements
             startActivity(new Intent(this, SignInActivity.class));
         }
 
+
+
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -116,49 +122,12 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    if (getIntent().getStringExtra("username") != null) {
-
-                    }
-
-                    mRootRef = FirebaseDatabase.getInstance().getReference();
-                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    final DatabaseReference userListRef = mRootRef.child("userList").child(uid);
-                    userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(!dataSnapshot.exists()){
-                                //userListRef.setValue(user.getDisplayName());
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    DatabaseReference settingsRef = mRootRef.child("users").child(uid).child("heightUnit");
-                    settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.exists()) {
-                                // initializing values
-                                //DatabaseReference heightRef = mRootRef.child("users").child(uid).child("heightUnit");
-                                //heightRef.setValue("footInches");
-                                //DatabaseReference bodyWeightRef = mRootRef.child("users").child(uid).child
-                                //        ("bodyWeightUnit");
-                                //bodyWeightRef.setValue("pounds");
-                                //DatabaseReference weightRef = mRootRef.child("users").child(uid).child("weightUnit");
-                                //weightRef.setValue("pounds");
-                                //DatabaseReference userLevelRef = mRootRef.child("users").child(uid).child
-                                // ("userLevel");
-                                //userLevelRef.setValue("0");
-                                //DatabaseReference followerRef = mRootRef.child("followers").child(uid);
-                                //followerRef.push().setValue(new UserNameIdModelClass(mFirebaseUser.getDisplayName(),
-                                //        uid));
-                            }
+                            MainActivitySingleton.getInstance().userModelClass = dataSnapshot.getValue(UserModelClass
+                                    .class);
                         }
 
                         @Override
@@ -175,15 +144,9 @@ public class MainActivity extends BaseActivity implements
             }
         };
 
-
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        //Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
-//
-        //mainActivityTitle.setTypeface(lobster);
 
 
         AccountHeader header = new AccountHeaderBuilder()
@@ -273,19 +236,14 @@ public class MainActivity extends BaseActivity implements
                 })
                 .build();
 
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
 
-        if (mFirebaseUser != null) {
-            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (sharedPref.getString("userName", "loading...")).withEmail
+                        (sharedPref.getString("email", "loading...")), 0);
 
-            //username = KeyAccountValuesActivity.getInstance().getUserName();
-
-            header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(), R
-                    .drawable.usertest))
-                    .withName
-                            (mFirebaseUser.getDisplayName()).withEmail
-                            (mFirebaseUser.getEmail()), 0);
-        }
 
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
@@ -475,6 +433,104 @@ public class MainActivity extends BaseActivity implements
     }
 
 
+    private void setUpNavDrawer(Toolbar toolbar){
+
+
+        AccountHeader header = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header)
+                .withSelectionListEnabledForSingleProfile(false)
+                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
+                    @Override
+                    public boolean onClick(View view, IProfile profile) {
+                        Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+                })
+                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+                    @Override
+                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+                        Intent intent = new Intent(MainActivity.this, CurrentUserProfile.class);
+                        startActivity(intent);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
+                        return false;
+                    }
+                })
+                .build();
+
+        // create the drawer
+        Drawer drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(header)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName("Home").withIdentifier(1),
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(3),
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
+                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // Handle clicks
+
+                        if (drawerItem != null) {
+                            Intent intent = null;
+                            if (drawerItem.getIdentifier() == 1) {
+                                intent = new Intent(MainActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 1);
+                                startActivity(intent);
+                            }
+                            if (drawerItem.getIdentifier() == 2) {
+                                intent = new Intent(MainActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 2);
+                                startActivity(intent);
+                            }
+                            if (drawerItem.getIdentifier() == 3) {
+                                intent = new Intent(MainActivity.this, MainActivity.class);
+                                intent.putExtra("fragID", 0);
+                                startActivity(intent);
+                            }
+                            if (drawerItem.getIdentifier() == 4) {
+                                intent = new Intent(MainActivity.this, KnowledgeCenterHolderActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 5) {
+                                intent = new Intent(MainActivity.this, ChartsStatsToolsActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 6) {
+                                intent = new Intent(MainActivity.this, PremiumFeaturesActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 7) {
+                                intent = new Intent(MainActivity.this, SettingsListActivity.class);
+                            }
+                            if (intent != null) {
+                                MainActivity.this.startActivity(intent);
+                            }
+                        }
+                        return true;
+                    }
+                })
+                .build();
+
+
+        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.usertest))
+                .withName
+                        (MainActivitySingleton.getInstance().userModelClass.getUserName()).withEmail
+                        (mFirebaseUser.getEmail()), 0);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -636,6 +692,8 @@ public class MainActivity extends BaseActivity implements
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+
     }
     // [END on_start_add_listener]
 

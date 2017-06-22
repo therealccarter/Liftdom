@@ -4,7 +4,9 @@ import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.SlideFragment;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,12 +28,14 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         super.onCreate(savedInstanceState);
 
         String userId = getIntent().getExtras().getString("uid");
+        String email = getIntent().getExtras().getString("email");
         String defaultDisplayName = null;
         if(getIntent().getExtras().getString("defaultDisplayName") != null){
             defaultDisplayName = getIntent().getExtras().getString("defaultDisplayName");
         }
 
         IntroSingleton.getInstance().userId = userId;
+        IntroSingleton.getInstance().email = email;
         IntroSingleton.getInstance().defaultDisplayName = defaultDisplayName;
 
         addSlide(new IntroFrag1());
@@ -72,17 +76,25 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         String powerLevel = "0";
         String currentFocus = "General Fitness";
 
-        UserModelClass userModelClass = new UserModelClass(userName, userId, age, isImperial,
+        String email = IntroSingleton.getInstance().email;
+
+        final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                 feetInchesHeight, cmHeight, pounds,
                 kgs, maxList, sex, repLevel, powerLevel,
                 currentFocus);
+
         DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
         userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                //loadingView.setVisibility(View.GONE);
-                //linearLayout.setVisibility(View.VISIBLE);
+
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("uid", userModelClass.getUserId());
+                editor.putString("userName", userModelClass.getUserName());
+                editor.commit();
+
                 Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
                 startActivity(intent);
             }

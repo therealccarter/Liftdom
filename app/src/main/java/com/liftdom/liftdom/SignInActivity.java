@@ -1,6 +1,9 @@
 package com.liftdom.liftdom;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.intro.FirstTimeSetupActivity;
+import com.liftdom.user_profile.UserModelClass;
 
 public class SignInActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -112,21 +116,34 @@ public class SignInActivity extends BaseActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             final String userName = user.getDisplayName();
                             final String userId = user.getUid();
-                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users")
+
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user")
                                     .child(userId);
+
                             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists()){
+
+                                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                                        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putString("uid", userId);
+                                        editor.putString("userName", userModelClass.getUserName());
+                                        editor.putString("email", user.getEmail());
+                                        editor.apply();
+
                                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }else{
                                         Intent intent = new Intent(SignInActivity.this, FirstTimeSetupActivity.class);
                                         intent.putExtra("uid", userId);
                                         intent.putExtra("defaultDisplayName", userName);
+                                        intent.putExtra("email", user.getEmail());
                                         startActivity(intent);
                                     }
                                 }

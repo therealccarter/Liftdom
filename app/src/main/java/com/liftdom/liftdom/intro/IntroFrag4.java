@@ -2,7 +2,9 @@ package com.liftdom.liftdom.intro;
 
 
 import agency.tango.materialintroscreen.SlideFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.MainActivity;
@@ -78,15 +81,25 @@ public class IntroFrag4 extends SlideFragment {
                 String powerLevel = "0";
                 String currentFocus = "General Fitness";
 
-                UserModelClass userModelClass = new UserModelClass(userName, userId, age, isImperial,
+                String email = IntroSingleton.getInstance().email;
+
+                final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                         feetInchesHeight, cmHeight, pounds,
                         kgs, maxList, sex, repLevel, powerLevel,
                         currentFocus);
+
                 DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
                 userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+
+                        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putString("uid", userModelClass.getUserId());
+                        editor.putString("userName", userModelClass.getUserName());
+                        editor.commit();
+
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                     }

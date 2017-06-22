@@ -1,5 +1,7 @@
 package com.liftdom.liftdom;
 
+import com.liftdom.user_profile.UserModelClass;
+
 /**
  * Created by Brodin on 4/29/2017.
  */
@@ -18,4 +20,6 @@ public class MainActivitySingleton {
     public boolean isWorkoutFinished = false;
 
     public String currentActiveTemplate = "null";
+
+    public UserModelClass userModelClass;
 }

@@ -16,6 +16,8 @@ public class IntroSingleton {
 
     String userId;
 
+    String email;
+
     String defaultDisplayName;
 
     String displayName;
