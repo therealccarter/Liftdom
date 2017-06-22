@@ -82,8 +82,7 @@ UPCOMING FEATURES TO DO:
 **DONE** add callbacks for title bar changes in main activity frags
 
 *v0.7*
-**DONE** Redo entire backend of workout templating/assisting
-    - for assistor, allow freestyling
+**DONE** Redo entire backend of workout templating/assisting - for assistor, allow freestyling
 
 *v0.7.5*
 **DONE** DM other users (including group chat)

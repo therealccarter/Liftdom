@@ -120,19 +120,6 @@ public class IntroFrag3 extends SlideFragment {
         return R.color.black;
     }
 
-    //@Override
-    //public void onPause(){
-    //    super.onPause();
-    //    if(IntroSingleton.getInstance().isImperial){
-    //        IntroSingleton.getInstance().feet = feetEditText.getText().toString();
-    //        IntroSingleton.getInstance().inches = inchesEditText.getText().toString();
-    //        IntroSingleton.getInstance().weightImperial = weightEditText.getText().toString();
-    //    }else{
-    //        IntroSingleton.getInstance().cm = cmHeightEditText.getText().toString();
-    //        IntroSingleton.getInstance().weightMetric = weightEditText.getText().toString();
-    //    }
-    //}
-
     @Override
     public boolean canMoveFurther() {
         boolean validName = false;
