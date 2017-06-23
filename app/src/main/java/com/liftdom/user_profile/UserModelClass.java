@@ -23,6 +23,7 @@ public class UserModelClass {
     private String mRepLevel;
     private String mPowerLevel;
     private String mCurrentFocus;
+    private String mActiveTemplate;
 
     public UserModelClass(){
         // necessary for firebase
@@ -31,7 +32,7 @@ public class UserModelClass {
     public UserModelClass(String userName, String userId, String email, String age, boolean isImperial,
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
-                          String repLevel, String powerLevel, String currentFocus){
+                          String repLevel, String powerLevel, String currentFocus, String activeTemplate){
         mUserName = userName;
         mUserId = userId;
         mEmail = email;
@@ -46,6 +47,7 @@ public class UserModelClass {
         mRepLevel = repLevel;
         mPowerLevel = powerLevel;
         mCurrentFocus = currentFocus;
+        mActiveTemplate = activeTemplate;
 
         if(isImperial){
             // convert imperials to metrics
@@ -78,6 +80,13 @@ public class UserModelClass {
     }
 
 
+    public String getActiveTemplate() {
+        return mActiveTemplate;
+    }
+
+    public void setActiveTemplate(String mActiveTemplate) {
+        this.mActiveTemplate = mActiveTemplate;
+    }
 
     public String getEmail() {
         return mEmail;

@@ -28,6 +28,7 @@ import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -308,14 +309,16 @@ public class TemplateEditorActivity extends AppCompatActivity
                         templateNameEdit = getIntent().getExtras().getString("templateName");
 
                         // Check for active template
-                        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                        DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
                         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String activeTemplateName = dataSnapshot.getValue(String.class);
-                                if(activeTemplateName.equals(templateNameEdit)){
-                                    activeTemplateCheckbox.setChecked(true);
+                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                if(userModelClass.getActiveTemplate() != null){
+                                    if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
+                                        activeTemplateCheckbox.setChecked(true);
+                                    }
                                 }
                             }
 
@@ -449,14 +452,16 @@ public class TemplateEditorActivity extends AppCompatActivity
                     templateNameEdit = getIntent().getExtras().getString("templateName");
 
                     // Check for active template
-                    DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                    DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
                     activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String activeTemplateName = dataSnapshot.getValue(String.class);
-                            if(activeTemplateName.equals(templateNameEdit)){
-                                activeTemplateCheckbox.setChecked(true);
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                            if(userModelClass.getActiveTemplate() != null){
+                                if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
+                                    activeTemplateCheckbox.setChecked(true);
+                                }
                             }
                         }
 

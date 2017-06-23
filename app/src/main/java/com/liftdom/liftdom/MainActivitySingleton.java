@@ -1,5 +1,6 @@
 package com.liftdom.liftdom;
 
+import com.google.firebase.database.*;
 import com.liftdom.user_profile.UserModelClass;
 
 /**
@@ -22,4 +23,19 @@ public class MainActivitySingleton {
     public String currentActiveTemplate = "null";
 
     public UserModelClass userModelClass;
+
+    public void updateUserModelClass(){
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userModelClass = dataSnapshot.getValue(UserModelClass.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

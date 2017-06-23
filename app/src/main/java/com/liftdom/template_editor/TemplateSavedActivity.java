@@ -25,6 +25,7 @@ import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -256,8 +257,20 @@ public class TemplateSavedActivity extends AppCompatActivity {
             checkBool = getIntent().getExtras().getBoolean("isActiveTemplate");
 
             if(checkBool){
-                DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
-                activeTemplateRef.setValue(templateName);
+                final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
+                activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                        userModelClass.setActiveTemplate(templateName);
+                        activeTemplateRef.setValue(userModelClass);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             DatabaseReference selectedTemplateDataRef;

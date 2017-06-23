@@ -24,10 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.user_profile.UserModelClass;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
@@ -477,19 +479,19 @@ public class SelectedTemplateFrag extends Fragment {
                                 if(isFromMyPublicList){
                                     DatabaseReference selectedTemplateRef = mRootRef.child("public_templates").child
                                             (uid).child("my_public").child(templateName);
-                                    final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
-                                            ("active_template");
+                                    final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
                                     selectedTemplateRef.setValue(null);
                                     activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            String value = dataSnapshot.getValue(String.class);
-                                            if(value != null){
-                                                if(value.equals(templateName)){
-                                                    activeTemplateRef.setValue(null);
+                                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                            if(userModelClass.getActiveTemplate() != null){
+                                                if(userModelClass.getActiveTemplate().equals(templateName)){
+                                                    userModelClass.setActiveTemplate(null);
                                                 }
                                             }
+                                            activeTemplateRef.setValue(userModelClass);
                                         }
 
                                         @Override
@@ -499,19 +501,19 @@ public class SelectedTemplateFrag extends Fragment {
                                     });
                                 }else{
                                     DatabaseReference selectedTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                                    final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child
-                                            ("active_template");
+                                    final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
                                     selectedTemplateRef.setValue(null);
                                     activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            String value = dataSnapshot.getValue(String.class);
-                                            if(value != null){
-                                                if(value.equals(templateName)){
-                                                    activeTemplateRef.setValue(null);
+                                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                            if(userModelClass.getActiveTemplate() != null){
+                                                if(userModelClass.getActiveTemplate().equals(templateName)){
+                                                    userModelClass.setActiveTemplate(null);
                                                 }
                                             }
+                                            activeTemplateRef.setValue(userModelClass);
                                         }
 
                                         @Override
@@ -545,14 +547,14 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-        final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+        final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String activeTemplate = dataSnapshot.getValue(String.class);
-                if(activeTemplate != null && templateName != null) {
-                    if (templateName.equals(activeTemplate)) {
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                if(userModelClass.getActiveTemplate() != null && templateName != null){
+                    if(userModelClass.getActiveTemplate().equals(templateName)){
                         setAsActiveTemplate.setChecked(true);
                     }
                 }

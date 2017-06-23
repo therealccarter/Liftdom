@@ -188,7 +188,7 @@ public class SettingsListActivity extends AppCompatActivity implements
                         (sharedPref.getString("userName", "loading...")).withEmail
                         (sharedPref.getString("email", "loading...")), 0);
 
-        DatabaseReference settingsRef = mRootRef.child("users").child(uid);
+
 
         UserModelClass userModelClass = MainActivitySingleton.getInstance().userModelClass;
 

@@ -16,6 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 
 /**
@@ -52,24 +54,12 @@ public class TemplateListItem extends Fragment {
 
 
         if(templateNameView != null) {
-            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
-            activeTemplateRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String activeTemplateName = dataSnapshot.getValue(String.class);
 
-                    if(activeTemplateName != null) {
-                        if (activeTemplateName.equals(templateName)) {
-                            templateNameView.setTextColor(Color.parseColor("#D1B91D"));
-                        }
-                    }
+            if(MainActivitySingleton.getInstance().userModelClass.getActiveTemplate() != null){
+                if(MainActivitySingleton.getInstance().userModelClass.getActiveTemplate().equals(templateName)){
+                    templateNameView.setTextColor(Color.parseColor("#D1B91D"));
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            }
         }
 
         templateNameView.setText(templateName);

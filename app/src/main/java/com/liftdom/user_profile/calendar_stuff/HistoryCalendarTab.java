@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.calendar_stuff.decorators.OneDayDecorator;
@@ -169,79 +170,62 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             }
         });
 
-        DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
 
-        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        String activeTemplate = MainActivitySingleton.getInstance().userModelClass.getActiveTemplate();
 
-                //TODO: Apply fully predictive algorithm
+        if(activeTemplate != null){
 
-                String activeTemplate = dataSnapshot.getValue(String.class);
+            final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
 
-                if(activeTemplate != null){
+            futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
+                    TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
-
-                        if(templateModelClass.getMapOne() != null){
-                            if(!templateModelClass.getMapOne().isEmpty()){
-                                futureConstructor(templateModelClass.getMapOne());
-                            }
-                        }
-                        if(templateModelClass.getMapTwo() != null){
-                            if(!templateModelClass.getMapTwo().isEmpty()){
-                                futureConstructor(templateModelClass.getMapTwo());
-                            }
-                        }
-                        if(templateModelClass.getMapThree() != null){
-                            if(!templateModelClass.getMapThree().isEmpty()){
-                                futureConstructor(templateModelClass.getMapThree());
-                            }
-                        }
-                        if(templateModelClass.getMapFour() != null){
-                            if(!templateModelClass.getMapFour().isEmpty()){
-                                futureConstructor(templateModelClass.getMapFour());
-                            }
-                        }
-                        if(templateModelClass.getMapFive() != null){
-                            if(!templateModelClass.getMapFive().isEmpty()){
-                                futureConstructor(templateModelClass.getMapFive());
-                            }
-                        }
-                        if(templateModelClass.getMapSix() != null){
-                            if(!templateModelClass.getMapSix().isEmpty()){
-                                futureConstructor(templateModelClass.getMapSix());
-                            }
-                        }
-                        if(templateModelClass.getMapSeven() != null){
-                            if(!templateModelClass.getMapSeven().isEmpty()){
-                                futureConstructor(templateModelClass.getMapSeven());
-                            }
+                    if(templateModelClass.getMapOne() != null){
+                        if(!templateModelClass.getMapOne().isEmpty()){
+                            futureConstructor(templateModelClass.getMapOne());
                         }
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    if(templateModelClass.getMapTwo() != null){
+                        if(!templateModelClass.getMapTwo().isEmpty()){
+                            futureConstructor(templateModelClass.getMapTwo());
+                        }
                     }
-                });
+                    if(templateModelClass.getMapThree() != null){
+                        if(!templateModelClass.getMapThree().isEmpty()){
+                            futureConstructor(templateModelClass.getMapThree());
+                        }
+                    }
+                    if(templateModelClass.getMapFour() != null){
+                        if(!templateModelClass.getMapFour().isEmpty()){
+                            futureConstructor(templateModelClass.getMapFour());
+                        }
+                    }
+                    if(templateModelClass.getMapFive() != null){
+                        if(!templateModelClass.getMapFive().isEmpty()){
+                            futureConstructor(templateModelClass.getMapFive());
+                        }
+                    }
+                    if(templateModelClass.getMapSix() != null){
+                        if(!templateModelClass.getMapSix().isEmpty()){
+                            futureConstructor(templateModelClass.getMapSix());
+                        }
+                    }
+                    if(templateModelClass.getMapSeven() != null){
+                        if(!templateModelClass.getMapSeven().isEmpty()){
+                            futureConstructor(templateModelClass.getMapSeven());
+                        }
+                    }
+                }
 
-            }
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
+                }
+            });
+        }
 
         return view;
     }

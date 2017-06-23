@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import org.joda.time.DateTime;
@@ -82,13 +83,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setUserLevel(String xUid){
-        DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference().child("users").child(xUid).child("userLevel");
+        DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid);
         levelRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String userLevel = dataSnapshot.getValue(String.class);
-                String fullString = "Level " + userLevel;
-                mUserLevelView.setText(fullString);
+                UserModelClass otherUserModelClass = dataSnapshot.getValue(UserModelClass.class);
+                String repsLevel = otherUserModelClass.getRepLevel();
+                String powerLevel = otherUserModelClass.getPowerLevel();
+                mUserLevelView.setText(repsLevel);
             }
 
             @Override

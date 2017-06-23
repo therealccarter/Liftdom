@@ -81,12 +81,14 @@ public class IntroFrag4 extends SlideFragment {
                 String powerLevel = "0";
                 String currentFocus = "General Fitness";
 
+                String activeTemplate = null;
+
                 String email = IntroSingleton.getInstance().email;
 
                 final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                         feetInchesHeight, cmHeight, pounds,
                         kgs, maxList, sex, repLevel, powerLevel,
-                        currentFocus);
+                        currentFocus, activeTemplate);
 
                 DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
