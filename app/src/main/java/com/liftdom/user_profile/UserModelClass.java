@@ -1,6 +1,7 @@
 package com.liftdom.user_profile;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Brodin on 6/18/2017.
@@ -45,7 +46,38 @@ public class UserModelClass {
         mRepLevel = repLevel;
         mPowerLevel = powerLevel;
         mCurrentFocus = currentFocus;
+
+        if(isImperial){
+            // convert imperials to metrics
+            String[] heightTokens = mFeetInchesHeight.split("_");
+            int fullInches = (Integer.parseInt(heightTokens[0]) * 12) + Integer.parseInt(heightTokens[1]);
+            double unCm = (double) fullInches * 2.54;
+            int newCm = (int) Math.round(unCm);
+            mCmHeight = String.valueOf(newCm);
+
+            double unKg = (double) Integer.parseInt(mPounds) * 0.453592;
+            int newKg = (int) Math.round(unKg);
+            mKgs = String.valueOf(newKg);
+        }else{
+            // convert metrics to imperials
+            double cm = Double.parseDouble(mCmHeight);
+            double unInches = cm * 0.393701;
+            int newInches = (int) Math.round(unInches);
+
+            int feet = newInches / 12;
+            int inches = newInches % 12;
+            mFeetInchesHeight = String.valueOf(feet) + "_" + String.valueOf(inches);
+
+            double kgDouble = Double.parseDouble(mKgs);
+            double unPounds = kgDouble * 2.2;
+            int newPounds = (int) Math.round(unPounds);
+            mPounds = String.valueOf(newPounds);
+        }
+
+
     }
+
+
 
     public String getEmail() {
         return mEmail;

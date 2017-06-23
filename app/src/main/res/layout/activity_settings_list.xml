@@ -53,11 +53,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:gravity="center"
             >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/weightUnit"
+                        android:text="@string/units"
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:layout_marginStart="10dp"
@@ -67,8 +68,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="end"
                         android:layout_marginEnd="10dp"
+                        android:layout_gravity="end"
+                        android:gravity="end"
                 >
                     <RadioButton
                             android:layout_width="wrap_content"
@@ -90,95 +92,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-            >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bodyWeight"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:layout_marginStart="10dp"
-                />
-
-                <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_marginEnd="10dp"
-                >
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/kilos"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/kgsBodyWeight"
-                    />
-
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pounds"
-                            android:id="@+id/lbsBodyWeight"
-                    />
-
-                </RadioGroup>
-
-
-            </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
-            >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/heightUnits"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:layout_marginStart="10dp"
-                />
-
-                <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_marginEnd="10dp"
-                >
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/centimeters"
-                            android:layout_marginEnd="10dp"
-                            android:id="@+id/centimetersHeight"
-                    />
-
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/footInch"
-                            android:id="@+id/footInchHeight"
-                    />
-
-                </RadioGroup>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
             >
                 <TextView
                         android:layout_width="wrap_content"
@@ -187,7 +107,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:layout_marginStart="10dp"
-                />
+                        android:id="@+id/textView11"/>
 
                 <CheckBox
                         android:layout_width="wrap_content"

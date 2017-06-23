@@ -362,6 +362,7 @@
 
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
+    <string name="units">Unit System:</string>
 
 
     <string name="template_title_nav">Template System</string>

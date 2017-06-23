@@ -23,6 +23,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -30,6 +32,7 @@ import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -53,6 +56,8 @@ public class SettingsListActivity extends AppCompatActivity implements
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
 
+    boolean initialIsImperial = false;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -61,10 +66,6 @@ public class SettingsListActivity extends AppCompatActivity implements
     @BindView(R.id.sign_out_button) Button signOutButton;
     @BindView(R.id.lbsWeight) RadioButton poundsWeight;
     @BindView(R.id.kgsWeight) RadioButton kiloWeight;
-    @BindView(R.id.lbsBodyWeight) RadioButton poundsBodyWeight;
-    @BindView(R.id.kgsBodyWeight) RadioButton kiloBodyWeight;
-    @BindView(R.id.footInchHeight) RadioButton footInchesHeight;
-    @BindView(R.id.centimetersHeight) RadioButton centiHeight;
     @BindView(R.id.checkBoxRound) CheckBox checkBoxRound;
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.title) TextView title;
@@ -189,49 +190,16 @@ public class SettingsListActivity extends AppCompatActivity implements
 
         DatabaseReference settingsRef = mRootRef.child("users").child(uid);
 
-        settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    String key = dataSnapshot1.getKey();
-                    if(!key.equals("maxes")){
-                        String value = dataSnapshot1.getValue(String.class);
+        UserModelClass userModelClass = MainActivitySingleton.getInstance().userModelClass;
 
-                        if(key.equals("weightUnit")){
-                            if(value.equals("pounds")){
-                                poundsWeight.setChecked(true);
-                            }else if(value.equals("kilos")){
-                                kiloWeight.setChecked(true);
-                            }
-                        }else if(key.equals("bodyWeightUnit")){
-                            if(value.equals("pounds")){
-                                poundsBodyWeight.setChecked(true);
-                            }else if(value.equals("kilos")){
-                                kiloBodyWeight.setChecked(true);
-                            }
-                        }else if(key.equals("heightUnit")){
-                            if(value.equals("footInches")){
-                                footInchesHeight.setChecked(true);
-                            }else if(value.equals("centimeters")){
-                                centiHeight.setChecked(true);
-                            }
-                        }else if(key.equals("roundWeight")){
-                            if(value.equals("yes")){
-                                checkBoxRound.setChecked(true);
-                            }else if(value.equals("no")){
-                                checkBoxRound.setChecked(false);
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        if(userModelClass.isImperial()){
+            initialIsImperial = true;
+            poundsWeight.setChecked(true);
+            kiloWeight.setChecked(false);
+        }else{
+            kiloWeight.setChecked(true);
+            poundsWeight.setChecked(false);
+        }
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -268,25 +236,24 @@ public class SettingsListActivity extends AppCompatActivity implements
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(poundsWeight.isChecked()){
-                    firebaseSetter("weightUnit", "pounds");
-                }else if(kiloWeight.isChecked()){
-                    firebaseSetter("weightUnit", "kilos");
-                }
-                if(poundsBodyWeight.isChecked()){
-                    firebaseSetter("bodyWeightUnit", "pounds");
-                }else if(kiloBodyWeight.isChecked()){
-                    firebaseSetter("bodyWeightUnit", "kilos");
-                }
-                if(footInchesHeight.isChecked()){
-                    firebaseSetter("heightUnit", "footInches");
-                }else if(centiHeight.isChecked()){
-                    firebaseSetter("heightUnit", "centimeters");
-                }
-                if(checkBoxRound.isChecked()){
-                    firebaseSetter("roundWeight", "yes");
-                }else{
-                    firebaseSetter("roundWeight", "no");
+
+                if(initialIsImperial != poundsWeight.isChecked()){
+                    final UserModelClass userModelClass1 = MainActivitySingleton.getInstance().userModelClass;
+                    userModelClass1.setIsImperial(poundsWeight.isChecked());
+                    if(poundsWeight.isChecked()){
+                        // is now imperial
+                        userModelClass1.setIsImperial(true);
+                    }else{
+                        // is now metric
+                        userModelClass1.setIsImperial(true);
+                    }
+                    DatabaseReference userRef = mRootRef.child("user").child(uid);
+                    userRef.setValue(userModelClass1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            MainActivitySingleton.getInstance().userModelClass = userModelClass1;
+                        }
+                    });
                 }
 
                 //TODO: Check if it fails
