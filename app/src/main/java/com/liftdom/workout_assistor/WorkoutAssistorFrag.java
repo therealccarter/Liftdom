@@ -26,6 +26,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
@@ -128,14 +129,20 @@ public class WorkoutAssistorFrag extends Fragment {
             }
 
         } else {
-            DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
             activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     loadingView.setVisibility(View.GONE);
-                    if(dataSnapshot.exists()){
-                        String activeTemplateString = dataSnapshot.getValue(String.class);
+
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                    String activeTemplateString = userModelClass.getActiveTemplate();
+
+                    if(activeTemplateString != null){
+
                         currentTemplateView.setText(activeTemplateString);
+
                         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child
                                 (activeTemplateString);
                         templateRef.addListenerForSingleValueEvent(new ValueEventListener() {

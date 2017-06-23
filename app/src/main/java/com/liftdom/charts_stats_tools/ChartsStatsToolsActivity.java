@@ -149,29 +149,6 @@ public class ChartsStatsToolsActivity extends AppCompatActivity {
             DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            //username = KeyAccountValuesActivity.getInstance().getUserName();
-
-
-            DatabaseReference usernameRef = mRootRef.child("users").child(uid).child("username");
-
-            usernameRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot usernameSnap : dataSnapshot.getChildren()){
-                        String key = usernameSnap.getKey();
-                        if(key.equals("username")) {
-                            String username;
-                            username = usernameSnap.getValue(String.class);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
             SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
 
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),

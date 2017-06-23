@@ -120,72 +120,110 @@
             android:orientation="horizontal"
             android:layout_marginStart="20dp"
     >
-        <TextView
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/height"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-        />
+                android:orientation="horizontal"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+            />
 
-        <EditText
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/heightCm"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:visibility="gone"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cm"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:id="@+id/cmTextView"
+                    android:visibility="gone"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/heightFeet"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feet"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:id="@+id/feetTextView"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/heightInches"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inches"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:id="@+id/inchesTextView"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/heightFeet"
-                android:inputType="number"
-                android:imeOptions="actionDone"
-        />
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weightColon"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/feet"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:id="@+id/feetTextView"
-        />
+            />
 
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/heightInches"
-                android:inputType="number"
-                android:imeOptions="actionDone"
-        />
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/weightEditText"
+                    android:imeOptions="actionDone"
+            />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/inches"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:id="@+id/inchesTextView"
-        />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pounds"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:id="@+id/weightUnit"
+            />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/weightColon"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
+        </LinearLayout>
 
-        />
 
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:id="@+id/weightEditText"
-                android:imeOptions="actionDone"
-        />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pounds"
-                android:id="@+id/weightUnit"
-        />
 
     </LinearLayout>
 

@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +47,14 @@ public class CalorieCalcFrag extends Fragment {
     @BindView(R.id.activityLevelSpinner) Spinner activityLevelSpinner;
     @BindView(R.id.weightUnit) TextView weightUnit;
     @BindView(R.id.calorieCalcChart) BarChart barChart;
+    @BindView(R.id.heightCm) EditText heightCmEdit;
+    @BindView(R.id.cmTextView) TextView cmTextView;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    String bodyWeightUnit = "null";
+    boolean isImperial;
     double bodyWeight = 0;
-    String heightUnit = "null";
     String height;
     int age = 0;
     String sex = "null";
@@ -65,10 +67,6 @@ public class CalorieCalcFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        //TODO: make sure that in the charts activity we convert over pounds and kg to be equal
-
-        DatabaseReference settingsRef = mRootRef.child("users").child(uid);
-
         List<String> activityLevels = new ArrayList<String>();
         activityLevels.add("No Exercise");
         activityLevels.add("Light Exercise");
@@ -77,7 +75,7 @@ public class CalorieCalcFrag extends Fragment {
         activityLevels.add("Extreme Exercise");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_style_new_2,
+        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_style_new_2,
                 activityLevels);
 
         // Drop down layout style - list view with radio button
@@ -86,70 +84,55 @@ public class CalorieCalcFrag extends Fragment {
         // attaching data adapter to spinner
         activityLevelSpinner.setAdapter(dataAdapter);
 
+        DatabaseReference settingsRef = mRootRef.child("user").child(uid);
+
         if(savedInstanceState == null){
 
             settingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    int inc = 0;
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                    if(userModelClass.isIsImperial()){
+                        // is imperial
+                        isImperial = true;
+                        String[] heightTokens = userModelClass.getFeetInchesHeight().split("_");
+                        heightFeetEdit.setText(heightTokens[0]);
+                        heightInchesEdit.setText(heightTokens[1]);
+                        weightEdit.setText(userModelClass.getPounds());
+                        heightInchesEdit.setVisibility(View.VISIBLE);
+                        heightFeetEdit.setVisibility(View.VISIBLE);
+                        feetView.setVisibility(View.VISIBLE);
+                        inchesView.setVisibility(View.VISIBLE);
+                    }else{
+                        // is metric
+                        isImperial = false;
+                        heightInchesEdit.setVisibility(View.GONE);
+                        heightFeetEdit.setVisibility(View.GONE);
+                        feetView.setVisibility(View.GONE);
+                        inchesView.setVisibility(View.GONE);
+                        weightUnit.setText("kg");
 
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        String key = dataSnapshot1.getKey();
-                        if(!key.equals("maxes")){
-                            if(key.equals("bodyWeightUnit")){
-                                bodyWeightUnit = dataSnapshot1.getValue(String.class);
-                            }else if(key.equals("bodyweight")){
-                                bodyWeight = (double) Integer.parseInt(dataSnapshot1.getValue(String.class));
-                            }else if(key.equals("heightUnit")){
-                                heightUnit = dataSnapshot1.getValue(String.class);
-                            }else if(key.equals("height")){
-                                height = dataSnapshot1.getValue(String.class);
-                            }else if(key.equals("age")){
-                                age = Integer.parseInt(dataSnapshot1.getValue(String.class));
-                            }else if(key.equals("sex")){
-                                sex = dataSnapshot1.getValue(String.class);
-                            }
-                        }
-                        inc++;
-
-                        if(inc == dataSnapshot.getChildrenCount()){
-                            //TODO change units
-                            weightEdit.setText(String.valueOf(bodyWeight));
-                            if(heightUnit.equals("footInches")){
-                                String delims = "[_]";
-                                String[] tokens = height.split(delims);
-                                heightFeetEdit.setText(tokens[0]);
-                                heightInchesEdit.setText(tokens[1]);
-                            }else{
-                                //TODO use kilos?
-                            }
-                            ageEdit.setText(String.valueOf(age));
-
-                            if(sex.equals("male")){
-                                maleRadioButton.setChecked(true);
-                            }else if(sex.equals("female")){
-                                femaleRadioButton.setChecked(true);
-                            }
-
-                            if(savedInstanceState == null){
-                                age = Integer.parseInt(ageEdit.getText().toString());
-                                bodyWeight = Double.parseDouble(weightEdit.getText().toString());
-                                if(heightUnit.equals("footInches")){ 
-                                    height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
-                                }
-                                if(maleRadioButton.isChecked()){
-                                    sex = "male";
-                                }else if(femaleRadioButton.isChecked()){
-                                    sex = "female";
-                                }
-
-                                int spinnerPosition = activityLevelSpinner.getSelectedItemPosition();
-
-                                setUpCalCalcClass(spinnerPosition);
-                            }
-                        }
+                        cmTextView.setVisibility(View.VISIBLE);
+                        heightCmEdit.setVisibility(View.VISIBLE);
+                        heightCmEdit.setText(userModelClass.getCmHeight());
+                        weightEdit.setText(userModelClass.getKgs());
                     }
+
+                    ageEdit.setText(userModelClass.getAge());
+                    age = Integer.parseInt(userModelClass.getAge());
+
+
+                    if(userModelClass.getSex().equals("male")){
+                        maleRadioButton.setChecked(true);
+                        femaleRadioButton.setChecked(false);
+                    }else{
+                        maleRadioButton.setChecked(false);
+                        femaleRadioButton.setChecked(true);
+                    }
+
+
+
                 }
 
                 @Override
@@ -157,8 +140,6 @@ public class CalorieCalcFrag extends Fragment {
 
                 }
             });
-
-
         }
 
         calReloadButton.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +147,10 @@ public class CalorieCalcFrag extends Fragment {
 
                 age = Integer.parseInt(ageEdit.getText().toString());
                 bodyWeight = Double.parseDouble(weightEdit.getText().toString());
-                if(heightUnit.equals("pounds")){
+                if(isImperial){
                     height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
+                }else{
+                    height = heightCmEdit.getText().toString();
                 }
                 if(maleRadioButton.isChecked()){
                     sex = "male";
@@ -191,14 +174,14 @@ public class CalorieCalcFrag extends Fragment {
         }
 
         double heightCm;
-        if(heightUnit.equals("footInches")){
+        if(isImperial){
             heightCm = heightConvertToMet(height);
         }else{
             heightCm = (double) Integer.parseInt(height);
         }
 
         double weightKg;
-        if(bodyWeightUnit.equals("pounds")){
+        if(isImperial){
             weightKg = weightConvertToMet(bodyWeight);
         }else{
             weightKg = bodyWeight;
@@ -274,17 +257,13 @@ public class CalorieCalcFrag extends Fragment {
 
     public double heightConvertToMet(String heightInches){
         String delims = "[_]";
-        String[] tokens = height.split(delims);
+        String[] tokens = heightInches.split(delims);
         int inches = (Integer.parseInt(tokens[0]) * 12) + Integer.parseInt(tokens[1]);
 
         double cm = (double) inches * 2.54;
         return cm;
     }
 
-    //public double heightFormatter(String unFormattedHeight){
-        //TODO: Hopefully we won't hit this problem...will have to update firebase user values on settings change to
-        //TODO:  be sure
-    //}
 
 
 

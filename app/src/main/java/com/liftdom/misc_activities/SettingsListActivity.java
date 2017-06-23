@@ -190,16 +190,28 @@ public class SettingsListActivity extends AppCompatActivity implements
 
 
 
-        UserModelClass userModelClass = MainActivitySingleton.getInstance().userModelClass;
+        DatabaseReference userRef = mRootRef.child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                if(userModelClass.isIsImperial()){
+                    initialIsImperial = true;
+                    poundsWeight.setChecked(true);
+                    kiloWeight.setChecked(false);
+                }else{
+                    kiloWeight.setChecked(true);
+                    poundsWeight.setChecked(false);
+                }
+            }
 
-        if(userModelClass.isImperial()){
-            initialIsImperial = true;
-            poundsWeight.setChecked(true);
-            kiloWeight.setChecked(false);
-        }else{
-            kiloWeight.setChecked(true);
-            poundsWeight.setChecked(false);
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -237,30 +249,37 @@ public class SettingsListActivity extends AppCompatActivity implements
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(initialIsImperial != poundsWeight.isChecked()){
-                    final UserModelClass userModelClass1 = MainActivitySingleton.getInstance().userModelClass;
-                    userModelClass1.setIsImperial(poundsWeight.isChecked());
+            final DatabaseReference userRef = mRootRef.child("user").child(uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserModelClass userModelClass2 = dataSnapshot.getValue(UserModelClass.class);
                     if(poundsWeight.isChecked()){
                         // is now imperial
-                        userModelClass1.setIsImperial(true);
+                        userModelClass2.setIsImperial(true);
                     }else{
                         // is now metric
-                        userModelClass1.setIsImperial(true);
+                        userModelClass2.setIsImperial(false);
                     }
-                    DatabaseReference userRef = mRootRef.child("user").child(uid);
-                    userRef.setValue(userModelClass1).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    userRef.setValue(userModelClass2).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            MainActivitySingleton.getInstance().userModelClass = userModelClass1;
+                            //MainActivitySingleton.getInstance().userModelClass = userModelClass2;
+                            //TODO: Check if it fails
+                            CharSequence toastText = "Settings Saved";
+                            int duration = Snackbar.LENGTH_SHORT;
+                            Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
+                            snackbar.show();
                         }
                     });
                 }
 
-                //TODO: Check if it fails
-                CharSequence toastText = "Settings Saved";
-                int duration = Snackbar.LENGTH_SHORT;
-                Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
-                snackbar.show();
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             }
         });
     }
@@ -272,10 +291,6 @@ public class SettingsListActivity extends AppCompatActivity implements
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
-    void firebaseSetter(String key, String value){
-        DatabaseReference dataRef = mRootRef.child("users").child(uid).child(key);
-        dataRef.setValue(value);
-    }
 
     @Override
     public void onBackPressed(){

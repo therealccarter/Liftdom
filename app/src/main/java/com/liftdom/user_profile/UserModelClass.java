@@ -120,7 +120,7 @@ public class UserModelClass {
         this.mAge = mAge;
     }
 
-    public boolean isImperial() {
+    public boolean isIsImperial() {
         return mIsImperial;
     }
 
