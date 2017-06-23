@@ -146,9 +146,6 @@ public class ChartsStatsToolsActivity extends AppCompatActivity {
                 .build();
 
         if (mFirebaseUser != null) {
-            DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
             SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
 
             header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
