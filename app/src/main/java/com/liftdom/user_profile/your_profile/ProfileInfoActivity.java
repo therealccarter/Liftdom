@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,11 @@ public class ProfileInfoActivity extends AppCompatActivity {
     @BindView(R.id.saveButtonProfileSettings) Button saveButton;
     @BindView(R.id.currentFocus) Spinner currentFocusSpinner;
     @BindView(R.id.ageYears) EditText ageEditText;
-    @BindView(R.id.maleRadioButton) RadioButton maleRadioButton;
-    @BindView(R.id.femaleRadioButton) RadioButton femaleRadioButton;
+    @BindView(R.id.weightUnitView) TextView weightUnitView;
+    @BindView(R.id.heightCmEdit) EditText heightCmEdit;
+    @BindView(R.id.heightCmText) TextView heightCmText;
+    @BindView(R.id.feetTextView) TextView feetTextView;
+    @BindView(R.id.inchesTextView) TextView inchesTextView;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -51,6 +55,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     String email = "error";
     private static final String TAG = "EmailPassword";
+
+    UserModelClass userModelClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,75 +117,54 @@ public class ProfileInfoActivity extends AppCompatActivity {
         usernameTextView.setText(sharedPref.getString("userName", "loading..."));
         usernameTextView.setTypeface(lobster);
 
-        final DatabaseReference userRef = mRootRef.child("users").child(uid);
-
+        final DatabaseReference userRef = mRootRef.child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    if(dataSnapshot1.getKey().equals("currentFocus")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        if(value.equals("Bodybuilding")){
-                            currentFocusSpinner.setSelection(0);
-                        }else if(value.equals("Powerlifting")){
-                            currentFocusSpinner.setSelection(1);
-                        }else if(value.equals("Powerbuilding")){
-                            currentFocusSpinner.setSelection(2);
-                        }else if(value.equals("General Weightlifting")){
-                            currentFocusSpinner.setSelection(3);
-                        }else if(value.equals("General Fitness")){
-                            currentFocusSpinner.setSelection(4);
-                        }
-                    }else if(dataSnapshot1.getKey().equals("bodyweight")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        bodyWeightEditText.setText(value);
-                    }else if(dataSnapshot1.getKey().equals("age")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        ageEditText.setText(value);
-                    }else if(dataSnapshot1.getKey().equals("sex")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        if(value.equals("male")){
-                            maleRadioButton.setChecked(true);
-                            femaleRadioButton.setChecked(false);
-                        }else if(value.equals("female")){
-                            maleRadioButton.setChecked(false);
-                            femaleRadioButton.setChecked(true);
-                        }
-                    }else if(dataSnapshot1.getKey().equals("height")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        String delims = "[_]";
-                        String[] values = value.split(delims);
-                        heightFeet.setText(values[0]);
-                        heightInches.setText(values[1]);
-                    }else if(dataSnapshot1.getKey().equals("maxes")){
-                        DatabaseReference maxesRef = userRef.child("maxes");
-                        maxesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()){
-                                    if(dataSnapshot2.getKey().equals("benchMax")){
-                                        String value = dataSnapshot2.getValue(String.class);
-                                        benchPress1rm.setText(value);
+                userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
-                                    }else if(dataSnapshot2.getKey().equals("squatMax")){
-                                        String value = dataSnapshot2.getValue(String.class);
-                                        squat1rm.setText(value);
-
-                                    }else if(dataSnapshot2.getKey().equals("deadliftMax")){
-                                        String value = dataSnapshot2.getValue(String.class);
-                                        deadlift1rm.setText(value);
-
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
+                String currentFocus = userModelClass.getCurrentFocus();
+                if(currentFocus.equals("Bodybuilding")){
+                    currentFocusSpinner.setSelection(0);
+                }else if(currentFocus.equals("Powerlifting")){
+                    currentFocusSpinner.setSelection(1);
+                }else if(currentFocus.equals("Powerbuilding")){
+                    currentFocusSpinner.setSelection(2);
+                }else if(currentFocus.equals("General Weightlifting")){
+                    currentFocusSpinner.setSelection(3);
+                }else if(currentFocus.equals("General Fitness")){
+                    currentFocusSpinner.setSelection(4);
                 }
+
+                ageEditText.setText(userModelClass.getAge());
+
+                if(userModelClass.isIsImperial()){
+                    // imperial
+                    inchesTextView.setVisibility(View.VISIBLE);
+                    feetTextView.setVisibility(View.VISIBLE);
+                    heightInches.setVisibility(View.VISIBLE);
+                    heightFeet.setVisibility(View.VISIBLE);
+                    weightUnitView.setText("lbs");
+                    bodyWeightEditText.setText(userModelClass.getPounds());
+                    heightCmEdit.setVisibility(View.GONE);
+                    heightCmText.setVisibility(View.GONE);
+                    String[] heightTokens = userModelClass.getFeetInchesHeight().split("_");
+                    heightFeet.setText(heightTokens[0]);
+                    heightInches.setText(heightTokens[1]);
+                }else{
+                    // metric
+                    inchesTextView.setVisibility(View.GONE);
+                    feetTextView.setVisibility(View.GONE);
+                    heightInches.setVisibility(View.GONE);
+                    heightFeet.setVisibility(View.GONE);
+                    weightUnitView.setText("kgs");
+                    bodyWeightEditText.setText(userModelClass.getKgs());
+                    heightCmEdit.setVisibility(View.VISIBLE);
+                    heightCmText.setVisibility(View.VISIBLE);
+                    heightCmEdit.setText(userModelClass.getCmHeight());
+                }
+
+                //TODO: get maxes
             }
 
             @Override
@@ -187,6 +172,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
             }
         });
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -199,19 +185,24 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 String squatMax = squat1rm.getText().toString();
                 String deadliftMax = deadlift1rm.getText().toString();
 
-                userRef.child("currentFocus").setValue(currentFocus);
-                userRef.child("bodyweight").setValue(bodyweight);
-                userRef.child("height").setValue(height);
-                userRef.child("age").setValue(age);
-                userRef.child("maxes").child("benchMax").setValue(benchMax);
-                userRef.child("maxes").child("squatMax").setValue(squatMax);
-                userRef.child("maxes").child("deadliftMax").setValue(deadliftMax);
+                //userRef1.child("maxes").child("benchMax").setValue(benchMax);
+                //userRef1.child("maxes").child("squatMax").setValue(squatMax);
+                //userRef1.child("maxes").child("deadliftMax").setValue(deadliftMax);
 
-                if(maleRadioButton.isChecked()){
-                    userRef.child("sex").setValue("male");
-                }else if(femaleRadioButton.isChecked()){
-                    userRef.child("sex").setValue("female");
+                userModelClass.setCurrentFocus(currentFocus);
+                if(userModelClass.isIsImperial()){
+                    userModelClass.setPounds(bodyweight);
+                    userModelClass.setFeetInchesHeight(height);
+                    userModelClass.setAge(age);
+                    userModelClass.updateUnits(true);
+                }else{
+                    userModelClass.setKgs(bodyweight);
+                    userModelClass.setCmHeight(heightCmEdit.getText().toString());
+                    userModelClass.setAge(age);
+                    userModelClass.updateUnits(false);
                 }
+
+                userRef.setValue(userModelClass);
 
                 Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
                 startActivity(intent);

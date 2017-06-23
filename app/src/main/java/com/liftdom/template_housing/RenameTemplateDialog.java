@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.user_profile.UserModelClass;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -95,14 +96,15 @@ public class RenameTemplateDialog extends Activity {
 
                 final String templateNameNew = templateNameEditText.getText().toString();
 
-                final DatabaseReference activeTemplateRef = mRootRef.child("users").child(uid).child("active_template");
+                final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
                 activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String activeTemplate = dataSnapshot.getValue(String.class);
-                        if(activeTemplate != null){
-                            if(activeTemplate.equals(templateName1)){
-                                activeTemplateRef.setValue(templateNameNew);
+                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                        if(userModelClass.getActiveTemplate() != null){
+                            if(userModelClass.getActiveTemplate().equals(templateName1)){
+                                userModelClass.setActiveTemplate(templateNameNew);
+                                activeTemplateRef.setValue(userModelClass);
                             }
                         }
                     }

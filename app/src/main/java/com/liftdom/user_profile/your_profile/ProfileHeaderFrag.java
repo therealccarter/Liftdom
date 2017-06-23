@@ -16,7 +16,9 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,24 +59,21 @@ public class ProfileHeaderFrag extends Fragment {
 
         userName.setText(sharedPref.getString("userName", "loading..."));
 
-        DatabaseReference profileRef = mRootRef.child("users").child(uid);
+        DatabaseReference profileRef = mRootRef.child("user").child(uid);
 
         profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    String key = dataSnapshot1.getKey();
-                    if(key.equals("bodyweight")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        bodyWeight.setText(value);
-                    }else if(key.equals("currentFocus")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        currentFocus.setText(value);
-                    }else if(key.equals("level")){
-                        String value = dataSnapshot1.getValue(String.class);
-                        currentLevel.setText(value);
-                    }
+
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                if(MainActivitySingleton.getInstance().isImperial){
+                    bodyWeight.setText(userModelClass.getPounds());
+                }else{
+                    bodyWeight.setText(userModelClass.getKgs());
                 }
+                currentLevel.setText(userModelClass.getRepLevel());
+                currentFocus.setText(userModelClass.getCurrentFocus());
             }
 
             @Override

@@ -122,6 +122,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/weightUnitView"
                         android:text="@string/pounds"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -152,6 +153,29 @@
                     android:layout_marginBottom="10dp"
 
             >
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="0"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:id="@+id/heightCmEdit"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:visibility="gone"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cm"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:id="@+id/heightCmText"
+                        android:visibility="gone"
+                />
 
                 <EditText
                         android:layout_width="wrap_content"
@@ -169,6 +193,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/feetTextView"
                         android:text="@string/feet"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -190,6 +215,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/inchesTextView"
                         android:text="@string/inches"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -246,58 +272,6 @@
 
             </LinearLayout>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sex"
-                    android:background="@color/liftrGold1"
-                    android:textColor="@color/black"
-                    android:paddingStart="70dp"
-                    android:paddingEnd="10dp"
-                    android:textSize="20sp"
-            />
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:background="@color/darkerGrey"
-                    android:layout_marginStart="30dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-            >
-
-                <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                >
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/male"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="15dp"
-                            android:id="@+id/maleRadioButton"
-                    />
-
-                    <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/female"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:id="@+id/femaleRadioButton"
-                    />
-
-                </RadioGroup>
-
-
-            </LinearLayout>
 
             <View
                     android:layout_width="match_parent"

@@ -24,6 +24,8 @@ public class MainActivitySingleton {
 
     public UserModelClass userModelClass;
 
+    public boolean isImperial;
+
     public void updateUserModelClass(){
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

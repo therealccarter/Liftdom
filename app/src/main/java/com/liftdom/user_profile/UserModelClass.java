@@ -49,6 +49,10 @@ public class UserModelClass {
         mCurrentFocus = currentFocus;
         mActiveTemplate = activeTemplate;
 
+        updateUnits(isImperial);
+    }
+
+    public void updateUnits(boolean isImperial){
         if(isImperial){
             // convert imperials to metrics
             String[] heightTokens = mFeetInchesHeight.split("_");
@@ -75,8 +79,6 @@ public class UserModelClass {
             int newPounds = (int) Math.round(unPounds);
             mPounds = String.valueOf(newPounds);
         }
-
-
     }
 
 
