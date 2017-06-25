@@ -15,9 +15,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.user_profile.UserModelClass;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -41,6 +44,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     TemplateModelClass templateClass;
     CompletedExercisesModelClass exercisesModelClass;
+    CompletedWorkoutModelClass completedWorkoutModelClass;
+    UserModelClass userModelClass;
     String publicDescription = null;
     String privateJournal = null;
     String mediaRef = null;
@@ -49,6 +54,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> completedMapFormatted;
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
     List<String> completedExerciseList;
+
 
     @BindView(R.id.goBackHome) Button goHomeButton;
 
@@ -210,13 +216,49 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         }
 
-
-
         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
-        DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
+        final DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
                 .toString());
-        DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid).child
+        final DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid).child
                 ("completed_exercises");
+        DatabaseReference userRef = mRootRef.child("user").child(uid);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                String mediaRef = null; // TODO: add media ref
+
+                String date = LocalDate.now().toString();
+                String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+                HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
+                boolean isImperial = false;
+                if(userModelClass.isIsImperial()){
+                    isImperial = true;
+                }
+
+                DatabaseReference followerRef = mRootRef.child("followers").child(uid);
+
+                // posting to main feed
+                DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+                String refKey = myFeedRef.push().getKey();
+                completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                        userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef, workoutInfoMap);
+                myFeedRef.push().setValue(completedWorkoutModelClass);
+                feedFanOut(refKey, completedWorkoutModelClass, userModelClass.getFollowerList());
+
+                // workout history
+                WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
+                        userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
+                workoutHistoryRef.setValue(historyModelClass);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //DatabaseReference feedRef = mRootRef.child("feed") we're going to need to look into this hard
 
         completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -230,22 +272,24 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
-
         exercisesModelClass.addItems(completedExerciseList);
-
-        String date = LocalDate.now().toString();
-        HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
-        //TODO get units
-        String units = "lbs";
-        WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(publicDescription, privateJournal,
-                date, mediaRef, workoutInfoMap, units);
-
-        templateRef.setValue(templateClass);
-        workoutHistoryRef.setValue(historyModelClass);
         completedExercisesRef.setValue(exercisesModelClass);
 
+        templateRef.setValue(templateClass);
 
         return view;
+    }
+
+    private void feedFanOut(String refKey, CompletedWorkoutModelClass completedWorkoutModelClass, List<String>
+            userList){
+        Map fanoutObject = new HashMap<>();
+        for(String user : userList){
+            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+        }
+
+        DatabaseReference rootRef = mRootRef;
+        rootRef.setValue(fanoutObject);
+
     }
 
     //TODO: check if today's been done you retard

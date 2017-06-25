@@ -90,7 +90,7 @@ public class MainFeedFrag extends Fragment{
                 viewHolder.setUserId(model.getUserId());
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
-                viewHolder.setPostInfo(model.getWorkoutInfoList(), getActivity());
+                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity());
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                             .loadingView1);

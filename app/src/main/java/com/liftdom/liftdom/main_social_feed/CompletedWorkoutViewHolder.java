@@ -18,7 +18,9 @@ import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 5/6/2017.
@@ -111,27 +113,31 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mTimestampView.setText(formattedLocalDate);
     }
 
-    public void setPostInfo(List<String> postInfo, FragmentActivity activity){
-        for(String infoString : postInfo){
+    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity){
 
-            if(isExerciseName(infoString)){
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager
-                        .beginTransaction();
-                PostExNameFrag exNameFrag = new PostExNameFrag();
-                exNameFrag.exNameString = infoString;
-                fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
-                fragmentTransaction.commit();
-            }else{
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager
-                        .beginTransaction();
-                PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
-                setSchemesFrag.setSchemeString = infoString;
-                fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
-                fragmentTransaction.commit();
-            }
+        for(Map.Entry<String, List<String>> mapEntry : workoutInfoMap.entrySet()){
+
         }
+
+        //for(String infoString : postInfo){
+        //    if(isExerciseName(infoString)){
+        //        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager
+        //                .beginTransaction();
+        //        PostExNameFrag exNameFrag = new PostExNameFrag();
+        //        exNameFrag.exNameString = infoString;
+        //        fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
+        //        fragmentTransaction.commit();
+        //    }else{
+        //        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager
+        //                .beginTransaction();
+        //        PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
+        //        setSchemesFrag.setSchemeString = infoString;
+        //        fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
+        //        fragmentTransaction.commit();
+        //    }
+        //}
     }
 
     boolean isExerciseName(String input) {

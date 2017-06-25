@@ -1,6 +1,7 @@
 package com.liftdom.user_profile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,8 @@ public class UserModelClass {
     private String mPowerLevel;
     private String mCurrentFocus;
     private String mActiveTemplate;
+    private List<String> followerList;
+    private List<String> followingList;
 
     public UserModelClass(){
         // necessary for firebase
@@ -81,6 +84,21 @@ public class UserModelClass {
         }
     }
 
+    public List<String> getFollowerList() {
+        return followerList;
+    }
+
+    public void setFollowerList(List<String> followerList) {
+        this.followerList = followerList;
+    }
+
+    public List<String> getFollowingList() {
+        return followingList;
+    }
+
+    public void setFollowingList(List<String> followingList) {
+        this.followingList = followingList;
+    }
 
     public String getActiveTemplate() {
         return mActiveTemplate;

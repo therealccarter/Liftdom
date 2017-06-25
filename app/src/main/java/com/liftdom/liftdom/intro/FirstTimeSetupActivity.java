@@ -85,6 +85,10 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
                 kgs, maxList, sex, repLevel, powerLevel,
                 currentFocus, activeTemplate);
 
+        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child
+                (userId);
+        userListRef.setValue(userName);
+
         DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
         userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {

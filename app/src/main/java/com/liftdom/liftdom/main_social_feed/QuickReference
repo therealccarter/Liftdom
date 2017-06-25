@@ -1,0 +1,106 @@
+Rules for denormalization and fanning out
+
+1. For feeds, post a duplicate to each follower's feed
+
+2. For edits, implement a "fan out" structure
+
+Fanning out the data
+
+Rather than execute multiple writes to the Firebase database, let's create one fan-out object to send.
+
+========================================================================================================================
+To write to every timeline we need know the user’s uid and their followers.
+In this example, we pass the user’s uid, an array of the user’s followers, and the post as parameters.
+
+public Map fanoutPost(String uid, DataSnapshot followersSnaphot, Map post) {
+  Map fanoutObject = new HashMap<>();
+  for (DataSnapshot follower: followersSnaphot.getChildren()) {
+      fanoutObject.put( "/timeline/" + follower.getKey(), post);
+  }
+  return fanoutObject;
+}
+
+========================================================================================================================
+To get the followers, create a listener at the /followers/$uid location.
+
+Firebase mFollowersRef;
+  Map mFollowers;
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    mFollowersRef = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com/followers");
+    mFollowersRef.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        mFollowers = (Map) dataSnapshot.getValue();
+      }
+
+      @Override
+      public void onCancelled(FirebaseError firebaseError) {
+
+      }
+    })
+  }
+
+========================================================================================================================
+When the user sends their post, loop through the follower's keys and create the fan-out object.
+The key is the timeline location with the follower's key as the child.
+
+public class MainActivity extends AppCompatActivity {
+
+    Firebase mFollowersRef;
+    Map mFollowers;
+
+    // get the followers
+    @Override
+    public void onStart() {
+        super.onStart();
+        mFollowersRef = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com/followers");
+        mFollowersRef.addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+              // getting the followers
+              mFollowers = (Map) dataSnapshot.getValue();
+          }
+
+          @Override
+          public void onCancelled(FirebaseError firebaseError) {
+
+          }
+        })
+
+        // Add click handler
+        Button mPostButton = (Button) findViewById(R.id.postButton);
+        TextView mPostTitle = (TextView) findViewById(R.id.postTitle);
+
+        // on post button click
+        mPostButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+              Map post = new HashMap();
+              post.put("title", mPostTitle.getText());
+              fanoutPost(mFollowersRef.getAuth(), mFollowers, post);
+            }
+        });
+    }
+
+    // fannout method
+    public Map fanoutPost(String uid, DataSnapshot followersSnaphot, Map post) {
+
+        Map fanoutObject = new HashMap<>();
+        for (DataSnapshot follower: followersSnaphot.getChildren()) {
+            fanoutObject.put( "/timeline/" + follower.getKey(), post);
+        }
+
+        return fanoutObject;
+    }
+}
+
+========================================================================================================================
+Takeaways
+
+If you remember anything from this article, remember these three things:
+
+Fan-out is for big data solutions (tens of thousands to millions of records).
+Duplicate your data to lead to fast single reads.
+Keep the duplicate data consistent with a client-side fan-out.

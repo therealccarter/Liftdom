@@ -13,23 +13,69 @@ public class CompletedWorkoutModelClass {
     private String mUserName;
     private String mPublicDescription;
     private String mDateTime;
-    private List<String> mWorkoutInfoList;
+    private HashMap<String, List<String>> mWorkoutInfoMap;
+    private boolean mIsImperial;
     private String mUserLevel;
     private String mRef;
+    private HashMap<String, List<String>> commentMap;
+    private String mMediaRef;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
     }
 
     public CompletedWorkoutModelClass(String userId, String userName, String publicDescription, String dateTime,
-                                      List<String> workoutInfoList){
+                                      boolean isImperial, String ref, String mediaRef,
+                                      HashMap<String, List<String>> workoutInfoMap){
         mUserId = userId;
         mUserName = userName;
         mPublicDescription = publicDescription;
         mDateTime = dateTime;
-        mWorkoutInfoList = workoutInfoList;
+        mIsImperial = isImperial;
+        mRef = ref;
+        mMediaRef = mediaRef;
+        mWorkoutInfoMap = workoutInfoMap;
     }
 
+    public HashMap<String, List<String>> getWorkoutInfoMap() {
+        return mWorkoutInfoMap;
+    }
+
+    public void setWorkoutInfoMap(HashMap<String, List<String>> mWorkoutInfoMap) {
+        this.mWorkoutInfoMap = mWorkoutInfoMap;
+    }
+
+    public boolean isIsImperial() {
+        return mIsImperial;
+    }
+
+    public void setIsImperial(boolean mIsImperial) {
+        this.mIsImperial = mIsImperial;
+    }
+
+    public String getRef() {
+        return mRef;
+    }
+
+    public void setRef(String mRef) {
+        this.mRef = mRef;
+    }
+
+    public String getMediaRef() {
+        return mMediaRef;
+    }
+
+    public void setMediaRef(String mMediaRef) {
+        this.mMediaRef = mMediaRef;
+    }
+
+    public HashMap<String, List<String>> getCommentMap() {
+        return commentMap;
+    }
+
+    public void setCommentMap(HashMap<String, List<String>> commentMap) {
+        this.commentMap = commentMap;
+    }
 
     public String getUserName() {
         return mUserName;
@@ -63,24 +109,5 @@ public class CompletedWorkoutModelClass {
         mDateTime = dateTime;
     }
 
-    public List<String> getWorkoutInfoList() {
-        return mWorkoutInfoList;
-    }
-
-    public void setWorkoutInfoList(List<String> workoutInfoList){
-        mWorkoutInfoList = workoutInfoList;
-    }
-
-    //public String getUserLevel() {
-    //    return mUserLevel;
-    //}
-    //
-    //public void setUserLevel(String userLevel){
-    //    mUserLevel = userLevel;
-    //}
-
-    public void setRef(String ref){
-        mRef = ref;
-    }
 
 }

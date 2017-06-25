@@ -99,6 +99,7 @@ public class MainActivity extends BaseActivity implements
 
         ButterKnife.bind(this);
 
+
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
         title.setTypeface(lobster);

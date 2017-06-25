@@ -11,25 +11,30 @@ import java.util.Map;
 
 public class WorkoutHistoryModelClass {
 
+    private String mUserId;
+    private String mUserName;
     private String mPublicDescription;
     private String mPrivateJournal;
     private String mDate;
     private String mMediaRef;
     private HashMap<String, List<String>> mWorkoutInfoMap;
-    private String mUnits;
+    private boolean mIsImperial;
 
     public WorkoutHistoryModelClass(){
         // necessary for Firebase
     }
 
-    public WorkoutHistoryModelClass(String publicDescription, String privateJournal, String date, String mediaRef,
-                                    HashMap<String, List<String>> workoutInfoMap, String units){
+    public WorkoutHistoryModelClass(String userId, String userName, String publicDescription, String privateJournal,
+                                    String date, String mediaRef,
+                                    HashMap<String, List<String>> workoutInfoMap, boolean isImperial){
         mPublicDescription = publicDescription;
         mPrivateJournal = privateJournal;
         mDate = date;
         mMediaRef = mediaRef;
         mWorkoutInfoMap = workoutInfoMap;
-        mUnits = units;
+        mIsImperial = isImperial;
+        mUserId = userId;
+        mUserName = userName;
     }
 
     public double getExPoundage(String exName){
@@ -138,12 +143,28 @@ public class WorkoutHistoryModelClass {
         return contains;
     }
 
-    public String getUnits() {
-        return mUnits;
+    public String getUserId() {
+        return mUserId;
     }
 
-    public void setUnits(String mUnits) {
-        this.mUnits = mUnits;
+    public void setUserId(String mUserId) {
+        this.mUserId = mUserId;
+    }
+
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String mUserName) {
+        this.mUserName = mUserName;
+    }
+
+    public boolean isIsImperial() {
+        return mIsImperial;
+    }
+
+    public void setIsImperial(boolean mIsImperial) {
+        this.mIsImperial = mIsImperial;
     }
 
     public String getPublicDescription() {
