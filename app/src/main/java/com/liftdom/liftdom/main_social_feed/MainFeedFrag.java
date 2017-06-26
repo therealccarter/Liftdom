@@ -73,7 +73,26 @@ public class MainFeedFrag extends Fragment{
 
         headerChanger("Home");
 
-        setUpFirebaseAdapter();
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    setUpFirebaseAdapter();
+                }else{
+                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
+                            .loadingView1);
+                    loadingView.setVisibility(View.GONE);
+                    noResultsView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         return view;
     }

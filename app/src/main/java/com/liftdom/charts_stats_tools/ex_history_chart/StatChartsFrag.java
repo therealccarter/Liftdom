@@ -67,7 +67,7 @@ public class StatChartsFrag extends Fragment {
         maxWeightRadioButton.setChecked(true);
 
 
-        DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid).child("completed_exercises");
+        DatabaseReference completedExs = mRootRef.child("completed_exercises").child(uid);
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

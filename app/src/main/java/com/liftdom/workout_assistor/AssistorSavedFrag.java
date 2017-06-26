@@ -3,6 +3,8 @@ package com.liftdom.workout_assistor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.CompletedWorkoutModelClass;
+import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
@@ -214,13 +219,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
                 }
             }
+
+        }else{
+            completedExerciseList = getCompletedExercises();
         }
 
         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
         final DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
                 .toString());
-        final DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid).child
-                ("completed_exercises");
+        final DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid);
         DatabaseReference userRef = mRootRef.child("user").child(uid);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -246,7 +253,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef, workoutInfoMap);
                 myFeedRef.push().setValue(completedWorkoutModelClass);
-                feedFanOut(refKey, completedWorkoutModelClass, userModelClass.getFollowerList());
+                feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
@@ -259,12 +266,20 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
-        //DatabaseReference feedRef = mRootRef.child("feed") we're going to need to look into this hard
 
         completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
+                if(dataSnapshot.exists()){
+                    exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
+                    exercisesModelClass.addItems(completedExerciseList);
+                    completedExercisesRef.setValue(exercisesModelClass);
+                }else{
+                    exercisesModelClass = new CompletedExercisesModelClass();
+                    exercisesModelClass.addItems(completedExerciseList);
+                    completedExercisesRef.setValue(exercisesModelClass);
+                }
+
             }
 
             @Override
@@ -272,23 +287,70 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
-        exercisesModelClass.addItems(completedExerciseList);
-        completedExercisesRef.setValue(exercisesModelClass);
 
         templateRef.setValue(templateClass);
 
         return view;
     }
 
-    private void feedFanOut(String refKey, CompletedWorkoutModelClass completedWorkoutModelClass, List<String>
-            userList){
-        Map fanoutObject = new HashMap<>();
-        for(String user : userList){
-            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+    private List<String> getCompletedExercises(){
+        List<String> completedExList = new ArrayList<>();
+
+        for(Map.Entry<String, HashMap<String, List<String>>> mapEntry1 : completedMap.entrySet()){
+            for(Map.Entry<String, List<String>> mapEntry2 : mapEntry1.getValue().entrySet()){
+                List<String> newList = new ArrayList<>();
+                newList.addAll(mapEntry2.getValue());
+                for(String string : newList){
+                    if(isExerciseName(string)){
+                        completedExList.add(string);
+                    }
+                }
+            }
         }
 
-        DatabaseReference rootRef = mRootRef;
-        rootRef.setValue(fanoutObject);
+        return completedExList;
+    }
+
+    // com.google.firebase.database.DatabaseException: Invalid key: /feed/9PrmFfHg4gfLr2PfZQfXkxf3L8F3/-KnXP362alj5FhofMiat. Keys must not contain '/', '.', '#', '$', '[', or ']'
+
+    private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
+
+        DatabaseReference userListRef = mRootRef.child("followers").child(uid);
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+
+                List<String> userList = new ArrayList<>();
+
+                if(followersModelClass.getUserIdList() != null){
+                    userList.addAll(followersModelClass.getUserIdList());
+
+                    HashMap<String, CompletedWorkoutModelClass> fanoutObject = new HashMap<>();
+                    for(String user : userList){
+                        fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+                    }
+
+                    DatabaseReference rootRef = mRootRef;
+                    rootRef.setValue(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
     }
 
@@ -404,8 +466,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return isSS;
     }
-
-    //TODO: Template re-save got the map orders wrong somehow
 
     private void generateAlgoForSuperset2(String exName, String tag, String exNameUnformatted){
 

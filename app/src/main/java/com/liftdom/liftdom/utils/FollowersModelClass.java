@@ -1,6 +1,9 @@
 package com.liftdom.liftdom.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 6/24/2017.
@@ -30,6 +33,19 @@ public class FollowersModelClass {
 
     public void setFollowerMap(HashMap<String, String> mFollowerMap) {
         this.mFollowerMap = mFollowerMap;
+    }
+
+    public List<String> getUserIdList(){
+        List<String> userIdList = new ArrayList<>();
+
+        if(mFollowerMap != null){
+            for(Map.Entry<String, String> entry : mFollowerMap.entrySet()){
+                userIdList.add(entry.getKey());
+            }
+        }
+
+
+        return userIdList;
     }
 
     public void addFollowerToMap(String userId, String userName){

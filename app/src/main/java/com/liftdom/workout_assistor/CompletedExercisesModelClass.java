@@ -1,5 +1,6 @@
 package com.liftdom.workout_assistor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,25 @@ public class CompletedExercisesModelClass {
     }
 
     public void addItems(List<String> list){
-        List<String> completedList = getCompletedExercisesList();
-        completedList.addAll(list);
+        List<String> completedList = new ArrayList<>();
+
+        if(list != null){
+
+            if(getCompletedExercisesList() == null){
+                completedList.addAll(list);
+                setCompletedExercisesList(completedList);
+            }else{
+                completedList.addAll(getCompletedExercisesList());
+
+                for(String string : list){
+                    if(!completedList.contains(string)){
+                        completedList.add(string);
+                    }
+                }
+
+                setCompletedExercisesList(completedList);
+            }
+        }
     }
+
 }
