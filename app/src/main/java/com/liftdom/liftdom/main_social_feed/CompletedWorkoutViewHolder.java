@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
@@ -38,6 +39,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private String mUserName;
     private final LinearLayout exContentsHolder;
     private final LinearLayout mPostInfoHolder;
+    private final ImageButton mSendCommentButton;
+    private final EditText mCommentEditText;
+    private final ImageView mUserProfilePic;
+    private String mRefKey;
+    private final RecyclerView mCommentRecyclerView;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private DatabaseReference mFeedRef;
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
@@ -47,6 +55,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mPublicDescriptionView = (TextView) itemView.findViewById(R.id.publicDescription);
         exContentsHolder = (LinearLayout) itemView.findViewById(R.id.exContentsHolder);
         mPostInfoHolder = (LinearLayout) itemView.findViewById(R.id.postInfoHolder);
+        mSendCommentButton = (ImageButton) itemView.findViewById(R.id.sendCommentButton);
+        mCommentEditText = (EditText) itemView.findViewById(R.id.commentEditText);
+        mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
+        mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
+
+
+
+        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child(FirebaseAuth.getInstance()
+                .getCurrentUser().getUid()).child(getRefKey()).child("comments");
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -68,9 +85,79 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 }
             }
         });
+
+        mSendCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mCommentEditText.getText().toString().equals("")){
+
+
+
+                    PostCommentModelClass commentModelClass = new PostCommentModelClass();
+
+                    DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                            (FirebaseAuth.getInstance()
+                                    .getCurrentUser().getUid()).child(getRefKey()).child("comments");
+
+                    String refKey = commentRef.push().getKey();
+
+
+                }
+
+
+
+            }
+        });
+
+
     }
 
+    private void fanoutCommentPost(final String refKey, final PostCommentModelClass commentModelClass){
 
+    }
+
+    public void setComments(HashMap<String, List<String>> commentMap, FragmentActivity activity){
+
+        //DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child()
+
+        for(int i = 0; i <  commentMap.size(); i++){
+            for(Map.Entry<String, List<String>> mapEntry : commentMap.entrySet()){
+                String[] keyTokens = mapEntry.getKey().split("_");
+                if(Integer.parseInt(keyTokens[0]) == i){
+                    // new comment frag
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager
+                            .beginTransaction();
+                    //PostCommentFrag commentFrag = new PostCommentFrag();
+
+                    //fragmentTransaction.add(R.id.commentsHolder, commentFrag);
+                    fragmentTransaction.commit();
+                }
+            }
+        }
+    }
+
+    private void setUpCommentFirebaseAdapter(FragmentActivity activity){
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
+                (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+            @Override
+            protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
+
+            }
+        };
+
+        mCommentRecyclerView.setHasFixedSize(false);
+        mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    public void setRefKey(String refKey){
+        mRefKey = refKey;
+    }
+
+    public String getRefKey(){
+        return mRefKey;
+    }
 
     public void setUserId(String userId){
         xUid = userId;
