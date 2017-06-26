@@ -249,10 +249,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 // posting to main feed
                 DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+
                 String refKey = myFeedRef.push().getKey();
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef, workoutInfoMap);
-                myFeedRef.push().setValue(completedWorkoutModelClass);
+                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
@@ -326,13 +327,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 if(followersModelClass.getUserIdList() != null){
                     userList.addAll(followersModelClass.getUserIdList());
 
-                    HashMap<String, CompletedWorkoutModelClass> fanoutObject = new HashMap<>();
+                    Map fanoutObject = new HashMap<>();
                     for(String user : userList){
                         fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
                     }
 
                     DatabaseReference rootRef = mRootRef;
-                    rootRef.setValue(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
