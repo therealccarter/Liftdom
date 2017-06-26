@@ -312,8 +312,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return completedExList;
     }
 
-    // com.google.firebase.database.DatabaseException: Invalid key: /feed/9PrmFfHg4gfLr2PfZQfXkxf3L8F3/-KnXP362alj5FhofMiat. Keys must not contain '/', '.', '#', '$', '[', or ']'
-
     private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
 
         DatabaseReference userListRef = mRootRef.child("followers").child(uid);

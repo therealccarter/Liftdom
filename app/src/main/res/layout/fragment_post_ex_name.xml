@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:background="@color/backgroundgrey1"
+             android:background="@color/grey"
              tools:context="com.liftdom.liftdom.main_social_feed.PostExNameFrag">
 
     <TextView
@@ -11,9 +11,9 @@
             android:id="@+id/exerciseName"
             android:text="@string/hello_blank_fragment"
             android:textSize="16sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:padding="3dp"
-            android:gravity="center"
+            android:gravity="start"
     />
 
 </FrameLayout>
