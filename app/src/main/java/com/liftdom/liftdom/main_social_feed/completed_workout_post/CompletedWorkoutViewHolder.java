@@ -20,6 +20,7 @@ import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
 import com.liftdom.liftdom.main_social_feed.utils.PostExNameFrag;
 import com.liftdom.liftdom.main_social_feed.utils.PostExNameSSFrag;
 import com.liftdom.liftdom.main_social_feed.utils.PostSetSchemeFrag;
+import com.liftdom.liftdom.main_social_feed.utils.PostSetSchemeSSFrag;
 import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
@@ -301,7 +302,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
                             isFirstRepsWeight = false;
                         }else if(!isExerciseName(string) && !isFirstRepsWeight){
-
+                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager
+                                    .beginTransaction();
+                            PostSetSchemeSSFrag setSchemeSSFrag = new PostSetSchemeSSFrag();
+                            setSchemeSSFrag.setSchemeString = string;
+                            fragmentTransaction.add(R.id.exContentsHolder, setSchemeSSFrag);
+                            fragmentTransaction.commit();
                         }
                     }
                 }

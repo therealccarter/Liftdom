@@ -23,11 +23,10 @@ public class PostSetSchemeSSFrag extends Fragment {
     }
 
 
-    String setSchemeString = "error";
+    public String setSchemeString = "error";
     boolean differentType = false;
 
-    @BindView(R.id.repsView)
-    TextView repsView;
+    @BindView(R.id.repsView) TextView repsView;
     @BindView(R.id.weightView) TextView weightView;
     @BindView(R.id.pounds) TextView pounds;
 
