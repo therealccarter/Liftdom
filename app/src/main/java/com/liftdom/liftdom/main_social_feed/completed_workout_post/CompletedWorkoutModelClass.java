@@ -17,7 +17,7 @@ public class CompletedWorkoutModelClass {
     private boolean mIsImperial;
     private String mUserLevel;
     private String mRef;
-    private HashMap<String, List<String>> commentMap;
+    //private HashMap<String, List<String>> commentMap;
     private String mMediaRef;
 
     public CompletedWorkoutModelClass(){
@@ -69,13 +69,13 @@ public class CompletedWorkoutModelClass {
         this.mMediaRef = mMediaRef;
     }
 
-    public HashMap<String, List<String>> getCommentMap() {
-        return commentMap;
-    }
+    //public HashMap<String, List<String>> getCommentMap() {
+    //    return commentMap;
+    //}
 
-    public void setCommentMap(HashMap<String, List<String>> commentMap) {
-        this.commentMap = commentMap;
-    }
+    //public void setCommentMap(HashMap<String, List<String>> commentMap) {
+    //    this.commentMap = commentMap;
+    //}
 
     public String getUserName() {
         return mUserName;

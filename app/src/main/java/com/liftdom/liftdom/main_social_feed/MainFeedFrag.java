@@ -95,15 +95,18 @@ public class MainFeedFrag extends Fragment{
                 (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class
                 , mFeedRef) {
             @Override
-            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder, CompletedWorkoutModelClass model, int position) {
+            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder, CompletedWorkoutModelClass
+                    model, int position) {
                 viewHolder.setUserName(model.getUserName());
-                viewHolder.setUserLevel(model.getUserId());
+                viewHolder.setUserLevel(model.getUserId(), mRootRef);
                 viewHolder.setActivity(getActivity());
                 viewHolder.setUserId(model.getUserId());
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity());
                 viewHolder.setActivity(getActivity());
+                viewHolder.setRefKey(model.getRef());
+                viewHolder.setCommentFrag(getActivity());
 
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
