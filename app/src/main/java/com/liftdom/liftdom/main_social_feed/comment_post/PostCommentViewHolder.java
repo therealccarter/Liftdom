@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.main_social_feed;
+package com.liftdom.liftdom.main_social_feed.comment_post;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

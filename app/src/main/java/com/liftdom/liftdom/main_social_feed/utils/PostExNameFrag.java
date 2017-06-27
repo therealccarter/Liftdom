@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.main_social_feed;
+package com.liftdom.liftdom.main_social_feed.utils;
 
 
 import android.os.Bundle;
@@ -15,14 +15,14 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostExNameSSFrag extends Fragment {
+public class PostExNameFrag extends Fragment {
 
 
-    public PostExNameSSFrag() {
+    public PostExNameFrag() {
         // Required empty public constructor
     }
 
-    String exNameString = "error";
+    public String exNameString = "error";
 
     @BindView(R.id.exerciseName) TextView exerciseName;
 
@@ -30,7 +30,7 @@ public class PostExNameSSFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_post_ex_name_s, container, false);
+        View view = inflater.inflate(R.layout.fragment_post_ex_name, container, false);
 
         ButterKnife.bind(this, view);
 

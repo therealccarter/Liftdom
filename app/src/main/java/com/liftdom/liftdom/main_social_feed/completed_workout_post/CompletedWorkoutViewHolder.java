@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.main_social_feed;
+package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,9 +13,13 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
+import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
+import com.liftdom.liftdom.main_social_feed.utils.PostExNameFrag;
+import com.liftdom.liftdom.main_social_feed.utils.PostExNameSSFrag;
+import com.liftdom.liftdom.main_social_feed.utils.PostSetSchemeFrag;
 import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;

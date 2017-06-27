@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:background="@color/grey"
-             tools:context="com.liftdom.liftdom.main_social_feed.PostExNameFrag">
+             tools:context="com.liftdom.liftdom.main_social_feed.utils.PostExNameFrag">
 
     <TextView
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.main_social_feed;
+package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import java.util.HashMap;
 import java.util.List;

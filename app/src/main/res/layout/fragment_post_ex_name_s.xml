@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:background="@color/offerGrey"
-             tools:context="com.liftdom.liftdom.main_social_feed.PostExNameSSFrag">
+             tools:context="com.liftdom.liftdom.main_social_feed.utils.PostExNameSSFrag">
 
     <LinearLayout
             android:layout_width="match_parent"

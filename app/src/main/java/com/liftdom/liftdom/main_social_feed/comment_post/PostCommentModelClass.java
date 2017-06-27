@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.main_social_feed;
+package com.liftdom.liftdom.main_social_feed.comment_post;
 
 /**
  * Created by Brodin on 6/26/2017.

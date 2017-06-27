@@ -4,15 +4,11 @@ package com.liftdom.liftdom.main_social_feed;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,13 +16,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.main_social_feed.user_search.UserSearchResultFrag;
-import com.lovejjfg.powerrefresh.OnRefreshListener;
-import com.lovejjfg.powerrefresh.PowerRefreshLayout;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-
-import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,6 +104,7 @@ public class MainFeedFrag extends Fragment{
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity());
                 viewHolder.setActivity(getActivity());
+
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                             .loadingView1);
