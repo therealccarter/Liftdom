@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.main_social_feed;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,10 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.*;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -44,7 +48,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final ImageView mUserProfilePic;
     private String mRefKey;
     private final RecyclerView mCommentRecyclerView;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private final FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -60,10 +64,27 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
 
-
+        final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child(FirebaseAuth.getInstance()
                 .getCurrentUser().getUid()).child(getRefKey()).child("comments");
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
+                (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+            @Override
+            protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
+                viewHolder.setComment(model.getCommentText());
+                viewHolder.setDateString(model.getDateString());
+                viewHolder.setRepNumber(model.getRepNumber());
+                viewHolder.setRefKey(model.getRefKey());
+                viewHolder.setUsername(model.getUserName());
+            }
+        };
+
+        mCommentRecyclerView.setHasFixedSize(false);
+        mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mCommentRecyclerView.setAdapter(mFirebaseAdapter);
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -91,65 +112,97 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             public void onClick(View v) {
                 if(!mCommentEditText.getText().toString().equals("")){
 
+                    DatabaseReference userRef = mRootRef.child("user").child(uid);
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                            DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                    (FirebaseAuth.getInstance()
+                                            .getCurrentUser().getUid()).child(getRefKey()).child("comments");
 
+                            String refKey = commentRef.push().getKey();
 
-                    PostCommentModelClass commentModelClass = new PostCommentModelClass();
+                            PostCommentModelClass commentModelClass = new PostCommentModelClass(
+                                    userModelClass.getUserId(), userModelClass.getUserName(), mCommentEditText
+                                    .getText().toString(), 0, DateTime.now(DateTimeZone.UTC).toString(), refKey);
 
-                    DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
-                            (FirebaseAuth.getInstance()
-                                    .getCurrentUser().getUid()).child(getRefKey()).child("comments");
+                            commentRef.child(refKey).setValue(commentModelClass);
 
-                    String refKey = commentRef.push().getKey();
+                            fanoutCommentPost(refKey, commentModelClass, userModelClass);
 
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-
-
-
             }
         });
 
+        //setUpCommentFirebaseAdapter(mActivity);
 
     }
 
-    private void fanoutCommentPost(final String refKey, final PostCommentModelClass commentModelClass){
+    private void fanoutCommentPost(final String commentRefKey, final PostCommentModelClass commentModelClass,
+                                   UserModelClass userModelClass){
 
-    }
+        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child
+                (userModelClass.getUserId());
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
 
-    public void setComments(HashMap<String, List<String>> commentMap, FragmentActivity activity){
+                List<String> userList = new ArrayList<>();
 
-        //DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child()
+                if(followersModelClass.getUserIdList() != null){
+                    userList.addAll(followersModelClass.getUserIdList());
 
-        for(int i = 0; i <  commentMap.size(); i++){
-            for(Map.Entry<String, List<String>> mapEntry : commentMap.entrySet()){
-                String[] keyTokens = mapEntry.getKey().split("_");
-                if(Integer.parseInt(keyTokens[0]) == i){
-                    // new comment frag
-                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    //PostCommentFrag commentFrag = new PostCommentFrag();
+                    Map fanoutObject = new HashMap<>();
 
-                    //fragmentTransaction.add(R.id.commentsHolder, commentFrag);
-                    fragmentTransaction.commit();
+                    for(String user : userList){
+                        fanoutObject.put("/feed/" + user + "/" + mRefKey + "/" + "comments/" + commentRefKey, commentModelClass);
+                    }
+
+                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            // some shit
+                        }
+                    });
                 }
             }
-        }
-    }
 
-    private void setUpCommentFirebaseAdapter(FragmentActivity activity){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
-                (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
             @Override
-            protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-
-        mCommentRecyclerView.setHasFixedSize(false);
-        mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+        });
     }
+
+    //private void setUpCommentFirebaseAdapter(FragmentActivity activity){
+    //    mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
+    //            (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class,
+    // mFeedRef) {
+    //        @Override
+    //        protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int
+    //        position) {
+    //            viewHolder.setComment(model.getCommentText());
+    //            viewHolder.setDateString(model.getDateString());
+    //            viewHolder.setRepNumber(model.getRepNumber());
+    //            viewHolder.setRefKey(model.getRefKey());
+    //            viewHolder.setUsername(model.getUserName());
+    //        }
+    //    };
+//
+    //    mCommentRecyclerView.setHasFixedSize(false);
+    //    mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+    //    mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+    //}
 
     public void setRefKey(String refKey){
         mRefKey = refKey;

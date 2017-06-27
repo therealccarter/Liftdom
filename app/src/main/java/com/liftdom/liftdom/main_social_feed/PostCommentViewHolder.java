@@ -37,7 +37,6 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
         mCommentView.setText(comment);
     }
 
-
     public String getRefKey() {
         return mRefKey;
     }

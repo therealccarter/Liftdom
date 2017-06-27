@@ -110,6 +110,7 @@ public class MainFeedFrag extends Fragment{
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity());
+                viewHolder.setActivity(getActivity());
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                             .loadingView1);

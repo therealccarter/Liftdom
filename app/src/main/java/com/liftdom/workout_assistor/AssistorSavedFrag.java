@@ -346,11 +346,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
-
-
-
-
-
     }
 
     //TODO: check if today's been done you retard
