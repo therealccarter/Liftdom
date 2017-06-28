@@ -107,7 +107,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                             DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
-                                    (xUid).child("comments");
+                                    (uid).child("comments");
 
                             String refKey = commentRef.push().getKey();
 
@@ -221,14 +221,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setCommentFrag(FragmentActivity activity){
-        FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        CommentsHolderFrag commentsHolderFrag = new CommentsHolderFrag();
-        commentsHolderFrag.parentRefKey = getRefKey();
-        commentsHolderFrag.mActivity = activity;
-        fragmentTransaction.replace(R.id.commentFragHolder, commentsHolderFrag);
-        fragmentTransaction.commit();
+        //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+        //FragmentTransaction fragmentTransaction = fragmentManager
+        //        .beginTransaction();
+        //CommentsHolderFrag commentsHolderFrag = new CommentsHolderFrag();
+        //commentsHolderFrag.parentRefKey = getRefKey();
+        //commentsHolderFrag.mActivity = activity;
+        //fragmentTransaction.replace(R.id.commentFragHolder, commentsHolderFrag);
+        //fragmentTransaction.commit();
     }
 
     public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity){

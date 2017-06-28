@@ -52,7 +52,7 @@ public class CommentsHolderFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-
+                    setUpFirebaseAdapter();
                 }
             }
 
@@ -62,7 +62,7 @@ public class CommentsHolderFrag extends Fragment {
             }
         });
 
-        setUpFirebaseAdapter();
+
 
         return view;
     }

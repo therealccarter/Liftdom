@@ -1,7 +1,10 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
+import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 5/6/2017.
@@ -17,7 +20,7 @@ public class CompletedWorkoutModelClass {
     private boolean mIsImperial;
     private String mUserLevel;
     private String mRef;
-    //private HashMap<String, List<String>> commentMap;
+    private Map<String, PostCommentModelClass> mCommentMap;
     private String mMediaRef;
 
     public CompletedWorkoutModelClass(){
@@ -26,7 +29,8 @@ public class CompletedWorkoutModelClass {
 
     public CompletedWorkoutModelClass(String userId, String userName, String publicDescription, String dateTime,
                                       boolean isImperial, String ref, String mediaRef,
-                                      HashMap<String, List<String>> workoutInfoMap){
+                                      HashMap<String, List<String>> workoutInfoMap, Map<String,
+            PostCommentModelClass> commentMap){
         mUserId = userId;
         mUserName = userName;
         mPublicDescription = publicDescription;
@@ -35,6 +39,16 @@ public class CompletedWorkoutModelClass {
         mRef = ref;
         mMediaRef = mediaRef;
         mWorkoutInfoMap = workoutInfoMap;
+        mCommentMap = commentMap;
+    }
+
+
+    public Map<String, PostCommentModelClass> getCommentMap() {
+        return mCommentMap;
+    }
+
+    public void setCommentMap(Map<String, PostCommentModelClass> mCommentMap) {
+        this.mCommentMap = mCommentMap;
     }
 
     public HashMap<String, List<String>> getWorkoutInfoMap() {

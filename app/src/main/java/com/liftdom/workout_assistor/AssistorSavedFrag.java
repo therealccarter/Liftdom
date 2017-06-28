@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
@@ -251,8 +252,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
 
                 String refKey = myFeedRef.push().getKey();
+
+                Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
+
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
-                        userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef, workoutInfoMap);
+                        userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
+                        workoutInfoMap, commentModelClassMap);
                 myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
 

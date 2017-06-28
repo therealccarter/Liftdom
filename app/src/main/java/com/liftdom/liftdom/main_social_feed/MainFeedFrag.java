@@ -92,8 +92,7 @@ public class MainFeedFrag extends Fragment{
 
     private void setUpFirebaseAdapter(){
         mFirebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class
-                , mFeedRef) {
+                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item, CompletedWorkoutViewHolder.class, mFeedRef) {
             @Override
             protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder, CompletedWorkoutModelClass
                     model, int position) {
@@ -107,6 +106,8 @@ public class MainFeedFrag extends Fragment{
                 viewHolder.setActivity(getActivity());
                 viewHolder.setRefKey(model.getRef());
                 viewHolder.setCommentFrag(getActivity());
+
+                //TODO: Take a look at the firebase code, it's fucked up!
 
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
