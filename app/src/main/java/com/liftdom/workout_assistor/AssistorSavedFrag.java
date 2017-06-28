@@ -323,26 +323,28 @@ public class AssistorSavedFrag extends android.app.Fragment {
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+                if(dataSnapshot.exists()){
+                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
 
-                List<String> userList = new ArrayList<>();
+                    List<String> userList = new ArrayList<>();
 
-                if(followersModelClass.getUserIdList() != null){
-                    userList.addAll(followersModelClass.getUserIdList());
+                    if(followersModelClass.getUserIdList() != null){
+                        userList.addAll(followersModelClass.getUserIdList());
 
-                    Map fanoutObject = new HashMap<>();
-                    for(String user : userList){
-                        fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
-                    }
-
-                    DatabaseReference rootRef = mRootRef;
-                    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
-                            snackbar.show();
+                        Map fanoutObject = new HashMap<>();
+                        for(String user : userList){
+                            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
                         }
-                    });
+
+                        DatabaseReference rootRef = mRootRef;
+                        rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                        });
+                    }
                 }
             }
 

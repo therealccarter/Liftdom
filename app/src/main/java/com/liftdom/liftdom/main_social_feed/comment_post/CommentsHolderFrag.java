@@ -47,7 +47,7 @@ public class CommentsHolderFrag extends Fragment {
         ButterKnife.bind(this, view);
 
 
-        mFeedRef = mRootRef.child("feed").child(uid).child(parentRefKey).child("comments");
+        mFeedRef = mRootRef.child("feed").child(uid).child(parentRefKey).child("commentMap");
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
