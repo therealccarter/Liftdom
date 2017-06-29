@@ -90,8 +90,6 @@ public class MainFeedFrag extends Fragment{
             }
         });
 
-        //TODO: So I think all we have to do now is implement what's done in the fragments in the viewholder.
-
         return view;
     }
 

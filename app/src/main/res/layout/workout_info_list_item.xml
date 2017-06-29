@@ -2,6 +2,92 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/exNameLL"
+            android:background="@color/grey"
+            android:visibility="gone"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/exNameTextView"
+                android:layout_marginStart="5dp"
+                android:text="Bench Press"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/setSchemeLL"
+            android:background="@color/offWhite"
+            android:visibility="gone"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/setSchemeTextView"
+                android:layout_marginStart="15dp"
+                android:text="5x5@115lbs"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/exNameSSLL"
+            android:background="@color/offerGrey"
+            android:visibility="gone"
+    >
+
+        <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_upward_gold_24dp"
+                android:background="@color/backgroundgrey2"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/exNameTextViewSS"
+                android:layout_marginStart="5dp"
+                android:text="Bench Press"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/setSchemeSSLL"
+            android:background="@color/offWhite"
+            android:visibility="gone"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/setSchemeTextViewSS"
+                android:layout_marginStart="40dp"
+                android:text="3x10@135lbs"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+        />
+
+    </LinearLayout>
 
 </LinearLayout>

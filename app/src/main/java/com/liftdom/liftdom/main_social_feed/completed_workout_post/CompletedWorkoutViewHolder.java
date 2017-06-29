@@ -1,5 +1,6 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -47,7 +48,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private String xUid;
     private FragmentActivity mActivity;
     private String mUserName;
-    private final LinearLayout exContentsHolder;
+    private final RecyclerView mInfoRecyclerView;
     private final LinearLayout mPostInfoHolder;
     private final ImageButton mSendCommentButton;
     private final EditText mCommentEditText;
@@ -64,7 +65,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mUserLevelView = (TextView) itemView.findViewById(R.id.userLevel);
         mTimestampView = (TextView) itemView.findViewById(R.id.timeStampView);
         mPublicDescriptionView = (TextView) itemView.findViewById(R.id.publicDescription);
-        exContentsHolder = (LinearLayout) itemView.findViewById(R.id.exContentsHolder);
+        mInfoRecyclerView = (RecyclerView) itemView.findViewById(R.id.infoRecyclerView);
         mPostInfoHolder = (LinearLayout) itemView.findViewById(R.id.postInfoHolder);
         mSendCommentButton = (ImageButton) itemView.findViewById(R.id.sendCommentButton);
         mCommentEditText = (EditText) itemView.findViewById(R.id.commentEditText);
@@ -73,7 +74,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -263,94 +263,12 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mTimestampView.setText(formattedLocalDate);
     }
 
-    public void setCommentFrag(FragmentActivity activity){
-        //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-        //FragmentTransaction fragmentTransaction = fragmentManager
-        //        .beginTransaction();
-        //CommentsHolderFrag commentsHolderFrag = new CommentsHolderFrag();
-        //commentsHolderFrag.parentRefKey = getRefKey();
-        //commentsHolderFrag.mActivity = activity;
-        //fragmentTransaction.replace(R.id.commentFragHolder, commentsHolderFrag);
-        //fragmentTransaction.commit();
-    }
-
-    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity){
-
-        for(int i = 0; i < workoutInfoMap.size(); i++){
-            for(Map.Entry<String, List<String>> mapEntry : workoutInfoMap.entrySet()){
-                String[] keyTokens = mapEntry.getKey().split("_");
-                if(Integer.parseInt(keyTokens[0]) == i){
-                    List<String> list = new ArrayList<>();
-                    list.addAll(mapEntry.getValue());
-                    boolean isFirstEx = true;
-                    boolean isFirstRepsWeight = true;
-                    int inc = 0;
-                    for(String string : list){
-                        inc++;
-                        if(isExerciseName(string) && isFirstEx){
-                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            PostExNameFrag exNameFrag = new PostExNameFrag();
-                            exNameFrag.exNameString = string;
-                            fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
-                            fragmentTransaction.commit();
-
-                            isFirstEx = false;
-                        }else if(isExerciseName(string) && !isFirstEx){
-
-                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            PostExNameSSFrag exNameSSFrag = new PostExNameSSFrag();
-                            exNameSSFrag.exNameString = string;
-                            fragmentTransaction.add(R.id.exContentsHolder, exNameSSFrag);
-                            fragmentTransaction.commit();
-
-                        }else if(!isExerciseName(string) && isFirstRepsWeight){
-                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
-                            setSchemesFrag.setSchemeString = string;
-                            fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
-                            fragmentTransaction.commit();
-
-                            isFirstRepsWeight = false;
-                        }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                            FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            PostSetSchemeSSFrag setSchemeSSFrag = new PostSetSchemeSSFrag();
-                            setSchemeSSFrag.setSchemeString = string;
-                            fragmentTransaction.add(R.id.exContentsHolder, setSchemeSSFrag);
-                            fragmentTransaction.commit();
-                        }
-                    }
-                }
-            }
-        }
-
-
-        //for(String infoString : postInfo){
-        //    if(isExerciseName(infoString)){
-        //        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        //        FragmentTransaction fragmentTransaction = fragmentManager
-        //                .beginTransaction();
-        //        PostExNameFrag exNameFrag = new PostExNameFrag();
-        //        exNameFrag.exNameString = infoString;
-        //        fragmentTransaction.add(R.id.exContentsHolder, exNameFrag);
-        //        fragmentTransaction.commit();
-        //    }else{
-        //        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        //        FragmentTransaction fragmentTransaction = fragmentManager
-        //                .beginTransaction();
-        //        PostSetSchemeFrag setSchemesFrag = new PostSetSchemeFrag();
-        //        setSchemesFrag.setSchemeString = infoString;
-        //        fragmentTransaction.add(R.id.exContentsHolder, setSchemesFrag);
-        //        fragmentTransaction.commit();
-        //    }
-        //}
+    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context){
+        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
+        //adapter.setInfoList(workoutInfoMap);
+        mInfoRecyclerView.setAdapter(adapter);
+        mInfoRecyclerView.setHasFixedSize(false);
+        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
     }
 
     boolean isExerciseName(String input) {
