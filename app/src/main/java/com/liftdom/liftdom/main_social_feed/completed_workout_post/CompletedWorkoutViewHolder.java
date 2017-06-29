@@ -53,10 +53,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final EditText mCommentEditText;
     private final ImageView mUserProfilePic;
     private String mRefKey;
-    //private final RecyclerView mCommentRecyclerView;
-    //private final FirebaseRecyclerAdapter mFirebaseAdapter;
+    private final RecyclerView mCommentRecyclerView;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
-    private final LinearLayout mCommentFragHolder;
+    //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
@@ -69,8 +69,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mSendCommentButton = (ImageButton) itemView.findViewById(R.id.sendCommentButton);
         mCommentEditText = (EditText) itemView.findViewById(R.id.commentEditText);
         mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
-        //mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
-        mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
+        mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
+        //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -100,7 +100,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             public void onClick(View v) {
                 if(!mCommentEditText.getText().toString().equals("")){
 
-                    DatabaseReference userRef = mRootRef.child("user").child(xUid);
+                    DatabaseReference userRef = mRootRef.child("user").child(getCurrentUid());
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,8 +114,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                     userModelClass.getUserId(), userModelClass.getUserName(), mCommentEditText
                                     .getText().toString(), 0, DateTime.now(DateTimeZone.UTC).toString(), refKey);
 
-                            commentRef.child(refKey).setValue(commentModelClass);
-                            fanoutCommentPost(refKey, commentModelClass, userModelClass);
+                            commentRef.child(refKey).setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    mCommentEditText.setText("");
+                                }
+                            });
+                            fanoutCommentPost(refKey, commentModelClass);
 
                         }
 
@@ -127,44 +132,77 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 }
             }
         });
+
+
+    }
+
+    public void setCommentRecycler(String refKey){
+        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                (getCurrentUid()).child(refKey).child("commentMap");
+
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
+                            (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+                        @Override
+                        protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
+                            viewHolder.setComment(model.getCommentText());
+                            viewHolder.setDateString(model.getDateString());
+                            viewHolder.setRepNumber(model.getRepNumber());
+                            viewHolder.setRefKey(model.getRefKey());
+                            viewHolder.setUsername(model.getUserName());
+                        }
+                    };
+
+                    mCommentRecyclerView.setHasFixedSize(false);
+                    mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+                    mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private String getCurrentUid(){
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    private void fanoutCommentPost(final String commentRefKey, final PostCommentModelClass commentModelClass,
-                                   UserModelClass userModelClass){
+    private void fanoutCommentPost(final String commentRefKey, final PostCommentModelClass commentModelClass){
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
 
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+                if(dataSnapshot.exists()){
+                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
 
-                List<String> userList = new ArrayList<>();
+                    List<String> userList = new ArrayList<>();
 
-                if(followersModelClass.getUserIdList() != null){
-                    userList.addAll(followersModelClass.getUserIdList());
+                    if(followersModelClass.getUserIdList() != null){
+                        userList.addAll(followersModelClass.getUserIdList());
 
-                    Map fanoutObject = new HashMap<>();
+                        Map fanoutObject = new HashMap<>();
 
-                    if(!getCurrentUid().equals(xUid)){
-                        userList.add(xUid);
-                    }
-
-                    for(String user : userList){
-                        fanoutObject.put("/feed/" + user + "/" + mRefKey + "/commentMap/" + commentRefKey,
-                                commentModelClass);
-                    }
-
-                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            mCommentEditText.setText("");
+                        if(!getCurrentUid().equals(xUid)){
+                            userList.add(xUid);
                         }
-                    });
+
+                        for(String user : userList){
+                            if(!user.equals(getCurrentUid())){
+                                fanoutObject.put("/feed/" + user + "/" + mRefKey + "/commentMap/" + commentRefKey,
+                                        commentModelClass);
+                            }
+                        }
+
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        rootRef.updateChildren(fanoutObject);
+                    }
                 }
             }
 
@@ -226,14 +264,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setCommentFrag(FragmentActivity activity){
-        FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        CommentsHolderFrag commentsHolderFrag = new CommentsHolderFrag();
-        commentsHolderFrag.parentRefKey = getRefKey();
-        commentsHolderFrag.mActivity = activity;
-        fragmentTransaction.replace(R.id.commentFragHolder, commentsHolderFrag);
-        fragmentTransaction.commit();
+        //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+        //FragmentTransaction fragmentTransaction = fragmentManager
+        //        .beginTransaction();
+        //CommentsHolderFrag commentsHolderFrag = new CommentsHolderFrag();
+        //commentsHolderFrag.parentRefKey = getRefKey();
+        //commentsHolderFrag.mActivity = activity;
+        //fragmentTransaction.replace(R.id.commentFragHolder, commentsHolderFrag);
+        //fragmentTransaction.commit();
     }
 
     public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity){
