@@ -76,13 +76,15 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         String powerLevel = "0";
         String currentFocus = "General Fitness";
 
+        String currentStreak = "0";
+
         String activeTemplate = null;
 
         String email = IntroSingleton.getInstance().email;
 
         final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                 feetInchesHeight, cmHeight, pounds,
-                kgs, maxList, sex, repLevel, powerLevel,
+                kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                 currentFocus, activeTemplate);
 
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child

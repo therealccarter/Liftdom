@@ -23,6 +23,7 @@ public class UserModelClass {
     private String mSex;
     private String mRepLevel;
     private String mPowerLevel;
+    private String mCurrentStreak;
     private String mCurrentFocus;
     private String mActiveTemplate;
     private List<String> followerList;
@@ -35,7 +36,8 @@ public class UserModelClass {
     public UserModelClass(String userName, String userId, String email, String age, boolean isImperial,
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
-                          String repLevel, String powerLevel, String currentFocus, String activeTemplate){
+                          String repLevel, String powerLevel, String currentStreak, String currentFocus, String
+                                  activeTemplate){
         mUserName = userName;
         mUserId = userId;
         mEmail = email;
@@ -49,10 +51,19 @@ public class UserModelClass {
         mSex = sex;
         mRepLevel = repLevel;
         mPowerLevel = powerLevel;
+        mCurrentStreak = currentStreak;
         mCurrentFocus = currentFocus;
         mActiveTemplate = activeTemplate;
 
         updateUnits(isImperial);
+    }
+
+    public String getCurrentStreak() {
+        return mCurrentStreak;
+    }
+
+    public void setCurrentStreak(String mCurrentStreak) {
+        this.mCurrentStreak = mCurrentStreak;
     }
 
     public void updateUnits(boolean isImperial){
