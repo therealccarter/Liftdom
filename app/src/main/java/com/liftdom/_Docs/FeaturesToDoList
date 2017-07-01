@@ -88,25 +88,25 @@ UPCOMING FEATURES TO DO:
 **DONE** DM other users (including group chat)
 **DONE** View public templates
 **DONE** Ability to edit/save public templates
-* Custom exercises
 
 *v0.8*
-* Add real-time commenting to posts.
-* Add rep button to posts
+**DONE** Add real-time commenting to posts.
 * Fix up the chat
 
 *v0.9*
-* Re-do user node/object
-* Level up structure based on daily multiplier, lifts, etc.
+**DONE** Re-do user node/object
+**DONE** Level up structure based on daily multiplier, lifts, etc.
 
 *v1.0*
-* Create first-time user tutorial/profile setup
+**DONE** Create first-time user tutorial/profile setup
 * Polish everything, beautify, make the app look sleek and pro
 * Fix all current bugs
 * Release.
 
 ***TBD***
 *v1.1 - v1.9*
+* Custom exercises
+* Add rep button to posts
 * Look for other lifters at various gyms (mark on Google Maps maybe?)
 * DM workout invite
 * Different kinds of posts (workouts, post templates, check into gyms, open workout invite)
