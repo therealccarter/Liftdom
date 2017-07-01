@@ -576,6 +576,7 @@ public class SelectedTemplateFrag extends Fragment {
                             String activeTemplate = dataSnapshot.getValue(String.class);
                             if(activeTemplate != null && templateName != null) {
                                 if (!templateName.equals(activeTemplate)) {
+                                    //TODO: change this to new runningAssistor method
                                     DatabaseReference boolRunDateRef = mRootRef.child("runningAssistor").child(uid)
                                             .child("isRunning").child("isRunningBoolDate");
                                     boolRunDateRef.setValue("false" + "_" + LocalDate.now().toString());

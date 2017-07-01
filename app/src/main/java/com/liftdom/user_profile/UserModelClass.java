@@ -28,6 +28,7 @@ public class UserModelClass {
     private String mActiveTemplate;
     private List<String> followerList;
     private List<String> followingList;
+    private String mLastCompletedDay;
 
     public UserModelClass(){
         // necessary for firebase
@@ -58,12 +59,32 @@ public class UserModelClass {
         updateUnits(isImperial);
     }
 
+
+
     public String getCurrentStreak() {
         return mCurrentStreak;
     }
 
     public void setCurrentStreak(String mCurrentStreak) {
         this.mCurrentStreak = mCurrentStreak;
+    }
+
+    public void addToCurrentStreak(){
+        int streak1 = Integer.parseInt(getCurrentStreak());
+        int streak2 = streak1 + 1;
+        setCurrentStreak(String.valueOf(streak2));
+    }
+
+    public void resetCurrentStreak(){
+        setCurrentStreak("1");
+    }
+
+    public String getLastCompletedDay() {
+        return mLastCompletedDay;
+    }
+
+    public void setLastCompletedDay(String mLastCompletedDay) {
+        this.mLastCompletedDay = mLastCompletedDay;
     }
 
     public void updateUnits(boolean isImperial){
@@ -221,6 +242,12 @@ public class UserModelClass {
 
     public void setPowerLevel(String mPowerLevel) {
         this.mPowerLevel = mPowerLevel;
+    }
+
+    public void addToPowerLevel(int powerLevels){
+        int current = Integer.parseInt(getPowerLevel());
+        current = current + powerLevels;
+        setPowerLevel(String.valueOf(current));
     }
 
     public String getCurrentFocus() {

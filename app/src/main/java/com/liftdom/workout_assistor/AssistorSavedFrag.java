@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,6 +64,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
 
     @BindView(R.id.goBackHome) Button goHomeButton;
+    @BindView(R.id.streakTextView) TextView streakTextView;
+    @BindView(R.id.powerLevelIncreaseTextView) TextView powerLevelIncreaseView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -229,7 +232,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
         final DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
                 .toString());
         final DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid);
-        DatabaseReference userRef = mRootRef.child("user").child(uid);
+        final DatabaseReference userRef = mRootRef.child("user").child(uid);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -245,6 +248,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 if(userModelClass.isIsImperial()){
                     isImperial = true;
                 }
+
+                userRef.setValue(processUserClass(userModelClass));
 
                 DatabaseReference followerRef = mRootRef.child("followers").child(uid);
 
@@ -265,6 +270,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
                 workoutHistoryRef.setValue(historyModelClass);
+
+
             }
 
             @Override
@@ -297,6 +304,30 @@ public class AssistorSavedFrag extends android.app.Fragment {
         templateRef.setValue(templateClass);
 
         return view;
+    }
+
+    private UserModelClass processUserClass(UserModelClass userModelClass){
+
+        int powerLevelBonus = 0;
+        int oldPowerLevel = Integer.parseInt(userModelClass.getPowerLevel());
+
+        LocalDate lastCompletedDay = LocalDate.parse(userModelClass.getLastCompletedDay());
+        if(lastCompletedDay == LocalDate.now().minusDays(1)){
+            userModelClass.addToCurrentStreak();
+            powerLevelBonus = 20;
+        }else{
+            userModelClass.resetCurrentStreak();
+        }
+
+        streakTextView.setText("Current workout streak: " + userModelClass.getCurrentStreak() + " days!");
+
+        userModelClass.addToPowerLevel(40 + powerLevelBonus);
+        String newPowerLevel = userModelClass.getPowerLevel();
+
+        powerLevelIncreaseView.setText("Power Level increased from " + String.valueOf(oldPowerLevel) + " to " +
+                newPowerLevel + "!");
+
+        return userModelClass;
     }
 
     private List<String> getCompletedExercises(){
