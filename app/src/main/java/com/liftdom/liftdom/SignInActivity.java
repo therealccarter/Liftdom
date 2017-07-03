@@ -74,6 +74,11 @@ public class SignInActivity extends BaseActivity implements
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            //mAuth.signOut();
+            //Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            //startActivity(intent);
+        }
         updateUI(currentUser);
     }
     // [END on_start_check_user]

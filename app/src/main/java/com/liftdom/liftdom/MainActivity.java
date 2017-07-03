@@ -129,7 +129,6 @@ public class MainActivity extends BaseActivity implements
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-
                                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                                 MainActivitySingleton.getInstance().userModelClass = userModelClass;
                                 if(userModelClass.isIsImperial()){

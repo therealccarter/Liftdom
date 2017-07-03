@@ -17,6 +17,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.calendar_stuff.decorators.OneDayDecorator;
 import com.liftdom.user_profile.calendar_stuff.decorators.PastEventDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -171,61 +172,75 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         });
 
 
-        String activeTemplate = MainActivitySingleton.getInstance().userModelClass.getActiveTemplate();
 
-        if(activeTemplate != null){
+        DatabaseReference userRef = mRootRef.child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
-            final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
+                String activeTemplate = userModelClass.getActiveTemplate();
 
-            futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                if(activeTemplate != null){
 
-                    TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                    final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
 
-                    if(templateModelClass.getMapOne() != null){
-                        if(!templateModelClass.getMapOne().isEmpty()){
-                            futureConstructor(templateModelClass.getMapOne());
+                    futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                            if(templateModelClass.getMapOne() != null){
+                                if(!templateModelClass.getMapOne().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapOne());
+                                }
+                            }
+                            if(templateModelClass.getMapTwo() != null){
+                                if(!templateModelClass.getMapTwo().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapTwo());
+                                }
+                            }
+                            if(templateModelClass.getMapThree() != null){
+                                if(!templateModelClass.getMapThree().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapThree());
+                                }
+                            }
+                            if(templateModelClass.getMapFour() != null){
+                                if(!templateModelClass.getMapFour().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapFour());
+                                }
+                            }
+                            if(templateModelClass.getMapFive() != null){
+                                if(!templateModelClass.getMapFive().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapFive());
+                                }
+                            }
+                            if(templateModelClass.getMapSix() != null){
+                                if(!templateModelClass.getMapSix().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapSix());
+                                }
+                            }
+                            if(templateModelClass.getMapSeven() != null){
+                                if(!templateModelClass.getMapSeven().isEmpty()){
+                                    futureConstructor(templateModelClass.getMapSeven());
+                                }
+                            }
                         }
-                    }
-                    if(templateModelClass.getMapTwo() != null){
-                        if(!templateModelClass.getMapTwo().isEmpty()){
-                            futureConstructor(templateModelClass.getMapTwo());
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
-                    if(templateModelClass.getMapThree() != null){
-                        if(!templateModelClass.getMapThree().isEmpty()){
-                            futureConstructor(templateModelClass.getMapThree());
-                        }
-                    }
-                    if(templateModelClass.getMapFour() != null){
-                        if(!templateModelClass.getMapFour().isEmpty()){
-                            futureConstructor(templateModelClass.getMapFour());
-                        }
-                    }
-                    if(templateModelClass.getMapFive() != null){
-                        if(!templateModelClass.getMapFive().isEmpty()){
-                            futureConstructor(templateModelClass.getMapFive());
-                        }
-                    }
-                    if(templateModelClass.getMapSix() != null){
-                        if(!templateModelClass.getMapSix().isEmpty()){
-                            futureConstructor(templateModelClass.getMapSix());
-                        }
-                    }
-                    if(templateModelClass.getMapSeven() != null){
-                        if(!templateModelClass.getMapSeven().isEmpty()){
-                            futureConstructor(templateModelClass.getMapSeven());
-                        }
-                    }
+                    });
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
+            }
+        });
 
         return view;
     }
