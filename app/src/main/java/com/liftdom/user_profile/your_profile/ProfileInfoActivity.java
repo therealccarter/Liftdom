@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,16 +19,21 @@ import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.SignInActivity;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class ProfileInfoActivity extends AppCompatActivity {
 
@@ -43,6 +53,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
     @BindView(R.id.heightCmText) TextView heightCmText;
     @BindView(R.id.feetTextView) TextView feetTextView;
     @BindView(R.id.inchesTextView) TextView inchesTextView;
+    @BindView(R.id.profilePicImageView) ImageView profilePicView;
+    @BindView(R.id.headerImageView) ImageView headerImageView;
+    @BindView(R.id.profilePicLoadingView) AVLoadingIndicatorView profilePicLoadingView;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -52,6 +65,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    private String selectedProfilePicPath;
 
     String email = "error";
     private static final String TAG = "EmailPassword";
@@ -210,7 +225,67 @@ public class ProfileInfoActivity extends AppCompatActivity {
             }
         });
 
+        profilePicView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                profilePicView.setDrawingCacheEnabled(true);
+                profilePicView.buildDrawingCache();
+                Bitmap bitmap = profilePicView.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images");
+
+                UploadTask uploadTask = storageReference.putBytes(data);
+
+                profilePicView.setVisibility(View.GONE);
+                profilePicLoadingView.setVisibility(View.VISIBLE);
+
+
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        profilePicView.setVisibility(View.VISIBLE);
+                        profilePicLoadingView.setVisibility(View.GONE);
+                        Snackbar.make(getCurrentFocus(), "success", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
+                //Intent intent = new Intent();
+                //intent.setType("image/*");
+                //intent.setAction(Intent.ACTION_GET_CONTENT);
+                //startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        //super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == 1){
+                Uri selectedImageUri = data.getData();
+                selectedProfilePicPath = getPath(selectedImageUri);
+            }
+        }
+    }
+
+    public String getPath(Uri uri){
+        if(uri == null){
+            return null;
+        }
+
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if(cursor != null){
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index);
+            cursor.close();
+            return path;
+        }
+        return uri.getPath();
     }
 
     // [START on_start_add_listener]

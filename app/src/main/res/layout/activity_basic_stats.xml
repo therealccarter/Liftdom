@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/activity_profile_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,6 +46,68 @@
                     android:layout_marginStart="10dp"
                     android:id="@+id/usernameEditText"
                     android:visibility="gone"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profilePic"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:paddingStart="60dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                />
+
+                <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:id="@+id/profilePicImageView"
+                        android:src="@drawable/usertest"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:scaleType="centerCrop"
+                />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:indicatorName="BallClipRotateMultipleIndicator"
+                        android:id="@+id/profilePicLoadingView"
+                        app:indicatorColor="@color/liftrGold2"
+                        android:layout_marginStart="40dp"
+                        android:visibility="gone"
+                />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/headerImage"
+                    android:background="@color/liftrGold1"
+                    android:textColor="@color/black"
+                    android:paddingStart="60dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="20sp"
+            />
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:id="@+id/headerImageView"
+                    android:src="@drawable/header_pattern"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop"
             />
 
             <TextView
@@ -273,156 +335,167 @@
             </LinearLayout>
 
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/liftrGold1"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bench1rm"
-                android:background="@color/liftrGold1"
-                android:textColor="@color/black"
-                android:paddingStart="70dp"
-                android:paddingEnd="10dp"
-                android:textSize="20sp"
-            />
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:background="@color/darkerGrey"
-                    android:layout_marginStart="30dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_marginBottom="10dp"
-
+                    android:orientation="vertical"
+                    android:visibility="gone"
             >
-
-                <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/zero_zero"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:id="@+id/benchPress1rm"
-                        android:inputType="number"
-                        android:imeOptions="actionDone"
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/liftrGold1"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                 />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pounds"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:text="@string/bench1rm"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:paddingStart="70dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
                 />
 
-            </LinearLayout>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/squat1rm"
-                    android:background="@color/liftrGold1"
-                    android:textColor="@color/black"
-                    android:paddingStart="70dp"
-                    android:paddingEnd="10dp"
-                    android:textSize="20sp"
-            />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:background="@color/darkerGrey"
-                    android:layout_marginStart="30dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_marginBottom="10dp"
-
-            >
-
-                <EditText
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/zero_zero"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:id="@+id/squat1rm"
-                        android:inputType="number"
-                        android:imeOptions="actionDone"
-                />
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:background="@color/darkerGrey"
+                        android:layout_marginStart="30dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_marginBottom="10dp"
+
+                >
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/zero_zero"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:id="@+id/benchPress1rm"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pounds"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                    />
+
+                </LinearLayout>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pounds"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:text="@string/squat1rm"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:paddingStart="70dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
                 />
 
-            </LinearLayout>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/deadlift1rm"
-                    android:background="@color/liftrGold1"
-                    android:textColor="@color/black"
-                    android:paddingStart="70dp"
-                    android:paddingEnd="10dp"
-                    android:textSize="20sp"
-            />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:background="@color/darkerGrey"
-                    android:layout_marginStart="30dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_marginBottom="10dp"
-
-            >
-
-                <EditText
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/zero_zero"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/white"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:id="@+id/deadlift1rm"
-                        android:inputType="number"
-                        android:imeOptions="actionDone"
-                />
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:background="@color/darkerGrey"
+                        android:layout_marginStart="30dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_marginBottom="10dp"
+
+                >
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/zero_zero"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:id="@+id/squat1rm"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pounds"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                    />
+
+                </LinearLayout>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pounds"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:text="@string/deadlift1rm"
+                        android:background="@color/liftrGold1"
+                        android:textColor="@color/black"
+                        android:paddingStart="70dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
                 />
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:background="@color/darkerGrey"
+                        android:layout_marginStart="30dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_marginBottom="10dp"
+
+                >
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/zero_zero"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:id="@+id/deadlift1rm"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                    />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pounds"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                    />
+
+                </LinearLayout>
+
             </LinearLayout>
+
 
 
             <!-- ========================== -->

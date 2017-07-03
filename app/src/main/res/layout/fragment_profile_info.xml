@@ -21,23 +21,6 @@
                 android:scaleType="centerCrop"
         />
 
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:id="@+id/profileInfo"
-                android:drawableStart="@drawable/settings_small"
-                android:background="@color/black"
-                android:textColor="@color/liftrGold1"
-                android:text="@string/profileInfo"
-                android:layout_gravity="end"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:textAllCaps="false"
-                android:gravity="center"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="5dp"
-        />
-
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -60,15 +43,31 @@
                     android:orientation="vertical"
 
             >
-                <TextView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/dummyUsername"
-                        android:textSize="24sp"
-                        android:textColor="@color/white"
-                        android:id="@+id/userName"
-                        android:layout_marginStart="10dp"
-                />
+                        android:orientation="horizontal"
+                >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dummyUsername"
+                            android:textSize="24sp"
+                            android:textColor="@color/white"
+                            android:id="@+id/userName"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                    />
+
+                    <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/profileInfo"
+                            android:src="@drawable/settings_small"
+                            android:layout_marginEnd="15dp"
+                    />
+                </LinearLayout>
+
 
                 <LinearLayout
                         android:layout_width="match_parent"

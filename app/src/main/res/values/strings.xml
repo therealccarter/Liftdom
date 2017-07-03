@@ -242,6 +242,12 @@
     <string name="Sa">SA</string>
     <string name="Su">SU</string>
 
+    <string name="comingSoon">Coming Soon!</string>
+
+    <string name="profilePic">Profile Picture:</string>
+
+    <string name="headerImage">Header Image:</string>
+
     <string name="saveProgress">Save Workout Progress</string>
 
     <string name="publicComment">Public Comment:</string>
