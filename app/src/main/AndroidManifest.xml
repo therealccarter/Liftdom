@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
             android:allowBackup="true"
@@ -46,7 +48,7 @@
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.your_profile.ProfileInfoActivity"
-                android:noHistory="true">
+                >
         </activity>
         <activity
                 android:name="com.liftdom.template_editor.ExtraOptionsDialog"
@@ -133,8 +135,9 @@
                 android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".intro.FirstTimeSetupActivity"
-                    android:theme="@style/Theme.Intro">
+        <activity
+                android:name=".intro.FirstTimeSetupActivity"
+                android:theme="@style/Theme.Intro">
         </activity>
     </application>
 

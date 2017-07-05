@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,7 @@ import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +70,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     private String selectedProfilePicPath;
+    private static final int IMAGE_VARIABLE = 11;
 
     String email = "error";
     private static final String TAG = "EmailPassword";
@@ -220,6 +224,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 userRef.setValue(userModelClass);
 
                 Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
             }
@@ -229,45 +234,46 @@ public class ProfileInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                profilePicView.setDrawingCacheEnabled(true);
-                profilePicView.buildDrawingCache();
-                Bitmap bitmap = profilePicView.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] data = baos.toByteArray();
-
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("images");
-
-                UploadTask uploadTask = storageReference.putBytes(data);
-
                 profilePicView.setVisibility(View.GONE);
                 profilePicLoadingView.setVisibility(View.VISIBLE);
 
-
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        profilePicView.setVisibility(View.VISIBLE);
-                        profilePicLoadingView.setVisibility(View.GONE);
-                        Snackbar.make(getCurrentFocus(), "success", Snackbar.LENGTH_SHORT).show();
-                    }
-                });
-
-                //Intent intent = new Intent();
-                //intent.setType("image/*");
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //startActivityForResult(intent, 1);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 1);
             }
         });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        //super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            if(resultCode == 1){
-                Uri selectedImageUri = data.getData();
-                selectedProfilePicPath = getPath(selectedImageUri);
-            }
+            Uri selectedImageUri = data.getData();
+            //selectedProfilePicPath = getPath(selectedImageUri);
+            final Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
+
+            final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child
+                    ("images/user/" + uid + "/profilePic.png");
+            profilePicLoadingView.setVisibility(View.GONE);
+            profilePicView.setImageBitmap(BitmapFactory.decodeFile(file.getPath()));
+            //profilePicView.setImageURI(selectedImageUri);
+
+            //UploadTask uploadTask = profilePicRef.putFile(file);
+            //uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            //    @Override
+            //    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            //        profilePicView.setImageURI(file);
+            //        profilePicView.setVisibility(View.VISIBLE);
+            //        profilePicLoadingView.setVisibility(View.GONE);
+            //    }
+            //}).addOnFailureListener(new OnFailureListener() {
+            //    @Override
+            //    public void onFailure(@NonNull Exception e) {
+//
+            //    }
+            //});
+
+
         }
     }
 
@@ -325,7 +331,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                         Intent intent = new Intent(ProfileInfoActivity.this, CurrentUserProfile.class);
                         startActivity(intent);
 
-                        finish();
+                        //finish();
                     }
                 })
                 .setNegativeButton("Continue",new DialogInterface.OnClickListener() {

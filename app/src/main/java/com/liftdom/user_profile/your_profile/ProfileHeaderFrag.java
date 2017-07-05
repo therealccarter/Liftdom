@@ -4,7 +4,9 @@ package com.liftdom.user_profile.your_profile;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
@@ -44,6 +51,7 @@ public class ProfileHeaderFrag extends Fragment {
     @BindView(R.id.bodyWeight) TextView bodyWeight;
     @BindView(R.id.currentFocus) TextView currentFocus;
     @BindView(R.id.profileInfo) ImageView infoButton;
+    @BindView(R.id.profilePicView) ImageView profilePicView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +67,22 @@ public class ProfileHeaderFrag extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
 
         userName.setText(sharedPref.getString("userName", "loading..."));
+
+        final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" + uid +
+                "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getActivity()).load(uri).into(profilePicView);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
 
         DatabaseReference profileRef = mRootRef.child("user").child(uid);
 
