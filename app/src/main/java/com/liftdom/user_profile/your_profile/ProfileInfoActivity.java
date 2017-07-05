@@ -1,13 +1,12 @@
 package com.liftdom.user_profile.your_profile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
+import android.graphics.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,8 +19,11 @@ import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -32,9 +34,10 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import id.zelory.compressor.Compressor;
+import org.joda.time.LocalDate;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +74,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     private String selectedProfilePicPath;
     private static final int IMAGE_VARIABLE = 11;
+    private Context mContext;
 
     String email = "error";
     private static final String TAG = "EmailPassword";
@@ -83,6 +87,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basic_stats);
 
         ButterKnife.bind(this);
+
 
         //TODO: Make sure this is using identical units as set in Settings
 
@@ -248,40 +253,50 @@ public class ProfileInfoActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
+
             Uri selectedImageUri = data.getData();
-            //selectedProfilePicPath = getPath(selectedImageUri);
-            final Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
+            Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
+            File imageFile = new File(selectedImageUri.getPath());
 
-            final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child
-                    ("images/user/" + uid + "/profilePic.png");
-            profilePicLoadingView.setVisibility(View.GONE);
-            profilePicView.setImageBitmap(BitmapFactory.decodeFile(file.getPath()));
-            //profilePicView.setImageURI(selectedImageUri);
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
 
-            //UploadTask uploadTask = profilePicRef.putFile(file);
-            //uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            //    @Override
-            //    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-            //        profilePicView.setImageURI(file);
-            //        profilePicView.setVisibility(View.VISIBLE);
-            //        profilePicLoadingView.setVisibility(View.GONE);
-            //    }
-            //}).addOnFailureListener(new OnFailureListener() {
-            //    @Override
-            //    public void onFailure(@NonNull Exception e) {
-//
-            //    }
-            //});
+            try{
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                Matrix matrix = new Matrix();
+                matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, 200, 200),
+                        Matrix.ScaleToFit.CENTER);
+                //Bitmap resized = Bitmap.createScaledBitmap(bmp, 180, 180, true);
+                Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
 
+                UploadTask uploadTask = profilePicRef.putStream(inputStream);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        Glide.with(getApplicationContext()).load(downloadUrl).into(profilePicView);
+                        profilePicView.setVisibility(View.VISIBLE);
+                        profilePicLoadingView.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("firebase", "upload failed");
+                        profilePicLoadingView.setVisibility(View.GONE);
+                        profilePicView.setVisibility(View.VISIBLE);
+                    }
+                });
 
+            } catch(IOException e){
+
+            }
         }
     }
 
     public String getPath(Uri uri){
-        if(uri == null){
-            return null;
-        }
-
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if(cursor != null){
