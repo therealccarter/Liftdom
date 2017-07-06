@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,22 +69,21 @@ public class ProfileHeaderFrag extends Fragment {
 
         userName.setText(sharedPref.getString("userName", "loading..."));
 
-        //final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
-        //        uid +
-        //        "/profilePic.png");
-//
-        //profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-        //    @Override
-        //    public void onSuccess(Uri uri) {
-        //        Glide.with(getActivity()).load(uri).into(profilePicView);
-//
-        //    }
-        //}).addOnFailureListener(new OnFailureListener() {
-        //    @Override
-        //    public void onFailure(@NonNull Exception e) {
-//
-        //    }
-        //});
+        final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                uid + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.i("glide", "success");
+                Glide.with(getActivity()).load(uri).into(profilePicView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("glide", "failure");
+            }
+        });
 
         DatabaseReference profileRef = mRootRef.child("user").child(uid);
 

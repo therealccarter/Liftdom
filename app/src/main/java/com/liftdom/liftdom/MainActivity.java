@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -20,9 +23,16 @@ import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.chat.ChatMainFrag;
@@ -47,6 +57,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.search.material.library.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
@@ -69,6 +81,8 @@ public class MainActivity extends BaseActivity implements
     private FirebaseAuth mAuth;
     ViewPager viewPager;
 
+    private Bitmap profilePicBitmap;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     String username = "failed";
@@ -77,6 +91,8 @@ public class MainActivity extends BaseActivity implements
 
     // butterknife
     @BindView(R.id.title) TextView title;
+
+    AccountHeader header;
 
 
     //DatabaseReference mRootRef;
@@ -87,6 +103,24 @@ public class MainActivity extends BaseActivity implements
     public void changeHeaderTitle(String title){
         TextView titleView = (TextView) findViewById(R.id.title);
         titleView.setText(title);
+    }
+
+    private void setProfilePicBitmap() {
+
+        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                uid + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //Glide.with(getApplicationContext()).load(uri).asBitmap().listener(uri);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     @Override
@@ -157,7 +191,7 @@ public class MainActivity extends BaseActivity implements
         setSupportActionBar(toolbar);
 
 
-        AccountHeader header = new AccountHeaderBuilder()
+        header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .withSelectionListEnabledForSingleProfile(false)
@@ -244,13 +278,50 @@ public class MainActivity extends BaseActivity implements
                 })
                 .build();
 
-        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
 
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
-                R.drawable.usertest))
-                .withName
-                        (sharedPref.getString("userName", "loading...")).withEmail
-                        (sharedPref.getString("email", "loading...")), 0);
+
+
+
+
+        String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                uid2 + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.i("glide", "success");
+
+                Glide.with(getApplicationContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+                        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+                                //.withIcon(R.drawable.usertest)
+                                .withName(sharedPref.getString("userName", "loading..."))
+                                .withEmail(sharedPref.getString("email", "loading..."));
+
+                        profileDrawerItem.withIcon(resource);
+
+                        header.addProfile(profileDrawerItem, 0);
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("glide", "failure");
+            }
+        });
+
+
+
+
+
+
+
 
 
         if(savedInstanceState == null){
@@ -436,6 +507,8 @@ public class MainActivity extends BaseActivity implements
 
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
+
+
     }
 
 
@@ -698,7 +771,6 @@ public class MainActivity extends BaseActivity implements
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-
 
     }
     // [END on_start_add_listener]

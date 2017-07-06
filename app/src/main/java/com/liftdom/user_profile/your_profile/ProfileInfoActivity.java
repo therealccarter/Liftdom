@@ -34,7 +34,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
-import id.zelory.compressor.Compressor;
+
 import org.joda.time.LocalDate;
 
 import java.io.*;
