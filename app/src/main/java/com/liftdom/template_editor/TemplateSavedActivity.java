@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class TemplateSavedActivity extends AppCompatActivity {
+public class TemplateSavedActivity extends BaseActivity {
 
     private static final String FIREBASE_URL = "https://liftdom-27d9d.firebaseio.com/";
 
@@ -120,100 +120,7 @@ public class TemplateSavedActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Saved Templates");
 
-        AccountHeader header = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .withSelectionListEnabledForSingleProfile(false)
-                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
-                    @Override
-                    public boolean onClick(View view, IProfile profile) {
-                        Intent intent = new Intent(TemplateSavedActivity.this, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                }).withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
-                    @Override
-                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                        Intent intent = new Intent(TemplateSavedActivity.this, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-                        return false;
-                    }
-                })
-                .build();
-
-        // create the drawer
-        Drawer drawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(header)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home").withIdentifier(1),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(2),
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(3),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // Handle clicks
-
-                        if (drawerItem != null) {
-                            Intent intent = null;
-                            if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(TemplateSavedActivity.this, MainActivity.class);
-                                intent.putExtra("fragID", 1);
-                                startActivity(intent);
-                            }
-                            if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(TemplateSavedActivity.this, MainActivity.class);
-                                intent.putExtra("fragID", 2);
-                                startActivity(intent);
-                            }
-                            if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(TemplateSavedActivity.this, MainActivity.class);
-                                intent.putExtra("fragID", 0);
-                                startActivity(intent);
-                            }
-                            if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(TemplateSavedActivity.this, KnowledgeCenterHolderActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(TemplateSavedActivity.this, ChartsStatsToolsActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(TemplateSavedActivity.this, PremiumFeaturesActivity.class);
-                            }
-                            if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(TemplateSavedActivity.this, SettingsListActivity.class);
-                            }
-                            if (intent != null) {
-                                TemplateSavedActivity.this.startActivity(intent);
-                            }
-                        }
-                        return true;
-                    }
-                })
-                .build();
-
-        // Later
-        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-
-        header.addProfile(new ProfileDrawerItem().withIcon(ContextCompat.getDrawable(getApplicationContext(),
-                R.drawable.usertest))
-                .withName
-                        (sharedPref.getString("userName", "loading...")).withEmail
-                        (sharedPref.getString("email", "loading...")), 0);
+        setUpNavDrawer(TemplateSavedActivity.this, toolbar);
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
