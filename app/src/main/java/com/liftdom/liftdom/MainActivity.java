@@ -105,24 +105,6 @@ public class MainActivity extends BaseActivity implements
         titleView.setText(title);
     }
 
-    private void setProfilePicBitmap() {
-
-        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
-                uid + "/profilePic.png");
-
-        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                //Glide.with(getApplicationContext()).load(uri).asBitmap().listener(uri);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -297,35 +279,35 @@ public class MainActivity extends BaseActivity implements
                 //if (i1 == 0) {
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
+
                 //    fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 1) {
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
+
                 //    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 2) {
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
+
                 //    fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 3) {
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
+
                 //    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 4) {
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
+
                 //    fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();

@@ -88,7 +88,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-
         //TODO: Make sure this is using identical units as set in Settings
 
         mAuth = FirebaseAuth.getInstance();
@@ -197,6 +196,20 @@ public class ProfileInfoActivity extends AppCompatActivity {
             }
         });
 
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getApplicationContext()).load(uri).crossFade().into(profilePicView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePicView.setBackgroundResource(R.drawable.usertest);
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -252,46 +265,47 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
+        if(requestCode == 1) {
+            if(data != null){
+                Uri selectedImageUri = data.getData();
+                Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
+                File imageFile = new File(selectedImageUri.getPath());
 
-            Uri selectedImageUri = data.getData();
-            Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
-            File imageFile = new File(selectedImageUri.getPath());
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
 
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
+                try {
+                    Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    Matrix matrix = new Matrix();
+                    matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, 200, 200),
+                            Matrix.ScaleToFit.CENTER);
+                    //Bitmap resized = Bitmap.createScaledBitmap(bmp, 180, 180, true);
+                    Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+                    InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
 
-            try{
-                Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                Matrix matrix = new Matrix();
-                matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, 200, 200),
-                        Matrix.ScaleToFit.CENTER);
-                //Bitmap resized = Bitmap.createScaledBitmap(bmp, 180, 180, true);
-                Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
-                InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+                    UploadTask uploadTask = profilePicRef.putStream(inputStream);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            Glide.with(getApplicationContext()).load(downloadUrl).into(profilePicView);
+                            profilePicView.setVisibility(View.VISIBLE);
+                            profilePicLoadingView.setVisibility(View.GONE);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("firebase", "upload failed");
+                            profilePicLoadingView.setVisibility(View.GONE);
+                            profilePicView.setVisibility(View.VISIBLE);
+                        }
+                    });
 
-                UploadTask uploadTask = profilePicRef.putStream(inputStream);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        Glide.with(getApplicationContext()).load(downloadUrl).into(profilePicView);
-                        profilePicView.setVisibility(View.VISIBLE);
-                        profilePicLoadingView.setVisibility(View.GONE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("firebase", "upload failed");
-                        profilePicLoadingView.setVisibility(View.GONE);
-                        profilePicView.setVisibility(View.VISIBLE);
-                    }
-                });
+                } catch (IOException e) {
 
-            } catch(IOException e){
-
+                }
             }
         }
     }
