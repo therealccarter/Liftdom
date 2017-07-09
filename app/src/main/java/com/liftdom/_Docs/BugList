@@ -4,88 +4,31 @@
            ========================================================
 
 ============ Short-term TO-DO ================
-make welcome screen that sets basic user values
 
-begin bottom navigation
-
-templates sort by date
-
-make history chart load overall on create / make separate overall history chart
-
-reminder about skipping via arrows (ex library for example)
-    * We could actually do this fairly easily. Convert dialog activity to frag,
-        then replace on arrow click.
-
-need to implement unit switching
-
-make workout assistor keep in order.
 
 ============ Non-fatal ================
-
+on sign in page, convert both units on metric change
+if no profile pic, load default pic
+on back pressed check if any changes have been made
+wrong username on current user profile page
+profile settings page also wrong username
+add limiters on edit texts (like height & age)
+you shouldn't be able to get to profile settings via back pressed
+don't actually save profile pic until save
+clean up dialogs
+make sure to handle empty strings in maps
+after account creation, we're at the main activity with no buttons shown..
+shared pref isn't being set
 =========================================================
+
 
 ============ Fatal ===============
 
-//default settings page to certain values
-//dialog for save button in settings
-
- No view found for id 0x7f0d014f (com.liftdom.liftdom:id/postsHolder) for fragment CompletedWorkoutPostFrag{4d49fbd #2 id=0x7f0d014f}
-05-05 10:59:00.606 30048-30048/com.liftdom.liftdom E/FragmentManager: Activity state:
-05-05 10:59:00.626 30048-30048/com.liftdom.liftdom E/UncaughtException: java.lang.IllegalArgumentException: No view found for id 0x7f0d014f
-(com.liftdom.liftdom:id/postsHolder) for fragment CompletedWorkoutPostFrag{4d49fbd #2 id=0x7f0d014f}
-
-java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
-                                at com.liftdom.charts_stats_tools.tools.CalorieCalcFrag$1.onDataChange(CalorieCalcFrag.java:105)
-
-java.lang.NullPointerException: Can't pass null for argument 'pathString' in child()
-                                at com.google.firebase.database.DatabaseReference.child(Unknown Source)
-                                at com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab$2.onDataChange(HistoryCalendarTab.java:171)
-
-// null check for running bool
-java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String[] java.lang.String.split(java.lang.String)' on a null object reference
-                                at com.liftdom.workout_assistor.WorkoutAssistorActivity$7.onDataChange(WorkoutAssistorActivity.java:1064)
-
-java.lang.IllegalStateException: Fragment has not been attached yet.
-                                 at android.support.v4.app.Fragment.instantiateChildFragmentManager(Fragment.java:2154)
-                                 at android.support.v4.app.Fragment.getChildFragmentManager(Fragment.java:704)
-                                 at com.liftdom.template_housing.SelectedTemplateFrag$2.onDataChange(SelectedTemplateFrag.java:122)
-
-
-java.lang.NullPointerException: Attempt to invoke virtual method 'boolean java.lang.String.equals(java.lang.Object)' on a null object reference
-                                 at com.liftdom.template_editor.Activities.TemplateEditorActivity$5.onDataChange(TemplateEditorActivity.java:318)
-
 =========================================================
+
 
 ==============================================
     ======== ***Completed*** ============
 ==============================================
-**DONE** to get to profile, get rid of down arrow, make whole header clickable to profile
-**DONE** profile settings being overshadowed by app setting button.
-**DONE** default body profile numbers are double zeros and they don't go away. Make them hints?
-**DONE** ask user which profile to sign in with
-**DONE** change language of "values/stats" - personal info
-**DONE** selected template edit button should be up top
-**DONE** clean up smolov selected template view
-**DONE** add description to smolov
-**DONE** fix bmi calc
-**DONE** push pull legs not uploading
-**DONE** look for saving activities and add a prompt for discard
-**DONE** make items list in chart
-**DONE** make mode radio button chart
-**DONE** chart adding duplicate item
-**DONE** adding different items sequentially only re-adds original item, without adding second item
-**DONE** only show items that user has done
-**DONE** add activity level multiplier
-**DONE** add titles
-**DONE** make tools load on create
-**DONE** fix cal calc labels
-**DONE** p/p/l monday lateral raise gives 0lbs
-**DONE** make keyboard thing go down
-**DONE** check backstack for everything. (profile info, confirmed pages)
-**DONE** look into switching to snackbars
-**DONE**
-**DONE**
-**DONE**
-**DONE**
 
 ==============================================

@@ -106,7 +106,7 @@ public class IntroFrag4 extends SlideFragment {
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putString("uid", userModelClass.getUserId());
                         editor.putString("userName", userModelClass.getUserName());
-                        editor.commit();
+                        editor.apply();
 
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);

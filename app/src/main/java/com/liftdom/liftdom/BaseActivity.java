@@ -18,6 +18,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.auth.api.signin.SignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -135,6 +136,11 @@ public class BaseActivity extends AppCompatActivity {
                 .build();
 
         String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if(FirebaseAuth.getInstance().getCurrentUser().getUid() == null){
+            //Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+            //startActivity(intent);
+        }
 
         final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
                 uid2 + "/profilePic.png");

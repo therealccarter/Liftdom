@@ -130,6 +130,10 @@ public class MainActivity extends BaseActivity implements
             startActivity(new Intent(this, SignInActivity.class));
         }
 
+        // Handle Toolbar
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -137,10 +141,11 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                    if(sharedPref.getString("userName", "loading").equals("loading")){
-                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    }else{
+                    setUpNavDrawer(MainActivity.this, toolbar);
+                    //SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                    //if(sharedPref.getString("userName", "loading").equals("loading")){
+                    //    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    //}else{
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -150,7 +155,6 @@ public class MainActivity extends BaseActivity implements
                                 if(userModelClass.isIsImperial()){
                                     MainActivitySingleton.getInstance().isImperial = true;
                                 }
-
                             }
 
                             @Override
@@ -158,7 +162,7 @@ public class MainActivity extends BaseActivity implements
 
                             }
                         });
-                    }
+                    //}
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -168,12 +172,10 @@ public class MainActivity extends BaseActivity implements
             }
         };
 
-        // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
-        setUpNavDrawer(MainActivity.this, toolbar);
+
+
 
 
         if(savedInstanceState == null){
