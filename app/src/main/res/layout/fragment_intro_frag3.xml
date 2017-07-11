@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/yearsOld"
                 android:textSize="20sp"
-                android:textColor="@color/darkgrey"
+                android:textColor="@color/darkerGrey"
         />
 
     </LinearLayout>
@@ -237,7 +237,7 @@
                 android:id="@+id/maleRadioButton"
                 android:text="@string/male"
                 android:textSize="20sp"
-                android:textColor="@color/darkgrey"
+                android:textColor="@color/darkerGrey"
         />
 
         <RadioButton
@@ -246,7 +246,7 @@
                 android:id="@+id/femaleRadioButton"
                 android:text="@string/female"
                 android:textSize="20sp"
-                android:textColor="@color/darkgrey"
+                android:textColor="@color/darkerGrey"
         />
 
     </RadioGroup>

@@ -4,15 +4,15 @@
 ===========================================
 
 ============ Non-fatal ================
-make sure to handle empty strings in maps
+add selection to nav drawer (current page)
+really clean up everything concerning nav drawer
 =======================================================
 
 ============ Fatal ===============
-user model class is deleted at some point
 =======================================================
 
 ============ Currently Working On ===============
-
+nav drawer showing two extra profile icons
 =======================================================
 
 ======== ***Completed*** ============
@@ -20,11 +20,13 @@ if no profile pic, load default pic
 wrong username on current user profile page
 profile settings page also wrong username
 shared pref isn't being set
+make sure to handle empty strings in maps
 don't actually save profile pic until save
 you shouldn't be able to get to profile settings via back pressed
 on back pressed check if any changes have been made before showing dialog (settingsListActivity)
 bottom nav is white on first time in app
 add limiters on edit texts (like height & age)
 on sign in page, convert both units on metric change
+user model class is deleted at selected template activity
 ==============================================
 

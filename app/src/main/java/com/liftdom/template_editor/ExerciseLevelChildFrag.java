@@ -360,7 +360,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 infoList.add(getExerciseValueFormatted());
 
                 for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
-                    infoList.add(setsLevelChildFrag.getSetSchemeString());
+                    if(!setsLevelChildFrag.getSetSchemeString().equals("")){
+                        String delims = "[x, @]";
+                        String[] schemeTokens = setsLevelChildFrag.getSetSchemeString().split(delims);
+                        if(schemeTokens.length == 3){
+                            infoList.add(setsLevelChildFrag.getSetSchemeString());
+                        }
+                    }
                 }
 
                 for(ExerciseLevelSSFrag exerciseLevelSSFrag : superSetFragList){

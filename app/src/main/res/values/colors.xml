@@ -24,11 +24,10 @@
     <item name="darkred" type="color">#FFCC0000</item>
     <item name="black" type="color">#000000</item>
     <item name="white" type="color">#FFFFFF</item>
-    <color name="darkerGrey" type="color">#1d1d1d</color>
-    <color name="darkgrey" type="color">#bb040404</color>
+    <color name="darkGrey" type="color">#1d1d1d</color>
+    <color name="darkerGrey" type="color">#bb040404</color>
     <color name="transBlack1" type="color">#c9000000</color>
     <color name="transDarkGrey" type="color">#b9353535</color>
-
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
@@ -41,4 +40,13 @@
 
     <item name="confirmgreen" type="color">#388e3c</item>
     <item name="confirmgreenDark" type="color">#27632a</item>
+
+    <!-- MaterialDrawer colors -->
+    <color name="material_drawer_background">#ededed</color>
+    <color name="material_drawer_selected">#000000</color>
+    <color name="material_drawer_selected_text">#D1B91D</color>
+    <color name="material_drawer_primary_text">#000000</color>
+    <color name="material_drawer_secondary_text">#cccccc</color>
+    <color name="material_drawer_divider">#a79413</color>
+
 </resources>

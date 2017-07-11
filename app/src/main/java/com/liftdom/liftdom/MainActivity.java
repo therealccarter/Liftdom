@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("");
         // set the key account values
@@ -145,7 +145,9 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    setUpNavDrawer(MainActivity.this, toolbar);
+                    if(savedInstanceState == null){
+                        setUpNavDrawer(MainActivity.this, toolbar);
+                    }
                     //SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                     //if(sharedPref.getString("userName", "loading").equals("loading")){
                     //    startActivity(new Intent(MainActivity.this, SignInActivity.class));

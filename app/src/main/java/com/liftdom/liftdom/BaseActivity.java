@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
 
         header = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.drawable.header_pattern)
                 .withSelectionListEnabledForSingleProfile(false)
                 .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
                     @Override

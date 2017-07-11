@@ -20,6 +20,7 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -573,15 +574,22 @@ public class SelectedTemplateFrag extends Fragment {
                     activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String activeTemplate = dataSnapshot.getValue(String.class);
-                            if(activeTemplate != null && templateName != null) {
-                                if (!templateName.equals(activeTemplate)) {
-                                    //TODO: change this to new runningAssistor method
-                                    DatabaseReference boolRunDateRef = mRootRef.child("runningAssistor").child(uid)
-                                            .child("isRunning").child("isRunningBoolDate");
-                                    boolRunDateRef.setValue("false" + "_" + LocalDate.now().toString());
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                            userModelClass.setActiveTemplate(templateName);
+                            activeTemplateRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    CharSequence toastText = "Set as Active Template";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    try{
+                                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                                        snackbar.show();
+                                    } catch (NullPointerException e){
+
+                                    }
                                 }
-                            }
+                            });
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -589,19 +597,8 @@ public class SelectedTemplateFrag extends Fragment {
                         }
                     });
 
-                    activeTemplateRef.setValue(templateName);
-                    CharSequence toastText = "Set as Active Template";
-                    int duration = Toast.LENGTH_SHORT;
-                    try{
-                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                        snackbar.show();
-                    } catch (NullPointerException e){
-
-                    }
-
-
                 } else if(!isChecked){
-                    activeTemplateRef.setValue(null);
+                    activeTemplateRef.child("activeTemplate").setValue(null);
 
                     CharSequence toastText = "Unselected as Active Template";
                     int duration = Toast.LENGTH_SHORT;

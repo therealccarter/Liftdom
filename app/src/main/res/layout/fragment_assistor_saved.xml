@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/streakTextView"
-                android:textColor="@color/darkgrey"
+                android:textColor="@color/darkerGrey"
                 android:textSize="20sp"
                 android:text="Completion streak extended to 12 days!"
         />
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/powerLevelIncreaseTextView"
-                android:textColor="@color/darkgrey"
+                android:textColor="@color/darkerGrey"
                 android:textSize="20sp"
                 android:text="Power Level increased from 200 to 250!"
         />
