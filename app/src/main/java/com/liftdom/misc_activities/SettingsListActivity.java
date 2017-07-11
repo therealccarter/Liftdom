@@ -144,6 +144,11 @@ public class SettingsListActivity extends BaseActivity implements
                         mAuth.signOut();
                     }
                 });
+                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.commit();
+
                 Intent intent = new Intent(v.getContext(), SignInActivity.class);
                 startActivity(intent);
             }
@@ -198,36 +203,40 @@ public class SettingsListActivity extends BaseActivity implements
     @Override
     public void onBackPressed(){
 
-        //TODO: Have these things only called if changes are made
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(initialIsImperial == poundsWeight.isChecked()){
+            SettingsListActivity.super.onBackPressed();
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // set title
-        builder.setTitle("Discard changes?");
+            // set title
+            builder.setTitle("Discard changes?");
 
-        // set dialog message
-        builder
-                .setMessage("Are you sure you want to discard these changes?")
-                .setCancelable(false)
-                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+            // set dialog message
+            builder
+                    .setMessage("Are you sure you want to discard these changes?")
+                    .setCancelable(false)
+                    .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
 
-                        SettingsListActivity.super.onBackPressed();
+                            SettingsListActivity.super.onBackPressed();
 
-                        finish();
-                    }
-                })
-                .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
 
-        // create alert dialog
-        AlertDialog alertDialog = builder.create();
+            // create alert dialog
+            AlertDialog alertDialog = builder.create();
 
-        // show it
-        alertDialog.show();
+            // show it
+            alertDialog.show();
+        }
+
     }
 }

@@ -88,12 +88,12 @@ public class MainActivity extends BaseActivity implements
     String username = "failed";
 
     private MaterialSearchView searchView;
+    private BottomNavigation bottomNavigation;
 
     // butterknife
     @BindView(R.id.title) TextView title;
 
     AccountHeader header;
-
 
     //DatabaseReference mRootRef;
     //String uid;
@@ -114,6 +114,10 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
+        //bottomNavigation.setDrawingCacheBackgroundColor(Color.parseColor("#000000"));
 
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -150,10 +154,14 @@ public class MainActivity extends BaseActivity implements
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                                MainActivitySingleton.getInstance().userModelClass = userModelClass;
-                                if(userModelClass.isIsImperial()){
-                                    MainActivitySingleton.getInstance().isImperial = true;
+                                if(dataSnapshot.exists()){
+                                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                    MainActivitySingleton.getInstance().userModelClass = userModelClass;
+                                    if(userModelClass.isIsImperial()){
+                                        MainActivitySingleton.getInstance().isImperial = true;
+                                    }
+                                }else{
+                                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
                                 }
                             }
 
@@ -168,14 +176,8 @@ public class MainActivity extends BaseActivity implements
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 }
-
             }
         };
-
-
-
-
-
 
 
         if(savedInstanceState == null){
@@ -186,8 +188,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         if (getIntent().getExtras() != null) {
-
-            BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
 
             int id = getIntent().getExtras().getInt("fragID");
 
@@ -228,7 +228,7 @@ public class MainActivity extends BaseActivity implements
             }
         }
 
-        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+
 
         bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
@@ -489,7 +489,8 @@ public class MainActivity extends BaseActivity implements
     public void onResume(){
         super.onResume();
         //if (getIntent().getExtras() != null) {
-        //    BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        //BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        //bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
 //
         //    int id = getIntent().getExtras().getInt("fragID");
 //

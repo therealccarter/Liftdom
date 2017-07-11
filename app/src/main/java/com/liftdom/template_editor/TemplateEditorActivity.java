@@ -204,8 +204,6 @@ public class TemplateEditorActivity extends BaseActivity
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
-
-
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")){
                 if (getIntent().getExtras().getString("isFromPublic") != null) {

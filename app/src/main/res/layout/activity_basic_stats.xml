@@ -178,6 +178,7 @@
                         android:id="@+id/bodyWeightEditText"
                         android:inputType="number"
                         android:imeOptions="actionDone"
+                        android:maxLength="3"
                 />
 
                 <TextView
@@ -226,6 +227,7 @@
                         android:inputType="number"
                         android:imeOptions="actionDone"
                         android:visibility="gone"
+                        android:maxLength="3"
                 />
 
                 <TextView
@@ -249,6 +251,7 @@
                         android:id="@+id/heightFeet"
                         android:inputType="number"
                         android:imeOptions="actionNext"
+                        android:maxLength="1"
                 />
 
                 <TextView
@@ -271,6 +274,7 @@
                         android:id="@+id/heightInches"
                         android:inputType="number"
                         android:imeOptions="actionDone"
+                        android:maxLength="2"
                 />
 
                 <TextView
@@ -320,6 +324,7 @@
                         android:id="@+id/ageYears"
                         android:inputType="number"
                         android:imeOptions="actionDone"
+                        android:maxLength="2"
                 />
 
                 <TextView

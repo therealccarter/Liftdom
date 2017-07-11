@@ -28,15 +28,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/displayNameEditText"
             android:textColor="@color/black"
+            android:imeOptions="actionDone"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:textSize="20sp"
             android:hint="@string/userNameHint"
             android:textColorHint="@color/backgroundgrey1"
             android:layout_marginTop="10dp"
-            android:gravity="start"
-            app:layout_parallaxFactor="0.1"
-            android:imeOptions="actionDone"
+            android:maxLength="12"
     />
 
     <TextView

@@ -82,6 +82,7 @@ public class ProfileHeaderFrag extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.i("glide", "failure");
+                profilePicView.setImageResource(R.drawable.usertest);
             }
         });
 

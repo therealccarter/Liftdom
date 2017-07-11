@@ -82,6 +82,11 @@ public class IntroFrag3 extends SlideFragment {
                     kgTextView.setVisibility(View.GONE);
                     imperialHeightLL.setVisibility(View.VISIBLE);
                     poundsTextView.setVisibility(View.VISIBLE);
+
+                    feetEditText.setText("");
+                    inchesEditText.setText("");
+                    cmHeightEditText.setText("");
+                    weightEditText.setText("");
                 }else{
                     IntroSingleton.getInstance().isImperial = false;
 
@@ -89,6 +94,11 @@ public class IntroFrag3 extends SlideFragment {
                     kgTextView.setVisibility(View.VISIBLE);
                     imperialHeightLL.setVisibility(View.GONE);
                     poundsTextView.setVisibility(View.GONE);
+
+                    feetEditText.setText("");
+                    inchesEditText.setText("");
+                    cmHeightEditText.setText("");
+                    weightEditText.setText("");
                 }
             }
         });

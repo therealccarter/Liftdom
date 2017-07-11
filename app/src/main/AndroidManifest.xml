@@ -117,7 +117,8 @@
                 android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
                 android:noHistory="true">
         </activity>
-        <activity android:name=".SignInActivity">
+        <activity android:name=".SignInActivity"
+        >
         </activity>
         <activity
                 android:name=".chat.ChatGroup.NewChatGroupDialog"

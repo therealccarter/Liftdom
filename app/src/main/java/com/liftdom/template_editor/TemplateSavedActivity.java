@@ -142,11 +142,6 @@ public class TemplateSavedActivity extends BaseActivity {
         });
     }
 
-    /**
-     * Ok, so on the first edit everything works out correctly.
-     * But on the second time we edit, TemplateEditorSingleton mapOne is null...
-     */
-
     @Override
     protected void onStart(){
         super.onStart();

@@ -2,6 +2,7 @@ package com.liftdom.liftdom.intro;
 
 
 import agency.tango.materialintroscreen.SlideFragment;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -92,6 +93,13 @@ public class IntroFrag4 extends SlideFragment {
                         kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                         currentFocus, activeTemplate);
 
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("uid", userId);
+                editor.putString("userName", userName);
+                editor.putString("email", email);
+                editor.apply();
+
                 DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child
                         (userId);
                 userListRef.setValue(userName);
@@ -101,12 +109,6 @@ public class IntroFrag4 extends SlideFragment {
                 userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-
-                        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("uid", userModelClass.getUserId());
-                        editor.putString("userName", userModelClass.getUserName());
-                        editor.apply();
 
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);

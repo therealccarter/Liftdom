@@ -1,34 +1,30 @@
 
-           ========================================================
-=============================== BUG/IMMEDIATE TO-DO LIST =============================
-           ========================================================
-
-============ Short-term TO-DO ================
-
+===========================================
+============ BUG/TO-DO LIST ================
+===========================================
 
 ============ Non-fatal ================
-on sign in page, convert both units on metric change
-if no profile pic, load default pic
-on back pressed check if any changes have been made
-wrong username on current user profile page
-profile settings page also wrong username
-add limiters on edit texts (like height & age)
-you shouldn't be able to get to profile settings via back pressed
-don't actually save profile pic until save
-clean up dialogs
 make sure to handle empty strings in maps
-after account creation, we're at the main activity with no buttons shown..
-shared pref isn't being set
-=========================================================
-
+=======================================================
 
 ============ Fatal ===============
+user model class is deleted at some point
+=======================================================
 
-=========================================================
+============ Currently Working On ===============
 
+=======================================================
 
+======== ***Completed*** ============
+if no profile pic, load default pic
+wrong username on current user profile page
+profile settings page also wrong username
+shared pref isn't being set
+don't actually save profile pic until save
+you shouldn't be able to get to profile settings via back pressed
+on back pressed check if any changes have been made before showing dialog (settingsListActivity)
+bottom nav is white on first time in app
+add limiters on edit texts (like height & age)
+on sign in page, convert both units on metric change
 ==============================================
-    ======== ***Completed*** ============
-==============================================
 
-==============================================

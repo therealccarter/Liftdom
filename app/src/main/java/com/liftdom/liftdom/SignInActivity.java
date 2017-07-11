@@ -79,7 +79,7 @@ public class SignInActivity extends BaseActivity implements
             //Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             //startActivity(intent);
         }
-        updateUI(currentUser);
+        //updateUI(currentUser);
     }
     // [END on_start_check_user]
 

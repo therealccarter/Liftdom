@@ -170,6 +170,16 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.i("glide", "failure");
+                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+
+                ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+                        //.withIcon(R.drawable.usertest)
+                        .withName(sharedPref.getString("userName", "loading..."))
+                        .withEmail(sharedPref.getString("email", "loading..."));
+
+                profileDrawerItem.withIcon(R.drawable.usertest);
+
+                header.addProfile(profileDrawerItem, 0);
             }
         });
     }

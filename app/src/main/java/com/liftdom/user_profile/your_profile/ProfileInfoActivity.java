@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,10 +23,8 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -34,8 +35,6 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
-
-import org.joda.time.LocalDate;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -207,7 +206,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                profilePicView.setBackgroundResource(R.drawable.usertest);
+                profilePicView.setImageResource(R.drawable.usertest);
             }
         });
 
@@ -244,7 +243,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
+                finish();
             }
         });
 
@@ -293,6 +292,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                             Glide.with(getApplicationContext()).load(downloadUrl).into(profilePicView);
                             profilePicView.setVisibility(View.VISIBLE);
                             profilePicLoadingView.setVisibility(View.GONE);
+                            Snackbar.make(getCurrentFocus(), "Profile picture uploaded", Snackbar.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -300,6 +300,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                             Log.i("firebase", "upload failed");
                             profilePicLoadingView.setVisibility(View.GONE);
                             profilePicView.setVisibility(View.VISIBLE);
+                            Snackbar.make(getCurrentFocus(), "Picture upload failed", Snackbar.LENGTH_SHORT).show();
                         }
                     });
 
@@ -348,19 +349,18 @@ public class ProfileInfoActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         // set title
-        builder.setTitle("Discard changes?");
+        builder.setTitle("Exit Profile Settings?");
 
         // set dialog message
         builder
-                .setMessage("Are you sure you want to discard these changes?")
+                .setMessage("Unsaved changes will be discarded.")
                 .setCancelable(false)
-                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+                .setPositiveButton("Exit",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
 
                         Intent intent = new Intent(ProfileInfoActivity.this, CurrentUserProfile.class);
                         startActivity(intent);
-
-                        //finish();
+                        finish();
                     }
                 })
                 .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
