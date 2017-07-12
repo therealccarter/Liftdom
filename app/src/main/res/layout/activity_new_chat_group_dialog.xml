@@ -68,6 +68,24 @@
             android:layout_margin="10dp"
     />
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userListLL"
+            android:orientation="vertical"
+    >
+        <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:indicatorName="BallClipRotateMultipleIndicator"
+                android:id="@+id/loadingView"
+                app:indicatorColor="@color/liftrGold2"
+                android:layout_gravity="center"
+        />
+
+    </LinearLayout>
+
+    <!--
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,6 +95,7 @@
     >
 
     </android.support.v7.widget.RecyclerView>
+    -->
 
     <View
             android:layout_width="match_parent"

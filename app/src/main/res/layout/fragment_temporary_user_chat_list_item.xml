@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginEnd="30dp"
+             android:layout_marginStart="20dp"
+             tools:context="com.liftdom.liftdom.chat.TemporaryUserChatListItemFrag">
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameView"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="Chris Carter"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+    />
+
+    <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameCheckBox"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:buttonTint="@color/liftrGold1"
+    />
+
+</LinearLayout>

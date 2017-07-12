@@ -157,7 +157,6 @@ public class ChatMainFrag extends Fragment {
                                             } else{
                                                 cat = cat + user + ", ";
                                             }
-
                                         }
 
                                         ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(cat, "preview " +
