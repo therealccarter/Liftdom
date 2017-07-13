@@ -24,6 +24,7 @@
                 android:src="@drawable/usertest"
                 android:layout_gravity="top"
                 android:layout_marginStart="5dp"
+                android:background="@color/transparent"
         />
 
         <LinearLayout

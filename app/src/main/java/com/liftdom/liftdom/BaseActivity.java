@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("Settings").withIdentifier(7)
+                        new PrimaryDrawerItem().withName("App Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -182,6 +182,10 @@ public class BaseActivity extends AppCompatActivity {
                 header.addProfile(profileDrawerItem, 0);
             }
         });
+    }
+
+    public void setNavDrawerSelection(int i){
+
     }
 
     public BottomNavigation getBottomNavigation() {

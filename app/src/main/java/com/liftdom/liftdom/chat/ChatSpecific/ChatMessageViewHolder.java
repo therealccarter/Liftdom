@@ -51,7 +51,7 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setBackground(){
-        mMessageLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        mMessageLayout.setBackgroundColor(Color.parseColor("#cccccc"));
         mUserNameView.setTextColor(Color.parseColor("#000000"));
 
     }
