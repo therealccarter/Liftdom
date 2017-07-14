@@ -10,6 +10,26 @@
 add selection to nav drawer (current page)
 really clean up everything concerning nav drawer
 nav drawer showing two extra profile icons
+automatically set activity level in the cal calc chart
+multi day functionality on template editor not working (not saving second day info)
+check for instances of savedInstanceState being null (initializing the nav drawer)
+figure out what's going on with Moto phone
+chat name is brodin for brodin, should be gains2
+text shouldn't be white
+=======================================================
+
+============ TO-DO LIST ================
+Stack titles that are too long
+Look for infinite loading screens (if no items)
+make whole saved template box selectable
+if (bodyweight), automatically make it bodyweight
+lock orientation (portrait v landscape)
+remove confirmation for complete rest day
+implement rest day logic
+doesn't autoscroll on comment update
+needs to go all the way down when user first opens chat
+preview text should be last sent message
+make back stack only go up the activity tree
 =======================================================
 
 ============ Currently Working On ===============
