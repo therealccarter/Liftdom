@@ -94,6 +94,7 @@ public class SettingsListActivity extends BaseActivity implements
         mFirebaseUser = mAuth.getCurrentUser();
 
         setUpNavDrawer(SettingsListActivity.this, toolbar);
+        setNavDrawerSelection(7);
 
         DatabaseReference userRef = mRootRef.child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

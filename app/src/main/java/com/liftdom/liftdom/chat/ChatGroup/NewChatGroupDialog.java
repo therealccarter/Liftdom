@@ -40,6 +40,7 @@ public class NewChatGroupDialog extends AppCompatActivity {
     @BindView(R.id.cancelButton) ImageButton cancelButton;
     @BindView(R.id.userListLL) LinearLayout userListLL;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.followToChatView) TextView followToChatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +54,24 @@ public class NewChatGroupDialog extends AppCompatActivity {
         followingRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
-                HashMap<String, String> followingMap = followingModelClass.getFollowingMap();
-                loadingView.setVisibility(View.GONE);
-                for(Map.Entry<String, String> mapEntry : followingMap.entrySet()){
-                    TemporaryUserChatListItemFrag userChatListItemFrag = new TemporaryUserChatListItemFrag();
-                    userChatListItemFrag.userId = mapEntry.getKey();
-                    userChatListItemFrag.userName = mapEntry.getValue();
-                    userChatListItemFrag.newChatGroupDialog = NewChatGroupDialog.this;
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.userListLL, userChatListItemFrag);
-                    fragmentTransaction.commit();
+                if(dataSnapshot.exists()){
+                    FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
+                    HashMap<String, String> followingMap = followingModelClass.getFollowingMap();
+                    loadingView.setVisibility(View.GONE);
+                    for(Map.Entry<String, String> mapEntry : followingMap.entrySet()){
+                        TemporaryUserChatListItemFrag userChatListItemFrag = new TemporaryUserChatListItemFrag();
+                        userChatListItemFrag.userId = mapEntry.getKey();
+                        userChatListItemFrag.userName = mapEntry.getValue();
+                        userChatListItemFrag.newChatGroupDialog = NewChatGroupDialog.this;
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.userListLL, userChatListItemFrag);
+                        fragmentTransaction.commit();
+                    }
+                }else{
+                    loadingView.setVisibility(View.GONE);
+                    followToChatView.setVisibility(View.VISIBLE);
                 }
+
             }
 
             @Override

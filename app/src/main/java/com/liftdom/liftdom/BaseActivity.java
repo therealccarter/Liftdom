@@ -45,6 +45,8 @@ public class BaseActivity extends AppCompatActivity {
     private BottomNavigation mBottomNavigation;
     private ViewPager mViewPager;
     public AccountHeader header;
+    public Drawer drawer;
+    public int selectionInt = 0;
 
     public void setUpNavDrawer(final Context context, Toolbar toolbar){
 
@@ -76,7 +78,7 @@ public class BaseActivity extends AppCompatActivity {
                 .build();
 
         // create the drawer
-        Drawer drawer = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
@@ -113,6 +115,7 @@ public class BaseActivity extends AppCompatActivity {
                                 intent = new Intent(context, MainActivity.class);
                                 intent.putExtra("fragID", 0);
                                 startActivity(intent);
+                                drawer.setSelection(position);
                             }
                             if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(context, KnowledgeCenterHolderActivity.class);
@@ -134,6 +137,7 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+
 
         String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -162,7 +166,9 @@ public class BaseActivity extends AppCompatActivity {
 
                         profileDrawerItem.withIcon(resource);
 
-                        header.addProfile(profileDrawerItem, 0);
+                        if(header.getProfiles().size() == 0){
+                            header.addProfile(profileDrawerItem, 0);
+                        }
                     }
                 });
             }
@@ -185,7 +191,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setNavDrawerSelection(int i){
-
+        if(drawer != null){
+            drawer.setSelection(i, false);
+        }
     }
 
     public BottomNavigation getBottomNavigation() {

@@ -372,6 +372,7 @@
     <string name="imperial">Imperial</string>
     <string name="units">Unit System:</string>
 
+    <string name="followToChat">Follow someone to start a chat!</string>
 
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>

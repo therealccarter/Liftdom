@@ -1,22 +1,13 @@
-
 ===========================================
-============ BUG/TO-DO LIST ================
+============ BUG/TO-DO LIST ===========================================================
 ===========================================
 
-============ Fatal ===============
-=======================================================
-
-============ Non-fatal ================
-add selection to nav drawer (current page)
-really clean up everything concerning nav drawer
-nav drawer showing two extra profile icons
-automatically set activity level in the cal calc chart
+============ Currently Working On ===============
 multi day functionality on template editor not working (not saving second day info)
-check for instances of savedInstanceState being null (initializing the nav drawer)
-figure out what's going on with Moto phone
-chat name is brodin for brodin, should be gains2
-text shouldn't be white
-=======================================================
+=======================================================================================
+
+======== ***Completed*** =======================================================
+==============================================
 
 ============ TO-DO LIST ================
 Stack titles that are too long
@@ -32,22 +23,20 @@ preview text should be last sent message
 make back stack only go up the activity tree
 =======================================================
 
-============ Currently Working On ===============
-
+============ Non-fatal ================
+nav drawer showing extra profile icons
+automatically set activity level in the cal calc chart
+check for instances of savedInstanceState being null (initializing the nav drawer)
+figure out what's going on with Moto phone
+chat name is brodin for brodin, should be gains2
+text shouldn't be white
 =======================================================
 
-======== ***Completed*** ============
-if no profile pic, load default pic
-wrong username on current user profile page
-profile settings page also wrong username
-shared pref isn't being set
-make sure to handle empty strings in maps
-don't actually save profile pic until save
-you shouldn't be able to get to profile settings via back pressed
-on back pressed check if any changes have been made before showing dialog (settingsListActivity)
-bottom nav is white on first time in app
-add limiters on edit texts (like height & age)
-on sign in page, convert both units on metric change
-user model class is deleted at selected template activity
-==============================================
+============ Fatal ===============
+chat group listing crashes if loading is too slow
+=======================================================
+
+
+
+
 

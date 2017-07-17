@@ -59,6 +59,6 @@ public class PremiumFeaturesActivity extends BaseActivity {
         title.setTypeface(lobster);
 
         setUpNavDrawer(PremiumFeaturesActivity.this, toolbar);
-
+        setNavDrawerSelection(6);
     }
 }

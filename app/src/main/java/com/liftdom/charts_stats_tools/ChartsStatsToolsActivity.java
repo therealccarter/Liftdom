@@ -61,5 +61,6 @@ public class ChartsStatsToolsActivity extends BaseActivity {
         title.setTypeface(lobster);
 
         setUpNavDrawer(ChartsStatsToolsActivity.this, toolbar);
+        setNavDrawerSelection(5);
     }
 }

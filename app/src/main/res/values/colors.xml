@@ -43,10 +43,10 @@
 
     <!-- MaterialDrawer colors -->
     <color name="material_drawer_background">#ececec</color>
-    <color name="material_drawer_selected">#FFFFFF</color>
-    <color name="material_drawer_selected_text">#000000</color>
+    <color name="material_drawer_selected">#454545</color>
+    <color name="material_drawer_selected_text">#FFFFFF</color>
     <color name="material_drawer_primary_text">#1d1d1d</color>
     <color name="material_drawer_secondary_text">#cccccc</color>
-    <color name="material_drawer_divider">#D1B91D</color>
+    <color name="material_drawer_divider">#cccccc</color>
 
 </resources>

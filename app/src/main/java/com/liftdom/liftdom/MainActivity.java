@@ -80,6 +80,7 @@ public class MainActivity extends BaseActivity implements
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
     ViewPager viewPager;
+    private int selection = 0;
 
     private Bitmap profilePicBitmap;
 
@@ -196,12 +197,14 @@ public class MainActivity extends BaseActivity implements
             if(id == 0){
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag, "templateMenuFrag");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
             }else if(id == 1){
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -210,6 +213,7 @@ public class MainActivity extends BaseActivity implements
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(1, false);
             } else if(id == 2){
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -238,6 +242,7 @@ public class MainActivity extends BaseActivity implements
                 Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
                 if (i1 == 0) {
+                    setNavDrawerSelection(3);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -245,6 +250,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 1) {
+                    setNavDrawerSelection(1);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -252,6 +258,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 2) {
+                    setNavDrawerSelection(2);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -259,6 +266,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 3) {
+                    setNavDrawerSelection(1);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -266,6 +274,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else if (i1 == 4) {
+                    setNavDrawerSelection(1);
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -529,6 +538,14 @@ public class MainActivity extends BaseActivity implements
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        //TemplateMenuFrag templateMenuFrag = (TemplateMenuFrag) getSupportFragmentManager().findFragmentByTag
+        //        ("templateMenuFrag");
+        //if(templateMenuFrag != null){
+        //    if(templateMenuFrag.isVisible()){
+        //        setNavDrawerSelection(3);
+        //    }
+        //}
 
     }
     // [END on_start_add_listener]

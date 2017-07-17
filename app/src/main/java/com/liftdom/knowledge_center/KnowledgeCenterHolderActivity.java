@@ -84,6 +84,7 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
         collapsingToolbar.setCollapsedTitleTypeface(lobster);
 
         setUpNavDrawer(KnowledgeCenterHolderActivity.this, toolbar);
+        setNavDrawerSelection(4);
 
     }
 

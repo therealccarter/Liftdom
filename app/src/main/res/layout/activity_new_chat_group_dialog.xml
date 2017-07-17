@@ -83,6 +83,18 @@
                 android:layout_gravity="center"
         />
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/followToChatView"
+                android:text="@string/followToChat"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:visibility="gone"
+        />
+
+
     </LinearLayout>
 
     <!--
