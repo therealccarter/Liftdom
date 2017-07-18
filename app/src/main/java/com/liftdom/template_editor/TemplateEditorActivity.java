@@ -774,8 +774,7 @@ public class TemplateEditorActivity extends BaseActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == 4)
-        {
+        if(resultCode == 4){
         }
     }
 

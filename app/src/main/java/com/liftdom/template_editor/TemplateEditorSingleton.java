@@ -64,6 +64,7 @@ public class TemplateEditorSingleton {
                     ){
                 Log.i("info", "Map one added: " + daysOfWeek);
                 mapOne.put("0_key", dayEntry);
+                setMapValues(daysOfWeek, infoList);
             } else if(!mapOne.isEmpty() &&
                     mapTwo.isEmpty() &&
                     mapThree.isEmpty() &&
@@ -75,6 +76,7 @@ public class TemplateEditorSingleton {
                 if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
                     Log.i("info", "Map two added: " + daysOfWeek);
                     mapTwo.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -153,44 +155,59 @@ public class TemplateEditorSingleton {
                 }
             }
         }
-        setMapValues(daysOfWeek, infoList);
+
     }
 
     public void setMapValues(String days, List<String> infoList){
-        try{
+        if(mapOne != null){
             if(!mapOne.isEmpty()){
                 if(mapOne.get("0_key").contains(days)){
                     mapOne.put(String.valueOf(mapOne.size()) + "_key", infoList);
                 }
-            }else if(!mapTwo.isEmpty()){
+            }
+        }
+        if(mapTwo != null){
+            if(!mapTwo.isEmpty()){
                 if(mapTwo.get("0_key").contains(days)){
                     mapTwo.put(String.valueOf(mapTwo.size()) + "_key", infoList);
                 }
-            }else if(!mapThree.isEmpty()){
+            }
+        }
+        if(mapThree != null){
+            if(!mapThree.isEmpty()){
                 if(mapThree.get("0_key").contains(days)){
                     mapThree.put(String.valueOf(mapThree.size()) + "_key", infoList);
                 }
-            }else if(!mapFour.isEmpty()){
+            }
+        }
+        if(mapFour != null){
+            if(!mapFour.isEmpty()){
                 if(mapFour.get("0_key").contains(days)){
                     mapFour.put(String.valueOf(mapFour.size()) + "_key", infoList);
                 }
-            }else if(!mapFive.isEmpty()){
+            }
+        }
+        if(mapFive != null){
+            if(!mapFive.isEmpty()){
                 if(mapFive.get("0_key").contains(days)){
                     mapFive.put(String.valueOf(mapFive.size()) + "_key", infoList);
                 }
-            }else if(!mapSix.isEmpty()){
+            }
+        }
+        if(mapSix != null){
+            if(!mapSix.isEmpty()){
                 if(mapSix.get("0_key").contains(days)){
                     mapSix.put(String.valueOf(mapSix.size()) + "_key", infoList);
                 }
-            }else if(!mapSeven.isEmpty()){
+            }
+        }
+        if(mapSeven != null){
+            if(!mapSeven.isEmpty()){
                 if(mapSeven.get("0_key").contains(days)){
                     mapSeven.put(String.valueOf(mapSeven.size()) + "_key", infoList);
                 }
             }
-        } catch (NullPointerException e){
-            Log.i("info", "maps are null?");
         }
-
     }
 
     public void setAlgorithmList(String exName, List<String> algoList){
