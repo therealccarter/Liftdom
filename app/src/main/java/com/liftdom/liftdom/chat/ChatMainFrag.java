@@ -22,11 +22,10 @@ import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
 import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 import com.liftdom.template_housing.TemplateMenuFrag;
+import com.liftdom.user_profile.UserModelClass;
 import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,8 +83,32 @@ public class ChatMainFrag extends Fragment {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
                                               ChatGroupModelClass model, int position) {
-
-                viewHolder.setChatName(model.getChatName());
+                String chatNameUsers = "";
+                if(model.getChatName() == null){
+                    if(model.getMemberMap().size() > 2){
+                        int inc = 0;
+                        for(Map.Entry<String, String> entry : model.getMemberMap().entrySet()){
+                            inc++;
+                            if(!entry.getKey().equals(uid)){
+                                if(inc == model.getMemberMap().size()){
+                                    chatNameUsers = chatNameUsers + entry.getValue();
+                                }else{
+                                    chatNameUsers = chatNameUsers + entry.getValue() + ", ";
+                                }
+                            }
+                        }
+                        viewHolder.setChatName(chatNameUsers);
+                    }else{
+                        for(Map.Entry<String, String> entry : model.getMemberMap().entrySet()){
+                            if(!entry.getKey().equals(uid)){
+                                chatNameUsers = entry.getValue();
+                            }
+                        }
+                        viewHolder.setChatName(chatNameUsers);
+                    }
+                }else{
+                    viewHolder.setChatName(model.getChatName());
+                }
                 viewHolder.setPreview(model.getPreviewString());
                 viewHolder.setActiveDay(model.getActiveDate());
                 viewHolder.setChatId(model.getChatId());
@@ -113,55 +136,22 @@ public class ChatMainFrag extends Fragment {
 
                     final String uniqueID = UUID.randomUUID().toString();
 
-                    if(data.getStringExtra("chatName") != null){
-                        String chatName = data.getStringExtra("chatName");
-                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName, "preview text", memberList, uniqueID);
-                        LocalDate localDate = LocalDate.now();
-                        chatGroupModelClass.setActiveDate(localDate.toString());
+                    final HashMap<String, String> userMap = new HashMap<>();
 
-                        for(String userId : memberList){
-                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
-                                    .child("chatGroups").child(userId);
-                            nChatGroupReference.push().setValue(chatGroupModelClass);
-                        }
-                    }else{
-
-                        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                        final String userName = sharedPref.getString("userName", "loading...");
-
-                        inc = 0;
-                        nameInc = 0;
-
-                        final List<String> newList = new ArrayList<>();
-
-                        for(String user : memberList){
-
-                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child
-                                    ("userList").child(user);
-                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String value = dataSnapshot.getValue(String.class);
-
-                                    if (!value.equals(userName)) {
-                                        newList.add(value);
-                                    }
-                                    inc++;
-                                    if(inc == memberList.size()){
-
-                                        String cat = "";
-                                        for(String user : newList){
-                                            nameInc++;
-                                            if(nameInc == newList.size()){
-                                                cat = cat + user;
-                                            } else{
-                                                cat = cat + user + ", ";
-                                            }
-                                        }
-
-                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(cat, "preview " +
-                                                "text",
-                                                memberList, uniqueID);
+                    for(final String userId : memberList){
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child
+                                (userId).child("userName");
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String userName = dataSnapshot.getValue(String.class);
+                                userMap.put(userId, userName);
+                                inc++;
+                                if(inc == memberList.size()){
+                                    if(data.getStringExtra("chatName") != null){
+                                        String chatName = data.getStringExtra("chatName");
+                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName, "preview text",
+                                                userMap, uniqueID);
                                         LocalDate localDate = LocalDate.now();
                                         chatGroupModelClass.setActiveDate(localDate.toString());
 
@@ -170,21 +160,30 @@ public class ChatMainFrag extends Fragment {
                                                     .child("chatGroups").child(userId);
                                             nChatGroupReference.push().setValue(chatGroupModelClass);
                                         }
+                                        inc = 0;
+                                    }else{
+                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(null, "preview text",
+                                                userMap, uniqueID);
+                                        LocalDate localDate = LocalDate.now();
+                                        chatGroupModelClass.setActiveDate(localDate.toString());
+
+                                        for(String userId : memberList){
+                                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
+                                                    .child("chatGroups").child(userId);
+                                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                                        }
+                                        inc = 0;
+
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                                }
-                            });
-                        }
-
-
+                            }
+                        });
                     }
-
-                    // For each person in the member list, push them a new chatGroupClass with a mChatId. That
-                    //  mChatId will be what allows them in.
                 }
             }
         }

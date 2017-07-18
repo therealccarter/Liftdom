@@ -40,6 +40,8 @@ public class TemporaryUserChatListItemFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        userNameView.setText(userName);
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -2,13 +2,6 @@
 ============ BUG/TO-DO LIST ===========================================================
 ===========================================
 
-============ Currently Working On ===============
-multi day functionality on template editor not working (not saving second day info)
-=======================================================================================
-
-======== ***Completed*** =======================================================
-==============================================
-
 ============ TO-DO LIST ================
 Stack titles that are too long
 Look for infinite loading screens (if no items)
@@ -22,18 +15,24 @@ needs to go all the way down when user first opens chat
 preview text should be last sent message
 make back stack only go up the activity tree
 =======================================================
-
 ============ Non-fatal ================
-nav drawer showing extra profile icons
 automatically set activity level in the cal calc chart
 check for instances of savedInstanceState being null (initializing the nav drawer)
 figure out what's going on with Moto phone
-chat name is brodin for brodin, should be gains2
 text shouldn't be white
 =======================================================
 
-============ Fatal ===============
+============ Currently Working On ===============
+=======================================================================================
+
+======== ***Completed*** =======================================================
 chat group listing crashes if loading is too slow
+multi day functionality on template editor not working (not saving second day info)
+nav drawer showing extra profile icons
+chat name is brodin for brodin, should be gains2
+==============================================
+
+============ Fatal ===============
 =======================================================
 
 

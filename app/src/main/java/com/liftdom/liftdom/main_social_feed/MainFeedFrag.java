@@ -57,6 +57,7 @@ public class MainFeedFrag extends Fragment{
     //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
+    @BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,8 +78,6 @@ public class MainFeedFrag extends Fragment{
                 if(dataSnapshot.exists()){
                     setUpRecycler();
                 }else{
-                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
-                            .loadingView1);
                     loadingView.setVisibility(View.GONE);
                     noResultsView.setVisibility(View.VISIBLE);
                 }

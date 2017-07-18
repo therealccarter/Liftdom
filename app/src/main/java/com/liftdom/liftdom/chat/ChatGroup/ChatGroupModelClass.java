@@ -1,5 +1,6 @@
 package com.liftdom.liftdom.chat.ChatGroup;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,16 +14,36 @@ public class ChatGroupModelClass {
     private String mActiveDate;
     private String mChatId;
     private List<String> mMemberList;
+    private HashMap<String, String> mMemberMap;
+    private String mChatGroupId;
 
     public ChatGroupModelClass(){
         // necessary for Firebase
     }
 
-    public ChatGroupModelClass(String chatName, String previewString, List<String> memberList, String chatId){
+    public ChatGroupModelClass(String chatName, String previewString, HashMap<String, String> memberMap, String
+            chatId){
         mChatName = chatName;
         mPreviewString = previewString;
-        mMemberList = memberList;
+        mMemberMap = memberMap;
         mChatId = chatId;
+
+    }
+
+    public HashMap<String, String> getMemberMap() {
+        return mMemberMap;
+    }
+
+    public void setMemberMap(HashMap<String, String> mMemberMap) {
+        this.mMemberMap = mMemberMap;
+    }
+
+    public String getChatGroupId() {
+        return mChatGroupId;
+    }
+
+    public void setChatGroupId(String mChatGroupId) {
+        this.mChatGroupId = mChatGroupId;
     }
 
     public String getChatName(){
