@@ -23,6 +23,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.utils.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.mikepenz.materialdrawer.Drawer;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -54,16 +55,9 @@ public class TemplateMenuFrag extends Fragment {
         void changeHeaderTitle(String title);
     }
 
-    //public interface navDrawerSelectorFromFrag{
-    //    void setNavDrawerSelection(int i);
-    //}
-
     private void headerChanger(String title){
         mCallback.changeHeaderTitle(title);
     }
-    //private void navDrawerSelector(int i){
-    //    navDrawerCallback.setNavDrawerSelection(i);
-    //}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,12 +74,6 @@ public class TemplateMenuFrag extends Fragment {
 
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setSelectedIndex(0, false);
-
-        //navDrawerCallback = (navDrawerSelectorFromFrag) getActivity();
-        if(isFromIntent){
-            //mainActivity.setNavDrawerSelection(3);
-        }
-
 
         if(savedInstanceState == null){
             quoteBody.setText(quoteArray[0]);
@@ -148,6 +136,7 @@ public class TemplateMenuFrag extends Fragment {
         });
 
         return view;
+
     }
 
     @Override
@@ -162,7 +151,6 @@ public class TemplateMenuFrag extends Fragment {
     public void onStart(){
         super.onStart();
         headerChanger("Workout Templating");
-        //navDrawerSelector(3);
     }
 
     @Override
@@ -173,7 +161,6 @@ public class TemplateMenuFrag extends Fragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
-            //navDrawerCallback = (navDrawerSelectorFromFrag) activity;
         } catch (ClassCastException e) {
             //throw new ClassCastException(activity.toString()
             //        + " must implement OnHeadlineSelectedListener");

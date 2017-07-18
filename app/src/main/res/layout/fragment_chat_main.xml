@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-             tools:context="com.liftdom.liftdom.chat.ChatMainFrag">
+              tools:context="com.liftdom.liftdom.chat.ChatMainFrag">
 
     <ImageButton
             android:layout_width="match_parent"
@@ -13,6 +13,28 @@
             android:textColor="@color/white"
             android:src="@drawable/ic_add_white_24dp"
             android:layout_margin="5dp"
+    />
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView"
+            android:layout_marginTop="110dp"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/noChatFoundView"
+            android:layout_marginTop="50dp"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:text="@string/noChatGroups"
+            android:gravity="center"
+            android:visibility="gone"
     />
 
     <android.support.v7.widget.RecyclerView

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -23,6 +24,7 @@ import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
 import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.LocalDate;
 
 import java.util.*;
@@ -51,8 +53,11 @@ public class ChatMainFrag extends Fragment {
     private DatabaseReference mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chatGroups")
             .child(uid);
     private FirebaseRecyclerAdapter mFirebaseAdapter;
+
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.newChatButton) ImageButton newChatButton;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.noChatFoundView) TextView noChatsFoundView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +77,24 @@ public class ChatMainFrag extends Fragment {
             }
         });
 
-        setUpFirebaseAdapter();
+        mChatGroupReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    setUpFirebaseAdapter();
+                }else{
+                    loadingView.setVisibility(View.GONE);
+                    noChatsFoundView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         return view;
     }
@@ -83,6 +105,9 @@ public class ChatMainFrag extends Fragment {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
                                               ChatGroupModelClass model, int position) {
+                if(position == 0){
+                    loadingView.setVisibility(View.GONE);
+                }
                 String chatNameUsers = "";
                 if(model.getChatName() == null){
                     if(model.getMemberMap().size() > 2){

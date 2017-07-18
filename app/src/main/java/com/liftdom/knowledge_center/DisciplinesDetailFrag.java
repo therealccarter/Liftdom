@@ -46,7 +46,7 @@ public class DisciplinesDetailFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_disciplines_detail, container, false);
 
-        headerChanger("Disciplines - " + disciplineString);
+        headerChanger(disciplineString);
 
         ButterKnife.bind(this, view);
 

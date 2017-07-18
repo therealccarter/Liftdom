@@ -190,6 +190,10 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    public Drawer getDrawer(){
+        return drawer;
+    }
+
     public void setNavDrawerSelection(int i){
         if(drawer != null){
             drawer.setSelection(i, false);

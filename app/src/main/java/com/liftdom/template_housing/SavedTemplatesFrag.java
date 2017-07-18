@@ -96,6 +96,7 @@ public class SavedTemplatesFrag extends Fragment {
                             if(dataSnapshot.getValue() == null) {
                                 noSavedTemplates.setVisibility(View.VISIBLE);
                                 linearLayout_new_template.setVisibility(View.VISIBLE);
+                                loadingView.setVisibility(View.GONE);
                             }
                         }
 

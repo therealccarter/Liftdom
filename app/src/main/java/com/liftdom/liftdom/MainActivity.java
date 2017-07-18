@@ -148,6 +148,18 @@ public class MainActivity extends BaseActivity implements
                     // User is signed in
                     if(savedInstanceState == null){
                         setUpNavDrawer(MainActivity.this, toolbar);
+                        if(getIntent().getExtras() == null){
+                            setNavDrawerSelection(1);
+                        }else{
+                            int id = getIntent().getExtras().getInt("fragID");
+                            if(id == 0){
+                                setNavDrawerSelection(3);
+                            }else if(id == 1){
+                                setNavDrawerSelection(1);
+                            }else if(id == 2){
+                                setNavDrawerSelection(2);
+                            }
+                        }
                     }
                     //SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                     //if(sharedPref.getString("userName", "loading").equals("loading")){
@@ -199,12 +211,11 @@ public class MainActivity extends BaseActivity implements
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag, "templateMenuFrag");
+                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
             }else if(id == 1){
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -223,7 +234,6 @@ public class MainActivity extends BaseActivity implements
                 bottomNavigation.setSelectedIndex(2, false);
             }
         } else{
-
             if(mFirebaseUser == null){
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
             } else{
@@ -243,6 +253,7 @@ public class MainActivity extends BaseActivity implements
 
                 if (i1 == 0) {
                     setNavDrawerSelection(3);
+                    //hideSearchButton();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -251,6 +262,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                 } else if (i1 == 1) {
                     setNavDrawerSelection(1);
+                    //showSearchButton();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -259,6 +271,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                 } else if (i1 == 2) {
                     setNavDrawerSelection(2);
+                    //hideSearchButton();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -267,6 +280,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                 } else if (i1 == 3) {
                     setNavDrawerSelection(1);
+                    //hideSearchButton();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -275,6 +289,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                 } else if (i1 == 4) {
                     setNavDrawerSelection(1);
+                    //hideSearchButton();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -373,8 +388,18 @@ public class MainActivity extends BaseActivity implements
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
 
+    }
 
+    public void hideSearchButton(){
+        //LinearLayout searchViewLL = (LinearLayout) findViewById(R.id.searchViewLL);
+        //searchViewLL.setVisibility(View.GONE);
+        //searchView.setBackgroundColor(Color.parseColor("#000000"));
+    }
 
+    public void showSearchButton(){
+        //LinearLayout searchViewLL = (LinearLayout) findViewById(R.id.searchViewLL);
+        //searchViewLL.setVisibility(View.VISIBLE);
+        //searchView.setBackgroundColor(Color.parseColor("#FFFFFF"));
     }
 
     @Override
