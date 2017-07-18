@@ -16,7 +16,6 @@ preview text should be last sent message
 make back stack only go up the activity tree
 =======================================================
 ============ Non-fatal ================
-automatically set activity level in the cal calc chart
 check for instances of savedInstanceState being null (initializing the nav drawer)
 figure out what's going on with Moto phone
 text shouldn't be white
@@ -30,6 +29,7 @@ chat group listing crashes if loading is too slow
 multi day functionality on template editor not working (not saving second day info)
 nav drawer showing extra profile icons
 chat name is brodin for brodin, should be gains2
+automatically set activity level in the cal calc chart
 ==============================================
 
 ============ Fatal ===============

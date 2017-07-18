@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 
 import java.util.ArrayList;
@@ -68,11 +69,11 @@ public class CalorieCalcFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         List<String> activityLevels = new ArrayList<String>();
-        activityLevels.add("No Exercise");
-        activityLevels.add("Light Exercise");
-        activityLevels.add("Moderate Exercise");
-        activityLevels.add("Heavy Exercise");
-        activityLevels.add("Extreme Exercise");
+        activityLevels.add("No Exercise");      //0
+        activityLevels.add("Light Exercise");   //1
+        activityLevels.add("Moderate Exercise");//2
+        activityLevels.add("Heavy Exercise");   //3
+        activityLevels.add("Extreme Exercise"); //4
 
         // Creating adapter for spinner
         final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_style_new_2,
@@ -93,6 +94,34 @@ public class CalorieCalcFrag extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                    if(userModelClass.getActiveTemplate() == null){
+                        activityLevelSpinner.setSelection(0);
+                    }else{
+                        DatabaseReference activeTemplateRef = mRootRef.child("templates").child(uid).child
+                                (userModelClass.getActiveTemplate());
+                        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                                String delims = "[_]";
+                                String[] daysTokens = templateModelClass.getDays().split(delims);
+                                if(daysTokens.length == 1 || daysTokens.length == 2){
+                                    activityLevelSpinner.setSelection(1);
+                                }else if(daysTokens.length == 3 || daysTokens.length == 4){
+                                    activityLevelSpinner.setSelection(2);
+                                }else if(daysTokens.length == 5){
+                                    activityLevelSpinner.setSelection(3);
+                                }else{
+                                    activityLevelSpinner.setSelection(4);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                     if(userModelClass.isIsImperial()){
                         // is imperial
                         isImperial = true;
@@ -130,9 +159,6 @@ public class CalorieCalcFrag extends Fragment {
                         maleRadioButton.setChecked(false);
                         femaleRadioButton.setChecked(true);
                     }
-
-
-
                 }
 
                 @Override
