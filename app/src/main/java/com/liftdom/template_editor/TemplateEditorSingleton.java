@@ -53,7 +53,6 @@ public class TemplateEditorSingleton {
                 mapSix != null &&
                 mapSeven != null
                 ){
-
             if(mapOne.isEmpty() &&
                     mapTwo.isEmpty() &&
                     mapThree.isEmpty() &&
@@ -77,6 +76,8 @@ public class TemplateEditorSingleton {
                     Log.i("info", "Map two added: " + daysOfWeek);
                     mapTwo.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -90,6 +91,9 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
                     Log.i("info", "Map three added: " + daysOfWeek);
                     mapThree.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -104,6 +108,9 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapThree.get("0_key").get(0))){
                     Log.i("info", "Map four added: " + daysOfWeek);
                     mapFour.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -119,6 +126,9 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapFour.get("0_key").get(0))){
                     Log.i("info", "Map five added: " + daysOfWeek);
                     mapFive.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -135,6 +145,9 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapFive.get("0_key").get(0))){
                     Log.i("info", "Map six added: " + daysOfWeek);
                     mapSix.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             } else if(!mapOne.isEmpty() &&
                     !mapTwo.isEmpty() &&
@@ -152,6 +165,9 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapSix.get("0_key").get(0))){
                     Log.i("info", "Map seven added: " + daysOfWeek);
                     mapSeven.put("0_key", dayEntry);
+                    setMapValues(daysOfWeek, infoList);
+                }else{
+                    setMapValues(daysOfWeek, infoList);
                 }
             }
         }
