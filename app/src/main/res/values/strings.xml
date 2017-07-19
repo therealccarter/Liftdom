@@ -375,6 +375,17 @@
     <string name="followToChat">Follow someone to start a chat!</string>
     <string name="noChatGroups">No chat groups found</string>
 
+    <string name="powerLevel">Power Level:\u0020</string>
+    <string name="powerXp">Power XP:\u0020</string>
+    <string name="completionStreak">Daily Completion Streak:\u0020</string>
+    <string name="completionMultiplier">Completion Multiplier:\u0020</string>
+    <string name="xpFromWorkout">XP From Workout:\u0020</string>
+    <string name="xpGained">XP Gained:\u0020</string>
+
+    <string name="days1">day!</string>
+    <string name="days2">days!</string>
+    <string name="xp">xp</string>
+
     <string name="template_title_nav">Template System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
 

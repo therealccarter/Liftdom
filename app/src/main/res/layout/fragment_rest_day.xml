@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               tools:context="com.liftdom.workout_assistor.RestDayFrag"
               android:orientation="vertical"
-              android:layout_marginTop="100dp"
+              android:layout_marginTop="20dp"
 >
 
 
@@ -13,22 +13,29 @@
             android:layout_height="wrap_content"
             android:text="@string/healUpString"
             android:textColor="@color/black"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_marginBottom="30dp"
             android:layout_margin="20dp"
+            android:gravity="center"
     />
 
-    <Button
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/restDayComplete"
-            android:background="@color/confirmgreen"
-            android:layout_gravity="bottom"
             android:layout_margin="10dp"
-            android:text="@string/completeRestDay"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-    />
+            android:elevation="5dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/restDayComplete"
+                android:background="@color/confirmgreen"
+                android:layout_gravity="bottom"
+                android:text="@string/completeRestDay"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+        />
+    </android.support.v7.widget.CardView>
 
     <View
             android:layout_width="match_parent"
@@ -49,6 +56,6 @@
             android:padding="10dp"
             android:id="@+id/restAdviceButton"
             android:layout_margin="20dp"
-            android:textColor="@color/liftrGold1"
+            android:textColor="@color/liftrGold2"
     />
 </LinearLayout>

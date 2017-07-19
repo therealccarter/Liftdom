@@ -99,6 +99,8 @@ UPCOMING FEATURES TO DO:
 
 *v1.0*
 **DONE** Create first-time user tutorial/profile setup
+* For first time, have user complete a "workout" (save button -> "complete first day of liftdom!") with level
+    up increase, establishing the hook.
 * Polish everything, beautify, make the app look sleek and pro
 * Fix all current bugs
 * Release.
