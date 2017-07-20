@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,9 +25,20 @@ public class RestDaySavedFrag extends Fragment {
     }
 
     @BindView(R.id.goBackHome) Button goHomeButton;
-    @BindView(R.id.streakTextView) TextView streakTextView;
-    @BindView(R.id.powerLevelIncreaseTextView) TextView powerLevelIncreaseView;
     @BindView(R.id.finishedTextView) TextView finishedTextView;
+    @BindView(R.id.powerLevelTextView) TextView powerLevelTextView;
+    @BindView(R.id.currentPowerXpTextView) TextView powerLevelXpView1;
+    @BindView(R.id.goalPowerXpTextView) TextView powerLevelXpView2;
+    @BindView(R.id.xpGainedOverallView) TextView xpGainedView;
+    @BindView(R.id.xpFromWorkoutView) TextView xpFromWorkoutView;
+    @BindView(R.id.completionMultiplierView) TextView streakMultiplierView;
+    @BindView(R.id.completionStreakView) TextView streakView;
+    @BindView(R.id.totalXpGainedLL) LinearLayout totalXpGainedLL;
+    @BindView(R.id.xpFromWorkoutLL) LinearLayout xpFromWorkoutLL;
+    @BindView(R.id.streakMultiplierLL) LinearLayout streakMultiplierLL;
+    @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,11 +48,29 @@ public class RestDaySavedFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        finishedTextView.setText("REST DAY FINISHED");
+        finishedTextView.setText("REST DAY COMPLETED");
 
-
+        totalXpGainedLL.setAlpha(0);
+        xpFromWorkoutLL.setAlpha(0);
+        streakMultiplierLL.setAlpha(0);
+        dailyStreakLL.setAlpha(0);
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        fadeInViews();
+
+    }
+
+    private void fadeInViews(){
+        dailyStreakLL.animate().alpha(1).setDuration(1000).start();
+        streakMultiplierLL.animate().alpha(1).setDuration(1300).start();
+        xpFromWorkoutLL.animate().alpha(1).setDuration(1600).start();
+        totalXpGainedLL.animate().alpha(1).setDuration(2000).start();
     }
 
 }

@@ -4,6 +4,8 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,16 +45,18 @@ public class RestDayFrag extends Fragment {
 
         restDayCompleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                WorkoutAssistorAssemblerClass.getInstance().isRestDay = true;
-                WorkoutAssistorAssemblerClass.getInstance().isRestDayComplete = true;
-                Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
-                startActivity(intent);
+                //Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
+                //intent.putExtra("isRestDay", "true");
+                //startActivityForResult(intent, 2);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
+                fragmentTransaction.replace(R.id.exInfoHolder, restDaySavedFrag);
+                fragmentTransaction.commit();
             }
         });
-
         return view;
     }
-
 
 
 }

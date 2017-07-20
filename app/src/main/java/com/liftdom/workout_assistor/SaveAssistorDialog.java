@@ -11,6 +11,8 @@ import com.liftdom.liftdom.R;
 
 public class SaveAssistorDialog extends AppCompatActivity {
 
+    boolean isRestDay = false;
+
     @BindView(R.id.saveButtonSave) Button saveButton;
     @BindView(R.id.saveButtonCancel) Button cancelButton;
 
@@ -22,6 +24,10 @@ public class SaveAssistorDialog extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        if(getIntent().getExtras().getString("isRestDay") != null){
+            isRestDay = true;
+        }
+
         cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
@@ -32,8 +38,11 @@ public class SaveAssistorDialog extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-
-                setResult(1);
+                if(isRestDay){
+                    setResult(2);
+                }else{
+                    setResult(1);
+                }
                 finish();
             }
         });

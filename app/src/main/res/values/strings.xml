@@ -380,7 +380,7 @@
     <string name="completionStreak">Daily Completion Streak:\u0020</string>
     <string name="completionMultiplier">Completion Multiplier:\u0020</string>
     <string name="xpFromWorkout">XP From Workout:\u0020</string>
-    <string name="xpGained">XP Gained:\u0020</string>
+    <string name="xpGained">Total XP Gained:\u0020</string>
 
     <string name="days1">day!</string>
     <string name="days2">days!</string>
