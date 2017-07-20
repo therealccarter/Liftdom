@@ -45,9 +45,6 @@ public class RestDayFrag extends Fragment {
 
         restDayCompleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(v.getContext(), SaveAssistorDialog.class);
-                //intent.putExtra("isRestDay", "true");
-                //startActivityForResult(intent, 2);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();

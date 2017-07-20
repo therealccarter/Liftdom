@@ -3,6 +3,7 @@ package com.liftdom.workout_assistor;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,9 @@ import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -85,6 +89,7 @@ public class WorkoutAssistorFrag extends Fragment {
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,6 +109,7 @@ public class WorkoutAssistorFrag extends Fragment {
         if(savedInstanceState == null){
             initiliazeFrags();
         }
+
 
         return view;
     }
