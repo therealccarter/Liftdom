@@ -17,12 +17,13 @@ text shouldn't be white (?)
 =======================================================
 
 ============ Currently Working On ===============
-clean up rest day frag
-remove confirmation for complete rest day
+implement level stuff
 implement rest day logic
 =======================================================================================
 
 ======== ***Completed*** =======================================================
+clean up rest day frag
+remove confirmation for complete rest day
 get nav drawer to show selection from intent
 chat group listing crashes if loading is too slow
 multi day functionality on template editor not working (not saving second day info)
