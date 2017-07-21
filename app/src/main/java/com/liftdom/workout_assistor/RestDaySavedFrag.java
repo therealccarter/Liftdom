@@ -81,7 +81,7 @@ public class RestDaySavedFrag extends Fragment {
         dailyStreakLL.animate().alpha(1).setDuration(1000).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                startCounterAnimation(0, 12, streakView);
+                //startCounterAnimation(0, 12, streakView);
             }
 
             @Override
@@ -175,7 +175,7 @@ public class RestDaySavedFrag extends Fragment {
                 .setDirection(0.0, 359.0)
                 .setSpeed(1f, 3f)
                 .setFadeOutEnabled(true)
-                .setTimeToLive(3000L)
+                .setTimeToLive(2000L)
                 .addShapes(Shape.RECT)
                 .addSizes(new Size(12, 5f))
                 .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
