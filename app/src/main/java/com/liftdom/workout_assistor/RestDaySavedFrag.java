@@ -31,6 +31,7 @@ import nl.dionsegijn.konfetti.models.Size;
  */
 public class RestDaySavedFrag extends Fragment {
 
+    private boolean animationsFirstTime = true;
 
     public RestDaySavedFrag() {
         // Required empty public constructor
@@ -58,6 +59,8 @@ public class RestDaySavedFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        // get usermodel class
+
         finishedTextView.setText("REST DAY COMPLETED");
 
         powerLevelXpView1.setText("0");
@@ -74,7 +77,10 @@ public class RestDaySavedFrag extends Fragment {
     public void onStart(){
         super.onStart();
 
-        fadeInViews();
+        if(animationsFirstTime){
+            fadeInViews();
+        }
+
     }
 
     private void fadeInViews(){
@@ -152,6 +158,7 @@ public class RestDaySavedFrag extends Fragment {
                     powerLevelTextView.setText("4");
                     scaleXp1(powerLevelTextView);
                     konfetti();
+                    animationsFirstTime = false;
                 }
 
                 @Override
