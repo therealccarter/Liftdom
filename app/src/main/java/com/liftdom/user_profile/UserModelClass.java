@@ -64,6 +64,15 @@ public class UserModelClass {
 
     // =================================== begin level up stuff ===================================
 
+
+    public String getCurrentXpWithinLevel() {
+        return mCurrentXpWithinLevel;
+    }
+
+    public void setCurrentXpWithinLevel(String mCurrentXpWithinLevel) {
+        this.mCurrentXpWithinLevel = mCurrentXpWithinLevel;
+    }
+
     public String getCurrentStreak() {
         return mCurrentStreak;
     }
@@ -126,8 +135,6 @@ public class UserModelClass {
 
         HashMap<String, String> resultsMap = new HashMap<>();
 
-
-
         // set up last completed day/streak stuff
         if(getLastCompletedDay() == null){
             setCurrentStreak("1");
@@ -153,40 +160,44 @@ public class UserModelClass {
             double constant = 0.023;
             xpFromWorkout = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) * constant;
             xpFromWorkout = xpFromWorkout * 100;
-            xpFromWorkout = (int) Math.round(xpFromWorkout);
-            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
+            int xpFromWorkoutInt = (int) Math.round(xpFromWorkout);
+            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkoutInt));
         }else{
             // call method to get xp based on completed ex map
-            double xpFromWorkout = getXpFromMap(completedMap);
+            int xpFromWorkout = getXpFromMap(completedMap);
             resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
         }
 
         // call method to get multiplier
-        double multiplier = getMultiplier();
+        double multiplier = getMultiplier(Integer.parseInt(getCurrentStreak()));
         resultsMap.put("streakMultiplier", String.valueOf(multiplier));
 
         // call method to apply multiplier to xp from workout
-        double totalXpGained = generateTotalXpGained();
+        int totalXpGained = generateTotalXpGained();
         resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
 
         // return map
         return resultsMap;
     }
 
-    private double getXpFromMap(HashMap<String, List<String>> completedMap){
-        double xpFromWorkout = 0;
+    private int getXpFromMap(HashMap<String, List<String>> completedMap){
+        int xpFromWorkout = 0;
+
+        //int xpFromWorkoutInt = (int) Math.round(xpFromWorkout);
 
         return xpFromWorkout;
     }
 
-    private double getMultiplier(){
+    private double getMultiplier(int streak){
         double multiplier = 0;
+
+
 
         return multiplier;
     }
 
-    private double generateTotalXpGained(){
-        double totalXpGained = 0;
+    private int generateTotalXpGained(){
+        int totalXpGained = 0;
 
         return totalXpGained;
     }

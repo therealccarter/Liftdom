@@ -2,21 +2,16 @@ package com.liftdom.workout_assistor;
 
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,7 +40,7 @@ public class RestDaySavedFrag extends Fragment {
     private String streakMultiplier;
     private String xpFromWorkout;
     private String totalXpGained;
-    private String currentXp;
+    private int currentXp;
     private String currentPowerLevel;
     private String newPowerLevel;
     //private String currentXpGoal;
@@ -61,7 +56,7 @@ public class RestDaySavedFrag extends Fragment {
     @BindView(R.id.powerLevelTextView) TextView powerLevelTextView;
     @BindView(R.id.currentPowerXpTextView) TextView powerLevelXpView1;
     @BindView(R.id.goalPowerXpTextView) TextView powerLevelXpView2;
-    @BindView(R.id.xpGainedOverallView) TextView xpGainedView;
+    @BindView(R.id.xpGainedOverallView) TextView totalXpGainedView;
     @BindView(R.id.xpFromWorkoutView) TextView xpFromWorkoutView;
     @BindView(R.id.completionMultiplierView) TextView streakMultiplierView;
     @BindView(R.id.completionStreakView) TextView streakView;
@@ -84,7 +79,7 @@ public class RestDaySavedFrag extends Fragment {
 
         finishedTextView.setText("REST DAY COMPLETED");
 
-        powerLevelXpView1.setText("0");
+        //powerLevelXpView1.setText("0");
 
         totalXpGainedLL.setAlpha(0);
         xpFromWorkoutLL.setAlpha(0);
@@ -98,12 +93,35 @@ public class RestDaySavedFrag extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                        powerLevelTextView.setText(userModelClass.getPowerLevel());
                         currentPowerLevel = userModelClass.getPowerLevel();
+
+                        if(userModelClass.getCurrentXpWithinLevel() == null){
+                            currentXp = 0;
+                            powerLevelXpView1.setText("0");
+                        }else{
+                            currentXp = Integer.parseInt(userModelClass.getCurrentXpWithinLevel());
+                        }
+
+                        powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+
+
                         HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null);
+                        // day v days
                         completionStreak = xpInfoMap.get("currentStreak");
+
                         streakMultiplier = xpInfoMap.get("streakMultiplier");
                         xpFromWorkout = xpInfoMap.get("xpFromWorkout");
                         totalXpGained = xpInfoMap.get("totalXpGained");
+
+                        streakView.setText(completionStreak);
+                        streakMultiplierView.setText(streakMultiplier);
+                        xpFromWorkoutView.setText(xpFromWorkout);
+                        totalXpGainedView.setText("0");
+
+
+
                         loadingView.setVisibility(View.GONE);
                         mainLinearLayout.setVisibility(View.VISIBLE);
                         fadeInViews();
@@ -134,15 +152,9 @@ public class RestDaySavedFrag extends Fragment {
         super.onStart();
     }
 
-    private double generateGoalXp(String powerLevel){
-        double goalXp = 0;
-
-
-
-        return goalXp;
-    }
 
     private void fadeInViews(){
+
         dailyStreakLL.animate().alpha(1).setDuration(1000).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -166,28 +178,50 @@ public class RestDaySavedFrag extends Fragment {
         });
         streakMultiplierLL.animate().alpha(1).setDuration(1300).start();
         xpFromWorkoutLL.animate().alpha(1).setDuration(1600).start();
-        totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                startCounterAnimation(0, 100, xpGainedView);
-            }
+        generateXpCalculator();
+    }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                //scaleXp1(powerLevelXpView1);
-                startCounterAnimation(0, 50, powerLevelXpView1);
-            }
+    private void generateXpCalculator(){
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
+        int xpGained = Integer.parseInt(totalXpGained);
+        int goalXp = generateGoalXp(currentPowerLevel);
 
-            }
+        if((xpGained + currentXp) >= goalXp){
+            // level up
+        }else{
+            // just increase xp1
+            totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    startCounterAnimation(0, Integer.parseInt(totalXpGained), totalXpGainedView);
+                }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    //scaleXp1(powerLevelXpView1);
+                    startCounterAnimation(0, Integer.parseInt(totalXpGained), powerLevelXpView1);
+                }
 
-            }
-        });
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+
+    }
+
+    private int generateGoalXp(String powerLevel){
+        int powerLevelInt = Integer.parseInt(powerLevel);
+
+        double powerXP = (powerLevelInt * powerLevelInt) * 1.3;
+        powerXP = powerXP * 100;
+        return (int) Math.round(powerXP);
     }
 
     private void scaleXp1(TextView textView){
@@ -213,7 +247,7 @@ public class RestDaySavedFrag extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    powerLevelTextView.setText("4");
+                    powerLevelTextView.setText("1");
                     scaleXp1(powerLevelTextView);
                     konfetti();
                     animationsFirstTime = false;

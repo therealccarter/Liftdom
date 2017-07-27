@@ -106,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/powerLevelTextView"
                             android:textSize="30sp"
-                            android:text="3"
+                            android:text="0"
                             android:textColor="@color/black"
                     />
 
