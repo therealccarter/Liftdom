@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -21,10 +22,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +40,17 @@ import nl.dionsegijn.konfetti.models.Size;
 public class RestDaySavedFrag extends Fragment {
 
     private boolean animationsFirstTime = true;
+
+    private String completionStreak;
+    private String streakMultiplier;
+    private String xpFromWorkout;
+    private String totalXpGained;
+    private String currentXp;
+    private String currentPowerLevel;
+    private String newPowerLevel;
+    //private String currentXpGoal;
+
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public RestDaySavedFrag() {
         // Required empty public constructor
@@ -50,6 +69,8 @@ public class RestDaySavedFrag extends Fragment {
     @BindView(R.id.xpFromWorkoutLL) LinearLayout xpFromWorkoutLL;
     @BindView(R.id.streakMultiplierLL) LinearLayout streakMultiplierLL;
     @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,17 +91,55 @@ public class RestDaySavedFrag extends Fragment {
         streakMultiplierLL.setAlpha(0);
         dailyStreakLL.setAlpha(0);
 
+        if(savedInstanceState == null){
+            if(animationsFirstTime){
+                DatabaseReference userModelRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+                userModelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                        currentPowerLevel = userModelClass.getPowerLevel();
+                        HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null);
+                        completionStreak = xpInfoMap.get("currentStreak");
+                        streakMultiplier = xpInfoMap.get("streakMultiplier");
+                        xpFromWorkout = xpInfoMap.get("xpFromWorkout");
+                        totalXpGained = xpInfoMap.get("totalXpGained");
+                        loadingView.setVisibility(View.GONE);
+                        mainLinearLayout.setVisibility(View.VISIBLE);
+                        fadeInViews();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+
+        goHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("fragID", 1);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onStart(){
         super.onStart();
+    }
 
-        if(animationsFirstTime){
-            fadeInViews();
-        }
+    private double generateGoalXp(String powerLevel){
+        double goalXp = 0;
 
+
+
+        return goalXp;
     }
 
     private void fadeInViews(){
@@ -117,7 +176,6 @@ public class RestDaySavedFrag extends Fragment {
             public void onAnimationEnd(Animator animation) {
                 //scaleXp1(powerLevelXpView1);
                 startCounterAnimation(0, 50, powerLevelXpView1);
-
             }
 
             @Override

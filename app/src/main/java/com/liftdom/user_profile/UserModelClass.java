@@ -1,5 +1,7 @@
 package com.liftdom.user_profile;
 
+import org.joda.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class UserModelClass {
     private List<String> followerList;
     private List<String> followingList;
     private String mLastCompletedDay;
+    private String mCurrentXpWithinLevel;
 
     public UserModelClass(){
         // necessary for firebase
@@ -59,7 +62,7 @@ public class UserModelClass {
         updateUnits(isImperial);
     }
 
-
+    // =================================== begin level up stuff ===================================
 
     public String getCurrentStreak() {
         return mCurrentStreak;
@@ -86,6 +89,110 @@ public class UserModelClass {
     public void setLastCompletedDay(String mLastCompletedDay) {
         this.mLastCompletedDay = mLastCompletedDay;
     }
+
+    public String getRepLevel() {
+        return mRepLevel;
+    }
+
+    public void setRepLevel(String mRepLevel) {
+        this.mRepLevel = mRepLevel;
+    }
+
+    public String getPowerLevel() {
+        return mPowerLevel;
+    }
+
+    public void setPowerLevel(String mPowerLevel) {
+        this.mPowerLevel = mPowerLevel;
+    }
+
+    public void addToPowerLevel(int powerLevels){
+        int current = Integer.parseInt(getPowerLevel());
+        current = current + powerLevels;
+        setPowerLevel(String.valueOf(current));
+    }
+
+    public HashMap<String, String> generateXpMap(HashMap<String, List<String>> completedMap){
+        // will also set related values, so we'll only have to call one method
+
+        /**
+         * So what are we trying to do here?
+         * We need to take the daily streak and the completed ex info
+         * and generate the XP gain accordingly.
+         * Then, we'll return the:
+         * Daily completion streak, streak multiplier,
+         * XP from workout, and full XP gain.
+         */
+
+        HashMap<String, String> resultsMap = new HashMap<>();
+
+
+
+        // set up last completed day/streak stuff
+        if(getLastCompletedDay() == null){
+            setCurrentStreak("1");
+            resultsMap.put("currentStreak", "1");
+        }else{
+            LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
+
+            if(lastCompletedDay == LocalDate.now().minusDays(1)){
+                int currentStreak = Integer.parseInt(getCurrentStreak());
+                currentStreak++;
+                setCurrentStreak(String.valueOf(currentStreak));
+                resultsMap.put("currentStreak", getCurrentStreak());
+            }else{
+                setCurrentStreak("1");
+                resultsMap.put("currentStreak", "1");
+            }
+        }
+
+        // get xp from workout
+        if(completedMap == null){
+            double xpFromWorkout = 0;
+
+            double constant = 0.023;
+            xpFromWorkout = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) * constant;
+            xpFromWorkout = xpFromWorkout * 100;
+            xpFromWorkout = (int) Math.round(xpFromWorkout);
+            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
+        }else{
+            // call method to get xp based on completed ex map
+            double xpFromWorkout = getXpFromMap(completedMap);
+            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
+        }
+
+        // call method to get multiplier
+        double multiplier = getMultiplier();
+        resultsMap.put("streakMultiplier", String.valueOf(multiplier));
+
+        // call method to apply multiplier to xp from workout
+        double totalXpGained = generateTotalXpGained();
+        resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
+
+        // return map
+        return resultsMap;
+    }
+
+    private double getXpFromMap(HashMap<String, List<String>> completedMap){
+        double xpFromWorkout = 0;
+
+        return xpFromWorkout;
+    }
+
+    private double getMultiplier(){
+        double multiplier = 0;
+
+        return multiplier;
+    }
+
+    private double generateTotalXpGained(){
+        double totalXpGained = 0;
+
+        return totalXpGained;
+    }
+
+
+    // =================================== end level up stuff ===================================
 
     public void updateUnits(boolean isImperial){
         if(isImperial){
@@ -226,28 +333,6 @@ public class UserModelClass {
 
     public void setSex(String mSex) {
         this.mSex = mSex;
-    }
-
-    public String getRepLevel() {
-        return mRepLevel;
-    }
-
-    public void setRepLevel(String mRepLevel) {
-        this.mRepLevel = mRepLevel;
-    }
-
-    public String getPowerLevel() {
-        return mPowerLevel;
-    }
-
-    public void setPowerLevel(String mPowerLevel) {
-        this.mPowerLevel = mPowerLevel;
-    }
-
-    public void addToPowerLevel(int powerLevels){
-        int current = Integer.parseInt(getPowerLevel());
-        current = current + powerLevels;
-        setPowerLevel(String.valueOf(current));
     }
 
     public String getCurrentFocus() {

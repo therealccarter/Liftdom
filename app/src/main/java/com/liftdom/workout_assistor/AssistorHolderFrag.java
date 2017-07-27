@@ -52,6 +52,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean savedState = false;
     WorkoutProgressModelClass modelClass;
 
+    //java.lang.IllegalArgumentException: No view found for id 0x7f0d0241 (com.liftdom.liftdom:id/exInfoHolder) for fragment AssistorHolderFrag{242e2325 #0 id=0x7f0d0241}
+
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.saveHolder) LinearLayout saveHolder;
