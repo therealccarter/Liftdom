@@ -134,6 +134,7 @@ public class UserModelClass {
          */
 
         HashMap<String, String> resultsMap = new HashMap<>();
+        int xpFromWorkout = 0;
 
         // set up last completed day/streak stuff
         if(getLastCompletedDay() == null){
@@ -155,16 +156,15 @@ public class UserModelClass {
 
         // get xp from workout
         if(completedMap == null){
-            double xpFromWorkout = 0;
-
             double constant = 0.023;
-            xpFromWorkout = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) * constant;
-            xpFromWorkout = xpFromWorkout * 100;
-            int xpFromWorkoutInt = (int) Math.round(xpFromWorkout);
-            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkoutInt));
+            double xpFromWorkoutDouble = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) *
+                    constant;
+            xpFromWorkoutDouble = xpFromWorkoutDouble * 100;
+            xpFromWorkout = (int) Math.round(xpFromWorkoutDouble);
+            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
         }else{
             // call method to get xp based on completed ex map
-            int xpFromWorkout = getXpFromMap(completedMap);
+            xpFromWorkout = getXpFromMap(completedMap);
             resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
         }
 
@@ -173,7 +173,7 @@ public class UserModelClass {
         resultsMap.put("streakMultiplier", String.valueOf(multiplier));
 
         // call method to apply multiplier to xp from workout
-        int totalXpGained = generateTotalXpGained();
+        int totalXpGained = generateTotalXpGained(xpFromWorkout, multiplier);
         resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
 
         // return map
@@ -191,13 +191,22 @@ public class UserModelClass {
     private double getMultiplier(int streak){
         double multiplier = 0;
 
+        if(streak > 0 && streak < 6){
+            multiplier = 1.0;
+        }else if(streak > 5 && streak < 11){
+            multiplier = 1.5;
+        }
 
 
         return multiplier;
     }
 
-    private int generateTotalXpGained(){
+    private int generateTotalXpGained(int xpFromWorkout, double multiplier){
         int totalXpGained = 0;
+
+        double totalGainedDouble = xpFromWorkout * multiplier;
+
+        totalXpGained = (int) Math.round(totalGainedDouble);
 
         return totalXpGained;
     }
