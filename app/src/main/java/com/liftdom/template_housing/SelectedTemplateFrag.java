@@ -181,7 +181,6 @@ public class SelectedTemplateFrag extends Fragment {
         });
 
         if(savedInstanceState == null){
-
             if(isFromPublicList){
 
                 choicesBar.setVisibility(View.GONE);

@@ -2,6 +2,26 @@
 ============ BUG/TO-DO LIST ===========================================================
 ===========================================
 
+
+
+
+============ 7/29 BUG TESTING ================
+if profile picture not selected, revert loading animation to previous pic
+profile picture (tourettes pic) is rotated
+don't save pic unless hitting save
+remember on account creation, walk through level 0-1
+have a default template
+put limits on template editor edit texts
+make bodyweight exercise bodyweight by default
+handle bw and others in assistor
+onBackPress to selected template view, day views replicated
+workout assistor issues, check saveAssistorDialog
+
+
+
+
+
+
 ============ TO-DO LIST ================
 make whole saved template box selectable
 if (bodyweight), automatically make it bodyweight

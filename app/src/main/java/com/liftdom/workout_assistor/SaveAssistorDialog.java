@@ -28,6 +28,8 @@ public class SaveAssistorDialog extends AppCompatActivity {
             isRestDay = true;
         }
 
+        //  Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
+        // 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
         cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
