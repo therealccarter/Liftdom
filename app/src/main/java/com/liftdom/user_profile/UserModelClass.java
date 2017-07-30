@@ -191,10 +191,26 @@ public class UserModelClass {
     private double getMultiplier(int streak){
         double multiplier = 0;
 
-        if(streak > 0 && streak < 6){
+        if(streak > 0 && streak < 5){
             multiplier = 1.0;
-        }else if(streak > 5 && streak < 11){
+        }else if(streak > 4 && streak < 10){
             multiplier = 1.5;
+        }else if(streak > 9 && streak < 15){
+            multiplier = 2.0;
+        }else if(streak > 14 && streak < 20){
+            multiplier = 2.5;
+        }else if(streak > 19 && streak < 25){
+            multiplier = 3.0;
+        }else if(streak > 24 && streak < 30){
+            multiplier = 3.5;
+        }else if(streak > 29 && streak < 35){
+            multiplier = 4.0;
+        }else if(streak > 34 && streak < 40){
+            multiplier = 4.5;
+        }else if(streak > 39 && streak < 45){
+            multiplier = 5.0;
+        }else if(streak > 44){
+            multiplier = 5.5;
         }
 
 
