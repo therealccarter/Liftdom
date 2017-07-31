@@ -43,9 +43,8 @@ public class RestDaySavedFrag extends Fragment {
     private String totalXpGained;
     private int currentXp;
     private String currentPowerLevel;
-    private String newPowerLevel;
     private String oldPowerLevel;
-    //private String currentXpGoal;
+
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -210,36 +209,8 @@ public class RestDaySavedFrag extends Fragment {
 
         int xpGained = Integer.parseInt(totalXpGained);
         int goalXp = generateGoalXp(currentPowerLevel);
-        generateLevelUpAnimation(800, currentXp);
+        generateLevelUpAnimation(xpGained, currentXp);
 
-        //if((xpGained + currentXp) >= goalXp){
-        //    // level up
-        //    generateLevelUpAnimation(xpGained, currentXp);
-        //}else{
-        //    // just increase xp1
-        //    totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
-        //        @Override
-        //        public void onAnimationStart(Animator animation) {
-        //            startCounterAnimation(0, Integer.parseInt(totalXpGained), totalXpGainedView);
-        //        }
-//
-        //        @Override
-        //        public void onAnimationEnd(Animator animation) {
-        //            //scaleXp1(powerLevelXpView1);
-        //            startCounterAnimation(0, Integer.parseInt(totalXpGained), powerLevelXpView1);
-        //        }
-//
-        //        @Override
-        //        public void onAnimationCancel(Animator animation) {
-//
-        //        }
-//
-        //        @Override
-        //        public void onAnimationRepeat(Animator animation) {
-//
-        //        }
-        //    });
-        //}
     }
 
     int powerLevelInc = 0;
@@ -251,9 +222,6 @@ public class RestDaySavedFrag extends Fragment {
         // increase power level
         // repeat
         int newCurrentXpWithinLevel = 0;
-
-
-
 
         for(int i = 0; i < 50; i++){
 
