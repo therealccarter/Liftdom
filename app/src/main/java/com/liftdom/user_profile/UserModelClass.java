@@ -140,9 +140,9 @@ public class UserModelClass {
         if(getLastCompletedDay() == null){
             setCurrentStreak("1");
             resultsMap.put("currentStreak", "1");
+            setLastCompletedDay(LocalDate.now().toString());
         }else{
             LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
-
             if(lastCompletedDay == LocalDate.now().minusDays(1)){
                 int currentStreak = Integer.parseInt(getCurrentStreak());
                 currentStreak++;
@@ -152,6 +152,7 @@ public class UserModelClass {
                 setCurrentStreak("1");
                 resultsMap.put("currentStreak", "1");
             }
+            setLastCompletedDay(LocalDate.now().toString());
         }
 
         // get xp from workout
@@ -176,8 +177,49 @@ public class UserModelClass {
         int totalXpGained = generateTotalXpGained(xpFromWorkout, multiplier);
         resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
 
+        if(getCurrentXpWithinLevel() == null){
+            setCurrentXpWithinLevel("0");
+        }
+
+        setPowerLevelWithXp(totalXpGained, Integer.parseInt(getPowerLevel()));
+
         // return map
         return resultsMap;
+    }
+
+    private void setPowerLevelWithXp(int totalXpGained, int currentPowerLevel){
+
+        int newCurrentXpWithinLevel = 0;
+
+        for(int i = 0; i < 50; i++){
+            int goalXp = generateGoalXp(currentPowerLevel);
+            if(i == 0){
+                if(Integer.parseInt(getCurrentXpWithinLevel()) + totalXpGained >= goalXp){
+                    currentPowerLevel++;
+                    newCurrentXpWithinLevel = totalXpGained - goalXp;
+                }else{
+                    int newXpWithinLevel = Integer.parseInt(getCurrentXpWithinLevel()) + totalXpGained;
+                    setCurrentXpWithinLevel(String.valueOf(newXpWithinLevel));
+                    break;
+                }
+            }else{
+                if(newCurrentXpWithinLevel >= goalXp){
+                    currentPowerLevel++;
+                    newCurrentXpWithinLevel = newCurrentXpWithinLevel - goalXp;
+                }else{
+                    setCurrentXpWithinLevel(String.valueOf(newCurrentXpWithinLevel));
+                    setPowerLevel(String.valueOf(currentPowerLevel));
+                    break;
+                }
+            }
+        }
+    }
+
+    private int generateGoalXp(int powerLevel){
+        //int powerLevelInt = Integer.parseInt(powerLevel);
+        double powerXP = (powerLevel * powerLevel) * 1.3;
+        powerXP = powerXP * 100;
+        return (int) Math.round(powerXP);
     }
 
     private int getXpFromMap(HashMap<String, List<String>> completedMap){

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
@@ -43,6 +44,7 @@ public class RestDaySavedFrag extends Fragment {
     private int currentXp;
     private String currentPowerLevel;
     private String newPowerLevel;
+    private String oldPowerLevel;
     //private String currentXpGoal;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -88,7 +90,7 @@ public class RestDaySavedFrag extends Fragment {
 
         if(savedInstanceState == null){
             if(animationsFirstTime){
-                DatabaseReference userModelRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+                final DatabaseReference userModelRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
                 userModelRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,6 +98,7 @@ public class RestDaySavedFrag extends Fragment {
 
                         powerLevelTextView.setText(userModelClass.getPowerLevel());
                         currentPowerLevel = userModelClass.getPowerLevel();
+                        oldPowerLevel = userModelClass.getPowerLevel();
 
                         if(userModelClass.getCurrentXpWithinLevel() == null){
                             currentXp = 0;
@@ -105,7 +108,6 @@ public class RestDaySavedFrag extends Fragment {
                         }
 
                         powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
-
 
                         HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null);
                         // day v days
@@ -120,11 +122,15 @@ public class RestDaySavedFrag extends Fragment {
                         xpFromWorkoutView.setText(xpFromWorkout);
                         totalXpGainedView.setText("0");
 
+                        userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                loadingView.setVisibility(View.GONE);
+                                mainLinearLayout.setVisibility(View.VISIBLE);
+                                fadeInViews();
+                            }
+                        });
 
-
-                        loadingView.setVisibility(View.GONE);
-                        mainLinearLayout.setVisibility(View.VISIBLE);
-                        fadeInViews();
                     }
 
                     @Override
@@ -181,45 +187,16 @@ public class RestDaySavedFrag extends Fragment {
         generateXpCalculator();
     }
 
-    private void generateXpCalculator(){
-
-        int xpGained = Integer.parseInt(totalXpGained);
-        int goalXp = generateGoalXp(currentPowerLevel);
-
-        if((xpGained + currentXp) >= goalXp){
-            // level up
-        }else{
-            // just increase xp1
-            totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    startCounterAnimation(0, Integer.parseInt(totalXpGained), totalXpGainedView);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    //scaleXp1(powerLevelXpView1);
-                    startCounterAnimation(0, Integer.parseInt(totalXpGained), powerLevelXpView1);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-        }
-
-    }
-
     private int generateGoalXp(String powerLevel){
         int powerLevelInt = Integer.parseInt(powerLevel);
 
         double powerXP = (powerLevelInt * powerLevelInt) * 1.3;
+        powerXP = powerXP * 100;
+        return (int) Math.round(powerXP);
+    }
+
+    private int generateGoalXp(int powerLevel){
+        double powerXP = (powerLevel * powerLevel) * 1.3;
         powerXP = powerXP * 100;
         return (int) Math.round(powerXP);
     }
@@ -229,7 +206,136 @@ public class RestDaySavedFrag extends Fragment {
         textView.startAnimation(animation);
     }
 
-    private void startCounterAnimation(int initialNumber, int finalNumber, final TextView textView){
+    private void generateXpCalculator(){
+
+        int xpGained = Integer.parseInt(totalXpGained);
+        int goalXp = generateGoalXp(currentPowerLevel);
+        generateLevelUpAnimation(800, currentXp);
+
+        //if((xpGained + currentXp) >= goalXp){
+        //    // level up
+        //    generateLevelUpAnimation(xpGained, currentXp);
+        //}else{
+        //    // just increase xp1
+        //    totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
+        //        @Override
+        //        public void onAnimationStart(Animator animation) {
+        //            startCounterAnimation(0, Integer.parseInt(totalXpGained), totalXpGainedView);
+        //        }
+//
+        //        @Override
+        //        public void onAnimationEnd(Animator animation) {
+        //            //scaleXp1(powerLevelXpView1);
+        //            startCounterAnimation(0, Integer.parseInt(totalXpGained), powerLevelXpView1);
+        //        }
+//
+        //        @Override
+        //        public void onAnimationCancel(Animator animation) {
+//
+        //        }
+//
+        //        @Override
+        //        public void onAnimationRepeat(Animator animation) {
+//
+        //        }
+        //    });
+        //}
+    }
+
+    int powerLevelInc = 0;
+
+    private void generateLevelUpAnimation(final int totalXpGained, int currentXpWithinLevel){
+        // increase the xp to the goal xp
+        // increase power level
+        // use the leftover xp to increase to new goal xp
+        // increase power level
+        // repeat
+        int newCurrentXpWithinLevel = 0;
+
+
+
+
+        for(int i = 0; i < 50; i++){
+
+            final int goalXp = generateGoalXp(currentPowerLevel);
+            if(i == 0){
+                if(currentXpWithinLevel + totalXpGained >= goalXp){
+                    currentPowerLevel = String.valueOf(Integer.parseInt(currentPowerLevel) + 1);
+                    newCurrentXpWithinLevel = totalXpGained - goalXp;
+                    totalXpGainedLL.animate().alpha(1).setDuration(1200).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            startCounterAnimation(0, totalXpGained, totalXpGainedView, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            //scaleXp1(powerLevelXpView1);
+                            powerLevelInc++;
+                            final String powerLevel = String.valueOf(Integer.parseInt(oldPowerLevel) + powerLevelInc);
+                            startCounterAnimation(currentXp, goalXp, powerLevelXpView1, true, powerLevel);
+                            //powerLevelTextView.setText(currentPowerLevel);
+                            startCounterAnimation(0, totalXpGained - goalXp, powerLevelXpView1, false, null);
+                            powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                }else{
+                    final int newXpWithinLevel = currentXpWithinLevel + totalXpGained;
+                    totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            startCounterAnimation(0, totalXpGained, totalXpGainedView, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            //scaleXp1(powerLevelXpView1);
+                            startCounterAnimation(0, newXpWithinLevel, powerLevelXpView1, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                    break;
+                }
+            }else{
+                if(newCurrentXpWithinLevel >= goalXp){
+                    currentPowerLevel = String.valueOf(Integer.parseInt(currentPowerLevel) + 1);
+                    newCurrentXpWithinLevel = newCurrentXpWithinLevel - goalXp;
+                    powerLevelInc++;
+                    final String powerLevel = String.valueOf(Integer.parseInt(oldPowerLevel) + powerLevelInc);
+                    startCounterAnimation(0, goalXp, powerLevelXpView1, true, powerLevel);
+                    powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+                    startCounterAnimation(0, newCurrentXpWithinLevel, powerLevelXpView1, false, null);
+                }else{
+                    startCounterAnimation(0, newCurrentXpWithinLevel, powerLevelXpView1, false, null);
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private void startCounterAnimation(int initialNumber, int finalNumber, final TextView textView, final boolean
+            increasePowerLevel, final String powerLevel){
         ValueAnimator animator = ValueAnimator.ofInt(initialNumber, finalNumber);
         animator.setDuration(2000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -247,10 +353,13 @@ public class RestDaySavedFrag extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    powerLevelTextView.setText("1");
-                    scaleXp1(powerLevelTextView);
-                    konfetti();
-                    animationsFirstTime = false;
+                    if(increasePowerLevel){
+                        powerLevelTextView.setText(powerLevel);
+                        scaleXp1(powerLevelTextView);
+                        konfetti();
+                        animationsFirstTime = false;
+                    }
+
                 }
 
                 @Override

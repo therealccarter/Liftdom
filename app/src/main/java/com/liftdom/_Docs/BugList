@@ -2,10 +2,14 @@
 ============ BUG/TO-DO LIST ===========================================================
 ===========================================
 
-
-
-
-============ 7/29 BUG TESTING ================
+============ BUG/TO-DO LIST ================
+make whole saved template box selectable
+if (bodyweight), automatically make it bodyweight
+lock orientation (portrait v landscape)
+doesn't autoscroll on comment update
+needs to go all the way down when user first opens chat
+preview text should be last sent message
+make back stack only go up the activity tree
 if profile picture not selected, revert loading animation to previous pic
 profile picture (tourettes pic) is rotated
 don't save pic unless hitting save
@@ -16,24 +20,7 @@ make bodyweight exercise bodyweight by default
 handle bw and others in assistor
 onBackPress to selected template view, day views replicated
 workout assistor issues, check saveAssistorDialog
-
-
-
-
-
-
-============ TO-DO LIST ================
-make whole saved template box selectable
-if (bodyweight), automatically make it bodyweight
-lock orientation (portrait v landscape)
-doesn't autoscroll on comment update
-needs to go all the way down when user first opens chat
-preview text should be last sent message
-make back stack only go up the activity tree
-=======================================================
-============ Non-fatal ================
 figure out what's going on with Moto phone
-text shouldn't be white (?)
 =======================================================
 
 ============ Currently Working On ===============
@@ -41,21 +28,8 @@ implement level stuff/implement rest day logic
 =======================================================================================
 
 ======== ***Completed*** =======================================================
-clean up rest day frag
-remove confirmation for complete rest day
-get nav drawer to show selection from intent
-chat group listing crashes if loading is too slow
-multi day functionality on template editor not working (not saving second day info)
-nav drawer showing extra profile icons
-chat name is brodin for brodin, should be gains2
-automatically set activity level in the cal calc chart
-check for instances of savedInstanceState being null (initializing the nav drawer)
-Stack KC titles that are too long
-Look for infinite loading screens (if no items)
 ==============================================
 
-============ Fatal ===============
-=======================================================
 
 
 
