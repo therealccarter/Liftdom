@@ -64,7 +64,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_assistor_holder, container, false);
@@ -144,6 +144,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                 AssistorSingleton.getInstance().endList.clear();
                 AssistorSingleton.getInstance().endList.addAll(exInfo);
                 Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                intent.putExtra("isRestDay", "no");
                 startActivityForResult(intent, 1);
             }
         });
@@ -302,7 +303,6 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 1){
-
             HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
             int inc = 0;
             for(ExNameWAFrag exNameFrag : exNameFragList){

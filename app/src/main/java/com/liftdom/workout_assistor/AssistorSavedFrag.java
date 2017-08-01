@@ -1,7 +1,10 @@
 package com.liftdom.workout_assistor;
 
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -10,11 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -26,6 +33,10 @@ import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
@@ -64,8 +75,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
 
     @BindView(R.id.goBackHome) Button goHomeButton;
-    @BindView(R.id.streakTextView) TextView streakTextView;
-    @BindView(R.id.powerLevelIncreaseTextView) TextView powerLevelIncreaseView;
+    @BindView(R.id.finishedTextView) TextView finishedTextView;
+    @BindView(R.id.powerLevelTextView) TextView powerLevelTextView;
+    @BindView(R.id.currentPowerXpTextView) TextView powerLevelXpView1;
+    @BindView(R.id.goalPowerXpTextView) TextView powerLevelXpView2;
+    @BindView(R.id.xpGainedOverallView) TextView totalXpGainedView;
+    @BindView(R.id.xpFromWorkoutView) TextView xpFromWorkoutView;
+    @BindView(R.id.completionMultiplierView) TextView streakMultiplierView;
+    @BindView(R.id.completionStreakView) TextView streakView;
+    @BindView(R.id.totalXpGainedLL)
+    LinearLayout totalXpGainedLL;
+    @BindView(R.id.xpFromWorkoutLL) LinearLayout xpFromWorkoutLL;
+    @BindView(R.id.streakMultiplierLL) LinearLayout streakMultiplierLL;
+    @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
+    @BindView(R.id.loadingView)
+    AVLoadingIndicatorView loadingView;
+    @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +99,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_assistor_saved, container, false);
 
         ButterKnife.bind(this, view);
+
+        finishedTextView.setText("WORKOUT COMPLETED");
+
+        //powerLevelXpView1.setText("0");
+
+        totalXpGainedLL.setAlpha(0);
+        xpFromWorkoutLL.setAlpha(0);
+        streakMultiplierLL.setAlpha(0);
+        dailyStreakLL.setAlpha(0);
 
         goHomeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -249,7 +283,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     isImperial = true;
                 }
 
-                userRef.setValue(processUserClass(userModelClass));
+                processUserClassPowerLevel(userModelClass);
 
                 DatabaseReference followerRef = mRootRef.child("followers").child(uid);
 
@@ -306,28 +340,252 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return view;
     }
 
-    private UserModelClass processUserClass(UserModelClass userModelClass){
+    private boolean animationsFirstTime = true;
 
-        int powerLevelBonus = 0;
-        int oldPowerLevel = Integer.parseInt(userModelClass.getPowerLevel());
+    private String completionStreak;
+    private String streakMultiplier;
+    private String xpFromWorkout;
+    private String totalXpGained;
+    private int currentXp;
+    private String currentPowerLevel;
+    private String oldPowerLevel;
 
-        LocalDate lastCompletedDay = LocalDate.parse(userModelClass.getLastCompletedDay());
-        if(lastCompletedDay == LocalDate.now().minusDays(1)){
-            userModelClass.addToCurrentStreak();
-            powerLevelBonus = 20;
-        }else{
-            userModelClass.resetCurrentStreak();
+    private void processUserClassPowerLevel(UserModelClass userModelClass){
+        if(animationsFirstTime){
+            final DatabaseReference userModelRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+
+            powerLevelTextView.setText(userModelClass.getPowerLevel());
+            currentPowerLevel = userModelClass.getPowerLevel();
+            oldPowerLevel = userModelClass.getPowerLevel();
+
+            if(userModelClass.getCurrentXpWithinLevel() == null){
+                currentXp = 0;
+                powerLevelXpView1.setText("0");
+            }else{
+                currentXp = Integer.parseInt(userModelClass.getCurrentXpWithinLevel());
+            }
+
+            powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+
+            HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(completedMapFormatted);
+            // day v days
+            completionStreak = xpInfoMap.get("currentStreak");
+
+            streakMultiplier = xpInfoMap.get("streakMultiplier");
+            xpFromWorkout = xpInfoMap.get("xpFromWorkout");
+            totalXpGained = xpInfoMap.get("totalXpGained");
+
+            streakView.setText(completionStreak);
+            streakMultiplierView.setText(streakMultiplier);
+            xpFromWorkoutView.setText(xpFromWorkout);
+            totalXpGainedView.setText("0");
+
+            userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    loadingView.setVisibility(View.GONE);
+                    mainLinearLayout.setVisibility(View.VISIBLE);
+                    fadeInViews();
+                }
+            });
+        }
+    }
+
+    private void fadeInViews(){
+        dailyStreakLL.animate().alpha(1).setDuration(1000).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                //startCounterAnimation(0, 12, streakView);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        streakMultiplierLL.animate().alpha(1).setDuration(1300).start();
+        xpFromWorkoutLL.animate().alpha(1).setDuration(1600).start();
+        generateXpCalculator();
+    }
+
+    private int generateGoalXp(String powerLevel){
+        int powerLevelInt = Integer.parseInt(powerLevel);
+
+        double powerXP = (powerLevelInt * powerLevelInt) * 1.3;
+        powerXP = powerXP * 100;
+        return (int) Math.round(powerXP);
+    }
+
+    private int generateGoalXp(int powerLevel){
+        double powerXP = (powerLevel * powerLevel) * 1.3;
+        powerXP = powerXP * 100;
+        return (int) Math.round(powerXP);
+    }
+
+    private void scaleXp1(TextView textView){
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.simple_scale_1);
+        textView.startAnimation(animation);
+    }
+
+    private void generateXpCalculator(){
+        int xpGained = Integer.parseInt(totalXpGained);
+        int goalXp = generateGoalXp(currentPowerLevel);
+        generateLevelUpAnimation(xpGained, currentXp);
+    }
+
+    int powerLevelInc = 0;
+
+    private void generateLevelUpAnimation(final int totalXpGained, int currentXpWithinLevel){
+        // increase the xp to the goal xp
+        // increase power level
+        // use the leftover xp to increase to new goal xp
+        // increase power level
+        // repeat
+        int newCurrentXpWithinLevel = 0;
+
+        for(int i = 0; i < 50; i++){
+
+            final int goalXp = generateGoalXp(currentPowerLevel);
+            if(i == 0){
+                if(currentXpWithinLevel + totalXpGained >= goalXp){
+                    currentPowerLevel = String.valueOf(Integer.parseInt(currentPowerLevel) + 1);
+                    newCurrentXpWithinLevel = totalXpGained - goalXp;
+                    totalXpGainedLL.animate().alpha(1).setDuration(1200).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            startCounterAnimation(0, totalXpGained, totalXpGainedView, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            //scaleXp1(powerLevelXpView1);
+                            powerLevelInc++;
+                            final String powerLevel = String.valueOf(Integer.parseInt(oldPowerLevel) + powerLevelInc);
+                            startCounterAnimation(currentXp, goalXp, powerLevelXpView1, true, powerLevel);
+                            //powerLevelTextView.setText(currentPowerLevel);
+                            startCounterAnimation(0, totalXpGained - goalXp, powerLevelXpView1, false, null);
+                            powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                }else{
+                    final int newXpWithinLevel = currentXpWithinLevel + totalXpGained;
+                    totalXpGainedLL.animate().alpha(1).setDuration(2000).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            startCounterAnimation(0, totalXpGained, totalXpGainedView, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            //scaleXp1(powerLevelXpView1);
+                            startCounterAnimation(0, newXpWithinLevel, powerLevelXpView1, false, null);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                    break;
+                }
+            }else{
+                if(newCurrentXpWithinLevel >= goalXp){
+                    currentPowerLevel = String.valueOf(Integer.parseInt(currentPowerLevel) + 1);
+                    newCurrentXpWithinLevel = newCurrentXpWithinLevel - goalXp;
+                    powerLevelInc++;
+                    final String powerLevel = String.valueOf(Integer.parseInt(oldPowerLevel) + powerLevelInc);
+                    startCounterAnimation(0, goalXp, powerLevelXpView1, true, powerLevel);
+                    powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+                    startCounterAnimation(0, newCurrentXpWithinLevel, powerLevelXpView1, false, null);
+                }else{
+                    startCounterAnimation(0, newCurrentXpWithinLevel, powerLevelXpView1, false, null);
+                    break;
+                }
+            }
         }
 
-        streakTextView.setText("Current workout streak: " + userModelClass.getCurrentStreak() + " days!");
+    }
 
-        userModelClass.addToPowerLevel(40 + powerLevelBonus);
-        String newPowerLevel = userModelClass.getPowerLevel();
+    private void startCounterAnimation(int initialNumber, int finalNumber, final TextView textView, final boolean
+            increasePowerLevel, final String powerLevel){
+        ValueAnimator animator = ValueAnimator.ofInt(initialNumber, finalNumber);
+        animator.setDuration(2000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                textView.setText(animation.getAnimatedValue().toString());
+            }
+        });
+        if(textView == powerLevelXpView1){
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
-        powerLevelIncreaseView.setText("Power Level increased from " + String.valueOf(oldPowerLevel) + " to " +
-                newPowerLevel + "!");
+                }
 
-        return userModelClass;
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if(increasePowerLevel){
+                        powerLevelTextView.setText(powerLevel);
+                        scaleXp1(powerLevelTextView);
+                        konfetti();
+                        animationsFirstTime = false;
+                    }
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+        animator.start();
+    }
+
+    private void konfetti(){
+        KonfettiView konfettiView = (KonfettiView) getActivity().findViewById(R.id.viewKonfetti);
+        konfettiView.build()
+                .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
+                .setDirection(0.0, 359.0)
+                .setSpeed(1f, 3f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.RECT)
+                .addSizes(new Size(12, 5f))
+                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                .stream(300, 3000L);
     }
 
     private List<String> getCompletedExercises(){
@@ -1672,14 +1930,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         String delims = "[@,_]";
                         String tokens[] = string.split(delims);
                         int int1 = Integer.parseInt(tokens[0]);
-                        int int2 = Integer.parseInt(tokens[1]);
+                        int int2 = Integer.parseInt(tokens[1]); // invalid int, B.W.
                         int int3 = int1 * int2;
                         totalPoundage = totalPoundage + int3;
                     }
                 }
             }
         }
-
 
         return totalPoundage;
     }
@@ -1917,23 +2174,3 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

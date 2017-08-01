@@ -24,10 +24,6 @@ public class SaveAssistorDialog extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        if(getIntent().getExtras().getString("isRestDay") != null){
-            isRestDay = true;
-        }
-
         //  Caused by: java.lang.NullPointerException: Attempt to invoke virtual method
         // 'java.lang.String android.os.Bundle.getString(java.lang.String)' on a null object reference
         cancelButton.setOnClickListener(new View.OnClickListener(){
@@ -40,11 +36,7 @@ public class SaveAssistorDialog extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                if(isRestDay){
-                    setResult(2);
-                }else{
-                    setResult(1);
-                }
+                setResult(1);
                 finish();
             }
         });
