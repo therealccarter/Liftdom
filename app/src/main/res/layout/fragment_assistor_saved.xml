@@ -140,7 +140,7 @@
                             android:layout_gravity="center"
                             android:id="@+id/currentPowerXpTextView"
                             android:textSize="22sp"
-                            android:text="50"
+                            android:text=""
                             android:textColor="@color/black"
                     />
 

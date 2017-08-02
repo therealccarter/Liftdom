@@ -224,11 +224,131 @@ public class UserModelClass {
 
     private int getXpFromMap(HashMap<String, List<String>> completedMap){
         int xpFromWorkout = 0;
+        // So eventually we'll have both an objective and subjective metric
+        // objective being max/poundage compared to greats,
+        // subjective being max/poundage compared to your past.
 
-        //int xpFromWorkoutInt = (int) Math.round(xpFromWorkout);
+        // handle sets
+        double dub = getTotalSets(completedMap) + getTotalReps(completedMap) * 1.3;
+        xpFromWorkout = (int) Math.round(dub);
+
+        // handle reps
 
         return xpFromWorkout;
     }
+
+    private int getTotalSets(HashMap<String, List<String>> map){
+        int totalSets = 0;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+            for (String string : entry.getValue()) {
+                if (!isExerciseName(string)) {
+                    totalSets++;
+                }
+            }
+        }
+
+        return totalSets;
+    }
+
+    private int getTotalReps(HashMap<String, List<String>> map){
+        int totalReps = 0;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+            for (String string : entry.getValue()) {
+                if (!isExerciseName(string)) {
+                    String delims = "[@,_]";
+                    String tokens[] = string.split(delims);
+
+                    int int1 = Integer.parseInt(tokens[0]);
+
+                    totalReps = totalReps + int1;
+                }
+            }
+        }
+
+        return totalReps;
+    }
+
+    private int getTotalPoundage(HashMap<String, List<String>> map){
+        int totalPoundage = 0;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            for(String string : entry.getValue()){
+                if(!isExerciseName(string)){
+                    String delims = "[@,_]";
+                    String tokens[] = string.split(delims);
+                    int int1 = Integer.parseInt(tokens[0]);
+                    int int2;
+                    if(tokens[1].equals("B.W.")){
+                        if(isIsImperial()){
+                            int2 = Integer.parseInt(getPounds()) / 4;
+                        }else{
+                            int2 = Integer.parseInt(getKgs()) / 2;
+                        }
+                    }else{
+                        int2 = Integer.parseInt(tokens[1]);
+                    }
+                    int int3 = int1 * int2;
+                    totalPoundage = totalPoundage + int3;
+                }
+            }
+
+        }
+
+        return totalPoundage;
+    }
+
+    private int getTotalPoundageForEx(HashMap<String, List<String>> map, String exName){
+        int totalPoundage = 0;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            if(entry.getValue().get(0).equals(exName)){
+                for(String string : entry.getValue()){
+                    if(!isExerciseName(string)){
+                        String delims = "[@,_]";
+                        String tokens[] = string.split(delims);
+                        int int1 = Integer.parseInt(tokens[0]);
+                        int int2;
+                        try{
+                            int2 = Integer.parseInt(tokens[1]);
+                        }catch (NumberFormatException e){
+                            int2 = 0;
+                        }
+
+                        //if(tokens[1].equals("B.W.")){
+                        //    if(userModelClass.isIsImperial()){
+                        //        int2 = Integer.parseInt(userModelClass.getPounds());
+                        //    }else{
+                        //        int2 = Integer.parseInt(userModelClass.getKgs());
+                        //    }
+                        //}else{
+                        //    int2 = Integer.parseInt(tokens[1]);
+                        //}
+                        int int3 = int1 * int2;
+                        totalPoundage = totalPoundage + int3;
+                    }
+                }
+            }
+        }
+
+        return totalPoundage;
+    }
+
+    boolean isExerciseName(String input) {
+
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
+    }
+
 
     private double getMultiplier(int streak){
         double multiplier = 0;

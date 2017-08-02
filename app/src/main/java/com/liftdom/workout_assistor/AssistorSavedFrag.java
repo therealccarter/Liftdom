@@ -297,13 +297,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                         workoutInfoMap, commentModelClassMap);
-                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                feedFanOut(refKey, completedWorkoutModelClass);
+                //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                //feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
-                workoutHistoryRef.setValue(historyModelClass);
+                //workoutHistoryRef.setValue(historyModelClass);
 
 
             }
@@ -335,7 +335,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         });
 
-        templateRef.setValue(templateClass);
+        //templateRef.setValue(templateClass);
 
         return view;
     }
@@ -363,6 +363,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 powerLevelXpView1.setText("0");
             }else{
                 currentXp = Integer.parseInt(userModelClass.getCurrentXpWithinLevel());
+                powerLevelXpView1.setText(userModelClass.getCurrentXpWithinLevel());
             }
 
             powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
@@ -439,13 +440,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     private void generateXpCalculator(){
         int xpGained = Integer.parseInt(totalXpGained);
-        int goalXp = generateGoalXp(currentPowerLevel);
         generateLevelUpAnimation(xpGained, currentXp);
     }
 
     int powerLevelInc = 0;
 
-    private void generateLevelUpAnimation(final int totalXpGained, int currentXpWithinLevel){
+    private void generateLevelUpAnimation(final int totalXpGained, final int currentXpWithinLevel){
         // increase the xp to the goal xp
         // increase power level
         // use the leftover xp to increase to new goal xp
@@ -454,7 +454,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         int newCurrentXpWithinLevel = 0;
 
         for(int i = 0; i < 50; i++){
-
             final int goalXp = generateGoalXp(currentPowerLevel);
             if(i == 0){
                 if(currentXpWithinLevel + totalXpGained >= goalXp){
@@ -499,7 +498,10 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             //scaleXp1(powerLevelXpView1);
-                            startCounterAnimation(0, newXpWithinLevel, powerLevelXpView1, false, null);
+                            if(totalXpGained != 0){
+                                startCounterAnimation(currentXp, newXpWithinLevel, powerLevelXpView1, false, null);
+                            }
+
                         }
 
                         @Override
@@ -710,7 +712,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     String delims2 = "[@]";
                                     String[] tokens2 = string.split(delims2);
                                     int reps = Integer.parseInt(tokens2[0]);
-                                    int weight = Integer.parseInt(tokens2[1]);
+                                    int weight;
+                                    try{
+                                        weight = Integer.parseInt(tokens[1]);
+                                    }catch (NumberFormatException e){
+                                        weight = 0;
+                                    }
+
+                                    //if(tokens[1].equals("B.W.")){
+                                    //    if(userModelClass.isIsImperial()){
+                                    //        int2 = Integer.parseInt(userModelClass.getPounds());
+                                    //    }else{
+                                    //        int2 = Integer.parseInt(userModelClass.getKgs());
+                                    //    }
+                                    //}else{
+                                    //    int2 = Integer.parseInt(tokens[1]);
+                                    //}
                                     int poundage = reps * weight;
                                     totalPoundage = totalPoundage + poundage;
                                 }
@@ -727,7 +744,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     String delims2 = "[@]";
                                     String[] tokens2 = string.split(delims2);
                                     int reps = Integer.parseInt(tokens2[0]);
-                                    int weight = Integer.parseInt(tokens2[1]);
+                                    int weight;
+                                    try{
+                                        weight = Integer.parseInt(tokens[1]);
+                                    }catch (NumberFormatException e){
+                                        weight = 0;
+                                    }
+
+                                    //if(tokens[1].equals("B.W.")){
+                                    //    if(userModelClass.isIsImperial()){
+                                    //        int2 = Integer.parseInt(userModelClass.getPounds());
+                                    //    }else{
+                                    //        int2 = Integer.parseInt(userModelClass.getKgs());
+                                    //    }
+                                    //}else{
+                                    //    int2 = Integer.parseInt(tokens[1]);
+                                    //}
                                     int poundage = reps * weight;
                                     totalPoundage = totalPoundage + poundage;
                                 }
@@ -1392,55 +1424,101 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                         if (Boolean.parseBoolean(algoDateMap.getValue().get(2))) {
                                                             // compare, keep everything the same, set to true.
                                                             hasEx = true;
-                                                            int weeksSinceLast = getWeeksSinceLast(algoDateMap.getValue().get(1));
+                                                            int weeksSinceLast = getWeeksSinceLast(map.getValue().get(1));
 
                                                             int sets = 0;
                                                             int reps = 0;
                                                             int weight = 0;
-                                                            if (weeksSinceLast >= Integer.parseInt(algoMap.getValue().get(1))) {
-                                                                sets = Integer.parseInt(tokens[0]);
-                                                                sets += Integer.parseInt(algoMap.getValue().get(2));
-                                                            } else {
-                                                                sets = Integer.parseInt(tokens[0]);
-                                                            }
-                                                            if (weeksSinceLast >= Integer.parseInt(algoMap.getValue().get(3))) {
-                                                                reps = Integer.parseInt(tokens[1]);
-                                                                reps += Integer.parseInt(algoMap.getValue().get(4));
-                                                            } else {
-                                                                reps = Integer.parseInt(tokens[1]);
-                                                            }
-                                                            if (weeksSinceLast >= Integer.parseInt(algoMap.getValue().get(5))) {
-                                                                if (!isExerciseName(tokens[2])) {
-                                                                    weight = Integer.parseInt(tokens[2]);
-                                                                    weight += Integer.parseInt(algoMap.getValue().get(6));
-                                                                    if (Boolean.parseBoolean(algoMap.getValue().get(7))) {
-                                                                        /**
-                                                                         *
-                                                                         */
-                                                                        if(Integer.parseInt(algoMap.getValue().get(1)
-                                                                        ) == Integer.parseInt(algoMap.getValue().get
-                                                                                (5)) || Integer.parseInt(algoMap
-                                                                                .getValue().get(3)) == Integer
-                                                                                .parseInt(algoMap.getValue().get(5))){
 
-                                                                        }else{
-                                                                            for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                sets = sets - Integer.parseInt(algoMap.getValue().get(2));
-                                                                                reps = reps - Integer.parseInt(algoMap.getValue().get(4));
+                                                            boolean isNonIntWeight = false;
+
+                                                            if(isExerciseName(tokens[2])){
+                                                                isNonIntWeight = true;
+                                                            }
+
+                                                            if(algoMap.getValue().get(1).equals("") || algoMap.getValue()
+                                                                    .get
+                                                                    (2).equals("")){
+                                                                sets = Integer.parseInt(tokens[0]);
+                                                            }else{
+                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
+                                                                        .get(1))) {
+                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                    sets += Integer.parseInt(algoMap.getValue().get(2));
+                                                                } else {
+                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                }
+                                                            }
+
+                                                            if(algoMap.getValue().get(3).equals("") || algoMap.getValue().get
+                                                                    (4).equals("")) {
+                                                                reps = Integer.parseInt(tokens[1]);
+                                                            }else{
+                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
+                                                                        .get(3))) {
+                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                    reps += Integer.parseInt(algoMap.getValue().get(4));
+                                                                } else {
+                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                }
+                                                            }
+
+                                                            //TODO: Alert user that looping only works if you set weight increases
+
+                                                            if(algoMap.getValue().get(5).equals("") || algoMap.getValue().get
+                                                                    (6).equals("")) {
+
+                                                            }else{
+                                                                // map2.getValue().get(5) == ""
+                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
+                                                                        .get(5))) {
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        if(!isNonIntWeight){
+                                                                            weight = Integer.parseInt(tokens[2]);
+                                                                            weight += Integer.parseInt(algoMap.getValue()
+                                                                                    .get(6));
+                                                                        }
+                                                                        if (Boolean.parseBoolean(algoMap.getValue().get(7)
+                                                                        )) {
+                                                                            /**
+                                                                             *
+                                                                             */
+                                                                            if(Integer.parseInt(algoMap.getValue().get(1)
+                                                                            ) == Integer.parseInt(algoMap.getValue().get
+                                                                                    (5)) || Integer.parseInt(algoMap
+                                                                                    .getValue().get(3)) == Integer
+                                                                                    .parseInt(algoMap.getValue().get(5))){
+
+                                                                            }else{
+                                                                                for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                    sets = sets - Integer.parseInt(algoMap
+                                                                                            .getValue
+                                                                                            ().get(2));
+                                                                                    reps = reps - Integer.parseInt(algoMap
+                                                                                            .getValue
+                                                                                            ().get(4));
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
-                                                                }
-                                                            } else {
-                                                                if (!isExerciseName(tokens[2])) {
-                                                                    weight = Integer.parseInt(tokens[2]);
+                                                                } else {
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        weight = Integer.parseInt(tokens[2]);
+                                                                    }
                                                                 }
                                                             }
 
-                                                            String concat = Integer.toString
-                                                                    (sets) + "x" + Integer.toString(reps)
-                                                                    + "@" + Integer.toString
-                                                                    (weight);
+                                                            String concat;
+
+                                                            if(!isNonIntWeight){
+                                                                concat = Integer.toString(sets)
+                                                                        + "x" + Integer.toString(reps)
+                                                                        + "@" + Integer.toString(weight);
+                                                            }else{
+                                                                concat = Integer.toString(sets)
+                                                                        + "x" + Integer.toString(reps)
+                                                                        + "@" + tokens[2];
+                                                            }
 
                                                             newValueList.add(concat);
                                                         } else {
@@ -1686,52 +1764,89 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                         int sets = 0;
                                                         int reps = 0;
                                                         int weight = 0;
-                                                        if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(1))) {
-                                                            sets = Integer.parseInt(tokens[0]);
-                                                            sets += Integer.parseInt(map2.getValue().get(2));
-                                                        } else {
-                                                            sets = Integer.parseInt(tokens[0]);
-                                                        }
-                                                        if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(3))) {
-                                                            reps = Integer.parseInt(tokens[1]);
-                                                            reps += Integer.parseInt(map2.getValue().get(4));
-                                                        } else {
-                                                            reps = Integer.parseInt(tokens[1]);
-                                                        }
-                                                        if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
-                                                            if (!isExerciseName(tokens[2])) {
-                                                                weight = Integer.parseInt(tokens[2]);
-                                                                weight += Integer.parseInt(map2.getValue().get(6));
-                                                                if (Boolean.parseBoolean(map2.getValue().get(7))) {
-                                                                    /**
-                                                                     *
-                                                                     */
-                                                                    if(Integer.parseInt(map2.getValue().get(1)
-                                                                    ) == Integer.parseInt(map2.getValue().get
-                                                                            (5)) || Integer.parseInt(map2
-                                                                            .getValue().get(3)) == Integer
-                                                                            .parseInt(map2.getValue().get(5))){
 
-                                                                    }else{
-                                                                        for (int j = 1; j < weeksSinceLast; j++) {
-                                                                            sets = sets - Integer.parseInt(map2.getValue
-                                                                                    ().get(2));
-                                                                            reps = reps - Integer.parseInt(map2.getValue
-                                                                                    ().get(4));
+                                                        boolean isNonIntWeight = false;
+
+                                                        if(isExerciseName(tokens[2])){
+                                                            isNonIntWeight = true;
+                                                        }
+
+                                                        if(map2.getValue().get(1).equals("") || map2.getValue().get(2).equals("")){
+                                                            sets = Integer.parseInt(tokens[0]);
+                                                        }else{
+                                                            if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(1))) {
+                                                                sets = Integer.parseInt(tokens[0]);
+                                                                sets += Integer.parseInt(map2.getValue().get(2));
+                                                            } else {
+                                                                sets = Integer.parseInt(tokens[0]);
+                                                            }
+                                                        }
+
+                                                        if(map2.getValue().get(3).equals("") || map2.getValue().get
+                                                                (4).equals("")) {
+                                                            reps = Integer.parseInt(tokens[1]);
+                                                        }else{
+                                                            if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(3))) {
+                                                                reps = Integer.parseInt(tokens[1]);
+                                                                reps += Integer.parseInt(map2.getValue().get(4));
+                                                            } else {
+                                                                reps = Integer.parseInt(tokens[1]);
+                                                            }
+                                                        }
+
+                                                        //TODO: Alert user that looping only works if you set weight increases
+
+                                                        if(map2.getValue().get(5).equals("") || map2.getValue().get
+                                                                (6).equals("")) {
+
+                                                        }else{
+                                                            // map2.getValue().get(5) == ""
+                                                            if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
+                                                                if (!isExerciseName(tokens[2])) {
+                                                                    if(!isNonIntWeight){
+                                                                        weight = Integer.parseInt(tokens[2]);
+                                                                        weight += Integer.parseInt(map2.getValue().get(6));
+                                                                    }
+                                                                    if (Boolean.parseBoolean(map2.getValue().get(7))) {
+                                                                        /**
+                                                                         *
+                                                                         */
+                                                                        if(Integer.parseInt(map2.getValue().get(1)
+                                                                        ) == Integer.parseInt(map2.getValue().get
+                                                                                (5)) || Integer.parseInt(map2
+                                                                                .getValue().get(3)) == Integer
+                                                                                .parseInt(map2.getValue().get(5))){
+
+                                                                        }else{
+                                                                            for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                sets = sets - Integer.parseInt(map2.getValue
+                                                                                        ().get(2));
+                                                                                reps = reps - Integer.parseInt(map2.getValue
+                                                                                        ().get(4));
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
-                                                            }
-                                                        } else {
-                                                            if (!isExerciseName(tokens[2])) {
-                                                                weight = Integer.parseInt(tokens[2]);
+                                                            } else {
+                                                                if (!isExerciseName(tokens[2])) {
+                                                                    weight = Integer.parseInt(tokens[2]);
+                                                                }
                                                             }
                                                         }
 
-                                                        String concat = Integer.toString
-                                                                (sets) + "x" + Integer.toString(reps)
-                                                                + "@" + Integer.toString
-                                                                (weight);
+                                                        String concat;
+
+                                                        if(!isNonIntWeight){
+                                                            concat = Integer.toString(sets)
+                                                                    + "x" + Integer.toString(reps)
+                                                                    + "@" + Integer.toString(weight);
+                                                        }else{
+                                                            concat = Integer.toString(sets)
+                                                                    + "x" + Integer.toString(reps)
+                                                                    + "@" + tokens[2];
+                                                        }
+
+
 
                                                         newValueList.add(concat);
                                                         //newValueMap.get(valueMapEntry.getKey()).add(concat);
@@ -1930,7 +2045,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         String delims = "[@,_]";
                         String tokens[] = string.split(delims);
                         int int1 = Integer.parseInt(tokens[0]);
-                        int int2 = Integer.parseInt(tokens[1]); // invalid int, B.W.
+                        int int2;
+                        try{
+                            int2 = Integer.parseInt(tokens[1]);
+                        }catch (NumberFormatException e){
+                            int2 = 0;
+                        }
+
+                        //if(tokens[1].equals("B.W.")){
+                        //    if(userModelClass.isIsImperial()){
+                        //        int2 = Integer.parseInt(userModelClass.getPounds());
+                        //    }else{
+                        //        int2 = Integer.parseInt(userModelClass.getKgs());
+                        //    }
+                        //}else{
+                        //    int2 = Integer.parseInt(tokens[1]);
+                        //}
                         int int3 = int1 * int2;
                         totalPoundage = totalPoundage + int3;
                     }
