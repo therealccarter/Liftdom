@@ -142,8 +142,8 @@ public class UserModelClass {
             resultsMap.put("currentStreak", "1");
             setLastCompletedDay(LocalDate.now().toString());
         }else{
-            LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
-            if(lastCompletedDay == LocalDate.now().minusDays(1)){
+            //LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
+            if(getLastCompletedDay().equals(LocalDate.now().minusDays(1).toString())){
                 int currentStreak = Integer.parseInt(getCurrentStreak());
                 currentStreak++;
                 setCurrentStreak(String.valueOf(currentStreak));
@@ -191,12 +191,15 @@ public class UserModelClass {
 
         int newCurrentXpWithinLevel = 0;
 
+
         for(int i = 0; i < 50; i++){
             int goalXp = generateGoalXp(currentPowerLevel);
             if(i == 0){
                 if(Integer.parseInt(getCurrentXpWithinLevel()) + totalXpGained >= goalXp){
                     currentPowerLevel++;
-                    newCurrentXpWithinLevel = totalXpGained - goalXp;
+                    int xpLeftInCurrent = goalXp - Integer.parseInt(getCurrentXpWithinLevel()); // 1
+                    newCurrentXpWithinLevel = totalXpGained - xpLeftInCurrent;
+
                 }else{
                     int newXpWithinLevel = Integer.parseInt(getCurrentXpWithinLevel()) + totalXpGained;
                     setCurrentXpWithinLevel(String.valueOf(newXpWithinLevel));
@@ -205,7 +208,8 @@ public class UserModelClass {
             }else{
                 if(newCurrentXpWithinLevel >= goalXp){
                     currentPowerLevel++;
-                    newCurrentXpWithinLevel = newCurrentXpWithinLevel - goalXp;
+                    int xpLeftInCurrent = goalXp - newCurrentXpWithinLevel; // 1
+                    newCurrentXpWithinLevel = totalXpGained - xpLeftInCurrent;
                 }else{
                     setCurrentXpWithinLevel(String.valueOf(newCurrentXpWithinLevel));
                     setPowerLevel(String.valueOf(currentPowerLevel));

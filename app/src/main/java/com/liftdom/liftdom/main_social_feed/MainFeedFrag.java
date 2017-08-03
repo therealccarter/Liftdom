@@ -106,12 +106,15 @@ public class MainFeedFrag extends Fragment{
                         if(inc == dataSnapshot.getChildrenCount()){
                             AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                                     .loadingView1);
-                            loadingView.setVisibility(View.GONE);
-                            CompleteWorkoutRecyclerAdapter adapter = new CompleteWorkoutRecyclerAdapter(list, getContext(),
-                                    getActivity());
-                            mRecyclerView.setAdapter(adapter);
-                            mRecyclerView.setHasFixedSize(false);
-                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+                            if(loadingView != null){
+                                loadingView.setVisibility(View.GONE);
+                                CompleteWorkoutRecyclerAdapter adapter = new CompleteWorkoutRecyclerAdapter(list, getContext(),
+                                        getActivity());
+                                mRecyclerView.setAdapter(adapter);
+                                mRecyclerView.setHasFixedSize(false);
+                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+                            }
+
                         }
                     }
                 }
