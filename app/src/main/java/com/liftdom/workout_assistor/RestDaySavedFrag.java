@@ -210,7 +210,7 @@ public class RestDaySavedFrag extends Fragment {
 
         int xpGained = Integer.parseInt(totalXpGained);
         int goalXp = generateGoalXp(currentPowerLevel);
-        generateLevelUpAnimation(xpGained, currentXp);
+        generateLevelUpAnimation(1000, currentXp);
 
     }
 
@@ -376,6 +376,7 @@ public class RestDaySavedFrag extends Fragment {
     private void startCounterAnimForLevelIncrease(int currentNumber1, int goalNumber1, int totalXpGained, final int initialPowerLevel){
         // purely for situation where we are EXCEEDING goal xp and leveling up
 
+
         int difference = goalNumber1 - currentNumber1;
         newXpGained = totalXpGained - difference;
 
@@ -422,41 +423,6 @@ public class RestDaySavedFrag extends Fragment {
             }
         });
         animator1.start();
-
-        // then add what's left to
-
-
-        //final boolean increasePowerLevel, final String powerLevel, final int currentXpWithinLevel
-        //if(textView == powerLevelXpView1){
-        //    animator.addListener(new Animator.AnimatorListener() {
-        //        @Override
-        //        public void onAnimationStart(Animator animation) {
-        //
-        //        }
-        //
-        //        @Override
-        //        public void onAnimationEnd(Animator animation) {
-        //            if(increasePowerLevel){
-        //                powerLevelTextView.setText(powerLevel);
-        //                scaleXp1(powerLevelTextView);
-        //                konfetti();
-        //                animationsFirstTime = false;
-        //                startCounterAnimation(0, currentXpWithinLevel, powerLevelXpView1, false, null, 0);
-        //            }
-        //
-        //        }
-        //
-        //        @Override
-        //        public void onAnimationCancel(Animator animation) {
-        //
-        //        }
-        //
-        //        @Override
-        //        public void onAnimationRepeat(Animator animation) {
-        //
-        //        }
-        //    });
-        //}
     }
 
     private void startCounterAnimation(int initialNumber, int finalNumber, final TextView textView){
