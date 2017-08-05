@@ -150,7 +150,7 @@ public class TemplateMenuFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        headerChanger("Workout Templating");
+        headerChanger("Workout Programming");
     }
 
     @Override

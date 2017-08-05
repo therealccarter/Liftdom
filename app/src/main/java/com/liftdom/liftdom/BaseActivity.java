@@ -86,7 +86,7 @@ public class BaseActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(2),
-                        new PrimaryDrawerItem().withName("Workout Templating").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("Workout Programming").withIdentifier(3),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
                         new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),

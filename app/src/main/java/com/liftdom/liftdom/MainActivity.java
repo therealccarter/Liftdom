@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
@@ -104,6 +105,9 @@ public class MainActivity extends BaseActivity implements
     public void changeHeaderTitle(String title){
         TextView titleView = (TextView) findViewById(R.id.title);
         titleView.setText(title);
+        if(title.equals("Workout Programming")){
+            titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        }
     }
 
     @Override

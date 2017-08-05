@@ -174,12 +174,15 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="smolov">Smolov</string>
+    <!-- =================================== LIFTDOM BEGIN =================================== -->
 
     <!-- STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
-    <string name="title">LIFTr</string>
+
+    <string name="smolov">Smolov</string>
+
+    <string name="title">Liftdom</string>
     <string name="action_settings">Settings</string>
-    <string name="chooseFromTemplate">Choose From Template</string>
+    <string name="chooseFromTemplate">Choose From Programs</string>
     <string name="fromScratch">Build From Scratch</string>
     <string name="next">Next</string>
     <string name="previous">Prev</string>
@@ -210,7 +213,7 @@
     <string name="title_activity_under_construction">underConstruction</string>
     <string name="title_activity_bodybuilding_programs">bodybuildingPrograms</string>
     <string name="title_activity_pushpulldetails">pushpulldetails</string>
-    <string name="customizeYour">Build Your Workout Template:</string>
+    <string name="customizeYour">Build Your Workout Program:</string>
 
     <string name="x">x</string>
     <string name="at">\@</string>
@@ -284,13 +287,13 @@
     <string name="repsAt">reps @</string>
 
     <string name="todo">TO-DO</string>
-    <string name="templates">Templates</string>
+    <string name="templates">Programs</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Close Drawer</string>
     <string name="extraOptions">Extra options:</string>
     <string name="liftr">LIFTr</string>
     <string name="applyAlgorithm">Apply algorithm to checked exercises?</string>
-    <string name="templateAlgorithm">Set Template Algorithm</string>
+    <string name="templateAlgorithm">Set Program Algorithm</string>
     <string name="algoLooper">Loop your algorithm (takes your highest week value and resets Sets/Reps while
         keeping the weight increases)(Highly suggested)
     </string>
@@ -347,12 +350,12 @@
     <string name="createdBy">Created by:\u0020</string>
     <string name="editedBy">Edited by:\u0020</string>
 
-    <string name="saveTemplate">Save Template</string>
+    <string name="saveTemplate">Save Program</string>
 
-    <string name="publicTemplates">Public Templates</string>
-    <string name="myPublicTemplates">My Public Templates</string>
+    <string name="publicTemplates">Public Programs</string>
+    <string name="myPublicTemplates">My Public Programs</string>
 
-    <string name="publishTemplate">Publish Template To Public Repo</string>
+    <string name="publishTemplate">Publish Program To Public Repo</string>
 
     <string name="welcomeToLiftdom">Welcome to Liftdom</string>
     <string name="setUpProfile">Let\'s set up your profile</string>
@@ -386,14 +389,14 @@
     <string name="days2">days!</string>
     <string name="xp">xp</string>
 
-    <string name="template_title_nav">Template System</string>
+    <string name="template_title_nav">Program System</string>
     <string name="assistor_title_nav">Today\'s Workout</string>
 
     <!-- TEMPLATE LANDER TEXT -->
-    <string name="new_template">New Template</string>
-    <string name="newTemplateFromScratch">(+) New Template</string>
+    <string name="new_template">New Program</string>
+    <string name="newTemplateFromScratch">(+) New Program</string>
     <string name="premade_templates">Pre-made</string>
-    <string name="saved_templates">Saved Templates</string>
+    <string name="saved_templates">Saved Programs</string>
     <string name="userMadeTemplates">User-made</string>
 
     <string name="completeWorkout">Complete Workout</string>
@@ -409,19 +412,19 @@
     <!-- Rando -->
     <string name="TodaysWorkout">Today\'s Workout</string>
     <string name="fromScratch1">From Scratch</string>
-    <string name="my_templates">My Templates</string>
-    <string name="templateEditor">Template Editor</string>
+    <string name="my_templates">My Programs</string>
+    <string name="templateEditor">Program Editor</string>
 
     <!-- TEMPLATE HOLDER SHIT -->
-    <string name="makeCurrentTemplate">Set As Active Template</string>
+    <string name="makeCurrentTemplate">Set As Active Program</string>
     <string name="makePublic">Make public?</string>
-    <string name="descriptionHint">Add template description...</string>
-    <string name="editThisTemplate">Edit Template</string>
+    <string name="descriptionHint">Add program description...</string>
+    <string name="editThisTemplate">Edit Program</string>
     <string name="edit">Edit</string>
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="renameThisTemplate">Rename</string>
-    <string name="deleteThisTemplate">Delete Template</string>
+    <string name="deleteThisTemplate">Delete Program</string>
 
     <string name="longLatin">
         Lorem ipsum dolor sit amet, et modus senserit ullamcorper sed.
@@ -504,7 +507,7 @@
     <string name="activityFeed">Feed</string>
     <string name="forum">Forum</string>
     <string name="chat">Chat</string>
-    <string name="templating">Templating</string>
+    <string name="templating">Programming</string>
 
     <string name="graphing">Choose item(s) to graph\u0020</string>
     <string name="mode">Choose data mode:\u0020</string>
@@ -535,7 +538,7 @@
 
     <string name="calculate">Calculate</string>
 
-    <string name="renameTemplate">RENAME TEMPLATE TO...</string>
+    <string name="renameTemplate">RENAME PROGRAM TO...</string>
 
     <string name="knowledgeOfTheDay">Knowledge of the Day</string>
 
@@ -568,8 +571,8 @@
     <string name="finish">FINISH</string>
 
     <!-- save dialog <string name=""></string> -->
-    <string name="saveTemplateAs">SAVE TEMPLATE AS...</string>
-    <string name="templateNameHint">TEMPLATE NAME</string>
+    <string name="saveTemplateAs">SAVE PROGRAM AS...</string>
+    <string name="templateNameHint">PROGRAM NAME</string>
     <string name="format">Format:</string>
     <string name="formatSRW">Format: SETS x REPS @ WEIGHT</string>
     <string name="formatAlg">Algorithm\n Checkbox</string>
@@ -582,21 +585,21 @@
     <string name="clear">Clear</string>
 
     <!-- Template Housing -->
-    <string name="workoutTemplating">Workout Templating</string>
-    <string name="noActiveTemplate">No active template</string>
-    <string name="goToTemplating">Go to Workout Templating</string>
+    <string name="workoutTemplating">Workout Programming</string>
+    <string name="noActiveTemplate">No active program</string>
+    <string name="goToTemplating">Go to Workout Programming</string>
 
     <string name="completeRestDay">Complete Rest Day</string>
 
-    <string name="noSavedTemplates">No saved templates</string>
-    <string name="createTemplate">New Template:</string>
+    <string name="noSavedTemplates">No saved programs</string>
+    <string name="createTemplate">New Program:</string>
 
-    <string name="templateSaved">TEMPLATE SAVED</string>
-    <string name="backToTemplates">Back to Templates</string>
+    <string name="templateSaved">PROGRAM SAVED</string>
+    <string name="backToTemplates">Back to Programs</string>
 
     <string name="pplSaved">PUSH/PULL/LEGS SAVED</string>
 
-    <string name="finishedTemplateMessage">View or further edit this template via your Saved Templates page.</string>
+    <string name="finishedTemplateMessage">View or further edit this program via your Saved Programs page.</string>
 
     <string name="smolovSaved">SMOLOV CONFIRMED</string>
 

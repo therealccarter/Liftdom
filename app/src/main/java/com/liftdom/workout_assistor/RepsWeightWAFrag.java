@@ -64,6 +64,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
             repsEditText.setText(tokens[0]);
             weightEditText.setText(tokens[1]);
+            if(!isExerciseName(tokens[1])){
+                unitView.setVisibility(View.GONE);
+            }
             if(tokens[2].equals("checked")){
                 checkBox.setChecked(true);
                 holderView.setBackgroundColor(Color.parseColor("#cccccc"));
@@ -75,6 +78,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
             repsEditText.setText(tokens[0]);
             weightEditText.setText(tokens[1]);
+            if(!isExerciseName(tokens[1])){
+                unitView.setVisibility(View.GONE);
+            }
         }
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -117,6 +123,19 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             info = info + "_unchecked";
         }
         return info;
+    }
+
+    boolean isExerciseName(String input) {
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
     }
 
     @Override
