@@ -27,6 +27,7 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     private final TextView mDaysView;
     private final TextView mDescriptionView;
     private final LinearLayout mTemplateHeader;
+    private final LinearLayout parentLL;
     private FragmentActivity mActivity;
 
     public SavedTemplateViewHolder(View itemView){
@@ -36,8 +37,9 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
         mDaysView = (TextView) itemView.findViewById(R.id.daysView);
         mDescriptionView = (TextView) itemView.findViewById(R.id.descriptionView);
         mTemplateHeader = (LinearLayout) itemView.findViewById(R.id.savedTemplateHeader);
+        parentLL = (LinearLayout) itemView.findViewById(R.id.parentLL);
 
-        mTemplateHeader.setOnClickListener(new View.OnClickListener() {
+        parentLL.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -3,16 +3,17 @@
 ===========================================
 
 ============ BUG/TO-DO LIST ================
-make whole saved template box selectable
 if (bodyweight), automatically make it bodyweight
-lock orientation (portrait v landscape)
+
 doesn't autoscroll on comment update
 needs to go all the way down when user first opens chat
 preview text should be last sent message
+
 make back stack only go up the activity tree
-if profile picture not selected, revert loading animation to previous pic
+
 profile picture (tourettes pic) is rotated
-don't save pic unless hitting save
+
+
 remember on account creation, walk through level 0-1
 have a default template
 put limits on template editor edit texts
@@ -24,8 +25,12 @@ figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
+don't save pic unless hitting save
 =======================================================================================
 
 ======== ***Completed*** =======================================================
 implement level stuff/implement rest day logic
+make whole saved template box selectable
+lock orientation (portrait v landscape)
+if profile picture not selected, revert loading animation to previous pic
 ==============================================

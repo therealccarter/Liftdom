@@ -307,6 +307,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 } catch (IOException e) {
 
                 }
+            }else{
+                profilePicView.setVisibility(View.VISIBLE);
+                profilePicLoadingView.setVisibility(View.GONE);
             }
         }
     }

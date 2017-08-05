@@ -42,12 +42,16 @@
                 android:noHistory="true"
                 android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
-        <activity android:name="com.liftdom.template_editor.TemplateSavedActivity">
+        <activity android:name="com.liftdom.template_editor.TemplateSavedActivity"
+                  android:screenOrientation="portrait"
+        >
         </activity>
-        <activity android:name="com.liftdom.user_profile.your_profile.CurrentUserProfile">
+        <activity android:name="com.liftdom.user_profile.your_profile.CurrentUserProfile"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.your_profile.ProfileInfoActivity"
+                android:screenOrientation="portrait"
                 >
         </activity>
         <activity
@@ -81,13 +85,15 @@
         </activity>
         <activity
                 android:name="com.liftdom.charts_stats_tools.ChartsStatsToolsActivity"
+                android:screenOrientation="portrait"
                 android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
-        <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity">
+        <activity android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity"
@@ -99,14 +105,17 @@
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity"
+                android:screenOrientation="portrait"
                 android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
+                android:screenOrientation="portrait"
                 android:theme="@style/Theme.AppCompat.Dialog.NoBar">
         </activity>
         <activity
                 android:name="com.liftdom.misc_activities.PremiumFeaturesActivity"
+                android:screenOrientation="portrait"
                 android:label="">
         </activity>
         <activity
@@ -118,6 +127,7 @@
                 android:noHistory="true">
         </activity>
         <activity android:name=".SignInActivity"
+                  android:screenOrientation="portrait"
         >
         </activity>
         <activity
@@ -138,6 +148,7 @@
         </activity>
         <activity
                 android:name=".intro.FirstTimeSetupActivity"
+                android:screenOrientation="portrait"
                 android:theme="@style/Theme.Intro">
         </activity>
     </application>
