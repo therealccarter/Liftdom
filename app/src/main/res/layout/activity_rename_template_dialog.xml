@@ -30,6 +30,7 @@
                 android:hint="@string/templateNameHint"
                 android:background="@color/backgroundgrey1"
                 android:imeOptions="actionDone"
+                android:maxLength="12"
         />
 
 

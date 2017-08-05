@@ -71,6 +71,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
             <TextView
@@ -100,6 +101,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
         </LinearLayout>
@@ -129,6 +131,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
             <TextView
@@ -160,6 +163,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
         </LinearLayout>
@@ -193,6 +197,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
             <TextView
@@ -224,6 +229,7 @@
                     android:imeOptions="actionDone"
                     android:textSize="17sp"
                     android:textColor="@color/black"
+                    android:maxLength="2"
             />
 
             <TextView

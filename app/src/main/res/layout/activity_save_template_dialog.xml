@@ -26,6 +26,7 @@
                 android:layout_height="60dp"
                 android:hint="@string/templateNameHint"
                 android:imeOptions="actionDone"
+                android:maxLength="12"
         />
 
 

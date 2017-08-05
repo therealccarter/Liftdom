@@ -25,6 +25,7 @@
             android:textColorHint="@color/black"
             android:textSize="22sp"
             android:imeOptions="actionDone"
+            android:maxLength="2"
     />
 
     <TextView
@@ -46,6 +47,7 @@
             android:textColorHint="@color/black"
             android:textSize="22sp"
             android:imeOptions="actionDone"
+            android:maxLength="2"
     />
 
 
@@ -68,6 +70,7 @@
             android:textColorHint="@color/black"
             android:textSize="22sp"
             android:imeOptions="actionDone"
+            android:maxLength="4"
     />
 
     <TextView

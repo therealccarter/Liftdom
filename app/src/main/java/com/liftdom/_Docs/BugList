@@ -13,19 +13,18 @@ make back stack only go up the activity tree
 
 profile picture (tourettes pic) is rotated
 
-
 remember on account creation, walk through level 0-1
 have a default template
-put limits on template editor edit texts
+
 make bodyweight exercise bodyweight by default
-handle bw and others in assistor
+
 onBackPress to selected template view, day views replicated
-workout assistor issues, check saveAssistorDialog
+
 figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-don't save pic unless hitting save
+handle bw and others in assistor
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -33,4 +32,7 @@ implement level stuff/implement rest day logic
 make whole saved template box selectable
 lock orientation (portrait v landscape)
 if profile picture not selected, revert loading animation to previous pic
+don't save pic unless hitting save
+put limits on template editor edit texts
+
 ==============================================
