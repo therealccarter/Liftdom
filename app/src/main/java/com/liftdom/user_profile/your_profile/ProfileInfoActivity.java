@@ -61,6 +61,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     @BindView(R.id.profilePicImageView) ImageView profilePicView;
     @BindView(R.id.headerImageView) ImageView headerImageView;
     @BindView(R.id.profilePicLoadingView) AVLoadingIndicatorView profilePicLoadingView;
+    @BindView(R.id.saveLoadingView) AVLoadingIndicatorView saveLoadingView;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -79,11 +80,12 @@ public class ProfileInfoActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     UserModelClass userModelClass;
+    InputStream inputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic_stats);
+        setContentView(R.layout.activity_profile_info);
 
         ButterKnife.bind(this);
 
@@ -212,6 +214,10 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                saveLoadingView.setVisibility(View.VISIBLE);
+                saveButton.setVisibility(View.GONE);
+
                 String currentFocus = currentFocusSpinner.getSelectedItem().toString();
                 String bodyweight = bodyWeightEditText.getText().toString();
                 String height = heightFeet.getText().toString() + "_" + heightInches.getText().toString();
@@ -238,19 +244,40 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     userModelClass.updateUnits(false);
                 }
 
-                userRef.setValue(userModelClass);
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
 
-                Intent intent = new Intent(v.getContext(), CurrentUserProfile.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                UploadTask uploadTask = profilePicRef.putStream(inputStream);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        userRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                        //Snackbar.make(getCurrentFocus(), "Profile picture uploaded", Snackbar.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Snackbar.make(getCurrentFocus(), "Save error", Snackbar.LENGTH_SHORT).show();
+                        saveLoadingView.setVisibility(View.GONE);
+                        saveButton.setVisibility(View.VISIBLE);
+                    }
+                });
+
+
             }
         });
 
         profilePicView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 profilePicView.setVisibility(View.GONE);
                 profilePicLoadingView.setVisibility(View.VISIBLE);
 
@@ -262,6 +289,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         });
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1) {
@@ -269,9 +297,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();
                 Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
                 File imageFile = new File(selectedImageUri.getPath());
-
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
 
                 try {
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
@@ -282,30 +307,16 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
-                    InputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+                    inputStream = new ByteArrayInputStream(bos.toByteArray());
 
-                    UploadTask uploadTask = profilePicRef.putStream(inputStream);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            Glide.with(getApplicationContext()).load(downloadUrl).into(profilePicView);
-                            profilePicView.setVisibility(View.VISIBLE);
-                            profilePicLoadingView.setVisibility(View.GONE);
-                            Snackbar.make(getCurrentFocus(), "Profile picture uploaded", Snackbar.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i("firebase", "upload failed");
-                            profilePicLoadingView.setVisibility(View.GONE);
-                            profilePicView.setVisibility(View.VISIBLE);
-                            Snackbar.make(getCurrentFocus(), "Picture upload failed", Snackbar.LENGTH_SHORT).show();
-                        }
-                    });
+                    Glide.with(getApplicationContext()).load(selectedImageUri).into(profilePicView);
+                    profilePicView.setVisibility(View.VISIBLE);
+                    profilePicLoadingView.setVisibility(View.GONE);
 
                 } catch (IOException e) {
-
+                    if(getCurrentFocus() != null){
+                        Snackbar.make(getCurrentFocus(), "Error, try another picture", Snackbar.LENGTH_SHORT);
+                    }
                 }
             }else{
                 profilePicView.setVisibility(View.VISIBLE);

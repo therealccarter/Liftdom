@@ -86,7 +86,6 @@
             </LinearLayout>
 
 
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -339,8 +338,6 @@
             </LinearLayout>
 
 
-
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -501,8 +498,17 @@
             </LinearLayout>
 
 
-
             <!-- ========================== -->
+
+            <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:indicatorName="BallClipRotateMultipleIndicator"
+                    android:id="@+id/saveLoadingView"
+                    app:indicatorColor="@color/liftrGold2"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+            />
 
             <Button
                     android:layout_width="wrap_content"
