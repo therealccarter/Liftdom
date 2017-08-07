@@ -47,6 +47,7 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         viewHolder.setUserLevel(mCompletedWorkoutList.get(position).getUserId(), mRootRef);
         viewHolder.setActivity(mActivity);
         viewHolder.setUserId(mCompletedWorkoutList.get(position).getUserId());
+        viewHolder.setUpProfilePics(mCompletedWorkoutList.get(position).getUserId());
         viewHolder.setPublicDescription(mCompletedWorkoutList.get(position).getPublicDescription());
         viewHolder.setTimeStamp(mCompletedWorkoutList.get(position).getDateTime());
         viewHolder.setPostInfo(mCompletedWorkoutList.get(position).getWorkoutInfoMap(), mActivity, mContext);

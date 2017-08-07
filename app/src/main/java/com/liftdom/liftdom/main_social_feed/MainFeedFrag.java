@@ -109,7 +109,7 @@ public class MainFeedFrag extends Fragment{
                         CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
                         postList.add(modelClass);
                         postInc++;
-                        if(postInc == 10){
+                        if(postInc == 10 || postInc == dataSnapshot.getChildrenCount()){
                             AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
                             if(loadingView != null){
                                 loadingView.setVisibility(View.GONE);

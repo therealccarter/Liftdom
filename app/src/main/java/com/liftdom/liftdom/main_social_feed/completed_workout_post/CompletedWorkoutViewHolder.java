@@ -2,6 +2,7 @@ package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,11 +11,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.*;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.comment_post.CommentsHolderFrag;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
@@ -35,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Brodin on 5/6/2017.
  */
@@ -53,6 +61,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final ImageButton mSendCommentButton;
     private final EditText mCommentEditText;
     private final ImageView mUserProfilePic;
+    private final ImageView xProfilePic;
     private String mRefKey;
     private final RecyclerView mCommentRecyclerView;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -70,10 +79,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mSendCommentButton = (ImageButton) itemView.findViewById(R.id.sendCommentButton);
         mCommentEditText = (EditText) itemView.findViewById(R.id.commentEditText);
         mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
+        xProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+
+
+
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -132,8 +145,36 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 }
             }
         });
+    }
 
+    public void setUpProfilePics(String postUid){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
+        StorageReference currentProfilePicRef = storageRef.child("images/user/" + getCurrentUid() + "/profilePic.png");
+        currentProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(mActivity).load(uri).crossFade().into(mUserProfilePic);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mUserProfilePic.setImageResource(R.drawable.usertest);
+            }
+        });
+
+        StorageReference posterProfilePicRef = storageRef.child("images/user/" + postUid + "/profilePic.png");
+        posterProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(mActivity).load(uri).crossFade().into(xProfilePic);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //xProfilePic.setImageResource(R.drawable.usertest);
+            }
+        });
     }
 
     public void setCommentRecycler(String refKey){
@@ -242,7 +283,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 UserModelClass otherUserModelClass = dataSnapshot.getValue(UserModelClass.class);
                 String repsLevel = otherUserModelClass.getRepLevel();
                 String powerLevel = otherUserModelClass.getPowerLevel();
-                mUserLevelView.setText(repsLevel);
+                mUserLevelView.setText(powerLevel);
             }
 
             @Override
