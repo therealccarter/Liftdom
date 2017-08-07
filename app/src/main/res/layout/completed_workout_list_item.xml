@@ -7,18 +7,19 @@
         android:layout_margin="7dp"
         app:cardElevation="5dp"
         app:cardCornerRadius="0dp"
+        android:background="@color/offerGrey"
 >
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/grey"
             android:orientation="vertical"
     >
         <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 app:mrl_rippleOverlay="false"
                 app:mrl_rippleColor="@color/liftrGold1"
                 app:mrl_rippleDuration="450"
@@ -31,7 +32,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:background="@color/offWhite"
                     android:id="@+id/postInfoHolder"
+                    android:elevation="5dp"
             >
                 <ImageView
                         android:layout_width="40dp"
@@ -87,10 +90,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/timeStampView"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textColor="@color/backgroundgrey1"
                             android:layout_gravity="end"
-                            android:layout_marginTop="-10dp"
+                            android:layout_marginTop="-20dp"
                             android:layout_marginEnd="15dp"
                     />
 
@@ -104,9 +107,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/liftrGold1"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="-5dp"
                 android:layout_marginBottom="15dp"
         />
 
@@ -114,6 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/infoRecyclerView"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
         >
 
         </android.support.v7.widget.RecyclerView>
@@ -131,9 +133,17 @@
 
         />
 
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/liftrGold1"
+        />
+
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:id="@+id/commentsRecyclerView"
         >
 
@@ -143,8 +153,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:background="@color/offWhite"
         >
             <ImageView
                     android:layout_width="24dp"

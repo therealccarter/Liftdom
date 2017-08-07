@@ -16,7 +16,7 @@ profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1
 have a default template
 
-make bodyweight exercise bodyweight by default
+make bodyweight exercises bodyweight by default
 
 onBackPress to selected template view, day views replicated
 
@@ -24,7 +24,6 @@ figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-main feed scrolling + clean up
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -36,4 +35,5 @@ don't save pic unless hitting save
 put limits on template editor edit texts
 handle bw and others in assistor
 change from "templates" to "programs"
+main feed scrolling + clean up
 ==============================================
