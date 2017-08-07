@@ -24,7 +24,7 @@ figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-change from "templates" to "programs"
+main feed scrolling + clean up
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -35,4 +35,5 @@ if profile picture not selected, revert loading animation to previous pic
 don't save pic unless hitting save
 put limits on template editor edit texts
 handle bw and others in assistor
+change from "templates" to "programs"
 ==============================================

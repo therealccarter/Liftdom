@@ -3,13 +3,14 @@ package com.liftdom.liftdom.main_social_feed;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,6 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompleteWorkoutRecyclerAdapter;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
-import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
@@ -53,11 +53,16 @@ public class MainFeedFrag extends Fragment{
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed")
             .child(uid);
     private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private CompleteWorkoutRecyclerAdapter adapter;
+    private List<CompletedWorkoutModelClass> postList;
+    private int postInc = 0;
 
     //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
+    //@BindView(R.id.loadMoreButton) Button loadMoreButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,29 +97,77 @@ public class MainFeedFrag extends Fragment{
         return view;
     }
 
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+
     private void setUpRecycler(){
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    List<CompletedWorkoutModelClass> list = new ArrayList<>();
-                    int inc = 0;
+                    postList = new ArrayList<>();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
-                        list.add(modelClass);
-                        inc++;
-                        if(inc == dataSnapshot.getChildrenCount()){
-                            AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
-                                    .loadingView1);
+                        postList.add(modelClass);
+                        postInc++;
+                        if(postInc == 10){
+                            AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
                             if(loadingView != null){
                                 loadingView.setVisibility(View.GONE);
-                                CompleteWorkoutRecyclerAdapter adapter = new CompleteWorkoutRecyclerAdapter(list, getContext(),
+                                mRecyclerView.setHasFixedSize(false);
+                                linearLayoutManager = new LinearLayoutManager(getActivity());
+                                mRecyclerView.setLayoutManager(linearLayoutManager);
+                                adapter = new CompleteWorkoutRecyclerAdapter(postList, getContext(),
                                         getActivity());
                                 mRecyclerView.setAdapter(adapter);
-                                mRecyclerView.setHasFixedSize(false);
-                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
-                            }
+                                linearLayoutManager.setSmoothScrollbarEnabled(true);
+                                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                    @Override
+                                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                        super.onScrolled(recyclerView, dx, dy);
 
+                                        if(dy > 0){
+                                            visibleItemCount = linearLayoutManager.getChildCount();
+                                            totalItemCount = linearLayoutManager.getItemCount();
+                                            pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
+
+                                            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount){
+                                                addOlderPosts(10);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void addOlderPosts(final int olderPostsAmount){
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    int innerInc = 0;
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        innerInc++;
+                        if(innerInc > postInc){
+                            CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
+                            if(!postList.contains(modelClass)){
+                                postList.add(modelClass);
+                            }
+                            if(innerInc == (olderPostsAmount + postInc) || innerInc == dataSnapshot.getChildrenCount()){
+                                postInc = postInc + innerInc;
+                                adapter.notifyItemInserted(postList.size() - 1);
+                                break;
+                            }
                         }
                     }
                 }
