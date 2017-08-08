@@ -115,6 +115,8 @@ public class MainFeedFrag extends Fragment{
                                 loadingView.setVisibility(View.GONE);
                                 mRecyclerView.setHasFixedSize(false);
                                 linearLayoutManager = new LinearLayoutManager(getActivity());
+                                linearLayoutManager.setReverseLayout(true);
+                                linearLayoutManager.setStackFromEnd(true);
                                 mRecyclerView.setLayoutManager(linearLayoutManager);
                                 adapter = new CompleteWorkoutRecyclerAdapter(postList, getContext(),
                                         getActivity());

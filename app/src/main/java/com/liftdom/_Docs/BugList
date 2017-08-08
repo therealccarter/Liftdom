@@ -5,10 +5,6 @@
 ============ BUG/TO-DO LIST ================
 if (bodyweight), automatically make it bodyweight
 
-doesn't autoscroll on comment update
-needs to go all the way down when user first opens chat
-preview text should be last sent message
-
 make back stack only go up the activity tree
 
 profile picture (tourettes pic) is rotated
@@ -24,6 +20,9 @@ figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
+doesn't autoscroll on comment update
+needs to go all the way down when user first opens chat
+update chat group's preview text/update time text
 =======================================================================================
 
 ======== ***Completed*** =======================================================

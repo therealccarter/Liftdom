@@ -138,6 +138,7 @@ public class ChatMainFrag extends Fragment {
                 viewHolder.setActiveDay(model.getActiveDate());
                 viewHolder.setChatId(model.getChatId());
                 viewHolder.setActivity(getActivity());
+                viewHolder.setMemberMap(model.getMemberMap());
             }
         };
 

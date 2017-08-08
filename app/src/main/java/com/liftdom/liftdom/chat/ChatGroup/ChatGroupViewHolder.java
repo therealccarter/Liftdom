@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag;
 
+import java.util.HashMap;
+
 /**
  * Created by Brodin on 5/3/2017.
  */
@@ -23,6 +25,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
     private final TextView mPreviewView;
     private final TextView mActiveDayView;
     private String mChatId;
+    private HashMap<String, String> memberMap;
     FragmentActivity mActivity;
 
     public ChatGroupViewHolder(View itemView){
@@ -42,6 +45,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         ChatSpecificFrag chatSpecificFrag = new ChatSpecificFrag();
+        chatSpecificFrag.memberMap = getMemberMap();
         Bundle chatIdBundle = new Bundle();
         chatIdBundle.putString("chatId", mChatId);
         chatSpecificFrag.setArguments(chatIdBundle);
@@ -49,6 +53,14 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
         fragmentTransaction.replace(R.id.mainFragHolder, chatSpecificFrag);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public HashMap<String, String> getMemberMap(){
+        return memberMap;
+    }
+
+    public void setMemberMap(HashMap<String, String> memberMap1){
+        memberMap = memberMap1;
     }
 
     public void setChatName(String chatName){

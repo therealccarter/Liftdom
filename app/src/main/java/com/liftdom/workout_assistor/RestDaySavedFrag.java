@@ -210,7 +210,7 @@ public class RestDaySavedFrag extends Fragment {
 
         int xpGained = Integer.parseInt(totalXpGained);
         int goalXp = generateGoalXp(currentPowerLevel);
-        generateLevelUpAnimation(1000, currentXp);
+        generateLevelUpAnimation(xpGained, currentXp);
 
     }
 
@@ -372,6 +372,7 @@ public class RestDaySavedFrag extends Fragment {
     int newXpGained = 0;
     int powerLevelInc = 0;
     int newCurrentXpWithinLevel = 0;
+    private boolean isFirstKonfetti = true;
 
     private void startCounterAnimForLevelIncrease(int currentNumber1, int goalNumber1, int totalXpGained, final int initialPowerLevel){
         // purely for situation where we are EXCEEDING goal xp and leveling up
@@ -439,16 +440,20 @@ public class RestDaySavedFrag extends Fragment {
 
     private void konfetti(){
         KonfettiView konfettiView = (KonfettiView) getActivity().findViewById(R.id.viewKonfetti);
-        konfettiView.build()
-                .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
-                .setDirection(0.0, 359.0)
-                .setSpeed(1f, 3f)
-                .setFadeOutEnabled(true)
-                .setTimeToLive(2000L)
-                .addShapes(Shape.RECT)
-                .addSizes(new Size(12, 5f))
-                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
-                .stream(300, 3000L);
+        if(isFirstKonfetti){
+            konfettiView.build()
+                    .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 3f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.RECT)
+                    .addSizes(new Size(12, 5f))
+                    .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                    .stream(300, 3000L);
+
+            isFirstKonfetti = false;
+        }
     }
 
 

@@ -211,10 +211,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         String[] tokens = map2.getValue().get(0).split(delims);
                         String splitExName = tokens[0];
 
-                        if(splitExName.equals("Bench Press (Barbell - Incline)")){
-                            Log.i("info", "info");
-                        }
-
                         String exNameCompleted = map2.getValue().get(0);
 
                         if(exName.equals(exNameCompleted)){
@@ -297,15 +293,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                         workoutInfoMap, commentModelClassMap);
-                //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                //feedFanOut(refKey, completedWorkoutModelClass);
+                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
-                //workoutHistoryRef.setValue(historyModelClass);
-
-
+                workoutHistoryRef.setValue(historyModelClass);
             }
 
             @Override
@@ -341,6 +335,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     }
 
     private boolean animationsFirstTime = true;
+    private boolean isFirstKonfetti = true;
 
     private String completionStreak;
     private String streakMultiplier;
@@ -349,6 +344,45 @@ public class AssistorSavedFrag extends android.app.Fragment {
     private int currentXp;
     private String currentPowerLevel;
     private String oldPowerLevel;
+
+    private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
+
+        DatabaseReference userListRef = mRootRef.child("followers").child(uid);
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+
+                    List<String> userList = new ArrayList<>();
+
+                    if(followersModelClass.getUserIdList() != null){
+                        userList.addAll(followersModelClass.getUserIdList());
+
+                        Map fanoutObject = new HashMap<>();
+                        for(String user : userList){
+                            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+                        }
+
+                        DatabaseReference rootRef = mRootRef;
+                        rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     private void processUserClassPowerLevel(UserModelClass userModelClass){
         if(animationsFirstTime){
@@ -579,16 +613,23 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     private void konfetti(){
         KonfettiView konfettiView = (KonfettiView) getActivity().findViewById(R.id.viewKonfetti);
-        konfettiView.build()
-                .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
-                .setDirection(0.0, 359.0)
-                .setSpeed(1f, 3f)
-                .setFadeOutEnabled(true)
-                .setTimeToLive(2000L)
-                .addShapes(Shape.RECT)
-                .addSizes(new Size(12, 5f))
-                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
-                .stream(300, 3000L);
+
+        if(isFirstKonfetti){
+            konfettiView.build()
+                    .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 3f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.RECT)
+                    .addSizes(new Size(12, 5f))
+                    .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                    .stream(300, 3000L);
+
+            isFirstKonfetti = false;
+        }
+
+
     }
 
     private List<String> getCompletedExercises(){
@@ -609,43 +650,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return completedExList;
     }
 
-    private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
-
-        DatabaseReference userListRef = mRootRef.child("followers").child(uid);
-        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
-
-                    List<String> userList = new ArrayList<>();
-
-                    if(followersModelClass.getUserIdList() != null){
-                        userList.addAll(followersModelClass.getUserIdList());
-
-                        Map fanoutObject = new HashMap<>();
-                        for(String user : userList){
-                            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
-                        }
-
-                        DatabaseReference rootRef = mRootRef;
-                        rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
-                                snackbar.show();
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     //TODO: check if today's been done you retard
 

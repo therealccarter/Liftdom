@@ -26,6 +26,8 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -39,6 +41,7 @@ public class ChatSpecificFrag extends Fragment {
     public String mChatId;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public HashMap<String, String> memberMap;
     private DatabaseReference mChatGroupReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private FirebaseUser mFirebaseUser;
@@ -87,7 +90,7 @@ public class ChatSpecificFrag extends Fragment {
                     mChatGroupReference.push().setValue(chatMessageModelClass);
 
                     newMessageView.setText("");
-                    layoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
+                    //layoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
                 }
             }
         });
@@ -119,6 +122,12 @@ public class ChatSpecificFrag extends Fragment {
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mFirebaseAdapter);
+
+
+    }
+
+    private void updateChatGroupPreview(String chatId){
+        // for each member of the current chat, update their chat group nodes
 
 
     }

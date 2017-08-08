@@ -45,7 +45,7 @@
                     android:id="@+id/newMessageView"
                     android:layout_weight="2"
                     android:hint="@string/sendMessage"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="17sp"
                     android:layout_marginEnd="10dp"
                     android:background="@color/offWhite"
