@@ -8,8 +8,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
 
@@ -26,6 +32,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
     private final TextView mActiveDayView;
     private String mChatId;
     private HashMap<String, String> memberMap;
+    private String mRefKey;
     FragmentActivity mActivity;
 
     public ChatGroupViewHolder(View itemView){
@@ -46,6 +53,7 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
 
         ChatSpecificFrag chatSpecificFrag = new ChatSpecificFrag();
         chatSpecificFrag.memberMap = getMemberMap();
+        chatSpecificFrag.refKey = getRefKey();
         Bundle chatIdBundle = new Bundle();
         chatIdBundle.putString("chatId", mChatId);
         chatSpecificFrag.setArguments(chatIdBundle);
@@ -71,12 +79,33 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
         mChatNameView.setText(chatName);
     }
 
+    public void setRefKey(String refKey){
+        mRefKey = refKey;
+    }
+
+    public String getRefKey(){
+        return mRefKey;
+    }
+
     public void setPreview(String previewText){
         mPreviewView.setText(previewText);
+        //DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference().child("chats").child(mChatId);
+        //chatRef.addListenerForSingleValueEvent();
     }
 
     public void setActiveDay(String activeDay){
-        mActiveDayView.setText(activeDay);
+        //LocalDate localDate = new LocalDate(activeDay, DateTimeZone.UTC);
+        DateTime dateTime = new DateTime(DateTime.parse(activeDay), DateTimeZone.getDefault());
+        String localDateString = dateTime.toString("EEEE, MMM d");
+        mActiveDayView.setText(localDateString);
+    }
+
+    private String getFormattedDate(DateTime dateTime){
+        String formatted = "";
+
+
+
+        return formatted;
     }
 
     public void setChatId(String chatId){

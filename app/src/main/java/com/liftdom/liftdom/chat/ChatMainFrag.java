@@ -25,6 +25,8 @@ import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 import java.util.*;
@@ -77,11 +79,13 @@ public class ChatMainFrag extends Fragment {
             }
         });
 
+        setUpFirebaseAdapter();
+
         mChatGroupReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    setUpFirebaseAdapter();
+
                 }else{
                     loadingView.setVisibility(View.GONE);
                     noChatsFoundView.setVisibility(View.VISIBLE);
@@ -107,6 +111,7 @@ public class ChatMainFrag extends Fragment {
                                               ChatGroupModelClass model, int position) {
                 if(position == 0){
                     loadingView.setVisibility(View.GONE);
+                    noChatsFoundView.setVisibility(View.GONE);
                 }
                 String chatNameUsers = "";
                 if(model.getChatName() == null){
@@ -139,6 +144,7 @@ public class ChatMainFrag extends Fragment {
                 viewHolder.setChatId(model.getChatId());
                 viewHolder.setActivity(getActivity());
                 viewHolder.setMemberMap(model.getMemberMap());
+                viewHolder.setRefKey(model.getRefKey());
             }
         };
 
@@ -175,29 +181,49 @@ public class ChatMainFrag extends Fragment {
                                 inc++;
                                 if(inc == memberList.size()){
                                     if(data.getStringExtra("chatName") != null){
+                                        DatabaseReference chatGroupReference = FirebaseDatabase.getInstance()
+                                                .getReference()
+                                                .child("chatGroups").child(userId);
+
+                                        Map fanoutObject = new HashMap<>();
+                                        String refKey = chatGroupReference.push().getKey();
+
                                         String chatName = data.getStringExtra("chatName");
                                         ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName, "preview text",
-                                                userMap, uniqueID);
-                                        LocalDate localDate = LocalDate.now();
-                                        chatGroupModelClass.setActiveDate(localDate.toString());
+                                                userMap, uniqueID, refKey);
+                                        String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+                                        chatGroupModelClass.setActiveDate(dateUTC);
 
                                         for(String userId : memberList){
-                                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
-                                                    .child("chatGroups").child(userId);
-                                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                                            fanoutObject.put("/chatGroups/" + userId + "/" + refKey,
+                                                    chatGroupModelClass);
                                         }
+
+                                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                        rootRef.updateChildren(fanoutObject);
+
                                         inc = 0;
                                     }else{
+                                        DatabaseReference chatGroupReference = FirebaseDatabase.getInstance()
+                                                .getReference()
+                                                .child("chatGroups").child(userId);
+
+                                        Map fanoutObject = new HashMap<>();
+                                        String refKey = chatGroupReference.push().getKey();
+
                                         ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(null, "preview text",
-                                                userMap, uniqueID);
-                                        LocalDate localDate = LocalDate.now();
-                                        chatGroupModelClass.setActiveDate(localDate.toString());
+                                                userMap, uniqueID, refKey);
+                                        String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+                                        chatGroupModelClass.setActiveDate(dateUTC);
 
                                         for(String userId : memberList){
-                                            DatabaseReference nChatGroupReference = FirebaseDatabase.getInstance().getReference()
-                                                    .child("chatGroups").child(userId);
-                                            nChatGroupReference.push().setValue(chatGroupModelClass);
+                                            fanoutObject.put("/chatGroups/" + userId + "/" + refKey,
+                                                    chatGroupModelClass);
                                         }
+
+                                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                        rootRef.updateChildren(fanoutObject);
+
                                         inc = 0;
 
                                     }

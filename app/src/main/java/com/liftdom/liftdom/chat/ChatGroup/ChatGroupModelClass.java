@@ -16,18 +16,27 @@ public class ChatGroupModelClass {
     private List<String> mMemberList;
     private HashMap<String, String> mMemberMap;
     private String mChatGroupId;
+    private String mRefKey;
 
     public ChatGroupModelClass(){
         // necessary for Firebase
     }
 
     public ChatGroupModelClass(String chatName, String previewString, HashMap<String, String> memberMap, String
-            chatId){
+            chatId, String refKey){
         mChatName = chatName;
         mPreviewString = previewString;
         mMemberMap = memberMap;
         mChatId = chatId;
+        mRefKey = refKey;
+    }
 
+    public String getRefKey() {
+        return mRefKey;
+    }
+
+    public void setRefKey(String mRefKey) {
+        this.mRefKey = mRefKey;
     }
 
     public HashMap<String, String> getMemberMap() {

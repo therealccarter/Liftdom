@@ -26,7 +26,10 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +42,8 @@ public class ChatSpecificFrag extends Fragment {
     }
 
     public String mChatId;
+    public String refKey;
+    private List<String> userList;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public HashMap<String, String> memberMap;
@@ -61,6 +66,12 @@ public class ChatSpecificFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        userList = new ArrayList<>();
+
+        for(Map.Entry<String, String> mapEntry : memberMap.entrySet()){
+            userList.add(mapEntry.getKey());
+        }
+
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
@@ -81,13 +92,17 @@ public class ChatSpecificFrag extends Fragment {
             public void onClick(View v) {
                 if(!newMessageView.getText().toString().equals("")){
 
+                    String message = newMessageView.getText().toString();
+
                     DateTime dateTime = new DateTime(DateTimeZone.UTC);
                     String dateTimeString = dateTime.toString();
 
-                    ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(newMessageView.getText().toString(),
+                    ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(message,
                             uid, userName, dateTimeString, 0, "none");
 
                     mChatGroupReference.push().setValue(chatMessageModelClass);
+
+                    updateChatGroups(message, dateTimeString);
 
                     newMessageView.setText("");
                     //layoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
@@ -126,10 +141,23 @@ public class ChatSpecificFrag extends Fragment {
 
     }
 
-    private void updateChatGroupPreview(String chatId){
+    private void updateChatGroups(String message, String dateTime){
         // for each member of the current chat, update their chat group nodes
+        Map fanoutObject = new HashMap<>();
 
+        for(String user : userList){
+            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/previewString", getTruncatedString(message));
+            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/activeDate", dateTime);
+        }
 
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.updateChildren(fanoutObject);
+
+    }
+
+    private String getTruncatedString(String unCut){
+        String cut = unCut.substring(0, Math.min(unCut.length(), 15)) + "...";
+        return cut;
     }
 
     @Override
