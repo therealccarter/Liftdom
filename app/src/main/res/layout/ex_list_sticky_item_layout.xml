@@ -12,6 +12,7 @@
                   android:layout_gravity="center_vertical"
                   android:paddingBottom="20dp"
                   android:paddingTop="20dp"
+                  android:layout_marginStart="5dp"
                   android:id="@+id/text"
         />
 

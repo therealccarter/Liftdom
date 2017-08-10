@@ -167,16 +167,28 @@ public class WorkoutAssistorFrag extends Fragment {
                                         AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
                                         assistorHolderFrag.templateClass = templateModelClass;
                                         if (!getActivity().isFinishing()) {
-                                            fragmentTransaction.replace(R.id.exInfoHolder, assistorHolderFrag);
-                                            fragmentTransaction.commitAllowingStateLoss();
+                                            try {
+                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                        .exInfoHolder);
+                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                fragmentTransaction.commitAllowingStateLoss();
+                                            }catch (NullPointerException e){
+
+                                            }
                                         }
                                     }else{
                                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         RestDayFrag restDayFrag = new RestDayFrag();
                                         if (!getActivity().isFinishing()) {
-                                            fragmentTransaction.replace(R.id.exInfoHolder, restDayFrag);
-                                            fragmentTransaction.commitAllowingStateLoss();
+                                            try {
+                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                        .exInfoHolder);
+                                                fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                                                fragmentTransaction.commitAllowingStateLoss();
+                                            }catch (NullPointerException e){
+
+                                            }
                                         }
                                     }
 
@@ -185,8 +197,14 @@ public class WorkoutAssistorFrag extends Fragment {
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
                                     if (!getActivity().isFinishing()) {
-                                        fragmentTransaction.replace(R.id.exInfoHolder, noActiveTemplateFrag);
-                                        fragmentTransaction.commitAllowingStateLoss();
+                                        try {
+                                            LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                    .exInfoHolder);
+                                            fragmentTransaction.replace(exInfoHolder.getId(), noActiveTemplateFrag);
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }catch (NullPointerException e){
+
+                                        }
                                     }
                                 }
                             }
@@ -201,8 +219,14 @@ public class WorkoutAssistorFrag extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
                         if (!getActivity().isFinishing()) {
-                            fragmentTransaction.replace(R.id.exInfoHolder, noActiveTemplateFrag);
-                            fragmentTransaction.commitAllowingStateLoss();
+                            try {
+                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                        .exInfoHolder);
+                                fragmentTransaction.replace(exInfoHolder.getId(), noActiveTemplateFrag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                            }catch (NullPointerException e){
+
+                            }
                         }
                     }
                 }

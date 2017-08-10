@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
@@ -48,8 +49,11 @@ public class RestDayFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
-                fragmentTransaction.replace(R.id.exInfoHolder, restDaySavedFrag);
-                fragmentTransaction.commit();
+                //LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
+
+                //fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
+                //fragmentTransaction.commit();
+
             }
         });
         return view;

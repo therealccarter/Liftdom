@@ -82,6 +82,7 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
             mCheckBox.setVisibility(View.GONE);
         }else{
             mCheckBox.setVisibility(View.VISIBLE);
+
         }
     }
 

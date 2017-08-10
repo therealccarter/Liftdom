@@ -60,14 +60,9 @@ public class CustomExListFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        //Intent intent = new Intent();
-        //intent.putExtra("MESSAGE", exercises[position]);
-        //fragActivity.setResult(2, intent);
-        ////ExercisePickerController.getInstance().exName = null;
-        //fragActivity.finish();
-        //ExSelectorStickyAdapter adapter = new ExSelectorStickyAdapter(getContext(), getActivity(), "custom",
-        //        noCheckbox, isExclusive);
-
+        if(noCheckbox){
+            addCustomExButton.setVisibility(View.GONE);
+        }
 
         addCustomExButton.setOnClickListener(new View.OnClickListener() {
             @Override
