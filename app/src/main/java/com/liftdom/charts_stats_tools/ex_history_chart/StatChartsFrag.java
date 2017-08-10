@@ -168,6 +168,7 @@ public class StatChartsFrag extends Fragment {
             ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
             ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
             ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
+            ArrayList<String> customItems = ExSelectorSingleton.getInstance().customItems;
 
             for (String string : upperBodyItems) {
                 if (string != null) {
@@ -180,6 +181,11 @@ public class StatChartsFrag extends Fragment {
                 }
             }
             for (String string : otherItems) {
+                if (string != null) {
+                    exNames = exNames + string + "\n";
+                }
+            }
+            for (String string : customItems) {
                 if (string != null) {
                     exNames = exNames + string + "\n";
                 }

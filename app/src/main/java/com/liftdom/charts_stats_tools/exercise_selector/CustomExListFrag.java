@@ -125,6 +125,13 @@ public class CustomExListFrag extends Fragment {
                 viewHolder.setRefKey(model.getRefKey());
                 viewHolder.setNoCheckbox(noCheckbox);
                 viewHolder.setExclusive(isExclusive);
+                if(!noCheckbox){
+                    if(ExSelectorSingleton.getInstance().customItems.contains(model.getExerciseName())){
+                        viewHolder.setIsChecked(true);
+                    }else{
+                        viewHolder.setIsChecked(false);
+                    }
+                }
             }
         };
 

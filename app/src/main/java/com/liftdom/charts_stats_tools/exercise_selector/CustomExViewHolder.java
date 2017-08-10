@@ -3,8 +3,10 @@ package com.liftdom.charts_stats_tools.exercise_selector;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
@@ -35,6 +37,25 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
 
         mView.setOnClickListener(this);
 
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if(!ExSelectorSingleton.getInstance().customItems.contains(getExName())){
+                        ExSelectorSingleton.getInstance().customItems.add(getExName());
+                        Log.i("info", getExName());
+                    }
+                }else{
+                    int index = ExSelectorSingleton.getInstance().customItems.indexOf(getExName());
+                    try{
+                        ExSelectorSingleton.getInstance().customItems.remove(index);
+                    }catch (IndexOutOfBoundsException e){
+                        Log.i("info", "out of bounds issue");
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
@@ -62,6 +83,14 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
     public void setExName(String mExName) {
         this.mExName = mExName;
         mExNameView.setText(mExName);
+    }
+
+    public void setIsChecked(boolean isChecked){
+        if(isChecked){
+            mCheckBox.setChecked(true);
+        }else{
+            mCheckBox.setChecked(false);
+        }
     }
 
     public String getRefKey() {
