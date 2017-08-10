@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              tools:context="com.liftdom.charts_stats_tools.exercise_selector.CustomExListFrag">
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/addCustomExButton"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:text="@string/addCustomEx"
+            android:textSize="18sp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+    />
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView"
+            android:layout_marginTop="110dp"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/noChatFoundView"
+            android:layout_marginTop="50dp"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:text="@string/noCustomEx"
+            android:gravity="center"
+            android:visibility="gone"
+    />
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"
+            android:layout_marginTop="10dp"
+    >
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+</LinearLayout>

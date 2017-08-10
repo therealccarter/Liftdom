@@ -20,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageModelClass;
-import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageViewHolder;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -51,7 +49,7 @@ public class ChatSpecificFrag extends Fragment {
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
-    private LinearLayoutManager layoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private boolean isFirstTime = true;
 
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
@@ -75,7 +73,7 @@ public class ChatSpecificFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-        layoutManager = new LinearLayoutManager(getActivity());
+
 
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setVisibility(View.GONE);
@@ -105,7 +103,7 @@ public class ChatSpecificFrag extends Fragment {
                     updateChatGroups(message, dateTimeString);
 
                     newMessageView.setText("");
-                    //layoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
+                    //linearLayoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
                 }
             }
         });
@@ -116,6 +114,13 @@ public class ChatSpecificFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(DatabaseReference databaseReference){
+
+        mRecyclerView.setHasFixedSize(false);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        //linearLayoutManager.setStackFromEnd(true);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageModelClass, ChatMessageViewHolder>
                 (ChatMessageModelClass.class, R.layout.chat_message_list_item, ChatMessageViewHolder.class, databaseReference) {
             @Override
@@ -134,8 +139,20 @@ public class ChatSpecificFrag extends Fragment {
             }
         };
 
-        mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int messageCount = mFirebaseAdapter.getItemCount();
+                int lastVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                if(lastVisiblePosition == -1 ||
+                        (positionStart >= (messageCount - 1))){
+                    mRecyclerView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
         mRecyclerView.setAdapter(mFirebaseAdapter);
 
 
@@ -156,7 +173,13 @@ public class ChatSpecificFrag extends Fragment {
     }
 
     private String getTruncatedString(String unCut){
-        String cut = unCut.substring(0, Math.min(unCut.length(), 15)) + "...";
+        String cut;
+        if(unCut.length() > 15){
+            cut = unCut.substring(0, Math.min(unCut.length(), 15)) + "...";
+        }else{
+            cut = unCut;
+        }
+
         return cut;
     }
 

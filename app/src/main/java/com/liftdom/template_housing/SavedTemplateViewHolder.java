@@ -53,6 +53,20 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
+        mTemplateHeader.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
+                selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         DatabaseReference activeTemplateRef = FirebaseDatabase.getInstance().getReference().child("user").child
                 (FirebaseAuth.getInstance().getCurrentUser().getUid());
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class ExPagerAdapter extends FragmentStatePagerAdapter {
 
-    CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
-    int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+    CharSequence Titles[]={"Upper Body", "Lower Body", "Other", "Custom"};
+    int NumbOfTabs = 4; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
     boolean mNoCheckbox = false;
     boolean mIsExclusive = false;
 
@@ -58,7 +58,7 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
                 tab2.isExclusive = true;
             }
             return tab2;
-        }else {
+        }else if(position == 2){
             OtherExListFrag tab3 = new OtherExListFrag();
             if(mNoCheckbox){
                 tab3.noCheckbox = true;
@@ -67,6 +67,15 @@ public class ExPagerAdapter extends FragmentStatePagerAdapter {
                 tab3.isExclusive = true;
             }
             return tab3;
+        }else{
+            CustomExListFrag tab4 = new CustomExListFrag();
+            if(mNoCheckbox){
+                tab4.noCheckbox = true;
+            }
+            if(mIsExclusive){
+                tab4.isExclusive = true;
+            }
+            return tab4;
         }
     }
 

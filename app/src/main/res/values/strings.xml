@@ -499,6 +499,10 @@
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
 
+    <string name="addCustomEx">+ Add Custom Exercise</string>
+    <string name="noCustomEx">No custom exercises found...</string>
+    <string name="chooseCustomEx">New Custom Exercise:</string>
+
     <string name="superset">SuperSet</string>
     <string name="algorithm">Algorithm</string>
     <string name="setAlgorithm">Set Auto-Growth Algorithm</string>

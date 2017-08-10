@@ -3,26 +3,24 @@
 ===========================================
 
 ============ BUG/TO-DO LIST ================
-if (bodyweight), automatically make it bodyweight
-
 make back stack only go up the activity tree
+
+chat profile images + look into Glide caching
 
 profile picture (tourettes pic) is rotated
 
 remember on account creation, walk through level 0-1
 have a default template
 
-make bodyweight exercises bodyweight by default
-
 onBackPress to selected template view, day views replicated
+
+tweak chat group date preview, add name to preview string
 
 figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-doesn't autoscroll on comment update
-needs to go all the way down when user first opens chat
-update chat group's preview text/update time text
+custom exercises
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -35,4 +33,8 @@ put limits on template editor edit texts
 handle bw and others in assistor
 change from "templates" to "programs"
 main feed scrolling + clean up
+update chat group's preview text/update time text
+doesn't autoscroll on comment update
+needs to go all the way down when user first opens chat
+make bodyweight exercises bodyweight by default
 ==============================================

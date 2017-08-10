@@ -117,11 +117,12 @@ public class MainFeedFrag extends Fragment{
                                 linearLayoutManager = new LinearLayoutManager(getActivity());
                                 linearLayoutManager.setReverseLayout(true);
                                 linearLayoutManager.setStackFromEnd(true);
+                                linearLayoutManager.setSmoothScrollbarEnabled(true);
                                 mRecyclerView.setLayoutManager(linearLayoutManager);
                                 adapter = new CompleteWorkoutRecyclerAdapter(postList, getContext(),
                                         getActivity());
                                 mRecyclerView.setAdapter(adapter);
-                                linearLayoutManager.setSmoothScrollbarEnabled(true);
+
                                 mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                                     @Override
                                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

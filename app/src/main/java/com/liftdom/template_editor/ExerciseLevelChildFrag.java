@@ -270,13 +270,21 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     String message = data.getStringExtra("MESSAGE");
                     String newMessage = newLineExname(message);
                     exerciseButton.setText(newMessage);
-                    if (message.equals("Pullups") || message.equals("Crunches")
-                            || message.equals("Sit-ups")
-                            || message.equals("Leg Raises")) {
+                    if(isBodyweight(message)) {
                         if (!setsLevelChildFragAL.isEmpty()) {
-                            setsLevelChildFragAL.get(0).weightEditText.setText("B.W.");
-                            setsLevelChildFragAL.get(0).pounds.setVisibility(View.GONE);
-                            setsLevelChildFragAL.get(0).weightEditText.setEnabled(false);
+                            for(int i = 0; i < setsLevelChildFragAL.size(); i++){
+                                setsLevelChildFragAL.get(i).weightEditText.setText("B.W.");
+                                setsLevelChildFragAL.get(i).pounds.setVisibility(View.GONE);
+                                setsLevelChildFragAL.get(i).weightEditText.setEnabled(false);
+                            }
+                        }
+                    }else{
+                        if (!setsLevelChildFragAL.isEmpty()) {
+                            for(int i = 0; i < setsLevelChildFragAL.size(); i++){
+                                setsLevelChildFragAL.get(i).weightEditText.setText("");
+                                setsLevelChildFragAL.get(i).pounds.setVisibility(View.VISIBLE);
+                                setsLevelChildFragAL.get(i).weightEditText.setEnabled(true);
+                            }
                         }
                     }
                 }
@@ -339,6 +347,20 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 }
             }
         }
+    }
+
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
     }
 
     public void setToGoldFromDoW(){

@@ -125,6 +125,23 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                     String message = data.getStringExtra("MESSAGE");
                     String newMessage = newLineExname(message);
                     exerciseButton.setText(newMessage);
+                    if(isBodyweight(message)) {
+                        if (!setSchemeList.isEmpty()) {
+                            for(int i = 0; i < setSchemeList.size(); i++){
+                                setSchemeList.get(i).weightEditText.setText("B.W.");
+                                setSchemeList.get(i).pounds.setVisibility(View.GONE);
+                                setSchemeList.get(i).weightEditText.setEnabled(false);
+                            }
+                        }
+                    }else{
+                        if (!setSchemeList.isEmpty()) {
+                            for(int i = 0; i < setSchemeList.size(); i++){
+                                setSchemeList.get(i).weightEditText.setText("");
+                                setSchemeList.get(i).pounds.setVisibility(View.VISIBLE);
+                                setSchemeList.get(i).weightEditText.setEnabled(true);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -143,6 +160,19 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
         return infoList;
     }
 
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
+    }
 
     public String newLineExname(String exerciseName){
         String newExNameString = "null";
