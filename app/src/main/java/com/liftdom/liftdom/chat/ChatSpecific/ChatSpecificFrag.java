@@ -52,6 +52,8 @@ public class ChatSpecificFrag extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private boolean isFirstTime = true;
 
+    String userName;
+
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.newMessageView) EditText newMessageView;
     @BindView(R.id.sendMessageView) ImageButton sendMessageButton;
@@ -84,7 +86,7 @@ public class ChatSpecificFrag extends Fragment {
                 .child(chatId);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        final String userName = sharedPref.getString("userName", "loading...");
+        userName = sharedPref.getString("userName", "loading...");
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -163,7 +165,9 @@ public class ChatSpecificFrag extends Fragment {
         Map fanoutObject = new HashMap<>();
 
         for(String user : userList){
-            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/previewString", getTruncatedString(message));
+            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/previewString", userName + ": "
+                    + getTruncatedString
+                    (message));
             fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/activeDate", dateTime);
         }
 

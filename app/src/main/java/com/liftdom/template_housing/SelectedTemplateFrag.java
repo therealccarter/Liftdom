@@ -25,13 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
-import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -582,8 +580,9 @@ public class SelectedTemplateFrag extends Fragment {
                                     CharSequence toastText = "Set as Active Template";
                                     int duration = Toast.LENGTH_SHORT;
                                     try{
-                                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                                        snackbar.show();
+                                        //Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                                        //snackbar.show();
+                                        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
                                     } catch (NullPointerException e){
 
                                     }
@@ -603,8 +602,9 @@ public class SelectedTemplateFrag extends Fragment {
                     int duration = Toast.LENGTH_SHORT;
 
                     try{
-                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                        snackbar.show();
+                        //Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                        //snackbar.show();
+                        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
                     } catch (NullPointerException e){
 
                     }

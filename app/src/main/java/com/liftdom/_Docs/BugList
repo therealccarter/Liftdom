@@ -3,24 +3,23 @@
 ===========================================
 
 ============ BUG/TO-DO LIST ================
-make back stack only go up the activity tree
+make back stack only go up the activity tree (?)
 
-chat profile images + look into Glide caching
+chat profile images
+
+look into Glide caching
 
 profile picture (tourettes pic) is rotated
 
 remember on account creation, walk through level 0-1
 have a default template
 
-onBackPress to selected template view, day views replicated
-
-tweak chat group date preview, add name to preview string
-
 figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-custom exercises
+onBackPress to selected template view, day views replicated )
+    - (onBackPress is screwed up everywhere on the main feed
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -37,4 +36,6 @@ update chat group's preview text/update time text
 doesn't autoscroll on comment update
 needs to go all the way down when user first opens chat
 make bodyweight exercises bodyweight by default
+custom exercises
+tweak chat group date preview, add name to preview string
 ==============================================
