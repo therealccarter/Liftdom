@@ -34,14 +34,25 @@ public class ForumMainFrag extends Fragment {
         mCallback.changeHeaderTitle(title);
     }
 
+
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forum_main, container, false);
 
-
         headerChanger("Forum");
+        navChanger(3);
 
         return view;
     }
@@ -54,6 +65,7 @@ public class ForumMainFrag extends Fragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
+            navChangerCallback = (bottomNavChanger) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");

@@ -49,10 +49,10 @@ public class RestDayFrag extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
-                //LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
+                LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
 
-                //fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
-                //fragmentTransaction.commit();
+                fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
+                fragmentTransaction.commit();
 
             }
         });

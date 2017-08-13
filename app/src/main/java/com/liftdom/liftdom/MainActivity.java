@@ -45,6 +45,7 @@ import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
+import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -73,7 +74,12 @@ public class MainActivity extends BaseActivity implements
         WorkoutAssistorFrag.headerChangeFromFrag,
         MainFeedFrag.headerChangeFromFrag,
         SavedTemplatesFrag.headerChangeFromFrag,
-        PublicTemplateChooserFrag.headerChangeFromFrag{
+        PublicTemplateChooserFrag.headerChangeFromFrag,
+        ForumMainFrag.bottomNavChanger,
+        TemplateMenuFrag.bottomNavChanger,
+        SavedTemplatesFrag.bottomNavChanger,
+        SelectedTemplateFrag.bottomNavChanger
+        {
 
     private static final String TAG = "EmailPassword";
 
@@ -424,6 +430,13 @@ public class MainActivity extends BaseActivity implements
         } else {
             super.onBackPressed();
         }
+
+
+    }
+
+    public void setBottomNavIndex(int navIndex){
+        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(navIndex, true);
     }
 
     private class SearchAdapter extends BaseAdapter implements Filterable {

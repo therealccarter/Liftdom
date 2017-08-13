@@ -59,6 +59,16 @@ public class TemplateMenuFrag extends Fragment {
         mCallback.changeHeaderTitle(title);
     }
 
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +76,8 @@ public class TemplateMenuFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_template_menu, container, false);
 
         ButterKnife.bind(this, view);
+
+        navChanger(0);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -161,6 +173,7 @@ public class TemplateMenuFrag extends Fragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
+            navChangerCallback = (bottomNavChanger) activity;
         } catch (ClassCastException e) {
             //throw new ClassCastException(activity.toString()
             //        + " must implement OnHeadlineSelectedListener");

@@ -3,6 +3,15 @@
 ===========================================
 
 ============ BUG/TO-DO LIST ================
+
+===== bug testing Aug/12/17 =====
+
+
+
+=================================
+
+
+
 make back stack only go up the activity tree (?)
 
 chat profile images
@@ -18,8 +27,7 @@ figure out what's going on with Moto phone
 =======================================================
 
 ============ Currently Working On ===============
-onBackPress to selected template view, day views replicated )
-    - (onBackPress is screwed up everywhere on the main feed
+
 =======================================================================================
 
 ======== ***Completed*** =======================================================
@@ -38,4 +46,6 @@ needs to go all the way down when user first opens chat
 make bodyweight exercises bodyweight by default
 custom exercises
 tweak chat group date preview, add name to preview string
+onBackPress to selected template view, day views replicated )
+    - (onBackPress is screwed up everywhere on the main feed
 ==============================================

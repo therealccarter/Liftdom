@@ -56,6 +56,16 @@ public class SavedTemplatesFrag extends Fragment {
         mCallback.changeHeaderTitle(title);
     }
 
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
+
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("templates")
@@ -79,6 +89,8 @@ public class SavedTemplatesFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_templates, container, false);
 
         ButterKnife.bind(this, view);
+
+        navChanger(0);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -209,6 +221,7 @@ public class SavedTemplatesFrag extends Fragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
+            navChangerCallback = (bottomNavChanger) activity;
         } catch (ClassCastException e) {
             //throw new ClassCastException(activity.toString()
             //        + " must implement OnHeadlineSelectedListener");

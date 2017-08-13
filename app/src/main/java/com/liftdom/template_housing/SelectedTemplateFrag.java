@@ -72,6 +72,15 @@ public class SelectedTemplateFrag extends Fragment {
     ArrayList<HashMap<String, List<String>>> mapList = new ArrayList<>();
     HashMap<String, List<String>>[] sortedMapList = new HashMap[7];
 
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +89,8 @@ public class SelectedTemplateFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_selected_template, container, false);
 
         ButterKnife.bind(this, view);
+
+        navChanger(0);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -706,6 +717,17 @@ public class SelectedTemplateFrag extends Fragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            navChangerCallback = (bottomNavChanger) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
 
 }
