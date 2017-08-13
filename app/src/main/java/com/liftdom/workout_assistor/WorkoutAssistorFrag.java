@@ -107,11 +107,81 @@ public class WorkoutAssistorFrag extends Fragment {
         currentTemplateView.setTypeface(lobster);
 
         if(savedInstanceState == null){
-            initiliazeFrags();
+
+            DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
+            workoutHistoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+
+                        String localDateNow = new LocalDate(LocalDate.now()).toString();
+                        boolean hasDate = false;
+                        int inc = 0;
+
+                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                            if(dataSnapshot1.getKey().equals(localDateNow)){
+                                hasDate = true;
+                            }
+                            inc++;
+                            if(inc == dataSnapshot.getChildrenCount()){
+                                if(hasDate){
+                                    setTemplateName();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager
+                                            .beginTransaction();
+                                    WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
+                                    if(loadingView.getVisibility() == View.VISIBLE){
+                                        loadingView.setVisibility(View.GONE);
+                                    }
+
+                                    if (!getActivity().isFinishing()) {
+                                        fragmentTransaction.replace(R.id.exInfoHolder,
+                                                workoutFinishedFrag);
+                                        fragmentTransaction.commitAllowingStateLoss();
+                                    }
+                                }else{
+                                    initiliazeFrags();
+                                }
+                            }
+                        }
+                    }else{
+                        initiliazeFrags();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
         }
 
 
         return view;
+    }
+
+    private void setTemplateName(){
+        DatabaseReference userRef = mRootRef.child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                String activeTemplateString = userModelClass.getActiveTemplate();
+
+                if(activeTemplateString != null) {
+
+                    currentTemplateView.setText(activeTemplateString);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initiliazeFrags(){

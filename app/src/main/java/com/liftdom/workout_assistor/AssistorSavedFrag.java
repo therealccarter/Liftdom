@@ -66,7 +66,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     UserModelClass userModelClass;
     String publicDescription = null;
     String privateJournal = null;
-    String mediaRef = null;
+    String mediaRef = null; 
     HashMap<String, HashMap<String, List<String>>> completedMap;
     HashMap<String, List<String>> modelMapFormatted;
     HashMap<String, List<String>> completedMapFormatted;

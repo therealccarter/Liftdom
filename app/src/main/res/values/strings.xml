@@ -253,7 +253,7 @@
 
     <string name="saveProgress">Save Workout Progress</string>
 
-    <string name="publicComment">Public Comment:</string>
+    <string name="publicComment">Public Description:</string>
 
     <string name="addExercise">(+) Add Exercise</string>
     <string name="removeExercise">(-) Remove Exercise</string>

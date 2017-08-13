@@ -60,9 +60,9 @@ public class CustomExListFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        if(noCheckbox){
-            addCustomExButton.setVisibility(View.GONE);
-        }
+        //if(!noCheckbox){
+        //    addCustomExButton.setVisibility(View.GONE);
+        //}
 
         addCustomExButton.setOnClickListener(new View.OnClickListener() {
             @Override
