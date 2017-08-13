@@ -247,6 +247,12 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
                 StorageReference profilePicRef = storageRef.child("images/user/" + uid + "/profilePic.png");
 
+                //
+                //java.lang.IllegalArgumentException: stream cannot be null
+                //at com.google.android.gms.common.internal.zzac.zzb(Unknown Source)
+                //at com.google.firebase.storage.StorageReference.putStream(Unknown Source)
+                //at com.liftdom.user_profile.your_profile.ProfileInfoActivity$5.onClick(ProfileInfoActivity.java:250)
+
                 UploadTask uploadTask = profilePicRef.putStream(inputStream);
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
