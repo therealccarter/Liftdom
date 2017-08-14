@@ -1,18 +1,20 @@
 ===========================================
-============ BUG/TO-DO LIST ===========================================================
+============ BUG/TO-DO LIST ====================================================
 ===========================================
 
 ======== ***Completed*** =======================================================
 add checkmark to comment edit text
 fix comment layout
-==============================================
-
-============ Currently Working On ===============
 comments not updating for fresh comments
-=======================================================================================
+add completed day check
+add limit to comments
+====================================================
 
-============ BUG/TO-DO LIST ================
+============ Currently Working On ===============================================
 pull to refresh
+=====================================================
+
+============ BUG/TO-DO LIST =====================================================
 add level info to header
 calendar completed window needs updating
 show power level on profile page
@@ -25,11 +27,9 @@ make saving progress preserve order
 work on xp increase algorithm
 date preview on chat group needs to be far right
 make sure that workout assistor has no history
-add completed day check
 contingency for deletion of all exercises in workout assistor
-add length check to WA edit texts
 add dialog if exiting WA
-add limit to comments (look for other edit texts to limit)
+look for other edit texts to limit (add length check to WA edit texts)
 delete comments
 somehow check for crazy bottom nav selection
 fix up search
@@ -40,15 +40,18 @@ look into Glide caching
 profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1
 have a default template
-figure out what's going on with Moto phone
 move sign in options to below Brodin
 look into design stuff like font
 Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking
 quote redesign
-friends list
 to failure should be "t.f."
 need to reload on back pressed
-password recovery/changing
-========================================================
+=====================================================
 
+
+============ FUTURE TO-DO LIST =====================================================
+password recovery/changing
+friends list
+figure out what's going on with Moto phone
+=====================================================

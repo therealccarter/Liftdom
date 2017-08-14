@@ -86,8 +86,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
 
-
-
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(getCurrentUid().equals(xUid)){
@@ -134,6 +132,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                 }
                             });
                             fanoutCommentPost(refKey, commentModelClass);
+
+                            //mCommentRecyclerView.refreshDrawableState();
 
                         }
 
@@ -184,7 +184,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
                             (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
                         @Override
@@ -200,7 +200,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     mCommentRecyclerView.setHasFixedSize(false);
                     mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
                     mCommentRecyclerView.setAdapter(mFirebaseAdapter);
-                }
+                //}
             }
 
             @Override
