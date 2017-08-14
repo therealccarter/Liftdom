@@ -3,6 +3,7 @@ package com.liftdom.liftdom.main_social_feed;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -62,6 +66,7 @@ public class MainFeedFrag extends Fragment{
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.refreshView) MaterialRefreshLayout refreshView;
     //@BindView(R.id.loadMoreButton) Button loadMoreButton;
 
     @Override
@@ -94,7 +99,12 @@ public class MainFeedFrag extends Fragment{
             }
         });
 
-
+        refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                Toast.makeText(getContext(), "finished", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

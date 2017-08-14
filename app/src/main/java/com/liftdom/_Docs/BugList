@@ -47,6 +47,7 @@ check for special characters in value picking
 quote redesign
 to failure should be "t.f."
 need to reload on back pressed
+fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
 =====================================================
 
 
