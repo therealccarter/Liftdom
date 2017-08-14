@@ -1,47 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_marginStart="20dp"
-              android:layout_marginEnd="20dp"
-              android:background="@color/offWhite"
+              android:background="@color/backgroundgrey2"
               android:layout_height="wrap_content">
 
-    <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/usertest"
-            android:id="@+id/userProfilePic"
-    />
-
     <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@color/offWhite"
     >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/userNameView"
+        <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundgrey2"
+                android:layout_marginEnd="3dp"
         />
 
-        <TextView
-                android:layout_width="match_parent"
+        <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/usertest"
+                android:id="@+id/userProfilePic"
+                android:layout_marginTop="3dp"
+        />
+
+        <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/commentTextView"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userNameView"
+                    android:textColor="@color/black"
+                    android:text="w8sm8"
+                    android:layout_marginTop="3dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commentTextView"
+                    android:text="hello world"
+                    android:textColor="@color/midGrey"
+                    android:layout_marginStart="5dp"
+            />
+
+        </LinearLayout>
+
+        <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/repButton"
+                android:src="@drawable/up_chevron_gold"
+                android:scaleType="centerCrop"
+                android:background="@color/transparent"
+                android:visibility="gone"
+        />
+
+        <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundgrey2"
+                android:layout_marginStart="3dp"
         />
 
     </LinearLayout>
 
-    <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:id="@+id/repButton"
-            android:src="@drawable/up_chevron_gold"
-            android:scaleType="centerCrop"
-            android:background="@color/transparent"
-            android:visibility="gone"
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/darkGrey"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
     />
 
 </LinearLayout>

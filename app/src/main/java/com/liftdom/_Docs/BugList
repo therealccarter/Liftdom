@@ -2,109 +2,53 @@
 ============ BUG/TO-DO LIST ===========================================================
 ===========================================
 
-============ BUG/TO-DO LIST ================
-
-===== bug testing Aug/12/17 =====
+======== ***Completed*** =======================================================
 add checkmark to comment edit text
-comments not updating in real time
 fix comment layout
+==============================================
 
+============ Currently Working On ===============
+comments not updating for fresh comments
+=======================================================================================
+
+============ BUG/TO-DO LIST ================
 pull to refresh
-
 add level info to header
-
 calendar completed window needs updating
-
 show power level on profile page
-
 disable panning on calorie calc chart
-
 backstack issue
-
 fix visual of new custom exercise
-
 add loading view to workout assistor
-
 limit backstack somehow. Clear it?
-
 make saving progress preserve order
-
 work on xp increase algorithm
-
 date preview on chat group needs to be far right
-
 make sure that workout assistor has no history
-
 add completed day check
-
 contingency for deletion of all exercises in workout assistor
-
 add length check to WA edit texts
-
 add dialog if exiting WA
-
 add limit to comments (look for other edit texts to limit)
-
 delete comments
-
 somehow check for crazy bottom nav selection
-
 fix up search
-
 get all the checks in place to handle rest day saved, if workout history, etc
-
-=================================
-
 make back stack only go up the activity tree (?)
-
 chat profile images
-
 look into Glide caching
-
 profile picture (tourettes pic) is rotated
-
 remember on account creation, walk through level 0-1
 have a default template
-
 figure out what's going on with Moto phone
-=======================================================
-
-=================== MARIE SESH =========================
-
 move sign in options to below Brodin
 look into design stuff like font
 Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking
 quote redesign
-
 friends list
-
 to failure should be "t.f."
-
 need to reload on back pressed
-
+password recovery/changing
 ========================================================
 
-============ Currently Working On ===============
-
-=======================================================================================
-
-======== ***Completed*** =======================================================
-implement level stuff/implement rest day logic
-make whole saved template box selectable
-lock orientation (portrait v landscape)
-if profile picture not selected, revert loading animation to previous pic
-don't save pic unless hitting save
-put limits on template editor edit texts
-handle bw and others in assistor
-change from "templates" to "programs"
-main feed scrolling + clean up
-update chat group's preview text/update time text
-doesn't autoscroll on comment update
-needs to go all the way down when user first opens chat
-make bodyweight exercises bodyweight by default
-custom exercises
-tweak chat group date preview, add name to preview string
-onBackPress to selected template view, day views replicated )
-    - (onBackPress is screwed up everywhere on the main feed
-==============================================
