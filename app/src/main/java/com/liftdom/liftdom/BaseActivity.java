@@ -81,7 +81,8 @@ public class BaseActivity extends AppCompatActivity {
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(header)
+                .withHeader(R.layout.custom_account_header)
+                //.withAccountHeader(header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new DividerDrawerItem(),
@@ -160,6 +161,8 @@ public class BaseActivity extends AppCompatActivity {
                                 .withEmail(sharedPref.getString("email", "loading..."));
 
                         profileDrawerItem.withIcon(resource);
+
+
 
                         if(header.getProfiles().size() == 0){
                             header.addProfile(profileDrawerItem, 0);
