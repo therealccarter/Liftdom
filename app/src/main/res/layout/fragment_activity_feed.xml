@@ -9,9 +9,6 @@
               android:paddingBottom="10dp"
               tools:context="com.liftdom.liftdom.main_social_feed.MainFeedFrag">
 
-
-
-
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -40,16 +37,20 @@
             android:id="@+id/refreshView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:progress_backgroud_color="@color/backgroundgrey1"
+            app:wave_color="@color/black"
+            app:wave_height_type="normal"
+
     >
 
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recycler_view_feed"
-    >
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_feed"
+        >
 
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
     </com.cjj.MaterialRefreshLayout>
 

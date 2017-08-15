@@ -99,14 +99,30 @@ public class MainFeedFrag extends Fragment{
             }
         });
 
+
+
         refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                Toast.makeText(getContext(), "finished", Toast.LENGTH_SHORT).show();
+                clearRecyclerView();
+                setUpRecycler();
             }
         });
 
         return view;
+    }
+
+    private void clearRecyclerView(){
+        postList.clear();
+        postInc = 0;
+        pastVisiblesItems = 0;
+        visibleItemCount = 0;
+        totalItemCount = 0;
+        adapter.notifyDataSetChanged();
+    }
+
+    private void reloadRecyclerView(){
+
     }
 
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -122,6 +138,7 @@ public class MainFeedFrag extends Fragment{
                         postList.add(modelClass);
                         postInc++;
                         if(postInc == 10 || postInc == dataSnapshot.getChildrenCount()){
+                            refreshView.finishRefreshing();
                             AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
                             if(loadingView != null){
                                 loadingView.setVisibility(View.GONE);

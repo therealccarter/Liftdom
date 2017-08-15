@@ -8,13 +8,15 @@ fix comment layout
 comments not updating for fresh comments
 add completed day check
 add limit to comments
+pull to refresh
 ====================================================
 
 ============ Currently Working On ===============================================
-pull to refresh
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
+pull to refresh loading icon should not be red
 add level info to header
 calendar completed window needs updating
 show power level on profile page
@@ -43,7 +45,7 @@ have a default template
 move sign in options to below Brodin
 look into design stuff like font
 Less wordy on first time sign in (3-12 characters)
-check for special characters in value picking
+check for special characters in value picking (specifically name creation)
 quote redesign
 to failure should be "t.f."
 need to reload on back pressed
