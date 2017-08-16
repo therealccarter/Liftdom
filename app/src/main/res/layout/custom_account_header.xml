@@ -34,6 +34,7 @@
                 android:paddingEnd="5dp"
                 android:paddingStart="3dp"
                 android:paddingTop="0dp"
+                android:layout_marginBottom="2dp"
         />
 
         <LinearLayout

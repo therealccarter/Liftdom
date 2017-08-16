@@ -8,72 +8,81 @@
         android:orientation="vertical"
         android:background="@color/grey"
 >
-        <LinearLayout
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="100dp"
-                android:paddingBottom="30dp"
         >
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-            />
 
-                <Button
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="30dp"
+                    android:layout_marginBottom="20dp"
+            >
+                <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fromScratch"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        android:background="@color/confirmgreen"
-                        android:text="@string/newTemplateFromScratch"
-                        android:textColor="@color/white"
-                        android:textSize="26sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                />
+                        app:cardElevation="5dp"
+                >
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/fromScratch"
+                            android:background="@color/confirmgreen"
+                            android:text="@string/newTemplateFromScratch"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                    />
+                </android.support.v7.widget.CardView>
 
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginStart="40dp"
-                />
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/black"
+                            android:layout_marginEnd="40dp"
+                            android:layout_marginStart="40dp"
+                    />
 
-                <Button
+                <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/savedTemplates"
-                        android:background="@color/darkerGrey"
-                        android:text="@string/saved_templates"
-                        android:textColor="@color/offWhite"
-                        android:textAllCaps="false"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="15dp"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="40dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:drawableEnd="@drawable/simple_right_arrow_verysmall"
-                />
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="5dp"
+                >
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/savedTemplates"
+                            android:background="@color/darkerGrey"
+                            android:text="@string/saved_templates"
+                            android:textColor="@color/offWhite"
+                            android:textAllCaps="false"
+                            android:textSize="25sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:padding="3dp"
+                    />
+                </android.support.v7.widget.CardView>
+
+
 
                 <View
                         android:layout_width="match_parent"
@@ -81,101 +90,110 @@
                         android:background="@color/black"
                         android:layout_marginEnd="40dp"
                         android:layout_marginStart="40dp"
-                />
-
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/userMadeTemplates"
-                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/backgroundgrey1"
-                        android:text="@string/userMadeTemplates"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginStart="40dp"
-                        android:textColor="@color/offWhite"
-                        android:textAllCaps="false"
-                        android:textSize="20sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingStart="30dp"
-                        android:paddingEnd="7dp"
-                        android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                 />
 
-
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/premadeTemplates"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/backgroundgrey1"
-                        android:text="@string/premade_templates"
-                        android:textColor="@color/offWhite"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginStart="40dp"
-                        android:textAllCaps="false"
-                        android:textSize="20sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingStart="30dp"
-                        android:paddingEnd="7dp"
-                        android:drawableEnd="@drawable/simple_right_arrow_verysmall"
-                />
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginBottom="20dp"
-            />
-
-            <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/offWhite"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                 >
-                    <TextView
-                            android:layout_width="match_parent"
+                    <Button
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/quoteBody"
-                            android:text="Test text"
-                            android:textColor="@color/white"
-                            android:background="@color/darkerGrey"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:padding="10dp"
-                            android:gravity="center"
-                            android:textSize="17sp"
-                            android:layout_marginTop="15dp"
+                            android:id="@+id/userMadeTemplates"
+                            android:background="@color/darkGrey"
+                            android:text="@string/userMadeTemplates"
+                            android:textColor="@color/offWhite"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="5dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
                     />
 
-                    <TextView
-                            android:layout_width="wrap_content"
+
+                    <Button
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/quoteAuthor"
-                            android:background="@color/darkerGrey"
-                            android:textColor="@color/liftrGold1"
-                            android:text="Example name"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:padding="10dp"
-                            android:layout_gravity="end"
-                            android:textSize="18sp"
-                            android:layout_marginBottom="15dp"
+                            android:id="@+id/premadeTemplates"
+                            android:background="@color/darkGrey"
+                            android:text="@string/premade_templates"
+                            android:textColor="@color/offWhite"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:layout_weight="1"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
                     />
 
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="10dp"
+                />
+
+                <!--
+                <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                >-->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@color/offWhite"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                    >
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/quoteBody"
+                                android:text="Test text"
+                                android:textColor="@color/white"
+                                android:background="@color/darkerGrey"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginStart="10dp"
+                                android:padding="10dp"
+                                android:gravity="center"
+                                android:textSize="17sp"
+                                android:layout_marginTop="15dp"
+                        />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/quoteAuthor"
+                                android:background="@color/darkerGrey"
+                                android:textColor="@color/liftrGold1"
+                                android:text="Example name"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginStart="10dp"
+                                android:padding="10dp"
+                                android:layout_gravity="end"
+                                android:textSize="18sp"
+                        />
+
+                    </LinearLayout>
+
+                <!-- </ScrollView> -->
+
+            </LinearLayout>
+
+        </ScrollView>
+
 </LinearLayout>

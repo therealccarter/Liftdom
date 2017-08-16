@@ -9,46 +9,55 @@ comments not updating for fresh comments
 add completed day check
 add limit to comments
 pull to refresh
+add level info to header/custom header
+quote redesign
 ====================================================
 
 ============ Currently Working On ===============================================
-add level info to header/custom header
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-pull to refresh loading icon should not be red
+
+
+==== easier ==========
 calendar completed window needs updating
-show power level on profile page
+show power level on profile pages
 disable panning on calorie calc chart
-backstack issue
 fix visual of new custom exercise
 add loading view to workout assistor
-limit backstack somehow. Clear it?
-make saving progress preserve order
-work on xp increase algorithm
 date preview on chat group needs to be far right
-make sure that workout assistor has no history
 contingency for deletion of all exercises in workout assistor
 add dialog if exiting WA
 look for other edit texts to limit (add length check to WA edit texts)
-delete comments
-somehow check for crazy bottom nav selection
-fix up search
 get all the checks in place to handle rest day saved, if workout history, etc
-make back stack only go up the activity tree (?)
-chat profile images
-look into Glide caching
-profile picture (tourettes pic) is rotated
-remember on account creation, walk through level 0-1
-have a default template
+chat profile images/chat group images/other profile pic images
 move sign in options to below Brodin
 look into design stuff like font
 Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking (specifically name creation)
-quote redesign
 to failure should be "t.f."
-need to reload on back pressed
+============
+
+==== harder ==========
 fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
+limit backstack somehow. Clear it?
+make saving progress preserve order
+work on xp increase algorithm
+make sure that workout assistor has no history
+delete comments
+somehow check for crazy bottom nav selection
+fix up search
+make back stack only go up the activity tree (?)
+look into Glide caching
+profile picture (tourettes pic) is rotated
+remember on account creation, walk through level 0-1
+have a default template
+need to reload on back pressed
+pull to refresh loading icon should not be red
+============
+
+
 =====================================================
 
 
