@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -22,12 +24,14 @@ import com.google.android.gms.auth.api.signin.SignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -44,38 +48,39 @@ public class BaseActivity extends AppCompatActivity {
 
     private BottomNavigation mBottomNavigation;
     private ViewPager mViewPager;
-    public AccountHeader header;
+    //public AccountHeader header;
     public Drawer drawer;
     public int selectionInt = 0;
 
     public void setUpNavDrawer(final Context context, Toolbar toolbar){
 
-        header = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header_pattern)
-                .withSelectionListEnabledForSingleProfile(false)
-                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
-                    @Override
-                    public boolean onClick(View view, IProfile profile) {
-                        Intent intent = new Intent(context, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                })
-                .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
-                    @Override
-                    public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-                        Intent intent = new Intent(context, CurrentUserProfile.class);
-                        startActivity(intent);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-                        return false;
-                    }
-                })
-                .build();
+        //header = new AccountHeaderBuilder()
+        //        .withActivity(this)
+        //        .withHeaderBackground(R.drawable.header_pattern)
+        //        .withSelectionListEnabledForSingleProfile(false)
+        //        .withOnAccountHeaderSelectionViewClickListener(new AccountHeader
+        //        .OnAccountHeaderSelectionViewClickListener() {
+        //            @Override
+        //            public boolean onClick(View view, IProfile profile) {
+        //                Intent intent = new Intent(context, CurrentUserProfile.class);
+        //                startActivity(intent);
+        //                return false;
+        //            }
+        //        })
+        //        .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
+        //            @Override
+        //            public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
+        //                Intent intent = new Intent(context, CurrentUserProfile.class);
+        //                startActivity(intent);
+        //                return false;
+        //            }
+//
+        //            @Override
+        //            public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
+        //                return false;
+        //            }
+        //        })
+        //        .build();
 
         // create the drawer
         drawer = new DrawerBuilder()
@@ -142,50 +147,93 @@ public class BaseActivity extends AppCompatActivity {
 
         String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        final StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
                 uid2 + "/profilePic.png");
 
         profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.i("glide", "success");
-
-                Glide.with(getApplicationContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-
-                        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-                                //.withIcon(R.drawable.usertest)
-                                .withName(sharedPref.getString("userName", "loading..."))
-                                .withEmail(sharedPref.getString("email", "loading..."));
-
-                        profileDrawerItem.withIcon(resource);
-
-
-
-                        if(header.getProfiles().size() == 0){
-                            header.addProfile(profileDrawerItem, 0);
-                        }
-                    }
-                });
+                ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
+                Glide.with(getApplicationContext()).load(uri).crossFade().into(profilePicView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.i("glide", "failure");
-                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-
-                ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-                        //.withIcon(R.drawable.usertest)
-                        .withName(sharedPref.getString("userName", "loading..."))
-                        .withEmail(sharedPref.getString("email", "loading..."));
-
-                profileDrawerItem.withIcon(R.drawable.usertest);
-
-                header.addProfile(profileDrawerItem, 0);
+                ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
+                profilePicView.setImageResource(R.drawable.usertest);
             }
         });
+
+        //profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        //    @Override
+        //    public void onSuccess(Uri uri) {
+        //        Log.i("glide", "success");
+//
+        //        Glide.with(getApplicationContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
+        //            @Override
+        //            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+        //                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+//
+        //                ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+        //                        //.withIcon(R.drawable.usertest)
+        //                        .withName(sharedPref.getString("userName", "loading..."))
+        //                        .withEmail(sharedPref.getString("email", "loading..."));
+//
+        //                profileDrawerItem.withIcon(resource);
+//
+        //                //if(header.getProfiles().size() == 0){
+        //                //    header.addProfile(profileDrawerItem, 0);
+        //                //}
+        //            }
+        //        });
+        //    }
+        //}).addOnFailureListener(new OnFailureListener() {
+        //    @Override
+        //    public void onFailure(@NonNull Exception e) {
+        //        Log.i("glide", "failure");
+        //        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+//
+        //        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
+        //                //.withIcon(R.drawable.usertest)
+        //                .withName(sharedPref.getString("userName", "loading..."))
+        //                .withEmail(sharedPref.getString("email", "loading..."));
+//
+        //        profileDrawerItem.withIcon(R.drawable.usertest);
+//
+        //        //header.addProfile(profileDrawerItem, 0);
+        //    }
+        //});
+
+        drawer.getHeader().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid2);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
+                TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
+
+                userNameView.setText(userModelClass.getUserName());
+                powerLevelView.setText(userModelClass.getPowerLevel());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     public Drawer getDrawer(){
