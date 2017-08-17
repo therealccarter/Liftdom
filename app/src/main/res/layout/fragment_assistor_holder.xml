@@ -1,11 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
               android:orientation="vertical"
               android:background="@color/offerGrey"
               android:id="@+id/assistorHolder"
-             tools:context="com.liftdom.workout_assistor.AssistorHolderFrag">
+              tools:context="com.liftdom.workout_assistor.AssistorHolderFrag">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/assistorWarning"
+            android:textSize="15sp"
+            android:textColor="@color/darkGrey"
+            android:gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/grey"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+    />
+
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -16,20 +35,27 @@
 
     </LinearLayout>
 
-    <Button
+    <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/addExerciseButton"
-            android:background="@color/black"
-            android:textSize="18sp"
-            android:text="@string/addExercise"
-            android:textColor="@color/white"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="5dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-    />
+            app:cardElevation="5dp"
+    >
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addExerciseButton"
+                android:background="@color/black"
+                android:textSize="18sp"
+                android:text="@string/addExercise"
+                android:textColor="@color/white"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:padding="5dp"
+
+        />
+    </android.support.v7.widget.CardView>
 
     <View
             android:layout_width="match_parent"
@@ -38,21 +64,30 @@
             android:layout_margin="10dp"
     />
 
-    <Button
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/saveProgressButton"
-            android:background="@color/liftrGold1"
-            android:textSize="18sp"
-            android:text="@string/saveProgress"
-            android:textColor="@color/black"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:padding="5dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:textAllCaps="false"
-    />
+            app:cardElevation="5dp"
+    >
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveProgressButton"
+                android:background="@color/liftrGold1"
+                android:textSize="18sp"
+                android:text="@string/saveProgress"
+                android:textColor="@color/black"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:padding="5dp"
+                android:textAllCaps="false"
+        />
+
+    </android.support.v7.widget.CardView>
+
 
     <View
             android:layout_width="match_parent"
@@ -66,7 +101,7 @@
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:android="http://schemas.android.com/apk/res/android"
-            app:cardElevation="7dp"
+            app:cardElevation="5dp"
             app:cardCornerRadius="1dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -80,10 +115,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/privateJournal"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:background="@color/black"
+                    android:paddingStart="3dp"
             />
 
             <EditText
@@ -92,7 +128,12 @@
                     android:id="@+id/privateJournal"
                     android:background="@color/white"
                     android:hint="@string/privateJournalHint"
-                    android:padding="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
         </LinearLayout>
@@ -103,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardElevation="7dp"
+            app:cardElevation="5dp"
             app:cardCornerRadius="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
@@ -119,10 +160,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/publicComment"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:background="@color/black"
+                    android:paddingStart="3dp"
             />
 
             <EditText
@@ -131,7 +173,12 @@
                     android:id="@+id/publicComment"
                     android:background="@color/white"
                     android:hint="@string/publicCommentHint"
-                    android:padding="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
             />
 
         </LinearLayout>
@@ -146,45 +193,53 @@
             android:layout_margin="10dp"
     />
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="90dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:background="@color/confirmgreen"
-            android:id="@+id/saveHolder"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingEnd="5dp"
+            app:cardElevation="7dp"
     >
-        <Button
-                android:layout_width="0dp"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/saveButton"
+                android:orientation="horizontal"
                 android:background="@color/confirmgreen"
-                android:text="@string/completeWorkout"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:layout_weight="2"
-                android:layout_marginStart="5dp"
-        />
+                android:id="@+id/saveHolder"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingEnd="5dp"
+        >
+            <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/saveButton"
+                    android:background="@color/confirmgreen"
+                    android:text="@string/completeWorkout"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:textColor="@color/black"
+                    android:textSize="26sp"
+                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
+            />
 
-        <ImageButton
-                android:layout_width="34dp"
-                android:layout_height="match_parent"
-                android:id="@+id/saveImage"
-                android:src="@drawable/right_chevron"
-                android:background="@color/transparent"
-                android:scaleType="centerCrop"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-        />
+            <ImageButton
+                    android:layout_width="34dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/saveImage"
+                    android:src="@drawable/right_chevron"
+                    android:background="@color/transparent"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+            />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
 
 
 

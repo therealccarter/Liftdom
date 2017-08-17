@@ -240,6 +240,8 @@ public class CalorieCalcFrag extends Fragment {
 
 
     public void barDataCreator(List<BarEntry> entries){
+        barChart.setTouchEnabled(false);
+
         CalCalcStringFormatter stringFormatter = new CalCalcStringFormatter();
 
         XAxis xAxis = barChart.getXAxis();

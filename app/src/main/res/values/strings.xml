@@ -415,6 +415,8 @@
     <string name="my_templates">My Programs</string>
     <string name="templateEditor">Program Editor</string>
 
+    <string name="assistorWarning">Make sure to save your progress before leaving this page</string>
+
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Program</string>
     <string name="makePublic">Make public?</string>

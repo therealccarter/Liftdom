@@ -15,18 +15,19 @@ show power level on profile pages
 calendar completed window needs updating
 get all the checks in place to handle rest day saved, if workout history, etc
 fix visual of new custom exercise
+disable panning on calorie calc chart
+add loading view to workout assistor
+add dialog if exiting WA
 ====================================================
 
 ============ Currently Working On ===============================================
-disable panning on calorie calc chart
+contingency for deletion of all exercises in workout assistor
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
-add loading view to workout assistor
 date preview on chat group needs to be far right
-contingency for deletion of all exercises in workout assistor
-add dialog if exiting WA
+
 look for other edit texts to limit (add length check to WA edit texts)
 chat profile images/chat group images/other profile pic images
 move sign in options to below Brodin

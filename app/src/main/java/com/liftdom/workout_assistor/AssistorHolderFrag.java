@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -52,7 +54,6 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean savedState = false;
     WorkoutProgressModelClass modelClass;
 
-    //java.lang.IllegalArgumentException: No view found for id 0x7f0d0241 (com.liftdom.liftdom:id/exInfoHolder) for fragment AssistorHolderFrag{242e2325 #0 id=0x7f0d0241}
 
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
@@ -61,7 +62,6 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.privateJournal) EditText privateJournalView;
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -102,8 +102,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
-
-
 
 
         addExButton.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +205,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void trueProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
             privateJournal, String
             publicComment){
+
         //TODO: On change of active template, delete this node so we don't accidentally get info from old template
         for(int i = 0; i < runningMap.size(); i ++){
             for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
@@ -235,6 +234,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void noProgressInflateViews(){
+
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
@@ -400,4 +400,5 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         return contains;
     }
+
 }

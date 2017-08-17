@@ -1,21 +1,17 @@
 package com.liftdom.liftdom;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,43 +20,23 @@ import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
-import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
-import com.liftdom.liftdom.utils.UserNameIdModelClass;
-import com.liftdom.misc_activities.PremiumFeaturesActivity;
-import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
+import com.liftdom.user_profile.your_profile.ProfileInfoActivity;
+import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.search.material.library.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
@@ -91,12 +67,15 @@ public class MainActivity extends BaseActivity implements
 
     private Bitmap profilePicBitmap;
 
+    private boolean isAssistorFrag;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     String username = "failed";
 
     private MaterialSearchView searchView;
     private BottomNavigation bottomNavigation;
+
 
     // butterknife
     @BindView(R.id.title) TextView title;
@@ -261,52 +240,53 @@ public class MainActivity extends BaseActivity implements
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
                 Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
-                if (i1 == 0) {
-                    setNavDrawerSelection(3);
-                    //hideSearchButton();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    if (i1 == 0) {
+                        setNavDrawerSelection(3);
+                        //hideSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                } else if (i1 == 1) {
-                    setNavDrawerSelection(1);
-                    //showSearchButton();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else if (i1 == 1) {
+                        setNavDrawerSelection(1);
+                        //showSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                } else if (i1 == 2) {
-                    setNavDrawerSelection(2);
-                    //hideSearchButton();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else if (i1 == 2) {
+                        setNavDrawerSelection(2);
+                        //hideSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                } else if (i1 == 3) {
-                    setNavDrawerSelection(1);
-                    //hideSearchButton();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else if (i1 == 3) {
+                        setNavDrawerSelection(1);
+                        //hideSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                } else if (i1 == 4) {
-                    setNavDrawerSelection(1);
-                    //hideSearchButton();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else if (i1 == 4) {
+                        setNavDrawerSelection(1);
+                        //hideSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
+                        fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+
             }
 
             @Override
@@ -399,6 +379,7 @@ public class MainActivity extends BaseActivity implements
         searchView.setAdapter(adapter);
 
     }
+
 
     public void hideSearchButton(){
         //LinearLayout searchViewLL = (LinearLayout) findViewById(R.id.searchViewLL);
