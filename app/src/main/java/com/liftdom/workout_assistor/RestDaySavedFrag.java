@@ -22,11 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+import org.joda.time.LocalDate;
 
 import java.util.HashMap;
 
@@ -44,6 +46,9 @@ public class RestDaySavedFrag extends Fragment {
     private int currentXp;
     private String currentPowerLevel;
     private String oldPowerLevel;
+    String publicDescription = null;
+    String privateJournal = null;
+    String mediaRef = null;
 
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -121,6 +126,19 @@ public class RestDaySavedFrag extends Fragment {
                         streakMultiplierView.setText(streakMultiplier);
                         xpFromWorkoutView.setText(xpFromWorkout);
                         totalXpGainedView.setText("0");
+
+                        // workout history
+                        String date = LocalDate.now().toString();
+                        boolean isImperial = false;
+                        if(userModelClass.isIsImperial()){
+                            isImperial = true;
+                        }
+                        DatabaseReference workoutHistoryRef = FirebaseDatabase.getInstance().getReference().child
+                                ("workout_history").child(uid).child(date);
+                        WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
+                                userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, null,
+                                isImperial);
+                        workoutHistoryRef.setValue(historyModelClass);
 
                         userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

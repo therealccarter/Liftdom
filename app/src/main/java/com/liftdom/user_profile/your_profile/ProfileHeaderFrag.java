@@ -99,7 +99,7 @@ public class ProfileHeaderFrag extends Fragment {
                 }else{
                     bodyWeight.setText(userModelClass.getKgs());
                 }
-                currentLevel.setText(userModelClass.getRepLevel());
+                currentLevel.setText(userModelClass.getPowerLevel());
                 currentFocus.setText(userModelClass.getCurrentFocus());
             }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SimpleExNameFrag;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
@@ -36,6 +37,10 @@ public class PastDateDialogSubFrag extends Fragment {
 
         HashMap<String, List<String>> map = new HashMap<>();
 
+        if(workoutHistoryModelClass.getWorkoutInfoMap() == null){
+            TextView restDayView = (TextView) view.findViewById(R.id.restDayView);
+            restDayView.setVisibility(View.VISIBLE);
+        }
         map.putAll(workoutHistoryModelClass.getWorkoutInfoMap());
 
         String delims = "[_]";

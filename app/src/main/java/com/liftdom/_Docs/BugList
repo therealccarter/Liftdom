@@ -11,6 +11,9 @@ add limit to comments
 pull to refresh
 add level info to header/custom header
 quote redesign
+show power level on profile pages
+calendar completed window needs updating
+get all the checks in place to handle rest day saved, if workout history, etc
 ====================================================
 
 ============ Currently Working On ===============================================
@@ -18,11 +21,7 @@ quote redesign
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-
-
 ==== easier ==========
-calendar completed window needs updating
-show power level on profile pages
 disable panning on calorie calc chart
 fix visual of new custom exercise
 add loading view to workout assistor
@@ -30,7 +29,6 @@ date preview on chat group needs to be far right
 contingency for deletion of all exercises in workout assistor
 add dialog if exiting WA
 look for other edit texts to limit (add length check to WA edit texts)
-get all the checks in place to handle rest day saved, if workout history, etc
 chat profile images/chat group images/other profile pic images
 move sign in options to below Brodin
 look into design stuff like font
@@ -56,8 +54,6 @@ have a default template
 need to reload on back pressed
 pull to refresh loading icon should not be red
 ============
-
-
 =====================================================
 
 

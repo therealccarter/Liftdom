@@ -1,14 +1,17 @@
 package com.liftdom.liftdom.utils;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +32,11 @@ public class SimpleExNameFrag extends Fragment {
 
     public List<String> exInfoList;
     public boolean isPastDate;
+    public String exerciseName;
+
 
     @BindView(R.id.exNameView) Button exNameView;
+    @BindView(R.id.setSchemeHolder) LinearLayout setSchemeHolder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,15 +77,25 @@ public class SimpleExNameFrag extends Fragment {
         for(List<String> list : infoLists){
             inc2++;
             if(inc2 == 1){
+                String cat = list.get(0) + list.get(1);
                 exNameView.setText(list.get(0));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
                 for(String string : list){
                     if(!isExerciseName(string)){
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        SimpleSetSchemeFrag setSchemeFrag = new SimpleSetSchemeFrag();
-                        setSchemeFrag.setSchemeString = string;
-                        setSchemeFrag.isPastDate = true;
-                        fragmentTransaction.add(R.id.setSchemeHolder, setSchemeFrag);
-                        fragmentTransaction.commit();
+                        //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        //SimpleSetSchemeFrag setSchemeFrag = new SimpleSetSchemeFrag();
+                        //setSchemeFrag.setSchemeString = string;
+                        //setSchemeFrag.isPastDate = true;
+                        //setSchemeFrag.exerciseName = exerciseName;
+                        //fragmentTransaction.add(setSchemeHolder.getId(), setSchemeFrag);
+                        //fragmentTransaction.commit();
+                        TextView setSchemeTextView = new TextView(getContext());
+                        setSchemeTextView.setText(string);
+                        setSchemeTextView.setLayoutParams(params);
+                        setSchemeTextView.setBackgroundColor(Color.parseColor("#b4b4b4"));
+                        setSchemeTextView.setTextColor(Color.parseColor("#000000"));
+                        setSchemeHolder.addView(setSchemeTextView);
                     }
                 }
             }else{

@@ -76,6 +76,7 @@
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_margin="20dp"
+                    android:visibility="gone"
             />
 
 

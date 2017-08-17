@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SimpleExNameFrag;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,8 @@ public class FutureDateDialogSubFrag extends Fragment {
 
     public HashMap<String, List<String>> map;
 
+    private ArrayList<SimpleExNameFrag> exNameFrags = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,16 +44,21 @@ public class FutureDateDialogSubFrag extends Fragment {
                 if(!mapEntry.getKey().equals("0_key")){
                     String[] keyTokens = mapEntry.getKey().split(delims);
                     if(keyTokens[0].equals(String.valueOf(i + 1))){
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                         SimpleExNameFrag exNameFrag = new SimpleExNameFrag();
                         exNameFrag.exInfoList = mapEntry.getValue();
-                        fragmentTransaction.add(R.id.exInfoSubHolder, exNameFrag);
-                        fragmentTransaction.commit();
+                        exNameFrag.exerciseName = mapEntry.getValue().get(0);
+                        exNameFrags.add(exNameFrag);
                     }
                 }
             }
         }
 
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+        for(SimpleExNameFrag simpleExNameFrag : exNameFrags){
+            fragmentTransaction.add(R.id.exInfoSubHolder, simpleExNameFrag);
+        }
+        fragmentTransaction.commit();
 
         return view;
     }

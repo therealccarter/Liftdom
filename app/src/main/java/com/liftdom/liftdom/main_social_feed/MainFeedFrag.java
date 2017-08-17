@@ -99,6 +99,11 @@ public class MainFeedFrag extends Fragment{
             }
         });
 
+        //if(savedInstanceState != null){
+        //    clearRecyclerView();
+        //    setUpRecycler();
+        // need to have it reload if on back press...
+        //}
 
 
         refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
@@ -119,10 +124,6 @@ public class MainFeedFrag extends Fragment{
         visibleItemCount = 0;
         totalItemCount = 0;
         adapter.notifyDataSetChanged();
-    }
-
-    private void reloadRecyclerView(){
-
     }
 
     int pastVisiblesItems, visibleItemCount, totalItemCount;

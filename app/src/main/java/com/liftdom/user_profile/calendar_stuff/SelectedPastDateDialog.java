@@ -28,6 +28,8 @@ public class SelectedPastDateDialog extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    public Boolean isOtherUser = false;
+    public String xUid = "null";
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
@@ -39,6 +41,10 @@ public class SelectedPastDateDialog extends AppCompatActivity {
         setContentView(R.layout.activity_selected_past_date_dialog);
 
         ButterKnife.bind(this);
+
+        if(getIntent().getBooleanExtra("isOtherUser", false)){
+            uid = getIntent().getExtras().getString("xUid");
+        }
 
         formattedDate = getIntent().getExtras().getString("date");
         DateTimeFormatter fmt = DateTimeFormat.forPattern("MM-dd-yyyy");

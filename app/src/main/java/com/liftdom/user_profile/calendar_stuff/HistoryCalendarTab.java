@@ -258,6 +258,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         if(pastDates.contains(date)){
             Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
+            if(isOtherUser){
+                pastIntent.putExtra("isOtherUser", true);
+                pastIntent.putExtra("xUid", xUid);
+            }
             pastIntent.putExtra("date", formatted);
             startActivity(pastIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection1.contains(date)){

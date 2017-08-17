@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class RestDayFrag extends Fragment {
 
     @BindView(R.id.restAdviceButton) Button restAdviceButton;
     @BindView(R.id.restDayComplete) Button restDayCompleteButton;
+    @BindView(R.id.privateJournal) EditText privateJournal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,11 +48,12 @@ public class RestDayFrag extends Fragment {
 
         restDayCompleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // in the future we might add a private journal/media ref here
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
+                restDaySavedFrag.privateJournal = privateJournal.getText().toString();
                 LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
-
                 fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
                 fragmentTransaction.commit();
 

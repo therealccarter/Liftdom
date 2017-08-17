@@ -22,6 +22,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
     String formattedDate = "null";
     int collectionNumber = 0;
+    public Boolean isOtherUser = false;
+    public String xUid = "null";
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
@@ -35,6 +37,10 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         setContentView(R.layout.activity_selected_future_date_dialog);
 
         ButterKnife.bind(this);
+
+        if(isOtherUser){
+           // uid = xUid;
+        }
 
         formattedDate = getIntent().getExtras().getString("date");
         collectionNumber = getIntent().getExtras().getInt("collectionNumber");

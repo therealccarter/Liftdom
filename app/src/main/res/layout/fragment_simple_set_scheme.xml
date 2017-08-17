@@ -1,15 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
+              android:background="@color/offerGrey"
               tools:context="com.liftdom.liftdom.utils.SimpleSetSchemeFrag">
+
+    <View android:layout_width="20dp" android:layout_height="match_parent" />
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5"
             android:id="@+id/setsView"
+            android:textColor="@color/black"
     />
 
     <TextView
@@ -17,6 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/x"
             android:id="@+id/xView"
+            android:textColor="@color/black"
     />
 
     <TextView
@@ -24,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="5"
             android:id="@+id/repsView"
+            android:textColor="@color/black"
 
     />
 
@@ -32,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/at"
             android:id="@+id/atView"
+            android:textColor="@color/black"
     />
 
     <TextView
@@ -39,6 +46,7 @@
             android:layout_height="wrap_content"
             android:text="50"
             android:id="@+id/weightView"
+            android:textColor="@color/black"
     />
 
     <TextView
@@ -46,6 +54,7 @@
             android:layout_height="wrap_content"
             android:text="@string/pounds"
             android:id="@+id/unitsView"
+            android:textColor="@color/black"
     />
 
 </LinearLayout>

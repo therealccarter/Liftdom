@@ -426,6 +426,11 @@
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete Program</string>
 
+    <string name="restDay">Rest Day</string>
+
+    <string name="publicCommentHint">Public comment&#8230;</string>
+    <string name="privateJournalHint">Private journal&#8230;</string>
+
     <string name="longLatin">
         Lorem ipsum dolor sit amet, et modus senserit ullamcorper sed.
         Eos ne semper utamur consequat, te sit repudiandae comprehensam.

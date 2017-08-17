@@ -13,10 +13,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/exInfoSubHolder"
     >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/restDayView"
+                android:text="@string/restDay"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:visibility="gone"
+        />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/exInfoSubHolder"
+        >
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
+
 
 </ScrollView>
 

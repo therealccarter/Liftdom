@@ -3,6 +3,7 @@ package com.liftdom.liftdom.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class SimpleSetSchemeFrag extends Fragment {
 
     public String setSchemeString;
     public boolean isPastDate;
+    public String exerciseName;
 
     @BindView(R.id.setsView) TextView setsView;
     @BindView(R.id.repsView) TextView repsView;
@@ -44,6 +46,7 @@ public class SimpleSetSchemeFrag extends Fragment {
             String delims = "[x, @]";
 
             String[] tokens = setSchemeString.split(delims);
+
             setsView.setText(tokens[0]);
             repsView.setText(tokens[1]);
             weightView.setText(tokens[2]);
@@ -55,6 +58,9 @@ public class SimpleSetSchemeFrag extends Fragment {
             String delims = "[@]";
 
             String[] tokens = setSchemeString.split(delims);
+            if(tokens[0].equals("10x8")){
+                Log.i("kiss my ass", "bitch");
+            }
             repsView.setText(tokens[0]);
             weightView.setText(tokens[1]);
         }
