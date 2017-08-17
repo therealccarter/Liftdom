@@ -3,6 +3,7 @@ package com.liftdom.liftdom.main_social_feed;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,14 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompleteWorkoutRecyclerAdapter;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
@@ -62,11 +65,14 @@ public class MainFeedFrag extends Fragment{
     private List<CompletedWorkoutModelClass> postList;
     private int postInc = 0;
 
+
+
     //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
-    @BindView(R.id.refreshView) MaterialRefreshLayout refreshView;
+    @BindView(R.id.refreshView) RefreshLayout refreshView;
+    //@BindView(R.id.refreshView) MaterialRefreshLayout refreshView;
     //@BindView(R.id.loadMoreButton) Button loadMoreButton;
 
     @Override
@@ -86,6 +92,7 @@ public class MainFeedFrag extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    clearRecyclerView();
                     setUpRecycler();
                 }else{
                     loadingView.setVisibility(View.GONE);
@@ -99,31 +106,37 @@ public class MainFeedFrag extends Fragment{
             }
         });
 
-        //if(savedInstanceState != null){
-        //    clearRecyclerView();
-        //    setUpRecycler();
-        // need to have it reload if on back press...
-        //}
+        refreshView.setPrimaryColorsId(R.color.black, R.color.liftrGold1);
 
-
-        refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
+        refreshView.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                clearRecyclerView();
-                setUpRecycler();
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshView.finishRefresh(1200);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearRecyclerView();
+                        setUpRecycler();
+                    }
+                }, 1600);
+
             }
         });
+
 
         return view;
     }
 
     private void clearRecyclerView(){
-        postList.clear();
-        postInc = 0;
-        pastVisiblesItems = 0;
-        visibleItemCount = 0;
-        totalItemCount = 0;
-        adapter.notifyDataSetChanged();
+        if(postList != null){
+            postList.clear();
+            postInc = 0;
+            pastVisiblesItems = 0;
+            visibleItemCount = 0;
+            totalItemCount = 0;
+            adapter.notifyDataSetChanged();
+        }
     }
 
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -139,7 +152,10 @@ public class MainFeedFrag extends Fragment{
                         postList.add(modelClass);
                         postInc++;
                         if(postInc == 10 || postInc == dataSnapshot.getChildrenCount()){
-                            refreshView.finishRefreshing();
+                            //refreshView.finishRefreshing();
+                            if(refreshView != null){
+                                //refreshView.finishRefresh();
+                            }
                             AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
                             if(loadingView != null){
                                 loadingView.setVisibility(View.GONE);

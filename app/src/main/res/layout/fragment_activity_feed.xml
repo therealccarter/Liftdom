@@ -31,17 +31,13 @@
             android:layout_marginTop="200dp"
     />
 
-    <com.cjj.MaterialRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/refreshView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:progress_backgroud_color="@color/backgroundgrey1"
-            app:wave_color="@color/black"
-            app:wave_height_type="normal"
-
     >
+
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -52,7 +48,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-    </com.cjj.MaterialRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 </LinearLayout>
