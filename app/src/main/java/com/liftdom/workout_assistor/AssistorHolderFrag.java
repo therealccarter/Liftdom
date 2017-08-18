@@ -2,11 +2,13 @@ package com.liftdom.workout_assistor;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,15 +137,40 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<String> exInfo = new ArrayList<>();
-                for(ExNameWAFrag exNameFrag : exNameFragList){
-                    exInfo.addAll(exNameFrag.getExInfo());
+
+                if(exNameFragList.isEmpty()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    // set title
+                    builder.setTitle("Error");
+
+                    // set dialog message
+                    builder.setMessage("At least one exercise must be present to complete workout")
+                            .setCancelable(false)
+                            .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+
+                    // show it
+                    alertDialog.show();
+                }else{
+                    List<String> exInfo = new ArrayList<>();
+                    for(ExNameWAFrag exNameFrag : exNameFragList){
+                        exInfo.addAll(exNameFrag.getExInfo());
+                    }
+                    AssistorSingleton.getInstance().endList.clear();
+                    AssistorSingleton.getInstance().endList.addAll(exInfo);
+                    Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                    intent.putExtra("isRestDay", "no");
+                    startActivityForResult(intent, 1);
                 }
-                AssistorSingleton.getInstance().endList.clear();
-                AssistorSingleton.getInstance().endList.addAll(exInfo);
-                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
-                intent.putExtra("isRestDay", "no");
-                startActivityForResult(intent, 1);
             }
         });
 

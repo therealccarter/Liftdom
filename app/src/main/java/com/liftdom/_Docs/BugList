@@ -18,20 +18,21 @@ fix visual of new custom exercise
 disable panning on calorie calc chart
 add loading view to workout assistor
 add dialog if exiting WA
+contingency for deletion of all exercises in workout assistor
+date preview on chat group needs to be far right
+move sign in options to below Brodin
 ====================================================
 
 ============ Currently Working On ===============================================
-contingency for deletion of all exercises in workout assistor
+Less wordy on first time sign in (3-12 characters)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
+
 ==== easier ==========
-date preview on chat group needs to be far right
 look for other edit texts to limit (add length check to WA edit texts)
 chat profile images/chat group images/other profile pic images
-move sign in options to below Brodin
 look into design stuff like font
-Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking (specifically name creation)
 to failure should be "t.f."
 ============
