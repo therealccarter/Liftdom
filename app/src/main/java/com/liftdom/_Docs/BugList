@@ -24,16 +24,16 @@ move sign in options to below Brodin
 Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking (specifically name creation)
 realtime username availability
+look for other edit texts to limit (add length check to WA edit texts)
 ====================================================
 
 ============ Currently Working On ===============================================
-look for other edit texts to limit (add length check to WA edit texts)
+chat profile images/chat group images/other profile pic images
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-chat profile images/chat group images/other profile pic images
 to failure should be "t.f."
 ============
 

@@ -42,7 +42,7 @@ import java.util.List;
 
 public class ProfileInfoActivity extends AppCompatActivity {
 
-    @BindView(R.id.usernameEditText) EditText usernameEditText;
+
     @BindView(R.id.usernameTextView) TextView usernameTextView;
     @BindView(R.id.bodyWeightEditText) EditText bodyWeightEditText;
     @BindView(R.id.heightFeet) EditText heightFeet;

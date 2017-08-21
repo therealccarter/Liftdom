@@ -59,6 +59,7 @@ public class IntroFrag2 extends SlideFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isAvailable = false;
                 handler.removeCallbacks(inputFinishChecker);
                 loadingView.setVisibility(View.VISIBLE);
                 usernameTaken.setVisibility(View.GONE);
