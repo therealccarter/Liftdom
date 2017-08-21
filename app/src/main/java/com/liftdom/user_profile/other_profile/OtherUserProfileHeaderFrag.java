@@ -97,7 +97,6 @@ public class OtherUserProfileHeaderFrag extends Fragment {
             }
         });
 
-
         userNameTextView.setText(userName);
 
         DatabaseReference profileRef = mRootRef.child("user").child(xUid);

@@ -131,6 +131,7 @@ public class ChatSpecificFrag extends Fragment {
                 viewHolder.setMessage(model.getTextMessage());
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setTimeStamp(model.getTimeStamp());
+                viewHolder.setUserId(model.getUserId());
                 if(model.getUserId().equals(uid)){
                     viewHolder.setBackground();
                 }

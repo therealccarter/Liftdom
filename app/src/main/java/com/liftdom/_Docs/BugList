@@ -25,10 +25,11 @@ Less wordy on first time sign in (3-12 characters)
 check for special characters in value picking (specifically name creation)
 realtime username availability
 look for other edit texts to limit (add length check to WA edit texts)
+chat profile images
 ====================================================
 
 ============ Currently Working On ===============================================
-chat profile images/chat group images/other profile pic images
+other profile pic images
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
