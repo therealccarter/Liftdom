@@ -57,6 +57,7 @@
                 android:id="@+id/chatNameEditText"
                 android:enabled="false"
                 android:textColor="@color/black"
+                android:maxLength="27"
         />
 
     </LinearLayout>

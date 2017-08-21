@@ -51,6 +51,7 @@
                     android:background="@color/offWhite"
                     android:paddingStart="5dp"
                     android:paddingBottom="20dp"
+                    android:maxLength="600"
             />
 
             <ImageButton

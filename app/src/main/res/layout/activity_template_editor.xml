@@ -168,6 +168,7 @@
                     android:textColor="@color/black"
                     android:minHeight="60dp"
                     android:gravity="start"
+                    android:maxLength="1000"
             />
 
             <Button

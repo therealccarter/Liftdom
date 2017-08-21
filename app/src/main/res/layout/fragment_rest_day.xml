@@ -63,6 +63,7 @@
                 android:background="@color/offWhite"
                 android:hint="@string/privateJournalHint"
                 android:padding="5dp"
+                android:maxLength="600"
         />
 
     </LinearLayout>
