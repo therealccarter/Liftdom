@@ -26,25 +26,26 @@ check for special characters in value picking (specifically name creation)
 realtime username availability
 look for other edit texts to limit (add length check to WA edit texts)
 chat profile images
+other profile pic images
 ====================================================
 
 ============ Currently Working On ===============================================
-other profile pic images
+to failure should be "t.f."
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-to failure should be "t.f."
+fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
+make sure that workout assistor has no history
+delete comments
+need to reload on back pressed
+work on xp increase algorithm
+make saving progress preserve order
 ============
 
 ==== harder ==========
-fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
 limit backstack somehow. Clear it?
-make saving progress preserve order
-work on xp increase algorithm
-make sure that workout assistor has no history
-delete comments
 somehow check for crazy bottom nav selection
 fix up search
 make back stack only go up the activity tree (?)
@@ -52,7 +53,6 @@ look into Glide caching
 profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1
 have a default template
-need to reload on back pressed
 pull to refresh loading icon should not be red
 ============
 =====================================================
