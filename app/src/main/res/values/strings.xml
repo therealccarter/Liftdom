@@ -363,8 +363,12 @@
     <string name="userNameHint">UserName</string>
     <string name="userNameInstructions">(3&#8211;12 characters)</string>
     <string name="invalidDisplayName">Please enter a valid user name</string>
+    <string name="invalidDisplayNameTaken">Please enter another user name</string>
     <string name="setUpProfileValues">Set up your body profile:</string>
     <string name="invalidProfileFields">Please enter all values. These can be edited later!</string>
+
+    <string name="userNameTaken">Username taken</string>
+    <string name="userNameAvailable">Username available!</string>
 
     <string name="setupFinished">That\'s it, you\'re finished!</string>
     <string name="mayTheGains">May the gains be with you</string>

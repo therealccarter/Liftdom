@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/transparent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:context="com.liftdom.liftdom.intro.IntroFrag2">
 
@@ -17,11 +17,55 @@
             android:textColor="@color/black"
             android:textSize="35sp"
             android:gravity="center"
-            app:layout_parallaxFactor="0.5"
-            android:layout_marginBottom="20dp"
+            app:layout_parallaxFactor="0.7"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginTop="130dp"
     />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:gravity="center"
+    >
+        <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:indicatorName="BallClipRotateMultipleIndicator"
+                android:id="@+id/loadingView"
+                app:indicatorColor="@color/liftrGold2"
+                android:visibility="gone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernameTakenView"
+                android:text="@string/userNameTaken"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@color/darkred"
+                android:padding="3dp"
+                android:visibility="gone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernameAvailableView"
+                android:text="@string/userNameAvailable"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@color/confirmgreen"
+                android:padding="3dp"
+                android:visibility="gone"
+        />
+
+    </LinearLayout>
+
+
 
     <EditText
             android:layout_width="match_parent"
@@ -37,8 +81,8 @@
             android:layout_marginTop="10dp"
             android:maxLength="12"
             android:inputType="text"
-            android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_"
-            app:layout_parallaxFactor="0.8"
+            android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,QWERTYUIOPASDFGHJKLZXCVBNM"
+            app:layout_parallaxFactor="0.5"
     />
 
     <TextView
@@ -51,5 +95,6 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
     />
+
 
 </agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

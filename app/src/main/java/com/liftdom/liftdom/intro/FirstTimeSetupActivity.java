@@ -90,6 +90,9 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child
                 (userId);
         userListRef.setValue(userName);
+        DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userNames").child
+                (userName);
+        userNameRef.setValue("true");
 
         DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
