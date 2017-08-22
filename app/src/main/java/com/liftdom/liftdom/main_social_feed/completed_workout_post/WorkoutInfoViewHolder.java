@@ -69,19 +69,23 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
                 if(MainActivitySingleton.getInstance().isImperial && !isOriginallyImperial()){
                     // you are imperial, workout is kg
-                    String newRepsWeight = metricToImperial(tokens[0]) + " lbs";
+                    String newRepsWeight = metricToImperial(tokens[0]);
+                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeViewSS.setText(newRepsWeight);
                 }else if(!MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
                     // you are kg, workout is imperial
-                    String newRepsWeight = imperialToMetric(tokens[0]) + " kg";
+                    String newRepsWeight = imperialToMetric(tokens[0]);
+                    newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeViewSS.setText(newRepsWeight);
                 }else if(MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
                     // both imperial
-                    String newRepsWeight = tokens[0] + " lbs";
+                    String newRepsWeight = tokens[0];
+                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeViewSS.setText(newRepsWeight);
                 }else{
                     // both kg
-                    String newRepsWeight = tokens[0] + " kg";
+                    String newRepsWeight = tokens[0];
+                    newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeViewSS.setText(newRepsWeight);
                 }
             }
@@ -103,19 +107,23 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
                 if(MainActivitySingleton.getInstance().isImperial && !isOriginallyImperial()){
                     // you are imperial, workout is kg
-                    String newRepsWeight = metricToImperial(tokens[0]) + " lbs";
+                    String newRepsWeight = metricToImperial(tokens[0]);
+                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeView.setText(newRepsWeight);
                 }else if(!MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
                     // you are kg, workout is imperial
-                    String newRepsWeight = imperialToMetric(tokens[0]) + " kg";
+                    String newRepsWeight = imperialToMetric(tokens[0]);
+                    newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeView.setText(newRepsWeight);
                 }else if(MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
                     // both imperial
-                    String newRepsWeight = tokens[0] + " lbs";
+                    String newRepsWeight = tokens[0];
+                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeView.setText(newRepsWeight);
                 }else{
                     // both kg
-                    String newRepsWeight = tokens[0] + " kg";
+                    String newRepsWeight = tokens[0];
+                    newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeView.setText(newRepsWeight);
                 }
             }
@@ -128,6 +136,13 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
     public void setIsOriginallyImperial(boolean originallyImperial) {
         isOriginallyImperial = originallyImperial;
+    }
+
+    private String repsTextAdder(String input, String unit){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        String newString = tokens[0] + " reps @ " + tokens[1] + unit;
+        return newString;
     }
 
     private String metricToImperial(String input){
