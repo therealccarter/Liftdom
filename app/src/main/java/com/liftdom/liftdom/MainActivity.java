@@ -132,47 +132,21 @@ public class MainActivity extends BaseActivity implements
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    //SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                    //if(sharedPref.getString("userName", "loading").equals("loading")){
-                    //    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                    //}else{
-                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
-                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    if(savedInstanceState == null){
-                                        setUpNavDrawer(MainActivity.this, toolbar);
-                                        if(getIntent().getExtras() == null){
-                                            setNavDrawerSelection(1);
-                                        }else{
-                                            int id = getIntent().getExtras().getInt("fragID");
-                                            if(id == 0){
-                                                setNavDrawerSelection(3);
-                                            }else if(id == 1){
-                                                setNavDrawerSelection(1);
-                                            }else if(id == 2){
-                                                setNavDrawerSelection(2);
-                                            }
-                                        }
-                                    }
-                                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                                    MainActivitySingleton.getInstance().userModelClass = userModelClass;
-                                    if(userModelClass.isIsImperial()){
-                                        MainActivitySingleton.getInstance().isImperial = true;
-                                    }
-                                }else{
-                                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                                }
+                    if(savedInstanceState == null){
+                        setUpNavDrawer(MainActivity.this, toolbar);
+                        if(getIntent().getExtras() == null){
+                            setNavDrawerSelection(1);
+                        }else{
+                            int id = getIntent().getExtras().getInt("fragID");
+                            if(id == 0){
+                                setNavDrawerSelection(3);
+                            }else if(id == 1){
+                                setNavDrawerSelection(1);
+                            }else if(id == 2){
+                                setNavDrawerSelection(2);
                             }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    //}
+                        }
+                    }
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");

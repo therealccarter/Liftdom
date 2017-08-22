@@ -54,34 +54,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setUpNavDrawer(final Context context, Toolbar toolbar){
 
-        //header = new AccountHeaderBuilder()
-        //        .withActivity(this)
-        //        .withHeaderBackground(R.drawable.header_pattern)
-        //        .withSelectionListEnabledForSingleProfile(false)
-        //        .withOnAccountHeaderSelectionViewClickListener(new AccountHeader
-        //        .OnAccountHeaderSelectionViewClickListener() {
-        //            @Override
-        //            public boolean onClick(View view, IProfile profile) {
-        //                Intent intent = new Intent(context, CurrentUserProfile.class);
-        //                startActivity(intent);
-        //                return false;
-        //            }
-        //        })
-        //        .withOnAccountHeaderProfileImageListener(new AccountHeader.OnAccountHeaderProfileImageListener() {
-        //            @Override
-        //            public boolean onProfileImageClick(View view, IProfile profile, boolean current) {
-        //                Intent intent = new Intent(context, CurrentUserProfile.class);
-        //                startActivity(intent);
-        //                return false;
-        //            }
-//
-        //            @Override
-        //            public boolean onProfileImageLongClick(View view, IProfile profile, boolean current) {
-        //                return false;
-        //            }
-        //        })
-        //        .build();
-
         // create the drawer
         drawer = new DrawerBuilder()
                 .withActivity(this)
@@ -145,85 +117,69 @@ public class BaseActivity extends AppCompatActivity {
                 .build();
 
 
-        String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid2);
 
-        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
-                uid2 + "/profilePic.png");
-
-        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
-                Glide.with(getApplicationContext()).load(uri).crossFade().into(profilePicView);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
-                profilePicView.setImageResource(R.drawable.usertest);
-            }
-        });
-
-        //profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-        //    @Override
-        //    public void onSuccess(Uri uri) {
-        //        Log.i("glide", "success");
-//
-        //        Glide.with(getApplicationContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
-        //            @Override
-        //            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-        //                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-//
-        //                ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-        //                        //.withIcon(R.drawable.usertest)
-        //                        .withName(sharedPref.getString("userName", "loading..."))
-        //                        .withEmail(sharedPref.getString("email", "loading..."));
-//
-        //                profileDrawerItem.withIcon(resource);
-//
-        //                //if(header.getProfiles().size() == 0){
-        //                //    header.addProfile(profileDrawerItem, 0);
-        //                //}
-        //            }
-        //        });
-        //    }
-        //}).addOnFailureListener(new OnFailureListener() {
-        //    @Override
-        //    public void onFailure(@NonNull Exception e) {
-        //        Log.i("glide", "failure");
-        //        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-//
-        //        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem()
-        //                //.withIcon(R.drawable.usertest)
-        //                .withName(sharedPref.getString("userName", "loading..."))
-        //                .withEmail(sharedPref.getString("email", "loading..."));
-//
-        //        profileDrawerItem.withIcon(R.drawable.usertest);
-//
-        //        //header.addProfile(profileDrawerItem, 0);
-        //    }
-        //});
-
-        drawer.getHeader().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
-                startActivity(intent);
-            }
-        });
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid2);
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                if(dataSnapshot.exists()){
 
-                TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
-                TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                    MainActivitySingleton.getInstance().userModelClass = userModelClass;
+                    if(userModelClass.isIsImperial()){
+                        MainActivitySingleton.getInstance().isImperial = true;
+                    }
 
-                userNameView.setText(userModelClass.getUserName());
-                powerLevelView.setText(userModelClass.getPowerLevel());
+                    StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                            uid2 + "/profilePic.png");
 
+                    profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
+                            Glide.with(getApplicationContext()).load(uri).crossFade().into(profilePicView);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
+                            profilePicView.setImageResource(R.drawable.usertest);
+                        }
+                    });
+
+                    drawer.getHeader().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                            TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
+                            TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
+
+                            userNameView.setText(userModelClass.getUserName());
+                            powerLevelView.setText(userModelClass.getPowerLevel());
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }else{
+                    startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+                }
             }
 
             @Override
@@ -231,8 +187,6 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 
