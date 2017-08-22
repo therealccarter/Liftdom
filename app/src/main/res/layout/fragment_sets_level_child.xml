@@ -70,7 +70,7 @@
             android:textColorHint="@color/black"
             android:textSize="22sp"
             android:imeOptions="actionDone"
-            android:maxLength="4"
+            android:maxLength="3"
     />
 
     <TextView

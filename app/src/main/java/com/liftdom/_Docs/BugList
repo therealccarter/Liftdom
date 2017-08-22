@@ -27,16 +27,16 @@ realtime username availability
 look for other edit texts to limit (add length check to WA edit texts)
 chat profile images
 other profile pic images
+to failure should be "t.f."
 ====================================================
 
 ============ Currently Working On ===============================================
-to failure should be "t.f."
+fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
 make sure that workout assistor has no history
 delete comments
 need to reload on back pressed

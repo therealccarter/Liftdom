@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,8 +42,13 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
     public void setUpView(){
         String[] tokens = getInfoString().split("_");
+        ArrayList<String> arrayList = new ArrayList<>();
+        for(String string : tokens){
+            arrayList.add(string);
+        }
 
-        if(tokens.length > 1){
+
+        if(arrayList.contains("ss")){
             if(isExerciseName(tokens[0])){
                 // is superset exname
                 mExNameLL.setVisibility(View.GONE);
@@ -89,6 +95,12 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
             char c = input.charAt(0);
             if (Character.isDigit(c)) {
                 isExercise = false;
+            }
+            if(input.length() > 5){
+                String string = input.substring(0, 4);
+                if(string.equals("T.F.")){
+                    isExercise = false;
+                }
             }
         }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             String delims = "[@,_]";
             String[] tokens = repsWeightString.split(delims);
 
-            repsEditText.setText(tokens[0]);
+            if(tokens[0].equals("T.F.")){
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter(4);
+                repsEditText.setFilters(filterArray);
+                repsEditText.setText("T.F.");
+                repsEditText.setEnabled(false);
+            }else{
+                repsEditText.setText(tokens[0]);
+                repsEditText.setEnabled(true);
+            }
             weightEditText.setText(tokens[1]);
             if(!isExerciseName(tokens[1])){
                 unitView.setVisibility(View.GONE);
@@ -76,7 +86,17 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         }else{
             String[] tokens = repsWeightString.split("@");
 
-            repsEditText.setText(tokens[0]);
+            if(tokens[0].equals("T.F.")){
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter(4);
+                repsEditText.setFilters(filterArray);
+                repsEditText.setText("T.F.");
+                repsEditText.setEnabled(false);
+            }else{
+                repsEditText.setText(tokens[0]);
+                repsEditText.setEnabled(true);
+            }
+
             weightEditText.setText(tokens[1]);
             if(!isExerciseName(tokens[1])){
                 unitView.setVisibility(View.GONE);
@@ -163,10 +183,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 if(data.getStringExtra("MESSAGE2") != null) {
                     String message = data.getStringExtra("MESSAGE2");
                     if(message.equals("to failure")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        repsEditText.setFilters(filterArray);
                         repsEditText.setText("T.F.");
                         repsEditText.setEnabled(false);
                     } else if(message.equals("defaultReps")){
                         if(!isNumber(repsEditText.getText().toString())){
+                            InputFilter[] filterArray = new InputFilter[1];
+                            filterArray[0] = new InputFilter.LengthFilter(2);
+                            repsEditText.setFilters(filterArray);
                             repsEditText.setText("");
                             repsEditText.setEnabled(true);
                             repsEditText.setHint("R");

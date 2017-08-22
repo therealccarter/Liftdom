@@ -82,8 +82,6 @@ public class MainActivity extends BaseActivity implements
 
     AccountHeader header;
 
-    //DatabaseReference mRootRef;
-    //String uid;
     DatabaseReference mRootRef;
     String uid;
 
