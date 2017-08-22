@@ -24,14 +24,15 @@
                 android:gravity="center"
                 android:visibility="gone"
         />
-        <LinearLayout
+
+        <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/exInfoSubHolder"
+                android:id="@+id/infoRecyclerView"
+                android:paddingBottom="5dp"
         >
 
-        </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 

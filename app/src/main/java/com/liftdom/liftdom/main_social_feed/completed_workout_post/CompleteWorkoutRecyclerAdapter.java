@@ -25,6 +25,7 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
     Context mContext;
     DatabaseReference mRootRef;
     FragmentActivity mActivity;
+    boolean isOriginallyImperial;
 
     public CompleteWorkoutRecyclerAdapter(List<CompletedWorkoutModelClass> list, Context context, FragmentActivity activity){
         this.mCompletedWorkoutList = list;
@@ -41,6 +42,14 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         return holder;
     }
 
+    public boolean getIsOriginallyImperial() {
+        return isOriginallyImperial;
+    }
+
+    public void setOriginallyImperial(boolean originallyImperial) {
+        isOriginallyImperial = originallyImperial;
+    }
+
     @Override
     public void onBindViewHolder(CompletedWorkoutViewHolder viewHolder, int position){
         viewHolder.setUserName(mCompletedWorkoutList.get(position).getUserName());
@@ -50,7 +59,8 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         viewHolder.setUpProfilePics(mCompletedWorkoutList.get(position).getUserId());
         viewHolder.setPublicDescription(mCompletedWorkoutList.get(position).getPublicDescription());
         viewHolder.setTimeStamp(mCompletedWorkoutList.get(position).getDateTime());
-        viewHolder.setPostInfo(mCompletedWorkoutList.get(position).getWorkoutInfoMap(), mActivity, mContext);
+        viewHolder.setPostInfo(mCompletedWorkoutList.get(position).getWorkoutInfoMap(), mActivity, mContext,
+                mCompletedWorkoutList.get(position).isIsImperial());
         viewHolder.setActivity(mActivity);
         viewHolder.setRefKey(mCompletedWorkoutList.get(position).getRef());
         viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());

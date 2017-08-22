@@ -48,7 +48,7 @@ make saving progress preserve order
 limit backstack somehow. Clear it?
 somehow check for crazy bottom nav selection
 fix up search
-make back stack only go up the activity tree (?)
+make back stack only go up the specific frag tree
 look into Glide caching
 profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1

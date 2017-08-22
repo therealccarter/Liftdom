@@ -77,7 +77,7 @@ public class SimpleExNameFrag extends Fragment {
         for(List<String> list : infoLists){
             inc2++;
             if(inc2 == 1){
-                String cat = list.get(0) + list.get(1);
+                //String cat = list.get(0) + list.get(1);
                 exNameView.setText(list.get(0));
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
                 for(String string : list){

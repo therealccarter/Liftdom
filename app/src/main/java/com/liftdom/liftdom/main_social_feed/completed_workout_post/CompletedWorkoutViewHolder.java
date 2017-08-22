@@ -304,9 +304,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mTimestampView.setText(formattedLocalDate);
     }
 
-    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context){
+    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
+                            boolean isImperial){
         WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
         //adapter.setInfoList(workoutInfoMap);
+        adapter.setIsOriginallyImperial(isImperial);
         mInfoRecyclerView.setAdapter(adapter);
         mInfoRecyclerView.setHasFixedSize(false);
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));

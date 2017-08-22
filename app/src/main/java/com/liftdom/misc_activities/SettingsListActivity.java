@@ -166,9 +166,11 @@ public class SettingsListActivity extends BaseActivity implements
                     if(poundsWeight.isChecked()){
                         // is now imperial
                         userModelClass2.setIsImperial(true);
+                        MainActivitySingleton.getInstance().isImperial = true;
                     }else{
                         // is now metric
                         userModelClass2.setIsImperial(false);
+                        MainActivitySingleton.getInstance().isImperial = false;
                     }
 
                     userRef.setValue(userModelClass2).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -180,6 +182,14 @@ public class SettingsListActivity extends BaseActivity implements
                             int duration = Snackbar.LENGTH_SHORT;
                             Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
                             snackbar.show();
+
+                            if(poundsWeight.isChecked()){
+                                // is now imperial
+                                MainActivitySingleton.getInstance().isImperial = true;
+                            }else{
+                                // is now metric
+                                MainActivitySingleton.getInstance().isImperial = false;
+                            }
                         }
                     });
                 }

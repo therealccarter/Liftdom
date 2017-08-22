@@ -15,9 +15,10 @@ import java.util.*;
 
 public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfoViewHolder>{
 
-    List<String> mWorkoutInfoList = new ArrayList<>();
-    HashMap<String, List<String>> mWorkoutInfoMap;
-    Context mContext;
+    private List<String> mWorkoutInfoList = new ArrayList<>();
+    private HashMap<String, List<String>> mWorkoutInfoMap;
+    private Context mContext;
+    private boolean isOriginallyImperial;
 
     public WorkoutInfoRecyclerAdapter(HashMap<String, List<String>> map, Context context){
         this.mWorkoutInfoMap = map;
@@ -46,7 +47,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
                         }else if(!isExerciseName(string) && isFirstRepsWeight){
                             mWorkoutInfoList.add(string);
                         }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                            mWorkoutInfoList.add(string + "_ss");
+                            mWorkoutInfoList.add(string );
                         }
                     }
                 }
@@ -54,10 +55,19 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         }
     }
 
+    public boolean getIsOriginallyImperial() {
+        return isOriginallyImperial;
+    }
+
+    public void setIsOriginallyImperial(boolean originallyImperial) {
+        isOriginallyImperial = originallyImperial;
+    }
+
     @Override
     public WorkoutInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = (LayoutInflater.from(parent.getContext())).inflate(R.layout.workout_info_list_item, parent, false);
         WorkoutInfoViewHolder holder = new WorkoutInfoViewHolder(view);
+        holder.setIsOriginallyImperial(getIsOriginallyImperial());
         return holder;
     }
 
