@@ -29,31 +29,29 @@ chat profile images
 other profile pic images
 to failure should be "t.f."
 fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
+make sure that workout assistor has no history
 ====================================================
 
 ============ Currently Working On ===============================================
-make sure that workout assistor has no history
+delete comments
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-delete comments
 need to reload on back pressed
 work on xp increase algorithm
 make saving progress preserve order
 ============
 
 ==== harder ==========
-limit backstack somehow. Clear it?
+limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
 somehow check for crazy bottom nav selection
 fix up search
-make back stack only go up the specific frag tree
 look into Glide caching
 profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1
 have a default template
-pull to refresh loading icon should not be red
 ============
 =====================================================
 

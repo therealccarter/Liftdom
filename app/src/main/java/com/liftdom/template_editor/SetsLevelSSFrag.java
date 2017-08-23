@@ -57,7 +57,15 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                 String delims = "[x,@]";
                 String[] tokens = isEditSetScheme.split(delims);
                 setsEditText.setText(tokens[0]);
-                repsEditText.setText(tokens[1]);
+                if(tokens[1].equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else{
+                    repsEditText.setText(tokens[1]);
+                }
                 weightEditText.setText(tokens[2]);
             }
         }

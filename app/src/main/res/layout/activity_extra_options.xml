@@ -6,160 +6,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey1"
+        android:background="@color/grey"
         tools:context="com.liftdom.template_editor.ExtraOptionsDialog">
-    <!--
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:id="@+id/bodyWeightOptionButton"
-            android:visibility="gone"
-    >
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/black"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/liftrGold1"
-                android:text="@string/bodyWeightOptionButton"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textSize="16sp"
-        />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bodyWeightOptionText"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey"
-                android:textColor="@color/black"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginEnd="10dp"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:id="@+id/defaultWeightOptionButton"
-            android:visibility="gone"
-    >
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/black"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/liftrGold1"
-                android:text="@string/defaultWeightOptionButton"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textSize="16sp"
-        />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/defaultWeightOptionText"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey"
-                android:textColor="@color/black"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginEnd="10dp"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:id="@+id/toFailureOptionButton"
-            android:visibility="gone"
-
-    >
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/black"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/liftrGold1"
-                android:text="@string/toFailureOptionButton"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textSize="16sp"
-        />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/toFailureOptionText"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey"
-                android:textColor="@color/black"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:layout_marginBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginEnd="10dp"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:id="@+id/defaultRepsOptionButton"
-            android:visibility="gone"
-    >
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/black"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/liftrGold1"
-                android:text="@string/defaultRepsOptionButton"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textSize="16sp"
-        />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/defaultRepsOptionText"
-                android:layout_gravity="center_vertical"
-                android:background="@color/grey"
-                android:textColor="@color/black"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginEnd="10dp"
-        />
-
-    </LinearLayout>
-
-    -->
 
     <RadioGroup
             android:layout_width="wrap_content"
@@ -172,7 +20,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/numericalWeightRadioButton"
                 android:text="@string/defaultWeightOptionText"
+                android:textColor="@color/black"
                 android:layout_margin="5dp"
+                android:buttonTint="@color/black"
         />
 
         <RadioButton
@@ -180,7 +30,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/bodyWeightRadioButton"
                 android:text="@string/bodyWeightOptionText"
+                android:textColor="@color/black"
                 android:layout_margin="5dp"
+                android:buttonTint="@color/black"
+
         />
 
     </RadioGroup>
@@ -194,8 +47,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/numericalRepsRadioButton"
-                android:text="@string/defaultWeightOptionText"
+                android:text="@string/defaultRepsOptionText"
+                android:textColor="@color/black"
                 android:layout_margin="5dp"
+                android:buttonTint="@color/black"
+
         />
 
         <RadioButton
@@ -203,14 +59,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/toFailureRadioButton"
                 android:text="@string/toFailureOptionText"
+                android:textColor="@color/black"
                 android:layout_margin="5dp"
+                android:buttonTint="@color/black"
+
         />
 
     </RadioGroup>
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:id="@+id/confirmButton"
             android:text="@string/confirm"
             android:background="@color/confirmgreen"

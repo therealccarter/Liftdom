@@ -84,7 +84,16 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 // reps
                 String repsWithSpaces = setSchemesEachArray[1];
                 String repsWithout = repsWithSpaces.replaceAll("\\s+","");
-                repsEditText.setText(repsWithout);
+                if(repsWithout.equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else{
+                    repsEditText.setText(repsWithout);
+                }
+
 
                 String weightWithSpaces = setSchemesEachArray[2];
                 String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");

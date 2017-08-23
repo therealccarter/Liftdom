@@ -323,14 +323,7 @@
             <i>bodyweight.</i>
         </b>
     </string>
-    <string name="toFailureOptionText">To Failure: Instead of a number as
-        <b>
-            <i>reps</i>
-        </b>
-        , go
-        <b>
-            <i>to failure. (as many reps as poosible)</i>
-        </b>
+    <string name="toFailureOptionText">To Failure: <b><i>Reps</i></b> to failure (as many reps as possible)
     </string>
     <string name="defaultRepsOptionText">Numerical:
         <b>

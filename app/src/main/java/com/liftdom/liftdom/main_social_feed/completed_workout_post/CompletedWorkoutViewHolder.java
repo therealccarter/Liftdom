@@ -194,6 +194,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             viewHolder.setRepNumber(model.getRepNumber());
                             viewHolder.setRefKey(model.getRefKey());
                             viewHolder.setUsername(model.getUserName());
+                            viewHolder.setParentUid(xUid);
+                            viewHolder.setParentRefKey(getRefKey());
+                            viewHolder.setCommentUid(model.getUserId());
                         }
                     };
 
