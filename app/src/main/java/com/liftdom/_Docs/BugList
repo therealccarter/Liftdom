@@ -34,10 +34,11 @@ delete comments
 need to reload on back pressed
 limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
 make saving progress preserve order
+comments profile pics
 ====================================================
 
 ============ Currently Working On ===============================================
-comments profile pics
+adding superset in template editor added an extra set scheme
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -45,7 +46,6 @@ comments profile pics
 ==== easier ==========
 somehow check for crazy bottom nav selection
 fix up search
-look into Glide caching
 ============
 
 ==== harder ==========
@@ -62,4 +62,5 @@ password recovery/changing
 friends list
 figure out what's going on with Moto phone
 look into design stuff like font
+look into Glide caching
 =====================================================

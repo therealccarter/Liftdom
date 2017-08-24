@@ -1,12 +1,21 @@
 package com.liftdom.liftdom.main_social_feed.comment_post;
 
+import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.FollowersModelClass;
 
@@ -32,6 +41,7 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
     private String parentUid;
     private String parentRefKey;
     private String commentUid;
+    private Context mContext;
 
     public PostCommentViewHolder(View itemView){
         super(itemView);
@@ -102,6 +112,31 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
         if(commentUid.equals(getCurrentUid())){
             mDeleteCommentButton.setVisibility(View.VISIBLE);
         }
+
+        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                commentUid + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.i("glide", "success");
+                Glide.with(getContext()).load(uri).crossFade().into(mUserProfilePic);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("glide", "failure");
+                mUserProfilePic.setImageResource(R.drawable.usertest);
+            }
+        });
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    public void setContext(Context mContext) {
+        this.mContext = mContext;
     }
 
     public String getParentRefKey() {

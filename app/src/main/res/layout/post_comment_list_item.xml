@@ -9,7 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/offWhite"
+            android:background="@color/offerWhite"
     >
         <View
                 android:layout_width="7dp"
@@ -21,9 +21,9 @@
         <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/usertest"
                 android:id="@+id/userProfilePic"
                 android:layout_marginTop="3dp"
+                android:scaleType="centerCrop"
         />
 
         <LinearLayout

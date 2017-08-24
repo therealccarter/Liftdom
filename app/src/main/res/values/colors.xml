@@ -11,6 +11,7 @@
 
     <color name="grey" type="color">#cccccc</color>
     <color name="offWhite" type="color">#ededed</color>
+    <color name="offerWhite" type="color">#d9d9d9</color>
     <color name="offerGrey" type="color">#b4b4b4</color>
     <color name="midGrey" type="color">#353535</color>
     <item name="blue" type="color">#FF33B5E5</item>

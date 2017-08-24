@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="7dp"
-        app:cardElevation="5dp"
+        app:cardElevation="6dp"
         app:cardCornerRadius="0dp"
         android:background="@color/offerGrey"
 >
@@ -13,14 +13,14 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey"
+            android:background="@color/offWhite"
             android:orientation="vertical"
     >
         <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mrl_rippleOverlay="false"
+                app:mrl_rippleOverlay="true"
                 app:mrl_rippleColor="@color/liftrGold1"
                 app:mrl_rippleDuration="450"
                 app:mrl_rippleFadeDuration="155"
@@ -32,25 +32,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/offWhite"
+                    android:background="@color/offerWhite"
                     android:id="@+id/postInfoHolder"
-                    android:elevation="5dp"
             >
+                <View
+                        android:layout_width="3dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey2"
+                />
+
                 <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/usertest"
                         android:layout_margin="15dp"
                         android:id="@+id/profilePic"
+                        android:layout_weight="0"
                 />
 
                 <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
+                        android:layout_weight="1"
                 >
+
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -66,12 +74,13 @@
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
                                   android:orientation="horizontal"
+                                  android:background="@color/offerWhite"
                     >
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
-                                android:textColor="@color/backgroundgrey1"
+                                android:textColor="@color/black"
                                 android:text="@string/level"
                         />
 
@@ -80,25 +89,33 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/userLevel"
                                 android:textSize="16sp"
-                                android:textColor="@color/backgroundgrey1"
+                                android:textColor="@color/black"
+                                android:layout_weight="1"
                         />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/timeStampView"
+                                android:textSize="12sp"
+                                android:textColor="@color/backgroundgrey1"
+                                android:gravity="end"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="5dp"
+                        />
+
                     </LinearLayout>
 
 
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/timeStampView"
-                            android:textSize="12sp"
-                            android:textColor="@color/backgroundgrey1"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="-20dp"
-                            android:layout_marginEnd="15dp"
-                    />
 
                 </LinearLayout>
 
+                <View
+                        android:layout_width="3dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey2"
+                />
             </LinearLayout>
 
         </com.balysv.materialripple.MaterialRippleLayout>
@@ -155,7 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/grey"
+                android:background="@color/offWhite"
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
         >
