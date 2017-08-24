@@ -65,15 +65,15 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
 
                         Map fanoutObject = new HashMap<>();
 
-                        if(!getCurrentUid().equals(getParentUid())){
+                        //if(!getCurrentUid().equals(getParentUid())){
                             userList.add(getParentUid());
-                        }
+                        //}
 
                         for(String user : userList){
-                            if(!user.equals(getCurrentUid())){
+                            //if(!user.equals(getCurrentUid())){
                                 fanoutObject.put("/feed/" + user + "/" + parentRefKey + "/commentMap/" + mRefKey,
                                         null);
-                            }
+                            //}
                         }
 
                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();

@@ -385,6 +385,8 @@ public class MainActivity extends BaseActivity implements
         }
 
 
+
+
     }
 
     public void setBottomNavIndex(int navIndex){

@@ -30,28 +30,28 @@ other profile pic images
 to failure should be "t.f."
 fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
 make sure that workout assistor has no history
+delete comments
+need to reload on back pressed
+limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
 ====================================================
 
 ============ Currently Working On ===============================================
-delete comments
+make saving progress preserve order
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-need to reload on back pressed
-work on xp increase algorithm
-make saving progress preserve order
-============
-
-==== harder ==========
-limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
 somehow check for crazy bottom nav selection
 fix up search
 look into Glide caching
+============
+
+==== harder ==========
 profile picture (tourettes pic) is rotated
 remember on account creation, walk through level 0-1
 have a default template
+work on xp increase algorithm
 ============
 =====================================================
 

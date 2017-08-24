@@ -194,6 +194,7 @@ public class BaseActivity extends AppCompatActivity {
         return drawer;
     }
 
+
     public void setNavDrawerSelection(int i){
         if(drawer != null){
             drawer.setSelection(i, false);
@@ -230,6 +231,15 @@ public class BaseActivity extends AppCompatActivity {
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(drawer.isDrawerOpen()){
+            drawer.closeDrawer();
+        }else{
+            super.onBackPressed();
         }
     }
 

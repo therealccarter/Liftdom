@@ -293,10 +293,6 @@ public class ExNameWAFrag extends android.app.Fragment
 
         parentExInfoList.add(getExerciseValueFormatted());
 
-        if(getExerciseValueFormatted().equals("Chest Fly (Machine)")){
-            Log.i("info", "info");
-        }
-
         ArrayList<List<String>> collectedExInfoByExList = new ArrayList<>();
 
 

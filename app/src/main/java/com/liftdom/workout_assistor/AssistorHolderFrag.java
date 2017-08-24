@@ -1,7 +1,6 @@
 package com.liftdom.workout_assistor;
 
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
-import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -85,7 +82,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
-                            trueProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
                                     modelClass.getPublicComment());
                             //noProgressInflateViews();
                         }else{
@@ -205,6 +202,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                 // might need to make this not clickable without inflated views so it isn't set to null
                 for(ExNameWAFrag exNameFrag : exNameFragList){
                     inc++;
+                    //for(int i = 1; i <= exNameFragList.size(); i++){}
                     runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
                 }
 
@@ -229,7 +227,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
-    private void trueProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
+    private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
             privateJournal, String
             publicComment){
 
@@ -261,7 +259,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void noProgressInflateViews(){
-
+        // without having saved any progress
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
         if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){

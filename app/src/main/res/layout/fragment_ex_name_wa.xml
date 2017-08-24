@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/addRepsWeightButton"
-                android:text="@string/addRepsWeight"
+                android:text="@string/addJustSet"
                 android:textColor="@color/white"
                 android:minHeight="0dp"
                 android:layout_marginStart="10dp"
@@ -86,6 +86,7 @@
                 android:textAllCaps="false"
                 android:layout_gravity="start"
                 android:layout_marginBottom="10dp"
+                android:paddingEnd="5dp"
         />
 
     </LinearLayout>
