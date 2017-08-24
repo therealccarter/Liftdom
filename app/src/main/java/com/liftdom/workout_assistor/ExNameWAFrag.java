@@ -111,8 +111,35 @@ public class ExNameWAFrag extends android.app.Fragment
             inflateFrags();
         }
 
+        //TODO: READ THIS YO: Possibly just make the keys be ordered? _key style.
+
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1){
+            if(data != null){
+                if(data.getStringExtra("choice") != null){
+                    if(data.getStringExtra("choice").equals("selectEx")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("exID", exID);
+                        startActivityForResult(intent, 2);
+                    }else if(data.getStringExtra("choice").equals("infoEx")){
+                        //TODO: get exercise info popup
+                    }
+                }
+            }
+        }else if(resultCode == 2){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE") != null){
+                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                }
+            }
+        }
     }
 
     private void inflateFrags(){
@@ -362,31 +389,6 @@ public class ExNameWAFrag extends android.app.Fragment
         }
 
         return index;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1){
-            if(data != null){
-                if(data.getStringExtra("choice") != null){
-                    if(data.getStringExtra("choice").equals("selectEx")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        int exID = exerciseNameView.getId();
-                        intent.putExtra("exID", exID);
-                        startActivityForResult(intent, 2);
-                    }else if(data.getStringExtra("choice").equals("infoEx")){
-                        //TODO: get exercise info popup
-                    }
-                }
-            }
-        }else if(resultCode == 2){
-            if(data != null){
-                if(data.getStringExtra("MESSAGE") != null){
-                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
-                }
-            }
-        }
     }
 
     public String getExerciseValueFormatted(){

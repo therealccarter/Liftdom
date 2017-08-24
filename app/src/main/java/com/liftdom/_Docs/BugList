@@ -33,10 +33,11 @@ make sure that workout assistor has no history
 delete comments
 need to reload on back pressed
 limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
+make saving progress preserve order
 ====================================================
 
 ============ Currently Working On ===============================================
-make saving progress preserve order
+comments profile pics
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
