@@ -305,7 +305,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExerciseLevelSSFrag exerciseLevelSSFrag = new ExerciseLevelSSFrag();
                         exerciseLevelSSFrag.fragTag = fragString;
-                        exerciseLevelSSFrag.initialSchemeCount = fragIdCount2 + 1;
+                        exerciseLevelSSFrag.initialSchemeCount = setsLevelChildFragAL.size();
                         fragmentTransaction.add(R.id.superSetHolder, exerciseLevelSSFrag, fragString);
                         fragmentTransaction.commitAllowingStateLoss();
                         hasSupersets = true;

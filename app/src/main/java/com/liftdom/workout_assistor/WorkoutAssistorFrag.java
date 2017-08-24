@@ -53,16 +53,6 @@ public class WorkoutAssistorFrag extends Fragment {
         // Required empty public constructor
     }
 
-    headerChangeFromFrag mCallback;
-
-    public interface headerChangeFromFrag{
-        void changeHeaderTitle(String title);
-    }
-
-    private void headerChanger(String title){
-        mCallback.changeHeaderTitle(title);
-    }
-
     private static final String TAG = "EmailPassword";
 
     // declare_auth
@@ -83,6 +73,26 @@ public class WorkoutAssistorFrag extends Fragment {
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
+    }
+
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
 
     //@BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
@@ -417,79 +427,6 @@ public class WorkoutAssistorFrag extends Fragment {
             mAuth.removeAuthStateListener(mAuthListener);
         }
 
-        //TODO: we could have loading view pop up and go away on running assistor complete upload. also should have a
-        //TODO:  button to save progress
-
-        //if(!noActiveTemplateBool){
-        //
-        //    final DatabaseReference runningBoolRef = mRootRef.child("runningAssistor").child(uid).child("isRunning")
-        //            .child
-        //            ("isRunningBoolDate");
-        //
-        //    runningBoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        //        @Override
-        //        public void onDataChange(DataSnapshot dataSnapshot) {
-        //            String value = dataSnapshot.getValue(String.class);
-        //
-        //
-        //            if (value == null) {
-        //                runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-        //            } else {
-        //                String delims = "[_]";
-        //
-        //                String[] tokens1 = value.split(delims);
-        //
-        //                LocalDate localDate = LocalDate.now();
-        //                LocalDate convertedDate = new LocalDate(tokens1[1]);
-        //
-        //                // (isEditing, isDate)
-        //                // (false, true) = workout has been finished - do nothing
-        //                // (true, true) = workout is being edited - do nothing
-        //                // (false, false) = workout has not been finished - set to (true, true)
-        //                // (true, false) = yesterday's workout not finished - set to (true, true)
-        //                if (!Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
-        //                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-        //                } else if (Boolean.valueOf(tokens1[0]) && !localDate.equals(convertedDate)) {
-        //                    runningBoolRef.setValue("true" + "_" + LocalDate.now().toString());
-        //                }
-        //            }
-        //        }
-        //
-        //        @Override
-        //        public void onCancelled(DatabaseError databaseError) {
-        //
-        //        }
-        //    });
-        //
-        //    DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child("isRunning")
-        //            .child
-        //            ("isRunningInfo");
-        //
-        //    runningAssistorRef.setValue(null);
-        //
-        //    for (ExerciseNameFrag exNameFrag : exerciseNameFragList) {
-        //        String exName = exNameFrag.exerciseName;
-        //        DatabaseReference exNameRef = runningAssistorRef.child(exName);
-        //        int inc = 0;
-        //        ArrayList<String> exerciseStringList = new ArrayList<>();
-        //
-        //        for (RepsWeightFrag repsWeightFrag : repsWeightFragList) {
-        //            if (repsWeightFrag.getParentExercise().equals(exName)) {
-        //                String infoString = repsWeightFrag.fullString + "_" + repsWeightFrag.getCheckedStatus();
-        //                exerciseStringList.add(infoString);
-        //            }
-        //
-        //            inc++;
-        //
-        //            if (inc == repsWeightFragList.size()) {
-        //                List<String> list = exerciseStringList;
-        //                exNameRef.setValue(list);
-        //            }
-        //
-        //
-        //        }
-        //    }
-        //}
     }
     // [END on_stop_remove_listener]
 
@@ -533,6 +470,7 @@ public class WorkoutAssistorFrag extends Fragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
+            navChangerCallback = (bottomNavChanger) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");

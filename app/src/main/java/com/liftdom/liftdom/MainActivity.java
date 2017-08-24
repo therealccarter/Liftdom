@@ -54,7 +54,8 @@ public class MainActivity extends BaseActivity implements
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
         SavedTemplatesFrag.bottomNavChanger,
-        SelectedTemplateFrag.bottomNavChanger
+        SelectedTemplateFrag.bottomNavChanger,
+        WorkoutAssistorFrag.bottomNavChanger
         {
 
     private static final String TAG = "EmailPassword";
