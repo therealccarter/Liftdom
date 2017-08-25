@@ -226,6 +226,15 @@ public class UserModelClass {
         return (int) Math.round(powerXP);
     }
 
+    private double getScalingBonus(){
+        int powerLevel = Integer.parseInt(getPowerLevel());
+        double bonus = 0;
+
+        bonus = generateGoalXp(powerLevel) * 0.05;
+
+        return bonus;
+    }
+
     private int getXpFromMap(HashMap<String, List<String>> completedMap){
         int xpFromWorkout = 0;
         // So eventually we'll have both an objective and subjective metric
@@ -233,7 +242,9 @@ public class UserModelClass {
         // subjective being max/poundage compared to your past.
 
         // handle sets
-        double dub = getTotalSets(completedMap) + getTotalReps(completedMap) * 1.3;
+        double dub = getTotalSets(completedMap) + (getTotalReps(completedMap) / 2) + (getTotalPoundage(completedMap) *
+                0.01) + getScalingBonus();
+
         xpFromWorkout = (int) Math.round(dub);
 
         // handle reps

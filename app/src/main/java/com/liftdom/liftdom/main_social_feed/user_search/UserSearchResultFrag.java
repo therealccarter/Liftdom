@@ -2,10 +2,13 @@ package com.liftdom.liftdom.main_social_feed.user_search;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
@@ -48,6 +57,40 @@ public class UserSearchResultFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         userNameTextView.setText(userName);
+
+        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+                xUid + "/profilePic.png");
+
+        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.i("glide", "success");
+                Glide.with(getContext()).load(uri).crossFade().into(profilePicImageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("glide", "failure");
+                profilePicImageView.setImageResource(R.drawable.usertest);
+            }
+        });
+
+        DatabaseReference powerLevelRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid)
+                .child("powerLevel");
+        powerLevelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String powerLevel = dataSnapshot.getValue(String.class);
+                if(powerLevel != null){
+                    userLevelTextView.setText(powerLevel);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         userInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

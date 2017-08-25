@@ -312,13 +312,17 @@ public class MainActivity extends BaseActivity implements
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                UserSearchFrag userSearchFrag = new UserSearchFrag();
-                userSearchFrag.searchString = query;
-                fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                if(!query.equals("")){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    UserSearchFrag userSearchFrag = new UserSearchFrag();
+                    userSearchFrag.searchString = query;
+                    fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                    return false;
+                }
 
                 return false;
             }
@@ -408,7 +412,6 @@ public class MainActivity extends BaseActivity implements
             data = new ArrayList<String>();
             typeAheadData = getResources().getStringArray(R.array.state_array_full);
         }
-
 
         @Override
         public Filter getFilter() {

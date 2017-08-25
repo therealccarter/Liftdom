@@ -61,6 +61,7 @@ public class UserSearchFrag extends Fragment {
         //    toolbar.setVisibility(View.VISIBLE);
         //}
 
+
         if(searchString.equals("")){
             loadingView.setVisibility(View.GONE);
             noResultsView.setVisibility(View.VISIBLE);
@@ -79,22 +80,25 @@ public class UserSearchFrag extends Fragment {
 
                         String xUid = dataSnapshot1.getKey();
                         String userName = dataSnapshot1.getValue(String.class);
-                        fullUserHashMap.put(xUid, userName);
+                        if(hasSequence(userName)){
+                            fullUserHashMap.put(xUid, userName);
+                        }
+
 
                         ++inc;
                         if(inc == dataSnapshot.getChildrenCount()){
                             // now we have the full user list, time to compare
 
-                            HashMap<String, String> matchingUsers = getMatchingUsers(searchString);
+                            //HashMap<String, String> matchingUsers = getMatchingUsers(searchString);
 
-                            if(matchingUsers.size() == 0){
+                            if(fullUserHashMap.size() == 0){
                                 loadingView.setVisibility(View.GONE);
                                 noResultsView.setVisibility(View.VISIBLE);
                             } else{
 
                                 loadingView.setVisibility(View.GONE);
 
-                                for(Map.Entry<String, String> entry : matchingUsers.entrySet()){
+                                for(Map.Entry<String, String> entry : fullUserHashMap.entrySet()){
                                     String key = entry.getKey();
                                     String value = entry.getValue();
 
@@ -142,6 +146,17 @@ public class UserSearchFrag extends Fragment {
 
         // string.equalsIgnoreCase(userName
         return matchingUsers;
+    }
+
+    private boolean hasSequence(String username){
+        boolean matches = false;
+
+
+        if(username.toLowerCase().contains(searchString.toLowerCase())){
+            matches = true;
+        }
+
+        return matches;
     }
 
 }

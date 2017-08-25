@@ -36,23 +36,24 @@ limit backstack somehow. Clear it? // make back stack only go up the specific fr
 make saving progress preserve order
 comments profile pics
 adding superset in template editor added an extra set scheme
+fix up search
+work on xp increase algorithm (for now)
 ====================================================
 
 ============ Currently Working On ===============================================
-
+have a default template
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
 profile picture (tourettes pic) is rotated
-fix up search
+change search suggestions to current following
+main feed recycler view is starting with an offset..
 ============
 
 ==== harder ==========
 remember on account creation, walk through level 0-1
-have a default template
-work on xp increase algorithm
 ============
 =====================================================
 

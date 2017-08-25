@@ -175,6 +175,21 @@ public class TemplateSavedActivity extends BaseActivity {
                 });
             }
 
+            final DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid);
+            runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        runningAssistorRef.setValue(null);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
             DatabaseReference selectedTemplateDataRef;
 
             if(TemplateEditorSingleton.getInstance().isFromPublic){

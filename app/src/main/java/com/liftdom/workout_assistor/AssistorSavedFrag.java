@@ -255,6 +255,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
 
         }else{
+            completedMapFormatted = formatCompletedMap(completedMap);
             completedExerciseList = getCompletedExercises();
         }
 
@@ -293,13 +294,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                         workoutInfoMap, commentModelClassMap);
-                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                feedFanOut(refKey, completedWorkoutModelClass);
+                //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                //feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
-                workoutHistoryRef.setValue(historyModelClass);
+                //workoutHistoryRef.setValue(historyModelClass);
             }
 
             @Override
@@ -382,7 +383,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         });
     }
-
 
     private void processUserClassPowerLevel(UserModelClass userModelClass){
         if(animationsFirstTime){
@@ -598,7 +598,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
         animator1.start();
     }
 
-
     private void startCounterAnimation(int initialNumber, int finalNumber, final TextView textView){
         ValueAnimator animator = ValueAnimator.ofInt(initialNumber, finalNumber);
         animator.setDuration(2000);
@@ -649,9 +648,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return completedExList;
     }
-
-
-    //TODO: check if today's been done you retard
 
     private HashMap<String, List<String>> getMapForHistory(HashMap<String, HashMap<String, List<String>>> completedMap){
         HashMap<String, List<String>> historyMap = new HashMap<>();
