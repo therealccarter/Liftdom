@@ -34,6 +34,8 @@ import com.google.firebase.storage.UploadTask;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.*;
@@ -284,13 +286,20 @@ public class ProfileInfoActivity extends AppCompatActivity {
         profilePicView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profilePicView.setVisibility(View.GONE);
-                profilePicLoadingView.setVisibility(View.VISIBLE);
+                //profilePicView.setVisibility(View.GONE);
+                //profilePicLoadingView.setVisibility(View.VISIBLE);
 
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAllowRotation(false)
+                        .setAspectRatio(1, 1)
+                        .setMultiTouchEnabled(true)
+                        .start(ProfileInfoActivity.this);
+
+                //Intent intent = new Intent();
+                //intent.setType("image/*");
+                //intent.setAction(Intent.ACTION_GET_CONTENT);
+                //startActivityForResult(intent, 1);
             }
         });
     }
@@ -298,37 +307,51 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1) {
-            if(data != null){
-                Uri selectedImageUri = data.getData();
-                Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
-                File imageFile = new File(selectedImageUri.getPath());
-
-                try {
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    Matrix matrix = new Matrix();
-                    matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, 200, 200),
-                            Matrix.ScaleToFit.CENTER);
-                    //Bitmap resized = Bitmap.createScaledBitmap(bmp, 180, 180, true);
-                    Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
-                    inputStream = new ByteArrayInputStream(bos.toByteArray());
-
-                    Glide.with(getApplicationContext()).load(selectedImageUri).into(profilePicView);
-                    profilePicView.setVisibility(View.VISIBLE);
-                    profilePicLoadingView.setVisibility(View.GONE);
-
-                } catch (IOException e) {
-                    if(getCurrentFocus() != null){
-                        Snackbar.make(getCurrentFocus(), "Error, try another picture", Snackbar.LENGTH_SHORT);
-                    }
-                }
-            }else{
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                Glide.with(getApplicationContext()).load(resultUri).into(profilePicView);
                 profilePicView.setVisibility(View.VISIBLE);
                 profilePicLoadingView.setVisibility(View.GONE);
+            }else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
             }
+        }else{
+            profilePicView.setVisibility(View.VISIBLE);
+            profilePicLoadingView.setVisibility(View.GONE);
         }
+        //if(requestCode == 1) {
+        //    if(data != null){
+        //        Uri selectedImageUri = data.getData();
+        //        Uri file = Uri.fromFile(new File(selectedImageUri.getPath()));
+        //        File imageFile = new File(selectedImageUri.getPath());
+//
+        //        try {
+        //            Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+        //            Matrix matrix = new Matrix();
+        //            matrix.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, 200, 200),
+        //                    Matrix.ScaleToFit.CENTER);
+        //            //Bitmap resized = Bitmap.createScaledBitmap(bmp, 180, 180, true);
+        //            Bitmap resized = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+        //            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        //            resized.compress(Bitmap.CompressFormat.JPEG, 70, bos);
+        //            inputStream = new ByteArrayInputStream(bos.toByteArray());
+//
+        //            Glide.with(getApplicationContext()).load(selectedImageUri).into(profilePicView);
+        //            profilePicView.setVisibility(View.VISIBLE);
+        //            profilePicLoadingView.setVisibility(View.GONE);
+//
+        //        } catch (IOException e) {
+        //            if(getCurrentFocus() != null){
+        //                Snackbar.make(getCurrentFocus(), "Error, try another picture", Snackbar.LENGTH_SHORT);
+        //            }
+        //        }
+        //    }else{
+        //        profilePicView.setVisibility(View.VISIBLE);
+        //        profilePicLoadingView.setVisibility(View.GONE);
+        //    }
+        //}
     }
 
     public String getPath(Uri uri){

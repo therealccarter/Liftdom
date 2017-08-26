@@ -1,4 +1,4 @@
-package com.liftdom.liftdom.intro;
+ package com.liftdom.liftdom.intro;
 
 
 import agency.tango.materialintroscreen.SlideFragment;

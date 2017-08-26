@@ -41,19 +41,18 @@ work on xp increase algorithm (for now)
 ====================================================
 
 ============ Currently Working On ===============================================
-have a default template
+profile picture (tourettes pic) is rotated / images not cropping to square
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-profile picture (tourettes pic) is rotated
 change search suggestions to current following
 main feed recycler view is starting with an offset..
 ============
 
 ==== harder ==========
-remember on account creation, walk through level 0-1
+remember on account creation, walk through level 0-1 (first template creation)
 ============
 =====================================================
 

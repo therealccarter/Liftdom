@@ -46,7 +46,7 @@
                         android:text="@string/profilePic"
                         android:background="@color/liftrGold1"
                         android:textColor="@color/black"
-                        android:paddingStart="60dp"
+                        android:paddingStart="30dp"
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                 />
@@ -79,7 +79,7 @@
                     android:text="@string/headerImage"
                     android:background="@color/liftrGold1"
                     android:textColor="@color/black"
-                    android:paddingStart="60dp"
+                    android:paddingStart="30dp"
                     android:paddingEnd="10dp"
                     android:textSize="20sp"
             />
