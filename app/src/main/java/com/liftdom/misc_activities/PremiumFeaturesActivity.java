@@ -39,6 +39,7 @@ public class PremiumFeaturesActivity extends BaseActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     @BindView(R.id.title) TextView title;
+    @BindView(R.id.comingSoonView) TextView comingSoonView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class PremiumFeaturesActivity extends BaseActivity {
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
         title.setTypeface(lobster);
+        comingSoonView.setTypeface(lobster);
 
         setUpNavDrawer(PremiumFeaturesActivity.this, toolbar);
         setNavDrawerSelection(6);

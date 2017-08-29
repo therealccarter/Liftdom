@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.liftdom.liftdom.com.liftdom.misc_activities.PremiumFeaturesActivity">
+        tools:context="com.liftdom.misc_activities.PremiumFeaturesActivity">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,5 +26,15 @@
         />
 
     </android.support.v7.widget.Toolbar>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/comingSoonView"
+            android:text="@string/comingSoon"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+    />
 
 </LinearLayout>

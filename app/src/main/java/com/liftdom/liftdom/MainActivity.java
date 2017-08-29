@@ -203,6 +203,7 @@ public class MainActivity extends BaseActivity implements
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(1, false);
             }
         }
 

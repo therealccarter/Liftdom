@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,7 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
     @BindView(R.id.toolbar1) Toolbar toolbar;
     @BindView(R.id.collapsingToolbar1) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbarImage1) ImageView toolbarImage;
+    @BindView(R.id.comingSoonView) TextView comingSoonView;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -82,6 +84,8 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
 
         collapsingToolbar.setCollapsedTitleTextColor(Color.parseColor("#D1B91D"));
         collapsingToolbar.setCollapsedTitleTypeface(lobster);
+
+        comingSoonView.setTypeface(lobster);
 
         setUpNavDrawer(KnowledgeCenterHolderActivity.this, toolbar);
         setNavDrawerSelection(4);

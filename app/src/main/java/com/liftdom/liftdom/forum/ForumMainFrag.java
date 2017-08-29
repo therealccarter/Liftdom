@@ -3,12 +3,16 @@ package com.liftdom.liftdom.forum;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
@@ -45,11 +49,19 @@ public class ForumMainFrag extends Fragment {
         navChangerCallback.setBottomNavIndex(navIndex);
     }
 
+    @BindView(R.id.comingSoonView) TextView comingSoonView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forum_main, container, false);
+
+        ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        comingSoonView.setTypeface(lobster);
 
         headerChanger("Forum");
         navChanger(3);

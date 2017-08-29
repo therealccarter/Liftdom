@@ -63,6 +63,16 @@
                 android:id="@+id/knowledgeCenterHolder"
         >
 
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/comingSoon"
+                    android:id="@+id/comingSoonView"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="40sp"
+                    android:layout_marginTop="50dp"
+            />
 
         </LinearLayout>
 

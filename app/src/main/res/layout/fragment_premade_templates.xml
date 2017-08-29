@@ -7,9 +7,20 @@
               android:orientation="vertical"
              tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/comingSoonView"
+            android:text="5x5, Smolov, and more coming soon!"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+    />
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
     >
         <LinearLayout
                 android:layout_width="match_parent"

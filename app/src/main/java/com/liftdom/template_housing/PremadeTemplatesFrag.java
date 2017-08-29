@@ -2,12 +2,14 @@ package com.liftdom.template_housing;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ public class PremadeTemplatesFrag extends Fragment {
 
     @BindView(R.id.smolovButton) Button smolovButton;
     @BindView(R.id.pplButton) Button pplButton;
+    @BindView(R.id.comingSoonView) TextView comingSoonView;
 
     public PremadeTemplatesFrag() {
         // Required empty public constructor
@@ -40,6 +43,10 @@ public class PremadeTemplatesFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_premade_templates, container, false);
 
         ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        comingSoonView.setTypeface(lobster);
 
         smolovButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
