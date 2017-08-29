@@ -334,6 +334,8 @@
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
+    <string name="networkFailed">Network connection failed. Tap to try again.</string>
+
     <string name="addJustSet">(+) Add set</string>
 
     <string name="searchUsers">Search users...</string>

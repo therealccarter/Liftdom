@@ -65,13 +65,14 @@ public class MainFeedFrag extends Fragment{
     private List<CompletedWorkoutModelClass> postList;
     private int postInc = 0;
 
-
+    private boolean hasTimedOut = false;
 
     //@BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noResultsView) TextView noResultsView;
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView1) AVLoadingIndicatorView loadingView;
     @BindView(R.id.refreshView) RefreshLayout refreshView;
+    @BindView(R.id.networkFailedButton) Button networkFailedButton;
     //@BindView(R.id.refreshView) MaterialRefreshLayout refreshView;
     //@BindView(R.id.loadMoreButton) Button loadMoreButton;
 
@@ -92,8 +93,22 @@ public class MainFeedFrag extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+
+                    //hasTimedOut = true;
                     clearRecyclerView();
                     setUpRecycler();
+//
+                    //Handler handler = new Handler();
+                    //handler.postDelayed(new Runnable() {
+                    //    @Override
+                    //    public void run() {
+                    //        if(hasTimedOut){
+                    //            loadingView.setVisibility(View.GONE);
+                    //            noResultsView.setVisibility(View.GONE);
+                    //            networkFailedButton.setVisibility(View.VISIBLE);
+                    //        }
+                    //    }
+                    //}, 10000);
                 }else{
                     loadingView.setVisibility(View.GONE);
                     noResultsView.setVisibility(View.VISIBLE);
@@ -102,7 +117,34 @@ public class MainFeedFrag extends Fragment{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Snackbar.make(getView(), "failed", Snackbar.LENGTH_SHORT).show();
+            }
+        });
 
+        networkFailedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                hasTimedOut = true;
+
+                loadingView.setVisibility(View.VISIBLE);
+                noResultsView.setVisibility(View.GONE);
+                networkFailedButton.setVisibility(View.GONE);
+
+                clearRecyclerView();
+                setUpRecycler();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(hasTimedOut){
+                            loadingView.setVisibility(View.GONE);
+                            noResultsView.setVisibility(View.GONE);
+                            networkFailedButton.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }, 10000);
             }
         });
 
@@ -126,6 +168,10 @@ public class MainFeedFrag extends Fragment{
         return view;
     }
 
+    private void feedRefListener(){
+
+    }
+
     private void clearRecyclerView(){
         if(postList != null){
             postList.clear();
@@ -146,6 +192,7 @@ public class MainFeedFrag extends Fragment{
                 if(dataSnapshot.exists()) {
                     postList = new ArrayList<>();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        hasTimedOut = false;
                         CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
                         postList.add(modelClass);
                         postInc++;
