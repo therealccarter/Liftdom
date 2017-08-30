@@ -89,62 +89,27 @@ public class MainFeedFrag extends Fragment{
 
         headerChanger("Home");
 
-        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+        feedRefListener();
 
-                    //hasTimedOut = true;
-                    clearRecyclerView();
-                    setUpRecycler();
-//
-                    //Handler handler = new Handler();
-                    //handler.postDelayed(new Runnable() {
-                    //    @Override
-                    //    public void run() {
-                    //        if(hasTimedOut){
-                    //            loadingView.setVisibility(View.GONE);
-                    //            noResultsView.setVisibility(View.GONE);
-                    //            networkFailedButton.setVisibility(View.VISIBLE);
-                    //        }
-                    //    }
-                    //}, 10000);
-                }else{
-                    loadingView.setVisibility(View.GONE);
-                    noResultsView.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Snackbar.make(getView(), "failed", Snackbar.LENGTH_SHORT).show();
-            }
-        });
 
         networkFailedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                hasTimedOut = true;
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        feedRefListener();
+                    }
+                }, 5000);
 
                 loadingView.setVisibility(View.VISIBLE);
                 noResultsView.setVisibility(View.GONE);
                 networkFailedButton.setVisibility(View.GONE);
 
-                clearRecyclerView();
-                setUpRecycler();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(hasTimedOut){
-                            loadingView.setVisibility(View.GONE);
-                            noResultsView.setVisibility(View.GONE);
-                            networkFailedButton.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }, 10000);
+                feedRefListener();
             }
         });
 
@@ -170,6 +135,68 @@ public class MainFeedFrag extends Fragment{
 
     private void feedRefListener(){
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(loadingView.getVisibility() == View.VISIBLE){
+
+                }
+            }
+        }, 10000);
+
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    clearRecyclerView();
+                    setUpRecycler();
+                }else{
+                    loadingView.setVisibility(View.GONE);
+                    noResultsView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
+        //connectedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        if(dataSnapshot.getValue(Boolean.class)){
+        //            mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //                @Override
+        //                public void onDataChange(DataSnapshot dataSnapshot) {
+        //                    if(dataSnapshot.exists()){
+        //                        clearRecyclerView();
+        //                        setUpRecycler();
+        //                    }else{
+        //                        loadingView.setVisibility(View.GONE);
+        //                        noResultsView.setVisibility(View.VISIBLE);
+        //                    }
+        //                }
+
+        //                @Override
+        //                public void onCancelled(DatabaseError databaseError) {
+
+        //                }
+        //            });
+        //        }else{
+        //            loadingView.setVisibility(View.GONE);
+        //            noResultsView.setVisibility(View.GONE);
+        //            networkFailedButton.setVisibility(View.VISIBLE);
+        //        }
+        //    }
+
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+
+        //    }
+        //});
     }
 
     private void clearRecyclerView(){
@@ -189,52 +216,54 @@ public class MainFeedFrag extends Fragment{
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    postList = new ArrayList<>();
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        hasTimedOut = false;
-                        CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
-                        postList.add(modelClass);
-                        postInc++;
-                        if(postInc == 10 || postInc == dataSnapshot.getChildrenCount()){
-                            //refreshView.finishRefreshing();
-                            if(refreshView != null){
-                                //refreshView.finishRefresh();
-                            }
-                            AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
-                            if(loadingView != null){
-                                loadingView.setVisibility(View.GONE);
-                                mRecyclerView.setHasFixedSize(false);
-                                linearLayoutManager = new LinearLayoutManager(getActivity());
-                                linearLayoutManager.setReverseLayout(true);
-                                linearLayoutManager.setStackFromEnd(true);
-                                linearLayoutManager.setSmoothScrollbarEnabled(true);
-                                mRecyclerView.setLayoutManager(linearLayoutManager);
-                                adapter = new CompleteWorkoutRecyclerAdapter(postList, getContext(),
-                                        getActivity());
-                                mRecyclerView.setAdapter(adapter);
+                    if(dataSnapshot.exists()) {
+                        postList = new ArrayList<>();
+                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                            hasTimedOut = false;
+                            CompletedWorkoutModelClass modelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
+                            postList.add(modelClass);
+                            postInc++;
+                            if(postInc == 10 || postInc == dataSnapshot.getChildrenCount()){
+                                //refreshView.finishRefreshing();
+                                if(refreshView != null){
+                                    //refreshView.finishRefresh();
+                                }
+                                AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id.loadingView1);
+                                if(loadingView != null){
+                                    loadingView.setVisibility(View.GONE);
+                                    mRecyclerView.setHasFixedSize(false);
+                                    linearLayoutManager = new LinearLayoutManager(getActivity());
+                                    linearLayoutManager.setReverseLayout(true);
+                                    linearLayoutManager.setStackFromEnd(true);
+                                    linearLayoutManager.setSmoothScrollbarEnabled(true);
+                                    mRecyclerView.setLayoutManager(linearLayoutManager);
+                                    adapter = new CompleteWorkoutRecyclerAdapter(postList, getContext(),
+                                            getActivity());
+                                    mRecyclerView.setAdapter(adapter);
 
-                                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                                    @Override
-                                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                                        super.onScrolled(recyclerView, dx, dy);
+                                    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                                        @Override
+                                        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                            super.onScrolled(recyclerView, dx, dy);
 
-                                        if(dy > 0){
-                                            visibleItemCount = linearLayoutManager.getChildCount();
-                                            totalItemCount = linearLayoutManager.getItemCount();
-                                            pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
+                                            if(dy > 0){
+                                                visibleItemCount = linearLayoutManager.getChildCount();
+                                                totalItemCount = linearLayoutManager.getItemCount();
+                                                pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
 
-                                            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount){
-                                                addOlderPosts(10);
+                                                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount){
+                                                    addOlderPosts(10);
+                                                }
                                             }
                                         }
-                                    }
-                                });
+                                    });
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
-                }
+
+
             }
 
             @Override

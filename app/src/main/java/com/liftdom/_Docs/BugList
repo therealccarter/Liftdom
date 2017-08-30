@@ -38,10 +38,11 @@ comments profile pics
 adding superset in template editor added an extra set scheme
 fix up search
 work on xp increase algorithm (for now)
+profile picture (tourettes pic) is rotated / images not cropping to square
 ====================================================
 
 ============ Currently Working On ===============================================
-profile picture (tourettes pic) is rotated / images not cropping to square
+Hardcode B.W. in workout assistor (possibly in editor)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -49,6 +50,7 @@ profile picture (tourettes pic) is rotated / images not cropping to square
 ==== easier ==========
 change search suggestions to current following
 main feed recycler view is starting with an offset..
+units not showing for workout assistor nonSS
 ============
 
 ==== harder ==========
@@ -56,8 +58,8 @@ remember on account creation, walk through level 0-1 (first template creation)
 ============
 =====================================================
 
-Hardcode B.W. in workout assistor (possibly in editor)
-units not showing for workout assistor nonSS
+
+
 
 
 ============ FUTURE TO-DO LIST =====================================================

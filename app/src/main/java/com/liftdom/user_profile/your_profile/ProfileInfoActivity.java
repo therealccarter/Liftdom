@@ -83,6 +83,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     UserModelClass userModelClass;
     InputStream inputStream;
+    Uri resultUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,31 +256,34 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 //at com.google.firebase.storage.StorageReference.putStream(Unknown Source)
                 //at com.liftdom.user_profile.your_profile.ProfileInfoActivity$5.onClick(ProfileInfoActivity.java:250)
 
-                UploadTask uploadTask = profilePicRef.putStream(inputStream);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        userRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                        //Snackbar.make(getCurrentFocus(), "Profile picture uploaded", Snackbar.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(getCurrentFocus(), "Save error", Snackbar.LENGTH_SHORT).show();
-                        saveLoadingView.setVisibility(View.GONE);
-                        saveButton.setVisibility(View.VISIBLE);
-                    }
-                });
-
-
+                //UploadTask uploadTask = profilePicRef.putStream(inputStream); // stream is null
+                if(resultUri != null){
+                    UploadTask uploadTask = profilePicRef.putFile(resultUri);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            userRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                            //Snackbar.make(getCurrentFocus(), "Profile picture uploaded", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Snackbar.make(getCurrentFocus(), "Save error", Snackbar.LENGTH_SHORT).show();
+                            saveLoadingView.setVisibility(View.GONE);
+                            saveButton.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }else{
+                    finish();
+                }
             }
         });
 
@@ -310,7 +314,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
+                resultUri = result.getUri();
+
                 Glide.with(getApplicationContext()).load(resultUri).into(profilePicView);
                 profilePicView.setVisibility(View.VISIBLE);
                 profilePicLoadingView.setVisibility(View.GONE);
