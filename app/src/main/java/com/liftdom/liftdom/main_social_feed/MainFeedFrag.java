@@ -53,6 +53,16 @@ public class MainFeedFrag extends Fragment{
         mCallback.changeHeaderTitle(title);
     }
 
+    bottomNavChanger navChangerCallback;
+
+    public interface bottomNavChanger{
+        void setBottomNavIndex(int navIndex);
+    }
+
+    private void navChanger(int navIndex){
+        navChangerCallback.setBottomNavIndex(navIndex);
+    }
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -82,6 +92,8 @@ public class MainFeedFrag extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_feed, container, false);
 
+        navChanger(1);
+
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setSelectedIndex(1, false);
 
@@ -90,8 +102,6 @@ public class MainFeedFrag extends Fragment{
         headerChanger("Home");
 
         feedRefListener();
-
-
 
         networkFailedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,10 +150,12 @@ public class MainFeedFrag extends Fragment{
             @Override
             public void run() {
                 if(loadingView.getVisibility() == View.VISIBLE){
-
+                    loadingView.setVisibility(View.GONE);
+                    noResultsView.setVisibility(View.GONE);
+                    networkFailedButton.setVisibility(View.VISIBLE);
                 }
             }
-        }, 10000);
+        }, 7000);
 
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -375,6 +387,7 @@ public class MainFeedFrag extends Fragment{
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (headerChangeFromFrag) activity;
+            navChangerCallback = (bottomNavChanger) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");

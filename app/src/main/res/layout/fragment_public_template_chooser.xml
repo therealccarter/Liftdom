@@ -1,43 +1,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="fill_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:background="@color/grey"
+              android:background="@color/offWhite"
               android:gravity="center"
-             tools:context="com.liftdom.template_housing.PublicTemplateChooserFrag">
+              tools:context="com.liftdom.template_housing.PublicTemplateChooserFrag">
 
-    <Button
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/publicTemplatesButton"
-            android:background="@color/black"
-            android:text="@string/publicTemplates"
-            android:textSize="22sp"
-            android:textColor="@color/liftrGold1"
-            android:padding="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
             android:layout_marginBottom="40dp"
-            android:textAllCaps="false"
-    />
-
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/myPublicTemplatesButton"
-            android:background="@color/black"
-            android:text="@string/myPublicTemplates"
-            android:textSize="22sp"
-            android:textColor="@color/liftrGold1"
-            android:padding="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:textAllCaps="false"
-    />
+            app:cardElevation="4dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/publicTemplatesButton"
+                android:background="@color/black"
+                android:text="@string/publicTemplates"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textAllCaps="false"
+        />
+    </android.support.v7.widget.CardView>
+
+    <!-- TODO: Perhaps later, turn this into a sliding layout or something -->
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardElevation="3dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myPublicTemplatesButton"
+                android:background="@color/black"
+                android:text="@string/myPublicTemplates"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textAllCaps="false"
+        />
+
+    </android.support.v7.widget.CardView>
+
+
+
+
 
 </LinearLayout>

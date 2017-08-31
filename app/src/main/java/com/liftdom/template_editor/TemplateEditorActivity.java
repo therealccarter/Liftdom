@@ -225,6 +225,11 @@ public class TemplateEditorActivity extends BaseActivity
                                         activeTemplateCheckbox.setChecked(true);
                                     }
                                 }
+                                if(userModelClass.isIsImperial()){
+                                    TemplateEditorSingleton.getInstance().isImperial = true;
+                                }else{
+                                    TemplateEditorSingleton.getInstance().isImperial = false;
+                                }
                             }
 
                             @Override
@@ -367,6 +372,11 @@ public class TemplateEditorActivity extends BaseActivity
                                 if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
                                     activeTemplateCheckbox.setChecked(true);
                                 }
+                            }
+                            if(userModelClass.isIsImperial()){
+                                TemplateEditorSingleton.getInstance().isImperial = true;
+                            }else{
+                                TemplateEditorSingleton.getInstance().isImperial = false;
                             }
                         }
 

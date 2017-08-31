@@ -39,18 +39,21 @@ adding superset in template editor added an extra set scheme
 fix up search
 work on xp increase algorithm (for now)
 profile picture (tourettes pic) is rotated / images not cropping to square
+units not showing for workout assistor nonSS
+Hardcode B.W. in workout assistor (possibly in editor)
+feed time-out feature
+fix layouts for public templates & template menu frag
 ====================================================
 
 ============ Currently Working On ===============================================
-Hardcode B.W. in workout assistor (possibly in editor)
+starting up on workout templating frag
+change search suggestions to current following
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-change search suggestions to current following
 main feed recycler view is starting with an offset..
-units not showing for workout assistor nonSS
 ============
 
 ==== harder ==========

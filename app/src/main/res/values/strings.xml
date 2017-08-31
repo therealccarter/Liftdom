@@ -334,7 +334,7 @@
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
-    <string name="networkFailed">Network connection failed. Tap to try again.</string>
+    <string name="networkFailed">Network connection failed.\n Tap to try again.</string>
 
     <string name="addJustSet">(+) Add set</string>
 

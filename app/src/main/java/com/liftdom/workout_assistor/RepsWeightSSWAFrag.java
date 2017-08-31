@@ -74,7 +74,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 repsEditText.setEnabled(true);
             }
             weightEditText.setText(tokens[1]);
-            if(!isExerciseName(tokens[1])){
+            if(isExerciseName(tokens[1])){
                 unitView.setVisibility(View.GONE);
             }
             if(tokens[2].equals("checked")){
@@ -97,7 +97,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 repsEditText.setEnabled(true);
             }
             weightEditText.setText(tokens[1]);
-            if(!isExerciseName(tokens[1])){
+            if(isExerciseName(tokens[1])){
                 unitView.setVisibility(View.GONE);
             }
         }

@@ -1,6 +1,5 @@
 package com.liftdom.liftdom;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -31,10 +29,6 @@ import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
-import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.user_profile.your_profile.CurrentUserProfile;
-import com.liftdom.user_profile.your_profile.ProfileInfoActivity;
-import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.search.material.library.MaterialSearchView;
@@ -51,6 +45,7 @@ public class MainActivity extends BaseActivity implements
         MainFeedFrag.headerChangeFromFrag,
         SavedTemplatesFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
+        MainFeedFrag.bottomNavChanger,
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
         SavedTemplatesFrag.bottomNavChanger,
@@ -77,6 +72,7 @@ public class MainActivity extends BaseActivity implements
     private MaterialSearchView searchView;
     private BottomNavigation bottomNavigation;
 
+    private ArrayList<String> typeAheadData;
 
     // butterknife
     @BindView(R.id.title) TextView title;
@@ -106,8 +102,8 @@ public class MainActivity extends BaseActivity implements
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
+        bottomNavigation.setDefaultSelectedIndex(1);
         //bottomNavigation.setDrawingCacheBackgroundColor(Color.parseColor("#000000"));
-
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -164,6 +160,8 @@ public class MainActivity extends BaseActivity implements
             //fragmentTransaction.commit();
         }
 
+        setUpTypeAheadData();
+
         if (getIntent().getExtras() != null) {
 
             int id = getIntent().getExtras().getInt("fragID");
@@ -212,7 +210,7 @@ public class MainActivity extends BaseActivity implements
         bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
-                Log.i("info", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
+                Log.i("infoBottom", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
                     if (i1 == 0) {
                         setNavDrawerSelection(3);
@@ -358,6 +356,11 @@ public class MainActivity extends BaseActivity implements
 
     }
 
+    private void setUpTypeAheadData(){
+        // set typeAheadData
+        typeAheadData = new ArrayList<>();
+        
+    }
 
     public void hideSearchButton(){
         //LinearLayout searchViewLL = (LinearLayout) findViewById(R.id.searchViewLL);
@@ -389,29 +392,25 @@ public class MainActivity extends BaseActivity implements
         } else {
             super.onBackPressed();
         }
-
-
-
-
     }
 
     public void setBottomNavIndex(int navIndex){
-        BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(navIndex, true);
+        //BottomNavigation bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        bottomNavigation.setSelectedIndex(navIndex, false);
     }
 
     private class SearchAdapter extends BaseAdapter implements Filterable {
 
         private ArrayList<String> data;
 
-        private String[] typeAheadData;
+        //private String[] typeAheadData;
 
         LayoutInflater inflater;
 
         public SearchAdapter() {
             inflater = LayoutInflater.from(MainActivity.this);
             data = new ArrayList<String>();
-            typeAheadData = getResources().getStringArray(R.array.state_array_full);
+            //typeAheadData = getResources().getStringArray(R.array.state_array_full);
         }
 
         @Override

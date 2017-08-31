@@ -34,6 +34,7 @@ public class TemplateModelClass {
     private HashMap<String, List<String>> mAlgorithmInfo;
     private HashMap<String, List<String>> mAlgorithmDateMap;
     private String publicTemplateKeyId;
+    private boolean mIsImperial;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -52,7 +53,8 @@ public class TemplateModelClass {
                               HashMap<String, List<String>> mapSeven,
                               boolean isAlgorithm, boolean isAlgoApplyToAll,
                               HashMap<String, List<String>> algorithmInfo,
-                              HashMap<String, List<String>> algorithmDateMap){
+                              HashMap<String, List<String>> algorithmDateMap,
+                              boolean isImperial){
 
         mTemplateName = templateName;
         mDays = days;
@@ -76,6 +78,15 @@ public class TemplateModelClass {
         mIsAlgoApplyToAll = isAlgoApplyToAll;
         mAlgorithmInfo = algorithmInfo;
         mAlgorithmDateMap = algorithmDateMap;
+        mIsImperial = isImperial;
+    }
+
+    public boolean isIsImperial() {
+        return mIsImperial;
+    }
+
+    public void setIsImperial(boolean mIsImperial) {
+        this.mIsImperial = mIsImperial;
     }
 
     public String getPublicTemplateKeyId() {

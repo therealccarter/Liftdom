@@ -46,7 +46,7 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private BottomNavigation mBottomNavigation;
+
     private ViewPager mViewPager;
     //public AccountHeader header;
     public Drawer drawer;
@@ -190,6 +190,10 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void setUpBottomNav(){
+
+    }
+
     public Drawer getDrawer(){
         return drawer;
     }
@@ -201,12 +205,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public BottomNavigation getBottomNavigation() {
-        if (mBottomNavigation == null) {
-            mBottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        }
-        return mBottomNavigation;
-    }
 
     public ViewPager getViewPager() {
         if(mViewPager == null){

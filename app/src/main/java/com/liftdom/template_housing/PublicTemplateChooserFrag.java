@@ -77,7 +77,7 @@ public class PublicTemplateChooserFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        headerChanger("Public Templates");
+        headerChanger("Public Programs");
     }
 
 

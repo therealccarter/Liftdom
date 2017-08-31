@@ -248,7 +248,8 @@ public class TemplateSavedActivity extends BaseActivity {
                                                 xUserId2, xUserName2, xIsPublic,
                                                 xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
-                                                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo, xAlgorithmDateMap);
+                                                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo,
+                    xAlgorithmDateMap, TemplateEditorSingleton.getInstance().isImperial);
 
             if(TemplateEditorSingleton.getInstance().isFromPublic){
                 modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);

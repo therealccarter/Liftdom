@@ -40,6 +40,7 @@ public class TemplateEditorSingleton {
     HashMap<String, List<String>> mAlgorithmInfo = new HashMap<>();
     HashMap<String, List<String>> mAlgorithmDateMap = new HashMap<>();
     String publicTemplateKeyId;
+    boolean isImperial;
 
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();
