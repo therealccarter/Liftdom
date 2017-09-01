@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements
         // [START auth_state_listener]
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     if(savedInstanceState == null){
@@ -130,6 +130,28 @@ public class MainActivity extends BaseActivity implements
                                 setNavDrawerSelection(2);
                             }
                         }
+                        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                                ("firstTime").child(user.getUid());
+                        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
+                                if(firstTimeModelClass.isIsFeedFirstTime()){
+                                    MainActivitySingleton.getInstance().isFeedFirstTime = true;
+                                }
+                                if(firstTimeModelClass.isIsTemplateMenuFirstTime()){
+                                    MainActivitySingleton.getInstance().isTemplateMenuFirstTime = true;
+                                }
+                                if(firstTimeModelClass.isIsAssistorFirstTime()){
+                                    MainActivitySingleton.getInstance().isAssistorFirstTime = true;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 } else {
                     // User is signed out
@@ -546,6 +568,10 @@ public class MainActivity extends BaseActivity implements
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        if(MainActivitySingleton.getInstance().isFeedFirstTime){
+
+        }
 
         //TemplateMenuFrag templateMenuFrag = (TemplateMenuFrag) getSupportFragmentManager().findFragmentByTag
         //        ("templateMenuFrag");

@@ -26,6 +26,10 @@ public class MainActivitySingleton {
 
     public boolean isImperial;
 
+    public boolean isFeedFirstTime;
+    public boolean isTemplateMenuFirstTime;
+    public boolean isAssistorFirstTime;
+
     public void updateUserModelClass(){
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -2298,6 +2298,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
             if (Character.isDigit(c)) {
                 isExercise = false;
             }
+            if(input.length() > 5){
+                String string = input.substring(0, 4);
+                if(string.equals("T.F.")){
+                    isExercise = false;
+                }
+            }
         }
 
         return isExercise;
