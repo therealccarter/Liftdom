@@ -58,29 +58,16 @@ public class MainActivity extends BaseActivity implements
     // declare_auth
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
-    ViewPager viewPager;
-    private int selection = 0;
-
-    private Bitmap profilePicBitmap;
-
-    private boolean isAssistorFrag;
-
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-    String username = "failed";
-
     private MaterialSearchView searchView;
     private BottomNavigation bottomNavigation;
-
     private ArrayList<String> typeAheadData;
-
-    // butterknife
-    @BindView(R.id.title) TextView title;
-
-    AccountHeader header;
 
     DatabaseReference mRootRef;
     String uid;
+
+    // butterknife
+    @BindView(R.id.title) TextView title;
 
     public void changeHeaderTitle(String title){
         TextView titleView = (TextView) findViewById(R.id.title);
@@ -516,8 +503,6 @@ public class MainActivity extends BaseActivity implements
 
 
     }
-
-
 
     @Override
     public void onResume(){

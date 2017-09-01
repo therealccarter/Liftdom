@@ -294,13 +294,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                         workoutInfoMap, commentModelClassMap);
-                //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                //feedFanOut(refKey, completedWorkoutModelClass);
+                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
-                //workoutHistoryRef.setValue(historyModelClass);
+                workoutHistoryRef.setValue(historyModelClass);
             }
 
             @Override

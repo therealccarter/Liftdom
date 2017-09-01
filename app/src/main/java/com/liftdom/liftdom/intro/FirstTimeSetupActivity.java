@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
@@ -87,12 +88,17 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
                 kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                 currentFocus, activeTemplate);
 
+        FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true);
+
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child
                 (userId);
         userListRef.setValue(userName);
         DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userNames").child
                 (userName);
         userNameRef.setValue("true");
+        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+                (userId);
+        firstTimeRef.setValue(firstTimeModelClass);
 
         DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 

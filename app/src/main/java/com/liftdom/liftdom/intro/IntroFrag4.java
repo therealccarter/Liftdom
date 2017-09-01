@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
@@ -93,6 +94,8 @@ public class IntroFrag4 extends SlideFragment {
                         kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                         currentFocus, activeTemplate);
 
+                FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true);
+
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("uid", userId);
@@ -106,6 +109,9 @@ public class IntroFrag4 extends SlideFragment {
                 DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userNames").child
                         (userName);
                 userNameRef.setValue("true");
+                DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+                        (userId);
+                firstTimeRef.setValue(firstTimeModelClass);
 
                 DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
