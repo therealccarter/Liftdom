@@ -81,7 +81,7 @@ public class BaseActivity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 1) {
                                 intent = new Intent(context, MainActivity.class);
-                                intent.putExtra("fragID", 1);
+                                intent.putExtra("fragID",  0);
                                 startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 2) {
@@ -91,7 +91,7 @@ public class BaseActivity extends AppCompatActivity {
                             }
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(context, MainActivity.class);
-                                intent.putExtra("fragID", 0);
+                                intent.putExtra("fragID", 1);
                                 startActivity(intent);
                                 drawer.setSelection(position);
                             }

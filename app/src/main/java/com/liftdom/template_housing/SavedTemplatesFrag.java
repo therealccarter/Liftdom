@@ -90,7 +90,7 @@ public class SavedTemplatesFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        navChanger(0);
+        navChanger(1);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 

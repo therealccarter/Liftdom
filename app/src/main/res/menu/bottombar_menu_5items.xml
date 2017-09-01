@@ -10,13 +10,13 @@
 >
     <item
             android:id="@+id/bbn_item1"
-            android:icon="@drawable/ic_templating_black_24dp"
-            android:title="@string/templating"
+            android:icon="@drawable/ic_view_list_black_24dp"
+            android:title="@string/activityFeed"
     />
     <item
             android:id="@+id/bbn_item2"
-            android:icon="@drawable/ic_view_list_black_24dp"
-            android:title="@string/activityFeed"
+            android:icon="@drawable/ic_templating_black_24dp"
+            android:title="@string/templating"
     />
     <item
             android:id="@+id/bbn_item3"

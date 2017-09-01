@@ -92,10 +92,10 @@ public class MainFeedFrag extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_feed, container, false);
 
-        navChanger(1);
+        navChanger(0);
 
-        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(1, false);
+        //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        //bottomNavigation.setSelectedIndex(0, false);
 
         ButterKnife.bind(this, view);
 

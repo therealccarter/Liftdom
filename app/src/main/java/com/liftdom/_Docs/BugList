@@ -43,21 +43,20 @@ units not showing for workout assistor nonSS
 Hardcode B.W. in workout assistor (possibly in editor)
 feed time-out feature
 fix layouts for public templates & template menu frag
+starting up on workout templating frag
+main feed recycler view is starting with an offset..
 ====================================================
 
 ============ Currently Working On ===============================================
-starting up on workout templating frag
-change search suggestions to current following
+remember on account creation, walk through level 0-1 (first template creation)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 ==== easier ==========
-main feed recycler view is starting with an offset..
 ============
 
 ==== harder ==========
-remember on account creation, walk through level 0-1 (first template creation)
 ============
 =====================================================
 
@@ -66,10 +65,12 @@ remember on account creation, walk through level 0-1 (first template creation)
 
 
 ============ FUTURE TO-DO LIST =====================================================
+change search suggestions to current following (visibility issue?)
 password recovery/changing
 friends list
 figure out what's going on with Moto phone
 look into design stuff like font
 look into Glide caching
 somehow check for crazy bottom nav selection
+bottom nav badges
 =====================================================

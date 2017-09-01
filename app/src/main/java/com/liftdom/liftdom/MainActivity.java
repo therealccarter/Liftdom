@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
-        bottomNavigation.setDefaultSelectedIndex(1);
+
         //bottomNavigation.setDrawingCacheBackgroundColor(Color.parseColor("#000000"));
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -136,9 +136,9 @@ public class MainActivity extends BaseActivity implements
                         }else{
                             int id = getIntent().getExtras().getInt("fragID");
                             if(id == 0){
-                                setNavDrawerSelection(3);
-                            }else if(id == 1){
                                 setNavDrawerSelection(1);
+                            }else if(id == 1){
+                                setNavDrawerSelection(3);
                             }else if(id == 2){
                                 setNavDrawerSelection(2);
                             }
@@ -152,6 +152,7 @@ public class MainActivity extends BaseActivity implements
             }
         };
 
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
@@ -163,23 +164,23 @@ public class MainActivity extends BaseActivity implements
         setUpTypeAheadData();
 
         if (getIntent().getExtras() != null) {
-
             int id = getIntent().getExtras().getInt("fragID");
 
             if(id == 0){
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
+
             }else if(id == 1){
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(1, false);
@@ -196,12 +197,12 @@ public class MainActivity extends BaseActivity implements
         } else{
             if(mFirebaseUser == null){
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
-            } else{
+            }else{
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.commit();
-                bottomNavigation.setSelectedIndex(1, false);
+                bottomNavigation.setSelectedIndex(0, false);
             }
         }
 
@@ -213,21 +214,21 @@ public class MainActivity extends BaseActivity implements
                 Log.i("infoBottom", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
                     if (i1 == 0) {
-                        setNavDrawerSelection(3);
-                        //hideSearchButton();
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                        fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    } else if (i1 == 1) {
                         setNavDrawerSelection(1);
                         //showSearchButton();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    } else if (i1 == 1) {
+                        setNavDrawerSelection(3);
+                        //hideSearchButton();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (i1 == 2) {
@@ -347,18 +348,39 @@ public class MainActivity extends BaseActivity implements
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.i("infoClick", "hello");
             }
         });
 
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
 
+
+
     }
 
     private void setUpTypeAheadData(){
         // set typeAheadData
         typeAheadData = new ArrayList<>();
+
+        DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference().child("following").child(uid).child
+                ("followingMap");
+        followingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        String userName = dataSnapshot1.getValue(String.class);
+                        typeAheadData.add(userName);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         
     }
 

@@ -77,15 +77,15 @@ public class TemplateMenuFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        navChanger(0);
+        navChanger(1);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();
 
-        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
-        bottomNavigation.setSelectedIndex(0, false);
+        //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        //bottomNavigation.setSelectedIndex(0, false);
 
         if(savedInstanceState == null){
             quoteBody.setText(quoteArray[0]);
