@@ -104,6 +104,7 @@ dependencies {
     compile 'nl.dionsegijn:konfetti:1.0.2'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
+    compile 'com.github.faruktoptas:FancyShowCaseView:0.1.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

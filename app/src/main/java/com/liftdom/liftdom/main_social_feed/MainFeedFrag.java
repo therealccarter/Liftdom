@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.FirstTimeModelClass;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompleteWorkoutRecyclerAdapter;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
@@ -29,6 +31,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wang.avi.AVLoadingIndicatorView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +102,7 @@ public class MainFeedFrag extends Fragment{
 
         ButterKnife.bind(this, view);
 
+
         headerChanger("Home");
 
         feedRefListener();
@@ -140,7 +144,44 @@ public class MainFeedFrag extends Fragment{
 
             }
         });
+
         return view;
+    }
+
+    private void setUpShowcaseView(){
+        new FancyShowCaseView.Builder(getActivity())
+                .title("Hello world")
+                .showOnce("what")
+                .build()
+                .show();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                ("firstTime").child(uid);
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
+                    if(firstTimeModelClass.isIsFeedFirstTime()){
+                        new FancyShowCaseView.Builder(getActivity())
+                                .title("Hello world2")
+                                .build()
+                                .show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void feedRefListener(){

@@ -33,6 +33,7 @@ import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.search.material.library.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,8 @@ public class MainActivity extends BaseActivity implements
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    setUpTypeAheadData();
                     if(savedInstanceState == null){
                         setUpNavDrawer(MainActivity.this, toolbar);
                         if(getIntent().getExtras() == null){
@@ -130,28 +133,6 @@ public class MainActivity extends BaseActivity implements
                                 setNavDrawerSelection(2);
                             }
                         }
-                        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                                ("firstTime").child(user.getUid());
-                        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
-                                if(firstTimeModelClass.isIsFeedFirstTime()){
-                                    MainActivitySingleton.getInstance().isFeedFirstTime = true;
-                                }
-                                if(firstTimeModelClass.isIsTemplateMenuFirstTime()){
-                                    MainActivitySingleton.getInstance().isTemplateMenuFirstTime = true;
-                                }
-                                if(firstTimeModelClass.isIsAssistorFirstTime()){
-                                    MainActivitySingleton.getInstance().isAssistorFirstTime = true;
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
                     }
                 } else {
                     // User is signed out
@@ -161,7 +142,7 @@ public class MainActivity extends BaseActivity implements
             }
         };
 
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
@@ -170,7 +151,7 @@ public class MainActivity extends BaseActivity implements
             //fragmentTransaction.commit();
         }
 
-        setUpTypeAheadData();
+
 
         if (getIntent().getExtras() != null) {
             int id = getIntent().getExtras().getInt("fragID");
@@ -367,6 +348,7 @@ public class MainActivity extends BaseActivity implements
 
 
     }
+
 
     private void setUpTypeAheadData(){
         // set typeAheadData
