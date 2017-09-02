@@ -94,7 +94,7 @@ public class IntroFrag4 extends SlideFragment {
                         kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                         currentFocus, activeTemplate);
 
-                FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true);
+                FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true);
 
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();

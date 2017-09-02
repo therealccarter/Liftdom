@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
+import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.utils.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -163,6 +168,31 @@ public class TemplateMenuFrag extends Fragment {
     public void onStart(){
         super.onStart();
         headerChanger("Workout Programming");
+
+        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
+                    if(firstTimeModelClass.isIsFeedFirstTime()){
+                        new FancyShowCaseView.Builder(getActivity())
+                                .title("This is where you'll handle all workout programming." + System.getProperty
+                                        ("line.separator")+ "Create workouts from " +
+                                        "scratch, view your saved programs, and view pre-made or user-made programs.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                .build()
+                                .show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

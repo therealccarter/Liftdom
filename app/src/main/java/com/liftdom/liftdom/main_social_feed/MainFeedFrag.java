@@ -148,40 +148,11 @@ public class MainFeedFrag extends Fragment{
         return view;
     }
 
-    private void setUpShowcaseView(){
-        new FancyShowCaseView.Builder(getActivity())
-                .title("Hello world")
-                .showOnce("what")
-                .build()
-                .show();
-    }
-
     @Override
     public void onStart(){
         super.onStart();
 
-        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                ("firstTime").child(uid);
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
-                    if(firstTimeModelClass.isIsFeedFirstTime()){
-                        new FancyShowCaseView.Builder(getActivity())
-                                .title("Hello world2")
-                                .build()
-                                .show();
-                    }
 
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void feedRefListener(){
