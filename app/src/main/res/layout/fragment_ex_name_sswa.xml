@@ -45,7 +45,7 @@
                     android:background="@color/darkerGrey"
                     android:textSize="20sp"
                     android:id="@+id/exerciseName"
-                    android:textColor="@color/white"
+                    android:textColor="@color/liftrGold1"
                     android:paddingEnd="10dp"
                     android:paddingStart="4dp"
             />
