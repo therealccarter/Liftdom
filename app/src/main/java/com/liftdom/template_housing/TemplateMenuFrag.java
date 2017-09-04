@@ -169,22 +169,21 @@ public class TemplateMenuFrag extends Fragment {
         super.onStart();
         headerChanger("Workout Programming");
 
-        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                ("isTemplateMenuFirstTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    FirstTimeModelClass firstTimeModelClass = dataSnapshot.getValue(FirstTimeModelClass.class);
-                    if(firstTimeModelClass.isIsFeedFirstTime()){
-                        new FancyShowCaseView.Builder(getActivity())
-                                .title("This is where you'll handle all workout programming." + System.getProperty
-                                        ("line.separator")+ "Create workouts from " +
-                                        "scratch, view your saved programs, and view pre-made or user-made programs.")
-                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                .build()
-                                .show();
-                    }
+                    new FancyShowCaseView.Builder(getActivity())
+                            .title("This is where you'll handle all workout programming." + System.getProperty
+                                    ("line.separator") + System.getProperty
+                                    ("line.separator") + "Create workouts from " +
+                                    "scratch, view your saved programs, and view pre-made or user-made programs.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build().show();
+                    //firstTimeRef.setValue(null);
                 }
             }
 

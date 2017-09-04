@@ -196,10 +196,13 @@ public class SavedTemplatesFrag extends Fragment {
             }
         };
 
+
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
+
+
 
     @Override
     public void onStart(){

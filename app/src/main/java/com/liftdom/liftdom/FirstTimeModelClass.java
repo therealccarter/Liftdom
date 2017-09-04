@@ -22,17 +22,20 @@ public class FirstTimeModelClass {
         mIsFeedFirstTime = isFeedFirstTime;
         mIsTemplateMenuFirstTime = isTemplateMenuFirstTime;
         mIsAssistorFirstTime = isAssistorFirstTime;
+        mIsFromScratchFirstTime = isFromScratchFirstTime;
+        mIsSelectedProgFirstTime = isSelectedProgFirstTime;
+        mIsSavedProgFirstTime = isSavedProgFirstTime;
     }
 
-    public boolean ismIsFromScratchFirstTime() {
+    public boolean isIsFromScratchFirstTime() {
         return mIsFromScratchFirstTime;
     }
 
-    public boolean ismIsSelectedProgFirstTime() {
+    public boolean isIsSelectedProgFirstTime() {
         return mIsSelectedProgFirstTime;
     }
 
-    public boolean ismIsSavedProgFirstTime() {
+    public boolean isIsSavedProgFirstTime() {
         return mIsSavedProgFirstTime;
     }
 

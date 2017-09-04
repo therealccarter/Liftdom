@@ -18,13 +18,15 @@ import android.widget.LinearLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.HashMap;
 
@@ -59,8 +61,8 @@ public class IntroFrag4 extends SlideFragment {
                 loadingView.setVisibility(View.VISIBLE);
                 finishSetupButton.setVisibility(View.GONE);
 
-                String userName = IntroSingleton.getInstance().displayName;
-                String userId = IntroSingleton.getInstance().userId;
+                final String userName = IntroSingleton.getInstance().displayName;
+                final String userId = IntroSingleton.getInstance().userId;
                 String age = IntroSingleton.getInstance().age;
                 boolean isImperial = IntroSingleton.getInstance().isImperial;
 
@@ -103,6 +105,7 @@ public class IntroFrag4 extends SlideFragment {
                 editor.putString("email", email);
                 editor.apply();
 
+
                 DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList").child
                         (userId);
                 userListRef.setValue(userName);
@@ -112,6 +115,28 @@ public class IntroFrag4 extends SlideFragment {
                 DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
                         (userId);
                 firstTimeRef.setValue(firstTimeModelClass);
+
+                DatabaseReference firstTimeTemplateRef = FirebaseDatabase.getInstance().getReference().child
+                        ("defaultTemplates").child("FirstTimeProgram");
+
+                firstTimeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        TemplateModelClass firstTimeModel = dataSnapshot.getValue(TemplateModelClass.class);
+                        firstTimeModel.setUserId(userId);
+                        firstTimeModel.setUserName(userName);
+                        firstTimeModel.setDateCreated(new DateTime(DateTimeZone.UTC).toString());
+                        firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
+                        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
+                                ("templates").child(userId).child(firstTimeModel.getTemplateName());
+                        templateRef.setValue(firstTimeModel);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
