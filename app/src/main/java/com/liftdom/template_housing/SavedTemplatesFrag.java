@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 import java.util.ArrayList;
 
@@ -208,6 +210,31 @@ public class SavedTemplatesFrag extends Fragment {
     public void onStart(){
         super.onStart();
         headerChanger("Saved Templates");
+
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                ("isSavedProgFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    new FancyShowCaseView.Builder(getActivity())
+                            .title("All of your saved programs will be here. \n Your active template will have a gold" +
+                                    " " +
+                                    "title. \n Click on your FirstTime program to continue.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build().show();
+
+                    //firstTimeRef.setValue(null);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

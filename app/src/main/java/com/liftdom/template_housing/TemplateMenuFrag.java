@@ -29,7 +29,9 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -176,13 +178,29 @@ public class TemplateMenuFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    new FancyShowCaseView.Builder(getActivity())
+
+                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("This is where you'll handle all workout programming." + System.getProperty
                                     ("line.separator") + System.getProperty
                                     ("line.separator") + "Create workouts from " +
                                     "scratch, view your saved programs, and view pre-made or user-made programs.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build().show();
+                            .build();
+
+                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                            .focusOn(savedTemplates)
+                            .title("Let's check out the Saved Programs page now!")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                            .roundRectRadius(90)
+                            .fitSystemWindows(true)
+                            .build();
+
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+
                     //firstTimeRef.setValue(null);
                 }
             }

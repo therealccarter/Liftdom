@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,9 @@ import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +94,7 @@ public class SelectedTemplateFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        navChanger(0);
+        navChanger(1);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -639,6 +643,55 @@ public class SelectedTemplateFrag extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                ("isSavedProgFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                            .title("This is where you can edit or delete any of your programs." +
+                                    "\n \n You can also publish your program to the public repository for anyone to " +
+                                    "use." +
+                                    "\n Most importantly, this is where you can set your Active Program. Let's do " +
+                                    "that now!")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                            .focusOn(setAsActiveTemplate)
+                            .title("Your Active Program is the program that will be used for your daily workouts/rest" +
+                                    " days" + "\n You can switch programs whenever you want!" +" Go ahead and check " +
+                                    "'Set as active" +
+                                    " program' now, then proceed to Today's Workout to finish the tutorial")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                            .fitSystemWindows(true)
+                            .build();
+
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+
+
+
+                    //firstTimeRef.setValue(null);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private boolean containsDay(String day, String unformatted){

@@ -56,7 +56,7 @@ public class HousingDoWFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        doWStringView.setText(dOWString);
+        doWStringView.setText(titleFormatter(dOWString));
         doWStringView.setTypeface(lobster);
 
         for(Map.Entry<String, List<String>> entry : map.entrySet()){
@@ -125,6 +125,7 @@ public class HousingDoWFrag extends Fragment {
 
     String titleFormatter(String unformatted){
         String formatted = unformatted.replaceAll("_", "/");
+
 
         return formatted;
     }
