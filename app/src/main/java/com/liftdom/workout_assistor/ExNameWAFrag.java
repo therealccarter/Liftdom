@@ -56,6 +56,12 @@ public class ExNameWAFrag extends android.app.Fragment
 
     private removeFragCallback removeFrag;
 
+    public interface startFirstTimeShowcase{
+        void firstTimeShowcase(CheckBox checkBox);
+    }
+
+    private startFirstTimeShowcase firstTimeShowcaseCallback;
+
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
@@ -70,6 +76,7 @@ public class ExNameWAFrag extends android.app.Fragment
         ButterKnife.bind(this, view);
 
         removeFrag = (removeFragCallback) getParentFragment();
+        firstTimeShowcaseCallback = (startFirstTimeShowcase) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -123,6 +130,8 @@ public class ExNameWAFrag extends android.app.Fragment
         return view;
     }
 
+    boolean isFirstTimeFirstTime = true;
+
     @Override
     public void onStart(){
         super.onStart();
@@ -154,15 +163,13 @@ public class ExNameWAFrag extends android.app.Fragment
                             .focusShape(FocusShape.ROUNDED_RECTANGLE)
                             .build();
 
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+
                     CheckBox checkBox = (CheckBox) repsWeightFragList2.get(0).getView().findViewById(R.id.checkBox);
-                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if(isChecked){
-                                Log.i("infoCheck", "Yes");
-                            }
-                        }
-                    });
+                    firstTimeShowcaseCallback.firstTimeShowcase(checkBox);
 
                     //firstTimeRef.setValue(null);
                 }

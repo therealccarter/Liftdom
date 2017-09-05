@@ -8,13 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -37,7 +39,8 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class AssistorHolderFrag extends android.app.Fragment
-                implements ExNameWAFrag.removeFragCallback{
+                implements ExNameWAFrag.removeFragCallback,
+                ExNameWAFrag.startFirstTimeShowcase{
 
 
     public AssistorHolderFrag() {
@@ -61,6 +64,56 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.privateJournal) EditText privateJournalView;
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
+
+    public void firstTimeShowcase(CheckBox checkBox){
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                        .focusOn(saveProgressButton)
+                        .title("This button allows you to save your workout progress so that you can finish it later." +
+                                " Make sure to click this before navigating away from this page, if you want to keep " +
+                                "your progress.")
+                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
+                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                        .fitSystemWindows(true)
+                        .build();
+                FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                        .focusOn(privateJournalView)
+                        .title("Take any workout-related notes here. Only you will be able to see this.")
+                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
+                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                        .fitSystemWindows(true)
+                        .build();
+                FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
+                        .focusOn(publicCommentView)
+                        .title("This is where you can write out a public description for the day's workout.")
+                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
+                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                        .fitSystemWindows(true)
+                        .build();
+                FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
+                        .focusOn(saveButton)
+                        .title("Click here to finish up the workout!")
+                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
+                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                        .fitSystemWindows(true)
+                        .build();
+
+                new FancyShowCaseQueue()
+                        .add(fancyShowCaseView1)
+                        .add(fancyShowCaseView2)
+                        .add(fancyShowCaseView3)
+                        .add(fancyShowCaseView4)
+                        .show();
+
+                DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+                        (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+
+                //firstTimeRef.setValue(null);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
