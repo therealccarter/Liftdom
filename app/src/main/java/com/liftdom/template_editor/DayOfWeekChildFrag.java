@@ -10,19 +10,19 @@ import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -41,6 +41,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     //private OnFragmentInteractionListener mListener;
 
     boolean isFirstTime = false;
+
+    boolean firstTimeTut = false;
 
     int fragIdCount1 = 0;
 
@@ -123,6 +125,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     @BindView(R.id.Sa) ToggleButton satToggle;
     @BindView(R.id.Su) ToggleButton sunToggle;
     @BindView(R.id.addExercise) Button addExercise;
+    @BindView(R.id.buttonBar) LinearLayout buttonbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -316,6 +319,49 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     @Override
     public void onStart() {
         super.onStart();
+
+        if(firstTimeTut){
+
+            Button exButton = (Button) exLevelFragList.get(0).getView().findViewById(R.id.movementName);
+            ImageView exExtraOptions = (ImageView) exLevelFragList.get(0).getView().findViewById(R.id
+                    .extraOptionsButton);
+            LinearLayout setsLevelLL = (LinearLayout) exLevelFragList.get(0).setsLevelChildFragAL.get(0).getView()
+                    .findViewById(R.id.setsLevelParentLL);
+
+            FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(getActivity())
+                    .focusOn(buttonbar)
+                    .title("Select the days you'd like to do the exercises you want. You can add up to 7 days (each " +
+                            "day of the week), and that schedule will automatically repeat for as long as you want. " +
+                            "\n Exercise sets without days selected won't be saved, so make sure you check off the " +
+                            "days you want..")
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .build();
+            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                    .focusOn(exButton)
+                    .title("You can click here to select the exercise that you want.")
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .build();
+            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                    .focusOn(exExtraOptions)
+                    .title("This is where you can either add a superset exercises or set a custom algorithm (auto " +
+                            "increasing reps/sets/weight).")
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .build();
+            FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
+                    .focusOn(setsLevelLL)
+                    .title("The format is Sets x Reps @ Weight. \n \n The left option menu here is for changing reps " +
+                            "to and from 'to failure'/numerical formats, and the weight to and from " +
+                            "body-weight/numerical formats.")
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .build();
+
+            new FancyShowCaseQueue()
+                    .add(fancyShowCaseView)
+                    .add(fancyShowCaseView1)
+                    .add(fancyShowCaseView2)
+                    .add(fancyShowCaseView3)
+                    .show();
+        }
 
         if(isAdded){
             for(String day : daysArray){

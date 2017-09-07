@@ -4,6 +4,7 @@
              android:layout_height="match_parent"
              android:orientation="horizontal"
               android:gravity="center_horizontal"
+              android:id="@+id/setsLevelParentLL"
              tools:context="com.liftdom.template_editor.SetsLevelChildFrag">
 
     <ImageView

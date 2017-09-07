@@ -301,10 +301,14 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
 
+
+
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
-                workoutHistoryRef.setValue(historyModelClass);
+                if(!isFirstTimeFirstTime){
+                    workoutHistoryRef.setValue(historyModelClass);
+                }
             }
 
             @Override

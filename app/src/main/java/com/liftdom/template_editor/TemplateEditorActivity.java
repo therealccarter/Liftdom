@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import butterknife.BindView;
@@ -39,6 +40,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +60,8 @@ public class TemplateEditorActivity extends BaseActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     int fragIdCount = 0;
+
+    boolean isFirstTimeTut = false;
 
     String templateNameEdit;
 
@@ -518,6 +523,10 @@ public class TemplateEditorActivity extends BaseActivity
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 String fragString = Integer.toString(fragIdCount);
 
+                if(isFirstTimeTut){
+                    doW1.firstTimeTut = true;
+                }
+
                 if(fragIdCount == 1){
                     fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
                     fragmentTransaction.commit();
@@ -815,6 +824,45 @@ public class TemplateEditorActivity extends BaseActivity
 
             }
         });
+
+        DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
+        if (getIntent().getExtras().getString("isEdit") != null) {
+            if (getIntent().getExtras().getString("isEdit").equals("no")) {
+                firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
+                                    (TemplateEditorActivity.this)
+                                    .title("Welcome to the Program Editor. This is where you can create or modify " +
+                                            "workouts")
+                                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                    .build();
+                            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder
+                                    (TemplateEditorActivity.this)
+                                    .focusOn(addDay)
+                                    .title("Let's begin by adding a day set.")
+                                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                                    .build();
+
+                            new FancyShowCaseQueue()
+                                    .add(fancyShowCaseView1)
+                                    .add(fancyShowCaseView2)
+                                    .show();
+
+                            isFirstTimeTut = true;
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
     }
     // [END on_start_add_listener]
 
