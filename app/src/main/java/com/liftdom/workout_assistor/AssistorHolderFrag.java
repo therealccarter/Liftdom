@@ -72,6 +72,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.saveImage) ImageButton saveImage;
 
     boolean isFirstTimeFirstTime = true;
+    boolean isTutorialFirstTime = false;
 
     public void firstTimeShowcase(CheckBox checkBox){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -127,6 +128,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
 
                         //firstTimeRef.setValue(null);
+                        isTutorialFirstTime = true;
                         isFirstTimeFirstTime = false;
                     }
                 }
@@ -411,6 +413,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+            if(isTutorialFirstTime){
+                assistorSavedFrag.isFirstTimeFirstTime = true;
+            }
             assistorSavedFrag.templateClass = templateClass;
             assistorSavedFrag.completedMap = runningMap;
             assistorSavedFrag.privateJournal = privateJournal;

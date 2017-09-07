@@ -76,6 +76,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
     List<String> completedExerciseList;
 
+    boolean isFirstTimeFirstTime;
 
     @BindView(R.id.goBackHome) Button goHomeButton;
     @BindView(R.id.finishedTextView) TextView finishedTextView;
