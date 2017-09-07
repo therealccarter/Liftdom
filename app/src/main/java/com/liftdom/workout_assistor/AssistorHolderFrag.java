@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +57,11 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean savedState = false;
     WorkoutProgressModelClass modelClass;
 
+    public interface scrollToBottomInterface{
+        void scrollToBottom();
+    }
+
+    private scrollToBottomInterface scrollToBottomCallback;
 
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
@@ -65,52 +71,65 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
 
+    boolean isFirstTimeFirstTime = true;
+
     public void firstTimeShowcase(CheckBox checkBox){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                        .focusOn(saveProgressButton)
-                        .title("This button allows you to save your workout progress so that you can finish it later." +
-                                " Make sure to click this before navigating away from this page, if you want to keep " +
-                                "your progress.")
-                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
-                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                        .fitSystemWindows(true)
-                        .build();
-                FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                        .focusOn(privateJournalView)
-                        .title("Take any workout-related notes here. Only you will be able to see this.")
-                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
-                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                        .fitSystemWindows(true)
-                        .build();
-                FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
-                        .focusOn(publicCommentView)
-                        .title("This is where you can write out a public description for the day's workout.")
-                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
-                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                        .fitSystemWindows(true)
-                        .build();
-                FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
-                        .focusOn(saveButton)
-                        .title("Click here to finish up the workout!")
-                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.TOP)
-                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                        .fitSystemWindows(true)
-                        .build();
 
-                new FancyShowCaseQueue()
-                        .add(fancyShowCaseView1)
-                        .add(fancyShowCaseView2)
-                        .add(fancyShowCaseView3)
-                        .add(fancyShowCaseView4)
-                        .show();
+                if(isChecked){
+                    if(isFirstTimeFirstTime){
 
-                DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
-                        (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+                        ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollViewWA);
+                        scrollView.scrollTo(0, scrollView.getBottom());
 
-                //firstTimeRef.setValue(null);
+                        FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                                .focusOn(saveProgressButton)
+                                .title("This button allows you to save your workout progress so that you can finish it later." +
+                                        " Make sure to click this before navigating away from this page, if you want to keep " +
+                                        "your progress.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
+                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                .fitSystemWindows(true)
+                                .build();
+                        FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                                .focusOn(privateJournalView)
+                                .title("Take any workout-related notes here. Only you will be able to see this.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
+                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                .fitSystemWindows(true)
+                                .build();
+                        FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
+                                .focusOn(publicCommentView)
+                                .title("This is where you can write out a public description for the day's workout.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                .fitSystemWindows(true)
+                                .build();
+                        FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
+                                .focusOn(saveButton)
+                                .title("Click here to finish up the workout!")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                .fitSystemWindows(true)
+                                .build();
+
+                        new FancyShowCaseQueue()
+                                .add(fancyShowCaseView1)
+                                .add(fancyShowCaseView2)
+                                .add(fancyShowCaseView3)
+                                .add(fancyShowCaseView4)
+                                .show();
+
+
+                        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+                                (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+
+                        //firstTimeRef.setValue(null);
+                        isFirstTimeFirstTime = false;
+                    }
+                }
             }
         });
     }
@@ -154,7 +173,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
-
 
         addExButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -250,7 +268,6 @@ public class AssistorHolderFrag extends android.app.Fragment
                 String publicComment = publicCommentView.getText().toString();
                 boolean completedBool = false; // obviously this will be set to true in assistor saved
                 String mediaResource = "";
-
 
                 // might need to make this not clickable without inflated views so it isn't set to null
                 for(ExNameWAFrag exNameFrag : exNameFragList){
@@ -478,5 +495,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         return contains;
     }
+
+
 
 }

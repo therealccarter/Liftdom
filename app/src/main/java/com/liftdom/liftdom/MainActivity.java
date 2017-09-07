@@ -29,6 +29,7 @@ import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
+import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.search.material.library.MaterialSearchView;
@@ -51,7 +52,8 @@ public class MainActivity extends BaseActivity implements
         TemplateMenuFrag.bottomNavChanger,
         SavedTemplatesFrag.bottomNavChanger,
         SelectedTemplateFrag.bottomNavChanger,
-        WorkoutAssistorFrag.bottomNavChanger
+        WorkoutAssistorFrag.bottomNavChanger,
+        AssistorHolderFrag.scrollToBottomInterface
         {
 
     private static final String TAG = "EmailPassword";
@@ -63,6 +65,8 @@ public class MainActivity extends BaseActivity implements
     private MaterialSearchView searchView;
     private BottomNavigation bottomNavigation;
     private ArrayList<String> typeAheadData;
+    private ScrollView scrollView;
+
 
     DatabaseReference mRootRef;
     String uid;
@@ -78,6 +82,10 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public void scrollToBottom(){
+        scrollView.scrollTo(0, scrollView.getBottom());
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +95,8 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));

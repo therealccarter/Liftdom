@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -333,6 +336,44 @@ public class AssistorSavedFrag extends android.app.Fragment {
         //templateRef.setValue(templateClass);
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isAssistorFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                            .title("Great job! \n \n" +
+                                    "Here's where you'll receive Power Level XP and level up. " +
+                                    "\n Your XP gain is based off of the workout you did, as well as " +
+                                    "how many consecutive days you've checked off your workouts/rest days.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                            .title("Not only will your Completion Streak (consecutive days) add a multiplier" +
+                                    "to the XP you gain, but your Completion Streak can also be used to unlock " +
+                                    "rewards and premium features." +
+                                    "\n \n Remember, check off rest days too to keep the Streak up!")
+                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                            .build();
+
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+                    //firstTimeRef.setValue(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private boolean animationsFirstTime = true;

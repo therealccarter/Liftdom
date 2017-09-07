@@ -64,4 +64,10 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="showCaseViewStyle2" parent="@android:style/Widget.TextView">
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>

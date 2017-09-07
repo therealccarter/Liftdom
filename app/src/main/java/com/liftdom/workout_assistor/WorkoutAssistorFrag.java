@@ -14,10 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +43,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkoutAssistorFrag extends Fragment {
+public class WorkoutAssistorFrag extends Fragment{
 
 
     public WorkoutAssistorFrag() {
@@ -74,6 +71,8 @@ public class WorkoutAssistorFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
+
     headerChangeFromFrag mCallback;
 
     public interface headerChangeFromFrag{
@@ -97,7 +96,6 @@ public class WorkoutAssistorFrag extends Fragment {
     //@BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.currentTemplateView) TextView currentTemplateView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
-
 
 
     @Override
@@ -182,7 +180,6 @@ public class WorkoutAssistorFrag extends Fragment {
                 String activeTemplateString = userModelClass.getActiveTemplate();
 
                 if(activeTemplateString != null) {
-
                     currentTemplateView.setText(activeTemplateString);
                 }
             }
