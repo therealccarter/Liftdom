@@ -135,7 +135,7 @@ public class TemplateMenuFrag extends Fragment {
             public void onClick(final View v){
                 String isEdit = "no";
                 Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
-                intent.putExtra("key1", isEdit );
+                intent.putExtra("isEdit", isEdit );
                 startActivity(intent);
             }
         });

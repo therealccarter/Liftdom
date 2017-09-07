@@ -23,6 +23,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -115,6 +116,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         return selectedDays;
     }
+
+
 
     // Butterknife
     @BindView(R.id.M) ToggleButton monToggle;
@@ -311,17 +314,16 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             exLevelFragList.add(frag1);
             fragmentTransaction.commit();
         }
+
+
         return view;
     }
 
-
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume(){
+        super.onResume();
 
         if(firstTimeTut){
-
             Button exButton = (Button) exLevelFragList.get(0).getView().findViewById(R.id.movementName);
             ImageView exExtraOptions = (ImageView) exLevelFragList.get(0).getView().findViewById(R.id
                     .extraOptionsButton);
@@ -329,30 +331,34 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .findViewById(R.id.setsLevelParentLL);
 
             FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(getActivity())
-                    .focusOn(buttonbar)
-                    .title("Select the days you'd like to do the exercises you want. You can add up to 7 days (each " +
-                            "day of the week), and that schedule will automatically repeat for as long as you want. " +
-                            "\n Exercise sets without days selected won't be saved, so make sure you check off the " +
-                            "days you want..")
-                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .title("The days of week toggle bar is where you select the days you'd like to do the exercises " +
+                            "you want. (Any combination of M/Tu/W/Th/F/Sa/Su)" +
+                            " \n \n You can add up to 7 days (each day of the week), " +
+                            "and that schedule will repeat for as long as you want.")
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
                     .build();
             FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                     .focusOn(exButton)
                     .title("You can click here to select the exercise that you want.")
                     .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                    .fitSystemWindows(true)
                     .build();
             FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                     .focusOn(exExtraOptions)
                     .title("This is where you can either add a superset exercises or set a custom algorithm (auto " +
                             "increasing reps/sets/weight).")
                     .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .fitSystemWindows(true)
                     .build();
             FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
                     .focusOn(setsLevelLL)
-                    .title("The format is Sets x Reps @ Weight. \n \n The left option menu here is for changing reps " +
-                            "to and from 'to failure'/numerical formats, and the weight to and from " +
+                    .title("The format for set schemes is \n Sets x Reps @ Weight. \n \n The left option menu here is" +
+                            " for changing reps to and from 'to failure'/numerical formats, and the weight to and from " +
                             "body-weight/numerical formats.")
-                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
+                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                    .fitSystemWindows(true)
                     .build();
 
             new FancyShowCaseQueue()
@@ -362,6 +368,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .add(fancyShowCaseView3)
                     .show();
         }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         if(isAdded){
             for(String day : daysArray){
