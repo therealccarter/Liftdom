@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -129,7 +130,21 @@ public class IntroFrag4 extends SlideFragment {
                         firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
                         DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
                                 ("templates").child(userId).child(firstTimeModel.getTemplateName());
-                        templateRef.setValue(firstTimeModel);
+                        templateRef.setValue(firstTimeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+
+                                userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        });
                     }
 
                     @Override
@@ -138,16 +153,7 @@ public class IntroFrag4 extends SlideFragment {
                     }
                 });
 
-                DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
-                userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
             }
         });
 

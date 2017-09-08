@@ -45,12 +45,10 @@ feed time-out feature
 fix layouts for public templates & template menu frag
 starting up on workout templating frag
 main feed recycler view is starting with an offset..
+remember on account creation, walk through level 0-1 (first template creation)
 ====================================================
 
 ============ Currently Working On ===============================================
-remember on account creation, walk through level 0-1 (first template creation)
-
-
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -64,7 +62,10 @@ remember on account creation, walk through level 0-1 (first template creation)
 =====================================================
 
 
+=========== Bug sesh 9/6/17 =============
+keyboard could go down on outside touch
 
+========================================
 
 
 ============ FUTURE TO-DO LIST =====================================================

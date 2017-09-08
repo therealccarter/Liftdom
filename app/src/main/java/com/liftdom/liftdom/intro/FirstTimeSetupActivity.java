@@ -12,13 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.HashMap;
 
@@ -53,8 +56,8 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
     @Override
     public void onFinish(){
         super.onFinish();
-        String userName = IntroSingleton.getInstance().displayName;
-        String userId = IntroSingleton.getInstance().userId;
+        final String userName = IntroSingleton.getInstance().displayName;
+        final String userId = IntroSingleton.getInstance().userId;
         String age = IntroSingleton.getInstance().age;
         boolean isImperial = IntroSingleton.getInstance().isImperial;
 
@@ -100,22 +103,65 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
                 (userId);
         firstTimeRef.setValue(firstTimeModelClass);
 
-        DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+        DatabaseReference firstTimeTemplateRef = FirebaseDatabase.getInstance().getReference().child
+                ("defaultTemplates").child("FirstTimeProgram");
 
-        userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firstTimeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TemplateModelClass firstTimeModel = dataSnapshot.getValue(TemplateModelClass.class);
+                firstTimeModel.setUserId(userId);
+                firstTimeModel.setUserName(userName);
+                firstTimeModel.setDateCreated(new DateTime(DateTimeZone.UTC).toString());
+                firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
+                DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
+                        ("templates").child(userId).child(firstTimeModel.getTemplateName());
+                templateRef.setValue(firstTimeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
 
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("uid", userModelClass.getUserId());
-                editor.putString("userName", userModelClass.getUserName());
-                editor.commit();
+                        userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
-                startActivity(intent);
+                                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("uid", userModelClass.getUserId());
+                                editor.putString("userName", userModelClass.getUserName());
+                                editor.commit();
+
+                                Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+
+
+        //DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+//
+        //userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //    @Override
+        //    public void onComplete(@NonNull Task<Void> task) {
+//
+        //        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        //        SharedPreferences.Editor editor = sharedPref.edit();
+        //        editor.putString("uid", userModelClass.getUserId());
+        //        editor.putString("userName", userModelClass.getUserName());
+        //        editor.commit();
+//
+        //        Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
     }
 
 }
