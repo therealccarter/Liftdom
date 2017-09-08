@@ -129,10 +129,11 @@ public class MainActivity extends BaseActivity implements
                 if (user != null) {
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     setUpTypeAheadData();
-                    FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true);
-                    DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
-                            .child(uid);
-                    firstTimeRef.setValue(firstTimeModelClass);
+                    //FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true,
+                    //        true);
+                    //DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
+                    //        .child(uid);
+                    //firstTimeRef.setValue(firstTimeModelClass);
                     if(savedInstanceState == null){
                         setUpNavDrawer(MainActivity.this, toolbar);
                         if(getIntent().getExtras() == null){

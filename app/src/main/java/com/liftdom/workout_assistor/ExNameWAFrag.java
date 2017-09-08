@@ -158,7 +158,7 @@ public class ExNameWAFrag extends android.app.Fragment
                                     "here, as " +
                                     "well as change the reps to 'to failure' or weight to 'bodyweight' via the 3 dot " +
                                     "menu on the left." +
-                                    "\n \n Go ahead and check off the first set now, and we'll move one.")
+                                    "\n \n Go ahead and check off the first set now, and we'll move on.")
                             .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
                             .focusShape(FocusShape.ROUNDED_RECTANGLE)
                             .build();

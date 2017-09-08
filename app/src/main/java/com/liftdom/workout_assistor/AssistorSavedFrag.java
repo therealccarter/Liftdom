@@ -338,7 +338,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         });
 
-        //templateRef.setValue(templateClass);
+        templateRef.setValue(templateClass);
 
         return view;
     }

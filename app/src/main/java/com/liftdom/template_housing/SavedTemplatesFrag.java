@@ -225,7 +225,7 @@ public class SavedTemplatesFrag extends Fragment {
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build().show();
 
-                    //firstTimeRef.setValue(null);
+                    firstTimeRef.setValue(null);
 
                 }
             }

@@ -201,7 +201,7 @@ public class TemplateMenuFrag extends Fragment {
                             .add(fancyShowCaseView2)
                             .show();
 
-                    //firstTimeRef.setValue(null);
+                    firstTimeRef.setValue(null);
                 }
             }
 

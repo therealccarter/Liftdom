@@ -367,6 +367,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .add(fancyShowCaseView2)
                     .add(fancyShowCaseView3)
                     .show();
+
+            DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
+            firstTimeRef.setValue(null);
         }
     }
 

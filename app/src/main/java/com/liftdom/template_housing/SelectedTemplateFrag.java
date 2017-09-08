@@ -624,16 +624,14 @@ public class SelectedTemplateFrag extends Fragment {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if(dataSnapshot.exists()){
-
                                                 new FancyShowCaseView.Builder(getActivity())
-                                                        .focusCircleAtPosition(400, 1150, 80)
                                                         .title("Let's head to the Workout Assistor! " +
                                                                 "\n \n It's the middle item on the bottom navigation " +
                                                                 "bar.")
                                                         .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                                                         .build()
                                                         .show();
-                                                //firstTimeRef.setValue(null);
+                                                firstTimeRef.setValue(null);
                                             }
                                         }
 
