@@ -682,9 +682,9 @@ public class SelectedTemplateFrag extends Fragment {
                 if(dataSnapshot.exists()){
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("This is where you can edit or delete any of your programs." +
-                                    "\n \n You can also publish your program to the public repository for anyone to" +
+                                    "\n \n You can also publish your program to the public repository for anyone to " +
                                     "use." +
-                                    "\n \n Most importantly, this is where you can set your Active Program. \n Let's"  +
+                                    "\n \n Most importantly, this is where you can set your Active Program. \n Let's " +
                                     "do that now!")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
