@@ -1,0 +1,43 @@
+add checkmark to comment edit text
+fix comment layout
+comments not updating for fresh comments
+add completed day check
+add limit to comments
+pull to refresh
+add level info to header/custom header
+quote redesign
+show power level on profile pages
+calendar completed window needs updating
+get all the checks in place to handle rest day saved, if workout history, etc
+fix visual of new custom exercise
+disable panning on calorie calc chart
+add loading view to workout assistor
+add dialog if exiting WA
+contingency for deletion of all exercises in workout assistor
+date preview on chat group needs to be far right
+move sign in options to below Brodin
+Less wordy on first time sign in (3-12 characters)
+check for special characters in value picking (specifically name creation)
+realtime username availability
+look for other edit texts to limit (add length check to WA edit texts)
+chat profile images
+other profile pic images
+to failure should be "t.f."
+fix up weight/reps/etc terminology everywhere (5@25 vs 5 reps @ 25 lbs)
+make sure that workout assistor has no history
+delete comments
+need to reload on back pressed
+limit backstack somehow. Clear it? // make back stack only go up the specific frag tree
+make saving progress preserve order
+comments profile pics
+adding superset in template editor added an extra set scheme
+fix up search
+work on xp increase algorithm (for now)
+profile picture (tourettes pic) is rotated / images not cropping to square
+units not showing for workout assistor nonSS
+Hardcode B.W. in workout assistor (possibly in editor)
+feed time-out feature
+fix layouts for public templates & template menu frag
+starting up on workout templating frag
+main feed recycler view is starting with an offset..
+remember on account creation, walk through level 0-1 (first template creation)
