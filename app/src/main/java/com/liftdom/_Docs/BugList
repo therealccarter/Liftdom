@@ -15,22 +15,22 @@ days of week toggle bar text should be in center
 period after new workout tutorial initially
 dont allow creation of chat with no members (just added own name for this case)
 template editor kept repeating or some shit
+disable custom exercises
+keyboard could go down on outside touch
 ====================================================
 
 ============ Currently Working On ===============================================
-disable custom exercises
+template from scratch not working
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
-keyboard could go down on outside touch
-disable some buttons and shit
-add finish thing to each sequence
-template from scratch not working
+
 some tut just played on back press into chat from search
 maybe reselect should do some as select for bottom bar
 go to profiles via username
 back press is fucking with tuts hard.
+fix up dialog window views
 
 ==== easier ==========
 ============

@@ -225,7 +225,7 @@ public class MainFeedFrag extends Fragment{
     }
 
     private void clearRecyclerView(){
-        if(postList != null){
+        if(postList != null && adapter != null && mRecyclerView != null){
             postList.clear();
             postInc = 0;
             pastVisiblesItems = 0;
