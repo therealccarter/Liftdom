@@ -335,7 +335,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                             "you want. (Any combination of M/Tu/W/Th/F/Sa/Su)" +
                             " \n \n You can add up to 7 days (each day of the week), " +
                             "and that schedule will repeat for as long as you want.")
-                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
+                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                     .build();
             FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                     .focusOn(exButton)
@@ -346,7 +346,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .build();
             FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                     .focusOn(exExtraOptions)
-                    .title("This is where you can either add a superset exercises or set a custom algorithm (auto " +
+                    .title("This is where you can either add a superset exercise or set a custom algorithm (auto " +
                             "increasing reps/sets/weight).")
                     .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                     .fitSystemWindows(true)
@@ -370,6 +370,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
             DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
             firstTimeRef.setValue(null);
+
+            firstTimeTut = false;
         }
     }
 

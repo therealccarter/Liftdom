@@ -298,10 +298,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                         workoutInfoMap, commentModelClassMap);
+
+                if(isFirstTimeFirstTime){
+                    List<String> bonusList = new ArrayList<>();
+                    bonusList.add(userModelClass.getUserName() + "'s first post!");
+                    completedWorkoutModelClass.setBonusList(bonusList);
+                }
+
                 myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
-
-
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
@@ -359,18 +364,24 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Not only will your Completion Streak (consecutive days) add a multiplier" +
+                            .title("Not only will your Completion Streak (consecutive days) add a multiplier " +
                                     "to the XP you gain, but your Completion Streak can also be used to unlock " +
                                     "rewards and premium features." +
                                     "\n \n Remember, check off rest days too to keep the Streak up!")
+                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                            .build();
+                    FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
+                            .title("Now get your own custom workout program going and make some gains!" +
+                                    "\n \n Lift hard, live easy.")
                             .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                             .build();
 
                     new FancyShowCaseQueue()
                             .add(fancyShowCaseView1)
                             .add(fancyShowCaseView2)
+                            .add(fancyShowCaseView3)
                             .show();
-                    //firstTimeRef.setValue(null);
+                    firstTimeRef.setValue(null);
                 }
             }
 

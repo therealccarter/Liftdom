@@ -82,6 +82,10 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public String getUsername(){
+        return getUsernameBase();
+    }
+
     public void scrollToBottom(){
         scrollView.scrollTo(0, scrollView.getBottom());
     }

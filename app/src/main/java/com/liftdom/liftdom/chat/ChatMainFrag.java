@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupViewHolder;
@@ -204,6 +205,7 @@ public class ChatMainFrag extends Fragment {
 
                                         inc = 0;
                                     }else{
+
                                         DatabaseReference chatGroupReference = FirebaseDatabase.getInstance()
                                                 .getReference()
                                                 .child("chatGroups").child(userId);
@@ -211,7 +213,17 @@ public class ChatMainFrag extends Fragment {
                                         Map fanoutObject = new HashMap<>();
                                         String refKey = chatGroupReference.push().getKey();
 
-                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(null, "preview text",
+                                        String chatName = null;
+
+                                        if(memberList.size() == 1){
+                                            if(memberList.get(0).equals(uid)){
+                                                MainActivity mainActivity = (MainActivity) getActivity();
+                                                chatName = mainActivity.getUsername();
+                                            }
+                                        }
+
+                                        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName,
+                                                "preview text",
                                                 userMap, uniqueID, refKey);
                                         String dateUTC = new DateTime(DateTimeZone.UTC).toString();
                                         chatGroupModelClass.setActiveDate(dateUTC);
@@ -225,7 +237,6 @@ public class ChatMainFrag extends Fragment {
                                         rootRef.updateChildren(fanoutObject);
 
                                         inc = 0;
-
                                     }
                                 }
                             }

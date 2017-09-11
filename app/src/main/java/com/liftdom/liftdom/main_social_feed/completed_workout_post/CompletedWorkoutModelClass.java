@@ -22,6 +22,7 @@ public class CompletedWorkoutModelClass {
     private String mRef;
     private Map<String, PostCommentModelClass> mCommentMap;
     private String mMediaRef;
+    private List<String> bonusList;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -42,6 +43,13 @@ public class CompletedWorkoutModelClass {
         mCommentMap = commentMap;
     }
 
+    public List<String> getBonusList() {
+        return bonusList;
+    }
+
+    public void setBonusList(List<String> bonusList) {
+        this.bonusList = bonusList;
+    }
 
     public Map<String, PostCommentModelClass> getCommentMap() {
         return mCommentMap;

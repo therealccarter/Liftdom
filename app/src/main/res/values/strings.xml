@@ -259,8 +259,8 @@
 
     <string name="addExercise">(+) Add Exercise</string>
     <string name="removeExercise">(-) Remove Exercise</string>
-    <string name="addDay">(+) Add Day/s</string>
-    <string name="removeDay">(-) Remove Day/s</string>
+    <string name="addDay">(+) Add Day Set</string>
+    <string name="removeDay">(-) Remove Day Set</string>
     <string name="saveAs">SAVE AS</string>
     <string name="save">SAVE</string>
 

@@ -214,7 +214,7 @@
                     android:inputType="number"
                     android:id="@+id/weightEditText"
                     android:imeOptions="actionDone"
-                    android:maxLength="2"
+                    android:maxLength="3"
             />
 
             <TextView

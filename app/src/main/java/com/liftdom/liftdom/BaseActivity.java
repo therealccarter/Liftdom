@@ -194,6 +194,11 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public String getUsernameBase(){
+        TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
+        return userNameView.getText().toString();
+    }
+
     public Drawer getDrawer(){
         return drawer;
     }

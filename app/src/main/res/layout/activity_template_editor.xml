@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="com.liftdom.template_editor.TemplateEditorActivity"
         android:id="@+id/main_activity_container"
         android:background="@color/backgroundgrey1"
@@ -107,7 +107,7 @@
                         android:minHeight="0dp"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:paddingEnd="20dp"
+                        android:textAllCaps="false"
                 />
 
                 <View
@@ -131,6 +131,7 @@
                         android:minHeight="0dp"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
+                        android:textAllCaps="false"
                 />
 
             </LinearLayout>
@@ -180,17 +181,24 @@
                     android:maxLength="1000"
             />
 
-            <Button
+            <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/saveButton"
-                    android:background="@color/confirmgreen"
-                    android:text="@string/save"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:padding="10dp"
                     android:layout_margin="10dp"
-            />
+                    app:cardElevation="7dp"
+            >
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/saveButton"
+                        android:background="@color/confirmgreen"
+                        android:text="@string/save"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+                />
+            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 

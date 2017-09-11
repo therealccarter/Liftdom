@@ -66,6 +66,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final RecyclerView mCommentRecyclerView;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
+    private final TextView mBonusView;
     //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -81,6 +82,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
         xProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
+        mBonusView = (TextView) itemView.findViewById(R.id.bonusView);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -145,6 +147,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 }
             }
         });
+    }
+
+    public void setBonusView(List<String> bonusList){
+        String bonusString = "";
+        for(String string : bonusList){
+            bonusString = bonusString + "\n" + string;
+        }
+        mBonusView.setText(bonusString);
+        mBonusView.setVisibility(View.VISIBLE);
     }
 
     public void setUpProfilePics(String postUid){
