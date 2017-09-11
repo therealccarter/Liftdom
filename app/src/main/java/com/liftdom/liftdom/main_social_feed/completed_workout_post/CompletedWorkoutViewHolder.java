@@ -209,6 +209,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             viewHolder.setParentRefKey(getRefKey());
                             viewHolder.setCommentUid(model.getUserId());
                             viewHolder.setContext(mActivity);
+                            viewHolder.setActivity(mActivity);
                         }
                     };
 

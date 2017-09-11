@@ -1,8 +1,12 @@
 package com.liftdom.liftdom.main_social_feed.comment_post;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +22,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.FollowersModelClass;
+import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +48,9 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
     private String parentRefKey;
     private String commentUid;
     private Context mContext;
+    private FragmentActivity mActivity;
+    private String mUserName;
+
 
     public PostCommentViewHolder(View itemView){
         super(itemView);
@@ -57,6 +66,35 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
                 deleteComment();
             }
         });
+
+        mUserNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getCurrentUid().equals(commentUid)){
+                    Intent intent = new Intent(getActivity(), CurrentUserProfile.class);
+                    getActivity().startActivity(intent);
+                } else {
+                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    otherUserProfileFrag.userName = getUserName();
+                    otherUserProfileFrag.xUid = commentUid;
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
+    }
+
+    public FragmentActivity getActivity() {
+        return mActivity;
+    }
+
+    public void setActivity(FragmentActivity mActivity) {
+        this.mActivity = mActivity;
     }
 
     private void deleteComment(){
@@ -161,6 +199,11 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
 
     public void setUsername(String username){
         mUserNameView.setText(username);
+        mUserName = username;
+    }
+
+    public String getUserName(){
+        return mUserName;
     }
 
     public void setComment(String comment){

@@ -364,8 +364,6 @@ public class MainActivity extends BaseActivity implements
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
 
-
-
     }
 
 

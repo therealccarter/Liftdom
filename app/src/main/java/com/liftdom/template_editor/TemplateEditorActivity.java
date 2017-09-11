@@ -72,77 +72,13 @@ public class TemplateEditorActivity extends BaseActivity
     // butterknife
     @BindView(R.id.addDay) Button addDay;
     @BindView(R.id.removeDay) Button removeDay;
-    @BindView(R.id.saveButton) Button onSave;
+    //@BindView(R.id.saveButton) Button onSave;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeTemplateCheckbox;
     @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
     @BindView(R.id.title) TextView title;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
-
-    public void daySelectedFromFrag(String doW, String tag){
-        try {
-            for (int i = 0; i < fragIdCount; i++) {
-                if (!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)) {
-                    dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW);
-                }
-            }
-        } catch (IndexOutOfBoundsException e){
-            System.out.print("wut");
-        }
-    }
-
-    public void dayUnselectedFromFrag(String doW, String tag){
-        for(int i = 0; i < fragIdCount; i++){
-            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
-                dayOfWeekChildFragArrayList.get(i).dayUnselectedToFrag(doW);
-            }
-        }
-    }
-
-    public ArrayList<String> getSelectedDaysOtherThan(String tag){
-        ArrayList<String> selectedDaysOtherThan = new ArrayList<>();
-
-        for(int i = 0; i < fragIdCount; i++){
-            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
-                ArrayList<String> getSelectedDays = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
-                for(String day : getSelectedDays){
-                    selectedDaysOtherThan.add(day);
-                }
-            }
-        }
-
-        return selectedDaysOtherThan;
-    }
-
-    public void setUnChecked(String doW, String tag){
-
-    }
-
-    public ArrayList<String> getCurrentSelectedDays(){
-        ArrayList<String> selectedDaysAL = new ArrayList<>();
-        for(int i = 0; i < fragIdCount - 1; i++){
-            ArrayList<String> iSelectedDaysAL = new ArrayList<>();
-            iSelectedDaysAL = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
-            for(String day : iSelectedDaysAL){
-                selectedDaysAL.add(day);
-            }
-        }
-
-        return selectedDaysAL;
-    }
-
-    public void setToGold(){
-        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
-            dayOfWeekChildFrag.setToGold();
-        }
-    }
-
-    public void removeGold(){
-        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
-            dayOfWeekChildFrag.removeGold();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -717,6 +653,8 @@ public class TemplateEditorActivity extends BaseActivity
             }
         });
 
+        Button onSave = (Button) findViewById(R.id.saveButton);
+
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
 
@@ -798,7 +736,7 @@ public class TemplateEditorActivity extends BaseActivity
                     // show it
                     alertDialog.show();
                 }else{
-                    Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+                    Intent intent = new Intent(TemplateEditorActivity.this, SaveTemplateDialog.class);
 
                     boolean checkBool = activeTemplateCheckbox.isChecked();
                     boolean isPublic = makePublicCheckbox.isChecked();
@@ -813,6 +751,13 @@ public class TemplateEditorActivity extends BaseActivity
                             intent.putExtra("isActiveTemplate", checkBool);
                             //intent.putExtra("isAlgorithm", algBool);
                             intent.putExtra("isPublic", isPublic);
+                            startActivity(intent);
+                        }else{
+                            intent.putExtra("isEdit", "no");
+                            intent.putExtra("isActiveTemplate", checkBool);
+                            //intent.putExtra("isAlgorithm", algBool);
+                            intent.putExtra("isPublic", isPublic);
+                            intent.putExtra("description", descriptionString);
                             startActivity(intent);
                         }
                     }else{
@@ -915,6 +860,70 @@ public class TemplateEditorActivity extends BaseActivity
 
         // show it
         alertDialog.show();
+    }
+
+    public void daySelectedFromFrag(String doW, String tag){
+        try {
+            for (int i = 0; i < fragIdCount; i++) {
+                if (!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)) {
+                    dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW);
+                }
+            }
+        } catch (IndexOutOfBoundsException e){
+            System.out.print("wut");
+        }
+    }
+
+    public void dayUnselectedFromFrag(String doW, String tag){
+        for(int i = 0; i < fragIdCount; i++){
+            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
+                dayOfWeekChildFragArrayList.get(i).dayUnselectedToFrag(doW);
+            }
+        }
+    }
+
+    public ArrayList<String> getSelectedDaysOtherThan(String tag){
+        ArrayList<String> selectedDaysOtherThan = new ArrayList<>();
+
+        for(int i = 0; i < fragIdCount; i++){
+            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
+                ArrayList<String> getSelectedDays = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
+                for(String day : getSelectedDays){
+                    selectedDaysOtherThan.add(day);
+                }
+            }
+        }
+
+        return selectedDaysOtherThan;
+    }
+
+    public void setUnChecked(String doW, String tag){
+
+    }
+
+    public ArrayList<String> getCurrentSelectedDays(){
+        ArrayList<String> selectedDaysAL = new ArrayList<>();
+        for(int i = 0; i < fragIdCount - 1; i++){
+            ArrayList<String> iSelectedDaysAL = new ArrayList<>();
+            iSelectedDaysAL = dayOfWeekChildFragArrayList.get(i).getSelectedDays();
+            for(String day : iSelectedDaysAL){
+                selectedDaysAL.add(day);
+            }
+        }
+
+        return selectedDaysAL;
+    }
+
+    public void setToGold(){
+        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+            dayOfWeekChildFrag.setToGold();
+        }
+    }
+
+    public void removeGold(){
+        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+            dayOfWeekChildFrag.removeGold();
+        }
     }
 
     String[] daysToArray(String daysUn){

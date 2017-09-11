@@ -17,20 +17,16 @@ dont allow creation of chat with no members (just added own name for this case)
 template editor kept repeating or some shit
 disable custom exercises
 keyboard could go down on outside touch
+template from scratch not working
+go to profiles via username
 ====================================================
 
 ============ Currently Working On ===============================================
-template from scratch not working
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 
-some tut just played on back press into chat from search
-maybe reselect should do some as select for bottom bar
-go to profiles via username
-back press is fucking with tuts hard.
-fix up dialog window views
 
 ==== easier ==========
 ============
@@ -48,4 +44,5 @@ look into design stuff like font
 look into Glide caching
 somehow check for crazy bottom nav selection
 bottom nav badges
+fix up dialog window views
 =====================================================
