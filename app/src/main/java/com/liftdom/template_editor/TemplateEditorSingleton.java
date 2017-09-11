@@ -41,6 +41,7 @@ public class TemplateEditorSingleton {
     HashMap<String, List<String>> mAlgorithmDateMap = new HashMap<>();
     String publicTemplateKeyId;
     boolean isImperial;
+    boolean isFirstTimeTut = false;
 
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();

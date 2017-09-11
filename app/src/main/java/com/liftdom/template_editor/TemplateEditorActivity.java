@@ -517,10 +517,11 @@ public class TemplateEditorActivity extends BaseActivity
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
+                                    TemplateEditorSingleton.getInstance().isFirstTimeTut = true;
                                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
                                             (TemplateEditorActivity.this)
-                                            .title("Welcome to the Program Editor. This is where you can create or modify " +
-                                                    "workouts")
+                                            .title("Welcome to the Program Editor. This is where you can create " +
+                                                    "complex, custom workout programs.")
                                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                                             .build();
                                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder

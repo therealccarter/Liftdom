@@ -323,7 +323,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     public void onResume(){
         super.onResume();
 
-        if(firstTimeTut){
+        if(TemplateEditorSingleton.getInstance().isFirstTimeTut){
             Button exButton = (Button) exLevelFragList.get(0).getView().findViewById(R.id.movementName);
             ImageView exExtraOptions = (ImageView) exLevelFragList.get(0).getView().findViewById(R.id
                     .extraOptionsButton);
@@ -372,6 +372,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             firstTimeRef.setValue(null);
 
             firstTimeTut = false;
+            TemplateEditorSingleton.getInstance().isFirstTimeTut = false;
         }
     }
 
