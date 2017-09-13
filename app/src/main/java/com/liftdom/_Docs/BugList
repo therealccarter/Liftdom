@@ -3,22 +3,7 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-change language to day-sets
-have fun at WA?
-WA tut replaying
-change feed thing to "first time shit or whatever"
-weight on cal calc is two digits
-thing keeps coming back (on resume)
-workout saved multiplier/to add space
-days of week toggle bar text should be in center
-"superset exerciseS in text"
-period after new workout tutorial initially
-dont allow creation of chat with no members (just added own name for this case)
-template editor kept repeating or some shit
-disable custom exercises
-keyboard could go down on outside touch
-template from scratch not working
-go to profiles via username
+
 ====================================================
 
 ============ Currently Working On ===============================================
@@ -26,14 +11,20 @@ go to profiles via username
 
 ============ BUG/TO-DO LIST =====================================================
 
-
+"Brodin's first post" ugly af
+user profile rehaul (followers following)
+today's workout shouldn't be exempt from workout history - delete first time prog
+add limit to characters in template naming ET
+add a "finished or go off and make gains!" for end of from scratch
+"back to programs" (template saved) goes back home
+profile pic loading on setting saved did not finish
+on back press (on start? of implements base activity) reload profile pic?
 
 ==== easier ==========
 ============
 ==== harder ==========
 ============
 =====================================================
-
 
 ============ FUTURE TO-DO LIST =====================================================
 change search suggestions to current following (visibility issue?)
