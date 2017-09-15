@@ -44,7 +44,6 @@ public class FollowersModelClass {
             }
         }
 
-
         return userIdList;
     }
 
