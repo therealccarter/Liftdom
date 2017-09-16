@@ -3,39 +3,34 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-
+commenting causing separate post
+"back to programs" (template saved) goes back home
+"Brodin's first post" ugly af
+add limit to characters in template naming ET
+add a "finished or go off and make gains!" for end of from scratch
 ====================================================
 
 ============ Currently Working On ===============================================
+profile pic loading on setting saved did not finish
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-
-"Brodin's first post" ugly af
-user profile rehaul (followers following)
-today's workout shouldn't be exempt from workout history - delete first time prog
-add limit to characters in template naming ET
-add a "finished or go off and make gains!" for end of from scratch
-"back to programs" (template saved) goes back home
-profile pic loading on setting saved did not finish
-on back press (on start? of implements base activity) reload profile pic?
-calendar - future workout dates (greys) are wrong?
-static feeds for looking into past (or do we? could just be parent user's node)
-
 ==== easier ==========
 ============
 ==== harder ==========
+calendar - future workout dates (greys) are wrong?
+user profile rehaul (followers following)
+today's workout shouldn't be exempt from workout history - delete first time prog
+on back press (on start? of implements base activity) reload profile pic?
+fix up dialog window views
 ============
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
 change search suggestions to current following (visibility issue?)
 password recovery/changing
-friends list
-figure out what's going on with Moto phone
 look into design stuff like font
 look into Glide caching
 somehow check for crazy bottom nav selection
 bottom nav badges
-fix up dialog window views
 =====================================================

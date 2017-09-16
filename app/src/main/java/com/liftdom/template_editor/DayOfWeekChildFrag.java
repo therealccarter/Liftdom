@@ -360,12 +360,17 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .focusShape(FocusShape.ROUNDED_RECTANGLE)
                     .fitSystemWindows(true)
                     .build();
+            FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
+                    .title("Now go get swole dude")
+                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                    .build();
 
             new FancyShowCaseQueue()
                     .add(fancyShowCaseView)
                     .add(fancyShowCaseView1)
                     .add(fancyShowCaseView2)
                     .add(fancyShowCaseView3)
+                    .add(fancyShowCaseView4)
                     .show();
 
             DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");

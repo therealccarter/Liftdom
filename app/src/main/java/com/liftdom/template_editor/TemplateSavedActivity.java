@@ -136,7 +136,7 @@ public class TemplateSavedActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
-                intent.putExtra("fragID", 0);
+                intent.putExtra("fragID", 1);
                 startActivity(intent);
             }
         });
