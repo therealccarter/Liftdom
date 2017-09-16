@@ -8,29 +8,34 @@ commenting causing separate post
 "Brodin's first post" ugly af
 add limit to characters in template naming ET
 add a "finished or go off and make gains!" for end of from scratch
+profile pic loading on setting saved did not finish
+calendar - future workout dates (greys) are wrong?
 ====================================================
 
 ============ Currently Working On ===============================================
-profile pic loading on setting saved did not finish
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
 ============
 ==== harder ==========
-calendar - future workout dates (greys) are wrong?
 user profile rehaul (followers following)
-today's workout shouldn't be exempt from workout history - delete first time prog
-on back press (on start? of implements base activity) reload profile pic?
 fix up dialog window views
+collapse comments/view all
+glide caching
 ============
+=====================================================
+
+============ UNREPLICABLE/UNDECIDED =============================================
+today's workout shouldn't be exempt from workout history - delete first time prog
+somehow check for crazy bottom nav selection
+on back press (on start? of implements base activity) reload profile pic?
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
-look into Glide caching
-somehow check for crazy bottom nav selection
 bottom nav badges
 =====================================================

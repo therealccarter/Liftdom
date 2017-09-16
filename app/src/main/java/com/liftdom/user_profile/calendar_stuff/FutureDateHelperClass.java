@@ -41,7 +41,16 @@ public class FutureDateHelperClass {
 
     HashMap<String, HashMap<String, List<String>>> DataCollectionMap = new HashMap<>();
 
-
+    public void clearAll(){
+        DateCollection1.clear();
+        DateCollection2.clear();
+        DateCollection3.clear();
+        DateCollection4.clear();
+        DateCollection5.clear();
+        DateCollection6.clear();
+        DateCollection7.clear();
+        DataCollectionMap.clear();
+    }
 
 }
 

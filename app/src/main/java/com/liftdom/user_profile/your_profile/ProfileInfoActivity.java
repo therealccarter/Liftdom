@@ -265,6 +265,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                             userRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    saveLoadingView.setVisibility(View.GONE);
                                     Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);

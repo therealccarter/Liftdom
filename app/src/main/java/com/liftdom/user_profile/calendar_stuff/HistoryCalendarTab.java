@@ -102,6 +102,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         // things that only happen upon action
 
+        widget.clearSelection();
+        FutureDateHelperClass.getInstance().clearAll();
+
         widget.setOnDateChangedListener(this);
         widget.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
 
@@ -170,8 +173,6 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
             }
         });
-
-
 
         DatabaseReference userRef = mRootRef.child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -244,6 +245,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         return view;
     }
+
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
@@ -419,6 +421,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
         return daysBroken;
     }
+
 
 
 }
