@@ -68,6 +68,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
     private final TextView mBonusView;
+    private final Button mExpandCollapseButton;
+    private int limitInc = 1;
+    private Query recentMessages;
     //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -84,6 +87,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         xProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
         mBonusView = (TextView) itemView.findViewById(R.id.bonusView);
+        mExpandCollapseButton = (Button) itemView.findViewById(R.id.expandCollapseButton);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -147,6 +151,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         }
                     });
                 }
+            }
+        });
+
+        mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // gonna go with just "view all" and open up a chat style thing. Make sure back press goes back
+                // correctly
             }
         });
     }
@@ -254,12 +266,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
 
+        recentMessages = mFeedRef.limitToLast(3);
+
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
-                            (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+                            (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, recentMessages) {
                         @Override
                         protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
                             viewHolder.setComment(model.getCommentText());

@@ -13,7 +13,7 @@ calendar - future workout dates (greys) are wrong?
 ====================================================
 
 ============ Currently Working On ===============================================
-
+collapse comments/view all
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -22,7 +22,6 @@ calendar - future workout dates (greys) are wrong?
 ==== harder ==========
 user profile rehaul (followers following)
 fix up dialog window views
-collapse comments/view all
 glide caching
 ============
 =====================================================
@@ -34,6 +33,7 @@ on back press (on start? of implements base activity) reload profile pic?
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
+fix up feed to look more like Insta. Note how smooth it is...
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font

@@ -163,7 +163,6 @@ public class RestDaySavedFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.putExtra("fragID", 1);
                 startActivity(intent);
             }
         });
