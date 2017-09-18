@@ -23,6 +23,7 @@ public class CompletedWorkoutModelClass {
     private Map<String, PostCommentModelClass> mCommentMap;
     private String mMediaRef;
     private List<String> bonusList;
+    private int mCommentCount;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -45,6 +46,18 @@ public class CompletedWorkoutModelClass {
 
     public List<String> getBonusList() {
         return bonusList;
+    }
+
+    public void addToCommentCount(){
+        mCommentCount++;
+    }
+
+    public void setCommentCount(int commentCount){
+        mCommentCount = commentCount;
+    }
+
+    public int getCommentCount(){
+        return mCommentCount;
     }
 
     public void setBonusList(List<String> bonusList) {

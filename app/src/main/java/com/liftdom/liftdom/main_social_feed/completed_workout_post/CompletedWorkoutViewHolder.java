@@ -68,8 +68,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
     private final TextView mBonusView;
-    private final Button mExpandCollapseButton;
-    private int limitInc = 1;
+    private final Button mGoToAllCommentsButton;
+    private int mCommentCount;
     private Query recentMessages;
     //private final LinearLayout mCommentFragHolder;
 
@@ -87,7 +87,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         xProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
         mBonusView = (TextView) itemView.findViewById(R.id.bonusView);
-        mExpandCollapseButton = (Button) itemView.findViewById(R.id.expandCollapseButton);
+        mGoToAllCommentsButton = (Button) itemView.findViewById(R.id.goToAllCommentsButton);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -117,7 +117,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
                 if(!mCommentEditText.getText().toString().equals("")){
-
                     DatabaseReference userRef = mRootRef.child("user").child(getCurrentUid());
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -125,6 +124,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                             DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                                     (getCurrentUid()).child(mRefKey).child("commentMap");
+                            DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                    (getCurrentUid()).child(mRefKey).child("commentCount");
 
                             String refKey = commentRef.push().getKey();
 
@@ -154,13 +155,21 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
-        mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
+        mGoToAllCommentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // gonna go with just "view all" and open up a chat style thing. Make sure back press goes back
                 // correctly
             }
         });
+    }
+
+    public int getCommentCount() {
+        return mCommentCount;
+    }
+
+    public void setCommentCount(int mCommentCount) {
+        this.mCommentCount = mCommentCount;
     }
 
     Map fanoutObject = new HashMap<>();
@@ -271,6 +280,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildrenCount() > 3){
+                    mGoToAllCommentsButton.setVisibility(View.VISIBLE);
+                }else{
+                    mGoToAllCommentsButton.setVisibility(View.GONE);
+                }
                 //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
                             (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, recentMessages) {

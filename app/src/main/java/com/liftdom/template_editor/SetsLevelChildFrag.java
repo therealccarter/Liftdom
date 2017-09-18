@@ -134,11 +134,17 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 if(data.getStringExtra("MESSAGE1") != null) {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
                         pounds.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
                     } else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
+                            InputFilter[] filterArray = new InputFilter[1];
+                            filterArray[0] = new InputFilter.LengthFilter(2);
+                            weightEditText.setFilters(filterArray);
                             weightEditText.setText("");
                             weightEditText.setEnabled(true);
                             weightEditText.setHint("W");

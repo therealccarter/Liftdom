@@ -374,6 +374,8 @@
 
     <string name="finishSetup">Finish Setup?</string>
 
+    <string name="viewAllComments">View all comments&#8230;</string>
+
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
     <string name="units">Unit System:</string>
