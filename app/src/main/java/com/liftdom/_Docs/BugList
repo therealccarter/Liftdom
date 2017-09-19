@@ -10,10 +10,12 @@ add limit to characters in template naming ET
 add a "finished or go off and make gains!" for end of from scratch
 profile pic loading on setting saved did not finish
 calendar - future workout dates (greys) are wrong?
+collapse comments/view all (changed to view all)
+take out picture from comments on feed
 ====================================================
 
 ============ Currently Working On ===============================================
-collapse comments/view all
+appodeal integration
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -23,7 +25,6 @@ collapse comments/view all
 user profile rehaul (followers following)
 fix up dialog window views
 glide caching
-take out picture from comments on feed
 ============
 =====================================================
 

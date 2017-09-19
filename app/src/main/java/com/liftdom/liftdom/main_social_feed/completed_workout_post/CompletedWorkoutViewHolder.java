@@ -258,18 +258,19 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     public void setUpProfilePics(String postUid){
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
-        StorageReference currentProfilePicRef = storageRef.child("images/user/" + getCurrentUid() + "/profilePic.png");
-        currentProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(mActivity).load(uri).crossFade().into(mUserProfilePic);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                mUserProfilePic.setImageResource(R.drawable.usertest);
-            }
-        });
+        //StorageReference currentProfilePicRef = storageRef.child("images/user/" + getCurrentUid() + "/profilePic
+        // .png");
+        //currentProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        //    @Override
+        //    public void onSuccess(Uri uri) {
+        //        Glide.with(mActivity).load(uri).crossFade().into(mUserProfilePic);
+        //    }
+        //}).addOnFailureListener(new OnFailureListener() {
+        //    @Override
+        //    public void onFailure(@NonNull Exception e) {
+        //        mUserProfilePic.setImageResource(R.drawable.usertest);
+        //    }
+        //});
 
         StorageReference posterProfilePicRef = storageRef.child("images/user/" + postUid + "/profilePic.png");
         posterProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

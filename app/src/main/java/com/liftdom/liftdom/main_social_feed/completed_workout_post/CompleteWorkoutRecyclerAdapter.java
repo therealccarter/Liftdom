@@ -78,11 +78,11 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         }else{
             viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());
         }
-        if(mCompletedWorkoutList.get(position).getBonusList() != null){
-            if(!mCompletedWorkoutList.get(position).getBonusList().isEmpty()){
-                viewHolder.setBonusView(mCompletedWorkoutList.get(position).getBonusList());
-            }
-        }
+        //if(mCompletedWorkoutList.get(position).getBonusList() != null){
+            //if(!mCompletedWorkoutList.get(position).getBonusList().isEmpty()){
+                //viewHolder.setBonusView(mCompletedWorkoutList.get(position).getBonusList());
+            //}
+        //}
     }
 
     @Override

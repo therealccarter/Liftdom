@@ -4,7 +4,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:cardElevation="6dp"
         app:cardCornerRadius="0dp"
         android:background="@color/offerGrey"
@@ -36,7 +37,7 @@
                     android:id="@+id/postInfoHolder"
             >
                 <View
-                        android:layout_width="3dp"
+                        android:layout_width="7dp"
                         android:layout_height="match_parent"
                         android:background="@color/backgroundgrey2"
                 />
@@ -111,7 +112,7 @@
                 </LinearLayout>
 
                 <View
-                        android:layout_width="3dp"
+                        android:layout_width="7dp"
                         android:layout_height="match_parent"
                         android:background="@color/backgroundgrey2"
                 />
@@ -169,7 +170,7 @@
                 android:id="@+id/allCommentsLinearLayout"
         >
             <View
-                    android:layout_width="7dp"
+                    android:layout_width="9dp"
                     android:layout_height="match_parent"
                     android:background="@color/backgroundgrey1"
             />
@@ -190,7 +191,7 @@
             />
 
             <View
-                    android:layout_width="7dp"
+                    android:layout_width="9dp"
                     android:layout_height="match_parent"
                     android:background="@color/backgroundgrey1"
             />
@@ -217,16 +218,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/offWhite"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
+                android:background="@color/offerWhite"
         >
+            <View
+                    android:layout_width="9dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundgrey2"
+            />
+
             <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/usertest"
                     android:id="@+id/currentUserProfilePic"
                     android:layout_gravity="center"
+                    android:visibility="gone"
             />
 
             <EditText
@@ -241,13 +247,19 @@
             />
 
             <ImageButton
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:src="@drawable/right_chevron_gold"
                     android:scaleType="centerCrop"
                     android:background="@color/transparent"
                     android:id="@+id/sendCommentButton"
                     android:layout_gravity="center"
+            />
+
+            <View
+                    android:layout_width="9dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundgrey2"
             />
 
         </LinearLayout>

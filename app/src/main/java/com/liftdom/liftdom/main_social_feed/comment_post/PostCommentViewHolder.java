@@ -151,22 +151,22 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
             mDeleteCommentButton.setVisibility(View.VISIBLE);
         }
 
-        StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
-                commentUid + "/profilePic.png");
-
-        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.i("glide", "success");
-                Glide.with(getContext()).load(uri).crossFade().into(mUserProfilePic);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i("glide", "failure");
-                mUserProfilePic.setImageResource(R.drawable.usertest);
-            }
-        });
+        //StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
+        //        commentUid + "/profilePic.png");
+//
+        //profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        //    @Override
+        //    public void onSuccess(Uri uri) {
+        //        Log.i("glide", "success");
+        //        Glide.with(getContext()).load(uri).crossFade().into(mUserProfilePic);
+        //    }
+        //}).addOnFailureListener(new OnFailureListener() {
+        //    @Override
+        //    public void onFailure(@NonNull Exception e) {
+        //        Log.i("glide", "failure");
+        //        mUserProfilePic.setImageResource(R.drawable.usertest);
+        //    }
+        //});
     }
 
     public Context getContext() {
