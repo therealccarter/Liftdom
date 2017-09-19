@@ -28,8 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-                  android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+                android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                android:theme="@style/Base.Theme.AppCompat"/>
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
                 android:label=""
@@ -154,7 +155,11 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/Theme.Intro">
         </activity>
-        <activity android:name="com.liftdom.charts_stats_tools.exercise_selector.CustomExCreatorDialog"
+        <activity
+                android:name="com.liftdom.charts_stats_tools.exercise_selector.CustomExCreatorDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".WorkoutPostSingleActivity"
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>

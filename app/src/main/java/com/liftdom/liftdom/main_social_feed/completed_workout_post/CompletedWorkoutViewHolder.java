@@ -2,6 +2,7 @@ package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +24,7 @@ import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.WorkoutPostSingleActivity;
 import com.liftdom.liftdom.main_social_feed.comment_post.CommentsHolderFrag;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
@@ -71,6 +73,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private final Button mGoToAllCommentsButton;
     private int mCommentCount;
     private Query recentMessages;
+    private boolean isFullComments;
+    private final LinearLayout mAllCommentsLL;
     //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -89,6 +93,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mBonusView = (TextView) itemView.findViewById(R.id.bonusView);
         mGoToAllCommentsButton = (Button) itemView.findViewById(R.id.goToAllCommentsButton);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
+        mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -158,10 +163,19 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mGoToAllCommentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // gonna go with just "view all" and open up a chat style thing. Make sure back press goes back
-                // correctly
+                Intent intent = new Intent(mActivity, WorkoutPostSingleActivity.class);
+                intent.putExtra("refKey", mRefKey);
+                mActivity.startActivity(intent);
             }
         });
+    }
+
+    public boolean getIsFullComments() {
+        return isFullComments;
+    }
+
+    public void setIsFullComments(boolean fullComments) {
+        isFullComments = fullComments;
     }
 
     public int getCommentCount() {
@@ -275,15 +289,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
 
-        recentMessages = mFeedRef.limitToLast(3);
+        recentMessages = mFeedRef.limitToLast(2);
 
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getChildrenCount() > 3){
-                    mGoToAllCommentsButton.setVisibility(View.VISIBLE);
+                if(dataSnapshot.getChildrenCount() > 2){
+                    mAllCommentsLL.setVisibility(View.VISIBLE);
                 }else{
-                    mGoToAllCommentsButton.setVisibility(View.GONE);
+                    mAllCommentsLL.setVisibility(View.GONE);
                 }
                 //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
@@ -306,6 +320,46 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     mCommentRecyclerView.setHasFixedSize(false);
                     mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
                     mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+                //}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void setFullCommentRecycler(String refKey){
+        mAllCommentsLL.setVisibility(View.GONE);
+        mCommentEditText.setTextColor(Color.parseColor("#000000"));
+        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                (getCurrentUid()).child(refKey).child("commentMap");
+
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //if(dataSnapshot.exists()){
+                mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
+                        (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+                    @Override
+                    protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
+                        viewHolder.setComment(model.getCommentText());
+                        viewHolder.setDateString(model.getDateString());
+                        viewHolder.setRepNumber(model.getRepNumber());
+                        viewHolder.setRefKey(model.getRefKey());
+                        viewHolder.setUsername(model.getUserName());
+                        viewHolder.setParentUid(xUid);
+                        viewHolder.setParentRefKey(getRefKey());
+                        viewHolder.setCommentUid(model.getUserId());
+                        viewHolder.setContext(mActivity);
+                        viewHolder.setActivity(mActivity);
+                    }
+                };
+
+                mCommentRecyclerView.setHasFixedSize(false);
+                mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+                mCommentRecyclerView.setAdapter(mFirebaseAdapter);
                 //}
             }
 
@@ -360,7 +414,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setPublicDescription(String publicDescription){
-        mPublicDescriptionView.setText(publicDescription);
+        if(publicDescription == null || publicDescription.equals("")){
+            mPublicDescriptionView.setVisibility(View.GONE);
+        }else{
+            mPublicDescriptionView.setVisibility(View.VISIBLE);
+            mPublicDescriptionView.setText(publicDescription);
+        }
+
     }
 
     public void setTimeStamp(String timeStamp){

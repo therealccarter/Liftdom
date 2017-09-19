@@ -26,12 +26,22 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
     DatabaseReference mRootRef;
     FragmentActivity mActivity;
     boolean isOriginallyImperial;
+    boolean mIsFullComments;
 
     public CompleteWorkoutRecyclerAdapter(List<CompletedWorkoutModelClass> list, Context context, FragmentActivity activity){
         this.mCompletedWorkoutList = list;
         this.mContext = context;
         this.mRootRef = FirebaseDatabase.getInstance().getReference();
         this.mActivity = activity;
+    }
+
+    public CompleteWorkoutRecyclerAdapter(List<CompletedWorkoutModelClass> list, Context context, FragmentActivity
+            activity, boolean isFullComments){
+        this.mCompletedWorkoutList = list;
+        this.mContext = context;
+        this.mRootRef = FirebaseDatabase.getInstance().getReference();
+        this.mActivity = activity;
+        this.mIsFullComments = isFullComments;
     }
 
     @Override
@@ -63,7 +73,11 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
                 mCompletedWorkoutList.get(position).isIsImperial());
         viewHolder.setActivity(mActivity);
         viewHolder.setRefKey(mCompletedWorkoutList.get(position).getRef());
-        viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());
+        if(mIsFullComments){
+            viewHolder.setFullCommentRecycler(mCompletedWorkoutList.get(position).getRef());
+        }else{
+            viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());
+        }
         if(mCompletedWorkoutList.get(position).getBonusList() != null){
             if(!mCompletedWorkoutList.get(position).getBonusList().isEmpty()){
                 viewHolder.setBonusView(mCompletedWorkoutList.get(position).getBonusList());

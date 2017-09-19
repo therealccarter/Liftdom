@@ -158,22 +158,45 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-
-        />
-
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:id="@+id/goToAllCommentsButton"
-                android:text="@string/viewAllComments"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:background="@color/transparent"
-                android:textAllCaps="false"
-                android:gravity="start"
                 android:visibility="gone"
-                android:paddingStart="5dp"
         />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@color/backgroundgrey2"
+                android:id="@+id/allCommentsLinearLayout"
+        >
+            <View
+                    android:layout_width="7dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundgrey1"
+            />
+
+            <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/goToAllCommentsButton"
+                    android:text="@string/viewAllComments"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:background="@color/offerWhite"
+                    android:textAllCaps="false"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/midGrey"
+            />
+
+            <View
+                    android:layout_width="7dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundgrey1"
+            />
+
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
