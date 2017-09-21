@@ -69,7 +69,7 @@ public class MainFeedFrag extends Fragment{
     }
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // null if signed out
 
 
     private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed")

@@ -73,10 +73,19 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 repsEditText.setText(tokens[0]);
                 repsEditText.setEnabled(true);
             }
-            weightEditText.setText(tokens[1]);
-            if(isExerciseName(tokens[1])){
+
+            if(tokens[1].equals("B.W.")){
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter(4);
+                weightEditText.setFilters(filterArray);
                 unitView.setVisibility(View.GONE);
+                weightEditText.setText(tokens[1]);
+                repsEditText.setEnabled(false);
+            }else{
+                weightEditText.setText(tokens[1]);
+                repsEditText.setEnabled(true);
             }
+
             if(tokens[2].equals("checked")){
                 checkBox.setChecked(true);
                 holderView.setBackgroundColor(Color.parseColor("#cccccc"));
@@ -97,9 +106,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 repsEditText.setEnabled(true);
             }
 
-            weightEditText.setText(tokens[1]);
-            if(isExerciseName(tokens[1])){
+            if(tokens[1].equals("B.W.")){
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter(4);
+                weightEditText.setFilters(filterArray);
                 unitView.setVisibility(View.GONE);
+                weightEditText.setText(tokens[1]);
+                repsEditText.setEnabled(false);
+            }else{
+                weightEditText.setText(tokens[1]);
+                repsEditText.setEnabled(true);
             }
         }
 
@@ -167,11 +183,17 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 if(data.getStringExtra("MESSAGE1") != null) {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
                         unitView.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
                     } else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
+                            InputFilter[] filterArray = new InputFilter[1];
+                            filterArray[0] = new InputFilter.LengthFilter(3);
+                            weightEditText.setFilters(filterArray);
                             weightEditText.setText("");
                             weightEditText.setEnabled(true);
                             weightEditText.setHint("W");
