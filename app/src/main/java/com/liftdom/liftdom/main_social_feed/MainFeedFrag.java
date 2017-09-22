@@ -2,6 +2,7 @@ package com.liftdom.liftdom.main_social_feed;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.FirstTimeModelClass;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompleteWorkoutRecyclerAdapter;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -69,11 +71,10 @@ public class MainFeedFrag extends Fragment{
     }
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // null if signed out
+    String uid; // null if signed out
 
 
-    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed")
-            .child(uid);
+    private DatabaseReference mFeedRef;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private LinearLayoutManager linearLayoutManager;
     private CompleteWorkoutRecyclerAdapter adapter;
@@ -97,6 +98,16 @@ public class MainFeedFrag extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity_feed, container, false);
 
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        }else{
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed")
+                    .child(uid);
+
+            feedRefListener();
+        }
+
         navChanger(0);
 
         //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
@@ -107,7 +118,7 @@ public class MainFeedFrag extends Fragment{
 
         headerChanger("Home");
 
-        feedRefListener();
+
 
         networkFailedButton.setOnClickListener(new View.OnClickListener() {
             @Override

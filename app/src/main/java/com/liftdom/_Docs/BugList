@@ -21,7 +21,6 @@ appodeal integration
 ============ BUG/TO-DO LIST =====================================================
 
 
-
 ==== easier ==========
 ============
 ==== harder ==========
@@ -32,6 +31,7 @@ glide caching
 =====================================================
 
 ============ UNREPLICABLE/UNDECIDED =============================================
+not connecting to the internet
 today's workout shouldn't be exempt from workout history - delete first time prog
 somehow check for crazy bottom nav selection
 on back press (on start? of implements base activity) reload profile pic?

@@ -426,8 +426,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar.LENGTH_SHORT);
-                                snackbar.show();
+                                //Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar
+                                // .LENGTH_SHORT);
+                                //snackbar.show();
                             }
                         });
                     }
