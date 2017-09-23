@@ -18,6 +18,7 @@ import android.view.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -100,7 +101,8 @@ public class MainActivity extends BaseActivity implements
 
         ButterKnife.bind(this);
 
-
+        String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
