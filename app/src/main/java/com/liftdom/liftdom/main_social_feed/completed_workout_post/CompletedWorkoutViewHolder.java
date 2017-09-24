@@ -421,7 +421,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             mPublicDescriptionView.setVisibility(View.VISIBLE);
             mPublicDescriptionView.setText(publicDescription);
         }
-
     }
 
     public void setTimeStamp(String timeStamp){

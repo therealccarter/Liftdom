@@ -17,7 +17,7 @@
                 android:id="@+id/exNameTextView"
                 android:layout_marginStart="5dp"
                 android:text="Bench Press"
-                android:textSize="17sp"
+                android:textSize="19sp"
                 android:textColor="@color/white"
         />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/setSchemeTextView"
                 android:layout_marginStart="15dp"
                 android:text="5x5@"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
         />
 
@@ -65,7 +65,7 @@
                 android:id="@+id/exNameTextViewSS"
                 android:layout_marginStart="5dp"
                 android:text="Bench Press"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:textColor="@color/white"
         />
     </LinearLayout>
@@ -85,7 +85,7 @@
                 android:id="@+id/setSchemeTextViewSS"
                 android:layout_marginStart="15dp"
                 android:text="3x10@135lbs"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textColor="@color/black"
         />
 

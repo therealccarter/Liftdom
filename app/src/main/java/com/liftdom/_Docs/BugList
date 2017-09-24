@@ -12,33 +12,35 @@ profile pic loading on setting saved did not finish
 calendar - future workout dates (greys) are wrong?
 collapse comments/view all (changed to view all)
 take out picture from comments on feed
+appodeal integration / first ad
+fix up feed to look more like Insta. Note how smooth it is...
 ====================================================
 
 ============ Currently Working On ===============================================
-appodeal integration
+fix up dialog window views
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 
 ==== easier ==========
+layout polish everywhere
 ============
 ==== harder ==========
-user profile rehaul (followers following)
-fix up dialog window views
-glide caching
+bottom nav badges
+change feed from recycler to "all at once" loading
+glide caching (experiment in chat)
 ============
 =====================================================
 
 ============ UNREPLICABLE/UNDECIDED =============================================
-not connecting to the internet
 today's workout shouldn't be exempt from workout history - delete first time prog
 somehow check for crazy bottom nav selection
 on back press (on start? of implements base activity) reload profile pic?
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
-fix up feed to look more like Insta. Note how smooth it is...
+user profile rehaul (followers following)
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font

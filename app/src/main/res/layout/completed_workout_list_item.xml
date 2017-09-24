@@ -31,7 +31,7 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:orientation="horizontal"
                     android:background="@color/offerWhite"
                     android:id="@+id/postInfoHolder"
@@ -43,13 +43,14 @@
                 />
 
                 <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:src="@drawable/usertest"
                         android:layout_margin="15dp"
                         android:id="@+id/profilePic"
                         android:layout_weight="0"
                         android:scaleType="centerCrop"
+                        android:layout_gravity="center"
                 />
 
                 <LinearLayout
@@ -67,7 +68,7 @@
                             android:id="@+id/userName"
                             android:text="Username"
                             android:textColor="@color/black"
-                            android:textSize="22sp"
+                            android:textSize="17sp"
                             android:textAllCaps="false"
                             android:background="@color/transparent"
                             android:gravity="start"
@@ -211,6 +212,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="@color/black"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:elevation="2dp"
         />
 
@@ -249,6 +252,7 @@
             <ImageButton
                     android:layout_width="23dp"
                     android:layout_height="23dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@drawable/right_chevron_gold"
                     android:scaleType="centerCrop"
                     android:background="@color/transparent"
