@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/renameTemplate"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:background="@color/liftrGold1"

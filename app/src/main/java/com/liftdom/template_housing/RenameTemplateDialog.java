@@ -23,7 +23,7 @@ import org.joda.time.DateTimeZone;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenameTemplateDialog extends Activity {
+public class RenameTemplateDialog extends AppCompatActivity {
 
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();

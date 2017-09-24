@@ -14,10 +14,11 @@ collapse comments/view all (changed to view all)
 take out picture from comments on feed
 appodeal integration / first ad
 fix up feed to look more like Insta. Note how smooth it is...
+fix up dialog window views
 ====================================================
 
 ============ Currently Working On ===============================================
-fix up dialog window views
+change feed from recycler to "all at once" loading/not loading newest one for some reason
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -28,7 +29,6 @@ layout polish everywhere
 ============
 ==== harder ==========
 bottom nav badges
-change feed from recycler to "all at once" loading
 glide caching (experiment in chat)
 ============
 =====================================================
