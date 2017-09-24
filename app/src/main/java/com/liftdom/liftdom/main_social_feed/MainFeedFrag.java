@@ -115,10 +115,7 @@ public class MainFeedFrag extends Fragment{
 
         ButterKnife.bind(this, view);
 
-
         headerChanger("Home");
-
-
 
         networkFailedButton.setOnClickListener(new View.OnClickListener() {
             @Override
