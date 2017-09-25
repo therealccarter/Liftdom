@@ -6,7 +6,7 @@
               android:orientation="vertical"
               android:background="@color/backgroundgrey2"
               android:layout_marginBottom="55dp"
-              tools:context="com.liftdom.liftdom.main_social_feed.MainFeedFrag">
+              tools:context="com.liftdom.liftdom.main_social_feed.MainFeedFrag1">
 
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
