@@ -4,91 +4,103 @@
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context="com.liftdom.workout_assistor.RestDayFrag"
               android:orientation="vertical"
-              android:layout_marginTop="20dp"
+              android:layout_marginTop="10dp"
+              android:paddingBottom="100dp"
 >
 
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/healUpString"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:layout_marginBottom="30dp"
-            android:layout_margin="20dp"
-            android:gravity="center"
-    />
-
-
-
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
     >
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/privateJournal"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:background="@color/black"
-        />
+                android:orientation="vertical"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/healUpString"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+            />
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/privateJournal"
-                android:background="@color/offWhite"
-                android:hint="@string/privateJournalHint"
-                android:padding="5dp"
-                android:maxLength="600"
-        />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/privateJournal"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:background="@color/black"
+                />
 
-    </LinearLayout>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/privateJournal"
+                        android:background="@color/offWhite"
+                        android:hint="@string/privateJournalHint"
+                        android:padding="5dp"
+                        android:maxLength="600"
+                />
 
-    <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            app:cardElevation="7dp"
-    >
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/restDayComplete"
-                android:background="@color/confirmgreen"
-                android:layout_gravity="bottom"
-                android:text="@string/completeRestDay"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-        />
-    </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@color/liftrGold1"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-    />
+            <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="7dp"
+            >
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/restDayComplete"
+                        android:background="@color/confirmgreen"
+                        android:layout_gravity="bottom"
+                        android:text="@string/completeRestDay"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                />
+            </android.support.v7.widget.CardView>
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/viewStretchingAndAdvice"
-            android:background="@color/black"
-            android:textSize="18sp"
-            android:padding="10dp"
-            android:id="@+id/restAdviceButton"
-            android:layout_margin="20dp"
-            android:textColor="@color/liftrGold2"
-    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/liftrGold1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewStretchingAndAdvice"
+                    android:background="@color/black"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:id="@+id/restAdviceButton"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/liftrGold2"
+            />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

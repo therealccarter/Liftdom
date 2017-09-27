@@ -66,7 +66,7 @@ UPCOMING FEATURES TO DO:
     * Ice Cream Fitness
     * PHAT
 **DONE**  save instance of workout assistor (if same day, and if workout hasn't already been finished)
-* Work on validator - no exercises added, name taken, etc etc
+**DONE** Work on validator - no exercises added, name taken, etc etc
 * Clear current BugList
 
 *v0.6* - Begin Social features!
@@ -91,7 +91,7 @@ UPCOMING FEATURES TO DO:
 
 *v0.8*
 **DONE** Add real-time commenting to posts.
-* Fix up the chat
+**DONE** Fix up the chat
 
 *v0.9*
 **DONE** Re-do user node/object
@@ -99,15 +99,15 @@ UPCOMING FEATURES TO DO:
 
 *v1.0*
 **DONE** Create first-time user tutorial/profile setup
-* For first time, have user complete a "workout" (save button -> "complete first day of liftdom!") with level
+**DONE** For first time, have user complete a "workout" (save button -> "complete first day of liftdom!") with level
     up increase, establishing the hook.
-* Polish everything, beautify, make the app look sleek and pro
+**DONE** Polish everything, beautify, make the app look sleek and pro
 * Fix all current bugs
 * Release.
 
 ***TBD***
 *v1.1 - v1.9*
-* Custom exercises
+**DONE** Custom exercises
 * Add rep button to posts
 * Look for other lifters at various gyms (mark on Google Maps maybe?)
 * DM workout invite
