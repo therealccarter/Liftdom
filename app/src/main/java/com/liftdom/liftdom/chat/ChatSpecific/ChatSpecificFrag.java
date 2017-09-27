@@ -75,8 +75,6 @@ public class ChatSpecificFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-
-
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setVisibility(View.GONE);
 

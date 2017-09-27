@@ -265,6 +265,7 @@ public class MainFeedFrag extends Fragment{
                                 if(loadingView != null){
                                     loadingView.setVisibility(View.GONE);
                                     mRecyclerView.setHasFixedSize(false);
+                                    mRecyclerView.setItemViewCacheSize(10);
                                     linearLayoutManager = new LinearLayoutManager(getActivity());
                                     linearLayoutManager.setReverseLayout(true);
                                     linearLayoutManager.setStackFromEnd(true);

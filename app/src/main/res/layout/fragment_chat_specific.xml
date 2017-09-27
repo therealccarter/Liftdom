@@ -19,8 +19,6 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <!-- TODO: fix this layout problem. Need to get the LL to stay sticky on the bottom -->
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
