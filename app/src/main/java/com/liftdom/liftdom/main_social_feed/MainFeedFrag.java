@@ -43,10 +43,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFeedFrag1 extends Fragment{
+public class MainFeedFrag extends Fragment{
 
 
-    public MainFeedFrag1() {
+    public MainFeedFrag() {
         // Required empty public constructor
     }
 
