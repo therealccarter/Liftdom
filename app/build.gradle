@@ -66,6 +66,8 @@ dependencies {
     //compile 'id.zelory:compressor:2.0.0'
     //annotationProcessor 'com.github.bumptech.glide:compiler:3.8.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile project(':adcolony-sdk-3.1.2')
+    //for Inmobi
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
@@ -107,8 +109,7 @@ dependencies {
     compile 'com.github.faruktoptas:FancyShowCaseView:0.1.1'
     compile 'com.google.android.gms:play-services-ads:10.2.1'
     compile 'com.google.android.gms:play-services-location:10.2.1'
-    compile project(':adcolony-sdk-3.1.2')
-    compile 'com.squareup.picasso:picasso:2.5.2' //for Inmobi
+    compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
