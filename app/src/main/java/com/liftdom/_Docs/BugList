@@ -16,20 +16,21 @@ appodeal integration / first ad
 fix up feed to look more like Insta. Note how smooth it is...
 fix up dialog window views
 change feed from recycler to "all at once" loading/not loading newest one for some reason
-====================================================
-
-============ Currently Working On ===============================================
 layout polish everywhere
  - fix chat send box
  - fix chat message alignment with profile pics
+====================================================
+
+============ Currently Working On ===============================================
+bottom nav badges
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
-bottom nav badges
 glide caching (experiment in chat)
 add ad to main social feed
 add feedback activity
+make main social feed toolbar disappear
 
 ==== easier ==========
 ============

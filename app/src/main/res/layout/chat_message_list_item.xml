@@ -23,6 +23,7 @@
                 android:id="@+id/profilePic"
                 android:layout_gravity="top"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
                 android:background="@color/transparent"
         />
 

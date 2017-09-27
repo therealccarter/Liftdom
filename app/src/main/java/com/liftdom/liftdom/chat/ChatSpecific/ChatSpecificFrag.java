@@ -115,11 +115,12 @@ public class ChatSpecificFrag extends Fragment {
 
     private void setUpFirebaseAdapter(DatabaseReference databaseReference){
 
-        mRecyclerView.setHasFixedSize(false);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         //linearLayoutManager.setStackFromEnd(true);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setItemViewCacheSize(15);
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageModelClass, ChatMessageViewHolder>
                 (ChatMessageModelClass.class, R.layout.chat_message_list_item, ChatMessageViewHolder.class, databaseReference) {
