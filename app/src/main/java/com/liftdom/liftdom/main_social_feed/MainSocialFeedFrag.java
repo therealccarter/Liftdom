@@ -21,6 +21,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +58,7 @@ public class MainSocialFeedFrag extends Fragment {
     private FirebaseRecyclerAdapter firebaseAdapter;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +99,9 @@ public class MainSocialFeedFrag extends Fragment {
             @Override
             protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
                                               CompletedWorkoutModelClass model, int position) {
+                if(loadingView.getVisibility() == View.VISIBLE){
+                    loadingView.setVisibility(View.GONE);
+                }
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setActivity(getActivity());
