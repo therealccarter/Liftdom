@@ -369,7 +369,7 @@ public class MainActivity extends BaseActivity implements
     private void checkForBadges(){
         // first we'll check for uncompleted workout
         String today = LocalDate.now().toString();
-        DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference().child("workout_history").child(today);
+        DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(today);
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

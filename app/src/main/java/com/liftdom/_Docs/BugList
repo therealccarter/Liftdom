@@ -12,11 +12,16 @@ add followers view in profile
 
 ============ BUG/TO-DO LIST =====================================================
 
+=======STEPS TO PRODUCTION=======
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
-glide caching (experiment in chat)
+change workout_history to workoutHistory
+assistor crash (invalid int "6 ")
+assistor wrong input limits
+================================
 
+glide caching (experiment in chat)
 chat unread stuff (including badge)
 specific user feeds
 

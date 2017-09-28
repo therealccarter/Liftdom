@@ -116,7 +116,7 @@ public class WorkoutAssistorFrag extends Fragment{
 
         if(savedInstanceState == null){
 
-            DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid);
+            DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid);
             workoutHistoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

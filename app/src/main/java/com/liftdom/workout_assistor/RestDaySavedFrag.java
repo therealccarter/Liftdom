@@ -137,7 +137,7 @@ public class RestDaySavedFrag extends Fragment {
                             isImperial = true;
                         }
                         DatabaseReference workoutHistoryRef = FirebaseDatabase.getInstance().getReference().child
-                                ("workout_history").child(uid).child(date);
+                                ("workoutHistory").child(uid).child(date);
                         WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                                 userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, null,
                                 isImperial);

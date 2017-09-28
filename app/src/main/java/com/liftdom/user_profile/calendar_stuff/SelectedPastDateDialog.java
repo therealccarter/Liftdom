@@ -57,7 +57,7 @@ public class SelectedPastDateDialog extends AppCompatActivity {
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
         selectedDateView.setTypeface(lobster);
 
-        DatabaseReference historyRef = mRootRef.child("workout_history").child(uid).child(formattedDate);
+        DatabaseReference historyRef = mRootRef.child("workoutHistory").child(uid).child(formattedDate);
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

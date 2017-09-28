@@ -122,7 +122,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                 .setMaximumDate(maxDate.toDate())
                 .commit();
 
-        DatabaseReference historyRef = mRootRef.child("workout_history").child(uid);
+        DatabaseReference historyRef = mRootRef.child("workoutHistory").child(uid);
 
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

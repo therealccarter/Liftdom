@@ -34,7 +34,7 @@ public class SpecificExerciseChartClass {
     int innerInc;
 
     private void setSpecificExerciseValueList(final String exName, final StatChartsFrag statChartsFrag){
-        DatabaseReference historyRef = mRootRef.child("workout_history").child(uid);
+        DatabaseReference historyRef = mRootRef.child("workoutHistory").child(uid);
 
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

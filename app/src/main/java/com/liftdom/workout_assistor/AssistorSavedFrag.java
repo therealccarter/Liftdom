@@ -268,9 +268,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
         }
 
         DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
-        final DatabaseReference workoutHistoryRef = mRootRef.child("workout_history").child(uid).child(LocalDate.now()
+        final DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid).child(LocalDate.now()
                 .toString());
-        final DatabaseReference completedExercisesRef = mRootRef.child("completed_exercises").child(uid);
+        final DatabaseReference completedExercisesRef = mRootRef.child("completedExercises").child(uid);
         final DatabaseReference userRef = mRootRef.child("user").child(uid);
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
