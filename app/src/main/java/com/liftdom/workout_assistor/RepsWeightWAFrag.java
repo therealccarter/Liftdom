@@ -101,6 +101,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 repsEditText.setFilters(filterArray);
                 repsEditText.setText("T.F.");
                 repsEditText.setEnabled(false);
+            }else if(tokens[0].equals(" ")){
+                repsEditText.setText("");
+                repsEditText.setEnabled(true);
             }else{
                 repsEditText.setText(tokens[0]);
                 repsEditText.setEnabled(true);
@@ -112,10 +115,14 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 weightEditText.setFilters(filterArray);
                 unitView.setVisibility(View.GONE);
                 weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(false);
-            }else{
+                weightEditText.setEnabled(false);
+            }else if(tokens[1].equals(" ")){
+                weightEditText.setText("");
+                weightEditText.setEnabled(true);
+            }
+            else{
                 weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(true);
+                weightEditText.setEnabled(true);
             }
         }
 
