@@ -97,6 +97,7 @@
                     android:id="@+id/restAdviceButton"
                     android:layout_margin="20dp"
                     android:textColor="@color/liftrGold2"
+                    android:visibility="gone"
             />
 
         </LinearLayout>

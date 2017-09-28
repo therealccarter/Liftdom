@@ -3,22 +3,21 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-
+bottom nav badge
 ====================================================
 
 ============ Currently Working On ===============================================
-bottom nav badges
+add followers view in profile
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
-add followers view in profile
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
 glide caching (experiment in chat)
 
-chat unread stuff
+chat unread stuff (including badge)
 specific user feeds
 
 ==== easier ==========
