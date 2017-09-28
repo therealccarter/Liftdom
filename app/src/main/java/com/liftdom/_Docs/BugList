@@ -3,22 +3,7 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-commenting causing separate post
-"back to programs" (template saved) goes back home
-"Brodin's first post" ugly af
-add limit to characters in template naming ET
-add a "finished or go off and make gains!" for end of from scratch
-profile pic loading on setting saved did not finish
-calendar - future workout dates (greys) are wrong?
-collapse comments/view all (changed to view all)
-take out picture from comments on feed
-appodeal integration / first ad
-fix up feed to look more like Insta. Note how smooth it is...
-fix up dialog window views
-change feed from recycler to "all at once" loading/not loading newest one for some reason
-layout polish everywhere
- - fix chat send box
- - fix chat message alignment with profile pics
+
 ====================================================
 
 ============ Currently Working On ===============================================
@@ -27,10 +12,14 @@ bottom nav badges
 
 ============ BUG/TO-DO LIST =====================================================
 
-glide caching (experiment in chat)
+add followers view in profile
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
+glide caching (experiment in chat)
+
+chat unread stuff
+specific user feeds
 
 ==== easier ==========
 ============
@@ -49,5 +38,4 @@ user profile rehaul (followers following)
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
-bottom nav badges
 =====================================================

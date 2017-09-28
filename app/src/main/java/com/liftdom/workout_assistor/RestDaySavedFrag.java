@@ -81,6 +81,9 @@ public class RestDaySavedFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.hideBadge(3);
+
         // get usermodel class
 
         finishedTextView.setText("REST DAY COMPLETED");

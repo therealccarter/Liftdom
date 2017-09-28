@@ -107,6 +107,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         finishedTextView.setText("WORKOUT COMPLETED");
 
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.hideBadge(3);
+
         //powerLevelXpView1.setText("0");
 
         totalXpGainedLL.setAlpha(0);

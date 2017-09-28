@@ -32,6 +32,7 @@ import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.search.material.library.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,6 +152,7 @@ public class MainActivity extends BaseActivity implements
                             }
                         }
                     }
+                    checkForBadges();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -364,6 +366,33 @@ public class MainActivity extends BaseActivity implements
 
     }
 
+    private void checkForBadges(){
+        // first we'll check for uncompleted workout
+        String today = LocalDate.now().toString();
+        DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference().child("workout_history").child(today);
+        historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    bottomNavigation.getBadgeProvider().show(R.id.bbn_item3);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void hideBadge(int i){
+        if(i == 3){
+            if(bottomNavigation.getBadgeProvider().hasBadge(R.id.bbn_item3)){
+                bottomNavigation.getBadgeProvider().remove(R.id.bbn_item3);
+            }
+        }
+    }
 
     private void setUpTypeAheadData(){
         // set typeAheadData

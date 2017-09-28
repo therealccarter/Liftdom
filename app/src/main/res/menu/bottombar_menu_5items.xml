@@ -7,22 +7,26 @@
       app:bbn_itemColorDisabled="#33ffffff"
       app:bbn_itemColorInactive="#99ffffff"
       app:bbn_rippleColor="@color/transparent"
+      app:bbn_badgeColor="@color/liftrGold1"
 >
     <item
             android:id="@+id/bbn_item1"
             android:icon="@drawable/ic_view_list_black_24dp"
             android:title="@string/activityFeed"
     />
+
     <item
             android:id="@+id/bbn_item2"
             android:icon="@drawable/ic_templating_black_24dp"
             android:title="@string/templating"
     />
+
     <item
             android:id="@+id/bbn_item3"
             android:icon="@drawable/right_chevron_gold"
             android:title="@string/TodaysWorkout"
     />
+
     <item
             android:id="@+id/bbn_item4"
             android:icon="@drawable/ic_forum_black_24dp"
@@ -34,4 +38,5 @@
             android:icon="@drawable/ic_message_black_24dp"
             android:title="@string/chat"
     />
+
 </menu>

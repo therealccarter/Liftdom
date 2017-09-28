@@ -42,6 +42,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import it.sephiroth.android.library.bottomnavigation.BadgeProvider;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 public class BaseActivity extends AppCompatActivity {
@@ -203,13 +204,11 @@ public class BaseActivity extends AppCompatActivity {
         return drawer;
     }
 
-
     public void setNavDrawerSelection(int i){
         if(drawer != null){
             drawer.setSelection(i, false);
         }
     }
-
 
     public ViewPager getViewPager() {
         if(mViewPager == null){
