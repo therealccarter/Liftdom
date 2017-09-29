@@ -32,6 +32,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,7 +195,8 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
-        saveHolder.setOnClickListener(new View.OnClickListener() {
+        saveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
 
                 if(exNameFragList.isEmpty()){
@@ -223,66 +225,192 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                    builder.setTitle("Finish?");
 
-                    builder.setMessage("Do you want to complete this workout?")
-                            .setCancelable(false)
-                            .setPositiveButton("Finish", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                    //builder.setTitle("Finish?");
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialog_custom_1, null);
+                    builder.setView(dialogView);
+                    builder.setCancelable(false);
 
+                    // create alert dialog
+                    final AlertDialog alertDialog = builder.create();
 
+                    TextView titleView = (TextView) dialogView.findViewById(R.id.titleView);
+                    titleView.setText(R.string.finishWorkoutQuestion);
 
-                                    String day = LocalDate.now().toString("dd");
+                    Button positiveButton = (Button) dialogView.findViewById(R.id.positiveView);
+                    positiveButton.setText(R.string.finish);
 
-                                    double dayDouble = Double.parseDouble(day);
+                    Button negativeButton = (Button) dialogView.findViewById(R.id.negativeView);
+                    negativeButton.setText(R.string.cancel);
 
-                                    // possibly have rando number generate
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String day = LocalDate.now().toString("dd");
 
-                                    if((double) 3 % (double) 3 == 0.0){
-                                        finishWorkoutFromAd();
+                            double dayDouble = Double.parseDouble(day);
 
-                                        Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
-                                        Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
-                                            @Override
-                                            public void onInterstitialLoaded(boolean b) {
-                                                Log.i("appodeal", "loaded");
-                                            }
+                            // possibly have rando number generate
 
-                                            @Override
-                                            public void onInterstitialFailedToLoad() {
-                                                Log.i("appodeal", "failed");
-                                            }
+                            if(dayDouble % (double) 3 == 0.0){
+                                finishWorkout();
+                            }else{
+                                finishWorkoutFromAd();
 
-                                            @Override
-                                            public void onInterstitialShown() {
-                                                Log.i("appodeal", "shown");
-                                            }
-
-                                            @Override
-                                            public void onInterstitialClicked() {
-                                                Log.i("appodeal", "clicked");
-                                            }
-
-                                            @Override
-                                            public void onInterstitialClosed() {
-                                                Log.i("appodeal", "closed");
-                                            }
-                                        });
-                                    }else{
-                                        finishWorkout();
+                                Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                                Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                                    @Override
+                                    public void onInterstitialLoaded(boolean b) {
+                                        Log.i("appodeal", "loaded");
                                     }
-                                }
-                            })
-                            .setNegativeButton("Stay", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
+
+                                    @Override
+                                    public void onInterstitialFailedToLoad() {
+                                        Log.i("appodeal", "failed");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialShown() {
+                                        Log.i("appodeal", "shown");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialClicked() {
+                                        Log.i("appodeal", "clicked");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialClosed() {
+                                        Log.i("appodeal", "closed");
+                                    }
+                                });
+                            }
+
+                            alertDialog.dismiss();
+
+                        }
+                    });
+
+                    negativeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    // show it
+                    alertDialog.show();
+
+                    //Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                    //intent.putExtra("isRestDay", "no");
+                    //startActivityForResult(intent, 1);
+                }
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                if(exNameFragList.isEmpty()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    // set title
+                    builder.setTitle("Error");
+
+                    // set dialog message
+                    builder.setMessage("At least one exercise must be present to complete workout")
+                            .setCancelable(false)
+                            .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+
+                                    dialog.dismiss();
+
                                 }
                             });
 
                     // create alert dialog
                     AlertDialog alertDialog = builder.create();
+
+                    // show it
+                    alertDialog.show();
+                }else{
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+
+                    //builder.setTitle("Finish?");
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialog_custom_1, null);
+                    builder.setView(dialogView);
+                    builder.setCancelable(false);
+
+                    // create alert dialog
+                    final AlertDialog alertDialog = builder.create();
+
+                    TextView titleView = (TextView) dialogView.findViewById(R.id.titleView);
+                    titleView.setText(R.string.finishWorkoutQuestion);
+
+                    Button positiveButton = (Button) dialogView.findViewById(R.id.positiveView);
+                    positiveButton.setText(R.string.finish);
+
+                    Button negativeButton = (Button) dialogView.findViewById(R.id.negativeView);
+                    negativeButton.setText(R.string.cancel);
+
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String day = LocalDate.now().toString("dd");
+
+                            double dayDouble = Double.parseDouble(day);
+
+                            // possibly have rando number generate
+
+                            if(dayDouble % (double) 3 == 0.0){
+                                finishWorkout();
+                            }else{
+                                finishWorkoutFromAd();
+
+                                Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                                Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                                    @Override
+                                    public void onInterstitialLoaded(boolean b) {
+                                        Log.i("appodeal", "loaded");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialFailedToLoad() {
+                                        Log.i("appodeal", "failed");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialShown() {
+                                        Log.i("appodeal", "shown");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialClicked() {
+                                        Log.i("appodeal", "clicked");
+                                    }
+
+                                    @Override
+                                    public void onInterstitialClosed() {
+                                        Log.i("appodeal", "closed");
+                                    }
+                                });
+                            }
+
+                             alertDialog.dismiss();
+
+                        }
+                    });
+
+                    negativeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
 
                     // show it
                     alertDialog.show();
