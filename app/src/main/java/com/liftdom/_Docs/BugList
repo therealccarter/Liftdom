@@ -7,6 +7,7 @@ bottom nav badge
 change workout_history to workoutHistory
 assistor crash (invalid int "6 ")
 assistor wrong input limits
+bottom badge not going away
 ====================================================
 
 ============ Currently Working On ===============================================
@@ -16,7 +17,6 @@ add followers view in profile
 ============ BUG/TO-DO LIST =====================================================
 
 =======STEPS TO PRODUCTION=======
-bottom badge not going away
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
@@ -28,6 +28,7 @@ glide caching (experiment in chat)(could help with main feed speed)
 chat unread stuff (including badge)
 specific user feeds
 template user = "loading..." in firebase
+maybe just have one user profile?
 
 
 ==== easier ==========
