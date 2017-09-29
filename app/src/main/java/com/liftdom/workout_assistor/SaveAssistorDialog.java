@@ -60,13 +60,15 @@ public class SaveAssistorDialog extends AppCompatActivity {
                     @Override
                     public void onInterstitialClicked() {
                         Log.i("appodeal", "clicked");
-                        setResultAndFinish();
+                        setResult(1);
+                        finish();
                     }
 
                     @Override
                     public void onInterstitialClosed() {
                         Log.i("appodeal", "closed");
-                        setResultAndFinish();
+                        setResult(1);
+                        finish();
                     }
                 });
 
@@ -75,8 +77,4 @@ public class SaveAssistorDialog extends AppCompatActivity {
 
     }
 
-    private void setResultAndFinish(){
-        setResult(1);
-        finish();
-    }
 }

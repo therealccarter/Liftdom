@@ -14,14 +14,17 @@ add direct chat (will be actually going into this later)
 ====================================================
 
 ============ Currently Working On ===============================================
-it's fucked the first time...seems like if the user dicks around they won't be able to
-    complete a workout that day.
+for the first time, don't write to workout history
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 =======STEPS TO PRODUCTION=======
+assistor saved not working (not going to assistor saved after closing ad)
 add ad to main social feed
+add ad to rest day saved frag
+make template editor have a day added by default
+    (will have to change tutorial...or just add a reminder dialog)
 add feedback activity
 make main social feed toolbar disappear
 remember to re-enable assistor set value stuff

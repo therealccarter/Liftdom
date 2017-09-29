@@ -1,7 +1,6 @@
 package com.liftdom.workout_assistor;
 
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.InterstitialCallbacks;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,7 +67,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     @BindView(R.id.addExerciseButton) Button addExButton;
     @BindView(R.id.saveButton) Button saveButton;
-    @BindView(R.id.saveHolder) LinearLayout saveHolder;
+    @BindView(R.id.saveHolder) CardView saveHolder;
     @BindView(R.id.saveProgressButton) Button saveProgressButton;
     @BindView(R.id.privateJournal) EditText privateJournalView;
     @BindView(R.id.publicComment) EditText publicCommentView;
@@ -194,19 +196,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         saveHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                List<String> exInfo = new ArrayList<>();
-                for(ExNameWAFrag exNameFrag : exNameFragList){
-                    exInfo.addAll(exNameFrag.getExInfo());
-                }
-                AssistorSingleton.getInstance().endList.clear();
-                AssistorSingleton.getInstance().endList.addAll(exInfo);
-                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
-                startActivityForResult(intent, 1);
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
                 if(exNameFragList.isEmpty()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -231,31 +220,81 @@ public class AssistorHolderFrag extends android.app.Fragment
                     // show it
                     alertDialog.show();
                 }else{
-                    List<String> exInfo = new ArrayList<>();
-                    for(ExNameWAFrag exNameFrag : exNameFragList){
-                        exInfo.addAll(exNameFrag.getExInfo());
-                    }
-                    AssistorSingleton.getInstance().endList.clear();
-                    AssistorSingleton.getInstance().endList.addAll(exInfo);
-                    Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
-                    intent.putExtra("isRestDay", "no");
-                    startActivityForResult(intent, 1);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    builder.setTitle("Finish?");
+
+                    builder.setMessage("Do you want to complete this workout?")
+                            .setCancelable(false)
+                            .setPositiveButton("Finish", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+
+
+                                    String day = LocalDate.now().toString("dd");
+
+                                    double dayDouble = Double.parseDouble(day);
+
+                                    // possibly have rando number generate
+
+                                    if((double) 3 % (double) 3 == 0.0){
+                                        finishWorkoutFromAd();
+
+                                        Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                                        Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                                            @Override
+                                            public void onInterstitialLoaded(boolean b) {
+                                                Log.i("appodeal", "loaded");
+                                            }
+
+                                            @Override
+                                            public void onInterstitialFailedToLoad() {
+                                                Log.i("appodeal", "failed");
+                                            }
+
+                                            @Override
+                                            public void onInterstitialShown() {
+                                                Log.i("appodeal", "shown");
+                                            }
+
+                                            @Override
+                                            public void onInterstitialClicked() {
+                                                Log.i("appodeal", "clicked");
+                                            }
+
+                                            @Override
+                                            public void onInterstitialClosed() {
+                                                Log.i("appodeal", "closed");
+                                            }
+                                        });
+                                    }else{
+                                        finishWorkout();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = builder.create();
+
+                    // show it
+                    alertDialog.show();
+
+                    //Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
+                    //intent.putExtra("isRestDay", "no");
+                    //startActivityForResult(intent, 1);
                 }
             }
         });
 
-        saveImage.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                List<String> exInfo = new ArrayList<>();
-                for(ExNameWAFrag exNameFrag : exNameFragList){
-                    exInfo.addAll(exNameFrag.getExInfo());
-                }
-                AssistorSingleton.getInstance().endList.clear();
-                AssistorSingleton.getInstance().endList.addAll(exInfo);
-                Intent intent = new Intent(getActivity(), SaveAssistorDialog.class);
-                startActivityForResult(intent, 1);
-            }
-        });
+
 
         saveProgressButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -297,6 +336,71 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
 
         return view;
+    }
+
+    private void finishWorkout(){
+        List<String> exInfo = new ArrayList<>();
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            exInfo.addAll(exNameFrag.getExInfo());
+        }
+        AssistorSingleton.getInstance().endList.clear();
+        AssistorSingleton.getInstance().endList.addAll(exInfo);
+
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+
+        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+        if(isTutorialFirstTime){
+            assistorSavedFrag.isFirstTimeFirstTime = true;
+        }
+        assistorSavedFrag.templateClass = templateClass;
+        assistorSavedFrag.completedMap = runningMap;
+        assistorSavedFrag.privateJournal = privateJournal;
+        assistorSavedFrag.publicDescription = publicComment;
+        fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
+        fragmentTransaction.commit();
+    }
+
+    private void finishWorkoutFromAd(){
+        List<String> exInfo = new ArrayList<>();
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            exInfo.addAll(exNameFrag.getExInfo());
+        }
+        AssistorSingleton.getInstance().endList.clear();
+        AssistorSingleton.getInstance().endList.addAll(exInfo);
+
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+
+        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
+        if(isTutorialFirstTime){
+            assistorSavedFrag.isFirstTimeFirstTime = true;
+        }
+        assistorSavedFrag.templateClass = templateClass;
+        assistorSavedFrag.completedMap = runningMap;
+        assistorSavedFrag.privateJournal = privateJournal;
+        assistorSavedFrag.publicDescription = publicComment;
+        assistorSavedFrag.isFromAd = true;
+        fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
+        fragmentTransaction.commit();
     }
 
     private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
@@ -399,7 +503,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1){
+        if(requestCode == 1){
             HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
             int inc = 0;
             for(ExNameWAFrag exNameFrag : exNameFragList){

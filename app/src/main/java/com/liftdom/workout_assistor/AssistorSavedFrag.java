@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -93,8 +94,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @BindView(R.id.xpFromWorkoutLL) LinearLayout xpFromWorkoutLL;
     @BindView(R.id.streakMultiplierLL) LinearLayout streakMultiplierLL;
     @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
-    @BindView(R.id.loadingView)
-    AVLoadingIndicatorView loadingView;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
 
     @Override
@@ -409,6 +409,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
     private String currentPowerLevel;
     private String oldPowerLevel;
 
+    public boolean isFromAd;
+
     private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
 
         DatabaseReference userListRef = mRootRef.child("followers").child(uid);
@@ -479,14 +481,24 @@ public class AssistorSavedFrag extends android.app.Fragment {
             xpFromWorkoutView.setText(xpFromWorkout);
             totalXpGainedView.setText("0");
 
-            //userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
-            //    @Override
-            //    public void onSuccess(Void aVoid) {
-            //        loadingView.setVisibility(View.GONE);
-            //        mainLinearLayout.setVisibility(View.VISIBLE);
-            //        fadeInViews();
-            //    }
-            //});
+            userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    loadingView.setVisibility(View.GONE);
+                    mainLinearLayout.setVisibility(View.VISIBLE);
+                    if(isFromAd){
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fadeInViews();
+                            }
+                        }, 7000);
+                    }else{
+                        fadeInViews();
+                    }
+                }
+            });
         }
     }
 

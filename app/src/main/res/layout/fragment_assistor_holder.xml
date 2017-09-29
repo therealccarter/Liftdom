@@ -197,6 +197,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/saveHolder"
             android:layout_marginBottom="90dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
@@ -207,7 +208,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/confirmgreen"
-                android:id="@+id/saveHolder"
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp"
                 android:paddingEnd="5dp"
