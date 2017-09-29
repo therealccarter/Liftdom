@@ -8,21 +8,25 @@ change workout_history to workoutHistory
 assistor crash (invalid int "6 ")
 assistor wrong input limits
 bottom badge not going away
+add followers view in profile
+showed like 5 ads...
+add direct chat (will be actually going into this later)
 ====================================================
 
 ============ Currently Working On ===============================================
-add followers view in profile
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 =======STEPS TO PRODUCTION=======
+it's fucked the first time...seems like if the user dicks around they won't be able to
+    complete a workout that day.
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
-showed like 5 ads...
-it's fucked the first time...seems like if the user dicks around they won't be able to
-    complete a workout that day.
+remember to re-enable assistor set value stuff
+bottom nav text crowding
 ================================
 
 level up bonus view
@@ -30,7 +34,7 @@ glide caching (experiment in chat)(could help with main feed speed)
 chat unread stuff (including badge)
 specific user feeds
 user = "loading..." in firebase (template, follower list, etc)
-maybe just have one user profile?
+maybe just have one user profile? (could really utilize methods/delegating here)
 
 
 ==== easier ==========

@@ -44,13 +44,21 @@ public class ProfileOptionsTabFrag extends Fragment {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(!isOtherUser){
+            // is you
             xUid = uid;
+        }else{
+            // uncomment this to get message view up
+            //messageLayout.setVisibility(View.VISIBLE);
         }
-
 
         //TODO: view followers and following in separate fragment. really need to get that back arrow going..
 
+        messageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
 
         return view;
