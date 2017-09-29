@@ -21,13 +21,15 @@ add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
 showed like 5 ads...
+it's fucked the first time...seems like if the user dicks around they won't be able to
+    complete a workout that day.
 ================================
 
 level up bonus view
 glide caching (experiment in chat)(could help with main feed speed)
 chat unread stuff (including badge)
 specific user feeds
-template user = "loading..." in firebase
+user = "loading..." in firebase (template, follower list, etc)
 maybe just have one user profile?
 
 

@@ -3,10 +3,13 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.InterstitialCallbacks;
 import com.liftdom.liftdom.R;
 
 public class SaveAssistorDialog extends AppCompatActivity {
@@ -36,10 +39,44 @@ public class SaveAssistorDialog extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                setResult(1);
-                finish();
+
+                Appodeal.show(SaveAssistorDialog.this, Appodeal.INTERSTITIAL);
+                Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                    @Override
+                    public void onInterstitialLoaded(boolean b) {
+                        Log.i("appodeal", "loaded");
+                    }
+
+                    @Override
+                    public void onInterstitialFailedToLoad() {
+                        Log.i("appodeal", "failed");
+                    }
+
+                    @Override
+                    public void onInterstitialShown() {
+                        Log.i("appodeal", "shown");
+                    }
+
+                    @Override
+                    public void onInterstitialClicked() {
+                        Log.i("appodeal", "clicked");
+                        setResultAndFinish();
+                    }
+
+                    @Override
+                    public void onInterstitialClosed() {
+                        Log.i("appodeal", "closed");
+                        setResultAndFinish();
+                    }
+                });
+
             }
         });
 
+    }
+
+    private void setResultAndFinish(){
+        setResult(1);
+        finish();
     }
 }

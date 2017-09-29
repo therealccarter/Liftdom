@@ -558,6 +558,10 @@
 
     <string name="calculate">Calculate</string>
 
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="message">Message</string>
+
     <string name="renameTemplate">RENAME PROGRAM TO...</string>
 
     <string name="knowledgeOfTheDay">Knowledge of the Day</string>

@@ -63,6 +63,13 @@
                 android:id="@+id/fragHolder"
         >
 
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.user_profile.ProfileOptionsTabFrag"
+                    tools:layout="@layout/fragment_profile_options_tab"
+                    />
+
             <fragment android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:name="com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab"

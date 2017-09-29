@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.ProfileOptionsTabFrag;
 import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 
 /**
@@ -33,6 +34,7 @@ public class OtherUserProfileFrag extends Fragment {
     public String xUid;
 
     @BindView(R.id.profileHeaderHolder) LinearLayout profileHeaderHolder;
+    @BindView(R.id.optionsTabHolder) LinearLayout optionsTabHolder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +59,12 @@ public class OtherUserProfileFrag extends Fragment {
             historyCalendarTab.xUid = xUid;
 
             fragmentTransaction.add(R.id.fragHolder2, historyCalendarTab);
+
+            ProfileOptionsTabFrag profileOptionsTabFrag = new ProfileOptionsTabFrag();
+            profileOptionsTabFrag.isOtherUser = true;
+            profileOptionsTabFrag.xUid = xUid;
+
+            fragmentTransaction.add(R.id.optionsTabHolder, profileOptionsTabFrag);
 
             fragmentTransaction.commit();
         }

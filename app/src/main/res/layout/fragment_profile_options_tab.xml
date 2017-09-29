@@ -1,0 +1,100 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/darkerGrey"
+        tools:context="com.liftdom.user_profile.ProfileOptionsTabFrag">
+
+
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/followersCountTextView"
+                android:textColor="@color/liftrGold1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="@string/elipses"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/followers"
+                android:textColor="@color/liftrGold2"
+                android:gravity="center"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+    >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/followingCountTextView"
+                android:textColor="@color/liftrGold1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="@string/elipses"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/following"
+                android:textColor="@color/liftrGold2"
+                android:gravity="center"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:id="@+id/messageLinearLayout"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+    >
+
+        <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_message_black_24dp"
+                android:tint="@color/liftrGold1"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message"
+                android:textColor="@color/liftrGold2"
+                android:gravity="center"
+        />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
