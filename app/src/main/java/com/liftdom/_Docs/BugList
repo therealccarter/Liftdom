@@ -14,14 +14,13 @@ add direct chat (will be actually going into this later)
 ====================================================
 
 ============ Currently Working On ===============================================
-
+it's fucked the first time...seems like if the user dicks around they won't be able to
+    complete a workout that day.
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 =======STEPS TO PRODUCTION=======
-it's fucked the first time...seems like if the user dicks around they won't be able to
-    complete a workout that day.
 add ad to main social feed
 add feedback activity
 make main social feed toolbar disappear
