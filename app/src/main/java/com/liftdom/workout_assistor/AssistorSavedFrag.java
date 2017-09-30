@@ -309,14 +309,14 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     completedWorkoutModelClass.setBonusList(bonusList);
                 }
 
-                //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                //feedFanOut(refKey, completedWorkoutModelClass);
+                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                feedFanOut(refKey, completedWorkoutModelClass);
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
                 if(!isFirstTimeFirstTime){
-                    //workoutHistoryRef.setValue(historyModelClass);
+                    workoutHistoryRef.setValue(historyModelClass);
                 }
             }
 
@@ -347,7 +347,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         });
 
-        //templateRef.setValue(templateClass);
+        templateRef.setValue(templateClass);
 
         return view;
     }

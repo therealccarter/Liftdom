@@ -130,7 +130,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
                                 (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
 
-                        //firstTimeRef.setValue(null);
+                        firstTimeRef.setValue(null);
                         isTutorialFirstTime = true;
                         isFirstTimeFirstTime = false;
                     }
