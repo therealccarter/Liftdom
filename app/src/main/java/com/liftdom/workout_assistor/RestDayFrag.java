@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.BannerView;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.R;
 
@@ -30,6 +32,7 @@ public class RestDayFrag extends Fragment {
     @BindView(R.id.restAdviceButton) Button restAdviceButton;
     @BindView(R.id.restDayComplete) Button restDayCompleteButton;
     @BindView(R.id.privateJournal) EditText privateJournal;
+    @BindView(R.id.appodealBannerView) BannerView appodealBannerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +41,9 @@ public class RestDayFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rest_day, container, false);
 
         ButterKnife.bind(this, view);
+
+        //Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
+        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         restAdviceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -102,6 +102,7 @@ public class MainSocialFeedFrag extends Fragment {
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
+                //viewHolder.setPosition(position);
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setActivity(getActivity());

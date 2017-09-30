@@ -99,12 +99,16 @@ public class MainActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+        Appodeal.disableLocationPermissionCheck();
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
 
         //bottomNavigation.setDrawingCacheBackgroundColor(Color.parseColor("#000000"));
+
+        //Appodeal.show(this, Appodeal.BANNER_TOP);
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 

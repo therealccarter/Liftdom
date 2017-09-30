@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.BannerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,6 +77,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private Query recentMessages;
     private boolean isFullComments;
     private final LinearLayout mAllCommentsLL;
+    //private final BannerView mBannerView;
+    private int mPosition;
     //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -94,8 +98,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mGoToAllCommentsButton = (Button) itemView.findViewById(R.id.goToAllCommentsButton);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
         mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
+        //mBannerView = (BannerView) itemView.findViewById(R.id.appodealBannerView);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+
 
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +174,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 mActivity.startActivity(intent);
             }
         });
+    }
+
+    public void setPosition(int position){
+        if((double) position % (double) 5 == 0.0){
+            //mBannerView.setVisibility(View.VISIBLE);
+            //Appodeal.setBannerViewId(mBannerView.getId());
+            //Appodeal.show(mActivity, Appodeal.BANNER_VIEW);
+        }
     }
 
     public boolean getIsFullComments() {

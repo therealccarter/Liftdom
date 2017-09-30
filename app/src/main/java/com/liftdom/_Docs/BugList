@@ -20,13 +20,12 @@ make template editor have a day added by default
 ====================================================
 
 ============ Currently Working On ===============================================
-
+add ad to main social feed
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
 =======STEPS TO PRODUCTION=======
-add ad to main social feed
 add ad to rest day saved frag
 add feedback activity
 make main social feed toolbar disappear
@@ -59,3 +58,20 @@ change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
 =====================================================
+
+Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW);
+......
+        Appodeal.show(this, Appodeal.BANNER_TOP);
+need
+Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW);
+......
+Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
+also here you use  Appodeal.show(this, Appodeal.BANNER_TOP);
+not banner view
+
+about fragment
+Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
+ Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+but
+Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
+this need to call before initiliazation
