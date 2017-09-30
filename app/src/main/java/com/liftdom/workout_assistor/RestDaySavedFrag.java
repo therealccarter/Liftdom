@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -87,6 +88,8 @@ public class RestDaySavedFrag extends Fragment {
         // get usermodel class
 
         finishedTextView.setText("REST DAY COMPLETED");
+
+        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         //powerLevelXpView1.setText("0");
 

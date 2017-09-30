@@ -103,8 +103,8 @@ public class MainActivity extends BaseActivity implements
 
         String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
         Appodeal.disableLocationPermissionCheck();
-        //Appodeal.setBannerViewId(R.id.appodealBannerView);
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
+        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL);
 
         //Appodeal.show(this, Appodeal.BANNER_VIEW);
 

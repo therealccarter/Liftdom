@@ -33,6 +33,8 @@
                 android:orientation="vertical"
                 android:visibility="gone"
         >
+
+
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,6 +45,14 @@
                     android:gravity="center_horizontal"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="10dp"
+            />
+
+            <com.appodeal.ads.BannerView
+                    android:id="@+id/appodealBannerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
             />
 
             <LinearLayout
