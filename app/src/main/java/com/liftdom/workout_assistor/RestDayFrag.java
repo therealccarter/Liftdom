@@ -32,7 +32,7 @@ public class RestDayFrag extends Fragment {
     @BindView(R.id.restAdviceButton) Button restAdviceButton;
     @BindView(R.id.restDayComplete) Button restDayCompleteButton;
     @BindView(R.id.privateJournal) EditText privateJournal;
-    @BindView(R.id.appodealBannerView) BannerView appodealBannerView;
+    //@BindView(R.id.appodealBannerView) BannerView appodealBannerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

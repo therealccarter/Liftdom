@@ -1,6 +1,8 @@
 package com.liftdom.liftdom;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.liftdom.template_housing.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.search.material.library.MaterialSearchView;
@@ -100,9 +103,10 @@ public class MainActivity extends BaseActivity implements
 
         String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
         Appodeal.disableLocationPermissionCheck();
-        Appodeal.setBannerViewId(R.id.appodealBannerView);
+        //Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
 
+        //Appodeal.show(this, Appodeal.BANNER_VIEW);
 
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
@@ -156,6 +160,7 @@ public class MainActivity extends BaseActivity implements
                                 setNavDrawerSelection(2);
                             }
                         }
+
                     }
                     checkForBadges();
                 } else {

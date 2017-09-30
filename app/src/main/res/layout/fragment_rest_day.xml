@@ -29,12 +29,14 @@
                     android:gravity="center"
             />
 
+            <!--
             <com.appodeal.ads.BannerView
                     android:id="@+id/appodealBannerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
             />
+            -->
 
             <LinearLayout
                     android:layout_width="match_parent"

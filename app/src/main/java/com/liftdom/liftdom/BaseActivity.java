@@ -169,6 +169,16 @@ public class BaseActivity extends AppCompatActivity {
                             userNameView.setText(userModelClass.getUserName());
                             powerLevelView.setText(userModelClass.getPowerLevel());
 
+                            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("userName", userModelClass.getUserName());
+                            editor.commit();
+
+
+                            String userName = sharedPref.getString("userName", "loading...");
+
+                            Log.i("prefs", userName);
+
                         }
 
                         @Override
