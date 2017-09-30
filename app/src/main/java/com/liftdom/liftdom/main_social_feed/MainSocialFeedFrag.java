@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
@@ -59,6 +59,7 @@ public class MainSocialFeedFrag extends Fragment {
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.noPostsView) TextView noPostsView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,8 +77,26 @@ public class MainSocialFeedFrag extends Fragment {
         }else{
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference socialRef = rootRef.child("feed").child(uid);
-            setUpFirebaseAdapter(socialRef);
+            final DatabaseReference socialRef = rootRef.child("feed").child(uid);
+            socialRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        loadingView.setVisibility(View.GONE);
+                        noPostsView.setVisibility(View.GONE);
+                        setUpFirebaseAdapter(socialRef);
+                    }else{
+                        loadingView.setVisibility(View.GONE);
+                        noPostsView.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
         return view;

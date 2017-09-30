@@ -103,6 +103,7 @@ public class MainActivity extends BaseActivity implements
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
 
+
         bottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
         bottomNavigation.setBackgroundColor(Color.parseColor("#000000"));
 

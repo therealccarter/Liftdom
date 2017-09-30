@@ -43,7 +43,10 @@ public class RestDayFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         //Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
-        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_BOTTOM);
+        //String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+        //Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         restAdviceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,10 +65,11 @@ public class RestDayFrag extends Fragment {
                 LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
                 fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
                 fragmentTransaction.commit();
-
             }
         });
+
         return view;
+
     }
 
 

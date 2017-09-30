@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
@@ -89,6 +90,8 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
 
         setUpNavDrawer(KnowledgeCenterHolderActivity.this, toolbar);
         setNavDrawerSelection(4);
+
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
 
     }
 

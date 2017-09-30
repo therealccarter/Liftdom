@@ -7,6 +7,16 @@
               android:background="@color/backgroundgrey2"
               tools:context="com.liftdom.liftdom.main_social_feed.MainSocialFeedFrag">
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/noPostsView"
+            android:gravity="center"
+            android:text="@string/noPosts"
+            android:textSize="24sp"
+            android:visibility="gone"
+    />
+
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
             android:layout_height="70dp"
