@@ -91,8 +91,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                                 .focusOn(saveProgressButton)
                                 .title("This button allows you to save your workout progress so that you can finish it later." +
-                                        " Make sure to click this before navigating away from this page, if you want to keep " +
-                                        "your progress.")
+                                        " If you need to leave the Today's Workout page before finishing, make sure " +
+                                        "to click this.")
                                 .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
                                 .focusShape(FocusShape.ROUNDED_RECTANGLE)
                                 .fitSystemWindows(true)
@@ -130,7 +130,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
                                 (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
 
-                        firstTimeRef.setValue(null);
+                        //firstTimeRef.setValue(null);
                         isTutorialFirstTime = true;
                         isFirstTimeFirstTime = false;
                     }
@@ -253,9 +253,11 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0){
+                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
+                                alertDialog.dismiss();
                                 finishWorkout();
                             }else{
+                                alertDialog.dismiss();
                                 finishWorkoutFromAd();
 
                                 Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
@@ -287,7 +289,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 });
                             }
 
-                            alertDialog.dismiss();
+
 
                         }
                     });
@@ -366,9 +368,11 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0){
+                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
+                                alertDialog.dismiss();
                                 finishWorkout();
                             }else{
+                                alertDialog.dismiss();
                                 finishWorkoutFromAd();
 
                                 Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
@@ -399,8 +403,6 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     }
                                 });
                             }
-
-                             alertDialog.dismiss();
 
                         }
                     });

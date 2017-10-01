@@ -680,6 +680,12 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+
+                    editPenSmall.setEnabled(false);
+                    editTemplate.setEnabled(false);
+                    deleteTemplate.setEnabled(false);
+                    publishButton.setEnabled(false);
+
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("This is where you can edit or delete any of your programs." +
                                     "\n \n You can also publish your program to the public repository for anyone to " +

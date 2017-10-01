@@ -17,6 +17,7 @@ remember to re-enable assistor set value stuff
 check isAssistorFirstTime
 make template editor have a day added by default
     (will have to change tutorial...or just add a reminder dialog)
+user = "loading..." in firebase (template, follower list, etc)
 ====================================================
 
 ============ Currently Working On ===============================================
@@ -37,9 +38,10 @@ level up bonus view
 glide caching (experiment in chat)(could help with main feed speed)
 chat unread stuff (including badge)
 specific user feeds
-user = "loading..." in firebase (template, follower list, etc)
 maybe just have one user profile? (could really utilize methods/delegating here)
 
+Make main feed less laggy (we could possibly make the last two comments a part of the model class)
+    would eliminate the need for a recycler view for those two comments.
 
 ==== easier ==========
 ============

@@ -331,16 +331,17 @@ public class AssistorSavedFrag extends android.app.Fragment {
         completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
-                    exercisesModelClass.addItems(completedExerciseList);
-                    completedExercisesRef.setValue(exercisesModelClass);
-                }else{
-                    exercisesModelClass = new CompletedExercisesModelClass();
-                    exercisesModelClass.addItems(completedExerciseList);
-                    completedExercisesRef.setValue(exercisesModelClass);
+                if(!completedExerciseList.get(0).equals("Example Exercise")){
+                    if(dataSnapshot.exists()){
+                        exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
+                        exercisesModelClass.addItems(completedExerciseList);
+                        completedExercisesRef.setValue(exercisesModelClass);
+                    }else{
+                        exercisesModelClass = new CompletedExercisesModelClass();
+                        exercisesModelClass.addItems(completedExerciseList);
+                        completedExercisesRef.setValue(exercisesModelClass);
+                    }
                 }
-
             }
 
             @Override
@@ -377,8 +378,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                             .build();
                     FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Now get your own custom workout program going and make some gains!" +
-                                    "\n \n Lift hard, live easy.")
+                            .title("Now go and create your first custom workout program. Good Luck!")
                             .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                             .build();
 
@@ -387,7 +387,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             .add(fancyShowCaseView2)
                             .add(fancyShowCaseView3)
                             .show();
+                    DatabaseReference firstTimeTemplateRef = mRootRef.child("templates").child(uid).child
+                            ("FirstTime");
+                    DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child("activeTemplate");
                     firstTimeRef.setValue(null);
+                    firstTimeTemplateRef.setValue(null);
+                    firstTimeActiveRef.setValue(null);
                 }else{
                     //Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
                 }

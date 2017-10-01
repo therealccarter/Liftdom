@@ -207,7 +207,7 @@
 
     <string name="settings">Settings</string>
 
-    <string name="metricWarning">(Warning: metric support currently in beta)</string>
+    <string name="metricWarning">(Warning: metric support currently unstable)</string>
 
     <string name="kilos">kg</string>
     <string name="roundWeight">Round algorithm weights to \n nearest common plate weight?</string>

@@ -12,19 +12,26 @@ public class FirstTimeModelClass {
     private boolean mIsFromScratchFirstTime;
     private boolean mIsSelectedProgFirstTime;
     private boolean mIsSavedProgFirstTime;
+    private boolean mIsTemplateMenuSecondTime;
 
     public FirstTimeModelClass(){
         // firebase
     }
 
     public FirstTimeModelClass(boolean isFeedFirstTime, boolean isTemplateMenuFirstTime, boolean isAssistorFirstTime,
-                                boolean isFromScratchFirstTime, boolean isSelectedProgFirstTime, boolean isSavedProgFirstTime){
+                                boolean isFromScratchFirstTime, boolean isSelectedProgFirstTime, boolean
+                                       isSavedProgFirstTime, boolean isTemplateMenuSecondTime){
         mIsFeedFirstTime = isFeedFirstTime;
         mIsTemplateMenuFirstTime = isTemplateMenuFirstTime;
         mIsAssistorFirstTime = isAssistorFirstTime;
         mIsFromScratchFirstTime = isFromScratchFirstTime;
         mIsSelectedProgFirstTime = isSelectedProgFirstTime;
         mIsSavedProgFirstTime = isSavedProgFirstTime;
+        mIsTemplateMenuSecondTime = isTemplateMenuSecondTime;
+    }
+
+    public boolean isIsTemplateMenuSecondTime() {
+        return mIsTemplateMenuSecondTime;
     }
 
     public boolean isIsFromScratchFirstTime() {

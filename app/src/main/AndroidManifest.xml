@@ -450,8 +450,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".utils.DirectMessageDialog"
-                  android:theme="@style/AppCompatDialogNoTitleBar">
+        <activity
+                android:name=".utils.DirectMessageDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name="com.liftdom.misc_activities.BugReportingActivity">
         </activity>
     </application>
 

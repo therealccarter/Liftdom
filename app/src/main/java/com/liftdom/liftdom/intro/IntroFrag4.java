@@ -97,7 +97,8 @@ public class IntroFrag4 extends SlideFragment {
                         kgs, maxList, sex, repLevel, powerLevel, currentStreak,
                         currentFocus, activeTemplate);
 
-                FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true);
+                FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true,
+                        true);
 
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -138,6 +139,13 @@ public class IntroFrag4 extends SlideFragment {
                                 userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+
+                                        SharedPreferences sharedPref = getActivity().getPreferences(Context
+                                                .MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putString("uid", userModelClass.getUserId());
+                                        editor.putString("userName", userModelClass.getUserName());
+                                        editor.commit();
 
                                         Intent intent = new Intent(getContext(), MainActivity.class);
                                         startActivity(intent);

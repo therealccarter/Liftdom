@@ -106,7 +106,7 @@ public class WorkoutAssistorFrag extends Fragment{
 
         ButterKnife.bind(this, view);
 
-        headerChanger("Workout Assistor");
+        headerChanger("Today's Workout");
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();

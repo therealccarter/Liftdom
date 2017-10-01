@@ -179,6 +179,10 @@ public class TemplateMenuFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
 
+                    fromScratch.setEnabled(false);
+                    userMadeTemplates.setEnabled(false);
+                    premadeTemplates.setEnabled(false);
+
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("This is where you'll handle all workout programming." + System.getProperty
                                     ("line.separator") + System.getProperty
@@ -189,7 +193,7 @@ public class TemplateMenuFrag extends Fragment {
 
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                             .focusOn(savedTemplates)
-                            .title("Let's check out the Saved Programs page now!")
+                            .title("Hit the Saved Programs button now!")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .focusShape(FocusShape.ROUNDED_RECTANGLE)
                             .roundRectRadius(90)
@@ -202,6 +206,36 @@ public class TemplateMenuFrag extends Fragment {
                             .show();
 
                     firstTimeRef.setValue(null);
+                }else{
+                    final DatabaseReference secondTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                                    ("isTemplateMenuSecondTime");
+                    secondTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+
+                                savedTemplates.setEnabled(false);
+                                userMadeTemplates.setEnabled(false);
+                                premadeTemplates.setEnabled(false);
+
+                                new FancyShowCaseView.Builder(getActivity())
+                                        .focusOn(fromScratch)
+                                        .title("Now create your first custom workout!")
+                                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                        .roundRectRadius(90)
+                                        .fitSystemWindows(true)
+                                        .build().show();
+                                secondTimeRef.setValue(null);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 

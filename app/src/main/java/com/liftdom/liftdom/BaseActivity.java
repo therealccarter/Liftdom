@@ -248,10 +248,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        if(drawer.isDrawerOpen()){
-            drawer.closeDrawer();
-        }else{
-            super.onBackPressed();
+        if(drawer != null){
+            if(drawer.isDrawerOpen()){
+                drawer.closeDrawer();
+            }else{
+                super.onBackPressed();
+            }
         }
     }
 
