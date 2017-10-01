@@ -21,9 +21,11 @@
             android:layout_height="wrap_content"
             android:text="@string/welcomeToLiftdom"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="35sp"
             android:gravity="center"
             app:layout_parallaxFactor="0.1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
     />
 
     <TextView
