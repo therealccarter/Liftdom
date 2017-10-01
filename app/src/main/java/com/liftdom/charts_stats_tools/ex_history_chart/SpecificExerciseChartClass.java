@@ -43,7 +43,7 @@ public class SpecificExerciseChartClass {
 
                     incrementor++;
 
-                    if(dataSnapshot1.getKey().equals("2017-06-12")){
+                    //if(dataSnapshot1.getKey().equals("2017-06-12")){
 
                         WorkoutHistoryModelClass historyModelClass = dataSnapshot1.getValue(WorkoutHistoryModelClass.class);
 
@@ -76,7 +76,7 @@ public class SpecificExerciseChartClass {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             }
 

@@ -134,7 +134,11 @@ public class MainSocialFeedFrag extends Fragment {
                 viewHolder.setActivity(getActivity());
                 viewHolder.setRefKey(model.getRef());
                 viewHolder.setCommentRecycler(model.getRef());
-                viewHolder.setBonusView(model.getBonusList());
+                if(model.getBonusList() != null){
+                    if(!model.getBonusList().isEmpty()){
+                        viewHolder.setBonusView(model.getBonusList());
+                    }
+                }
             }
         };
 

@@ -134,9 +134,13 @@ public class WorkoutHistoryModelClass {
     public boolean containsEx(String exName){
         boolean contains = false;
 
-        for(Map.Entry<String, List<String>> mapEntry : getWorkoutInfoMap().entrySet()){
-            if(mapEntry.getValue().contains(exName)){
-                contains = true;
+        if(getWorkoutInfoMap() != null){
+            if(!getWorkoutInfoMap().isEmpty()){
+                for(Map.Entry<String, List<String>> mapEntry : getWorkoutInfoMap().entrySet()){
+                    if(mapEntry.getValue().contains(exName)){
+                        contains = true;
+                    }
+                }
             }
         }
 

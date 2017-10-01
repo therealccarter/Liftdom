@@ -281,7 +281,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }else{
                         if (!setsLevelChildFragAL.isEmpty()) {
                             for(int i = 0; i < setsLevelChildFragAL.size(); i++){
-                                setsLevelChildFragAL.get(i).weightEditText.setText("");
+                                //setsLevelChildFragAL.get(i).weightEditText.setText("");
+                                if(setsLevelChildFragAL.get(i).weightEditText.getText().toString().equals("B.W.")){
+                                    setsLevelChildFragAL.get(i).weightEditText.setText("");
+                                }
                                 setsLevelChildFragAL.get(i).pounds.setVisibility(View.VISIBLE);
                                 setsLevelChildFragAL.get(i).weightEditText.setEnabled(true);
                             }
