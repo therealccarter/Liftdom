@@ -49,9 +49,12 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/privateJournalTitle"
                     android:text="@string/privateJournal"
                     android:textColor="@color/darkGrey"
                     android:layout_marginStart="10dp"
+                    android:textSize="14sp"
+                    android:visibility="gone"
             />
 
             <TextView
@@ -60,6 +63,7 @@
                     android:id="@+id/privateJournalTextView"
                     android:textColor="@color/black"
                     android:layout_marginStart="15dp"
+                    android:textSize="16sp"
             />
 
             <Button

@@ -34,6 +34,7 @@ public class SelectedPastDateDialog extends AppCompatActivity {
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
     @BindView(R.id.privateJournalTextView) TextView privateJournal;
+    @BindView(R.id.privateJournalTitle) TextView privateJournalTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,13 @@ public class SelectedPastDateDialog extends AppCompatActivity {
     }
 
     private void generateLayout(WorkoutHistoryModelClass modelClass){
-        if(!isOtherUser){
-            privateJournal.setText(modelClass.getPrivateJournal());
+        if(uid != null){
+            if(uid.equals(modelClass.getUserId())){
+                if(!modelClass.getPrivateJournal().equals("")){
+                    privateJournalTitle.setVisibility(View.VISIBLE);
+                    privateJournal.setText(modelClass.getPrivateJournal());
+                }
+            }
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         PastDateDialogSubFrag pastDateDialogSubFrag = new PastDateDialogSubFrag();
