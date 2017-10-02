@@ -44,9 +44,9 @@ public class RestDayFrag extends Fragment {
 
         //Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
         //Appodeal.show(getActivity(), Appodeal.BANNER_BOTTOM);
-        String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
-        Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
-        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+        //String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+        //Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         restAdviceButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

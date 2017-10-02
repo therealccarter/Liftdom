@@ -30,6 +30,8 @@ public class MainActivitySingleton {
     public boolean isTemplateMenuFirstTime;
     public boolean isAssistorFirstTime;
 
+    public boolean isBannerViewInitialized;
+
     public void updateUserModelClass(){
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

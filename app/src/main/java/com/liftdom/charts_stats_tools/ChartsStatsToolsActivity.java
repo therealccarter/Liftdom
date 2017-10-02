@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
@@ -62,5 +63,7 @@ public class ChartsStatsToolsActivity extends BaseActivity {
 
         setUpNavDrawer(ChartsStatsToolsActivity.this, toolbar);
         setNavDrawerSelection(5);
+
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
     }
 }

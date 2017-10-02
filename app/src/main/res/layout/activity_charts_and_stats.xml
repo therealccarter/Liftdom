@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/statChartHolder"
                 android:orientation="vertical"
+                android:paddingBottom="45dp"
         >
             <fragment android:layout_width="match_parent"
                       android:layout_height="wrap_content"

@@ -7,9 +7,6 @@
               android:background="@color/offerGrey"
               tools:context="com.liftdom.workout_assistor.WorkoutAssistorFrag">
 
-
-
-
     <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -24,6 +21,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
         >
+
+            <com.appodeal.ads.BannerView
+                    android:id="@+id/appodealBannerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+            />
 
             <Button
                     android:layout_width="match_parent"

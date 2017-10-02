@@ -60,12 +60,9 @@
 
             </LinearLayout>
 
-            <com.appodeal.ads.BannerView
-                    android:id="@+id/appodealBannerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-            />
+
+
+
 
             <android.support.v7.widget.CardView
                     android:layout_width="match_parent"

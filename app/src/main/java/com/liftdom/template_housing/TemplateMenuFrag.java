@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.FirstTimeModelClass;
@@ -83,6 +84,10 @@ public class TemplateMenuFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_template_menu, container, false);
 
         ButterKnife.bind(this, view);
+
+        //String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+        //Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         navChanger(1);
 
