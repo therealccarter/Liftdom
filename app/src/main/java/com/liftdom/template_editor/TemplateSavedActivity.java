@@ -118,7 +118,7 @@ public class TemplateSavedActivity extends BaseActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Saved Templates");
+        toolbar.setTitle("Saved Programs");
 
         setUpNavDrawer(TemplateSavedActivity.this, toolbar);
 

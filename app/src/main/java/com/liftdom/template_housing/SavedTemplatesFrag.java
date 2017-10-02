@@ -209,7 +209,7 @@ public class SavedTemplatesFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        headerChanger("Saved Templates");
+        headerChanger("Saved Programs");
 
         final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
                 ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
