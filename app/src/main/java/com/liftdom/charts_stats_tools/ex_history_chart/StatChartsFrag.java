@@ -202,6 +202,15 @@ public class StatChartsFrag extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ExSelectorSingleton.getInstance().clearArrayLists();
+        ExSelectorSingleton.getInstance().clearCompletedExercisesList();
+        dataSets.clear();
+    }
+
 
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
             isOverall) {
@@ -294,6 +303,10 @@ public class StatChartsFrag extends Fragment {
 
         dataSets.add(dataSet);
 
+        if(dataSets.size() == 3){
+            setLineChart();
+        }
+
         if (dataSets.size() == getItemCount()) {
             setLineChart();
             if (!isOverall) {
@@ -347,13 +360,7 @@ public class StatChartsFrag extends Fragment {
         return intermediate;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
 
-        ExSelectorSingleton.getInstance().clearArrayLists();
-        dataSets.clear();
-    }
 
 
 }

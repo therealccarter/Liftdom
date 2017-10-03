@@ -30,6 +30,11 @@ public class ExSelectorSingleton {
         lowerBodyItems.clear();
         otherItems.clear();
         customItems.clear();
+        //completedExercises.clear();
+    }
+
+    public void clearCompletedExercisesList(){
+        completedExercises.clear();
     }
 
 }

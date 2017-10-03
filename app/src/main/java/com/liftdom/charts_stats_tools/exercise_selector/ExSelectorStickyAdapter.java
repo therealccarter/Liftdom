@@ -73,7 +73,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
             }else if(bodyString.equals("other")){
 
-                String[] otherArray = context.getResources().getStringArray(R.array.upperBodyList);
+                String[] otherArray = context.getResources().getStringArray(R.array.otherBodyList);
                 ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
                 ArrayList<String> newList = new ArrayList<>();
                 for(String string : completedUpperList){
