@@ -80,10 +80,10 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 weightEditText.setFilters(filterArray);
                 unitView.setVisibility(View.GONE);
                 weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(false);
+                weightEditText.setEnabled(false);
             }else{
                 weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(true);
+                weightEditText.setEnabled(true);
             }
 
             if(tokens[2].equals("checked")){
@@ -94,6 +94,10 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             }
         }else{
             String[] tokens = repsWeightString.split("@");
+
+            if(repsWeightString.equals("10@B.W.")){
+
+            }
 
             if(tokens[0].equals("T.F.")){
                 InputFilter[] filterArray = new InputFilter[1];

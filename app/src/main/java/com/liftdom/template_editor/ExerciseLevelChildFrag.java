@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -273,6 +274,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     if(isBodyweight(message)) {
                         if (!setsLevelChildFragAL.isEmpty()) {
                             for(int i = 0; i < setsLevelChildFragAL.size(); i++){
+                                InputFilter[] filterArray = new InputFilter[1];
+                                filterArray[0] = new InputFilter.LengthFilter(4);
+                                setsLevelChildFragAL.get(i).weightEditText.setFilters(filterArray);
                                 setsLevelChildFragAL.get(i).weightEditText.setText("B.W.");
                                 setsLevelChildFragAL.get(i).pounds.setVisibility(View.GONE);
                                 setsLevelChildFragAL.get(i).weightEditText.setEnabled(false);
@@ -281,6 +285,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }else{
                         if (!setsLevelChildFragAL.isEmpty()) {
                             for(int i = 0; i < setsLevelChildFragAL.size(); i++){
+                                InputFilter[] filterArray = new InputFilter[1];
+                                filterArray[0] = new InputFilter.LengthFilter(3);
+                                setsLevelChildFragAL.get(i).weightEditText.setFilters(filterArray);
                                 //setsLevelChildFragAL.get(i).weightEditText.setText("");
                                 if(setsLevelChildFragAL.get(i).weightEditText.getText().toString().equals("B.W.")){
                                     setsLevelChildFragAL.get(i).weightEditText.setText("");

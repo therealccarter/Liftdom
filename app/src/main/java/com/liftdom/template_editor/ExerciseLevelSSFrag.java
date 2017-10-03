@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,6 +129,9 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                     if(isBodyweight(message)) {
                         if (!setSchemeList.isEmpty()) {
                             for(int i = 0; i < setSchemeList.size(); i++){
+                                InputFilter[] filterArray = new InputFilter[1];
+                                filterArray[0] = new InputFilter.LengthFilter(4);
+                                setSchemeList.get(i).weightEditText.setFilters(filterArray);
                                 setSchemeList.get(i).weightEditText.setText("B.W.");
                                 setSchemeList.get(i).pounds.setVisibility(View.GONE);
                                 setSchemeList.get(i).weightEditText.setEnabled(false);
@@ -136,6 +140,9 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                     }else{
                         if (!setSchemeList.isEmpty()) {
                             for(int i = 0; i < setSchemeList.size(); i++){
+                                InputFilter[] filterArray = new InputFilter[1];
+                                filterArray[0] = new InputFilter.LengthFilter(3);
+                                setSchemeList.get(i).weightEditText.setFilters(filterArray);
                                 setSchemeList.get(i).weightEditText.setText("");
                                 setSchemeList.get(i).pounds.setVisibility(View.VISIBLE);
                                 setSchemeList.get(i).weightEditText.setEnabled(true);
