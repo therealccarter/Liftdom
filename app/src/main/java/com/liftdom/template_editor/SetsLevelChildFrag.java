@@ -95,11 +95,17 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 }
 
                 // weight
-
-
                 String weightWithSpaces = setSchemesEachArray[2];
                 String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
-                weightEditText.setText(weightWithoutSpaces);
+                if(weightWithoutSpaces.equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    weightEditText.setText("B.W.");
+                    weightEditText.setEnabled(false);
+                }else{
+                    weightEditText.setText(weightWithoutSpaces);
+                }
             }
 
         }

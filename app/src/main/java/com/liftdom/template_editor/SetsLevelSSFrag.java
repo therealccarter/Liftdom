@@ -66,7 +66,15 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                 }else{
                     repsEditText.setText(tokens[1]);
                 }
-                weightEditText.setText(tokens[2]);
+                if(tokens[2].equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    weightEditText.setText("B.W.");
+                    weightEditText.setEnabled(false);
+                }else{
+                    weightEditText.setText(tokens[2]);
+                }
             }
         }
 
