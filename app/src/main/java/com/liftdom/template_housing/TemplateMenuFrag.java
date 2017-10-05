@@ -212,35 +212,36 @@ public class TemplateMenuFrag extends Fragment {
 
                     firstTimeRef.setValue(null);
                 }else{
-                    final DatabaseReference secondTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
-                                    ("isTemplateMenuSecondTime");
-                    secondTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-
-                                savedTemplates.setEnabled(false);
-                                userMadeTemplates.setEnabled(false);
-                                premadeTemplates.setEnabled(false);
-
-                                new FancyShowCaseView.Builder(getActivity())
-                                        .focusOn(fromScratch)
-                                        .title("Now create your first custom workout!")
-                                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                        .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                        .roundRectRadius(90)
-                                        .fitSystemWindows(true)
-                                        .build().show();
-                                secondTimeRef.setValue(null);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                    //final DatabaseReference secondTimeRef = FirebaseDatabase.getInstance().getReference().child
+                    //        ("firstTime")
+                    //        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                    //                ("isTemplateMenuSecondTime");
+                    //secondTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    //    @Override
+                    //    public void onDataChange(DataSnapshot dataSnapshot) {
+                    //        if(dataSnapshot.exists()){
+//
+                    //            savedTemplates.setEnabled(false);
+                    //            userMadeTemplates.setEnabled(false);
+                    //            premadeTemplates.setEnabled(false);
+//
+                    //            new FancyShowCaseView.Builder(getActivity())
+                    //                    .focusOn(fromScratch)
+                    //                    .title("Now create your first custom workout!")
+                    //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                    //                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                    //                    .roundRectRadius(90)
+                    //                    .fitSystemWindows(true)
+                    //                    .build().show();
+                    //            secondTimeRef.setValue(null);
+                    //        }
+                    //    }
+//
+                    //    @Override
+                    //    public void onCancelled(DatabaseError databaseError) {
+//
+                    //    }
+                    //});
                 }
             }
 

@@ -10,6 +10,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -101,8 +102,6 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-
 
         String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
         Appodeal.disableLocationPermissionCheck();

@@ -31,6 +31,7 @@ import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
@@ -91,6 +92,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_info);
 
         ButterKnife.bind(this);
+
+        HideKey.initialize(ProfileInfoActivity.this);
 
         //TODO: Make sure this is using identical units as set in Settings
 

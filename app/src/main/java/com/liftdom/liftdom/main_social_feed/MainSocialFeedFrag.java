@@ -2,9 +2,13 @@ package com.liftdom.liftdom.main_social_feed;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +28,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
+import com.liftdom.template_housing.TemplateMenuFrag;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**
@@ -90,6 +95,7 @@ public class MainSocialFeedFrag extends Fragment {
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startActivity(new Intent(getContext(), SignInActivity.class));
         }else{
+            showTutorialChoice();
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
             final DatabaseReference socialRef = rootRef.child("feed").child(uid);
@@ -115,6 +121,52 @@ public class MainSocialFeedFrag extends Fragment {
         }
 
         return view;
+    }
+
+    private void showTutorialChoice(){
+
+        final DatabaseReference firstTime = FirebaseDatabase.getInstance().getReference().child("firstTime")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isFeedFirstTime");
+        firstTime.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                    // set title
+                    builder.setTitle("Take tutorial?");
+
+                    builder.setMessage("Would you like to take the tutorial? It's highly recommended!")
+                            .setPositiveButton("Yes, take tutorial", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    firstTime.setValue(null);
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                                            ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    firstTimeRef.setValue(null);
+                                }
+                            });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setUpFirebaseAdapter(DatabaseReference databaseReference){
