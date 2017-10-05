@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -53,6 +54,8 @@ public class IntroFrag2 extends SlideFragment {
         usernameAvailable = (TextView) view.findViewById(R.id.usernameAvailableView);
         usernameTaken = (TextView) view.findViewById(R.id.usernameTakenView);
         loadingView = (AVLoadingIndicatorView) view.findViewById(R.id.loadingView);
+
+        HideKey.initialize(getActivity(), view);
 
         displayNameEditText.addTextChangedListener(new TextWatcher() {
             @Override

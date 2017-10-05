@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.*;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 
 /**
@@ -41,6 +42,8 @@ public class IntroFrag3 extends SlideFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_intro_frag3, container, false);
+
+        HideKey.initialize(getActivity(), view);
 
         imperialRadioButton = (RadioButton) view.findViewById(R.id.imperialRadioButton);
         metricRadioButton = (RadioButton) view.findViewById(R.id.metricRadioButton);

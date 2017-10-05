@@ -18,6 +18,7 @@ import com.appodeal.ads.Appodeal;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
@@ -70,6 +71,8 @@ public class MainSocialFeedFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_social_feed, container, false);
 
         ButterKnife.bind(this, view);
+
+        HideKey.initialize(getActivity(), view);
 
         navChanger(0);
         headerChanger("Home");

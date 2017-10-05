@@ -16,6 +16,7 @@ import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.BaseActivity;
 import com.liftdom.liftdom.MainActivity;
@@ -47,6 +48,8 @@ public class ChartsStatsToolsActivity extends BaseActivity {
         setContentView(R.layout.activity_charts_and_stats);
 
         ButterKnife.bind(this);
+
+        HideKey.initialize(ChartsStatsToolsActivity.this);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 

@@ -18,21 +18,29 @@ check isAssistorFirstTime
 make template editor have a day added by default
     (will have to change tutorial...or just add a reminder dialog)
 user = "loading..." in firebase (template, follower list, etc)
+keyboard needs to go down on touch outside
 ====================================================
 
 ============ Currently Working On ===============================================
-
+make tutorial optional
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 
-=======STEPS TO PRODUCTION=======
+make tutorial stricter (make buttons true clickable) (disable more shit, less verbose)
+
+sign in text is cut off
+bottom nav text is cut off
+
+add feedback page
+
+changing to bodyweight shifts layout to the right..
+
 add ad to main social feed
 add ad to rest day saved frag
 add feedback activity
 make main social feed toolbar disappear
 bottom nav text crowding
-================================
 
 superset in future calendar view is fuckt
 
@@ -44,6 +52,10 @@ glide caching (experiment in chat)(could help with main feed speed)
 chat unread stuff (including badge)
 specific user feeds
 maybe just have one user profile? (could really utilize methods/delegating here)
+
+lockscreen functionality
+
+check if template name has been taken
 
 Make main feed less laggy (we could possibly make the last two comments a part of the model class)
     would eliminate the need for a recycler view for those two comments.

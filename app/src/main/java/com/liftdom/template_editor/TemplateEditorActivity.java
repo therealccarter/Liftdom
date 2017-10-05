@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
@@ -109,6 +110,8 @@ public class TemplateEditorActivity extends BaseActivity
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
         ButterKnife.bind(this);
+
+        HideKey.initialize(TemplateEditorActivity.this);
 
         title.setTypeface(lobster);
 

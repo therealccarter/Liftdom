@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
@@ -65,6 +66,8 @@ public class ChatSpecificFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat_specific, container, false);
 
         ButterKnife.bind(this, view);
+
+        HideKey.initialize(getActivity(), view);
 
         userList = new ArrayList<>();
 

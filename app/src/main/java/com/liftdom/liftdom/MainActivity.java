@@ -22,6 +22,7 @@ import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainSocialFeedFrag;
@@ -100,6 +101,8 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+
 
         String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
         Appodeal.disableLocationPermissionCheck();
