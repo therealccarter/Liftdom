@@ -19,18 +19,18 @@ make template editor have a day added by default
     (will have to change tutorial...or just add a reminder dialog)
 user = "loading..." in firebase (template, follower list, etc)
 keyboard needs to go down on touch outside
+make tutorial optional
 ====================================================
 
 ============ Currently Working On ===============================================
-make tutorial optional
+Made tutorial simpler(
+    make tutorial stricter (make buttons true clickable) (disable more shit, less verbose)
+    possibly use different library)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-
-make tutorial stricter (make buttons true clickable) (disable more shit, less verbose)
-
-sign in text is cut off
-bottom nav text is cut off
+sign in text is cut off (API 21 issue)
+bottom nav text is cut off (API 21 issue)
 
 add feedback page
 
@@ -59,7 +59,6 @@ check if template name has been taken
 
 Make main feed less laggy (we could possibly make the last two comments a part of the model class)
     would eliminate the need for a recycler view for those two comments.
-
 ==== easier ==========
 ============
 ==== harder ==========

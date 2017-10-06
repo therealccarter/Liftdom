@@ -617,29 +617,33 @@ public class SelectedTemplateFrag extends Fragment {
 
                                     }
 
-                                    final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                                            ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
-                                            ("isSelectedProgFirstTime");
-                                    firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if(dataSnapshot.exists()){
-                                                new FancyShowCaseView.Builder(getActivity())
-                                                        .title("Let's head to the Workout Assistor! " +
-                                                                "\n \n It's the middle item on the bottom navigation " +
-                                                                "bar.")
-                                                        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                                        .build()
-                                                        .show();
-                                                firstTimeRef.setValue(null);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                    //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance()
+                                    //        .getReference().child
+                                    //        ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                    //).child
+                                    //        ("isSelectedProgFirstTime");
+                                    //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    //    @Override
+                                    //    public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //        if(dataSnapshot.exists()){
+                                    //            new FancyShowCaseView.Builder(getActivity())
+                                    //                    .title("Let's head to the Workout Assistor! " +
+                                    //                            "\n \n It's the middle item on the bottom
+                                    // navigation" +
+                                    //                    " " +
+                                    //                            "bar.")
+                                    //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                    //                    .build()
+                                    //                    .show();
+                                    //            firstTimeRef.setValue(null);
+                                    //        }
+                                    //    }
+//
+                                    //    @Override
+                                    //    public void onCancelled(DatabaseError databaseError) {
+//
+                                    //    }
+                                    //});
                                 }
                             });
                         }
@@ -673,7 +677,7 @@ public class SelectedTemplateFrag extends Fragment {
     public void onStart(){
         super.onStart();
 
-        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
                 ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
                 ("isSelectedProgFirstTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -681,29 +685,26 @@ public class SelectedTemplateFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
 
-                    editPenSmall.setEnabled(false);
-                    editTemplate.setEnabled(false);
-                    deleteTemplate.setEnabled(false);
-                    publishButton.setEnabled(false);
+                    //editPenSmall.setEnabled(false);
+                    //editTemplate.setEnabled(false);
+                    //deleteTemplate.setEnabled(false);
+                    //publishButton.setEnabled(false);
 
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("This is where you can edit or delete any of your programs." +
                                     "\n \n You can also publish your program to the public repository for anyone to " +
                                     "use." +
-                                    "\n \n Most importantly, this is where you can set your Active Program. \n Let's " +
-                                    "do that now!")
+                                    "\n \n Most importantly, this is where you can set your Active Program. ")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .focusOn(setAsActiveTemplate)
+                            //.focusOn(setAsActiveTemplate)
                             .title("Your Active Program is the program that will be used for your daily " +
-                            "workouts/rest" +
-                                    " days" + "\n Go ahead and check " +
-                                    "'Set as active" +
-                                    " program' now, then proceed to Today's Workout to finish up the tutorial")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
-                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                            .fitSystemWindows(true)
+                            "workouts/rest days. \n\n You can change your Active Program whenever you want, but avoid" +
+                                    " doing it while also completing a workout.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            //.focusShape(FocusShape.ROUNDED_RECTANGLE)
+                            //.fitSystemWindows(true)
                             .build();
 
                     new FancyShowCaseQueue()
@@ -711,7 +712,7 @@ public class SelectedTemplateFrag extends Fragment {
                             .add(fancyShowCaseView2)
                             .show();
 
-
+                    firstTimeRef.setValue(null);
 
                 }
             }

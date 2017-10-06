@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWork
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.wang.avi.AVLoadingIndicatorView;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,13 +97,14 @@ public class MainSocialFeedFrag extends Fragment {
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startActivity(new Intent(getContext(), SignInActivity.class));
         }else{
-            showTutorialChoice();
+            //showTutorialChoice();
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
             final DatabaseReference socialRef = rootRef.child("feed").child(uid);
             socialRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    firstTimeTutorial();
                     if(dataSnapshot.exists()){
                         loadingView.setVisibility(View.GONE);
                         noPostsView.setVisibility(View.GONE);
@@ -159,6 +162,30 @@ public class MainSocialFeedFrag extends Fragment {
 
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void firstTimeTutorial(){
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isFeedFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    new FancyShowCaseView.Builder(getActivity())
+                            .title("This is the Social Feed. It's where you and your friends' completed workouts will " +
+                                    "be posted.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build()
+                            .show();
+                    firstTimeRef.setValue(null);
                 }
             }
 

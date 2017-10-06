@@ -82,59 +82,63 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked){
-                    if(isFirstTimeFirstTime){
-
-                        ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollViewWA);
-                        scrollView.scrollTo(0, scrollView.getBottom());
-
-                        FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                                .focusOn(saveProgressButton)
-                                .title("This button allows you to save your workout progress so that you can finish it later." +
-                                        " If you need to leave the Today's Workout page before finishing, make sure " +
-                                        "to click this.")
-                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
-                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                .fitSystemWindows(true)
-                                .build();
-                        FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                                .focusOn(privateJournalView)
-                                .title("Take any workout-related notes here. Only you will be able to see this.")
-                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
-                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                .fitSystemWindows(true)
-                                .build();
-                        FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
-                                .focusOn(publicCommentView)
-                                .title("This is where you can write out a public description for the day's workout.")
-                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                .fitSystemWindows(true)
-                                .build();
-                        FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
-                                .focusOn(saveButton)
-                                .title("Click here to finish up the workout!")
-                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                .fitSystemWindows(true)
-                                .build();
-
-                        new FancyShowCaseQueue()
-                                .add(fancyShowCaseView1)
-                                .add(fancyShowCaseView2)
-                                .add(fancyShowCaseView3)
-                                .add(fancyShowCaseView4)
-                                .show();
-
-
-                        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
-                                (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
-
-                        //firstTimeRef.setValue(null);
-                        isTutorialFirstTime = true;
-                        isFirstTimeFirstTime = false;
-                    }
-                }
+                //if(isChecked){
+                //    if(isFirstTimeFirstTime){
+//
+                //        ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollViewWA);
+                //        scrollView.scrollTo(0, scrollView.getBottom());
+//
+                //        FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                //                .focusOn(saveProgressButton)
+                //                .title("This button allows you to save your workout progress so that you can finish
+                // " +
+                //                "it later." +
+                //                        " If you need to leave the Today's Workout page before finishing, make sure
+                // " +
+                //                        "to click this.")
+                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
+                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                //                .fitSystemWindows(true)
+                //                .build();
+                //        FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                //                .focusOn(privateJournalView)
+                //                .title("Take any workout-related notes here. Only you will be able to see this.")
+                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
+                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                //                .fitSystemWindows(true)
+                //                .build();
+                //        FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
+                //                .focusOn(publicCommentView)
+                //                .title("This is where you can write out a public description for the day's workout.")
+                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                //                .fitSystemWindows(true)
+                //                .build();
+                //        FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
+                //                .focusOn(saveButton)
+                //                .title("Click here to finish up the workout!")
+                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                //                .fitSystemWindows(true)
+                //                .build();
+//
+                //        new FancyShowCaseQueue()
+                //                .add(fancyShowCaseView1)
+                //                .add(fancyShowCaseView2)
+                //                .add(fancyShowCaseView3)
+                //                .add(fancyShowCaseView4)
+                //                .show();
+//
+//
+                //        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+                //                ("firstTime").child
+                //                (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+//
+                //        //firstTimeRef.setValue(null);
+                //        isTutorialFirstTime = true;
+                //        isFirstTimeFirstTime = false;
+                //    }
+                //}
             }
         });
     }
@@ -466,6 +470,56 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
+                .child("firstTime").child(uid).child("isAssistorFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(getActivity())
+                            .title("This is the Workout Assistor!" +
+                                    "\n It's where you will complete workouts and rest days.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+
+                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                            .title("Check off all of the sets that you complete. \n" +
+                                    "You can also freestyle with it and add/remove exercises and sets.\n" +
+                                    "Remember, you want to most accurately document your workout!")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+
+                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                            .title("The gold 'Save Progress' button saves your workout progress if you need to leave " +
+                                    "this page. \n " +
+                                    "The Private Journal is where you can take workout notes. It'll only be viewable " +
+                                     "by you \n " +
+                                     "The Public Description is what your followers will see as the " +
+                                     "description for this workout.\n \n" +
+                                      "Good luck and have fun!")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView)
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void finishWorkout(){

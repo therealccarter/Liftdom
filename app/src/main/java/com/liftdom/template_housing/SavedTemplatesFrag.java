@@ -219,9 +219,8 @@ public class SavedTemplatesFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     new FancyShowCaseView.Builder(getActivity())
-                            .title("All of your saved programs will be here. \n Your active template will have a gold" +
-                                    " " +
-                                    "title. \n Click on your FirstTime program to continue.")
+                            .title("All of your saved programs will be here. \n Your Active Template will have a gold" +
+                                    " title.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build().show();
 

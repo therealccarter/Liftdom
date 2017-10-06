@@ -125,44 +125,62 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         DatabaseReference firstTimeTemplateRef = FirebaseDatabase.getInstance().getReference().child
                 ("defaultTemplates").child("FirstTimeProgram");
 
-        firstTimeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+
+        userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                TemplateModelClass firstTimeModel = dataSnapshot.getValue(TemplateModelClass.class);
-                firstTimeModel.setUserId(userId);
-                firstTimeModel.setUserName(userName);
-                firstTimeModel.setDateCreated(new DateTime(DateTimeZone.UTC).toString());
-                firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
-                DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
-                        ("templates").child(userId).child(firstTimeModel.getTemplateName());
-                templateRef.setValue(firstTimeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
+            public void onComplete(@NonNull Task<Void> task) {
 
-                        userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("uid", userModelClass.getUserId());
+                editor.putString("userName", userModelClass.getUserName());
+                editor.commit();
 
-                                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPref.edit();
-                                editor.putString("uid", userModelClass.getUserId());
-                                editor.putString("userName", userModelClass.getUserName());
-                                editor.commit();
-
-                                Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+                Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+
+        //firstTimeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        TemplateModelClass firstTimeModel = dataSnapshot.getValue(TemplateModelClass.class);
+        //        firstTimeModel.setUserId(userId);
+        //        firstTimeModel.setUserName(userName);
+        //        firstTimeModel.setDateCreated(new DateTime(DateTimeZone.UTC).toString());
+        //        firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
+        //        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
+        //                ("templates").child(userId).child(firstTimeModel.getTemplateName());
+        //        templateRef.setValue(firstTimeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+        //            @Override
+        //            public void onSuccess(Void aVoid) {
+        //                DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user")
+        //                        .child(userId);
+//
+        //                userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //                    @Override
+        //                    public void onComplete(@NonNull Task<Void> task) {
+//
+        //                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        //                        SharedPreferences.Editor editor = sharedPref.edit();
+        //                        editor.putString("uid", userModelClass.getUserId());
+        //                        editor.putString("userName", userModelClass.getUserName());
+        //                        editor.commit();
+//
+        //                        Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
+        //                        startActivity(intent);
+        //                    }
+        //                });
+        //            }
+        //        });
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
 
 
         //DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);

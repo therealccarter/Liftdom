@@ -136,50 +136,54 @@ public class ExNameWAFrag extends android.app.Fragment
     public void onStart(){
         super.onStart();
 
-        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
-                (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-
-                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Welcome to the Workout Assistor. \n \n" +
-                                    "This is where you'll come every day to complete your workouts and check off rest" +
-                                    " days." +
-                                    "\n \n You can customize everything here to most accurately reflect and record the workout " +
-                                    "you did that day.")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build();
-
-                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .focusOn(getView())
-                            .title("This view shows every set for each exercise. \n \n You can add or delete sets " +
-                                    "here, as " +
-                                    "well as change the reps to 'to failure' or weight to 'bodyweight' via the 3 dot " +
-                                    "menu on the left." +
-                                    "\n \n Go ahead and check off the first set now, and we'll move on.")
-                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
-                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                            .build();
-
-                    new FancyShowCaseQueue()
-                            .add(fancyShowCaseView1)
-                            .add(fancyShowCaseView2)
-                            .show();
-
-                    CheckBox checkBox = (CheckBox) repsWeightFragList2.get(0).getView().findViewById(R.id.checkBox);
-                    firstTimeShowcaseCallback.firstTimeShowcase(checkBox);
-
-                    //firstTimeRef.setValue(null);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+        //        (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+        //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        if(dataSnapshot.exists()){
+//
+        //            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+        //                    .title("Welcome to the Workout Assistor. \n \n" +
+        //                            "This is where you'll come every day to complete your workouts and check off " +
+        //                    "rest" +
+        //                            " days." +
+        //                            "\n \n You can customize everything here to most accurately reflect and record " +
+        //                    "the workout " +
+        //                            "you did that day.")
+        //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+        //                    .build();
+//
+        //            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+        //                    .focusOn(getView())
+        //                    .title("This view shows every set for each exercise. \n \n You can add or delete sets " +
+        //                            "here, as " +
+        //                            "well as change the reps to 'to failure' or weight to 'bodyweight' via the 3
+                                    // dot" +
+        //                    " " +
+        //                            "menu on the left." +
+        //                            "\n \n Go ahead and check off the first set now, and we'll move on.")
+        //                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
+        //                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
+        //                    .build();
+//
+        //            new FancyShowCaseQueue()
+        //                    .add(fancyShowCaseView1)
+        //                    .add(fancyShowCaseView2)
+        //                    .show();
+//
+        //            CheckBox checkBox = (CheckBox) repsWeightFragList2.get(0).getView().findViewById(R.id.checkBox);
+        //            firstTimeShowcaseCallback.firstTimeShowcase(checkBox);
+//
+        //            //firstTimeRef.setValue(null);
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
     }
 
     @Override

@@ -370,28 +370,23 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     "how many consecutive days you've checked off your workouts/rest days.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
+
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                             .title("Not only will your Completion Streak (consecutive days) add a multiplier " +
                                     "to the XP you gain, but your Completion Streak can also be used to unlock " +
                                     "rewards and premium features." +
-                                    "\n \n Remember, check off rest days too to keep the Streak up!")
-                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
-                            .build();
-                    FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Now go and create your first custom workout program. Good Luck!")
+                                    "\n \n Remember, check off rest days too to keep the Streak up!" +
+                                    "\n \n Good luck!")
                             .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
                             .build();
 
                     new FancyShowCaseQueue()
                             .add(fancyShowCaseView1)
                             .add(fancyShowCaseView2)
-                            .add(fancyShowCaseView3)
                             .show();
-                    DatabaseReference firstTimeTemplateRef = mRootRef.child("templates").child(uid).child
-                            ("FirstTime");
+
                     DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child("activeTemplate");
                     firstTimeRef.setValue(null);
-                    firstTimeTemplateRef.setValue(null);
                     firstTimeActiveRef.setValue(null);
                 }else{
                     //Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);

@@ -99,6 +99,7 @@ public class UserSearchFrag extends Fragment {
                                 loadingView.setVisibility(View.GONE);
 
                                 for(Map.Entry<String, String> entry : fullUserHashMap.entrySet()){
+                                    //TODO: convert to recycler view
                                     String key = entry.getKey();
                                     String value = entry.getValue();
 

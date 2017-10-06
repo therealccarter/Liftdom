@@ -452,42 +452,7 @@ public class TemplateEditorActivity extends BaseActivity
                 DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
                 if (getIntent().getExtras().getString("isEdit") != null) {
                     if (getIntent().getExtras().getString("isEdit").equals("no")) {
-                        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    TemplateEditorSingleton.getInstance().isFirstTimeTut = true;
-                                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
-                                            (TemplateEditorActivity.this)
-                                            .title("Welcome to the Program Editor. This is where you can create " +
-                                                    "complex, custom workout programs.")
-                                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                                            .build();
-                                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder
-                                            (TemplateEditorActivity.this)
-                                            .focusOn(addDay)
-                                            .title("Let's begin by adding a day set.")
-                                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
-                                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                                            .fitSystemWindows(true)
-                                            .build();
 
-                                    new FancyShowCaseQueue()
-                                            .add(fancyShowCaseView1)
-                                            .add(fancyShowCaseView2)
-                                            .show();
-
-                                    isFirstTimeTut = true;
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
                     }
                 }
             }
@@ -822,19 +787,51 @@ public class TemplateEditorActivity extends BaseActivity
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
 
-        DatabaseReference isFirstTemplate = mRootRef.child("templates");
+        DatabaseReference isFirstTemplate = mRootRef.child("templates").child(uid);
         isFirstTemplate.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean isFirst = false;
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    String userId = dataSnapshot1.getKey();
-                    if(userId.equals(uid)){
-                        isFirst = true;
-                    }
-                }
-                if(!isFirst){
+                if(!dataSnapshot.exists()){
                     activeTemplateCheckbox.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
+        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    TemplateEditorSingleton.getInstance().isFirstTimeTut = true;
+                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
+                            (TemplateEditorActivity.this)
+                            .title("Welcome to the Program Editor. This is where you can create " +
+                                    "complex, custom workout programs.")
+                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                            .build();
+                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder
+                            (TemplateEditorActivity.this)
+                            .focusOn(addDay)
+                            .title("Let's begin by adding a day set.")
+                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                            .fitSystemWindows(true)
+                            .build();
+
+                    new FancyShowCaseQueue()
+                            .add(fancyShowCaseView1)
+                            .add(fancyShowCaseView2)
+                            .show();
+
+                    isFirstTimeTut = true;
+
+                    firstTimeRef.setValue(null);
                 }
             }
 

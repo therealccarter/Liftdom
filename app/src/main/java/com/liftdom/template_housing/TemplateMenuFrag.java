@@ -184,33 +184,42 @@ public class TemplateMenuFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
 
-                    fromScratch.setEnabled(false);
-                    userMadeTemplates.setEnabled(false);
-                    premadeTemplates.setEnabled(false);
-
-                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                            .title("This is where you'll handle all workout programming." + System.getProperty
-                                    ("line.separator") + System.getProperty
-                                    ("line.separator") + "Create workouts from " +
-                                    "scratch, view your saved programs, and view pre-made or user-made programs.")
+                    new FancyShowCaseView.Builder(getActivity())
+                            .title("This is the Workout Programming page. \n " +
+                                    "You can create a new program, view your saved programs," +
+                                    "or check out user-made/pre-made programs.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build();
-
-                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .focusOn(savedTemplates)
-                            .title("Hit the Saved Programs button now!")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                            .roundRectRadius(90)
-                            .fitSystemWindows(true)
-                            .build();
-
-                    new FancyShowCaseQueue()
-                            .add(fancyShowCaseView1)
-                            .add(fancyShowCaseView2)
+                            .build()
                             .show();
-
                     firstTimeRef.setValue(null);
+
+                    //fromScratch.setEnabled(false);
+                    //userMadeTemplates.setEnabled(false);
+                    //premadeTemplates.setEnabled(false);
+//
+                    //FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+                    //        .title("This is where you'll handle all workout programming." + System.getProperty
+                    //                ("line.separator") + System.getProperty
+                    //                ("line.separator") + "Create workouts from " +
+                    //                "scratch, view your saved programs, and view pre-made or user-made programs.")
+                    //        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                    //        .build();
+//
+                    //FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+                    //        .focusOn(savedTemplates)
+                    //        .title("Hit the Saved Programs button now!")
+                    //        .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                    //        .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                    //        .roundRectRadius(90)
+                    //        .fitSystemWindows(true)
+                    //        .build();
+//
+                    //new FancyShowCaseQueue()
+                    //        .add(fancyShowCaseView1)
+                    //        .add(fancyShowCaseView2)
+                    //        .show();
+//
+                    //firstTimeRef.setValue(null);
                 }else{
                     //final DatabaseReference secondTimeRef = FirebaseDatabase.getInstance().getReference().child
                     //        ("firstTime")
