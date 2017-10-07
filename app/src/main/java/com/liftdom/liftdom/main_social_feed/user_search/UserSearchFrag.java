@@ -103,15 +103,17 @@ public class UserSearchFrag extends Fragment {
                                     String key = entry.getKey();
                                     String value = entry.getValue();
 
-                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    if(getActivity() != null){
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                                    UserSearchResultFrag searchResultFrag = new UserSearchResultFrag();
-                                    searchResultFrag.xUid = key;
-                                    searchResultFrag.userName = value;
+                                        UserSearchResultFrag searchResultFrag = new UserSearchResultFrag();
+                                        searchResultFrag.xUid = key;
+                                        searchResultFrag.userName = value;
 
-                                    fragmentTransaction.add(R.id.resultsHolder, searchResultFrag);
-                                    fragmentTransaction.commit();
+                                        fragmentTransaction.add(R.id.resultsHolder, searchResultFrag);
+                                        fragmentTransaction.commit();
+                                    }
                                 }
                             }
                         }

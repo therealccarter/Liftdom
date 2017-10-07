@@ -202,6 +202,41 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     Map fanoutObject = new HashMap<>();
 
+    private void fanoutRecentComments(){
+        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
+
+        userListRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+
+                    final List<String> userList = new ArrayList<>();
+
+                    if(followersModelClass.getUserIdList() != null) {
+                        userList.addAll(followersModelClass.getUserIdList());
+
+                        if(!getCurrentUid().equals(xUid)){
+                            userList.add(xUid);
+                        }
+
+                        for(int i = 0; i < userList.size(); i++){
+                            final int inc = i;
+                            if(!userList.get(i).equals(getCurrentUid())){
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void fanoutCommentPost(final String commentRefKey, final PostCommentModelClass commentModelClass){
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
 
@@ -247,8 +282,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                 });
                             }
                         }
-
-
                     }
                 }
             }

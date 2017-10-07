@@ -216,18 +216,18 @@ public class MainSocialFeedFrag extends Fragment {
                     loadingView.setVisibility(View.GONE);
                 }
                 //viewHolder.setPosition(position);
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setActivity(getActivity());
                 viewHolder.setUserId(model.getUserId());
                 viewHolder.setUpProfilePics(model.getUserId());
+                viewHolder.setCommentRecycler(model.getRef());
+                viewHolder.setUserName(model.getUserName());
+                viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
                 viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
                         model.isIsImperial());
                 viewHolder.setActivity(getActivity());
                 viewHolder.setRefKey(model.getRef());
-                viewHolder.setCommentRecycler(model.getRef());
                 if(model.getBonusList() != null){
                     if(!model.getBonusList().isEmpty()){
                         viewHolder.setBonusView(model.getBonusList());
@@ -237,6 +237,12 @@ public class MainSocialFeedFrag extends Fragment {
         };
 
         recyclerView.setAdapter(firebaseAdapter);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        firebaseAdapter.cleanup();
     }
 
     @Override
