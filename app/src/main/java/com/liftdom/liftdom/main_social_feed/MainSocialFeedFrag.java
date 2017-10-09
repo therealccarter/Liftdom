@@ -30,6 +30,7 @@ import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.template_housing.TemplateMenuFrag;
+import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 
@@ -106,9 +107,29 @@ public class MainSocialFeedFrag extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     firstTimeTutorial();
                     if(dataSnapshot.exists()){
-                        loadingView.setVisibility(View.GONE);
-                        noPostsView.setVisibility(View.GONE);
-                        setUpFirebaseAdapter(socialRef);
+                        DatabaseReference userRef = rootRef.child("user").child(uid);
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                if(userModelClass.isIsImperial()){
+                                    loadingView.setVisibility(View.GONE);
+                                    noPostsView.setVisibility(View.GONE);
+                                    setUpFirebaseAdapter(socialRef, true);
+                                }else{
+                                    loadingView.setVisibility(View.GONE);
+                                    noPostsView.setVisibility(View.GONE);
+                                    setUpFirebaseAdapter(socialRef, false);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }else{
                         loadingView.setVisibility(View.GONE);
                         noPostsView.setVisibility(View.VISIBLE);
@@ -196,7 +217,7 @@ public class MainSocialFeedFrag extends Fragment {
         });
     }
 
-    private void setUpFirebaseAdapter(DatabaseReference databaseReference){
+    private void setUpFirebaseAdapter(DatabaseReference databaseReference, final boolean isImperial){
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setSmoothScrollbarEnabled(true);
@@ -216,18 +237,19 @@ public class MainSocialFeedFrag extends Fragment {
                     loadingView.setVisibility(View.GONE);
                 }
                 //viewHolder.setPosition(position);
+                viewHolder.setImperialPOV(isImperial);
                 viewHolder.setActivity(getActivity());
+                viewHolder.setRefKey(model.getRef());
                 viewHolder.setUserId(model.getUserId());
+                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+                        model.isIsImperial());
                 viewHolder.setUpProfilePics(model.getUserId());
                 viewHolder.setCommentRecycler(model.getRef());
                 viewHolder.setUserName(model.getUserName());
                 viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
-                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
-                        model.isIsImperial());
-                viewHolder.setActivity(getActivity());
-                viewHolder.setRefKey(model.getRef());
+                //viewHolder.setActivity(getActivity());
                 if(model.getBonusList() != null){
                     if(!model.getBonusList().isEmpty()){
                         viewHolder.setBonusView(model.getBonusList());

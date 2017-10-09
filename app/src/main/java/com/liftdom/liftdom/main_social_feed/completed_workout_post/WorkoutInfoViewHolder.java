@@ -28,6 +28,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     private final TextView mSetSchemeView;
     private final TextView mSetSchemeViewSS;
     private String mInfoString;
+    private boolean isImperialPOV;
     private boolean isOriginallyImperial;
 
     public WorkoutInfoViewHolder(View itemView){
@@ -41,6 +42,14 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         mSetSchemeView = (TextView) itemView.findViewById(R.id.setSchemeTextView);
         mSetSchemeViewSS = (TextView) itemView.findViewById(R.id.setSchemeTextViewSS);
 
+    }
+
+    public boolean getIsImperialPOV() {
+        return isImperialPOV;
+    }
+
+    public void setImperialPOV(boolean imperialPOV) {
+        isImperialPOV = imperialPOV;
     }
 
     public void setUpView(){
@@ -67,17 +76,17 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
                 mSetSchemeLL.setVisibility(View.GONE);
                 mSetSchemeSSLL.setVisibility(View.VISIBLE);
 
-                if(MainActivitySingleton.getInstance().isImperial && !isOriginallyImperial()){
+                if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
                     String newRepsWeight = metricToImperial(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeViewSS.setText(newRepsWeight);
-                }else if(!MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
+                }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
                     String newRepsWeight = imperialToMetric(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeViewSS.setText(newRepsWeight);
-                }else if(MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
+                }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
@@ -105,17 +114,17 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
                 mSetSchemeLL.setVisibility(View.VISIBLE);
                 mSetSchemeSSLL.setVisibility(View.GONE);
 
-                if(MainActivitySingleton.getInstance().isImperial && !isOriginallyImperial()){
+                if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
                     String newRepsWeight = metricToImperial(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeView.setText(newRepsWeight);
-                }else if(!MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
+                }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
                     String newRepsWeight = imperialToMetric(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeView.setText(newRepsWeight);
-                }else if(MainActivitySingleton.getInstance().isImperial && isOriginallyImperial()){
+                }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
@@ -146,21 +155,29 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String metricToImperial(String input){
-        String delims = "[@]";
-        String[] tokens = input.split(delims);
-        double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
-        int lbsInt = (int) Math.round(lbsDouble);
-        String newString = tokens[0] + "@" + String.valueOf(lbsInt);
-        return newString;
+        if(input.equals("B.W.")){
+            return input;
+        }else{
+            String delims = "[@]";
+            String[] tokens = input.split(delims);
+            double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            String newString = tokens[0] + "@" + String.valueOf(lbsInt);
+            return newString;
+        }
     }
 
     private String imperialToMetric(String input){
-        String delims = "[@]";
-        String[] tokens = input.split(delims);
-        double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
-        int kgInt = (int) Math.round(kgDouble);
-        String newString = tokens[0] + "@" + String.valueOf(kgInt);
-        return newString;
+        if(input.equals("B.W.")){
+            return input;
+        }else{
+            String delims = "[@]";
+            String[] tokens = input.split(delims);
+            double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            String newString = tokens[0] + "@" + String.valueOf(kgInt);
+            return newString;
+        }
     }
 
     boolean isExerciseName(String input) {

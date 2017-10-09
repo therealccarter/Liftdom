@@ -3,38 +3,27 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-bottom nav badge
-change workout_history to workoutHistory
-assistor crash (invalid int "6 ")
-assistor wrong input limits
-bottom badge not going away
-add followers view in profile
-showed like 5 ads...
-add direct chat (will be actually going into this later)
-assistor saved not working (not going to assistor saved after closing ad)
-for the first time, don't write to workout history
-remember to re-enable assistor set value stuff
-check isAssistorFirstTime
-make template editor have a day added by default
-    (will have to change tutorial...or just add a reminder dialog)
-user = "loading..." in firebase (template, follower list, etc)
-keyboard needs to go down on touch outside
-make tutorial optional
-Made tutorial simpler(
-    make tutorial stricter (make buttons true clickable) (disable more shit, less verbose)
-    possibly use different library)
+
 ====================================================
 
 ============ Currently Working On ===============================================
-Make main feed less laggy
-    - (we could possibly make the last two comments a part of the model class)
-        would eliminate the need for a recycler view for those two comments.
-    - Glide cache
-    - Turns out, it's the damn post info holder! this is good!
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-lockscreen functionality
+Make main feed less laggy{
+    (we could possibly make the last two comments a part of the model class)
+      would eliminate the need for a recycler view for those two comments.
+    Glide cache
+    Turns out, it's the damn post info holder! this is good!
+}
+
+
+3 most important things (other than bugs){
+    lockscreen functionality (service)
+    more programs
+    rep button
+}
 
 check if template name has been taken
 

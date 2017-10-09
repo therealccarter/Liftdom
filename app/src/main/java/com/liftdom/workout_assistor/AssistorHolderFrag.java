@@ -27,12 +27,10 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
-import me.toptas.fancyshowcase.FocusShape;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +52,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    TemplateModelClass templateClass;
+    TemplateModelClass mTemplateClass;
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
     int exNameInc = 0;
     boolean savedState = false;
@@ -257,7 +255,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
+                            if(dayDouble % (double) 5 == 0.0 || isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
@@ -372,7 +370,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
+                            if(dayDouble % (double) 5 == 0.0 || isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
@@ -546,7 +544,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
         }
-        assistorSavedFrag.templateClass = templateClass;
+        assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
@@ -578,7 +576,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
         }
-        assistorSavedFrag.templateClass = templateClass;
+        assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
@@ -622,9 +620,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         // without having saved any progress
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
-        if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
-            if(!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
-                HashMap<String, List<String>> map = templateClass.getMapForDay(intToWeekday(currentWeekday));
+        if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
+            if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
+                HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
                 for(int i = 0; i < map.size(); i++){
                     for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                         if(!entry.getKey().equals("0_key")){
@@ -704,7 +702,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             if(isTutorialFirstTime){
                 assistorSavedFrag.isFirstTimeFirstTime = true;
             }
-            assistorSavedFrag.templateClass = templateClass;
+            assistorSavedFrag.templateClass = mTemplateClass;
             assistorSavedFrag.completedMap = runningMap;
             assistorSavedFrag.privateJournal = privateJournal;
             assistorSavedFrag.publicDescription = publicComment;

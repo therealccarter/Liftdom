@@ -2,14 +2,11 @@ package com.liftdom.workout_assistor;
 
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,25 +18,16 @@ import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-import nl.dionsegijn.konfetti.KonfettiView;
-import nl.dionsegijn.konfetti.models.Shape;
-import nl.dionsegijn.konfetti.models.Size;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -250,7 +238,7 @@ public class WorkoutAssistorFrag extends Fragment{
                                         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
                                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                         AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                        assistorHolderFrag.templateClass = templateModelClass;
+                                        assistorHolderFrag.mTemplateClass = templateModelClass;
                                         if (!getActivity().isFinishing()) {
                                             try {
                                                 LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id

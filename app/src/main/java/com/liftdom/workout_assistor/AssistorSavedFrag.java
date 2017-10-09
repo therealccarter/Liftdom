@@ -1055,7 +1055,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     templateClass.setAlgorithmDateMap(newHashMap);
                                 }
 
-                                //templateClass.updateRunningDate(exNameFormatted);
+                                //mTemplateClass.updateRunningDate(exNameFormatted);
 
                                 firstLoopBool = false;
                             }
@@ -1071,7 +1071,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             String bool = "true";
 
                             originalHashmap.put(key, newValueList);
-                            //templateClass.setNewDateMapValues(exNameFormatted, bool, todayString);
+                            //mTemplateClass.setNewDateMapValues(exNameFormatted, bool, todayString);
 
                             String oldDate = null;
                             String dateKey = null;
@@ -1661,7 +1661,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     templateClass.setAlgorithmDateMap(newHashMap);
                                 }
 
-                                //templateClass.updateRunningDate(exNameFormatted);
+                                //mTemplateClass.updateRunningDate(exNameFormatted);
 
                                 firstLoopBool = false;
                             }
@@ -1677,7 +1677,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             String bool = "true";
 
                             originalHashmap.put(key, newValueList);
-                            //templateClass.setNewDateMapValues(exNameFormatted, bool, todayString);
+                            //mTemplateClass.setNewDateMapValues(exNameFormatted, bool, todayString);
 
                             String oldDate = null;
                             String dateKey = null;

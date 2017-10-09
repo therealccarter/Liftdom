@@ -19,6 +19,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
     private HashMap<String, List<String>> mWorkoutInfoMap;
     private Context mContext;
     private boolean isOriginallyImperial;
+    private boolean isImperialPOV;
 
     public WorkoutInfoRecyclerAdapter(HashMap<String, List<String>> map, Context context){
         this.mWorkoutInfoMap = map;
@@ -55,6 +56,14 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         }
     }
 
+    public boolean getIsImperialPOV() {
+        return isImperialPOV;
+    }
+
+    public void setImperialPOV(boolean imperialPOV) {
+        isImperialPOV = imperialPOV;
+    }
+
     public boolean getIsOriginallyImperial() {
         return isOriginallyImperial;
     }
@@ -74,6 +83,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
     @Override
     public void onBindViewHolder(WorkoutInfoViewHolder viewHolder, int position){
         viewHolder.setInfoString(mWorkoutInfoList.get(position));
+        viewHolder.setImperialPOV(getIsImperialPOV());
         viewHolder.setUpView();
     }
 

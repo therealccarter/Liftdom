@@ -538,6 +538,8 @@
 
     <string name="beta">(Beta)</string>
 
+    <string name="dontLeavePage">(Please allow text to load in to ensure results are saved!)</string>
+
     <string name="calorieChart">Calorie Calculation Chart</string>
     <string name="historyChart">Exercise History Chart</string>
     <string name="items">Items:\u0020</string>

@@ -73,3 +73,23 @@ change feed from recycler to "all at once" loading/not loading newest one for so
 layout polish everywhere
  - fix chat send box
  - fix chat message alignment with profile pics
+ bottom nav badge
+ change workout_history to workoutHistory
+ assistor crash (invalid int "6 ")
+ assistor wrong input limits
+ bottom badge not going away
+ add followers view in profile
+ showed like 5 ads...
+ add direct chat (will be actually going into this later)
+ assistor saved not working (not going to assistor saved after closing ad)
+ for the first time, don't write to workout history
+ remember to re-enable assistor set value stuff
+ check isAssistorFirstTime
+ make template editor have a day added by default
+     (will have to change tutorial...or just add a reminder dialog)
+ user = "loading..." in firebase (template, follower list, etc)
+ keyboard needs to go down on touch outside
+ make tutorial optional
+ Made tutorial simpler(
+     make tutorial stricter (make buttons true clickable) (disable more shit, less verbose)
+     possibly use different library)

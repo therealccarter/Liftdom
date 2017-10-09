@@ -78,6 +78,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private Query recentMessages;
     private boolean isFullComments;
     private final LinearLayout mAllCommentsLL;
+    private boolean isImperialPOV;
     //private final LinearLayout mPostInfoHolderLL;
     //private final BannerView mBannerView;
     private int mPosition;
@@ -179,6 +180,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    public boolean getIsImperialPOV() {
+        return isImperialPOV;
+    }
+
+    public void setImperialPOV(boolean imperialPOV) {
+        isImperialPOV = imperialPOV;
+    }
+
     public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
                             boolean isImperial){
 
@@ -189,6 +198,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
         //adapter.setInfoList(workoutInfoMap);
         adapter.setIsOriginallyImperial(isImperial);
+        adapter.setImperialPOV(getIsImperialPOV());
         mInfoRecyclerView.setAdapter(adapter);
         mInfoRecyclerView.setHasFixedSize(false);
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
@@ -467,7 +477,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass otherUserModelClass = dataSnapshot.getValue(UserModelClass.class);
-                String repsLevel = otherUserModelClass.getRepLevel();
+                //String repsLevel = otherUserModelClass.getRepLevel();
                 String powerLevel = otherUserModelClass.getPowerLevel();
                 mUserLevelView.setText(powerLevel);
             }
