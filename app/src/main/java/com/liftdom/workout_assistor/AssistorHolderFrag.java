@@ -374,6 +374,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
+
                                 alertDialog.dismiss();
                                 finishWorkoutFromAd();
 
