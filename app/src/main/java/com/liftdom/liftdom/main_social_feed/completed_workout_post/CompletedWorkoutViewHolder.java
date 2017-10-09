@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerView;
@@ -77,6 +78,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private Query recentMessages;
     private boolean isFullComments;
     private final LinearLayout mAllCommentsLL;
+    //private final LinearLayout mPostInfoHolderLL;
     //private final BannerView mBannerView;
     private int mPosition;
     //private final LinearLayout mCommentFragHolder;
@@ -99,6 +101,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
         mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
         //mBannerView = (BannerView) itemView.findViewById(R.id.appodealBannerView);
+        //mPostInfoHolderLL = (LinearLayout) itemView.findViewById(R.id.postInfoHolderLL);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -174,6 +177,21 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 mActivity.startActivity(intent);
             }
         });
+    }
+
+    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
+                            boolean isImperial){
+
+        /**
+         * Maybe if we do the computations here?
+         */
+
+        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
+        //adapter.setInfoList(workoutInfoMap);
+        adapter.setIsOriginallyImperial(isImperial);
+        mInfoRecyclerView.setAdapter(adapter);
+        mInfoRecyclerView.setHasFixedSize(false);
+        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
     }
 
     public void setPosition(int position){
@@ -475,16 +493,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         DateTime localDate = dateTimeOriginal.withZone(DateTimeZone.getDefault());
         String formattedLocalDate = localDate.toString("MM/dd/yyyy");
         mTimestampView.setText(formattedLocalDate);
-    }
-
-    public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
-                            boolean isImperial){
-        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
-        //adapter.setInfoList(workoutInfoMap);
-        adapter.setIsOriginallyImperial(isImperial);
-        mInfoRecyclerView.setAdapter(adapter);
-        mInfoRecyclerView.setHasFixedSize(false);
-        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
     }
 
     boolean isExerciseName(String input) {
