@@ -2,7 +2,6 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              tools:context="com.liftdom.template_housing.TemplateHousingActivity"
               android:orientation="vertical"
               android:id="@+id/repsWeightContainer"
               android:background="@color/grey"

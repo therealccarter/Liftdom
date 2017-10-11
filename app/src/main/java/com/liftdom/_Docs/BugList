@@ -3,10 +3,11 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
+superset in future calendar view is fuckt
 ====================================================
 
 ============ Currently Working On ===============================================
-superset in future calendar view is fuckt
+calendar data carried over again (opened other user, then nav drawer -> mine)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -18,7 +19,6 @@ changing to bodyweight shifts layout to the right...
 add feedback page
 check if template name has been taken
 followers/following show them and make followable
-calendar data carried over again (opened other user, then nav drawer -> mine)
 ============
 ==== harder ==========
 glide caching in chat (maybe just do it differently, load in parent, get from parent)

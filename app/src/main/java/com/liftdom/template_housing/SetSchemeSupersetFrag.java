@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class SetSchemeSupersetFrag extends Fragment {
     }
 
     public String setSchemeString = "error";
+    public boolean isSmallerText;
 
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;
@@ -35,6 +37,11 @@ public class SetSchemeSupersetFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_set_scheme_superset, container, false);
 
         ButterKnife.bind(this, view);
+
+        if(isSmallerText){
+            setSchemesView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen
+                    .sixteen_sp));
+        }
 
         setSchemesView.setText(setSchemeString);
 

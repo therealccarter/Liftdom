@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class HousingSetSchemeFrag extends Fragment {
 
     public String setSchemeString = "error";
     boolean differentType = false;
+    public boolean isSmallerText;
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;
     @BindView(R.id.pounds) TextView pounds;
@@ -43,6 +45,11 @@ public class HousingSetSchemeFrag extends Fragment {
 
         if(differentType){
             pounds.setVisibility(View.GONE);
+        }
+
+        if(isSmallerText){
+            setSchemesView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen
+                    .sixteen_sp));
         }
 
         setSchemesView.setText(setSchemeString);

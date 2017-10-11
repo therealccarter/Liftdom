@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class HousingExNameFrag extends Fragment {
     }
 
     public String exNameString = "error";
+    public boolean isSmallerText;
 
     @BindView(R.id.exerciseName) TextView exerciseName;
 
@@ -38,6 +40,10 @@ public class HousingExNameFrag extends Fragment {
         if(savedInstanceState != null){
             exNameString = savedInstanceState.getString("ex_name");
             exerciseName.setText(exNameString);
+        }
+
+        if(isSmallerText){
+            exerciseName.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.eighteen_sp));
         }
 
         exerciseName.setText(exNameString);

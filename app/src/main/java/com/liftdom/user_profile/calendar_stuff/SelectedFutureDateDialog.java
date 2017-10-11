@@ -28,7 +28,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
 
-    //TODO: Add buttons to go forward or backwards in time. Get current position in collection and add or subtrack
+    //TODO: Add buttons to go forward or backwards in time. Get current position in collection and add or subtract
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
