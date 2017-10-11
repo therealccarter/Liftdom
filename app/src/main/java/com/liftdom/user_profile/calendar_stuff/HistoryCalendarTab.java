@@ -246,6 +246,12 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         return view;
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        FutureDateHelperClass.getInstance().clearAll();
+    }
+
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {

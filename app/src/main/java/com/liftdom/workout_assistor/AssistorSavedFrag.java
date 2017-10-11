@@ -313,6 +313,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     completedWorkoutModelClass.setBonusList(bonusList);
                 }
 
+                if(isLevelUp){
+                    List<String> bonusList = new ArrayList<>();
+                    bonusList.add("Level up!");
+                    completedWorkoutModelClass.setBonusList(bonusList);
+                }
+
                 myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
 
@@ -411,7 +417,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
     private String totalXpGained;
     private int currentXp;
     private String currentPowerLevel;
-    private String oldPowerLevel;
+    private boolean isLevelUp;
+
 
     public boolean isFromAd;
 
@@ -458,7 +465,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             powerLevelTextView.setText(userModelClass.getPowerLevel());
             currentPowerLevel = userModelClass.getPowerLevel();
-            oldPowerLevel = userModelClass.getPowerLevel();
 
             if(userModelClass.getCurrentXpWithinLevel() == null){
                 currentXp = 0;
@@ -482,6 +488,10 @@ public class AssistorSavedFrag extends android.app.Fragment {
             streakMultiplierView.setText(streakMultiplier);
             xpFromWorkoutView.setText(xpFromWorkout);
             totalXpGainedView.setText("0");
+
+            if(!currentPowerLevel.equals(userModelClass.getPowerLevel())){
+                isLevelUp = true;
+            }
 
             userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

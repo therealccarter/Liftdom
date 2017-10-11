@@ -4,17 +4,18 @@
 
 ======== ***Completed*** =======================================================
 superset in future calendar view is fuckt
+calendar data carried over again (opened other user, then nav drawer -> mine)
+layout cleanup in various areas (dialog views)
+level up bonus view
 ====================================================
 
 ============ Currently Working On ===============================================
-calendar data carried over again (opened other user, then nav drawer -> mine)
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
 add feed to profiles
-layout cleanup in various areas (think about someone else viewing it)
-level up bonus view
 changing to bodyweight shifts layout to the right...
 add feedback page
 check if template name has been taken

@@ -70,7 +70,14 @@ public class CompletedWorkoutModelClass {
     }
 
     public void setBonusList(List<String> bonusList) {
-        this.bonusList = bonusList;
+        if(this.bonusList == null){
+            this.bonusList = bonusList;
+        }else{
+            for(String string : bonusList){
+                this.bonusList.add(string);
+            }
+        }
+
     }
 
     public Map<String, PostCommentModelClass> getCommentMap() {
