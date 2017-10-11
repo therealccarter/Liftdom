@@ -347,7 +347,7 @@
 
     <string name="noPosts">No posts yet...</string>
 
-    <string name="followUser">(+) Follow User</string>
+    <string name="followUser">(+) Follow</string>
     <string name="unfollowUser">(-) Un-follow</string>
 
     <string name="createdBy">Created by:\u0020</string>

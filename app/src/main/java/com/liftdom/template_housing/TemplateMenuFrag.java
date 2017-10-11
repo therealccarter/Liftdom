@@ -223,7 +223,7 @@ public class TemplateMenuFrag extends Fragment {
                 }else{
                     //final DatabaseReference secondTimeRef = FirebaseDatabase.getInstance().getReference().child
                     //        ("firstTime")
-                    //        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+                    //        .child(FirebaseAuth.getInstance().getCurrentUser().getxUid()).child
                     //                ("isTemplateMenuSecondTime");
                     //secondTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     //    @Override

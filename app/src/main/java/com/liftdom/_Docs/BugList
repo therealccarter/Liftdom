@@ -10,7 +10,7 @@ level up bonus view
 ====================================================
 
 ============ Currently Working On ===============================================
-
+followers/following show them and make followable
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -19,7 +19,7 @@ add feed to profiles
 changing to bodyweight shifts layout to the right...
 add feedback page
 check if template name has been taken
-followers/following show them and make followable
+re-check user made programs functionality
 ============
 ==== harder ==========
 glide caching in chat (maybe just do it differently, load in parent, get from parent)

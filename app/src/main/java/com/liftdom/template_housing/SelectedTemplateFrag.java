@@ -619,7 +619,7 @@ public class SelectedTemplateFrag extends Fragment {
 
                                     //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance()
                                     //        .getReference().child
-                                    //        ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                    //        ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getxUid()
                                     //).child
                                     //        ("isSelectedProgFirstTime");
                                     //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {

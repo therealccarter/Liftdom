@@ -137,7 +137,7 @@ public class ExNameWAFrag extends android.app.Fragment
         super.onStart();
 
         //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
-        //        (FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isAssistorFirstTime");
+        //        (FirebaseAuth.getInstance().getCurrentUser().getxUid()).child("isAssistorFirstTime");
         //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
         //    @Override
         //    public void onDataChange(DataSnapshot dataSnapshot) {

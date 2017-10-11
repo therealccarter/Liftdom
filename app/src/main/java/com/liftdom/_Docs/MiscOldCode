@@ -66,7 +66,7 @@
 
 }
 
-DatabaseReference feedRef = mRootRef.child("feed").child(uid);
+DatabaseReference feedRef = mRootRef.child("feed").child(xUid);
         Query feedQuery = feedRef.limitToLast(10);
         feedQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

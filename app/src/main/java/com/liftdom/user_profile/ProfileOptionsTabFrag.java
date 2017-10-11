@@ -1,6 +1,7 @@
 package com.liftdom.user_profile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +33,8 @@ public class ProfileOptionsTabFrag extends Fragment {
 
     @BindView(R.id.followersCountTextView) TextView followerCountView;
     @BindView(R.id.followingCountTextView) TextView followingCountView;
+    @BindView(R.id.followersTitleView) TextView followersTitleView;
+    @BindView(R.id.followingTitleView) TextView followingTitleView;
     @BindView(R.id.messageLinearLayout) LinearLayout messageLayout;
 
     @Override
@@ -51,17 +55,59 @@ public class ProfileOptionsTabFrag extends Fragment {
             //messageLayout.setVisibility(View.VISIBLE);
         }
 
-        //TODO: view followers and following in separate fragment. really need to get that back arrow going..
+        //TODO: really need to get that back arrow going..
 
         messageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFollowersActivity();
+            }
+        });
+
+        followerCountView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFollowersActivity();
+            }
+        });
+
+        followersTitleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
+        followingCountView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFollowingActivity();
+            }
+        });
+
+        followingTitleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFollowingActivity();
+            }
+        });
+
 
         return view;
+    }
+
+    private void startFollowersActivity(){
+        Intent intent = new Intent(getContext(), FollowersFollowingDialogActivity.class);
+        intent.putExtra("type", "followers");
+        intent.putExtra("uid", xUid);
+        startActivity(intent);
+    }
+
+    private void startFollowingActivity(){
+        Intent intent = new Intent(getContext(), FollowersFollowingDialogActivity.class);
+        intent.putExtra("type", "followers");
+        intent.putExtra("uid", xUid);
+        startActivity(intent);
     }
 
     @Override

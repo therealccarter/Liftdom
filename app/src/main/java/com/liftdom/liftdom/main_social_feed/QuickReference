@@ -9,10 +9,10 @@ Fanning out the data
 Rather than execute multiple writes to the Firebase database, let's create one fan-out object to send.
 
 ========================================================================================================================
-To write to every timeline we need know the user’s uid and their followers.
-In this example, we pass the user’s uid, an array of the user’s followers, and the post as parameters.
+To write to every timeline we need know the user’s xUid and their followers.
+In this example, we pass the user’s xUid, an array of the user’s followers, and the post as parameters.
 
-public Map fanoutPost(String uid, DataSnapshot followersSnaphot, Map post) {
+public Map fanoutPost(String xUid, DataSnapshot followersSnaphot, Map post) {
   Map fanoutObject = new HashMap<>();
   for (DataSnapshot follower: followersSnaphot.getChildren()) {
       fanoutObject.put( "/timeline/" + follower.getKey(), post);
@@ -21,7 +21,7 @@ public Map fanoutPost(String uid, DataSnapshot followersSnaphot, Map post) {
 }
 
 ========================================================================================================================
-To get the followers, create a listener at the /followers/$uid location.
+To get the followers, create a listener at the /followers/$xUid location.
 
 Firebase mFollowersRef;
   Map mFollowers;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // fannout method
-    public Map fanoutPost(String uid, DataSnapshot followersSnaphot, Map post) {
+    public Map fanoutPost(String xUid, DataSnapshot followersSnaphot, Map post) {
 
         Map fanoutObject = new HashMap<>();
         for (DataSnapshot follower: followersSnaphot.getChildren()) {
