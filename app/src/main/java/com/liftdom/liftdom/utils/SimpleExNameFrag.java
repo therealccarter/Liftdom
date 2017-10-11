@@ -79,9 +79,16 @@ public class SimpleExNameFrag extends Fragment {
             if(inc2 == 1){
                 //String cat = list.get(0) + list.get(1);
                 exNameView.setText(list.get(0));
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 for(String string : list){
                     if(!isExerciseName(string)){
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        SimpleSetSchemeFrag setSchemeFrag = new SimpleSetSchemeFrag();
+                        setSchemeFrag.setSchemeString = string;
+                        setSchemeFrag.isPastDate = true;
+                        setSchemeFrag.exerciseName = exerciseName;
+                        fragmentTransaction.add(R.id.superSetHolder, setSchemeFrag);
+                        fragmentTransaction.commit();
                         //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         //SimpleSetSchemeFrag setSchemeFrag = new SimpleSetSchemeFrag();
@@ -90,12 +97,13 @@ public class SimpleExNameFrag extends Fragment {
                         //setSchemeFrag.exerciseName = exerciseName;
                         //fragmentTransaction.add(setSchemeHolder.getId(), setSchemeFrag);
                         //fragmentTransaction.commit();
-                        TextView setSchemeTextView = new TextView(getContext());
-                        setSchemeTextView.setText(string);
-                        setSchemeTextView.setLayoutParams(params);
-                        setSchemeTextView.setBackgroundColor(Color.parseColor("#b4b4b4"));
-                        setSchemeTextView.setTextColor(Color.parseColor("#000000"));
-                        setSchemeHolder.addView(setSchemeTextView);
+
+                        //TextView setSchemeTextView = new TextView(getContext());
+                        //setSchemeTextView.setText(string);
+                        //setSchemeTextView.setLayoutParams(params);
+                        //setSchemeTextView.setBackgroundColor(Color.parseColor("#b4b4b4"));
+                        //setSchemeTextView.setTextColor(Color.parseColor("#000000"));
+                        //setSchemeHolder.addView(setSchemeTextView);
                     }
                 }
             }else{

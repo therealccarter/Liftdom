@@ -96,6 +96,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
+    @BindView(R.id.dontLeavePage) TextView dontLeavePage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,6 +138,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
                 }
                 completedMapFormatted = formatCompletedMap(completedMap);
+                completedExerciseList = getCompletedExercises();
 
                 // init done
 
@@ -205,6 +207,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
                 }
                 completedMapFormatted = formatCompletedMap(completedMap);
+                completedExerciseList = getCompletedExercises();
 
                 // init done
 
@@ -263,7 +266,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
                 }
             }
-
         }else{
             completedMapFormatted = formatCompletedMap(completedMap);
             completedExerciseList = getCompletedExercises();
@@ -436,9 +438,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                //Snackbar snackbar = Snackbar.make(getView(), "fanout complete", Snackbar
-                                // .LENGTH_SHORT);
-                                //snackbar.show();
+                                dontLeavePage.setVisibility(View.GONE);
                             }
                         });
                     }

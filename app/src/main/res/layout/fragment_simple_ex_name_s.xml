@@ -15,7 +15,7 @@
     >
         <ImageView
                 android:layout_width="20dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
                 android:background="@color/backgroundgrey1"
                 android:src="@drawable/ic_arrow_upward_gold_24dp"
                 android:scaleType="centerCrop"

@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
@@ -148,6 +149,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         View view = inflater.inflate(R.layout.fragment_assistor_holder, container, false);
 
         ButterKnife.bind(this, view);
+
+        HideKey.initialize(getActivity());
 
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");

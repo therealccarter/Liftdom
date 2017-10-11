@@ -3,61 +3,54 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-
 ====================================================
 
 ============ Currently Working On ===============================================
-
+superset in future calendar view is fuckt
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
-Make main feed less laggy{
-    (we could possibly make the last two comments a part of the model class)
-      would eliminate the need for a recycler view for those two comments.
-    Glide cache
-    Turns out, it's the damn post info holder! this is good!
-}
+==== easier ==========
+add feed to profiles
+layout cleanup in various areas (think about someone else viewing it)
+level up bonus view
+changing to bodyweight shifts layout to the right...
+add feedback page
+check if template name has been taken
+followers/following show them and make followable
+calendar data carried over again (opened other user, then nav drawer -> mine)
+============
+==== harder ==========
+glide caching in chat (maybe just do it differently, load in parent, get from parent)
+need to change workout info from r@w to sXr@w
+chat unread stuff (including badge/notifications/unread functionality)
+============
 
-
-3 most important things (other than bugs){
+3 most important things new features{
     lockscreen functionality (service)
     more programs
     rep button
 }
 
-check if template name has been taken
+Make main feed less laggy{
+    Turns out, it's the damn post info holder!
+    (we could possibly make the last two comments a part of the model class)
+      would eliminate the need for a recycler view for those two comments.
+    Glide cache
+}
 
-sign in text is cut off (API 21 issue)
-bottom nav text is cut off (API 21 issue)
-
-add feedback page
-
-changing to bodyweight shifts layout to the right..
-
-add ad to main social feed
-add ad to rest day saved frag
-make main social feed toolbar disappear
-bottom nav text crowding
-
-superset in future calendar view is fuckt
-
-add feed to profiles
-layout cleanup in various areas
-need to change workout info from r@w to sXr@w
-level up bonus view
-glide caching in chat
-chat unread stuff (including badge/notifications/unread functionality)
-specific user feeds
-
-
-==== easier ==========
-============
-==== harder ==========
-============
+Post all info{
+    workouts - green, power level button
+    rest days - grey
+    missed days - red
+}
 =====================================================
 
 ============ UNREPLICABLE/UNDECIDED =============================================
 maybe just have one user profile? (could really utilize methods/delegating here)
+make main social feed toolbar disappear
+sign in text is cut off (API 21 issue)
+bottom nav text is cut off (API 21 issue)
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
