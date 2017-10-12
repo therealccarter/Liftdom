@@ -35,6 +35,7 @@ import com.liftdom.liftdom.utils.FollowingModelClass;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.user_profile.UserModelClass;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class OtherUserProfileHeaderFrag extends Fragment {
     @BindView(R.id.followUserButton) Button followUserButton;
     @BindView(R.id.unFollowUserButton) Button unfollowUserButton;
     @BindView(R.id.profilePicImageView) ImageView profilePicView;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,20 +125,13 @@ public class OtherUserProfileHeaderFrag extends Fragment {
         });
 
 
-        final DatabaseReference followingUsersRef = mRootRef.child("following").child(uid);
-        final DatabaseReference followerUsersRef = mRootRef.child("followers").child(xUid);
+        final DatabaseReference followingUsersRef = mRootRef.child("following").child(uid).child(xUid);
         followingUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
-                    if(followingModelClass.getFollowingMap().containsKey(xUid)){
-                        unfollowUserButton.setVisibility(View.VISIBLE);
-                        followUserButton.setVisibility(View.GONE);
-                    }else{
-                        unfollowUserButton.setVisibility(View.GONE);
-                        followUserButton.setVisibility(View.VISIBLE);
-                    }
+                   unfollowUserButton.setVisibility(View.VISIBLE);
+                   followUserButton.setVisibility(View.GONE);
                 } else {
                     followUserButton.setVisibility(View.VISIBLE);
                 }
@@ -150,133 +145,60 @@ public class OtherUserProfileHeaderFrag extends Fragment {
 
         followUserButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // first, the OTHER person gains YOU as a follower
-                final DatabaseReference otherFollowerRef = mRootRef.child("followers").child(xUid);
-                otherFollowerRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                            FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
-                            followersModelClass.addFollowerToMap(uid, sharedPref.getString("userName", "loading..."));
-                            otherFollowerRef.setValue(followersModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    // second, YOU gain the OTHER person as "following"
-                                    final DatabaseReference myFollowingList = mRootRef.child("following").child(uid);
-                                    myFollowingList.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if(dataSnapshot.exists()){
-                                                FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
-                                                followingModelClass.addFollowingToMap(xUid, userName);
-                                                myFollowingList.setValue(followingModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        followUserButton.setVisibility(View.GONE);
-                                                        unfollowUserButton.setVisibility(View.VISIBLE);
-                                                    }
-                                                });
-                                            }else{
-                                                FollowingModelClass followingModelClass = new FollowingModelClass(xUid, userName);
-                                                myFollowingList.setValue(followingModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        followUserButton.setVisibility(View.GONE);
-                                                        unfollowUserButton.setVisibility(View.VISIBLE);
-                                                    }
-                                                });
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                }
-                            });
-                        }else{
-                            SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                            FollowersModelClass followersModelClass = new FollowersModelClass(uid, sharedPref.getString("userName", "loading..."));
-                            otherFollowerRef.setValue(followersModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    // second, YOU gain the OTHER person as "following"
-                                    final DatabaseReference myFollowingList = mRootRef.child("following").child(uid);
-                                    myFollowingList.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if(dataSnapshot.exists()){
-                                                FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
-                                                followingModelClass.addFollowingToMap(xUid, userName);
-                                                myFollowingList.setValue(followingModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        followUserButton.setVisibility(View.GONE);
-                                                        unfollowUserButton.setVisibility(View.VISIBLE);
-                                                    }
-                                                });
-                                            }else{
-                                                FollowingModelClass followingModelClass = new FollowingModelClass(xUid, userName);
-                                                myFollowingList.setValue(followingModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        followUserButton.setVisibility(View.GONE);
-                                                        unfollowUserButton.setVisibility(View.VISIBLE);
-                                                    }
-                                                });
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                //UserNameIdModelClass otherUserModel = new UserNameIdModelClass(userName, xUid);
-                ////followingUsersRef.child(xUid).setValue(userName);
-                //// currentUser is following xUid
-                //followingUsersRef.child(xUid).setValue(otherUserModel);
-                //UserNameIdModelClass currentUserModel = new UserNameIdModelClass(sharedPref.getString("userName",
-                //        "loading..."), uid);
-                //// xUid is being followed by currentUser
-                //followerUsersRef.child(uid).setValue(currentUserModel);
-                ////followerUsersRef.child(uid).setValue(mFirebaseUser.getDisplayName());
-
+               followUser();
             }
         });
 
         unfollowUserButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                followingUsersRef.child(xUid).child(uid).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        followerUsersRef.child(uid).child(xUid).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                unfollowUserButton.setVisibility(View.GONE);
-                                followUserButton.setVisibility(View.VISIBLE);
-                            }
-                        });
-                    }
-                });
-
-
+                unfollowUser();
             }
         });
+
         return view;
+    }
+
+    private void followUser(){
+        followUserButton.setVisibility(View.GONE);
+        loadingView.setVisibility(View.VISIBLE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        UserNameIdModelClass meModelClass = new UserNameIdModelClass(sharedPref.getString("userName", "loading..."), uid);
+        final UserNameIdModelClass otherModelClass = new UserNameIdModelClass(userName, xUid);
+        // first, the OTHER person gains YOU as a follower
+        DatabaseReference followerRef = mRootRef.child("followers").child(xUid).child(uid);
+        followerRef.setValue(meModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                // second, YOU gain the OTHER person as "following"
+                DatabaseReference followingRef = mRootRef.child("following").child(uid).child(xUid);
+                followingRef.setValue(otherModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        loadingView.setVisibility(View.GONE);
+                        unfollowUserButton.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+    }
+
+    private void unfollowUser(){
+        unfollowUserButton.setVisibility(View.GONE);
+        loadingView.setVisibility(View.VISIBLE);
+        DatabaseReference followerRef = mRootRef.child("followers").child(xUid).child(uid);
+        followerRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                DatabaseReference followingRef = mRootRef.child("following").child(uid).child(xUid);
+                followingRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        loadingView.setVisibility(View.GONE);
+                        followUserButton.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
     }
 
 }

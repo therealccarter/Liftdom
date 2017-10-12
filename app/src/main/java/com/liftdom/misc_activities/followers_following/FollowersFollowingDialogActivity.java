@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -31,17 +32,19 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_followers_following_dialog);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        ButterKnife.bind(this);
+
         rootRef = FirebaseDatabase.getInstance().getReference();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(getIntent().getExtras() != null){
             if(getIntent().getStringExtra("type").equals("followers")){
-                xUid = getIntent().getStringExtra("xUid");
-                DatabaseReference databaseReference = rootRef.child("followers").child(xUid);
+                xUid = getIntent().getStringExtra("uid");
+                DatabaseReference databaseReference = rootRef.child("followers").child(xUid).child("followerMap");
                 setUpFirebaseAdapter(databaseReference);
             }else if(getIntent().getStringExtra("type").equals("following")){
-                xUid = getIntent().getStringExtra("xUid");
-                DatabaseReference databaseReference = rootRef.child("following").child(xUid);
+                xUid = getIntent().getStringExtra("uid");
+                DatabaseReference databaseReference = rootRef.child("following").child(xUid).child("followingMap");
                 setUpFirebaseAdapter(databaseReference);
             }
         }
@@ -64,7 +67,14 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
                 viewHolder.setUid(uid);
             }
         };
+
+        recyclerView.setAdapter(firebaseAdapter);
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        firebaseAdapter.cleanup();
+    }
 
 }

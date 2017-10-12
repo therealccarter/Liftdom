@@ -429,6 +429,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
+                    }
                     FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
 
                     List<String> userList = new ArrayList<>();

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 
 /**
@@ -46,6 +47,7 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
 
     public void setUserName(String username) {
         this.userName = username;
+        mUserNameView.setText(username);
     }
 
     public String getUid() {
@@ -54,5 +56,25 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
 
     public void setUid(String uid) {
         this.uid = uid;
+        DatabaseReference followingSpecificRef = FirebaseDatabase.getInstance().getReference().child("following")
+                .child(uid).child("followingMap").child(xUid);
+        followingSpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    mFollowUserButton.setVisibility(View.GONE);
+                    mUnFollowUserButton.setVisibility(View.VISIBLE);
+                }else{
+                    mFollowUserButton.setVisibility(View.VISIBLE);
+                    mUnFollowUserButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
+// com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver
