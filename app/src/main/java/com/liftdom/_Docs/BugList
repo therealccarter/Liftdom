@@ -7,10 +7,12 @@ superset in future calendar view is fuckt
 calendar data carried over again (opened other user, then nav drawer -> mine)
 layout cleanup in various areas (dialog views)
 level up bonus view
+followers/following show them and make followable
+refactor followers/following node usages
 ====================================================
 
 ============ Currently Working On ===============================================
-followers/following show them and make followable
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -25,6 +27,7 @@ re-check user made programs functionality
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 need to change workout info from r@w to sXr@w
 chat unread stuff (including badge/notifications/unread functionality)
+add option to do a workout on a rest day
 ============
 
 3 most important things new features{

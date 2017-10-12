@@ -429,29 +429,44 @@ public class AssistorSavedFrag extends android.app.Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    Map fanoutObject = new HashMap<>();
+                    int inc = 0;
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
 
-                    }
-                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+                        fanoutObject.put("/feed/" + dataSnapshot1.getKey() + "/" + refKey, completedWorkoutModelClass);
 
-                    List<String> userList = new ArrayList<>();
+                        inc++;
 
-                    if(followersModelClass.getUserIdList() != null){
-                        userList.addAll(followersModelClass.getUserIdList());
-
-                        Map fanoutObject = new HashMap<>();
-                        for(String user : userList){
-                            fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+                        if(inc == dataSnapshot.getChildrenCount()){
+                            DatabaseReference rootRef = mRootRef;
+                            rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    dontLeavePage.setVisibility(View.GONE);
+                                }
+                            });
                         }
-
-                        DatabaseReference rootRef = mRootRef;
-                        rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                dontLeavePage.setVisibility(View.GONE);
-                            }
-                        });
                     }
+                    //FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+//
+                    //List<String> userList = new ArrayList<>();
+//
+                    //if(followersModelClass.getUserIdList() != null){
+                    //    userList.addAll(followersModelClass.getUserIdList());
+//
+                    //    Map fanoutObject = new HashMap<>();
+                    //    for(String user : userList){
+                    //        fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+                    //    }
+//
+                    //    DatabaseReference rootRef = mRootRef;
+                    //    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //        @Override
+                    //        public void onComplete(@NonNull Task<Void> task) {
+                    //            dontLeavePage.setVisibility(View.GONE);
+                    //        }
+                    //    });
+                    //}
                 }
             }
 

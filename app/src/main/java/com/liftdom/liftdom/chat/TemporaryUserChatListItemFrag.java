@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatGroup.NewChatGroupDialog;
 
@@ -25,7 +26,7 @@ public class TemporaryUserChatListItemFrag extends Fragment {
         // Required empty public constructor
     }
 
-    public String userName;
+    //public String userName;
     public String userId;
     public NewChatGroupDialog newChatGroupDialog;
 
@@ -40,7 +41,20 @@ public class TemporaryUserChatListItemFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        userNameView.setText(userName);
+        DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userList").child(userId);
+        userNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String userName = dataSnapshot.getValue(String.class);
+                userNameView.setText(userName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

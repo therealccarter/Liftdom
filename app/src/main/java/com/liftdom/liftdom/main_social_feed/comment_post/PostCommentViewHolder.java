@@ -104,28 +104,19 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
-
-                    List<String> userList = new ArrayList<>();
-
-                    if(followersModelClass.getUserIdList() != null){
-                        userList.addAll(followersModelClass.getUserIdList());
-
-                        Map fanoutObject = new HashMap<>();
-
-                        //if(!getCurrentUid().equals(getParentUid())){
-                            userList.add(getParentUid());
-                        //}
-
-                        for(String user : userList){
-                            //if(!user.equals(getCurrentUid())){
-                                fanoutObject.put("/feed/" + user + "/" + parentRefKey + "/commentMap/" + mRefKey,
-                                        null);
-                            //}
+                    Map fanoutObject = new HashMap<>();
+                    int inc = 0;
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        String key = dataSnapshot1.getKey();
+                        fanoutObject.put("/feed/" + key + "/" + parentRefKey + "/commentMap/" + mRefKey,
+                                null);
+                        inc++;
+                        if(inc == dataSnapshot.getChildrenCount()){
+                            fanoutObject.put("/feed/" + getParentUid() + "/" + parentRefKey + "/commentMap/" + mRefKey,
+                                    null);
+                            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                            rootRef.updateChildren(fanoutObject);
                         }
-
-                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                        rootRef.updateChildren(fanoutObject);
                     }
                 }else{
                     DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child

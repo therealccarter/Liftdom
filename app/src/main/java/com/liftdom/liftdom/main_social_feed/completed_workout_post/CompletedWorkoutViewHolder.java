@@ -230,40 +230,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     Map fanoutObject = new HashMap<>();
 
-    private void fanoutRecentComments(){
-        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
-
-        userListRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
-
-                    final List<String> userList = new ArrayList<>();
-
-                    if(followersModelClass.getUserIdList() != null) {
-                        userList.addAll(followersModelClass.getUserIdList());
-
-                        if(!getCurrentUid().equals(xUid)){
-                            userList.add(xUid);
-                        }
-
-                        for(int i = 0; i < userList.size(); i++){
-                            final int inc = i;
-                            if(!userList.get(i).equals(getCurrentUid())){
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+    private int commentInc1 = 0;
 
     private void fanoutCommentPost(final String commentRefKey, final PostCommentModelClass commentModelClass){
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
@@ -272,45 +239,82 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)  {
                 if(dataSnapshot.exists()){
-                    FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
-
-                    final List<String> userList = new ArrayList<>();
-
-                    if(followersModelClass.getUserIdList() != null){
-                        userList.addAll(followersModelClass.getUserIdList());
-
-
-                        if(!getCurrentUid().equals(xUid)){
-                            userList.add(xUid);
-                        }
-
-
-                        for(int i = 0; i < userList.size(); i++){
-                            final int inc = i;
-                            if(!userList.get(i).equals(getCurrentUid())){
-                                DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
-                                        ("feed").child(userList.get(i)).child(mRefKey);
-                                postRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if(dataSnapshot.exists()){fanoutObject.put("/feed/" + userList.get(inc) +
-                                                "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
+                    final int childCount = (int) dataSnapshot.getChildrenCount();
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        commentInc1++;
+                        final String key = dataSnapshot1.getKey();
+                        //if(!key.equals(getCurrentUid())){
+                            DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("feed").child(key).child(mRefKey);
+                            postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        if(!key.equals(getCurrentUid())){
+                                            fanoutObject.put("/feed/" + key +
+                                                    "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                                         }
-                                        if(inc == userList.size() - 1){
+                                        if(commentInc1 == childCount){
+                                            if(!getCurrentUid().equals(xUid)){
+                                                fanoutObject.put("/feed/" + xUid +
+                                                        "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
+                                            }
+
                                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                             rootRef.updateChildren(fanoutObject);
                                             fanoutObject.clear();
+                                            commentInc1 = 0;
                                         }
                                     }
+                                }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
-                            }
-                        }
+                                }
+                            });
+                        //}
+
                     }
+                    //FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+//
+                    //final List<String> userList = new ArrayList<>();
+//
+                    //if(followersModelClass.getUserIdList() != null){
+                    //    userList.addAll(followersModelClass.getUserIdList());
+//
+//
+                    //    if(!getCurrentUid().equals(xUid)){
+                    //        userList.add(xUid);
+                    //    }
+//
+//
+                    //    for(int i = 0; i < userList.size(); i++){
+                    //        final int inc = i;
+                    //        if(!userList.get(i).equals(getCurrentUid())){
+                    //            DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
+                    //                    ("feed").child(userList.get(i)).child(mRefKey);
+                    //            postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    //                @Override
+                    //                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //                    if(dataSnapshot.exists()){fanoutObject.put("/feed/" + userList.get(inc) +
+                    //                            "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
+                    //                    }
+                    //                    if(inc == userList.size() - 1){
+                    //                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                    //                        rootRef.updateChildren(fanoutObject);
+                    //                        fanoutObject.clear();
+                    //                    }
+                    //                }
+//
+                    //                @Override
+                    //                public void onCancelled(DatabaseError databaseError) {
+//
+                    //                }
+                    //            });
+                    //        }
+                    //    }
+                    //}
                 }
             }
 

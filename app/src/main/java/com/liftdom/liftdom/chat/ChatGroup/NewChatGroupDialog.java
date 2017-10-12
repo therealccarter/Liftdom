@@ -55,18 +55,28 @@ public class NewChatGroupDialog extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
-                    HashMap<String, String> followingMap = followingModelClass.getFollowingMap();
                     loadingView.setVisibility(View.GONE);
-                    for(Map.Entry<String, String> mapEntry : followingMap.entrySet()){
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        String key = dataSnapshot1.getKey();
                         TemporaryUserChatListItemFrag userChatListItemFrag = new TemporaryUserChatListItemFrag();
-                        userChatListItemFrag.userId = mapEntry.getKey();
-                        userChatListItemFrag.userName = mapEntry.getValue();
+                        userChatListItemFrag.userId = key;
                         userChatListItemFrag.newChatGroupDialog = NewChatGroupDialog.this;
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.add(R.id.userListLL, userChatListItemFrag);
                         fragmentTransaction.commit();
                     }
+                    //FollowingModelClass followingModelClass = dataSnapshot.getValue(FollowingModelClass.class);
+                    //HashMap<String, String> followingMap = followingModelClass.getFollowingMap();
+                    //loadingView.setVisibility(View.GONE);
+                    //for(Map.Entry<String, String> mapEntry : followingMap.entrySet()){
+                    //    TemporaryUserChatListItemFrag userChatListItemFrag = new TemporaryUserChatListItemFrag();
+                    //    userChatListItemFrag.userId = mapEntry.getKey();
+                    //    userChatListItemFrag.userName = mapEntry.getValue();
+                    //    userChatListItemFrag.newChatGroupDialog = NewChatGroupDialog.this;
+                    //    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    //    fragmentTransaction.add(R.id.userListLL, userChatListItemFrag);
+                    //    fragmentTransaction.commit();
+                    //}
                 }else{
                     loadingView.setVisibility(View.GONE);
                     followToChatView.setVisibility(View.VISIBLE);
