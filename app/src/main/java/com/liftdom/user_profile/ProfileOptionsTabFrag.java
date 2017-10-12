@@ -74,7 +74,7 @@ public class ProfileOptionsTabFrag extends Fragment {
         followersTitleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startFollowersActivity();
             }
         });
 
@@ -105,7 +105,7 @@ public class ProfileOptionsTabFrag extends Fragment {
 
     private void startFollowingActivity(){
         Intent intent = new Intent(getContext(), FollowersFollowingDialogActivity.class);
-        intent.putExtra("type", "followers");
+        intent.putExtra("type", "following");
         intent.putExtra("uid", xUid);
         startActivity(intent);
     }
@@ -115,7 +115,7 @@ public class ProfileOptionsTabFrag extends Fragment {
         super.onStart();
 
         DatabaseReference followerRef = FirebaseDatabase.getInstance().getReference().child("followers").
-                child(xUid).child("followerMap");
+                child(xUid);
         followerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -136,7 +136,7 @@ public class ProfileOptionsTabFrag extends Fragment {
         });
 
         DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference().child("following").
-                child(xUid).child("followingMap");
+                child(xUid);
         followingRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

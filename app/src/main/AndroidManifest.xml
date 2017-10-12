@@ -442,7 +442,7 @@
                 android:theme="@android:style/Theme.NoTitleBar"/>
 
         <receiver
-                android:name="com.inmobi.commons.core.utilities.xUid.ImIdShareBroadCastReceiver"
+                android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
