@@ -241,7 +241,6 @@ public class TemplateSavedActivity extends BaseActivity {
                 dateUpdated = xDateCreated;
             }
 
-            //TODO: add radio group for template type
             String workoutType = "placeholder";
 
             final TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,

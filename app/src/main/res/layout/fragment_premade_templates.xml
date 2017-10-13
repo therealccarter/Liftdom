@@ -1,26 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-              android:paddingBottom="70dp"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/grey"
               android:orientation="vertical"
-             tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
+              tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/comingSoonView"
-            android:text="5x5, Smolov, and more coming soon!"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="40sp"
-    />
 
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
     >
         <LinearLayout
                 android:layout_width="match_parent"
@@ -57,6 +46,17 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginStart="50dp"
+                    android:layout_marginBottom="10dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/comingSoonView"
+                    android:text="@string/comingSoon"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
             />
 
             <LinearLayout
@@ -67,6 +67,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:visibility="gone"
             >
                 <Button
                         android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/liftrGold1"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
@@ -132,16 +133,27 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
         >
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="@string/smolov"
-                    android:id="@+id/smolovButton"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:background="@color/liftrGold1"
-                    android:padding="10dp"
-            />
+            <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardElevation="5dp"
+            >
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/smolov"
+                        android:id="@+id/smolovButton"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:background="@color/black"
+                        style="@style/buttonStyle1"
+                        android:textAllCaps="false"
+                />
+
+            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -172,6 +184,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginStart="50dp"
+                    android:layout_marginBottom="10dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comingSoon"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
             />
 
             <LinearLayout
@@ -182,6 +204,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:visibility="gone"
             >
                 <Button
                         android:layout_width="wrap_content"

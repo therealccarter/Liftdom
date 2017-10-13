@@ -228,6 +228,8 @@
     <string name="legs">Legs</string>
     <string name="confirm">Confirm</string>
 
+    <string name="confirmColon">Confirm:</string>
+
     <!-- Exercises -->
     <string name="bench">Bench Press:</string>
     <string name="bbRow">Barbell Row</string>
@@ -370,16 +372,40 @@
     <string name="setUpProfileValues">Set up your body profile:</string>
     <string name="invalidProfileFields">Please enter all values. These can be edited later!</string>
 
+
     <string name="userNameTaken">Username taken</string>
     <string name="userNameAvailable">Username available!</string>
 
     <string name="programNameTaken">You already have a program with this name. Saving will overwrite the existing
-        program.</string>
+        program.
+    </string>
 
     <string name="setupFinished">That\'s it, you\'re finished!</string>
     <string name="mayTheGains">May the gains be with you</string>
 
     <string name="finishSetup">Finish Setup?</string>
+
+    <string name="programName">Program name:</string>
+
+    <string name="invalidProgramName">Invalid program name</string>
+
+    <string name="confirmSmolov">Finish Smolov Creation</string>
+
+    <string name="smolovDescription">
+        Smolov is an advanced 13 week program that can increase your squat\'s
+        max by 100lbs or more. \n \n
+        Make sure to eat, sleep, and stretch as much as possible because this program is extremely
+        taxing on the body.
+    </string>
+
+    <string name="exercise">Exercise:</string>
+
+    <string name="invalidSmolovFields">Please enter all values.</string>
+
+    <string name="today">Today</string>
+    <string name="nextMonday">Next Monday</string>
+
+    <string name="startTodayOrNextMonday">Would you like to start Smolov today, or begin next Monday?</string>
 
     <string name="noProgramsFound">No programs found&#8230;</string>
 
@@ -641,6 +667,10 @@
     <string name="description">Description:</string>
 
     <string name="oneRepMax">One-rep Max:</string>
+
+    <string name="exerciseForSmolov">Exercise for Smolov:</string>
+
+    <string name="oneRepMaxForThisEx">Max for this exercise:</string>
 
     <string name="beginRoutine">Begin Routine</string>
 

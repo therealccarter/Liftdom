@@ -33,6 +33,7 @@ public class TemplateModelClass {
     private boolean mIsAlgoApplyToAll;
     private HashMap<String, List<String>> mAlgorithmInfo;
     private HashMap<String, List<String>> mAlgorithmDateMap;
+    private HashMap<String, String> mExtraInfo;
     private String publicTemplateKeyId;
     private boolean mIsImperial;
 
@@ -79,6 +80,14 @@ public class TemplateModelClass {
         mAlgorithmInfo = algorithmInfo;
         mAlgorithmDateMap = algorithmDateMap;
         mIsImperial = isImperial;
+    }
+
+    public HashMap<String, String> getExtraInfo() {
+        return mExtraInfo;
+    }
+
+    public void setExtraInfo(HashMap<String, String> mExtraInfo) {
+        this.mExtraInfo = mExtraInfo;
     }
 
     public boolean isIsImperial() {

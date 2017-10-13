@@ -56,21 +56,6 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
     }
 
-    //@Override
-    //public boolean dispatchTouchEvent(MotionEvent ev) {
-    //    View view = getCurrentFocus();
-    //    if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
-    //            && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
-    //        int scrcoords[] = new int[2];
-    //        view.getLocationOnScreen(scrcoords);
-    //        float x = ev.getRawX() + view.getLeft() - scrcoords[0];
-    //        float y = ev.getRawY() + view.getTop() - scrcoords[1];
-    //        if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
-    //            ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-    //        (this.getWindow().getDecorView().getApplicationWindowToken()), 0);
-    //    }
-    //    return super.dispatchTouchEvent(ev);
-    //}
 
     @Override
     public void onFinish(){
@@ -142,63 +127,6 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
             }
         });
 
-        //firstTimeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        //    @Override
-        //    public void onDataChange(DataSnapshot dataSnapshot) {
-        //        TemplateModelClass firstTimeModel = dataSnapshot.getValue(TemplateModelClass.class);
-        //        firstTimeModel.setUserId(userId);
-        //        firstTimeModel.setUserName(userName);
-        //        firstTimeModel.setDateCreated(new DateTime(DateTimeZone.UTC).toString());
-        //        firstTimeModel.setDateUpdated(new DateTime(DateTimeZone.UTC).toString());
-        //        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child
-        //                ("templates").child(userId).child(firstTimeModel.getTemplateName());
-        //        templateRef.setValue(firstTimeModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-        //            @Override
-        //            public void onSuccess(Void aVoid) {
-        //                DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user")
-        //                        .child(userId);
-//
-        //                userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-        //                    @Override
-        //                    public void onComplete(@NonNull Task<Void> task) {
-//
-        //                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        //                        SharedPreferences.Editor editor = sharedPref.edit();
-        //                        editor.putString("uid", userModelClass.getUserId());
-        //                        editor.putString("userName", userModelClass.getUserName());
-        //                        editor.commit();
-//
-        //                        Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
-        //                        startActivity(intent);
-        //                    }
-        //                });
-        //            }
-        //        });
-        //    }
-//
-        //    @Override
-        //    public void onCancelled(DatabaseError databaseError) {
-//
-        //    }
-        //});
-
-
-        //DatabaseReference userNode = FirebaseDatabase.getInstance().getReference().child("user").child(userId);
-//
-        //userNode.setValue(userModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-        //    @Override
-        //    public void onComplete(@NonNull Task<Void> task) {
-//
-        //        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        //        SharedPreferences.Editor editor = sharedPref.edit();
-        //        editor.putString("uid", userModelClass.getUserId());
-        //        editor.putString("userName", userModelClass.getUserName());
-        //        editor.commit();
-//
-        //        Intent intent = new Intent(FirstTimeSetupActivity.this, MainActivity.class);
-        //        startActivity(intent);
-        //    }
-        //});
     }
 
 }

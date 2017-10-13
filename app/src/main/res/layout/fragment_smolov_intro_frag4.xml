@@ -1,0 +1,47 @@
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.workout_programs.Smolov.SmolovIntroFrag4">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmationTextView"
+            android:gravity="center"
+            android:text="@string/confirmColon"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+    />
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView"
+            android:layout_margin="20dp"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+    />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/finishSmolovButton"
+            style="@style/borderlessButton"
+            android:text="@string/confirmSmolov"
+            android:textSize="26sp"
+            android:background="@color/confirmgreen"
+            android:textColor="@color/white"
+            android:layout_margin="20dp"
+            android:padding="5dp"
+            android:visibility="gone"
+    />
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

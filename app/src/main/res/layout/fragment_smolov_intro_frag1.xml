@@ -1,0 +1,38 @@
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.workout_programs.Smolov.SmolovIntroFrag1">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/smolovTitleView"
+            android:text="@string/smolov"
+            android:textSize="35sp"
+            android:gravity="center"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/backgroundgrey1"
+            android:layout_marginBottom="50dp"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/smolovDescription"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_parallaxFactor="0.7"
+    />
+
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
