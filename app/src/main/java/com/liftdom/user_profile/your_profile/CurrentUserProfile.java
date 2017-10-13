@@ -10,19 +10,28 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
+import com.irozon.library.HideKey;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.*;
+import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
+import com.liftdom.user_profile.UserModelClass;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -32,6 +41,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class CurrentUserProfile extends BaseActivity {
 
@@ -46,8 +56,14 @@ public class CurrentUserProfile extends BaseActivity {
     String email = "error";
     String username = "Username";
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String uid;
+    private DatabaseReference rootRef;
+    private LinearLayoutManager linearLayoutManager;
+    private FirebaseRecyclerAdapter firebaseAdapter;
+
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.noPostsView) TextView noPostsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,8 @@ public class CurrentUserProfile extends BaseActivity {
         setContentView(R.layout.activity_current_user_profile);
 
         ButterKnife.bind(this);
+
+        HideKey.initialize(CurrentUserProfile.this);
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -102,6 +120,98 @@ public class CurrentUserProfile extends BaseActivity {
         collapsingToolbarLayout.setTitle(userName);
         collapsingToolbarLayout.setExpandedTitleTextColor(ColorStateList.valueOf(Color.TRANSPARENT));
 
+        // BEGIN recycler view setup
+
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        final DatabaseReference socialRef = rootRef.child("feed").child(uid);
+        socialRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    DatabaseReference userRef = rootRef.child("user").child(uid);
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                            if(userModelClass.isIsImperial()){
+                                loadingView.setVisibility(View.GONE);
+                                noPostsView.setVisibility(View.GONE);
+                                setUpFirebaseAdapter(socialRef, true);
+                            }else{
+                                loadingView.setVisibility(View.GONE);
+                                noPostsView.setVisibility(View.GONE);
+                                setUpFirebaseAdapter(socialRef, false);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }else{
+                    loadingView.setVisibility(View.GONE);
+                    noPostsView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setUpFirebaseAdapter(DatabaseReference databaseReference, final boolean isImperial){
+
+        linearLayoutManager = new LinearLayoutManager(CurrentUserProfile.this);
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemViewCacheSize(10);
+
+        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item,
+                        CompletedWorkoutViewHolder.class, databaseReference) {
+            @Override
+            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
+                                              CompletedWorkoutModelClass model, int position) {
+                if(loadingView.getVisibility() == View.VISIBLE){
+                    loadingView.setVisibility(View.GONE);
+                }
+                if(model.getUserId().equals(uid)){
+                    //viewHolder.setPosition(position);
+                    viewHolder.setImperialPOV(isImperial);
+                    viewHolder.setActivity(CurrentUserProfile.this);
+                    viewHolder.setRefKey(model.getRef());
+                    viewHolder.setUserId(model.getUserId());
+                    viewHolder.setPostInfo(model.getWorkoutInfoMap(), CurrentUserProfile.this, getApplicationContext(),
+                            model.isIsImperial());
+                    viewHolder.setUpProfilePics(model.getUserId());
+                    viewHolder.setCommentRecycler(model.getRef());
+                    viewHolder.setUserName(model.getUserName());
+                    viewHolder.setUserLevel(model.getUserId(), rootRef);
+                    viewHolder.setPublicDescription(model.getPublicDescription());
+                    viewHolder.setTimeStamp(model.getDateTime());
+                    //viewHolder.setActivity(getActivity());
+                    if(model.getBonusList() != null){
+                        if(!model.getBonusList().isEmpty()){
+                            viewHolder.setBonusView(model.getBonusList());
+                        }
+                    }
+                }else{
+                    viewHolder.setGone();
+                }
+            }
+        };
+
+        recyclerView.setAdapter(firebaseAdapter);
     }
 
 
@@ -122,4 +232,10 @@ public class CurrentUserProfile extends BaseActivity {
         }
     }
     // [END on_stop_remove_listener]
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        firebaseAdapter.cleanup();
+    }
 }

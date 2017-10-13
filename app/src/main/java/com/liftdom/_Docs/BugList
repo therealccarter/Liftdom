@@ -9,19 +9,20 @@ layout cleanup in various areas (dialog views)
 level up bonus view
 followers/following show them and make followable
 refactor followers/following node usages
+check if template name has been taken
 ====================================================
 
 ============ Currently Working On ===============================================
+add feed to profiles (gonna have to do a custom recycler/adapter)
 
+re-check user made programs functionality
+
+add feedback page
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
-add feed to profiles
 changing to bodyweight shifts layout to the right...
-add feedback page
-check if template name has been taken
-re-check user made programs functionality
 ============
 ==== harder ==========
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
@@ -38,9 +39,10 @@ add option to do a workout on a rest day
 
 Make main feed less laggy{
     Turns out, it's the damn post info holder!
-    (we could possibly make the last two comments a part of the model class)
-      would eliminate the need for a recycler view for those two comments.
-    Glide cache
+    Also:
+        (we could possibly make the last two comments a part of the model class)
+         would eliminate the need for a recycler view for those two comments.
+        Glide cache manually?
 }
 
 Post all info{
@@ -58,7 +60,6 @@ bottom nav text is cut off (API 21 issue)
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
-user profile rehaul (followers following)
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font

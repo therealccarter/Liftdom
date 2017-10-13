@@ -373,6 +373,9 @@
     <string name="userNameTaken">Username taken</string>
     <string name="userNameAvailable">Username available!</string>
 
+    <string name="programNameTaken">You already have a program with this name. Saving will overwrite the existing
+        program.</string>
+
     <string name="setupFinished">That\'s it, you\'re finished!</string>
     <string name="mayTheGains">May the gains be with you</string>
 

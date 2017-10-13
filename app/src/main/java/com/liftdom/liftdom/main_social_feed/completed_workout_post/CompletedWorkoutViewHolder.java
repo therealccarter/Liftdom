@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -83,9 +84,12 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     //private final BannerView mBannerView;
     private int mPosition;
     //private final LinearLayout mCommentFragHolder;
+    private final CardView mCardViewParent;
+
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
+        mCardViewParent = (CardView) itemView.findViewById(R.id.cardViewParent);
         mUserNameView = (TextView) itemView.findViewById(R.id.userName);
         mUserLevelView = (TextView) itemView.findViewById(R.id.userLevel);
         mTimestampView = (TextView) itemView.findViewById(R.id.timeStampView);
@@ -178,6 +182,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 mActivity.startActivity(intent);
             }
         });
+    }
+
+    public void setGone(){
+        mCardViewParent.setVisibility(View.GONE);
     }
 
     public boolean getIsImperialPOV() {
