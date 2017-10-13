@@ -1,8 +1,6 @@
 package com.liftdom.liftdom;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,16 +20,14 @@ import com.appodeal.ads.Appodeal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.irozon.library.HideKey;
 import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
-import com.liftdom.liftdom.main_social_feed.MainSocialFeedFrag;
+import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
-import com.liftdom.template_housing.PublicTemplateChooserFrag;
+import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
-import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.search.material.library.MaterialSearchView;
@@ -47,10 +42,10 @@ public class MainActivity extends BaseActivity implements
         ChatMainFrag.headerChangeFromFrag,
         ForumMainFrag.headerChangeFromFrag,
         WorkoutAssistorFrag.headerChangeFromFrag,
-        MainSocialFeedFrag.headerChangeFromFrag,
+        MainFeedFrag.headerChangeFromFrag,
         SavedTemplatesFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
-        MainSocialFeedFrag.bottomNavChanger,
+        MainFeedFrag.bottomNavChanger,
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
         SavedTemplatesFrag.bottomNavChanger,
@@ -178,7 +173,7 @@ public class MainActivity extends BaseActivity implements
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
             //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+            //fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
             //fragmentTransaction.commit();
         }
 
@@ -191,7 +186,7 @@ public class MainActivity extends BaseActivity implements
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
@@ -221,7 +216,7 @@ public class MainActivity extends BaseActivity implements
             }else{
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
             }
@@ -240,7 +235,7 @@ public class MainActivity extends BaseActivity implements
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                        fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+                        fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (i1 == 1) {
@@ -299,7 +294,7 @@ public class MainActivity extends BaseActivity implements
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                //    fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 2) {
@@ -585,7 +580,7 @@ public class MainActivity extends BaseActivity implements
         //        FragmentManager fragmentManager = getSupportFragmentManager();
         //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //
-        //        fragmentTransaction.replace(R.id.mainFragHolder, new MainSocialFeedFrag());
+        //        fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
         //        fragmentTransaction.addToBackStack(null);
         //        fragmentTransaction.commit();
         //    } else if(id == 2){

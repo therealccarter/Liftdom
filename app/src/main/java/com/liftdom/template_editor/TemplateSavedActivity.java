@@ -193,7 +193,7 @@ public class TemplateSavedActivity extends BaseActivity {
             DatabaseReference selectedTemplateDataRef;
 
             if(TemplateEditorSingleton.getInstance().isFromPublic){
-                selectedTemplateDataRef = mRootRef.child("public_templates").child("my_public").child(uid).child
+                selectedTemplateDataRef = mRootRef.child("publicTemplates").child("myPublic").child(uid).child
                         (templateName);
             }else{
                 selectedTemplateDataRef = mRootRef.child("templates").child(uid).child(templateName);
@@ -261,7 +261,7 @@ public class TemplateSavedActivity extends BaseActivity {
 
                     if(TemplateEditorSingleton.getInstance().isFromPublic){
                         String key = modelClass.getPublicTemplateKeyId();
-                        DatabaseReference publicRef = mRootRef.child("public_templates").child("public").child(key);
+                        DatabaseReference publicRef = mRootRef.child("publicTemplates").child("public").child(key);
                         publicRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

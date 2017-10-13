@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="@color/backgroundgrey2"
-              tools:context="com.liftdom.liftdom.main_social_feed.MainSocialFeedFrag">
+              tools:context="com.liftdom.liftdom.main_social_feed.MainFeedFrag">
 
     <TextView
             android:layout_width="match_parent"

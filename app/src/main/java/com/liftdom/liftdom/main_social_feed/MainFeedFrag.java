@@ -37,9 +37,9 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainSocialFeedFrag extends Fragment {
+public class MainFeedFrag extends Fragment {
 
-    public MainSocialFeedFrag() {
+    public MainFeedFrag() {
         // Required empty public constructor
     }
 

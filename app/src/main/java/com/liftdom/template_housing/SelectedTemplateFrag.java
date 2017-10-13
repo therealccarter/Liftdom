@@ -50,10 +50,10 @@ public class SelectedTemplateFrag extends Fragment {
         // Required empty public constructor
     }
 
-    String templateName;
-    boolean isFromPublicList;
-    boolean isFromMyPublicList;
-    String firebaseKey;
+    public String templateName;
+    public boolean isFromPublicList;
+    public boolean isFromMyPublicList;
+    public String firebaseKey;
 
     @BindView(R.id.selectedTemplateTitle) TextView selectedTemplateNameView;
     @BindView(R.id.editThisTemplate) Button editTemplate;
@@ -148,13 +148,13 @@ public class SelectedTemplateFrag extends Fragment {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         TemplateModelClass templateModelClass = dataSnapshot.getValue
                                                 (TemplateModelClass.class);
-                                        DatabaseReference publicTemplateRef = mRootRef.child("public_templates")
+                                        DatabaseReference publicTemplateRef = mRootRef.child("publicTemplates")
                                                 .child("public").push();
                                         String keyId = publicTemplateRef.getKey();
                                         publicTemplateRef.setValue(templateModelClass);
                                         templateModelClass.setPublicTemplateKeyId(keyId);
-                                        DatabaseReference myPublicTemplateRef = mRootRef.child("public_templates")
-                                                .child("my_public").child(uid).child(templateName);
+                                        DatabaseReference myPublicTemplateRef = mRootRef.child("publicTemplates")
+                                                .child("myPublic").child(uid).child(templateName);
                                         myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -200,7 +200,7 @@ public class SelectedTemplateFrag extends Fragment {
                 publishButton.setVisibility(View.GONE);
                 saveTemplateButton.setVisibility(View.VISIBLE);
 
-                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child
+                final DatabaseReference specificTemplateRef = mRootRef.child("publicTemplates").child
                         ("public").child(firebaseKey);
                 specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -283,8 +283,8 @@ public class SelectedTemplateFrag extends Fragment {
             }else if(isFromMyPublicList){
                 publishButton.setVisibility(View.GONE);
 
-                final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child
-                        ("my_public").child(uid).child(templateName);
+                final DatabaseReference specificTemplateRef = mRootRef.child("publicTemplates").child
+                        ("myPublic").child(uid).child(templateName);
                 specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -505,8 +505,8 @@ public class SelectedTemplateFrag extends Fragment {
                                 });
 
                                 if(isFromMyPublicList){
-                                    DatabaseReference selectedTemplateRef = mRootRef.child("public_templates").child
-                                            (uid).child("my_public").child(templateName);
+                                    DatabaseReference selectedTemplateRef = mRootRef.child("publicTemplates").child
+                                            (uid).child("myPublic").child(templateName);
                                     final DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
 
                                     selectedTemplateRef.setValue(null);
@@ -768,7 +768,7 @@ public class SelectedTemplateFrag extends Fragment {
             if(resultCode == 3){
                 if(data != null){
                     final String returnedName = data.getExtras().getString("templateName");
-                    final DatabaseReference specificTemplateRef = mRootRef.child("public_templates").child("public").child
+                    final DatabaseReference specificTemplateRef = mRootRef.child("publicTemplates").child("public").child
                             (firebaseKey);
                     specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

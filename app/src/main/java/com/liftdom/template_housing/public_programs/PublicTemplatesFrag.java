@@ -1,4 +1,4 @@
-package com.liftdom.template_housing;
+package com.liftdom.template_housing.public_programs;
 
 
 import android.os.Bundle;
@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -22,30 +22,50 @@ import com.wang.avi.AVLoadingIndicatorView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyPublicTemplatesFrag extends Fragment {
+public class PublicTemplatesFrag extends Fragment {
 
 
-    public MyPublicTemplatesFrag() {
+    public PublicTemplatesFrag() {
         // Required empty public constructor
     }
 
+
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
-    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("public_templates")
-            .child("my_public").child(uid);
+    private DatabaseReference mFeedRef = FirebaseDatabase.getInstance().getReference().child("publicTemplates")
+            .child("public");
 
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.noProgramsFoundView) TextView noProgramsView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_public_templates, container, false);
+        View view = inflater.inflate(R.layout.fragment_public_templates, container, false);
 
         ButterKnife.bind(this, view);
 
-        setUpFirebaseAdapter();
+        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    loadingView.setVisibility(View.GONE);
+                    noProgramsView.setVisibility(View.GONE);
+                    setUpFirebaseAdapter();
+                }else{
+                    loadingView.setVisibility(View.GONE);
+                    noProgramsView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         return view;
     }
@@ -65,7 +85,6 @@ public class MyPublicTemplatesFrag extends Fragment {
                 viewHolder.setDescriptionView(model.getDescription());
                 viewHolder.setActivity(getActivity());
                 viewHolder.setKey(mFirebaseAdapter.getRef(position).getKey());
-                viewHolder.setIsMyPublicTemplate(true);
 
                 if(position == 0){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
@@ -85,7 +104,10 @@ public class MyPublicTemplatesFrag extends Fragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mFirebaseAdapter.cleanup();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.cleanup();
+        }
     }
+
 
 }

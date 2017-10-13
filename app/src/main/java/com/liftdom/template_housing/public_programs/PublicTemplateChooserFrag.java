@@ -1,4 +1,4 @@
-package com.liftdom.template_housing;
+package com.liftdom.template_housing.public_programs;
 
 
 import android.app.Activity;

@@ -119,7 +119,7 @@ public class RenameTemplateDialog extends AppCompatActivity {
                 String dateUpdated = dateTime.toString();
 
                 DatabaseReference newTemplateRef = mRootRef.child("templates").child(uid).child(templateNameNew);
-                DatabaseReference publicTemplateRef = mRootRef.child("public_templates").child("my_public").child
+                DatabaseReference publicTemplateRef = mRootRef.child("publicTemplates").child("myPublic").child
                         (uid).child(templateNameNew);
                 templateModelClass.setTemplateName(templateNameNew);
                 templateModelClass.setDateUpdated(dateUpdated);

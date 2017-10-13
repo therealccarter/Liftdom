@@ -183,7 +183,7 @@ public class TemplateEditorActivity extends BaseActivity
                             }
                         });
 
-                        DatabaseReference templateRef = mRootRef.child("public_templates").child("my_public").child(uid).child(templateNameEdit);
+                        DatabaseReference templateRef = mRootRef.child("publicTemplates").child("myPublic").child(uid).child(templateNameEdit);
 
                         templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

@@ -10,12 +10,11 @@ level up bonus view
 followers/following show them and make followable
 refactor followers/following node usages
 check if template name has been taken
+fixed up some views issues with user made programs
 ====================================================
 
 ============ Currently Working On ===============================================
 add feed to profiles (gonna have to do a custom recycler/adapter)
-
-re-check user made programs functionality
 
 add feedback page
 =====================================================
@@ -29,6 +28,7 @@ glide caching in chat (maybe just do it differently, load in parent, get from pa
 need to change workout info from r@w to sXr@w
 chat unread stuff (including badge/notifications/unread functionality)
 add option to do a workout on a rest day
+re-check user made programs functionality (full)
 ============
 
 3 most important things new features{

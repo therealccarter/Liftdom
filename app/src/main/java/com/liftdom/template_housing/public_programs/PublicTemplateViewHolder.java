@@ -1,4 +1,4 @@
-package com.liftdom.template_housing;
+package com.liftdom.template_housing.public_programs;
 
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_housing.SelectedTemplateFrag;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
