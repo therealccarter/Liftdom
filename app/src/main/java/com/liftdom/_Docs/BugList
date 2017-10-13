@@ -14,28 +14,37 @@ fixed up some views issues with user made programs
 ====================================================
 
 ============ Currently Working On ===============================================
-add feed to profiles (gonna have to do a custom recycler/adapter)
-
-add feedback page
+lockscreen functionality (service)
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
 changing to bodyweight shifts layout to the right...
+add feedback page
 ============
 ==== harder ==========
+rep button
+add feed to profiles (gonna have to do a custom recycler/adapter)
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 need to change workout info from r@w to sXr@w
 chat unread stuff (including badge/notifications/unread functionality)
 add option to do a workout on a rest day
 re-check user made programs functionality (full)
+Empty search shows all users
 ============
 
-3 most important things new features{
-    lockscreen functionality (service)
-    more programs
-    rep button
+
+lockscreen functionality (service)
+
+more programs {
+    Smolov
+    PPL
+    5x5
+    Starting Strength
+    Mad Cow
+    Texas Method
 }
+
 
 Make main feed less laggy{
     Turns out, it's the damn post info holder!
@@ -63,4 +72,8 @@ bottom nav text is cut off (API 21 issue)
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
+Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
+// be a real companion. personalize the shit...
+    // tell them about eating and sleeping and stretching, foam rolling,etc
+    // give them options for push notifications and reminders
 =====================================================

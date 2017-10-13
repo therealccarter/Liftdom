@@ -138,11 +138,11 @@ public class CurrentUserProfile extends BaseActivity {
                             if(userModelClass.isIsImperial()){
                                 loadingView.setVisibility(View.GONE);
                                 noPostsView.setVisibility(View.GONE);
-                                setUpFirebaseAdapter(socialRef, true);
+                                //setUpFirebaseAdapter(socialRef, true);
                             }else{
                                 loadingView.setVisibility(View.GONE);
                                 noPostsView.setVisibility(View.GONE);
-                                setUpFirebaseAdapter(socialRef, false);
+                                //setUpFirebaseAdapter(socialRef, false);
                             }
 
                         }

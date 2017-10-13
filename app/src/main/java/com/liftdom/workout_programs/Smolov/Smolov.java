@@ -18,11 +18,14 @@ public class Smolov {
         setOneRM(oneRM);
     }
 
-    // maybe ask when they want to start OR nearest monday.
-    // be a real companion. personalize the shit...
-    // tell them about eating and sleeping and stretching, foam rolling,etc
-    // give them options for push notifications and reminders
-    // make sure to show special on the calendar for routine so you can see bad
+    /**
+     * So how are we going to do this?
+     * The path of least resistance would be to make it
+     *  a normal template with a smolov identifier.
+     * Then in the WA, we'd read that the template is a smolov program
+     *  and then generate that day's workout on the fly, passing in the extra data
+     *  stored in the model class (first day, max, exercise).
+     */
 
     void setWeek(int week){
         Week = week;
