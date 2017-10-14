@@ -1,5 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
+import org.joda.time.LocalDate;
+
 import java.util.HashMap;
 
 /**
@@ -24,7 +26,24 @@ public class SmolovSetupSingleton {
     public HashMap<String, String> assembleSmolovMap(){
         HashMap<String, String> extraInfo = new HashMap<>();
 
+        String beginDate;
 
+        if(isBeginToday){
+            beginDate = LocalDate.now().toString();
+        }else{
+            LocalDate today = LocalDate.now();
+            int old = today.getDayOfWeek();
+            int monday = 1;
+
+            if(monday <= old){
+                monday += 7;
+            }
+            beginDate = today.plusDays(monday - old).toString();
+        }
+
+        extraInfo.put("beginDate", beginDate);
+        extraInfo.put("exName", exName);
+        extraInfo.put("maxWeight", maxWeight);
 
         return extraInfo;
     }

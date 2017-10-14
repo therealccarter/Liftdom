@@ -35,6 +35,7 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements

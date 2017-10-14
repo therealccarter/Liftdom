@@ -2,7 +2,9 @@ package com.liftdom.workout_programs.Smolov;
 
 
 import agency.tango.materialintroscreen.SlideFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
@@ -84,12 +89,43 @@ public class SmolovIntroFrag4 extends SlideFragment {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> extraInfoMap = new HashMap<>();
-                extraInfoMap.putAll(SmolovSetupSingleton.getInstance().assembleSmolovMap());
+                loadingView.setVisibility(View.VISIBLE);
+                finishButton.setVisibility(View.GONE);
 
-                TemplateModelClass modelClass = new TemplateModelClass(
+                DatabaseReference defaultRef = FirebaseDatabase.getInstance().getReference().child
+                        ("defaultTemplates").child("FirstTimeProgram");
+                defaultRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        HashMap<String, String> extraInfoMap = new HashMap<>();
+                        extraInfoMap.putAll(SmolovSetupSingleton.getInstance().assembleSmolovMap());
+                        String programName = SmolovSetupSingleton.getInstance().programName;
 
-                );
+
+                        TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                        modelClass.setTemplateName(programName);
+                        modelClass.setUserId(uid);
+                        modelClass.setUserName(userName);
+                        modelClass.setWorkoutType("Smolov");
+                        modelClass.setExtraInfo(extraInfoMap);
+
+                        DatabaseReference smolovRef = FirebaseDatabase.getInstance().getReference().child("templates")
+                                .child(uid).child(programName);
+                        smolovRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.putExtra("fragID", 1);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         });
