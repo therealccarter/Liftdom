@@ -14,7 +14,7 @@ fixed up some views issues with user made programs
 ====================================================
 
 ============ Currently Working On ===============================================
-lockscreen functionality (service)
+Smolov (including bonus view that shows "Week x day y of Smolov"
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
@@ -37,14 +37,12 @@ Empty search shows all users
 lockscreen functionality (service)
 
 more programs {
-    Smolov (bonus view that shows "Week x day y of Smolov"
     PPL
     5x5
     Starting Strength
     Mad Cow
     Texas Method
 }
-
 
 Make main feed less laggy{
     Turns out, it's the damn post info holder!

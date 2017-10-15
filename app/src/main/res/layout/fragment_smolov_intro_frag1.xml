@@ -10,11 +10,11 @@
         tools:context="com.liftdom.workout_programs.Smolov.SmolovIntroFrag1">
 
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/smolovTitleView"
             android:text="@string/smolov"
-            android:textSize="35sp"
+            android:textSize="40sp"
             android:gravity="center"
             android:textColor="@color/liftrGold1"
             android:background="@color/backgroundgrey1"

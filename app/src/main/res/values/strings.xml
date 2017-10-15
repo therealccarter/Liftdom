@@ -389,6 +389,12 @@
 
     <string name="invalidProgramName">Invalid program name</string>
 
+    <string name="workoutType">Workout Type: </string>
+
+    <string name="beginDate">Begin Date: </string>
+
+    <string name="initialMax">Initial 1-rep Max: </string>
+
     <string name="confirmSmolov">Finish Smolov Creation</string>
 
     <string name="smolovDescription">

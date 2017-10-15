@@ -24,6 +24,8 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.HashMap;
 
@@ -101,6 +103,9 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         extraInfoMap.putAll(SmolovSetupSingleton.getInstance().assembleSmolovMap());
                         String programName = SmolovSetupSingleton.getInstance().programName;
 
+                        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                        String dateTimeString = dateTime.toString();
+
 
                         TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
                         modelClass.setTemplateName(programName);
@@ -108,6 +113,8 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         modelClass.setUserName(userName);
                         modelClass.setWorkoutType("Smolov");
                         modelClass.setExtraInfo(extraInfoMap);
+                        modelClass.setDateCreated(dateTimeString);
+                        modelClass.setDateUpdated(dateTimeString);
 
                         DatabaseReference smolovRef = FirebaseDatabase.getInstance().getReference().child("templates")
                                 .child(uid).child(programName);

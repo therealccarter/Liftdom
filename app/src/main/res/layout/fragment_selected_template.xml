@@ -59,6 +59,7 @@
                     android:background="@color/backgroundgrey1"
                     android:layout_marginBottom="60dp"
             >
+
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -67,6 +68,16 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
                 >
+                    <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/makeCurrentTemplate"
+                            android:textColor="@color/black"
+                            android:id="@+id/activeTemplateCheckbox"
+                            android:textSize="18sp"
+                            android:layout_marginTop="10dp"
+                    />
+
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -74,7 +85,6 @@
                             android:text="Originally authored by: "
                             android:textColor="@color/darkerGrey"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
                     />
 
                     <TextView
@@ -97,16 +107,6 @@
                             android:padding="5dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                    />
-
-                    <CheckBox
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/makeCurrentTemplate"
-                            android:textColor="@color/black"
-                            android:id="@+id/activeTemplateCheckbox"
-                            android:textSize="16sp"
-
                     />
 
                     <LinearLayout
