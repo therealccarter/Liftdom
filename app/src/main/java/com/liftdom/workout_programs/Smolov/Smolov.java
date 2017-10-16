@@ -1,6 +1,11 @@
 package com.liftdom.workout_programs.Smolov;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Chris on 2/8/2017.
@@ -12,35 +17,29 @@ public class Smolov {
     int Day;
     double OneRM;
 
-    public Smolov(int week, int day, double oneRM){
-        setWeek(week);
-        setDay(day);
-        setOneRM(oneRM);
+    public Smolov(){
+
     }
 
-    /**
-     * So how are we going to do this?
-     * The path of least resistance would be to make it
-     *  a normal template with a smolov identifier.
-     * Then in the WA, we'd read that the template is a smolov program
-     *  and then generate that day's workout on the fly, passing in the extra data
-     *  stored in the model class (first day, max, exercise).
-     */
+    public HashMap<String, List<String>> generateSmolovWorkoutMap(String beginDateString, String max){
+        HashMap<String, List<String>> map = new HashMap<>();
 
-    void setWeek(int week){
-        Week = week;
+        /**
+         * So we'd have to get the begin date and today's date.
+         * From there we'd calculate how many days have passed.
+         * We can then set the week and day numbers accordingly
+         */
+
+        LocalDate beginDate = LocalDate.parse(beginDateString);
+        LocalDate todaysDate = LocalDate.now();
+
+
+
+        return map;
     }
 
-    void setDay(int day){
-        Day = day;
-    }
-
-    void setOneRM(double oneRM){
-        OneRM = oneRM;
-    }
-
-    public ArrayList<String> getWorkout(){
-        ArrayList<String> workout = new ArrayList<>();
+    public List<String> getWorkout(){
+        List<String> workout = new ArrayList<>();
 
         if(Week == 1 && Day == 1){
             String one = "3x8@" + percentToWeight(65);

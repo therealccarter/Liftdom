@@ -124,15 +124,7 @@
                     android:layout_marginStart="50dp"
             />
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-        >
+
             <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,7 +135,7 @@
                 <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/smolov"
+                        android:text="@string/smolovBeta"
                         android:id="@+id/smolovButton"
                         android:textColor="@color/white"
                         android:textSize="22sp"
@@ -155,7 +147,6 @@
             </android.support.v7.widget.CardView>
 
 
-        </LinearLayout>
 
             <View
                     android:layout_width="match_parent"

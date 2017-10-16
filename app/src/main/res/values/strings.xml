@@ -180,6 +180,8 @@
 
     <string name="smolov">Smolov</string>
 
+    <string name="smolovBeta">Smolov (Beta)</string>
+
     <string name="title">Liftdom</string>
     <string name="action_settings">Settings</string>
     <string name="chooseFromTemplate">Choose From Programs</string>

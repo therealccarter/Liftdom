@@ -81,63 +81,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                //if(isChecked){
-                //    if(isFirstTimeFirstTime){
-//
-                //        ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollViewWA);
-                //        scrollView.scrollTo(0, scrollView.getBottom());
-//
-                //        FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                //                .focusOn(saveProgressButton)
-                //                .title("This button allows you to save your workout progress so that you can finish
-                // " +
-                //                "it later." +
-                //                        " If you need to leave the Today's Workout page before finishing, make sure
-                // " +
-                //                        "to click this.")
-                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
-                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                //                .fitSystemWindows(true)
-                //                .build();
-                //        FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                //                .focusOn(privateJournalView)
-                //                .title("Take any workout-related notes here. Only you will be able to see this.")
-                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER | Gravity.BOTTOM)
-                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                //                .fitSystemWindows(true)
-                //                .build();
-                //        FancyShowCaseView fancyShowCaseView3 = new FancyShowCaseView.Builder(getActivity())
-                //                .focusOn(publicCommentView)
-                //                .title("This is where you can write out a public description for the day's workout.")
-                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                //                .fitSystemWindows(true)
-                //                .build();
-                //        FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
-                //                .focusOn(saveButton)
-                //                .title("Click here to finish up the workout!")
-                //                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                //                .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                //                .fitSystemWindows(true)
-                //                .build();
-//
-                //        new FancyShowCaseQueue()
-                //                .add(fancyShowCaseView1)
-                //                .add(fancyShowCaseView2)
-                //                .add(fancyShowCaseView3)
-                //                .add(fancyShowCaseView4)
-                //                .show();
-//
-//
-                //        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                //                ("firstTime").child
-                //                (FirebaseAuth.getInstance().getCurrentUser().getxUid()).child("isAssistorFirstTime");
-//
-                //        //firstTimeRef.setValue(null);
-                //        isTutorialFirstTime = true;
-                //        isFirstTimeFirstTime = false;
-                //    }
-                //}
             }
         });
     }
@@ -593,7 +536,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             privateJournal, String
             publicComment){
 
-        //TODO: On change of active template, delete this node so we don't accidentally get info from old template
         for(int i = 0; i < runningMap.size(); i ++){
             for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
                 if(isOfIndex(i, entry.getKey())){
@@ -624,25 +566,29 @@ public class AssistorHolderFrag extends android.app.Fragment
         // without having saved any progress
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
-        if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
-            if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
-                HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
-                for(int i = 0; i < map.size(); i++){
-                    for(Map.Entry<String, List<String>> entry : map.entrySet()) {
-                        if(!entry.getKey().equals("0_key")){
-                            if(isOfIndex(i, entry.getKey())){
-                                exNameInc++;
-                                String tag = String.valueOf(exNameInc) + "ex";
-                                List<String> stringList = entry.getValue();
-                                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                                ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                                exNameFrag.infoList = stringList;
-                                exNameFrag.fragTag = tag;
-                                if (!getActivity().isFinishing()) {
-                                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                                    fragmentTransaction.commitAllowingStateLoss();
-                                    getChildFragmentManager().executePendingTransactions();
-                                    exNameFragList.add(exNameFrag);
+        if(mTemplateClass.getWorkoutType().equals("Smolov")){
+
+        }else{
+            if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
+                if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
+                    HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
+                    for(int i = 0; i < map.size(); i++){
+                        for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                            if(!entry.getKey().equals("0_key")){
+                                if(isOfIndex(i, entry.getKey())){
+                                    exNameInc++;
+                                    String tag = String.valueOf(exNameInc) + "ex";
+                                    List<String> stringList = entry.getValue();
+                                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                                    exNameFrag.infoList = stringList;
+                                    exNameFrag.fragTag = tag;
+                                    if (!getActivity().isFinishing()) {
+                                        fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                        fragmentTransaction.commitAllowingStateLoss();
+                                        getChildFragmentManager().executePendingTransactions();
+                                        exNameFragList.add(exNameFrag);
+                                    }
                                 }
                             }
                         }
