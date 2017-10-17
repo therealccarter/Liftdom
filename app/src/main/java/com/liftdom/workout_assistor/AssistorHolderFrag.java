@@ -26,6 +26,7 @@ import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
+import com.liftdom.workout_programs.Smolov.Smolov;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import org.joda.time.DateTime;
@@ -58,6 +59,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     int exNameInc = 0;
     boolean savedState = false;
     WorkoutProgressModelClass modelClass;
+    String smolovWeekDayString;
 
     public interface scrollToBottomInterface{
         void scrollToBottom();
@@ -72,6 +74,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.privateJournal) EditText privateJournalView;
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
+    @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -491,6 +494,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
         }
+        if(smolovWeekDayString != null){
+            assistorSavedFrag.smolovWeekDayString = smolovWeekDayString;
+        }
         assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
@@ -522,6 +528,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         AssistorSavedFrag assistorSavedFrag = new AssistorSavedFrag();
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
+        }
+        if(smolovWeekDayString != null){
+            assistorSavedFrag.smolovWeekDayString = smolovWeekDayString;
         }
         assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
@@ -567,6 +576,38 @@ public class AssistorHolderFrag extends android.app.Fragment
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();
         if(mTemplateClass.getWorkoutType().equals("Smolov")){
+            Smolov smolov = new Smolov(mTemplateClass.getExtraInfo().get("exName"),
+                    mTemplateClass.getExtraInfo().get("maxWeight"));
+            HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+                    (mTemplateClass.getExtraInfo().get("beginDate"));
+            if(smolov.getIsOneRepMaxDay()){
+                maxDayView.setVisibility(View.VISIBLE);
+            }
+
+            smolovWeekDayString = smolov.getWeekDayString();
+
+            for(int i = 0; i < smolovMap.size(); i++){
+                for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
+                    if(!entry.getKey().equals("0_key")){
+                        if(isOfIndex(i, entry.getKey())){
+                            exNameInc++;
+                            String tag = String.valueOf(exNameInc) + "ex";
+                            List<String> stringList = entry.getValue();
+                            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                            ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                            exNameFrag.infoList = stringList;
+                            exNameFrag.fragTag = tag;
+                            if (!getActivity().isFinishing()) {
+                                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                                getChildFragmentManager().executePendingTransactions();
+                                exNameFragList.add(exNameFrag);
+                            }
+                        }
+                    }
+                }
+            }
+
 
         }else{
             if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){

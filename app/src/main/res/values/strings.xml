@@ -463,7 +463,11 @@
     <string name="my_templates">My Programs</string>
     <string name="templateEditor">Program Editor</string>
 
-    <string name="assistorWarning">Make sure to save your progress before leaving this page</string>
+    <string name="assistorWarning">Save your progress if you want to keep the state of this workout and need to
+    leave this page before completion.</string>
+
+    <string name="oneRepMaxDay">Today you should build up to a 1-rep max. Enter that number as the weight once
+        you complete your 1rm.</string>
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Program</string>

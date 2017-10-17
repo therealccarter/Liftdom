@@ -30,8 +30,10 @@ import com.liftdom.template_housing.SelectedTemplateFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
+import com.liftdom.workout_programs.Smolov.Smolov;
 import com.search.material.library.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;

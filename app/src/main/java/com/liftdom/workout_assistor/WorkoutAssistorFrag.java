@@ -22,12 +22,15 @@ import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -231,36 +234,76 @@ public class WorkoutAssistorFrag extends Fragment{
 
                                     TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                                    DateTime dateTime = new DateTime();
-                                    int currentWeekday = dateTime.getDayOfWeek();
+                                    if(templateModelClass.getWorkoutType().equals("Smolov")){
 
-                                    if(containsToday(templateModelClass.getDays(), currentWeekday)){
-                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                        assistorHolderFrag.mTemplateClass = templateModelClass;
-                                        if (!getActivity().isFinishing()) {
-                                            try {
-                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                        .exInfoHolder);
-                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }catch (NullPointerException e){
+                                        Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
+                                                templateModelClass.getExtraInfo().get("maxWeight"));
+                                        HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+                                                (templateModelClass.getExtraInfo().get("beginDate"));
 
+                                        if(smolovMap.get("1_key").get(0).equals("rest")){
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            RestDayFrag restDayFrag = new RestDayFrag();
+                                            if (!getActivity().isFinishing()) {
+                                                try {
+                                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                            .exInfoHolder);
+                                                    fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                }catch (NullPointerException e){
+
+                                                }
+                                            }
+                                        }else{
+                                            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                            assistorHolderFrag.mTemplateClass = templateModelClass;
+                                            if (!getActivity().isFinishing()) {
+                                                try {
+                                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                            .exInfoHolder);
+                                                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                }catch (NullPointerException e){
+
+                                                }
                                             }
                                         }
-                                    }else{
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        RestDayFrag restDayFrag = new RestDayFrag();
-                                        if (!getActivity().isFinishing()) {
-                                            try {
-                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                        .exInfoHolder);
-                                                fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }catch (NullPointerException e){
 
+                                    }else{
+                                        DateTime dateTime = new DateTime();
+                                        int currentWeekday = dateTime.getDayOfWeek();
+
+                                        if(containsToday(templateModelClass.getDays(), currentWeekday)){
+                                            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                            assistorHolderFrag.mTemplateClass = templateModelClass;
+                                            if (!getActivity().isFinishing()) {
+                                                try {
+                                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                            .exInfoHolder);
+                                                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                }catch (NullPointerException e){
+
+                                                }
+                                            }
+                                        }else{
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            RestDayFrag restDayFrag = new RestDayFrag();
+                                            if (!getActivity().isFinishing()) {
+                                                try {
+                                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                            .exInfoHolder);
+                                                    fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                }catch (NullPointerException e){
+
+                                                }
                                             }
                                         }
                                     }

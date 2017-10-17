@@ -77,6 +77,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> completedMapFormatted;
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
     List<String> completedExerciseList;
+    String smolovWeekDayString;
 
     boolean isFirstTimeFirstTime;
 
@@ -316,6 +317,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 if(isLevelUp){
                     List<String> bonusList = new ArrayList<>();
                     bonusList.add("Level up!");
+                    completedWorkoutModelClass.setBonusList(bonusList);
+                }
+
+                if(smolovWeekDayString != null){
+                    List<String> bonusList = new ArrayList<>();
+                    bonusList.add(smolovWeekDayString);
                     completedWorkoutModelClass.setBonusList(bonusList);
                 }
 

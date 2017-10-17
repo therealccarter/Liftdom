@@ -30,6 +30,8 @@ public class PremadeTemplatesFrag extends Fragment {
     @BindView(R.id.smolovButton) Button smolovButton;
     @BindView(R.id.pplButton) Button pplButton;
     @BindView(R.id.comingSoonView) TextView comingSoonView;
+    @BindView(R.id.comingSoonView1) TextView comingSoonView1;
+    @BindView(R.id.comingSoonView2) TextView comingSoonView2;
 
     public PremadeTemplatesFrag() {
         // Required empty public constructor
@@ -47,6 +49,8 @@ public class PremadeTemplatesFrag extends Fragment {
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
         comingSoonView.setTypeface(lobster);
+        comingSoonView1.setTypeface(lobster);
+        comingSoonView2.setTypeface(lobster);
 
         smolovButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
