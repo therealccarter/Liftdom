@@ -92,7 +92,9 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        firebaseAdapter.cleanup();
+        if(firebaseAdapter != null){
+            firebaseAdapter.cleanup();
+        }
     }
 
 }

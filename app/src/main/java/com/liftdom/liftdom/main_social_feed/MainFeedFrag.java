@@ -264,7 +264,9 @@ public class MainFeedFrag extends Fragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        firebaseAdapter.cleanup();
+        if(firebaseAdapter != null){
+            firebaseAdapter.cleanup();
+        }
     }
 
     @Override

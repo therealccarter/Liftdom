@@ -200,7 +200,9 @@ public class ChatSpecificFrag extends Fragment {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mFirebaseAdapter.cleanup();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.cleanup();
+        }
     }
 
 }
