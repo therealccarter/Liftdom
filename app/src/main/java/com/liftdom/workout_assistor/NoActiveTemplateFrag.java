@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_housing.TemplateMenuFrag;
 
 /**
@@ -25,6 +27,7 @@ public class NoActiveTemplateFrag extends Fragment {
     }
 
     @BindView(R.id.toTemplatesButton) Button toTemplatesButton;
+    @BindView(R.id.newTemplateButton) Button fromScratch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +44,16 @@ public class NoActiveTemplateFrag extends Fragment {
 
                 fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
                 fragmentTransaction.commit();
+            }
+        });
+
+        fromScratch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v){
+                String isEdit = "no";
+                Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
+                intent.putExtra("isEdit", isEdit );
+                startActivity(intent);
             }
         });
 

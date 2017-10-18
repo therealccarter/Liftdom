@@ -177,9 +177,11 @@ public class TemplateMenuFrag extends Fragment {
                 if(dataSnapshot.exists()){
 
                     new FancyShowCaseView.Builder(getActivity())
-                            .title("This is the Workout Programming page. \n " +
-                                    "You can create a new program, view your saved programs," +
-                                    "or check out user-made/pre-made programs.")
+                            .title("This is the Workout Programming page. \n \n " +
+                                    "You can \n " +
+                                    "1. Create a new program \n" +
+                                    "2. View your saved programs \n" +
+                                    "3. Check out user-made/pre-made programs.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build()
                             .show();

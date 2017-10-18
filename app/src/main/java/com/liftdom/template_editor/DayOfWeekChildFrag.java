@@ -361,7 +361,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                     .fitSystemWindows(true)
                     .build();
             FancyShowCaseView fancyShowCaseView4 = new FancyShowCaseView.Builder(getActivity())
-                    .title("Now go get swole dude \n \n Good luck")
+                    .title("Good luck!")
                     .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                     .build();
 

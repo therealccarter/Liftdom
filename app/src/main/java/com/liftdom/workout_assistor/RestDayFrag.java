@@ -18,6 +18,7 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerView;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.R;
+import org.joda.time.LocalDate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,6 +59,13 @@ public class RestDayFrag extends Fragment {
         restDayCompleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // in the future we might add a private journal/media ref here
+                String day = LocalDate.now().toString("dd");
+
+                double dayDouble = Double.parseDouble(day);
+
+                if(dayDouble % (double) 4 == 0.0){
+                    Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                }
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();

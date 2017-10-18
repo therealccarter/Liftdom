@@ -74,7 +74,7 @@
                             android:text="@string/makeCurrentTemplate"
                             android:textColor="@color/black"
                             android:id="@+id/activeTemplateCheckbox"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             android:layout_marginTop="10dp"
                     />
 

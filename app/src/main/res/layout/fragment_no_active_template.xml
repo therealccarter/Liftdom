@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             tools:context="com.liftdom.workout_assistor.NoActiveTemplateFrag"
-            android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:app1="http://schemas.android.com/apk/res-auto"
+              tools:context="com.liftdom.workout_assistor.NoActiveTemplateFrag"
+              android:orientation="vertical"
               android:gravity="center_horizontal"
 >
 
@@ -14,19 +15,55 @@
             android:textColor="@color/black"
             android:textSize="34sp"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
     />
 
-    <Button
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="@string/goToTemplating"
-            android:background="@color/black"
-            android:textSize="20sp"
-            android:textColor="@color/liftrGold1"
-            android:padding="10dp"
-            android:id="@+id/toTemplatesButton"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            app:cardElevation="5dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/goToTemplating"
+                android:background="@color/black"
+                android:textSize="20sp"
+                android:textColor="@color/liftrGold1"
+                android:padding="10dp"
+                android:id="@+id/toTemplatesButton"
+        />
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:gravity="center"
     />
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app1:cardElevation="5dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/newTemplateFromScratch"
+                android:background="@color/confirmgreen"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:id="@+id/newTemplateButton"
+        />
+
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>
