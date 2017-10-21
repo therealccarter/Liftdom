@@ -20,6 +20,8 @@ public class MainActivitySingleton {
 
     public boolean isWorkoutFinished = false;
 
+    public boolean isReleaseCheck = false;
+
     public String currentActiveTemplate = "null";
 
     public UserModelClass userModelClass;

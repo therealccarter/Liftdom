@@ -457,7 +457,11 @@
         </activity>
         <activity android:name="com.liftdom.misc_activities.BugReportingActivity">
         </activity>
-        <activity android:name="com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity"
+        <activity
+                android:name="com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".ReleaseNotesActivity"
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>

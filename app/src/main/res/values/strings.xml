@@ -10,6 +10,25 @@
     <string name="content_file_provider_authority">com.mysampleapp.fileprovider</string>
     <string name="facebook_app_id">600330026825683</string>
 
+
+    <!-- ============== RELEASE NOTES ================== -->
+    <string name="releaseNotesTitle">Liftdom v1.11 Release Notes:</string>
+
+    <string name="newFeaturesTitle">New Feature:</string>
+    <string name="newFeaturesText">Smolov (beta) added to pre-made programs!</string>
+
+    <string name="fixesTitle">Fixes:</string>
+    <string name="fixesText">
+        Various layout changes.\n
+        Misc bug fixes (Crashes, CalendarView issues, DialogView cleanup).</string>
+
+    <string name="workingOnTitle">What I\'m Working On:</string>
+    <string name="workingOnText">
+        Better metric support (currently not fully integrated).\n
+        Ability to \"like\" friends\' posts.\n
+        Lockscreen functionality (complete workouts without unlocking phone).
+    </string>
+
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->
 
     <string name="main_nav_menu_item_home">Home</string>
@@ -391,11 +410,11 @@
 
     <string name="invalidProgramName">Invalid program name</string>
 
-    <string name="workoutType">Workout Type: </string>
+    <string name="workoutType">Workout Type:</string>
 
-    <string name="beginDate">Begin Date: </string>
+    <string name="beginDate">Begin Date:</string>
 
-    <string name="initialMax">Initial 1-rep Max: </string>
+    <string name="initialMax">Initial 1-rep Max:</string>
 
     <string name="confirmSmolov">Finish Smolov Creation</string>
 
@@ -407,7 +426,8 @@
     </string>
 
     <string name="smolovInBeta">(Smolov support is currently in beta. Metric support will be added as soon as
-        possible!)</string>
+        possible!)
+    </string>
 
     <string name="exercise">Exercise:</string>
 
@@ -467,10 +487,12 @@
     <string name="templateEditor">Program Editor</string>
 
     <string name="assistorWarning">Save your progress if you want to keep the state of this workout and need to
-    leave this page before completion.</string>
+        leave this page before completion.
+    </string>
 
     <string name="oneRepMaxDay">Today you should build up to a 1-rep max. Enter that number as the weight once
-        you complete your 1rm.</string>
+        you complete your 1rm.
+    </string>
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Program</string>

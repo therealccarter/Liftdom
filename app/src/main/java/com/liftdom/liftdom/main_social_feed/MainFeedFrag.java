@@ -26,6 +26,7 @@ import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.ReleaseNotesActivity;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
@@ -107,6 +108,7 @@ public class MainFeedFrag extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     firstTimeTutorial();
                     if(dataSnapshot.exists()){
+                        checkForReleaseNotes();
                         DatabaseReference userRef = rootRef.child("user").child(uid);
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -145,6 +147,41 @@ public class MainFeedFrag extends Fragment {
         }
 
         return view;
+    }
+
+    private void checkForReleaseNotes(){
+        if(!MainActivitySingleton.getInstance().isReleaseCheck){
+            final int currentVersionInt = 111;
+            final String currentVersionString = String.valueOf(currentVersionInt);
+            final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
+                    .child(uid);
+            currentVersionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(!dataSnapshot.exists()){
+                        MainActivitySingleton.getInstance().isReleaseCheck = true;
+                        // display release notes for currentVersionString
+                        currentVersionRef.setValue(currentVersionString);
+                        Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                        startActivity(intent);
+                    }else{
+                        MainActivitySingleton.getInstance().isReleaseCheck = true;
+                        String databaseVersion = dataSnapshot.getValue(String.class);
+                        int databaseVersionInt = Integer.parseInt(databaseVersion);
+                        if(currentVersionInt > databaseVersionInt){
+                            currentVersionRef.setValue(currentVersionString);
+                            Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private void showTutorialChoice(){
