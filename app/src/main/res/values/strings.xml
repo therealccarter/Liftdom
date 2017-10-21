@@ -406,6 +406,9 @@
         taxing on the body.
     </string>
 
+    <string name="smolovInBeta">(Smolov support is currently in beta. Metric support will be added as soon as
+        possible!)</string>
+
     <string name="exercise">Exercise:</string>
 
     <string name="invalidSmolovFields">Please enter all values.</string>

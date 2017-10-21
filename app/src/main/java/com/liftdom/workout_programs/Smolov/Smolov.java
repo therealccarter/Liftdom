@@ -1,5 +1,6 @@
 package com.liftdom.workout_programs.Smolov;
 
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -53,9 +54,58 @@ public class Smolov {
             List<String> workoutList = getWorkout(week, days);
 
             map.put("1_key", workoutList);
+
         }
 
 
+
+        return map;
+    }
+
+    public ArrayList<LocalDate> getSmolovDates(String beginDateString){
+        ArrayList<LocalDate> smolovDates = new ArrayList<>();
+
+        LocalDate beginDate = LocalDate.parse(beginDateString);
+
+        for(int i = 1; i < 100; i++){
+            LocalDate newDate = beginDate.plusDays(i);
+            int daysBetween = Days.daysBetween(beginDate, newDate).getDays();
+
+            int week = daysBetween / 7;
+            int days = daysBetween % 7;
+
+            week++;
+            days++;
+
+            List<String> workoutList = getWorkout(week, days);
+            if(!workoutList.get(1).equals("rest")){
+                if(newDate.isAfter(LocalDate.now())){
+                    smolovDates.add(newDate);
+                }
+            }
+        }
+
+
+        return smolovDates;
+    }
+
+    public HashMap<String, List<String>> getMapForSpecificDay(String beginDateString, String specificDateString){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        LocalDate beginDate = LocalDate.parse(beginDateString);
+        LocalDate specificDate = LocalDate.parse(specificDateString);
+
+        int daysBetween = Days.daysBetween(beginDate, specificDate).getDays();
+
+        int week = daysBetween / 7;
+        int days = daysBetween % 7;
+
+        week++;
+        days++;
+
+        List<String> workoutList = getWorkout(week, days);
+
+        map.put("1_key", workoutList);
 
         return map;
     }
@@ -163,9 +213,30 @@ public class Smolov {
             String one = "1x1@" + percentToWeight(100);
             workout.add(one);
             setOneRepMaxDay(true);
-        }else if(week == 7 || week == 8){
-            String one = "switching phase";
-            workout.add(one);
+        }else if(week == 7 && day == 1){
+            workout.clear();
+            workout.add("Squat (Negative)"); // ex name
+            workout.add("1x1@" + percentToWeight(80)); // set scheme
+        }else if(week == 7 && day == 3){
+            workout.clear();
+            workout.add("Power Clean (Barbell)"); // ex name
+            workout.add("8x3@" + percentToWeight(50)); // set scheme
+        }else if(week == 7 && day == 5){
+            workout.clear();
+            workout.add("Squat (Box)"); // ex name
+            workout.add("6x2@" + percentToWeight(60)); // set scheme
+        }else if(week == 8 && day == 1){
+            workout.clear();
+            workout.add("Squat (Negative)"); // ex name
+            workout.add("1x1@" + percentToWeight(85)); // set scheme
+        }else if(week == 8 && day == 3){
+            workout.clear();
+            workout.add("Power Clean (Barbell)"); // ex name
+            workout.add("8x3@" + percentToWeight(55)); // set scheme
+        }else if(week == 8 && day == 5){
+            workout.clear();
+            workout.add("Squat (Box)"); // ex name
+            workout.add("6x2@" + percentToWeight(65)); // set scheme
         }else if(week == 9 && day == 1){
             String one = "1x3@" + percentToWeight(65);
             workout.add(one);
@@ -306,7 +377,7 @@ public class Smolov {
 
         weight = oneRM * percentage;
 
-        //weight2 = (int) Math.round(weight);
+        weight = (int) Math.round(weight);
 
         return weight;
     }
@@ -318,9 +389,9 @@ public class Smolov {
 
         weight = oneRM * percentage;
 
-        //weight2 = (int) Math.round(weight);
+        weight = (int) Math.round(weight) + addExtra;
 
-        weight = weight + addExtra;
+        //weight = weight + addExtra;
 
         return weight;
     }

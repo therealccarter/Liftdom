@@ -37,6 +37,8 @@ public class FutureDateHelperClass {
     public ArrayList<CalendarDay> DateCollection6 = new ArrayList<>();
     public ArrayList<CalendarDay> DateCollection7 = new ArrayList<>();
 
+
+
     public ArrayList<ArrayList<String>> DataCollection = new ArrayList<>();
 
     HashMap<String, HashMap<String, List<String>>> DataCollectionMap = new HashMap<>();

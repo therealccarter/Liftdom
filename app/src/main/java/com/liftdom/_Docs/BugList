@@ -3,22 +3,16 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-superset in future calendar view is fuckt
-calendar data carried over again (opened other user, then nav drawer -> mine)
-layout cleanup in various areas (dialog views)
-level up bonus view
-followers/following show them and make followable
-refactor followers/following node usages
-check if template name has been taken
-fixed up some views issues with user made programs
+Smolov (including bonus view that shows "Week x day y of Smolov"
 ====================================================
 
 ============ Currently Working On ===============================================
-Smolov (including bonus view that shows "Week x day y of Smolov"
+
 =====================================================
 
 ============ BUG/TO-DO LIST =====================================================
 ==== easier ==========
+more quotes in more places
 changing to bodyweight shifts layout to the right...
 add feedback page
 ============
@@ -31,6 +25,7 @@ chat unread stuff (including badge/notifications/unread functionality)
 add option to do a workout on a rest day
 re-check user made programs functionality (full)
 Empty search shows all users
+Discover tab
 ============
 
 
@@ -42,6 +37,7 @@ more programs {
     Starting Strength
     Mad Cow
     Texas Method
+    nSuns
 }
 
 Make main feed less laggy{

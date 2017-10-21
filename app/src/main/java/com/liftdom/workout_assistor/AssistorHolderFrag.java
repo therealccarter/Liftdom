@@ -424,7 +424,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onStart(){
         super.onStart();
 
-        DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
+        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
                 .child("firstTime").child(uid).child("isAssistorFirstTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -438,17 +438,17 @@ public class AssistorHolderFrag extends android.app.Fragment
                             .build();
 
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Check off all of the sets that you complete. \n" +
-                                    "You can also freestyle with it and add/remove exercises and sets.\n" +
+                            .title("Check off all of the sets that you complete. \n \n" +
+                                    "You can also freestyle with it and add/remove exercises and sets.\n \n" +
                                     "Remember, you want to most accurately document your workout!")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
 
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                             .title("The gold 'Save Progress' button saves your workout progress if you need to leave " +
-                                    "this page. \n " +
+                                    "this page. \n \n" +
                                     "The Private Journal is where you can take workout notes. It'll only be viewable " +
-                                     "by you \n " +
+                                     "by you. \n \n " +
                                      "The Public Description is what your followers will see as the " +
                                      "description for this workout.\n \n" +
                                       "Good luck and have fun!")
@@ -460,6 +460,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                             .add(fancyShowCaseView1)
                             .add(fancyShowCaseView2)
                             .show();
+
+                    firstTimeRef.setValue(null);
                 }
             }
 

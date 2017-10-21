@@ -329,6 +329,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                 feedFanOut(refKey, completedWorkoutModelClass);
 
+                dontLeavePage.setVisibility(View.GONE);
+
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
@@ -373,7 +375,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isAssistorFirstTime");
+        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isTemplateMenuSecondTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -381,7 +383,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
                             .title("Great job! \n \n" +
                                     "Here's where you'll receive Power Level XP and level up. " +
-                                    "\n Your XP gain is based off of the workout you did, as well as " +
+                                    "\n \n Your XP gain is based off of the workout you did, as well as " +
                                     "how many consecutive days you've checked off your workouts/rest days.")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
@@ -400,9 +402,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             .add(fancyShowCaseView2)
                             .show();
 
-                    DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child("activeTemplate");
+                    //DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child("activeTemplate");
                     firstTimeRef.setValue(null);
-                    firstTimeActiveRef.setValue(null);
+                    //firstTimeActiveRef.setValue(null);
                 }else{
                     //Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
                 }

@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
+import com.liftdom.workout_programs.Smolov.Smolov;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
     int collectionNumber = 0;
     public Boolean isOtherUser = false;
     public String xUid = "null";
+    boolean isSmolov;
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
@@ -44,6 +47,14 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
         formattedDate = getIntent().getExtras().getString("date");
         collectionNumber = getIntent().getExtras().getInt("collectionNumber");
+        if(getIntent().getExtras().getBoolean("isSmolov")){
+            String maxWeight = getIntent().getStringExtra("maxWeight");
+            String exName = getIntent().getStringExtra("exName");
+            String beginDate = getIntent().getStringExtra("beginDate");
+            generateLayoutSmolov(maxWeight, exName, beginDate);
+        }else{
+            generateLayout();
+        }
 
         selectedDateView.setText(formattedDate);
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -54,8 +65,16 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
-        generateLayout();
+    private void generateLayoutSmolov(String maxWeight, String exName, String beginDate){
+        Smolov smolov = new Smolov(exName, maxWeight);
+        HashMap<String, List<String>> map = smolov.getMapForSpecificDay(beginDate, formattedDate);
+        FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+        subFrag.map = map;
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+        fragmentTransaction.commit();
     }
 
     private void generateLayout(){

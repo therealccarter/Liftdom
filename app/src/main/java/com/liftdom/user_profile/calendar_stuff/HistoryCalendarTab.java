@@ -20,6 +20,7 @@ import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.calendar_stuff.decorators.OneDayDecorator;
 import com.liftdom.user_profile.calendar_stuff.decorators.PastEventDecorator;
+import com.liftdom.workout_programs.Smolov.Smolov;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -47,6 +48,12 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
     public Boolean isOtherUser = false;
     public String xUid = "null";
+
+    boolean isSmolov;
+
+    String smolovMaxWeight;
+    String smolovBeginDate;
+    String smolovExName;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -192,41 +199,52 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                             TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                            if(templateModelClass.getMapOne() != null){
-                                if(!templateModelClass.getMapOne().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapOne());
+                            if(templateModelClass.getWorkoutType().equals("Smolov")){
+                                isSmolov = true;
+                                smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
+                                smolovExName = templateModelClass.getExtraInfo().get("exName");
+                                smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
+                                Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
+                                        templateModelClass.getExtraInfo().get("maxWeight"));
+                                futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
+                            }else{
+                                if(templateModelClass.getMapOne() != null){
+                                    if(!templateModelClass.getMapOne().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapOne());
+                                    }
+                                }
+                                if(templateModelClass.getMapTwo() != null){
+                                    if(!templateModelClass.getMapTwo().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapTwo());
+                                    }
+                                }
+                                if(templateModelClass.getMapThree() != null){
+                                    if(!templateModelClass.getMapThree().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapThree());
+                                    }
+                                }
+                                if(templateModelClass.getMapFour() != null){
+                                    if(!templateModelClass.getMapFour().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapFour());
+                                    }
+                                }
+                                if(templateModelClass.getMapFive() != null){
+                                    if(!templateModelClass.getMapFive().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapFive());
+                                    }
+                                }
+                                if(templateModelClass.getMapSix() != null){
+                                    if(!templateModelClass.getMapSix().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapSix());
+                                    }
+                                }
+                                if(templateModelClass.getMapSeven() != null){
+                                    if(!templateModelClass.getMapSeven().isEmpty()){
+                                        futureConstructor(templateModelClass.getMapSeven());
+                                    }
                                 }
                             }
-                            if(templateModelClass.getMapTwo() != null){
-                                if(!templateModelClass.getMapTwo().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapTwo());
-                                }
-                            }
-                            if(templateModelClass.getMapThree() != null){
-                                if(!templateModelClass.getMapThree().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapThree());
-                                }
-                            }
-                            if(templateModelClass.getMapFour() != null){
-                                if(!templateModelClass.getMapFour().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapFour());
-                                }
-                            }
-                            if(templateModelClass.getMapFive() != null){
-                                if(!templateModelClass.getMapFive().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapFive());
-                                }
-                            }
-                            if(templateModelClass.getMapSix() != null){
-                                if(!templateModelClass.getMapSix().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapSix());
-                                }
-                            }
-                            if(templateModelClass.getMapSeven() != null){
-                                if(!templateModelClass.getMapSeven().isEmpty()){
-                                    futureConstructor(templateModelClass.getMapSeven());
-                                }
-                            }
+
                         }
 
                         @Override
@@ -276,6 +294,12 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 1);
+            if(isSmolov){
+                futureIntent.putExtra("isSmolov", true);
+                futureIntent.putExtra("maxWeight", smolovMaxWeight);
+                futureIntent.putExtra("beginDate", smolovBeginDate);
+                futureIntent.putExtra("exName", smolovExName);
+            }
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection2.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
@@ -310,6 +334,20 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         }
 
         widget.invalidateDecorators();
+    }
+
+    private void futureConstructorSmolov(Smolov smolov, String beginDate){
+
+        ArrayList<LocalDate> dateTimeList = smolov.getSmolovDates(beginDate);
+
+        for(LocalDate dateTime : dateTimeList){
+            CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
+            FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
+        }
+
+        widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                .DateCollection1, 7));
+
     }
 
     private void futureConstructor(HashMap<String, List<String>> map){

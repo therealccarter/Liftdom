@@ -73,6 +73,8 @@ public class RestDaySavedFrag extends Fragment {
     @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
+    @BindView(R.id.dontLeavePage) TextView dontLeavePage;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -146,6 +148,8 @@ public class RestDaySavedFrag extends Fragment {
                                 userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, null,
                                 isImperial);
                         workoutHistoryRef.setValue(historyModelClass);
+
+                        dontLeavePage.setVisibility(View.GONE);
 
                         userModelRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

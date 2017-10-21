@@ -1,3 +1,11 @@
+superset in future calendar view is fuckt
+calendar data carried over again (opened other user, then nav drawer -> mine)
+layout cleanup in various areas (dialog views)
+level up bonus view
+followers/following show them and make followable
+refactor followers/following node usages
+check if template name has been taken
+fixed up some views issues with user made programs
 add checkmark to comment edit text
 fix comment layout
 comments not updating for fresh comments
