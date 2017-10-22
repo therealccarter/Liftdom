@@ -3,13 +3,12 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-Smolov (including bonus view that shows "Week x day y of Smolov"
 figure out how to do release notes
+changing to bodyweight shifts layout to the right...
 ====================================================
 
-============ Currently Working On ===============================================
+============ CURRENTLY WORKING ON: ===============================================
 make sure that metric is totally integrated
-changing to bodyweight shifts layout to the right...
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -20,7 +19,7 @@ changing to bodyweight shifts layout to the right...
 re-check user made programs functionality (full)
 ============
 
-============ TO-DO FEATURE LIST =====================================================
+============ TO-DO FEATURE LIST =============================
 ===== lifting/core-related =========
 lockscreen functionality (service)
 more programs {
@@ -36,7 +35,8 @@ need to change workout info from r@w to sXr@w
 add option to do a workout on a rest day/revise that day's workout
 add feedback page
 fill in the Knowledge Center (including ex descriptions in other packages)
-
+Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
+percentage functionality
 ======================
 
 ===== social/user-related ==========
@@ -55,15 +55,9 @@ add feed to profiles (gonna have to do a custom recycler/adapter)
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality)
 ======================
-=====================================================
-
-
-
-
-
-
 
 =====================================================
+
 
 ============ UNREPLICABLE/UNDECIDED =============================================
 maybe just have one user profile? (could really utilize methods/delegating here)
@@ -76,7 +70,6 @@ bottom nav text is cut off (API 21 issue)
 change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
-Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
 // be a real companion. personalize the shit...
     // tell them about eating and sleeping and stretching, foam rolling,etc
     // give them options for push notifications and reminders
