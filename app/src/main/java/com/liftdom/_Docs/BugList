@@ -4,34 +4,25 @@
 
 ======== ***Completed*** =======================================================
 Smolov (including bonus view that shows "Week x day y of Smolov"
+figure out how to do release notes
 ====================================================
 
 ============ Currently Working On ===============================================
-
+make sure that metric is totally integrated
+changing to bodyweight shifts layout to the right...
 =====================================================
 
-============ BUG/TO-DO LIST =====================================================
+============ BUG LIST =====================================================
 ==== easier ==========
-figure out how to do release notes
-more quotes in more places
-changing to bodyweight shifts layout to the right...
-add feedback page
+
 ============
 ==== harder ==========
-rep button
-add feed to profiles (gonna have to do a custom recycler/adapter)
-glide caching in chat (maybe just do it differently, load in parent, get from parent)
-need to change workout info from r@w to sXr@w
-chat unread stuff (including badge/notifications/unread functionality)
-add option to do a workout on a rest day
 re-check user made programs functionality (full)
-Empty search shows all users
-Discover tab
 ============
 
-
+============ TO-DO FEATURE LIST =====================================================
+===== lifting/core-related =========
 lockscreen functionality (service)
-
 more programs {
     PPL
     5x5
@@ -40,7 +31,19 @@ more programs {
     Texas Method
     nSuns
 }
+more quotes in more places
+need to change workout info from r@w to sXr@w
+add option to do a workout on a rest day/revise that day's workout
+add feedback page
+fill in the Knowledge Center (including ex descriptions in other packages)
 
+======================
+
+===== social/user-related ==========
+Empty search show all users
+Discover tab
+Post rest days (public description too)
+rep button
 Make main feed less laggy{
     Turns out, it's the damn post info holder!
     Also:
@@ -48,12 +51,18 @@ Make main feed less laggy{
          would eliminate the need for a recycler view for those two comments.
         Glide cache manually?
 }
+add feed to profiles (gonna have to do a custom recycler/adapter)
+glide caching in chat (maybe just do it differently, load in parent, get from parent)
+chat unread stuff (including badge/notifications/unread functionality)
+======================
+=====================================================
 
-Post all info{
-    workouts - green, power level button
-    rest days - grey
-    missed days - red
-}
+
+
+
+
+
+
 =====================================================
 
 ============ UNREPLICABLE/UNDECIDED =============================================

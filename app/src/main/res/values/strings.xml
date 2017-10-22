@@ -670,7 +670,7 @@
     <string name="saveTemplateAs">SAVE PROGRAM AS...</string>
     <string name="templateNameHint">PROGRAM NAME</string>
     <string name="format">Format:</string>
-    <string name="formatSRW">Format: SETS x REPS @ WEIGHT</string>
+    <string name="formatSRW">Format = SETS x REPS @ WEIGHT</string>
     <string name="formatAlg">Algorithm\n Checkbox</string>
     <string name="formatExtra">Extra\n Options</string>
     <string name="algoExApply">Apply algorithm to every instance of this exercise?</string>
