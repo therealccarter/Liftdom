@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,7 @@ import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -133,7 +130,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 filterArray[0] = new InputFilter.LengthFilter(4);
                                 setSchemeList.get(i).weightEditText.setFilters(filterArray);
                                 setSchemeList.get(i).weightEditText.setText("B.W.");
-                                setSchemeList.get(i).pounds.setVisibility(View.GONE);
+                                setSchemeList.get(i).units.setVisibility(View.GONE);
                                 setSchemeList.get(i).weightEditText.setEnabled(false);
                             }
                         }
@@ -144,7 +141,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 filterArray[0] = new InputFilter.LengthFilter(3);
                                 setSchemeList.get(i).weightEditText.setFilters(filterArray);
                                 setSchemeList.get(i).weightEditText.setText("");
-                                setSchemeList.get(i).pounds.setVisibility(View.VISIBLE);
+                                setSchemeList.get(i).units.setVisibility(View.VISIBLE);
                                 setSchemeList.get(i).weightEditText.setEnabled(true);
                             }
                         }

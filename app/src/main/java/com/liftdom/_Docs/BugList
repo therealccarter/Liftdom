@@ -9,6 +9,15 @@ changing to bodyweight shifts layout to the right...
 
 ============ CURRENTLY WORKING ON: ===============================================
 make sure that metric is totally integrated
+
+
+so, all there is is the creation of the template.
+if the user is imperial, the template is imperial.
+if the user is metric, the template is metric.
+That's it.
+From there, all we have to do is convert the template when viewed.
+When saved, it converts to whatever imperial bool the user is, because it's been converted.
+
 =====================================================
 
 ============ BUG LIST =====================================================

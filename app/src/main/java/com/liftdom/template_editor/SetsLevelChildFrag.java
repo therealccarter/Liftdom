@@ -50,7 +50,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
-    @BindView(R.id.lbs) TextView pounds;
+    @BindView(R.id.lbs) TextView units;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
 
@@ -65,6 +65,12 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         callback = (setSchemesCallback) getParentFragment();
 
         String delims = "[x,@]";
+
+        if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            units.setText("lbs");
+        }else{
+            units.setText("kgs");
+        }
 
         if(isEdit){
 
@@ -104,7 +110,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     weightEditText.setText("B.W.");
                     weightEditText.setEnabled(false);
                 }else{
-                    weightEditText.setText(weightWithoutSpaces);
+                    weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
                 }
             }
 
@@ -133,6 +139,26 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         return view;
     }
 
+    private String handleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -146,7 +172,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         filterArray[0] = new InputFilter.LengthFilter(4);
                         weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
-                        pounds.setVisibility(View.GONE);
+                        units.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
                     } else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
@@ -156,7 +182,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                             weightEditText.setText("");
                             weightEditText.setEnabled(true);
                             weightEditText.setHint("W");
-                            pounds.setVisibility(View.VISIBLE);
+                            units.setVisibility(View.VISIBLE);
                             weightEditText.setEnabled(true);
                         }
                     }

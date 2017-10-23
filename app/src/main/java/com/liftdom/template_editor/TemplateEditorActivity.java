@@ -47,6 +47,7 @@ import me.toptas.fancyshowcase.FocusShape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TemplateEditorActivity extends BaseActivity
         implements DayOfWeekChildFrag.onDaySelectedListener,
@@ -80,6 +81,26 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.title) TextView title;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
+
+    private String handleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +174,7 @@ public class TemplateEditorActivity extends BaseActivity
             if (getIntent().getExtras().getString("isEdit").equals("yes")){
                 if (getIntent().getExtras().getString("isFromPublic") != null) {
                     if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
+                        // if template isEdit, isFromPublic
 
                         TemplateEditorSingleton.getInstance().isFromPublic = true;
 
@@ -171,9 +193,11 @@ public class TemplateEditorActivity extends BaseActivity
                                     }
                                 }
                                 if(userModelClass.isIsImperial()){
-                                    TemplateEditorSingleton.getInstance().isImperial = true;
+                                    //TemplateEditorSingleton.getInstance().isImperial = true;
+                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
                                 }else{
-                                    TemplateEditorSingleton.getInstance().isImperial = false;
+                                    //TemplateEditorSingleton.getInstance().isImperial = false;
+                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
                                 }
                             }
 
@@ -194,16 +218,13 @@ public class TemplateEditorActivity extends BaseActivity
                                 TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
                                         .getPublicTemplateKeyId();
 
-                                if(templateClass.getIsAlgorithm()){
-                                    if(templateClass.getIsAlgoApplyToAll()){
-                                        TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                                        List<String> tempAlgoInfoList2 = new ArrayList<>();
-                                        tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
-                                    }else{
-                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
-                                    }
+                                if(templateClass.isIsImperial()){
+                                    TemplateEditorSingleton.getInstance().isTemplateImperial = true;
+                                }else{
+                                    TemplateEditorSingleton.getInstance().isTemplateImperial = false;
                                 }
+
+
 
                                 TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
@@ -294,7 +315,29 @@ public class TemplateEditorActivity extends BaseActivity
                                     doW7.templateName = templateClass.getTemplateName();
                                     fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
                                 }
+
                                 fragmentTransaction.commitAllowingStateLoss();
+
+                                if(templateClass.getIsAlgorithm()){
+                                    if(templateClass.getIsAlgoApplyToAll()){
+                                        TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                                        List<String> tempAlgoInfoList2 = new ArrayList<>();
+                                        tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                                        String weightValue = handleUnitConversion(tempAlgoInfoList2.get(0));
+                                        tempAlgoInfoList2.set(6, weightValue);
+                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                                    }else{
+                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                                        for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
+                                            String key = entry.getKey();
+                                            List<String> listValue = entry.getValue();
+                                            String newValue = handleUnitConversion(listValue.get(6));
+                                            EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
+                                                    newValue);
+                                            //listValue.set(6, newValue);
+                                        }
+                                    }
+                                }
                             }
 
                             @Override
@@ -304,6 +347,7 @@ public class TemplateEditorActivity extends BaseActivity
                         });
                     }
                 }else{
+                    // isEdit, not from public
                     templateNameEdit = getIntent().getExtras().getString("templateName");
 
                     // Check for active template
@@ -319,9 +363,9 @@ public class TemplateEditorActivity extends BaseActivity
                                 }
                             }
                             if(userModelClass.isIsImperial()){
-                                TemplateEditorSingleton.getInstance().isImperial = true;
+                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
                             }else{
-                                TemplateEditorSingleton.getInstance().isImperial = false;
+                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
                             }
                         }
 
@@ -339,15 +383,10 @@ public class TemplateEditorActivity extends BaseActivity
 
                             TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
 
-                            if(templateClass.getIsAlgorithm()){
-                                if(templateClass.getIsAlgoApplyToAll()){
-                                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                                    List<String> tempAlgoInfoList2 = new ArrayList<>();
-                                    tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
-                                }else{
-                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
-                                }
+                            if(templateClass.isIsImperial()){
+                                TemplateEditorSingleton.getInstance().isTemplateImperial = true;
+                            }else{
+                                TemplateEditorSingleton.getInstance().isTemplateImperial = false;
                             }
 
                             TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
@@ -439,7 +478,29 @@ public class TemplateEditorActivity extends BaseActivity
                                 doW7.templateName = templateClass.getTemplateName();
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
                             }
+
                             fragmentTransaction.commitAllowingStateLoss();
+
+                            if(templateClass.getIsAlgorithm()){
+                                if(templateClass.getIsAlgoApplyToAll()){
+                                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                                    List<String> tempAlgoInfoList2 = new ArrayList<>();
+                                    tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                                    String weightValue = handleUnitConversion(tempAlgoInfoList2.get(0));
+                                    tempAlgoInfoList2.set(6, weightValue);
+                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                                }else{
+                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                                    for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
+                                        String key = entry.getKey();
+                                        List<String> listValue = entry.getValue();
+                                        String newValue = handleUnitConversion(listValue.get(6));
+                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
+                                                newValue);
+                                        //listValue.set(6, newValue);
+                                    }
+                                }
+                            }
                         }
 
                         @Override

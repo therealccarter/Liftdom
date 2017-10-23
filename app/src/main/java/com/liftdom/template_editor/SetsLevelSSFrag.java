@@ -17,9 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,7 +34,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
     @BindView(R.id.sets) EditText setsEditText;
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
-    @BindView(R.id.lbs) TextView pounds;
+    @BindView(R.id.lbs) TextView units;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
 
     @Override
@@ -47,6 +44,12 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_sets_level_s, container, false);
 
         ButterKnife.bind(this, view);
+
+        if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            units.setText("lbs");
+        }else{
+            units.setText("kgs");
+        }
 
         if(isEdit){
             if(isEditSetScheme.equals("")){
@@ -65,15 +68,14 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                     repsEditText.setEnabled(false);
                 }else{
                     repsEditText.setText(tokens[1]);
-                }
-                if(tokens[2].equals("B.W.")){
+                }if(tokens[2].equals("B.W.")){
                     InputFilter[] filterArray = new InputFilter[1];
                     filterArray[0] = new InputFilter.LengthFilter(4);
                     weightEditText.setFilters(filterArray);
                     weightEditText.setText("B.W.");
                     weightEditText.setEnabled(false);
                 }else{
-                    weightEditText.setText(tokens[2]);
+                    weightEditText.setText(handleUnitConversion(tokens[2]));
                 }
             }
         }
@@ -92,9 +94,28 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         return view;
     }
 
+    private String handleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 3
         if(data != null){
@@ -106,7 +127,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                         filterArray[0] = new InputFilter.LengthFilter(4);
                         weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
-                        pounds.setVisibility(View.GONE);
+                        units.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
                     } else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
@@ -116,7 +137,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                             weightEditText.setText("");
                             weightEditText.setEnabled(true);
                             weightEditText.setHint("W");
-                            pounds.setVisibility(View.VISIBLE);
+                            units.setVisibility(View.VISIBLE);
                             weightEditText.setEnabled(true);
                         }
                     }

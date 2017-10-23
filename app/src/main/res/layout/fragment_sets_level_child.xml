@@ -94,7 +94,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lbs"
-                android:text="@string/pounds"
                 android:textColor="@color/black"
                 android:textSize="18sp"
         />

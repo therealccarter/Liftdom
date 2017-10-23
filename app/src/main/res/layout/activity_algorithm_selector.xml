@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/pounds"
                         android:textColor="@color/black"
-                        android:id="@+id/textView10"
+                        android:id="@+id/unitsView"
                         android:textSize="14sp"
 
                 />

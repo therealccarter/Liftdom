@@ -278,7 +278,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                                 filterArray[0] = new InputFilter.LengthFilter(4);
                                 setsLevelChildFragAL.get(i).weightEditText.setFilters(filterArray);
                                 setsLevelChildFragAL.get(i).weightEditText.setText("B.W.");
-                                setsLevelChildFragAL.get(i).pounds.setVisibility(View.GONE);
+                                setsLevelChildFragAL.get(i).units.setVisibility(View.GONE);
                                 setsLevelChildFragAL.get(i).weightEditText.setEnabled(false);
                             }
                         }
@@ -292,7 +292,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                                 if(setsLevelChildFragAL.get(i).weightEditText.getText().toString().equals("B.W.")){
                                     setsLevelChildFragAL.get(i).weightEditText.setText("");
                                 }
-                                setsLevelChildFragAL.get(i).pounds.setVisibility(View.VISIBLE);
+                                setsLevelChildFragAL.get(i).units.setVisibility(View.VISIBLE);
                                 setsLevelChildFragAL.get(i).weightEditText.setEnabled(true);
                             }
                         }

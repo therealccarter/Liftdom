@@ -38,6 +38,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.exNameAndDowView) TextView exNameDowView;
     @BindView(R.id.clearButton) Button clearButton;
+    @BindView(R.id.unitsView) TextView units;
 
 
     @Override
@@ -47,6 +48,12 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ButterKnife.bind(this);
+
+        if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            units.setText("lbs");
+        }else{
+            units.setText("kgs");
+        }
 
         exName = getIntent().getExtras().getString("exName");
         if(getIntent().getExtras().getString("day") != null){
