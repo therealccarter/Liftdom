@@ -213,41 +213,42 @@ public class SettingsListActivity extends BaseActivity implements
 
     @Override
     public void onBackPressed(){
+        super.onBackPressed();
 
-        if(initialIsImperial == poundsWeight.isChecked()){
-            SettingsListActivity.super.onBackPressed();
-        }else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            // set title
-            builder.setTitle("Discard changes?");
-
-            // set dialog message
-            builder
-                    .setMessage("Are you sure you want to discard these changes?")
-                    .setCancelable(false)
-                    .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-
-                            SettingsListActivity.super.onBackPressed();
-
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-                            // if this button is clicked, just close
-                            // the dialog box and do nothing
-                            dialog.cancel();
-                        }
-                    });
-
-            // create alert dialog
-            AlertDialog alertDialog = builder.create();
-
-            // show it
-            alertDialog.show();
-        }
+        //if(initialIsImperial == poundsWeight.isChecked()){
+        //    SettingsListActivity.super.onBackPressed();
+        //}else{
+        //    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+        //    // set title
+        //    builder.setTitle("Discard changes?");
+//
+        //    // set dialog message
+        //    builder
+        //            .setMessage("Are you sure you want to discard these changes?")
+        //            .setCancelable(false)
+        //            .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+        //                public void onClick(DialogInterface dialog,int id) {
+//
+        //                    SettingsListActivity.super.onBackPressed();
+//
+        //                    finish();
+        //                }
+        //            })
+        //            .setNegativeButton("Continue",new DialogInterface.OnClickListener() {
+        //                public void onClick(DialogInterface dialog,int id) {
+        //                    // if this button is clicked, just close
+        //                    // the dialog box and do nothing
+        //                    dialog.cancel();
+        //                }
+        //            });
+//
+        //    // create alert dialog
+        //    AlertDialog alertDialog = builder.create();
+//
+        //    // show it
+        //    alertDialog.show();
+        //}
 
     }
 }

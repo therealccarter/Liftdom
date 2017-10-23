@@ -39,6 +39,8 @@ public class HousingDoWFrag extends Fragment {
     String otherTitle = "error";
     String otherSub = "error";
     HashMap<String, List<String>> map;
+    boolean isTemplateImperial;
+    boolean isCurrentUserImperial;
 
     @BindView(R.id.doWName) TextView doWStringView;
     @BindView(R.id.exAndSetLLHolder) LinearLayout exAndSetHolder;
@@ -90,6 +92,8 @@ public class HousingDoWFrag extends Fragment {
                             FragmentTransaction fragmentTransaction = fragmentManager
                                     .beginTransaction();
                             HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
+                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
                             setSchemeFrag.setSchemeString = string;
                             fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
                             fragmentTransaction.commit();
@@ -98,6 +102,8 @@ public class HousingDoWFrag extends Fragment {
                             FragmentTransaction fragmentTransaction = fragmentManager
                                     .beginTransaction();
                             SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
+                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
                             setSchemeFrag.setSchemeString = string;
                             fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
                             fragmentTransaction.commit();

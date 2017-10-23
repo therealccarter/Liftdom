@@ -25,6 +25,8 @@ public class SetSchemeSupersetFrag extends Fragment {
 
     public String setSchemeString = "error";
     public boolean isSmallerText;
+    boolean isTemplateImperial;
+    boolean isCurrentUserImperial;
 
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;
@@ -43,11 +45,45 @@ public class SetSchemeSupersetFrag extends Fragment {
                     .sixteen_sp));
         }
 
-        setSchemesView.setText(setSchemeString);
+        if(isCurrentUserImperial){
+            pounds.setText("lbs");
+        }else{
+            pounds.setText("kgs");
+        }
+
+        setSchemesView.setText(handleUnitConversion(setSchemeString));
 
         return view;
     }
 
+    private String handleUnitConversion(String oldValue){
+        String newString;
 
+        String delims = "[@]";
+        String[] tokens = oldValue.split(delims);
+
+        if(!tokens[1].equals("B.W.")){
+            String newValue;
+            if(isTemplateImperial && !isCurrentUserImperial){
+                // the template is imperial, but the user is metric
+                double valueDouble = Double.parseDouble(tokens[1]);
+                int valueInt = (int) Math.round(valueDouble * 0.45359237);
+                newValue = String.valueOf(valueInt);
+                newString = tokens[0] + "@" + newValue;
+            }else if(!isTemplateImperial && isCurrentUserImperial){
+                // the template is metric, but the user is imperial
+                double valueDouble = Double.parseDouble(tokens[1]);
+                int valueInt = (int) Math.round(valueDouble / 0.45359237);
+                newValue = String.valueOf(valueInt);
+                newString = tokens[0] + "@" + newValue;
+            }else{
+                newString = oldValue;
+            }
+        }else{
+            newString = oldValue;
+        }
+
+        return newString;
+    }
 
 }
