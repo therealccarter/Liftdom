@@ -31,6 +31,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     String tag;
     boolean inflateBottomView = false;
     boolean isEdit = false;
+    public boolean isTemplateImperial;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -58,6 +59,12 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         removeFrag = (removeFragCallback) getParentFragment();
+
+        if(isTemplateImperial){
+            unitView.setText("lbs");
+        }else{
+            unitView.setText("kgs");
+        }
 
         if(isEdit){
             String delims = "[@,_]";

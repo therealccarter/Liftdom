@@ -15,6 +15,7 @@ public class WorkoutProgressModelClass {
     private String mPrivateJournal;
     private String mPublicComment;
     private String mMediaResource;
+    private boolean mIsTemplateImperial;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -28,6 +29,14 @@ public class WorkoutProgressModelClass {
         mPrivateJournal = privateJournal;
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
+    }
+
+    public boolean isIsTemplateImperial() {
+        return mIsTemplateImperial;
+    }
+
+    public void setIsTemplateImperial(boolean mIsTemplateImperial) {
+        this.mIsTemplateImperial = mIsTemplateImperial;
     }
 
     public String getMediaResource() {

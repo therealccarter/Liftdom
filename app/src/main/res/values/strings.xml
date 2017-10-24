@@ -278,6 +278,8 @@
 
     <string name="saveProgress">Save Workout Progress</string>
 
+    <string name="saveState">Save Current Workout State</string>
+
     <string name="publicComment">Public Description:</string>
 
     <string name="addExercise">(+) Add Exercise</string>

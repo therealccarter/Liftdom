@@ -60,6 +60,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean savedState = false;
     WorkoutProgressModelClass modelClass;
     String smolovWeekDayString;
+    boolean isTemplateImperial;
 
     public interface scrollToBottomInterface{
         void scrollToBottom();
@@ -98,6 +99,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         HideKey.initialize(getActivity());
 
+        isTemplateImperial = mTemplateClass.isIsImperial();
+
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
         runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,7 +114,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
                             savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                                    modelClass.getPublicComment());
+                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
                             //noProgressInflateViews();
                         }else{
                             noProgressInflateViews();
@@ -136,6 +139,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                 String tag = String.valueOf(exNameInc) + "ex";
                 android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                exNameFrag.isTemplateImperial = isTemplateImperial;
                 exNameFrag.fragTag = tag;
                 if (!getActivity().isFinishing()) {
                     fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -402,6 +406,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                         completedBool, runningMap, privateJournal, publicComment, mediaResource);
 
+                progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
                 runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -544,8 +550,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
-            privateJournal, String
-            publicComment){
+            privateJournal, String publicComment, boolean isTemplateImperial1){
 
         for(int i = 0; i < runningMap.size(); i ++){
             for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
@@ -555,6 +560,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     HashMap<String, List<String>> exerciseMap = entry.getValue();
                     android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                    exNameFrag.isTemplateImperial = isTemplateImperial1;
                     exNameFrag.isEditInfoList = exerciseMap;
                     exNameFrag.fragTag = tag;
                     exNameFrag.isEdit = true;
@@ -597,6 +603,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                             List<String> stringList = entry.getValue();
                             android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                             ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                            exNameFrag.isTemplateImperial = isTemplateImperial;
                             exNameFrag.infoList = stringList;
                             exNameFrag.fragTag = tag;
                             if (!getActivity().isFinishing()) {
@@ -624,6 +631,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     List<String> stringList = entry.getValue();
                                     android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                                    exNameFrag.isTemplateImperial = isTemplateImperial;
                                     exNameFrag.infoList = stringList;
                                     exNameFrag.fragTag = tag;
                                     if (!getActivity().isFinishing()) {
