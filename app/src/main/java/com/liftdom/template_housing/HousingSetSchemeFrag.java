@@ -26,8 +26,8 @@ public class HousingSetSchemeFrag extends Fragment {
     public String setSchemeString = "error";
     boolean differentType = false;
     public boolean isSmallerText;
-    boolean isTemplateImperial;
-    boolean isCurrentUserImperial;
+    public boolean isTemplateImperial;
+    public boolean isCurrentUserImperial;
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;
     @BindView(R.id.pounds) TextView pounds;

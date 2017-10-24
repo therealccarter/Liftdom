@@ -26,6 +26,9 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
     int collectionNumber = 0;
     public Boolean isOtherUser = false;
     public String xUid = "null";
+    boolean isTemplateImperial;
+    boolean isCurrentUserImperial;
+
     boolean isSmolov;
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
@@ -44,6 +47,9 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         if(isOtherUser){
            // uid = xUid;
         }
+
+        isCurrentUserImperial = getIntent().getExtras().getBoolean("isCurrentUserImperial");
+        isTemplateImperial = getIntent().getExtras().getBoolean("isTemplateImperial");
 
         formattedDate = getIntent().getExtras().getString("date");
         collectionNumber = getIntent().getExtras().getInt("collectionNumber");
@@ -71,6 +77,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         Smolov smolov = new Smolov(exName, maxWeight);
         HashMap<String, List<String>> map = smolov.getMapForSpecificDay(beginDate, formattedDate);
         FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+        subFrag.isCurrentUserImperial = isCurrentUserImperial;
+        subFrag.isTemplateImperial = isTemplateImperial;
         subFrag.map = map;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -82,6 +90,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("0_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -90,6 +100,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("1_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -98,6 +110,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("2_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -106,6 +120,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("3_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -114,6 +130,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("4_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -122,6 +140,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("5_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
@@ -130,6 +150,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("6_key"));
             FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            subFrag.isTemplateImperial = isTemplateImperial;
             subFrag.map = map;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);

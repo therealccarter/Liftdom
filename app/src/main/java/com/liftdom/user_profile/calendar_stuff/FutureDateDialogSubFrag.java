@@ -31,6 +31,9 @@ public class FutureDateDialogSubFrag extends Fragment {
         // Required empty public constructor
     }
 
+    boolean isTemplateImperial;
+    boolean isCurrentUserImperial;
+
     public HashMap<String, List<String>> map;
 
     private ArrayList<SimpleExNameFrag> exNameFrags = new ArrayList<>();
@@ -74,6 +77,8 @@ public class FutureDateDialogSubFrag extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();
                         HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
+                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
                         setSchemeFrag.setSchemeString = string;
                         setSchemeFrag.isSmallerText = true;
                         fragmentTransaction.add(R.id.exInfoSubHolder, setSchemeFrag);
@@ -83,6 +88,8 @@ public class FutureDateDialogSubFrag extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager
                                 .beginTransaction();
                         SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
+                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
                         setSchemeFrag.setSchemeString = string;
                         setSchemeFrag.isSmallerText = true;
                         fragmentTransaction.add(R.id.exInfoSubHolder, setSchemeFrag);
@@ -129,7 +136,6 @@ public class FutureDateDialogSubFrag extends Fragment {
         }
 
         return isExercise;
-
     }
 
 }

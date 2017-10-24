@@ -25,8 +25,8 @@ public class SetSchemeSupersetFrag extends Fragment {
 
     public String setSchemeString = "error";
     public boolean isSmallerText;
-    boolean isTemplateImperial;
-    boolean isCurrentUserImperial;
+    public boolean isTemplateImperial;
+    public boolean isCurrentUserImperial;
 
 
     @BindView(R.id.setSchemeString) TextView setSchemesView;

@@ -81,6 +81,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     boolean subIncBool6 = true;
     boolean subIncBool7 = true;
 
+    boolean isTemplateImperial;
+    boolean isCurrentUserImperial;
+
     ArrayList<String> firstAL = new ArrayList<>();
     HashMap<String, List<String>> firstMap = new HashMap<>();
 
@@ -187,6 +190,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
+                isCurrentUserImperial = userModelClass.isIsImperial();
+
                 String activeTemplate = userModelClass.getActiveTemplate();
 
                 if(activeTemplate != null){
@@ -198,6 +203,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                            isTemplateImperial = templateModelClass.isIsImperial();
 
                             if(templateModelClass.getWorkoutType().equals("Smolov")){
                                 isSmolov = true;
@@ -294,6 +301,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 1);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             if(isSmolov){
                 futureIntent.putExtra("isSmolov", true);
                 futureIntent.putExtra("maxWeight", smolovMaxWeight);
@@ -305,31 +314,43 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 2);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection3.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 3);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection4.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 4);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection5.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 5);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection6.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 6);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection7.contains(date)){
             Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
             futureIntent.putExtra("date", formatted);
             futureIntent.putExtra("collectionNumber", 7);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             startActivity(futureIntent);
         }
 
