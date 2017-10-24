@@ -115,6 +115,7 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         modelClass.setExtraInfo(extraInfoMap);
                         modelClass.setDateCreated(dateTimeString);
                         modelClass.setDateUpdated(dateTimeString);
+                        modelClass.setIsImperial(isImperial);
 
                         DatabaseReference smolovRef = FirebaseDatabase.getInstance().getReference().child("templates")
                                 .child(uid).child(programName);
