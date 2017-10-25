@@ -155,11 +155,11 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String metricToImperial(String input){
-        if(input.equals("B.W.")){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
             return input;
         }else{
-            String delims = "[@]";
-            String[] tokens = input.split(delims);
             double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
             int lbsInt = (int) Math.round(lbsDouble);
             String newString = tokens[0] + "@" + String.valueOf(lbsInt);
@@ -168,11 +168,11 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String imperialToMetric(String input){
-        if(input.equals("B.W.")){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
             return input;
         }else{
-            String delims = "[@]";
-            String[] tokens = input.split(delims);
             double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
             int kgInt = (int) Math.round(kgDouble);
             String newString = tokens[0] + "@" + String.valueOf(kgInt);
