@@ -38,6 +38,7 @@ public class Smolov {
 
         if(beginDate.isAfter(todaysDate)){
             List<String> workoutList = new ArrayList<>();
+            workoutList.add(exerciseName);
             workoutList.add("rest");
             map.put("1_key", workoutList);
         }else{

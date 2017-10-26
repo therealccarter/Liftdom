@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.DatePicker;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -151,28 +152,42 @@ public class MainFeedFrag extends Fragment {
 
     private void checkForReleaseNotes(){
         if(!MainActivitySingleton.getInstance().isReleaseCheck){
-            final int currentVersionInt = 111;
-            final String currentVersionString = String.valueOf(currentVersionInt);
-            final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
-                    .child(uid);
-            currentVersionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+                    (uid).child("isTemplateMenuFirstTime");
+            firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        MainActivitySingleton.getInstance().isReleaseCheck = true;
-                        // display release notes for currentVersionString
-                        currentVersionRef.setValue(currentVersionString);
-                        Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
-                        startActivity(intent);
-                    }else{
-                        MainActivitySingleton.getInstance().isReleaseCheck = true;
-                        String databaseVersion = dataSnapshot.getValue(String.class);
-                        int databaseVersionInt = Integer.parseInt(databaseVersion);
-                        if(currentVersionInt > databaseVersionInt){
-                            currentVersionRef.setValue(currentVersionString);
-                            Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
-                            startActivity(intent);
-                        }
+                        final int currentVersionInt = 112;
+                        final String currentVersionString = String.valueOf(currentVersionInt);
+                        final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
+                                .child(uid);
+                        currentVersionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(!dataSnapshot.exists()){
+                                    MainActivitySingleton.getInstance().isReleaseCheck = true;
+                                    // display release notes for currentVersionString
+                                    currentVersionRef.setValue(currentVersionString);
+                                    Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    MainActivitySingleton.getInstance().isReleaseCheck = true;
+                                    String databaseVersion = dataSnapshot.getValue(String.class);
+                                    int databaseVersionInt = Integer.parseInt(databaseVersion);
+                                    if(currentVersionInt > databaseVersionInt){
+                                        currentVersionRef.setValue(currentVersionString);
+                                        Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
 

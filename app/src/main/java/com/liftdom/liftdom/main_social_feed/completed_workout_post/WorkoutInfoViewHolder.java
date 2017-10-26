@@ -150,7 +150,10 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     private String repsTextAdder(String input, String unit){
         String delims = "[@]";
         String[] tokens = input.split(delims);
-        String newString = tokens[0] + " reps @ " + tokens[1] + unit;
+        String newString = tokens[0] + " reps @ " + tokens[1];
+        if(!tokens[1].equals("B.W.")){
+            newString = tokens[0] + " reps @ " + tokens[1] + unit;
+        }
         return newString;
     }
 
@@ -158,6 +161,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         String delims = "[@]";
         String[] tokens = input.split(delims);
         if(tokens[1].equals("B.W.")){
+
             return input;
         }else{
             double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
@@ -171,6 +175,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         String delims = "[@]";
         String[] tokens = input.split(delims);
         if(tokens[1].equals("B.W.")){
+
             return input;
         }else{
             double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;

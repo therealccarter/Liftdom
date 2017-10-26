@@ -30,6 +30,7 @@
             android:padding="3dp"
             android:textSize="14sp"
             android:visibility="gone"
+            android:imeOptions="actionDone"
     />
 
     <EditText
