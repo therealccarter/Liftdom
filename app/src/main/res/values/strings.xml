@@ -17,18 +17,23 @@
     <string name="releaseNotesTitle">Liftdom v1.12 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Feature:</string>
-    <string name="newFeaturesText">Full metric support!</string>
+    <string name="newFeaturesText">
+        Full metric support! \n (If you\'re currently using the imperial system, you may
+        encounter a bug where all weights are doubled. If you do, simply edit the program, correct the affected
+        weights, and re-save.) </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Cleaned up more layout issues.\n
+        Cleaned up many more layout issues.\n
+        Decreased frequency of full screen ads. \n
         Misc bug fixes (metric -> imperial crashes, Smolov related crashes fixed).</string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
         Ability to \"like\" friends\' posts.\n
         In-app notifications. \n
-        Adding "nSuns" workout program.
+        Adding "nSuns" workout program. \n
+        Various crashes need to be addressed.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->
