@@ -11,12 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
-import com.appodeal.ads.Appodeal;
-import com.appodeal.ads.BannerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,26 +25,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.WorkoutPostSingleActivity;
-import com.liftdom.liftdom.main_social_feed.comment_post.CommentsHolderFrag;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
-import com.liftdom.liftdom.main_social_feed.utils.PostExNameFrag;
-import com.liftdom.liftdom.main_social_feed.utils.PostExNameSSFrag;
-import com.liftdom.liftdom.main_social_feed.utils.PostSetSchemeFrag;
-import com.liftdom.liftdom.main_social_feed.utils.PostSetSchemeSSFrag;
-import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Brodin on 5/6/2017.
@@ -80,11 +67,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private boolean isFullComments;
     private final LinearLayout mAllCommentsLL;
     private boolean isImperialPOV;
+    private final TextView mRepsCounterView;
+    private final ImageView mRepsIconWhite;
+    private final ImageView mRepsIconGold;
     //private final LinearLayout mPostInfoHolderLL;
     //private final BannerView mBannerView;
     private int mPosition;
     //private final LinearLayout mCommentFragHolder;
     private final CardView mCardViewParent;
+    private boolean isRepped;
 
 
     public CompletedWorkoutViewHolder(View itemView){
@@ -105,12 +96,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mGoToAllCommentsButton = (Button) itemView.findViewById(R.id.goToAllCommentsButton);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
         mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
+        mRepsCounterView = (TextView) itemView.findViewById(R.id.repsCountTextView);
+        mRepsIconWhite = (ImageView) itemView.findViewById(R.id.repsImageWhite);
+        mRepsIconGold = (ImageView) itemView.findViewById(R.id.repsImageGold);
         //mBannerView = (BannerView) itemView.findViewById(R.id.appodealBannerView);
         //mPostInfoHolderLL = (LinearLayout) itemView.findViewById(R.id.postInfoHolderLL);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-
-
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -182,6 +174,47 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 mActivity.startActivity(intent);
             }
         });
+
+        mRepsIconWhite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // add rep
+            }
+        });
+
+        mRepsIconGold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // remove rep
+            }
+        });
+    }
+
+    public void setIsRepped(boolean isRepped1){
+        // initial
+        if(isRepped1){
+            mRepsIconWhite.setVisibility(View.GONE);
+            mRepsIconGold.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void addRepToPost(){
+        // first we need the followers of the OP. Put em in a list.
+        // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
+        // upload it.
+
+        // because the isRepped value is local, we only need our id and the reference of the OP.
+
+    }
+
+    public void setRepsCounterView(int repsCount){
+            if(repsCount != 0){
+                mRepsCounterView.setVisibility(View.VISIBLE);
+                mRepsCounterView.setText(String.valueOf(repsCount));
+            }else{
+                mRepsCounterView.setVisibility(View.GONE);
+                mRepsCounterView.setText(String.valueOf(repsCount));
+            }
     }
 
     public void setGone(){
@@ -236,7 +269,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         this.mCommentCount = mCommentCount;
     }
 
-    Map fanoutObject = new HashMap<>();
+    private Map fanoutCommentObject = new HashMap<>();
 
     private int commentInc1 = 0;
 
@@ -259,18 +292,18 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists()){
                                         if(!key.equals(getCurrentUid())){
-                                            fanoutObject.put("/feed/" + key +
+                                            fanoutCommentObject.put("/feed/" + key +
                                                     "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                                         }
                                         if(commentInc1 == childCount){
                                             if(!getCurrentUid().equals(xUid)){
-                                                fanoutObject.put("/feed/" + xUid +
+                                                fanoutCommentObject.put("/feed/" + xUid +
                                                         "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                                             }
 
                                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                                            rootRef.updateChildren(fanoutObject);
-                                            fanoutObject.clear();
+                                            rootRef.updateChildren(fanoutCommentObject);
+                                            fanoutCommentObject.clear();
                                             commentInc1 = 0;
                                         }
                                     }
@@ -305,13 +338,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     //            postRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     //                @Override
                     //                public void onDataChange(DataSnapshot dataSnapshot) {
-                    //                    if(dataSnapshot.exists()){fanoutObject.put("/feed/" + userList.get(inc) +
+                    //                    if(dataSnapshot.exists()){fanoutCommentObject.put("/feed/" + userList.get(inc) +
                     //                            "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                     //                    }
                     //                    if(inc == userList.size() - 1){
                     //                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                    //                        rootRef.updateChildren(fanoutObject);
-                    //                        fanoutObject.clear();
+                    //                        rootRef.updateChildren(fanoutCommentObject);
+                    //                        fanoutCommentObject.clear();
                     //                    }
                     //                }
 //

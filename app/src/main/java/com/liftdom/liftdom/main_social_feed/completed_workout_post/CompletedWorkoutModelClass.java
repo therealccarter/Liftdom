@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
+import com.liftdom.liftdom.utils.UserNameIdModelClass;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,9 @@ public class CompletedWorkoutModelClass {
     private List<String> bonusList;
     private int mCommentCount;
     private Map<String, PostCommentModelClass> recentCommentsMap;
+    private int mRepCount;
+    private List<UserNameIdModelClass> mRepUserList;
+    private boolean mHasRepped;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -43,6 +47,30 @@ public class CompletedWorkoutModelClass {
         mMediaRef = mediaRef;
         mWorkoutInfoMap = workoutInfoMap;
         mCommentMap = commentMap;
+    }
+
+    public boolean isHasRepped() {
+        return mHasRepped;
+    }
+
+    public void setHasRepped(boolean hasRepped) {
+        this.mHasRepped = hasRepped;
+    }
+
+    public int getRepCount() {
+        return mRepCount;
+    }
+
+    public void setRepCount(int repCount) {
+        this.mRepCount = repCount;
+    }
+
+    public List<UserNameIdModelClass> getRepUserList() {
+        return mRepUserList;
+    }
+
+    public void setRepUserList(List<UserNameIdModelClass> repUserList) {
+        this.mRepUserList = repUserList;
     }
 
     public Map<String, PostCommentModelClass> getRecentCommentsMap() {

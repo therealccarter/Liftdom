@@ -301,6 +301,8 @@ public class MainFeedFrag extends Fragment {
                 viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
+                viewHolder.setRepsCounterView(model.getRepCount());
+                viewHolder.setIsRepped(model.isHasRepped());
                 //viewHolder.setActivity(getActivity());
                 if(model.getBonusList() != null){
                     if(!model.getBonusList().isEmpty()){
