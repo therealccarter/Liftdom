@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.bumptech.glide.Glide;
@@ -191,6 +192,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
                 // remove rep
+                removeRepFromPost();
             }
         });
     }
@@ -201,6 +203,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             mRepsIconWhite.setVisibility(View.GONE);
             mLoadingReppedView.setVisibility(View.GONE);
             mRepsIconGold.setVisibility(View.VISIBLE);
+        }else{
+            mRepsIconWhite.setVisibility(View.VISIBLE);
+            mLoadingReppedView.setVisibility(View.GONE);
+            mRepsIconGold.setVisibility(View.GONE);
         }
     }
 
@@ -209,9 +215,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private int reppedRemoveInc1 = 0;
 
     private void removeRepFromPost(){
-        mRepsIconWhite.setVisibility(View.GONE);
+        mRepsIconGold.setVisibility(View.GONE);
         mLoadingReppedView.setVisibility(View.VISIBLE);
-        reppedCount += 1;
+        final int newReppedCount = getReppedCount() - 1;
+        Log.i("reppedCount", "(remove rep) reppedCount:" + getReppedCount() + ", newReppedCount: " + newReppedCount);
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -219,7 +226,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 if(dataSnapshot.exists()){
                     final int childCount = (int) dataSnapshot.getChildrenCount();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        reppedInc1++;
+                        reppedRemoveInc1++;
                         final String key = dataSnapshot1.getKey();
                         //if(!key.equals(getCurrentUid())){
                         DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
@@ -229,33 +236,33 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
                                     if(!key.equals(getCurrentUid())){
-                                        fanoutReppedObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/repCount/", reppedCount);
+                                        fanoutReppedRemoveObject.put("/feed/" + key +
+                                                "/" + mRefKey + "/repCount/", newReppedCount);
                                     }
-                                    if(reppedInc1 == childCount){
+                                    if(reppedRemoveInc1 == childCount){
                                         if(!getCurrentUid().equals(xUid)){
-                                            fanoutReppedObject.put("/feed/" + xUid +
-                                                    "/" + mRefKey + "/repCount/", reppedCount);
+                                            fanoutReppedRemoveObject.put("/feed/" + xUid +
+                                                    "/" + mRefKey + "/repCount/", newReppedCount);
                                         }
 
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/repCount/", reppedCount);
+                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                                                "/" + mRefKey + "/repCount/", newReppedCount);
 
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasRepped/", true);
+                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                                                "/" + mRefKey + "/hasRepped/", false);
 
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                                        rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
+                                        rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {
                                                 mLoadingReppedView.setVisibility(View.GONE);
-                                                mRepsIconGold.setVisibility(View.VISIBLE);
+                                                mRepsIconWhite.setVisibility(View.VISIBLE);
                                                 //mRepsCounterView.setText(String.valueOf(reppedCount));
                                                 //mRepsCounterView.setVisibility(View.VISIBLE);
                                             }
                                         });
-                                        fanoutReppedObject.clear();
-                                        reppedInc1 = 0;
+                                        fanoutReppedRemoveObject.clear();
+                                        reppedRemoveInc1 = 0;
                                     }
                                 }
                             }
@@ -268,24 +275,24 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         //}
                     }
                 }else{
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/repCount/", reppedCount);
+                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                            "/" + mRefKey + "/repCount/", newReppedCount);
 
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasRepped/", true);
+                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                            "/" + mRefKey + "/hasRepped/", false);
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                    rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
+                    rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             mLoadingReppedView.setVisibility(View.GONE);
-                            mRepsIconGold.setVisibility(View.VISIBLE);
+                            mRepsIconWhite.setVisibility(View.VISIBLE);
                             //mRepsCounterView.setText(String.valueOf(reppedCount));
                             //mRepsCounterView.setVisibility(View.VISIBLE);
                         }
                     });
-                    fanoutReppedObject.clear();
-                    reppedInc1 = 0;
+                    fanoutReppedRemoveObject.clear();
+                    reppedRemoveInc1 = 0;
                 }
             }
 
@@ -306,7 +313,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         // upload it.
         mRepsIconWhite.setVisibility(View.GONE);
         mLoadingReppedView.setVisibility(View.VISIBLE);
-        reppedCount += 1;
+        final int newRepCount = getReppedCount() + 1;
+        Log.i("reppedCount", "(add rep) reppedCount:" + getReppedCount() + ", newReppCount: " + newRepCount);
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -325,16 +333,16 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                 if(dataSnapshot.exists()){
                                     if(!key.equals(getCurrentUid())){
                                         fanoutReppedObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/repCount/", reppedCount);
+                                                "/" + mRefKey + "/repCount/", newRepCount);
                                     }
                                     if(reppedInc1 == childCount){
                                         if(!getCurrentUid().equals(xUid)){
                                             fanoutReppedObject.put("/feed/" + xUid +
-                                                    "/" + mRefKey + "/repCount/", reppedCount);
+                                                    "/" + mRefKey + "/repCount/", newRepCount);
                                         }
 
                                         fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/repCount/", reppedCount);
+                                                "/" + mRefKey + "/repCount/", newRepCount);
 
                                         fanoutReppedObject.put("/feed/" + getCurrentUid() +
                                                 "/" + mRefKey + "/hasRepped/", true);
@@ -364,7 +372,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     }
                 }else{
                     fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/repCount/", reppedCount);
+                            "/" + mRefKey + "/repCount/", newRepCount);
 
                     fanoutReppedObject.put("/feed/" + getCurrentUid() +
                             "/" + mRefKey + "/hasRepped/", true);
@@ -394,6 +402,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     }
 
+    public void setReppedCount(int repCount){
+        reppedCount = repCount;
+    }
+
+    public int getReppedCount(){
+        return this.reppedCount;
+    }
+
     public void setRepsCounterView(int repsCount){
         reppedCount = repsCount;
 
@@ -401,8 +417,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             mRepsCounterView.setVisibility(View.VISIBLE);
             mRepsCounterView.setText(String.valueOf(repsCount));
         }else{
+            Log.i("reppedCount", "(Setter TextView method) reppedCount:" + getReppedCount());
             mRepsCounterView.setVisibility(View.GONE);
-            mRepsCounterView.setText(String.valueOf(repsCount));
+            mRepsCounterView.setText(String.valueOf(getReppedCount()));
         }
     }
 
