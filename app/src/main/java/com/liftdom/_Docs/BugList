@@ -3,11 +3,11 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-
+rep button
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-rep button
+need to change workout info from r@w to sXr@w // re-do whole post info thing (make less laggy)
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -30,7 +30,6 @@ more programs {
     nSuns
 }
 more quotes in more places
-need to change workout info from r@w to sXr@w
 add option to do a workout on a rest day/revise that day's workout
 add feedback page
 fill in the Knowledge Center (including ex descriptions in other packages)
@@ -42,13 +41,6 @@ percentage functionality
 Empty search show all users
 Discover tab
 Post rest days (public description too)
-Make main feed less laggy{
-    Turns out, it's the damn post info holder!
-    Also:
-        (we could possibly make the last two comments a part of the model class)
-         would eliminate the need for a recycler view for those two comments.
-        Glide cache manually?
-}
 add feed to profiles (gonna have to do a custom recycler/adapter)
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality)

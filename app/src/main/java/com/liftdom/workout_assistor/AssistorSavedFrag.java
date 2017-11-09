@@ -288,6 +288,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 String date = LocalDate.now().toString();
                 String dateUTC = new DateTime(DateTimeZone.UTC).toString();
                 HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
+                HashMap<String, List<String>> workoutInfoMapProcessed = processWorkoutInfoMap(workoutInfoMap);
                 boolean isImperial = false;
                 if(userModelClass.isIsImperial()){
                     isImperial = true;
@@ -370,6 +371,116 @@ public class AssistorSavedFrag extends android.app.Fragment {
         templateRef.setValue(templateClass);
 
         return view;
+    }
+
+    HashMap<String, List<String>> processWorkoutInfoMap(HashMap<String, List<String>> infoMap){
+        HashMap<String, List<String>> processedMap = new HashMap<>();
+
+        //List<List<String>>
+
+        /**
+         * So what do we need to do? For each key, we will check to see if the next value is the same as the one
+         * we're currently on. Let's break it down some more.
+         * Ex:
+         *      3@5
+         *      3@5
+         *      3@5
+         *      4@8
+         *      2@7
+         *      2@7
+         *      3@5
+         *
+         * If the value we get is not identical to its neighbor
+         */
+
+        for(int i = 0; i < infoMap.size(); i++){
+            List<String> processedList = new ArrayList<>();
+            for(Map.Entry<String, List<String>> mapEntry : infoMap.entrySet()){
+                String[] keyTokens = mapEntry.getKey().split("_");
+                boolean hasGoneThrough = false;
+                if(Integer.parseInt(keyTokens[0]) == i){
+                    List<String> list = new ArrayList<>();
+                    list.addAll(mapEntry.getValue());
+                    boolean isFirstEx = true;
+                    boolean isFirstRepsWeight = true;
+                    String runningValue = "";
+                    boolean isFirstSetScheme = true;
+                    for(String string : list){
+                        if(isExerciseName(string) && isFirstEx){
+                            // is first ex name
+                            //mWorkoutInfoList.add(string);
+                            processedList.add(string);
+                            isFirstEx = false;
+                            hasGoneThrough = true;
+                        }else if(isExerciseName(string) && !isFirstEx){
+                            // is superset ex name
+                            //mWorkoutInfoList.add(string + "_ss");
+                            processedList.add(string);
+                            runningValue = "";
+                            isFirstRepsWeight = false;
+                            isFirstSetScheme = true;
+                        }else if(!isExerciseName(string) && isFirstRepsWeight){
+                            // is first ex set scheme
+                            //mWorkoutInfoList.add(string);
+                            if(isFirstSetScheme){
+                                runningValue = string;
+                                String newValue = "1x" + string;
+                                processedList.add(newValue);
+                                isFirstSetScheme = false;
+                            }else{
+                                if(string.equals(runningValue)){
+                                    String processedValue = processedList.get(processedList.size() - 1);
+                                    String delims = "[x]";
+                                    String[] tokens = processedValue.split(delims);
+                                    int sets = Integer.valueOf(tokens[0]);
+                                    sets++;
+                                    String newValue = sets + "x" + string;
+                                    processedList.set(processedList.size() - 1, newValue);
+                                    runningValue = string;
+                                }else{
+                                    String newValue = "1x" + string;
+                                    processedList.add(newValue);
+                                    runningValue = string;
+                                }
+                            }
+                        }else if(!isExerciseName(string) && !isFirstRepsWeight){
+                            // is superset ex set scheme
+                            //mWorkoutInfoList.add(string );
+                            if(isFirstSetScheme){
+                                runningValue = string;
+                                String newValue = "1x" + string;
+                                processedList.add(newValue);
+                                isFirstSetScheme = false;
+                            }else{
+                                if(string.equals(runningValue)){
+                                    String processedValue = processedList.get(processedList.size() - 1);
+                                    String delims = "[x]";
+                                    String[] tokens = processedValue.split(delims);
+                                    int sets = Integer.valueOf(tokens[0]);
+                                    sets++;
+                                    String newValue = sets + "x" + string;
+                                    processedList.set(processedList.size() - 1, newValue);
+                                    runningValue = string;
+                                }else{
+                                    String newValue = "1x" + string;
+                                    processedList.add(newValue);
+                                    runningValue = string;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(hasGoneThrough){
+                    List<String> newList = new ArrayList<>();
+                    newList.addAll(processedList);
+                    processedMap.put(mapEntry.getKey(), newList);
+                    processedList.clear();
+                }
+            }
+        }
+
+
+        return processedMap;
     }
 
     @Override
