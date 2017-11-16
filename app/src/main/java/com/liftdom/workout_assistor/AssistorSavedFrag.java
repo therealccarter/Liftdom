@@ -478,8 +478,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 }
             }
         }
-
-
         return processedMap;
     }
 
@@ -538,7 +536,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
     private int currentXp;
     private String currentPowerLevel;
     private boolean isLevelUp;
-
 
     public boolean isFromAd;
 

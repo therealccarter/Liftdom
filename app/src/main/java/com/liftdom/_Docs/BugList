@@ -4,10 +4,14 @@
 
 ======== ***Completed*** =======================================================
 rep button
+template editor is in kg, despite user being imperial.
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-need to change workout info from r@w to sXr@w // re-do whole post info thing (make less laggy)
+need to change workout info from r@w to sXr@w // re-do whole post info thing (make less laggy){
+    so we're at the point where the Assistor is saving correctly as SxR@W
+    now we need to make that readable in the post info holder in the main feed
+}
 =====================================================
 
 ============ BUG LIST =====================================================

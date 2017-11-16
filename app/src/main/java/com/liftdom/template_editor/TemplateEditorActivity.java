@@ -224,8 +224,6 @@ public class TemplateEditorActivity extends BaseActivity
                                     TemplateEditorSingleton.getInstance().isTemplateImperial = false;
                                 }
 
-
-
                                 TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
                                 SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
@@ -510,12 +508,30 @@ public class TemplateEditorActivity extends BaseActivity
                     });
                 }
             }else if(getIntent().getExtras().getString("isEdit").equals("no")){
-                DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
-                if (getIntent().getExtras().getString("isEdit") != null) {
-                    if (getIntent().getExtras().getString("isEdit").equals("no")) {
+                //DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child
+                //        ("isFromScratchFirstTime");
+                //if (getIntent().getExtras().getString("isEdit") != null) {
+                //    if (getIntent().getExtras().getString("isEdit").equals("no")) {
+                //    }
+                //}
+                DatabaseReference userRef = mRootRef.child("user").child(uid);
+
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                        if(userModelClass.isIsImperial()){
+                            TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
+                        }else{
+                            TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
-                }
+                });
             }
         }
 
