@@ -307,7 +307,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                         userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
-                        workoutInfoMap, commentModelClassMap);
+                        workoutInfoMapProcessed, commentModelClassMap);
 
                 if(isFirstTimeFirstTime){
                     List<String> bonusList = new ArrayList<>();
@@ -334,7 +334,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 // workout history
                 WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
-                        userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, workoutInfoMap, isImperial);
+                        userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
+                        workoutInfoMapProcessed, isImperial);
                 if(!isFirstTimeFirstTime){
                     workoutHistoryRef.setValue(historyModelClass);
                 }
