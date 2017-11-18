@@ -323,7 +323,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 5 == 0.0 || isTutorialFirstTime){
+                            if(dayDouble % (double) 2 == 0.0 || isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
@@ -436,6 +436,8 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+
+                    isTutorialFirstTime = true;
 
                     FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(getActivity())
                             .title("This is the Workout Assistor!" +

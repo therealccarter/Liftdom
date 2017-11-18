@@ -158,7 +158,7 @@ public class MainFeedFrag extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 112;
+                        final int currentVersionInt = 113;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);

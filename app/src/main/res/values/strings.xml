@@ -12,28 +12,26 @@
 
 
     <!-- ============== RELEASE NOTES ================== -->
-    <string name="currentVersion">Liftdom v1.12</string>
+    <string name="currentVersion">Liftdom v1.13</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.12 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.13 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Feature:</string>
     <string name="newFeaturesText">
-        Full metric support! \n (If you\'re currently using the imperial system, you may
-        encounter a bug where all weights are doubled. If you do, simply edit the program, correct the affected
-        weights, and re-save.) </string>
+        Added rep button! (like button)
+    </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Cleaned up many more layout issues.\n
         Decreased frequency of full screen ads. \n
-        Misc bug fixes (metric -> imperial crashes, Smolov related crashes fixed).</string>
+        Misc bug fixes (metric -> imperial crashes). \n
+        Fixed the Program Editor, which was stuck in kg.
+    </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Ability to \"like\" friends\' posts.\n
-        In-app notifications. \n
-        Adding "nSuns" workout program. \n
-        Various crashes need to be addressed.
+        Changing feed workout info from Reps @ Weight to Sets x Reps @ Weight. This should be more concise and offer
+        better performance.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->
