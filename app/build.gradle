@@ -9,8 +9,8 @@ android {
         applicationId "com.liftdom.liftdom"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 12
-        versionName "1.12"
+        versionCode 13
+        versionName "1.13"
         multiDexEnabled true
         //jackOptions {
         //    enabled true
