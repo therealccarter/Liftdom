@@ -26,7 +26,6 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         this.mContext = context;
 
         setInfoList(map);
-
     }
 
     private void setInfoList(HashMap<String, List<String>> map){
@@ -48,7 +47,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
                         }else if(!isExerciseName(string) && isFirstRepsWeight){
                             mWorkoutInfoList.add(string);
                         }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                            mWorkoutInfoList.add(string );
+                            mWorkoutInfoList.add(string);
                         }
                     }
                 }
