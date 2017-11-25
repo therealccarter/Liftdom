@@ -3,15 +3,12 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-
+need to change workout info from r@w to sXr@w
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-need to change workout info from r@w to sXr@w // re-do whole post info thing (make less laggy){
-    Assistor is saving correctly as SxR@W and it is readable in the post info holder in the main feed
-    Our goal now is to make the workoutInfoRecyclerAdapter -> WorkoutInfoViewholder operations as simple as
-    possible
-}
+see if we need to change from multiple hidden views to one inserted view (use methods?)
+Post rest days (public description too)
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -44,7 +41,6 @@ percentage functionality
 ===== social/user-related ==========
 Empty search show all users
 Discover tab
-Post rest days (public description too)
 add feed to profiles (gonna have to do a custom recycler/adapter)
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality)
