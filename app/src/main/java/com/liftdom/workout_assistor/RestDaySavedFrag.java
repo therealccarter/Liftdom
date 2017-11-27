@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +19,29 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +60,9 @@ public class RestDaySavedFrag extends Fragment {
     String publicDescription = null;
     String privateJournal = null;
     String mediaRef = null;
+    CompletedWorkoutModelClass completedWorkoutModelClass;
 
-
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public RestDaySavedFrag() {
@@ -121,7 +132,10 @@ public class RestDaySavedFrag extends Fragment {
                             powerLevelXpView1.setText(userModelClass.getCurrentXpWithinLevel());
                         }
 
+                        boolean isLevelUp = false;
+
                         powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
+
 
                         HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null);
                         // day v days
@@ -131,10 +145,45 @@ public class RestDaySavedFrag extends Fragment {
                         xpFromWorkout = xpInfoMap.get("xpFromWorkout");
                         totalXpGained = xpInfoMap.get("totalXpGained");
 
+                        if((Integer.valueOf(totalXpGained) + currentXp) > Integer.valueOf(powerLevelXpView2.getText()
+                                .toString())){
+                            isLevelUp = true;
+                        }
+
                         streakView.setText(completionStreak);
                         streakMultiplierView.setText(streakMultiplier);
                         xpFromWorkoutView.setText(xpFromWorkout);
                         totalXpGainedView.setText("0");
+
+                        // feed fanout
+                        DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+                        String refKey = myFeedRef.push().getKey();
+
+                        String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+                        HashMap<String, List<String>> workoutInfoMap = new HashMap<>();
+                        boolean isImperial1 = false;
+                        if(userModelClass.isIsImperial()){
+                            isImperial1 = true;
+                        }
+
+                        Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
+
+                        completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                                userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
+                                workoutInfoMap, commentModelClassMap);
+
+                        if(isLevelUp){
+                            List<String> bonusList = new ArrayList<>();
+                            bonusList.add("Level up!");
+                            completedWorkoutModelClass.setBonusList(bonusList);
+                        }
+
+                        List<String> bonusList = new ArrayList<>();
+                        bonusList.add("Rest Day");
+                        completedWorkoutModelClass.setBonusList(bonusList);
+
+                        myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                        feedFanOut(refKey, completedWorkoutModelClass);
 
                         // workout history
                         String date = LocalDate.now().toString();
@@ -184,6 +233,61 @@ public class RestDaySavedFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+    }
+
+    private void feedFanOut(final String refKey, final CompletedWorkoutModelClass completedWorkoutModelClass){
+
+        DatabaseReference userListRef = mRootRef.child("followers").child(uid);
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Map fanoutObject = new HashMap<>();
+                    int inc = 0;
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+
+                        fanoutObject.put("/feed/" + dataSnapshot1.getKey() + "/" + refKey, completedWorkoutModelClass);
+
+                        inc++;
+
+                        if(inc == dataSnapshot.getChildrenCount()){
+                            DatabaseReference rootRef = mRootRef;
+                            rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    dontLeavePage.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                    }
+                    //FollowersModelClass followersModelClass = dataSnapshot.getValue(FollowersModelClass.class);
+//
+                    //List<String> userList = new ArrayList<>();
+//
+                    //if(followersModelClass.getUserIdList() != null){
+                    //    userList.addAll(followersModelClass.getUserIdList());
+//
+                    //    Map fanoutObject = new HashMap<>();
+                    //    for(String user : userList){
+                    //        fanoutObject.put("/feed/" + user + "/" + refKey, completedWorkoutModelClass);
+                    //    }
+//
+                    //    DatabaseReference rootRef = mRootRef;
+                    //    rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //        @Override
+                    //        public void onComplete(@NonNull Task<Void> task) {
+                    //            dontLeavePage.setVisibility(View.GONE);
+                    //        }
+                    //    });
+                    //}
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

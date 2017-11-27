@@ -62,6 +62,7 @@
                     android:text="@string/metricWarning"
                     android:gravity="center"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
             />
 
             <LinearLayout

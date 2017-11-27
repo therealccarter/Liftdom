@@ -25,7 +25,9 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         this.mWorkoutInfoMap = map;
         this.mContext = context;
 
-        setInfoList(map);
+        if(map != null){
+            setInfoList(map);
+        }
     }
 
     private void setInfoList(HashMap<String, List<String>> map){

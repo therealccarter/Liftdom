@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerView;
+import com.irozon.library.HideKey;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.R;
 import org.joda.time.LocalDate;
@@ -33,6 +34,7 @@ public class RestDayFrag extends Fragment {
     @BindView(R.id.restAdviceButton) Button restAdviceButton;
     @BindView(R.id.restDayComplete) Button restDayCompleteButton;
     @BindView(R.id.privateJournal) EditText privateJournal;
+    @BindView(R.id.publicComment) EditText publicComment;
     //@BindView(R.id.appodealBannerView) BannerView appodealBannerView;
 
     @Override
@@ -42,6 +44,8 @@ public class RestDayFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rest_day, container, false);
 
         ButterKnife.bind(this, view);
+
+        HideKey.initialize(getActivity(), view);
 
         //Appodeal.setBannerViewId(view.findViewById(R.id.appodealBannerView).getId());
         //Appodeal.show(getActivity(), Appodeal.BANNER_BOTTOM);
@@ -70,6 +74,7 @@ public class RestDayFrag extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
                 restDaySavedFrag.privateJournal = privateJournal.getText().toString();
+                restDaySavedFrag.publicDescription = publicComment.getText().toString();
                 LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
                 fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
                 fragmentTransaction.commit();
