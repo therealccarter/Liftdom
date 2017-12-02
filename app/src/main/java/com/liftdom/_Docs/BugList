@@ -17,7 +17,10 @@ bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 ============
 ==== harder ==========
 re-check user made programs functionality (full)
-(performance) see if we need to change from multiple hidden views to one inserted view (use methods?)
+(performance){
+    (view holder) see if we need to change from multiple hidden views to one inserted view (use methods?)
+    (recycler adapter) maybe do the operations currently in here in the assistor saved frag
+}
 ============
 
 ============ TO-DO FEATURE LIST =============================
