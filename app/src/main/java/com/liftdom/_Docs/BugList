@@ -4,11 +4,11 @@
 
 ======== ***Completed*** =======================================================
 need to change workout info from r@w to sXr@w
+Post rest days (public description too)
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-see if we need to change from multiple hidden views to one inserted view (use methods?)
-Post rest days (public description too)
+lockscreen functionality (service)
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -17,11 +17,15 @@ bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 ============
 ==== harder ==========
 re-check user made programs functionality (full)
+(performance) see if we need to change from multiple hidden views to one inserted view (use methods?)
 ============
 
 ============ TO-DO FEATURE LIST =============================
 ===== lifting/core-related =========
-lockscreen functionality (service)
+more quotes in more places
+add better running support
+percentage functionality
+add feedback page
 more programs {
     PPL
     5x5
@@ -30,15 +34,13 @@ more programs {
     Texas Method
     nSuns
 }
-more quotes in more places
 add option to do a workout on a rest day/revise that day's workout
-add feedback page
 fill in the Knowledge Center (including ex descriptions in other packages)
 Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
-percentage functionality
 ======================
 
 ===== social/user-related ==========
+banner that shows other users (also a "see all" option)
 Empty search show all users
 Discover tab
 add feed to profiles (gonna have to do a custom recycler/adapter)
