@@ -76,6 +76,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
     @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
+    @BindView(R.id.activateStatusBarWA) Button activateStatusBarService;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
