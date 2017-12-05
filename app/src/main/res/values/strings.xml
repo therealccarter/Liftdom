@@ -284,7 +284,9 @@
 
     <string name="saveState">Save Current Workout State</string>
 
-    <string name="activateStatusBarWA">Activate Status Bar Workout Assistor</string>
+    <string name="activateStatusBarWA">Activate in Notification Bar</string>
+
+    <string name="deactivateStatusBarWA">De-activate in Notification Bar</string>
 
     <string name="publicComment">Public Description:</string>
 
@@ -495,7 +497,7 @@
     <string name="templateEditor">Program Editor</string>
 
     <string name="assistorWarning">Save your progress if you want to keep the state of this workout OR activate the
-        status bar Workout Assistor.
+        Notification Bar Workout Assistor.
     </string>
 
     <string name="oneRepMaxDay">Today you should build up to a 1-rep max. Enter that number as the weight once

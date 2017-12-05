@@ -77,6 +77,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.saveImage) ImageButton saveImage;
     @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
     @BindView(R.id.activateStatusBarWA) Button activateStatusBarService;
+    @BindView(R.id.deactivateStatusBarWA) Button deactivateStatusBarService;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -421,6 +422,30 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
                 });
 
+            }
+        });
+
+        activateStatusBarService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activateStatusBarService.setVisibility(View.GONE);
+                deactivateStatusBarService.setVisibility(View.VISIBLE);
+
+                Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                getActivity().startService(startIntent);
+            }
+        });
+
+        deactivateStatusBarService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activateStatusBarService.setVisibility(View.VISIBLE);
+                deactivateStatusBarService.setVisibility(View.GONE);
+
+                Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                getActivity().stopService(stopIntent);
             }
         });
 
