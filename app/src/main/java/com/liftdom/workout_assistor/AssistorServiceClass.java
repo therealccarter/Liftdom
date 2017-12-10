@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 
@@ -24,11 +25,19 @@ public class AssistorServiceClass extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
+        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
+
         Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
+        //notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         RemoteViews notificationView = new RemoteViews(this.getPackageName(), R.layout.assistor_notification_layout);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Today\'s Workout")
