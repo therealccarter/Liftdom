@@ -10,22 +10,22 @@
 >
 
     <ImageView
-            android:layout_width="26dp"
-            android:layout_height="match_parent"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_arrow_upward_gold_24dp"
             android:background="@color/backgroundgrey1"
     />
 
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:id="@+id/exerciseName"
             android:textColor="@color/white"
             android:background="@color/backgroundgrey1"
             android:gravity="center"
-            android:paddingStart="-20dp"
+            android:layout_weight="2"
     />
 
 </LinearLayout>

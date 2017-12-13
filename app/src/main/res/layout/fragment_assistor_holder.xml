@@ -72,6 +72,7 @@
                 android:minWidth="0dp"
                 android:padding="3dp"
                 android:textAllCaps="false"
+                android:visibility="gone"
         />
 
         <Button

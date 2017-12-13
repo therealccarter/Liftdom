@@ -140,23 +140,28 @@ public class BaseActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
                             Glide.with(getApplicationContext()).load(uri).crossFade().into(profilePicView);
+                            profilePicView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             ImageView profilePicView = (ImageView) drawer.getHeader().findViewById(R.id.profilePicImageView);
                             profilePicView.setImageResource(R.drawable.usertest);
+                            profilePicView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     });
-
-                    drawer.getHeader().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
-                            startActivity(intent);
-                        }
-                    });
-
 
                     userRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -165,9 +170,20 @@ public class BaseActivity extends AppCompatActivity {
 
                             TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
                             TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
+                            TextView streakTextView = (TextView) drawer.getHeader().findViewById(R.id.currentStreakTextView);
+
+                            userNameView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    startActivity(intent);
+                                }
+                            });
 
                             userNameView.setText(userModelClass.getUserName());
                             powerLevelView.setText(userModelClass.getPowerLevel());
+                            streakTextView.setText(userModelClass.getCurrentStreak());
+
 
                             SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();

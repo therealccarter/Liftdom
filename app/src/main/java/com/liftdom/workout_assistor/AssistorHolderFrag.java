@@ -433,6 +433,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                 Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
 
+
+
                 getActivity().startService(startIntent);
             }
         });

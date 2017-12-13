@@ -462,6 +462,7 @@
     <string name="powerLevel">Power Level:\u0020</string>
     <string name="powerXp">Power XP:\u0020</string>
     <string name="completionStreak">Daily Completion Streak:\u0020</string>
+    <string name="justCompletionStreak">Completion Streak:\u0020</string>
     <string name="completionMultiplier">Completion Multiplier:\u0020</string>
     <string name="xpFromWorkout">XP From Workout:\u0020</string>
     <string name="xpGained">Total XP Gained:\u0020</string>
