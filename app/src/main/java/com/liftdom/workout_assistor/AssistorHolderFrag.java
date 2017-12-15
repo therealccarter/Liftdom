@@ -106,7 +106,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         /**
          * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
          * and the Service setting/getting continuously from that node. We shall see.
-         * badabingbadaboom
+         * just trying some things out. thinking about ways of implementing this WA/Service symbiosis.
+         * I'm excited though! Could make it so we don't have to deal with the save button AND get a notification bar working.
          */
 
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
