@@ -90,6 +90,10 @@ public class MotivationalQuotes {
             "The question isn’t who is going to let me; it’s who is going to stop me. - Ayn Rand",
     };
 
+    String[] shortQuotes = {
+
+    };
+
     public String[] getQuote() {
         int random = (int) (Math.random() * quotes.length);
 

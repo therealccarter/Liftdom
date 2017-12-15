@@ -11,7 +11,6 @@ put streak in the nav drawer header // redesign header // more emphasis on strea
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service)
-
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -30,7 +29,9 @@ re-check user made programs functionality (full)
 ===== lifting/core-related =========
 more quotes in more places
 add better running support
-percentage functionality
+percentage functionality {
+    percentages as node in template class
+}
 add feedback page (or just create chat with each user)
 more programs {
     PPL
@@ -53,7 +54,14 @@ banner that shows other users (also a "see all" option)
 Empty search show all users
 Discover tab // or community tab, shows everypne
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
-chat unread stuff (including badge/notifications/unread functionality)
+chat unread stuff (including badge/notifications/unread functionality(bool hasRead))
+badge notification{
+    notification icon in nav drawer header.
+    notification node in firebase.
+    items are notification_item_classes so they can be read by a recyclerview
+    classes will have relevant info for intents and user data and whatnot
+    boolean hasRead.
+}
 redesign user profile {
     fix up layout
     possibly add streak to header instead of "focus"

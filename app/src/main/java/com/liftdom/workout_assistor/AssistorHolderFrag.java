@@ -103,6 +103,11 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         isTemplateImperial = mTemplateClass.isIsImperial();
 
+        /**
+         * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
+         * and the Service setting/getting continuously from that node. We shall see.
+         */
+
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
         runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -134,6 +139,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+
+        // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
 
         addExButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -453,6 +460,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         return view;
     }
+
+
 
     @Override
     public void onStart(){
