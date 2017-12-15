@@ -22,13 +22,15 @@ public class WorkoutProgressModelClass {
     }
 
     public WorkoutProgressModelClass(String date, boolean completedBool, HashMap<String, HashMap<String, List<String>>> exInfoHashMap,
-                                     String privateJournal, String publicComment, String mediaResource){
+                                     String privateJournal, String publicComment, String mediaResource, boolean
+                                             isTemplateImperial){
         mDate = date;
         mCompletedBool = completedBool;
         mExInfoHashMap = exInfoHashMap;
         mPrivateJournal = privateJournal;
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
+        mIsTemplateImperial = isTemplateImperial;
     }
 
     public boolean isIsTemplateImperial() {

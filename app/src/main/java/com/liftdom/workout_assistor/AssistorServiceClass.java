@@ -38,7 +38,6 @@ public class AssistorServiceClass extends Service {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Today\'s Workout")
                 .setTicker("Test ticker")

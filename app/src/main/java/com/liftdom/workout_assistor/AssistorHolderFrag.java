@@ -27,6 +27,7 @@ import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
+import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import org.joda.time.DateTime;
@@ -78,6 +79,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
     @BindView(R.id.activateStatusBarWA) Button activateStatusBarService;
     @BindView(R.id.deactivateStatusBarWA) Button deactivateStatusBarService;
+    @BindView(R.id.deactivateStatusBarImageView) ImageView deactiveStatusBarImage;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -395,42 +398,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         saveProgressButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
-                        ("assistorModel");
-                HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
-                int inc = 0;
-                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                LocalDate localDate = LocalDate.now();
-                String dateTimeString = fmt.print(localDate);
-                String privateJournal = privateJournalView.getText().toString();
-                String publicComment = publicCommentView.getText().toString();
-                boolean completedBool = false; // obviously this will be set to true in assistor saved
-                String mediaResource = "";
-
-                // might need to make this not clickable without inflated views so it isn't set to null
-                for(ExNameWAFrag exNameFrag : exNameFragList){
-                    inc++;
-                    //for(int i = 1; i <= exNameFragList.size(); i++){}
-                    runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
-                }
-
-                WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
-                        completedBool, runningMap, privateJournal, publicComment, mediaResource);
-
-                progressModelClass.setIsTemplateImperial(isTemplateImperial);
-
-                runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        try{
-                            Snackbar snackbar = Snackbar.make(getView(), "Progress Saved", Snackbar.LENGTH_SHORT);
-                            snackbar.show();
-                        } catch (NullPointerException e){
-
-                        }
-                    }
-                });
-
+                updateWorkoutState();
             }
         });
 
@@ -460,9 +428,62 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
+        deactiveStatusBarImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activateStatusBarService.setVisibility(View.VISIBLE);
+                deactivateStatusBarService.setVisibility(View.GONE);
+
+                Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                getActivity().stopService(stopIntent);
+            }
+        });
+
         return view;
     }
 
+    private void updateWorkoutStateFromTemplate(){
+
+    }
+
+    public void updateWorkoutState(){
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+        boolean completedBool = false; // obviously this will be set to true in assistor saved
+        String mediaResource = "";
+
+        // might need to make this not clickable without inflated views so it isn't set to null
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            //for(int i = 1; i <= exNameFragList.size(); i++){}
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial);
+
+        //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                try{
+                    Snackbar snackbar = Snackbar.make(getView(), "Progress Saved", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                } catch (NullPointerException e){
+
+                }
+            }
+        });
+    }
 
 
     @Override
@@ -594,6 +615,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             privateJournal, String publicComment, boolean isTemplateImperial1){
 
         for(int i = 0; i < runningMap.size(); i ++){
+            if(i == 0){
+                loadingView.setVisibility(View.GONE);
+            }
             for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
                 if(isOfIndex(i, entry.getKey())){
                     exNameInc++;
@@ -636,6 +660,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             smolovWeekDayString = smolov.getWeekDayString();
 
             for(int i = 0; i < smolovMap.size(); i++){
+                if(i == 0){
+                    loadingView.setVisibility(View.GONE);
+                }
                 for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
                         if(isOfIndex(i, entry.getKey())){
@@ -664,6 +691,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                 if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
                     HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
                     for(int i = 0; i < map.size(); i++){
+                        if(i == 0){
+                            loadingView.setVisibility(View.GONE);
+                        }
                         for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                             if(!entry.getKey().equals("0_key")){
                                 if(isOfIndex(i, entry.getKey())){
@@ -683,6 +713,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     }
                                 }
                             }
+                        }
+                        if(i == (map.size() - 1)){
+                            updateWorkoutState();
                         }
                     }
                 }
