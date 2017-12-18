@@ -16,6 +16,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/exerciseNameView"
                 android:text="Exercise Name"
                 android:textSize="26sp"
                 android:layout_weight="0"
@@ -37,7 +38,6 @@
                 android:src="@drawable/close_button_grey"
                 android:layout_weight="0"
                 android:layout_marginEnd="10dp"
-
         />
 
     </LinearLayout>
@@ -116,6 +116,7 @@
         <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:id="@+id/nextButton"
                 android:src="@drawable/ic_skip_next_black_24dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"

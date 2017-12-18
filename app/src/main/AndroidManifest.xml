@@ -465,6 +465,7 @@
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
         <service android:name="com.liftdom.workout_assistor.AssistorServiceClass"/>
+        <receiver android:name="com.liftdom.workout_assistor.AssistorServiceClass$AssistorServiceNextSetHandler"/>
     </application>
 
 </manifest>

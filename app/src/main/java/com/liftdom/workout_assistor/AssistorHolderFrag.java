@@ -81,6 +81,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.deactivateStatusBarWA) Button deactivateStatusBarService;
     @BindView(R.id.deactivateStatusBarImageView) ImageView deactiveStatusBarImage;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.exInfoHolder2) LinearLayout exInfoHolder2;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -115,7 +116,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
-        runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        runningAssistorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -125,6 +126,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
+                            Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
                             savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
                                     modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
                             //noProgressInflateViews();
@@ -409,9 +411,6 @@ public class AssistorHolderFrag extends android.app.Fragment
                 deactivateStatusBarService.setVisibility(View.VISIBLE);
 
                 Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
-
-
-
                 getActivity().startService(startIntent);
             }
         });
@@ -446,6 +445,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void updateWorkoutStateFromTemplate(){
 
     }
+
+    // index will always be the last item checked, or the first item.
 
     public void updateWorkoutState(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
@@ -483,6 +484,17 @@ public class AssistorHolderFrag extends android.app.Fragment
                 }
             }
         });
+
+        //for(ExNameWAFrag exNameWAFrag : exNameFragList){
+        //    removeFrag(exNameWAFrag.fragTag);
+        //}
+
+        /**
+         * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
+         * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
+         */
+
+
     }
 
 
@@ -715,7 +727,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                             }
                         }
                         if(i == (map.size() - 1)){
-                            updateWorkoutState();
+                            //updateWorkoutState();
+                            Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                            getActivity().startService(startIntent);
                         }
                     }
                 }
