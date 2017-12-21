@@ -90,8 +90,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @BindView(R.id.xpFromWorkoutView) TextView xpFromWorkoutView;
     @BindView(R.id.completionMultiplierView) TextView streakMultiplierView;
     @BindView(R.id.completionStreakView) TextView streakView;
-    @BindView(R.id.totalXpGainedLL)
-    LinearLayout totalXpGainedLL;
+    @BindView(R.id.totalXpGainedLL) LinearLayout totalXpGainedLL;
     @BindView(R.id.xpFromWorkoutLL) LinearLayout xpFromWorkoutLL;
     @BindView(R.id.streakMultiplierLL) LinearLayout streakMultiplierLL;
     @BindView(R.id.dailyStreakLL) LinearLayout dailyStreakLL;
@@ -128,248 +127,252 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         });
 
-        if(templateClass.getIsAlgorithm()){
-            if(templateClass.getIsAlgoApplyToAll()){
-                DateTime dateTime = new DateTime();
-                int currentWeekday = dateTime.getDayOfWeek();
-                if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
-                    if (!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()) {
-                        modelMapFormatted = formatModelClass(templateClass.getMapForDay(intToWeekday(currentWeekday)));
-                        originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
+        if(savedInstanceState == null) {
+
+            if (templateClass.getIsAlgorithm()) {
+                if (templateClass.getIsAlgoApplyToAll()) {
+                    DateTime dateTime = new DateTime();
+                    int currentWeekday = dateTime.getDayOfWeek();
+                    if (templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
+                        if (!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()) {
+                            modelMapFormatted = formatModelClass(templateClass.getMapForDay(intToWeekday(currentWeekday)));
+                            originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
+                        }
                     }
-                }
-                completedMapFormatted = formatCompletedMap(completedMap);
-                completedExerciseList = getCompletedExercises();
+                    completedMapFormatted = formatCompletedMap(completedMap);
+                    completedExerciseList = getCompletedExercises();
 
-                // init done
+                    // init done
 
-                ArrayList<String> exercisesAlreadyGenerated = new ArrayList<>();
+                    ArrayList<String> exercisesAlreadyGenerated = new ArrayList<>();
 
-                for(Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()){
-                    // For each list in the model/expected maps
-                    String exName = map1.getValue().get(0);
-                    int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
-                    for(Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()){
-                        // For each list in the completed/actual maps
+                    for (Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()) {
+                        // For each list in the model/expected maps
+                        String exName = map1.getValue().get(0);
+                        int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
+                        for (Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()) {
+                            // For each list in the completed/actual maps
 
-                        String delims = "[_]";
-                        String[] tokens = map2.getValue().get(0).split(delims);
-                        String splitExName = tokens[0];
-                        completedExerciseList.add(splitExName);
+                            String delims = "[_]";
+                            String[] tokens = map2.getValue().get(0).split(delims);
+                            String splitExName = tokens[0];
+                            completedExerciseList.add(splitExName);
 
-                        String exNameCompleted = map2.getValue().get(0);
+                            String exNameCompleted = map2.getValue().get(0);
 
-                        if(exName.equals(exNameCompleted)){
-                            // same ex names
-                            if(tokens.length > 2 && tokens[1].equals("p")){
-                                // is parent superset ex
-                                int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                        .length - 1], modelMapFormatted);
-                                int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                        .length - 1], completedMapFormatted);
-                                if(completedTotalPoundageSS >= modelTotalPoundageSS){
-                                    // superset completed, increase the algo
-                                    generateAlgoForSuperset2(splitExName, tokens[tokens.length - 1], map2.getValue()
-                                            .get(0));
-                                }else{
-                                    // set to false
-                                    String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                            ("0_key").get(0);
-                                    String bool = "false";
-                                    templateClass.setNewDateMapValues(todayString, exName, bool);
-                                }
-                            }else if(tokens.length < 3){
-                                int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
-                                if(!exercisesAlreadyGenerated.contains(exName)){
-                                    if(totalPoundage2 >= totalPoundage){
-                                        // algo
-                                        generateAlgo2(exName, false);
-                                        exercisesAlreadyGenerated.add(exName);
-                                    }else{
+                            if (exName.equals(exNameCompleted)) {
+                                // same ex names
+                                if (tokens.length > 2 && tokens[1].equals("p")) {
+                                    // is parent superset ex
+                                    int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                            .length - 1], modelMapFormatted);
+                                    int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                            .length - 1], completedMapFormatted);
+                                    if (completedTotalPoundageSS >= modelTotalPoundageSS) {
+                                        // superset completed, increase the algo
+                                        generateAlgoForSuperset2(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                .get(0));
+                                    } else {
                                         // set to false
                                         String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                ("0_key")
-                                                .get(0);
+                                                ("0_key").get(0);
                                         String bool = "false";
                                         templateClass.setNewDateMapValues(todayString, exName, bool);
+                                    }
+                                } else if (tokens.length < 3) {
+                                    int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                    if (!exercisesAlreadyGenerated.contains(exName)) {
+                                        if (totalPoundage2 >= totalPoundage) {
+                                            // algo
+                                            generateAlgo2(exName, false);
+                                            exercisesAlreadyGenerated.add(exName);
+                                        } else {
+                                            // set to false
+                                            String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                    ("0_key")
+                                                    .get(0);
+                                            String bool = "false";
+                                            templateClass.setNewDateMapValues(todayString, exName, bool);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    DateTime dateTime = new DateTime();
+                    int currentWeekday = dateTime.getDayOfWeek();
+                    if (templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
+                        if (!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()) {
+                            modelMapFormatted = formatModelClass(templateClass.getMapForDay(intToWeekday(currentWeekday)));
+                            originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
+                        }
+                    }
+                    completedMapFormatted = formatCompletedMap(completedMap);
+                    completedExerciseList = getCompletedExercises();
+
+                    // init done
+
+                    ArrayList<String> exercisesAlreadyGenerated = new ArrayList<>();
+
+                    for (Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()) {
+                        // For each list in the model/expected maps
+                        String exName = map1.getValue().get(0);
+                        int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
+                        for (Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()) {
+                            // For each list in the completed/actual maps
+
+                            String delims = "[_]";
+                            String[] tokens = map2.getValue().get(0).split(delims);
+                            String splitExName = tokens[0];
+
+                            String exNameCompleted = map2.getValue().get(0);
+
+                            if (exName.equals(exNameCompleted)) {
+                                // same ex names
+                                if (tokens.length > 2 && tokens[1].equals("p")) {
+                                    // is parent superset ex
+                                    int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                            .length - 1], modelMapFormatted);
+                                    int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                            .length - 1], completedMapFormatted);
+                                    if (completedTotalPoundageSS >= modelTotalPoundageSS) {
+                                        // superset completed, increase the algo
+                                        generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                .get(0));
+                                    } else {
+                                        // set to false
+                                        String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                ("0_key").get(0);
+                                        String bool = "false";
+                                        templateClass.setNewDateMapValues(todayString, exName, bool);
+                                    }
+                                } else if (tokens.length < 3) {
+                                    int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                    if (!exercisesAlreadyGenerated.contains(exName)) {
+                                        if (totalPoundage2 >= totalPoundage) {
+                                            // algo
+                                            generateAlgo(exName, false);
+                                            exercisesAlreadyGenerated.add(exName);
+                                        } else {
+                                            // set to false
+                                            String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                    ("0_key")
+                                                    .get(0);
+                                            String bool = "false";
+                                            templateClass.setNewDateMapValues(todayString, exName, bool);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }else{
-                DateTime dateTime = new DateTime();
-                int currentWeekday = dateTime.getDayOfWeek();
-                if(templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
-                    if (!templateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()) {
-                        modelMapFormatted = formatModelClass(templateClass.getMapForDay(intToWeekday(currentWeekday)));
-                        originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
-                    }
-                }
+            } else {
                 completedMapFormatted = formatCompletedMap(completedMap);
                 completedExerciseList = getCompletedExercises();
-
-                // init done
-
-                ArrayList<String> exercisesAlreadyGenerated = new ArrayList<>();
-
-                for(Map.Entry<String, List<String>> map1 : modelMapFormatted.entrySet()){
-                    // For each list in the model/expected maps
-                    String exName = map1.getValue().get(0);
-                    int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
-                    for(Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()){
-                        // For each list in the completed/actual maps
-
-                        String delims = "[_]";
-                        String[] tokens = map2.getValue().get(0).split(delims);
-                        String splitExName = tokens[0];
-
-                        String exNameCompleted = map2.getValue().get(0);
-
-                        if(exName.equals(exNameCompleted)){
-                            // same ex names
-                            if(tokens.length > 2 && tokens[1].equals("p")){
-                                // is parent superset ex
-                                int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                        .length - 1], modelMapFormatted);
-                                int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                        .length - 1], completedMapFormatted);
-                                if(completedTotalPoundageSS >= modelTotalPoundageSS){
-                                    // superset completed, increase the algo
-                                    generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
-                                            .get(0));
-                                }else{
-                                    // set to false
-                                    String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                    ("0_key").get(0);
-                                    String bool = "false";
-                                    templateClass.setNewDateMapValues(todayString, exName, bool);
-                                }
-                            }else if(tokens.length < 3){
-                                int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
-                                if(!exercisesAlreadyGenerated.contains(exName)){
-                                    if(totalPoundage2 >= totalPoundage){
-                                        // algo
-                                        generateAlgo(exName, false);
-                                        exercisesAlreadyGenerated.add(exName);
-                                    }else{
-                                        // set to false
-                                        String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                ("0_key")
-                                                .get(0);
-                                        String bool = "false";
-                                        templateClass.setNewDateMapValues(todayString, exName, bool);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
-        }else{
-            completedMapFormatted = formatCompletedMap(completedMap);
-            completedExerciseList = getCompletedExercises();
+
+            DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
+            final DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid).child(LocalDate.now()
+                    .toString());
+            final DatabaseReference completedExercisesRef = mRootRef.child("completedExercises").child(uid);
+            final DatabaseReference userRef = mRootRef.child("user").child(uid);
+
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                    String mediaRef = null; // TODO: add media ref
+
+                    String date = LocalDate.now().toString();
+                    String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+                    HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
+                    HashMap<String, List<String>> workoutInfoMapProcessed = processWorkoutInfoMap(workoutInfoMap);
+                    boolean isImperial = false;
+                    if (userModelClass.isIsImperial()) {
+                        isImperial = true;
+                    }
+
+                    processUserClassPowerLevel(userModelClass);
+
+                    DatabaseReference followerRef = mRootRef.child("followers").child(uid);
+
+                    // posting to main feed
+                    DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+
+                    String refKey = myFeedRef.push().getKey();
+
+                    Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
+
+                    completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                            userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
+                            workoutInfoMapProcessed, commentModelClassMap);
+
+                    if (isFirstTimeFirstTime) {
+                        List<String> bonusList = new ArrayList<>();
+                        bonusList.add(userModelClass.getUserName() + "'s first post!");
+                        completedWorkoutModelClass.setBonusList(bonusList);
+                    }
+
+                    if (isLevelUp) {
+                        List<String> bonusList = new ArrayList<>();
+                        bonusList.add("Level up!");
+                        completedWorkoutModelClass.setBonusList(bonusList);
+                    }
+
+                    if (smolovWeekDayString != null) {
+                        List<String> bonusList = new ArrayList<>();
+                        bonusList.add(smolovWeekDayString);
+                        completedWorkoutModelClass.setBonusList(bonusList);
+                    }
+
+                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    feedFanOut(refKey, completedWorkoutModelClass);
+
+                    dontLeavePage.setVisibility(View.GONE);
+
+                    // workout history
+                    WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
+                            userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
+                            workoutInfoMapProcessed, isImperial);
+                    if (!isFirstTimeFirstTime) {
+                        workoutHistoryRef.setValue(historyModelClass);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!completedExerciseList.get(0).equals("Example Exercise")) {
+                        if (dataSnapshot.exists()) {
+                            exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
+                            exercisesModelClass.addItems(completedExerciseList);
+                            completedExercisesRef.setValue(exercisesModelClass);
+                        } else {
+                            exercisesModelClass = new CompletedExercisesModelClass();
+                            exercisesModelClass.addItems(completedExerciseList);
+                            completedExercisesRef.setValue(exercisesModelClass);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            templateRef.setValue(templateClass);
+
         }
-
-        DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
-        final DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid).child(LocalDate.now()
-                .toString());
-        final DatabaseReference completedExercisesRef = mRootRef.child("completedExercises").child(uid);
-        final DatabaseReference userRef = mRootRef.child("user").child(uid);
-
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userModelClass = dataSnapshot.getValue(UserModelClass.class);
-
-                String mediaRef = null; // TODO: add media ref
-
-                String date = LocalDate.now().toString();
-                String dateUTC = new DateTime(DateTimeZone.UTC).toString();
-                HashMap<String, List<String>> workoutInfoMap = getMapForHistory(completedMap);
-                HashMap<String, List<String>> workoutInfoMapProcessed = processWorkoutInfoMap(workoutInfoMap);
-                boolean isImperial = false;
-                if(userModelClass.isIsImperial()){
-                    isImperial = true;
-                }
-
-                processUserClassPowerLevel(userModelClass);
-
-                DatabaseReference followerRef = mRootRef.child("followers").child(uid);
-
-                // posting to main feed
-                DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
-
-                String refKey = myFeedRef.push().getKey();
-
-                Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
-
-                completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
-                        userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
-                        workoutInfoMapProcessed, commentModelClassMap);
-
-                if(isFirstTimeFirstTime){
-                    List<String> bonusList = new ArrayList<>();
-                    bonusList.add(userModelClass.getUserName() + "'s first post!");
-                    completedWorkoutModelClass.setBonusList(bonusList);
-                }
-
-                if(isLevelUp){
-                    List<String> bonusList = new ArrayList<>();
-                    bonusList.add("Level up!");
-                    completedWorkoutModelClass.setBonusList(bonusList);
-                }
-
-                if(smolovWeekDayString != null){
-                    List<String> bonusList = new ArrayList<>();
-                    bonusList.add(smolovWeekDayString);
-                    completedWorkoutModelClass.setBonusList(bonusList);
-                }
-
-                myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                feedFanOut(refKey, completedWorkoutModelClass);
-
-                dontLeavePage.setVisibility(View.GONE);
-
-                // workout history
-                WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
-                        userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
-                        workoutInfoMapProcessed, isImperial);
-                if(!isFirstTimeFirstTime){
-                    workoutHistoryRef.setValue(historyModelClass);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!completedExerciseList.get(0).equals("Example Exercise")){
-                    if(dataSnapshot.exists()){
-                        exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
-                        exercisesModelClass.addItems(completedExerciseList);
-                        completedExercisesRef.setValue(exercisesModelClass);
-                    }else{
-                        exercisesModelClass = new CompletedExercisesModelClass();
-                        exercisesModelClass.addItems(completedExerciseList);
-                        completedExercisesRef.setValue(exercisesModelClass);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        templateRef.setValue(templateClass);
 
         return view;
     }
@@ -641,7 +644,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             public void run() {
                                 fadeInViews();
                             }
-                        }, 7000);
+                        }, 5000);
                     }else{
                         fadeInViews();
                     }

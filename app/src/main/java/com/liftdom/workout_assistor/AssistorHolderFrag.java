@@ -728,8 +728,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         }
                         if(i == (map.size() - 1)){
                             //updateWorkoutState();
-                            Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                            getActivity().startService(startIntent);
+                            //Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                            //getActivity().startService(startIntent);
                         }
                     }
                 }
