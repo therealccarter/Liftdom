@@ -105,7 +105,42 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         HideKey.initialize(getActivity());
 
-        isTemplateImperial = mTemplateClass.isIsImperial();
+        if(mTemplateClass != null){
+            isTemplateImperial = mTemplateClass.isIsImperial();
+        }else{
+            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+            activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String templateName = dataSnapshot.getValue(String.class);
+                    if(templateName != null){
+                        DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
+                                (templateName);
+                        activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                                isTemplateImperial = mTemplateClass.isIsImperial();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }else{
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
 
         /**
          * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
@@ -657,6 +692,12 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void noProgressInflateViews(){
+
+        /**
+         * So what we're currently at: some of this stuff isn't being retained on GC so we need to do a lot of fun
+         * testing!
+         */
+
         // without having saved any progress
         DateTime dateTime = new DateTime();
         int currentWeekday = dateTime.getDayOfWeek();

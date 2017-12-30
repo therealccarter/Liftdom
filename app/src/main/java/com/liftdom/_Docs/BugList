@@ -9,6 +9,7 @@ attempt at reducing crash possibility on AssistorSaved by putting it in
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service)
+big bug when app is garbage collected in the background
 =====================================================
 
 ============ BUG LIST =====================================================

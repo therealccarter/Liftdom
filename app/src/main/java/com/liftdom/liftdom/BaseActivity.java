@@ -55,6 +55,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setUpNavDrawer(final Context context, Toolbar toolbar){
 
+        if(drawer == null){
+            Log.i("drawer", "drawer is null");
+        }else{
+            Log.i("drawer", "drawer is not null");
+        }
+
         // create the drawer
         drawer = new DrawerBuilder()
                 .withActivity(this)
