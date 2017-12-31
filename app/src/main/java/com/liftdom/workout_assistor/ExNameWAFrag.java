@@ -61,6 +61,10 @@ public class ExNameWAFrag extends android.app.Fragment
         void firstTimeShowcase(CheckBox checkBox);
     }
 
+    /**
+     * We need to clear the children here too
+     */
+
     private startFirstTimeShowcase firstTimeShowcaseCallback;
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;

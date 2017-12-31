@@ -62,6 +62,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     WorkoutProgressModelClass modelClass;
     String smolovWeekDayString;
     boolean isTemplateImperial;
+    ArrayList<String> fragTagList = new ArrayList<>();
 
     public interface scrollToBottomInterface{
         void scrollToBottom();
@@ -105,82 +106,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         HideKey.initialize(getActivity());
 
-        if(mTemplateClass != null){
-            isTemplateImperial = mTemplateClass.isIsImperial();
-        }else{
-            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
-            activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String templateName = dataSnapshot.getValue(String.class);
-                    if(templateName != null){
-                        DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
-                                (templateName);
-                        activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
-                                isTemplateImperial = mTemplateClass.isIsImperial();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }else{
-
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-
-        /**
-         * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
-         * and the Service setting/getting continuously from that node. We shall see.
-         * just trying some things out. thinking about ways of implementing this WA/Service symbiosis.
-         * I'm excited though! Could make it so we don't have to deal with the save button AND get a notification bar working.
-         */
-
-        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
-                ("assistorModel");
-        runningAssistorRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                    LocalDate localDate = LocalDate.now();
-                    String dateTimeString = fmt.print(localDate);
-                    modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
-                    if(dateTimeString.equals(modelClass.getDate())){
-                        if(!modelClass.isCompletedBool()){
-                            Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
-                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
-                            //noProgressInflateViews();
-                        }else{
-                            noProgressInflateViews();
-                        }
-                    }else{
-                        noProgressInflateViews();
-                    }
-                }else{
-                    noProgressInflateViews();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        checkForOldData();
 
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
 
@@ -197,6 +123,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     fragmentTransaction.commitAllowingStateLoss();
                     getChildFragmentManager().executePendingTransactions();
                     exNameFragList.add(exNameFrag);
+                    fragTagList.add(tag);
                 }
             }
         });
@@ -587,6 +514,103 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
     }
 
+    private void cleanUpState(){
+        exNameFragList.clear();
+        getChildFragmentManager().executePendingTransactions();
+        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        for(String tag : fragTagList){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+            }
+        }
+        exNameInc = 0;
+        fragTagList.clear();
+    }
+
+    private void checkForOldData(){
+        if(mTemplateClass != null){
+            cleanUpState();
+            isTemplateImperial = mTemplateClass.isIsImperial();
+            initializeViews();
+        }else{
+            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+            activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String templateName = dataSnapshot.getValue(String.class);
+                    if(templateName != null){
+                        DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
+                                (templateName);
+                        activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                cleanUpState();
+                                mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                                isTemplateImperial = mTemplateClass.isIsImperial();
+                                initializeViews();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }else{
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void initializeViews(){
+        /**
+         * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
+         * and the Service setting/getting continuously from that node. We shall see.
+         * just trying some things out. thinking about ways of implementing this WA/Service symbiosis.
+         * I'm excited though! Could make it so we don't have to deal with the save button AND get a notification bar working.
+         */
+
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        runningAssistorRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                    LocalDate localDate = LocalDate.now();
+                    String dateTimeString = fmt.print(localDate);
+                    modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                    if(dateTimeString.equals(modelClass.getDate())){
+                        if(!modelClass.isCompletedBool()){
+                            Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
+                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
+                            //noProgressInflateViews();
+                        }else{
+                            noProgressInflateViews();
+                        }
+                    }else{
+                        noProgressInflateViews();
+                    }
+                }else{
+                    noProgressInflateViews();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void finishWorkout(){
         List<String> exInfo = new ArrayList<>();
         for(ExNameWAFrag exNameFrag : exNameFragList){
@@ -859,6 +883,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 }
                 if(hasIndex){
                     exNameFragList.remove(index);
+                    int tagListIndex = fragTagList.indexOf(tag);
+                    fragTagList.remove(tagListIndex);
                 }
                 --exNameInc;
             }
