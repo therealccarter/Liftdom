@@ -40,6 +40,8 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public String exerciseName = "fail";
     List<String> infoList = new ArrayList<>();
+    List<String> tagListWA = new ArrayList<>();
+    List<String> tagListSSEx = new ArrayList<>();
     int repsWeightInc = 0;
     int exNameSupersetInc = 0;
     boolean isEdit = false;
@@ -63,6 +65,7 @@ public class ExNameWAFrag extends android.app.Fragment
 
     /**
      * We need to clear the children here too
+     * Gotta account for SuperSet frags in this level and the top level
      */
 
     private startFirstTimeShowcase firstTimeShowcaseCallback;
@@ -116,6 +119,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 fragmentTransaction.commitAllowingStateLoss();
                 fragmentManager.executePendingTransactions();
                 repsWeightFragList2.add(repsWeightFrag);
+                tagListWA.add(tag);
             }
         });
 
@@ -231,6 +235,7 @@ public class ExNameWAFrag extends android.app.Fragment
             fragmentTransaction.commitAllowingStateLoss();
             fragmentManager.executePendingTransactions();
             repsWeightFragList2.add(repsWeightFrag);
+            tagListWA.add(tag);
         }else {
             exerciseNameView.setText(infoList.get(0));
 
@@ -268,6 +273,7 @@ public class ExNameWAFrag extends android.app.Fragment
                                 fragmentTransaction.commitAllowingStateLoss();
                                 fragmentManager.executePendingTransactions();
                                 repsWeightFragList1.add(repsWeightFrag);
+                                tagListSSEx.add(tag);
                             } catch(IndexOutOfBoundsException e){
 
                             }
@@ -292,6 +298,7 @@ public class ExNameWAFrag extends android.app.Fragment
                                 fragmentTransaction.commitAllowingStateLoss();
                                 fragmentManager.executePendingTransactions();
                                 exNameSupersetFragList.add(exNameFrag);
+                                tagListSSEx.add(tag);
                             } catch(IndexOutOfBoundsException e){
 
                             }
@@ -315,6 +322,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     fragmentTransaction.commitAllowingStateLoss();
                     repsWeightFragList2.add(repsWeightFrag);
                     fragmentManager.executePendingTransactions();
+                    tagListWA.add(tag);
                 }
             }
         }
@@ -343,6 +351,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         fragmentTransaction.commitAllowingStateLoss();
                         fragmentManager.executePendingTransactions();
                         repsWeightFragList1.add(repsWeightFrag);
+                        tagListWA.add(tag);
                     } catch(IndexOutOfBoundsException e){
 
                     }
@@ -368,6 +377,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         fragmentTransaction.commitAllowingStateLoss();
                         fragmentManager.executePendingTransactions();
                         exNameSupersetFragList.add(exNameFrag);
+                        tagListSSEx.add(tag);
                     } catch(IndexOutOfBoundsException e){
 
                     }
@@ -476,6 +486,17 @@ public class ExNameWAFrag extends android.app.Fragment
         return exerciseNameView.getText().toString();
     }
 
+    public void cleanUpSubFrags(){
+        for(String tag : tagListWA){
+            if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                //
+            }
+        }
+        for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+            // cleanup their's
+        }
+    }
+
     public void removeFrag(String tag){
         android.app.FragmentManager fragmentManager = getChildFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -535,6 +556,7 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    // superset removal
     public void removeFrag2(String tag){
         getChildFragmentManager().executePendingTransactions();
         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();

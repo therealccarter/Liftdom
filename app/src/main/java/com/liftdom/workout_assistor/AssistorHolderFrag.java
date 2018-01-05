@@ -515,6 +515,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void cleanUpState(){
+        for(ExNameWAFrag frag : exNameFragList){
+            frag.cleanUpSubFrags();
+        }
         exNameFragList.clear();
         getChildFragmentManager().executePendingTransactions();
         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
