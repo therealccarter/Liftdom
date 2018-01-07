@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
@@ -106,7 +107,10 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         HideKey.initialize(getActivity());
 
+        Log.i("deadInfo", "onCreateView called (assistor holder)");
+
         checkForOldData();
+
 
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
 
@@ -459,6 +463,19 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     }
 
+    @Override
+    public void onResume(){
+        if(mTemplateClass == null){
+            Log.i("deadInfo", "templateClass is null (onResume)");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
+        }else{
+            Log.i("deadInfo", "AssistorHolderFrag (onResume)");
+            super.onResume();
+        }
+
+    }
 
     @Override
     public void onStart(){
@@ -515,6 +532,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void cleanUpState(){
+        Log.i("deadInfo", "cleanUpState called (assistor holder)");
         for(ExNameWAFrag frag : exNameFragList){
             frag.cleanUpSubFrags();
         }
@@ -532,43 +550,48 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private void checkForOldData(){
         if(mTemplateClass != null){
-            cleanUpState();
+            Log.i("deadInfo", "templateClass is not null");
+            //cleanUpState();
             isTemplateImperial = mTemplateClass.isIsImperial();
             initializeViews();
         }else{
-            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
-            activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String templateName = dataSnapshot.getValue(String.class);
-                    if(templateName != null){
-                        DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
-                                (templateName);
-                        activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                cleanUpState();
-                                mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
-                                isTemplateImperial = mTemplateClass.isIsImperial();
-                                initializeViews();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }else{
-
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            Log.i("deadInfo", "templateClass is null");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
+            //cleanUpState();
+            //DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+            //activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(DataSnapshot dataSnapshot) {
+            //        String templateName = dataSnapshot.getValue(String.class);
+            //        if(templateName != null){
+            //            DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
+            //                    (templateName);
+            //            activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            //                @Override
+            //                public void onDataChange(DataSnapshot dataSnapshot) {
+            //                    mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+            //                    isTemplateImperial = mTemplateClass.isIsImperial();
+            //                    initializeViews();
+            //                }
+//
+            //                @Override
+            //                public void onCancelled(DatabaseError databaseError) {
+//
+            //                }
+            //            });
+            //        }else{
+//
+            //        }
+//
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(DatabaseError databaseError) {
+//
+            //    }
+            //});
         }
     }
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExtraOptionsDialog;
 import com.liftdom.template_editor.SetsLevelChildFrag;
@@ -60,82 +61,93 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         removeFrag = (removeFragCallback) getParentFragment();
 
+        Log.i("deadInfo", "repsWeightString: " + repsWeightString);
+
         if(isTemplateImperial){
             unitView.setText("lbs");
         }else{
             unitView.setText("kgs");
         }
 
-        if(isEdit){
-            String delims = "[@,_]";
-            String[] tokens = repsWeightString.split(delims);
+        //if(repsWeightString.equals("false")){
+        //    Intent intent = new Intent(getActivity(), MainActivity.class);
+        //    intent.putExtra("fragID",  0);
+        //    startActivity(intent);
+        //}else{
+            if(isEdit){
+                String delims = "[@,_]";
+                String[] tokens = repsWeightString.split(delims);
 
-            if(tokens[0].equals("T.F.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                repsEditText.setFilters(filterArray);
-                repsEditText.setText("T.F.");
-                repsEditText.setEnabled(false);
+                if(tokens[0].equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else{
+                    repsEditText.setText(tokens[0]);
+                    repsEditText.setEnabled(true);
+                }
+
+                if(tokens[1].equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    unitView.setVisibility(View.GONE);
+                    weightEditText.setText(tokens[1]);
+                    weightEditText.setEnabled(false);
+                }else{
+                    weightEditText.setText(tokens[1]);
+                    weightEditText.setEnabled(true);
+                }
+
+                if(tokens[2].equals("checked")){
+                    checkBox.setChecked(true);
+                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+                }else{
+                    checkBox.setChecked(false);
+                }
             }else{
-                repsEditText.setText(tokens[0]);
-                repsEditText.setEnabled(true);
-            }
+                String[] tokens = repsWeightString.split("@");
 
-            if(tokens[1].equals("B.W.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                weightEditText.setFilters(filterArray);
-                unitView.setVisibility(View.GONE);
-                weightEditText.setText(tokens[1]);
-                weightEditText.setEnabled(false);
-            }else{
-                weightEditText.setText(tokens[1]);
-                weightEditText.setEnabled(true);
-            }
+                if(repsWeightString.equals("10@B.W.")){
 
-            if(tokens[2].equals("checked")){
-                checkBox.setChecked(true);
-                holderView.setBackgroundColor(Color.parseColor("#cccccc"));
-            }else{
-                checkBox.setChecked(false);
-            }
-        }else{
-            String[] tokens = repsWeightString.split("@");
+                }
 
-            if(repsWeightString.equals("10@B.W.")){
+                Log.i("deadInfo", "tokens[0] = " + tokens[0]);
 
-            }
+                if(tokens[0].equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else if(tokens[0].equals(" ")){
+                    repsEditText.setText("");
+                    repsEditText.setEnabled(true);
+                }else{
+                    repsEditText.setText(tokens[0]);
+                    repsEditText.setEnabled(true);
+                }
 
-            if(tokens[0].equals("T.F.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                repsEditText.setFilters(filterArray);
-                repsEditText.setText("T.F.");
-                repsEditText.setEnabled(false);
-            }else if(tokens[0].equals(" ")){
-                repsEditText.setText("");
-                repsEditText.setEnabled(true);
-            }else{
-                repsEditText.setText(tokens[0]);
-                repsEditText.setEnabled(true);
+                if(tokens[1].equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    unitView.setVisibility(View.GONE);
+                    weightEditText.setText(tokens[1]);
+                    weightEditText.setEnabled(false);
+                }else if(tokens[1].equals(" ")){
+                    weightEditText.setText("");
+                    weightEditText.setEnabled(true);
+                }
+                else{
+                    weightEditText.setText(tokens[1]);
+                    weightEditText.setEnabled(true);
+                }
             }
+        //}
 
-            if(tokens[1].equals("B.W.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                weightEditText.setFilters(filterArray);
-                unitView.setVisibility(View.GONE);
-                weightEditText.setText(tokens[1]);
-                weightEditText.setEnabled(false);
-            }else if(tokens[1].equals(" ")){
-                weightEditText.setText("");
-                weightEditText.setEnabled(true);
-            }
-            else{
-                weightEditText.setText(tokens[1]);
-                weightEditText.setEnabled(true);
-            }
-        }
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -166,6 +178,20 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        // Are we going to have to go through and check for every frag? Maybe...
+        if(repsWeightString.equals("false")){
+            Log.i("deadInfo", "repsWeightString is false (onResume)");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
+        }else{
+            Log.i("deadInfo", "RepsWeightWAFrag (onResume)");
+            super.onResume();
+        }
     }
 
     public String getInfo(){

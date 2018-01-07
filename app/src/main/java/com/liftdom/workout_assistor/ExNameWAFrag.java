@@ -489,7 +489,9 @@ public class ExNameWAFrag extends android.app.Fragment
     public void cleanUpSubFrags(){
         for(String tag : tagListWA){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
-                //
+                //getChildFragmentManager().executePendingTransactions();
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
             }
         }
         for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
