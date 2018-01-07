@@ -183,6 +183,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     @Override
     public void onResume(){
         // Are we going to have to go through and check for every frag? Maybe...
+        // or we'll have to do the saveInstanceState thing.
         if(repsWeightString.equals("false")){
             Log.i("deadInfo", "repsWeightString is false (onResume)");
             Intent intent = new Intent(getActivity(), MainActivity.class);
