@@ -66,65 +66,70 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             unitView.setText("kgs");
         }
 
-        if(isEdit){
-            String delims = "[@,_]";
-            String[] tokens = repsWeightString.split(delims);
+        if(repsWeightString.equals("false")){
 
-            if(tokens[0].equals("T.F.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                repsEditText.setFilters(filterArray);
-                repsEditText.setText("T.F.");
-                repsEditText.setEnabled(false);
-            }else{
-                repsEditText.setText(tokens[0]);
-                repsEditText.setEnabled(true);
-            }
-
-            if(tokens[1].equals("B.W.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                weightEditText.setFilters(filterArray);
-                unitView.setVisibility(View.GONE);
-                weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(false);
-            }else{
-                weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(true);
-            }
-
-            if(tokens[2].equals("checked")){
-                checkBox.setChecked(true);
-                holderView.setBackgroundColor(Color.parseColor("#cccccc"));
-            }else{
-                checkBox.setChecked(false);
-            }
         }else{
-            String[] tokens = repsWeightString.split("@");
+            if(isEdit){
+                String delims = "[@,_]";
+                String[] tokens = repsWeightString.split(delims);
 
-            if(tokens[0].equals("T.F.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                repsEditText.setFilters(filterArray);
-                repsEditText.setText("T.F.");
-                repsEditText.setEnabled(false);
-            }else{
-                repsEditText.setText(tokens[0]);
-                repsEditText.setEnabled(true);
-            }
+                if(tokens[0].equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else{
+                    repsEditText.setText(tokens[0]);
+                    repsEditText.setEnabled(true);
+                }
 
-            if(tokens[1].equals("B.W.")){
-                InputFilter[] filterArray = new InputFilter[1];
-                filterArray[0] = new InputFilter.LengthFilter(4);
-                weightEditText.setFilters(filterArray);
-                unitView.setVisibility(View.GONE);
-                weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(false);
+                if(tokens[1].equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    unitView.setVisibility(View.GONE);
+                    weightEditText.setText(tokens[1]);
+                    repsEditText.setEnabled(false);
+                }else{
+                    weightEditText.setText(tokens[1]);
+                    repsEditText.setEnabled(true);
+                }
+
+                if(tokens[2].equals("checked")){
+                    checkBox.setChecked(true);
+                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+                }else{
+                    checkBox.setChecked(false);
+                }
             }else{
-                weightEditText.setText(tokens[1]);
-                repsEditText.setEnabled(true);
+                String[] tokens = repsWeightString.split("@");
+
+                if(tokens[0].equals("T.F.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    repsEditText.setFilters(filterArray);
+                    repsEditText.setText("T.F.");
+                    repsEditText.setEnabled(false);
+                }else{
+                    repsEditText.setText(tokens[0]);
+                    repsEditText.setEnabled(true);
+                }
+
+                if(tokens[1].equals("B.W.")){
+                    InputFilter[] filterArray = new InputFilter[1];
+                    filterArray[0] = new InputFilter.LengthFilter(4);
+                    weightEditText.setFilters(filterArray);
+                    unitView.setVisibility(View.GONE);
+                    weightEditText.setText(tokens[1]);
+                    repsEditText.setEnabled(false);
+                }else{
+                    weightEditText.setText(tokens[1]);
+                    repsEditText.setEnabled(true);
+                }
             }
         }
+
 
         if(inflateBottomView){
             bottomView.setVisibility(View.VISIBLE);

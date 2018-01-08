@@ -470,6 +470,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra("fragID",  0);
             startActivity(intent);
+            super.onResume();
         }else{
             Log.i("deadInfo", "AssistorHolderFrag (onResume)");
             super.onResume();

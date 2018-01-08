@@ -61,28 +61,34 @@ public class ExNameSSWAFrag extends android.app.Fragment
 
         ButterKnife.bind(this, view);
 
-        exNameView.setText(infoList.get(0));
+        if(infoList.size() != 0){
+            exNameView.setText(infoList.get(0));
+
+            for(int i = 1; i < infoList.size(); i++){
+                fragCount++;
+                String countString = String.valueOf(fragCount) + "ss";
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
+                repsWeightFrag.isTemplateImperial = isTemplateImperial;
+                repsWeightFrag.repsWeightString = infoList.get(i);
+                repsWeightFrag.tag = countString;
+                if(isEdit){
+                    repsWeightFrag.isEdit = true;
+                }
+                if(inflateBottomView && i + 1 == infoList.size()){
+                    repsWeightFrag.inflateBottomView = true;
+                }
+                repsWeightFragList.add(repsWeightFrag);
+                fragmentTransaction.add(R.id.repsWeightContainerSS, repsWeightFrag, countString);
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        }
+
+
 
         removeFrag1 = (removeFragCallback1) getParentFragment();
 
-        for(int i = 1; i < infoList.size(); i++){
-            fragCount++;
-            String countString = String.valueOf(fragCount) + "ss";
-            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
-            repsWeightFrag.isTemplateImperial = isTemplateImperial;
-            repsWeightFrag.repsWeightString = infoList.get(i);
-            repsWeightFrag.tag = countString;
-            if(isEdit){
-                repsWeightFrag.isEdit = true;
-            }
-            if(inflateBottomView && i + 1 == infoList.size()){
-                repsWeightFrag.inflateBottomView = true;
-            }
-            repsWeightFragList.add(repsWeightFrag);
-            fragmentTransaction.add(R.id.repsWeightContainerSS, repsWeightFrag, countString);
-            fragmentTransaction.commitAllowingStateLoss();
-        }
+
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

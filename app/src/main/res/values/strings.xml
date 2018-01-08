@@ -15,25 +15,24 @@
 
     <!-- DATE OF UPDATE:  -->
 
-    <string name="currentVersion">Liftdom v1.14</string>
+    <string name="currentVersion">Liftdom v1.15</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.14 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.15 Release Notes:</string>
 
-    <string name="newFeaturesTitle">New Feature:</string>
+    <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Rest days now post to the main feed!
+
     </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Various stability fixes. \n
-        Various layout tweaks.
+        Fixed critical bug causing crash on app startup.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        I\'m going to make it so the Workout Assistor (Today\'s Workout) stays in the notification bar and
-        lock-screen so you can check off sets without unlocking your phone or being on the Today\'s Workout page.
+        Still working on lock-screen/notification-bar functionality. Also working on real-time updating of the
+        Today's Workout state.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->

@@ -328,8 +328,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
-                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    feedFanOut(refKey, completedWorkoutModelClass);
+                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    //feedFanOut(refKey, completedWorkoutModelClass);
 
                     dontLeavePage.setVisibility(View.GONE);
 
@@ -338,7 +338,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        workoutHistoryRef.setValue(historyModelClass);
+                        //workoutHistoryRef.setValue(historyModelClass);
                     }
                 }
 
@@ -355,11 +355,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         if (dataSnapshot.exists()) {
                             exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
                             exercisesModelClass.addItems(completedExerciseList);
-                            completedExercisesRef.setValue(exercisesModelClass);
+                            //completedExercisesRef.setValue(exercisesModelClass);
                         } else {
                             exercisesModelClass = new CompletedExercisesModelClass();
                             exercisesModelClass.addItems(completedExerciseList);
-                            completedExercisesRef.setValue(exercisesModelClass);
+                            //completedExercisesRef.setValue(exercisesModelClass);
                         }
                     }
                 }
@@ -370,7 +370,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 }
             });
 
-            templateRef.setValue(templateClass);
+            //templateRef.setValue(templateClass);
 
         }
 
@@ -528,6 +528,20 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume(){
+        if(templateClass == null){
+            Log.i("deadInfo", "templateClass is null (onResume/AssistorSavedFrag)");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
+            super.onResume();
+        }else{
+            Log.i("deadInfo", "AssistorSavedFrag (onResume)");
+            super.onResume();
+        }
     }
 
     private boolean animationsFirstTime = true;

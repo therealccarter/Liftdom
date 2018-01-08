@@ -69,11 +69,11 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             unitView.setText("kgs");
         }
 
-        //if(repsWeightString.equals("false")){
-        //    Intent intent = new Intent(getActivity(), MainActivity.class);
-        //    intent.putExtra("fragID",  0);
-        //    startActivity(intent);
-        //}else{
+        if(repsWeightString.equals("false")){
+            //Intent intent = new Intent(getActivity(), MainActivity.class);
+            //intent.putExtra("fragID",  0);
+            //startActivity(intent);
+        }else{
             if(isEdit){
                 String delims = "[@,_]";
                 String[] tokens = repsWeightString.split(delims);
@@ -146,7 +146,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                     weightEditText.setEnabled(true);
                 }
             }
-        //}
+        }
 
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -189,6 +189,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra("fragID",  0);
             startActivity(intent);
+            super.onResume();
         }else{
             Log.i("deadInfo", "RepsWeightWAFrag (onResume)");
             super.onResume();
