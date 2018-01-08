@@ -81,10 +81,10 @@ public class AssistorServiceClass extends Service {
         return null;
     }
 
-    public class AssistorServiceNextSetHandler extends BroadcastReceiver{
+    public static class AssistorServiceNextSetHandler extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent){
-            notificationView.setTextViewText(R.id.exerciseNameView, "Hello World!");
+            //notificationView.setTextViewText(R.id.exerciseNameView, "Hello World!");
         }
     }
 
