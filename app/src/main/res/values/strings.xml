@@ -203,6 +203,8 @@
 
     <!-- STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
 
+    <string name="pleaseWait">Please wait or results may not be saved&#8230;</string>
+
     <string name="smolov">Smolov</string>
 
     <string name="smolovBeta">Smolov (Beta)</string>

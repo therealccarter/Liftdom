@@ -51,7 +51,9 @@ public class SetSchemeSupersetFrag extends Fragment {
             pounds.setText("kgs");
         }
 
-        setSchemesView.setText(handleUnitConversion(setSchemeString));
+        if(!setSchemeString.equals("error")){
+            setSchemesView.setText(handleUnitConversion(setSchemeString));
+        }
 
         return view;
     }

@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,13 @@ public class SelectedTemplateFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         navChanger(1);
+
+        if(templateName == null) {
+            Log.i("deadInfo", "templateName is null (SelectedTemplateFrag/onResume)");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID", 0);
+            startActivity(intent);
+        }
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -621,6 +629,20 @@ public class SelectedTemplateFrag extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume(){
+        if(templateName == null){
+            Log.i("deadInfo", "map is null (SelectedTemplateFrag/onResume)");
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
+            super.onResume();
+        }else{
+            Log.i("deadInfo", "SelectedTemplateFrag (onResume)");
+            super.onResume();
+        }
     }
 
     private boolean containsDay(String day, String unformatted){

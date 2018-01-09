@@ -97,6 +97,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
     @BindView(R.id.dontLeavePage) TextView dontLeavePage;
+    @BindView(R.id.loadingText) TextView loadingText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -485,6 +486,10 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return processedMap;
     }
 
+    private void beginProcesses(){
+
+    }
+
     @Override
     public void onStart(){
         super.onStart();
@@ -650,6 +655,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     loadingView.setVisibility(View.GONE);
+                    loadingText.setVisibility(View.GONE);
                     mainLinearLayout.setVisibility(View.VISIBLE);
                     if(isFromAd){
                         Handler handler = new Handler();

@@ -3,13 +3,12 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-put streak in the nav drawer header // redesign header // more emphasis on streak
-attempt at reducing crash possibility on AssistorSaved by putting it in
+checked for more instances of templateModelClass being GC'd
+bug that showed uncompleted supersets
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service)
-big bug when app is garbage collected in the background
 chris b bug - crash when WA save dialog is clicked
 =====================================================
 

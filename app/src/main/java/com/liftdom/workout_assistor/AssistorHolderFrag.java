@@ -475,7 +475,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             Log.i("deadInfo", "AssistorHolderFrag (onResume)");
             super.onResume();
         }
-
     }
 
     @Override
@@ -649,8 +648,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
         int inc = 0;
         for(ExNameWAFrag exNameFrag : exNameFragList){
-            inc++;
-            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(!hasOnlyExNames(exNameFrag.getInfoForMap())){
+                inc++;
+                runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            }
         }
 
         String privateJournal = privateJournalView.getText().toString();
@@ -684,8 +685,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
         int inc = 0;
         for(ExNameWAFrag exNameFrag : exNameFragList){
-            inc++;
-            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(!hasOnlyExNames(exNameFrag.getInfoForMap())){
+                inc++;
+                runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            }
         }
 
         String privateJournal = privateJournalView.getText().toString();
@@ -740,6 +743,24 @@ public class AssistorHolderFrag extends android.app.Fragment
         privateJournalView.setText(privateJournal);
         publicCommentView.setText(publicComment);
 
+    }
+
+    private boolean hasOnlyExNames(HashMap<String, List<String>> map){
+        boolean onlyExNames = true;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            List<String> list = entry.getValue();
+            for(String string : list){
+                if(!isExerciseName(string)){
+                    String delims = "[_]";
+                    String[] tokens = string.split(delims);
+                    if(tokens[1].equals("checked")){
+                        onlyExNames = false;
+                    }
+                }
+            }
+        }
+        return onlyExNames;
     }
 
     private void noProgressInflateViews(){
@@ -870,8 +891,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
             int inc = 0;
             for(ExNameWAFrag exNameFrag : exNameFragList){
-                inc++;
-                runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                if(!hasOnlyExNames(exNameFrag.getInfoForMap())){
+                    inc++;
+                    runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                }
             }
 
             String privateJournal = privateJournalView.getText().toString();

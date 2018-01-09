@@ -1,6 +1,8 @@
 
 
-
+big bug when app is garbage collected in the background (assistor holder + assistor saved)
+put streak in the nav drawer header // redesign header // more emphasis on streak
+attempt at reducing crash possibility on AssistorSaved by putting it in == null
 need to change workout info from r@w to sXr@w
 Post rest days (public description too)
 rep button

@@ -4,14 +4,15 @@ package com.liftdom.workout_assistor;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
@@ -134,9 +135,13 @@ public class WorkoutAssistorFrag extends Fragment{
 
                         if (!getActivity().isFinishing()) {
                             if(exInfoHolderLL != null){
-                                fragmentTransaction.replace(R.id.exInfoHolder,
-                                        workoutFinishedFrag);
-                                fragmentTransaction.commitAllowingStateLoss();
+                                try{
+                                    fragmentTransaction.replace(R.id.exInfoHolder,
+                                            workoutFinishedFrag);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }catch (IllegalArgumentException e){
+                                    Snackbar.make(getView(), "Error: No view found for id 0x7f0800f5", Snackbar.LENGTH_SHORT);
+                                }
                             }
                         }
                     }else{

@@ -1,6 +1,7 @@
 package com.liftdom.template_housing;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.SetsLevelSSFrag;
 
@@ -61,12 +63,13 @@ public class HousingDoWFrag extends Fragment {
         doWStringView.setText(titleFormatter(dOWString));
         doWStringView.setTypeface(lobster);
 
-        for(Map.Entry<String, List<String>> entry : map.entrySet()){
-            if(!entry.getKey().equals("0_key")){
-                List<String> list = entry.getValue();
-                boolean isFirstEx = true;
-                boolean isFirstSetSchemes = true;
-                for(String string : list){
+        if(map != null){
+            for(Map.Entry<String, List<String>> entry : map.entrySet()){ // map is null
+                if(!entry.getKey().equals("0_key")){
+                    List<String> list = entry.getValue();
+                    boolean isFirstEx = true;
+                    boolean isFirstSetSchemes = true;
+                    for(String string : list){
                         if(isExerciseName(string) && isFirstEx){
                             // add exname frag
                             isFirstEx = false;
@@ -111,8 +114,9 @@ public class HousingDoWFrag extends Fragment {
                     }
                 }
             }
+        }
 
-            return view;
+        return view;
     }
 
     boolean isExerciseName(String input){
