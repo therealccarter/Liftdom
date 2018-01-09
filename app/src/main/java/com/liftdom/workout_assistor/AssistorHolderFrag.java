@@ -84,6 +84,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.deactivateStatusBarImageView) ImageView deactiveStatusBarImage;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.exInfoHolder2) LinearLayout exInfoHolder2;
+    @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -374,9 +375,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onClick(View view) {
                 activateStatusBarService.setVisibility(View.GONE);
-                deactivateStatusBarService.setVisibility(View.VISIBLE);
+                deactivateLL.setVisibility(View.VISIBLE);
 
                 Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                startIntent.putExtra("uid", uid);
                 getActivity().startService(startIntent);
             }
         });
@@ -385,7 +387,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onClick(View view) {
                 activateStatusBarService.setVisibility(View.VISIBLE);
-                deactivateStatusBarService.setVisibility(View.GONE);
+                deactivateLL.setVisibility(View.GONE);
 
                 Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
 
@@ -397,7 +399,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onClick(View view) {
                 activateStatusBarService.setVisibility(View.VISIBLE);
-                deactivateStatusBarService.setVisibility(View.GONE);
+                deactivateLL.setVisibility(View.GONE);
 
                 Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
 

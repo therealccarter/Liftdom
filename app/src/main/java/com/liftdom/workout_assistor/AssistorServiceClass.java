@@ -3,11 +3,10 @@ package com.liftdom.workout_assistor;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.liftdom.liftdom.MainActivity;
@@ -19,54 +18,88 @@ import com.liftdom.liftdom.R;
 
 public class AssistorServiceClass extends Service {
 
+    // CONSTANTS
+    public static final String PREVIOUS_ACTION = "com.liftdom.workout_assistor.previous";
+    public static final String NEXT_ACTION = "com.liftdom.workout_assistor.next";
+    public static final String CHECK_ACTION = "com.liftdom.workout_assistor.check";
+    public static final String UNCHECK_ACTION = "com.liftdom.workout_assistor.uncheck";
+
     String myString;
     RemoteViews notificationView;
+    String uid;
+
+    private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //final String command = intent.getStringExtra(CMDNAME);
+
+            handleCommandIntent(intent);
+        }
+    };
 
     @Override
     public void onCreate(){
         super.onCreate();
+
+        Log.i("serviceInfo", "Service Started (onCreate)");
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(NEXT_ACTION);
+        filter.addAction(PREVIOUS_ACTION);
+        filter.addAction(CHECK_ACTION);
+        filter.addAction(UNCHECK_ACTION);
+        registerReceiver(mIntentReceiver, filter);
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
+        Log.i("serviceInfo", "Service Started (onStartCommand)");
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setAction(Intent.ACTION_MAIN);
-        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
-        //notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if(intent != null){
+            if(intent.getStringExtra("uid") != null){
+                uid = intent.getStringExtra("uid");
+                Log.i("serviceInfo", "uid set");
+            }
 
-        notificationView = new RemoteViews(this.getPackageName(), R.layout.assistor_notification_layout);
+            handleCommandIntent(intent);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
-        // setting up next button
-        Intent nextSetButtonIntent = new Intent(this, AssistorServiceNextSetHandler.class);
-        nextSetButtonIntent.putExtra("action", "next");
-        PendingIntent nextSetButtonPendingIntent = PendingIntent.getBroadcast(this, 1, nextSetButtonIntent, 0);
-        notificationView.setOnClickPendingIntent(R.id.nextButton, nextSetButtonPendingIntent);
+        return START_STICKY; // check for null intent
+    }
 
-        /**
-         * Currently the problem is that we either need the BR to be static and not have reference to the
-         * notificationView OR be non-static and not work at all (or at least, need to look into registering and
-         * un-registering the inner class?)
-         */
+    private void handleCommandIntent(Intent intent){
+        final String action = intent.getAction();
 
-        Notification notification = new NotificationCompat.Builder(this)
-                .setContentTitle("Today\'s Workout")
-                .setTicker("Test ticker")
-                .setContentText("Test contentText")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContent(notificationView)
-                .setOngoing(true)
-                .build();
+        if(action != null){
+            if(action.equals(NEXT_ACTION)){
 
-        startForeground(101, notification);
+            }else if(action.equals(PREVIOUS_ACTION)){
 
-        return START_STICKY;
+            }else if(action.equals(CHECK_ACTION)){
+
+            }else if(action.equals(UNCHECK_ACTION)){
+
+            }
+        }
+    }
+
+    private void updateNotification(){
+
+    }
+
+    //private Notification buildNotification(){
+
+    //}
+
+    private final PendingIntent retrieveMapAction(final String action){
+        final ComponentName serviceName = new ComponentName(this, MainActivity.class);
+        Intent intent = new Intent(action);
+        intent.setComponent(serviceName);
+
+        return PendingIntent.getService(this, 0, intent, 0);
     }
 
     @Override
@@ -81,25 +114,6 @@ public class AssistorServiceClass extends Service {
         return null;
     }
 
-    public static class AssistorServiceNextSetHandler extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent){
-            //notificationView.setTextViewText(R.id.exerciseNameView, "Hello World!");
-        }
-    }
 
-    public static class AssistorServicePreviousSetHandler extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent){
-
-        }
-    }
-
-    public static class AssistorServiceCheckSetHandler extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent){
-
-        }
-    }
 
 }
