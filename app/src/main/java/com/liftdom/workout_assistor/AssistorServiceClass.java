@@ -119,6 +119,16 @@ public class AssistorServiceClass extends Service {
 
         int checkOrUncheckedId = getCheckedForCurrentPosition();
 
+        Intent onClickIntent = new Intent(this, MainActivity.class);
+        onClickIntent.putExtra("fragID",  2);
+
+        PendingIntent onClickPendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                onClickIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Log.i("serviceInfo", "greater than M");
             //Notification.Action action1 = new Notification.Action.Builder(
@@ -146,8 +156,8 @@ public class AssistorServiceClass extends Service {
 
             android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
                     .Builder(this)
-                    .setSmallIcon(R.drawable.flex_arm_white)
-                    //.setContentIntent(clickIntent)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(onClickPendingIntent)
                     .setContentTitle("Bench Press")
                     .setContentText("3 reps @ 135lbs")
                     .setWhen(System.currentTimeMillis())

@@ -3,18 +3,20 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
+currently on v1.15
 checked for more instances of templateModelClass being GC'd
 bug that showed uncompleted supersets
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service)
-chris b bug - crash when WA save dialog is clicked
+Constant updates for WA
 =====================================================
 
 ============ BUG LIST =====================================================
 ==== easier ==========
 bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
+chris b bug - crash when WA save dialog is clicked
 ============
 ==== harder ==========
 re-check user made programs functionality (full)

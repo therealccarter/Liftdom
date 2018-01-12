@@ -53,6 +53,8 @@ public class ExNameWAFrag extends android.app.Fragment
     ArrayList<ArrayList<String>> splitInfoList = new ArrayList<>();
     public boolean isTemplateImperial;
 
+    // need to set up update progress callback
+
     public interface removeFragCallback{
         void removeFrag(String fragTag);
     }
