@@ -4,11 +4,14 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.*;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 
@@ -23,6 +26,10 @@ public class AssistorServiceClass extends Service {
     public static final String NEXT_ACTION = "com.liftdom.workout_assistor.next";
     public static final String CHECK_ACTION = "com.liftdom.workout_assistor.check";
     public static final String UNCHECK_ACTION = "com.liftdom.workout_assistor.uncheck";
+    public static final String TOGGLECHECK_ACTION = "com.liftdom.workout_assistor.togglecheck";
+    public static final String CHANNEL_ID = "assistor_channel_01";
+
+    WorkoutProgressModelClass workoutProgressModelClass;
 
     String myString;
     RemoteViews notificationView;
@@ -48,6 +55,7 @@ public class AssistorServiceClass extends Service {
         filter.addAction(PREVIOUS_ACTION);
         filter.addAction(CHECK_ACTION);
         filter.addAction(UNCHECK_ACTION);
+        filter.addAction(TOGGLECHECK_ACTION);
         registerReceiver(mIntentReceiver, filter);
 
     }
@@ -64,8 +72,24 @@ public class AssistorServiceClass extends Service {
             }
 
             handleCommandIntent(intent);
-
         }
+
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
+                ("assistorModel");
+        runningRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                startForeground(101, buildNotification());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         return START_STICKY; // check for null intent
     }
@@ -90,9 +114,85 @@ public class AssistorServiceClass extends Service {
 
     }
 
-    //private Notification buildNotification(){
+    private Notification buildNotification(){
+        Log.i("serviceInfo", "Building notification...");
 
-    //}
+        int checkOrUncheckedId = getCheckedForCurrentPosition();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            Log.i("serviceInfo", "greater than M");
+            //Notification.Action action1 = new Notification.Action.Builder(
+            //        Icon.createWithResource(this, R.drawable.ic_skip_previous_white_36dp),
+            //        "",
+            //        retrieveMapAction(PREVIOUS_ACTION))
+            //        .build();
+            //Notification.Action action2 = new Notification.Action.Builder(
+            //        Icon.createWithResource(this, checkOrUncheckedId),
+            //        "", retrieveMapAction(TOGGLECHECK_ACTION))
+            //        .build();
+            //Notification.Action action3 = new Notification.Action.Builder(
+            //        Icon.createWithResource(this, R.drawable.ic_skip_next_white_36dp),
+            //        "",
+            //        retrieveMapAction(NEXT_ACTION))
+            //        .build();
+//
+            //Notification.Builder builder = new Notification.Builder(this)
+            //        .setSmallIcon(R.mipmap.ic_launcher)
+            //        .setContentTitle("Bench Press (Barbell - Flat)")
+            //        .setContentText("1 rep @ 135lbs")
+            //        .addAction(action1)
+            //        .addAction(action2)
+            //        .addAction(action3);
+
+            android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+                    .Builder(this)
+                    .setSmallIcon(R.drawable.flex_arm_white)
+                    //.setContentIntent(clickIntent)
+                    .setContentTitle("Bench Press")
+                    .setContentText("3 reps @ 135lbs")
+                    .setWhen(System.currentTimeMillis())
+                    .addAction(R.drawable.ic_skip_previous_white_36dp,
+                            "",
+                            retrieveMapAction(PREVIOUS_ACTION))
+                    .addAction(R.drawable.ic_play_white_36dp, "",
+                            retrieveMapAction(TOGGLECHECK_ACTION))
+                    .addAction(R.drawable.ic_skip_next_white_36dp,
+                            "",
+                            retrieveMapAction(NEXT_ACTION));
+
+            Notification n = builder.build();
+
+            return n;
+        }else{
+            Log.i("serviceInfo", "less than M");
+            NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
+                    R.drawable.ic_skip_previous_white_36dp, "",
+                    retrieveMapAction(PREVIOUS_ACTION))
+                    .build();
+            NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
+                    checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
+                    .build();
+            NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
+                    R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
+                    .build();
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Bench Press (Barbell - Flat)")
+                    .setContentText("1 rep @ 135lbs")
+                    .addAction(action1)
+                    .addAction(action2)
+                    .addAction(action3);
+
+            Notification n = builder.build();
+
+            return n;
+        }
+    }
+
+    private int getCheckedForCurrentPosition(){
+        return R.drawable.ic_check_box_white_24dp;
+    }
 
     private final PendingIntent retrieveMapAction(final String action){
         final ComponentName serviceName = new ComponentName(this, MainActivity.class);

@@ -59,7 +59,7 @@ public class WorkoutAssistorFrag extends Fragment{
 
     ArrayList<ExerciseNameFrag> exerciseNameFragList = new ArrayList<>();
     ArrayList<RepsWeightFrag> repsWeightFragList = new ArrayList<>();
-    ArrayList<RunningAssistorClass> runningAssistorList = new ArrayList<>();
+    //ArrayList<RunningAssistorClass> runningAssistorList = new ArrayList<>();
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -249,18 +249,20 @@ public class WorkoutAssistorFrag extends Fragment{
                                     int currentWeekday = dateTime.getDayOfWeek();
 
                                     if(containsToday(templateModelClass.getDays(), currentWeekday)){
-                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                        assistorHolderFrag.mTemplateClass = templateModelClass;
-                                        if (!getActivity().isFinishing()) {
-                                            try {
-                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                        .exInfoHolder);
-                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }catch (NullPointerException e){
+                                        if(getActivity() != null){
+                                            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                            assistorHolderFrag.mTemplateClass = templateModelClass;
+                                            if (!getActivity().isFinishing()) {
+                                                try {
+                                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                            .exInfoHolder);
+                                                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                }catch (NullPointerException e){
 
+                                                }
                                             }
                                         }
                                     }else{

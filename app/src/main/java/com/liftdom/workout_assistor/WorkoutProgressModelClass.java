@@ -16,6 +16,7 @@ public class WorkoutProgressModelClass {
     private String mPublicComment;
     private String mMediaResource;
     private boolean mIsTemplateImperial;
+    private String mViewCursor; // the current set we're on
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -31,6 +32,14 @@ public class WorkoutProgressModelClass {
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
         mIsTemplateImperial = isTemplateImperial;
+    }
+
+    public String getViewCursor() {
+        return mViewCursor;
+    }
+
+    public void setViewCursor(String mViewCursor) {
+        this.mViewCursor = mViewCursor;
     }
 
     public boolean isIsTemplateImperial() {
