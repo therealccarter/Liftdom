@@ -1,11 +1,14 @@
 package com.liftdom.workout_assistor;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -85,6 +88,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.exInfoHolder2) LinearLayout exInfoHolder2;
     @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
+    @BindView(R.id.serviceCardView) CardView serviceCardView;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -407,6 +411,18 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
+        deactivateLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activateStatusBarService.setVisibility(View.VISIBLE);
+                deactivateLL.setVisibility(View.GONE);
+
+                Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                getActivity().stopService(stopIntent);
+            }
+        });
+
         return view;
     }
 
@@ -482,6 +498,21 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onStart(){
         super.onStart();
+
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                .ACTIVITY_SERVICE);
+        if(manager.getRunningServices(Integer.MAX_VALUE) != null){
+            for(ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)){
+                if(AssistorServiceClass.class.getName().equals(serviceInfo.service.getClassName())){
+                    activateStatusBarService.setVisibility(View.GONE);
+                    deactivateLL.setVisibility(View.VISIBLE);
+                }
+            }
+        }else{
+            activateStatusBarService.setVisibility(View.VISIBLE);
+            deactivateLL.setVisibility(View.GONE);
+        }
+
 
         final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
                 .child("firstTime").child(uid).child("isAssistorFirstTime");
@@ -720,6 +751,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         for(int i = 0; i < runningMap.size(); i ++){
             if(i == 0){
                 loadingView.setVisibility(View.GONE);
+                serviceCardView.setVisibility(View.VISIBLE);
             }
             for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
                 if(isOfIndex(i, entry.getKey())){
@@ -789,6 +821,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             for(int i = 0; i < smolovMap.size(); i++){
                 if(i == 0){
                     loadingView.setVisibility(View.GONE);
+                    serviceCardView.setVisibility(View.VISIBLE);
                 }
                 for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
@@ -820,6 +853,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     for(int i = 0; i < map.size(); i++){
                         if(i == 0){
                             loadingView.setVisibility(View.GONE);
+                            serviceCardView.setVisibility(View.VISIBLE);
                         }
                         for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                             if(!entry.getKey().equals("0_key")){

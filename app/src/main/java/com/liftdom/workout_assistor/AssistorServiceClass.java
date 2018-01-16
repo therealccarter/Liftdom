@@ -194,6 +194,7 @@ public class AssistorServiceClass extends Service {
 
             return n;
         }else{
+            // we'll deal with this later, but before next release.
             Log.i("serviceInfo", "less than M");
             NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
                     R.drawable.ic_skip_previous_white_36dp, "",
