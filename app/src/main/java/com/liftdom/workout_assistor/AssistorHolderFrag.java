@@ -821,7 +821,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             for(int i = 0; i < smolovMap.size(); i++){
                 if(i == 0){
                     loadingView.setVisibility(View.GONE);
-                    serviceCardView.setVisibility(View.VISIBLE);
                 }
                 for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
                     if(!entry.getKey().equals("0_key")){
@@ -842,6 +841,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                             }
                         }
                     }
+                }
+                if(i == (smolovMap.size() - 1)){
+                    updateWorkoutState();
+                    serviceCardView.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -876,9 +879,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                             }
                         }
                         if(i == (map.size() - 1)){
-                            //updateWorkoutState();
-                            //Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                            //getActivity().startService(startIntent);
+                            updateWorkoutState();
+                            serviceCardView.setVisibility(View.VISIBLE);
                         }
                     }
                 }

@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/activateStatusBarWA"
-                android:background="@color/liftrGold1"
+                android:background="@color/confirmgreen"
                 android:textSize="18sp"
                 android:text="@string/activateStatusBarWA"
                 android:textColor="@color/black"

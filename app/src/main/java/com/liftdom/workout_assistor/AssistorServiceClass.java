@@ -44,6 +44,8 @@ public class AssistorServiceClass extends Service {
         public void onReceive(Context context, Intent intent) {
             //final String command = intent.getStringExtra(CMDNAME);
 
+            Log.i("serviceInfo", "mIntentReceiver");
+
             handleCommandIntent(intent);
         }
     };
@@ -62,12 +64,12 @@ public class AssistorServiceClass extends Service {
         filter.addAction(TOGGLECHECK_ACTION);
         registerReceiver(mIntentReceiver, filter);
 
-        mediaSession = new MediaSessionCompat(this, "debug tag for media session");
+        //mediaSession = new MediaSessionCompat(this, "debug tag for media session");
 
-        mediaSession.setActive(true);
+        //mediaSession.setActive(true);
 
-        mediaSession.setCallback(new MediaSessionCompat.Callback() {
-        });
+        //mediaSession.setCallback(new MediaSessionCompat.Callback() {
+        //});
 
 
     }
@@ -83,6 +85,7 @@ public class AssistorServiceClass extends Service {
                 Log.i("serviceInfo", "uid set");
             }
 
+            Log.i("serviceInfo", "onStartCommand/intent != null");
             handleCommandIntent(intent);
         }
 
@@ -109,15 +112,19 @@ public class AssistorServiceClass extends Service {
     private void handleCommandIntent(Intent intent){
         final String action = intent.getAction();
 
+        Log.i("serviceInfo", "handleCommentIntent");
+
         if(action != null){
             if(action.equals(NEXT_ACTION)){
-
+                Log.i("serviceInfo", "NEXT_ACTION");
             }else if(action.equals(PREVIOUS_ACTION)){
-
+                Log.i("serviceInfo", "PREVIOUS_ACTION");
             }else if(action.equals(CHECK_ACTION)){
-
+                Log.i("serviceInfo", "Building notification...");
             }else if(action.equals(UNCHECK_ACTION)){
-
+                Log.i("serviceInfo", "Building notification...");
+            }else if(action.equals(TOGGLECHECK_ACTION)){
+                Log.i("serviceInfo", "TOGGLECHECK_ACTION");
             }
         }
     }
@@ -226,6 +233,7 @@ public class AssistorServiceClass extends Service {
     }
 
     private final PendingIntent retrieveMapAction(final String action){
+        Log.i("serviceInfo", "retrieveMapAction");
         final ComponentName serviceName = new ComponentName(this, MainActivity.class);
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
