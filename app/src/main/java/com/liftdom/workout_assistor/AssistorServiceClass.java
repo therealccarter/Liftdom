@@ -5,9 +5,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.*;
 import android.graphics.drawable.Icon;
+import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -30,6 +32,8 @@ public class AssistorServiceClass extends Service {
     public static final String CHANNEL_ID = "assistor_channel_01";
 
     WorkoutProgressModelClass workoutProgressModelClass;
+
+    MediaSessionCompat mediaSession;
 
     String myString;
     RemoteViews notificationView;
@@ -57,6 +61,14 @@ public class AssistorServiceClass extends Service {
         filter.addAction(UNCHECK_ACTION);
         filter.addAction(TOGGLECHECK_ACTION);
         registerReceiver(mIntentReceiver, filter);
+
+        mediaSession = new MediaSessionCompat(this, "debug tag for media session");
+
+        mediaSession.setActive(true);
+
+        mediaSession.setCallback(new MediaSessionCompat.Callback() {
+        });
+
 
     }
 
@@ -155,20 +167,28 @@ public class AssistorServiceClass extends Service {
             //        .addAction(action3);
 
             android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
-                    .Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.launcher_no_background)
                     .setContentIntent(onClickPendingIntent)
                     .setContentTitle("Bench Press")
                     .setContentText("3 reps @ 135lbs")
                     .setWhen(System.currentTimeMillis())
-                    .addAction(R.drawable.ic_skip_previous_white_36dp,
-                            "",
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setVisibility(Notification.VISIBILITY_PUBLIC)
+                    .addAction(R.drawable.ic_previous,
+                            "Previous",
                             retrieveMapAction(PREVIOUS_ACTION))
-                    .addAction(R.drawable.ic_play_white_36dp, "",
+                    .addAction(R.drawable.ic_crop_square_white_small, "Check",
                             retrieveMapAction(TOGGLECHECK_ACTION))
-                    .addAction(R.drawable.ic_skip_next_white_36dp,
-                            "",
+                    .addAction(R.drawable.ic_next,
+                            "Next",
                             retrieveMapAction(NEXT_ACTION));
+
+
+            android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
+                    .NotificationCompat.MediaStyle()
+                    .setShowActionsInCompactView(0, 1, 2);
+            builder.setStyle(style);
 
             Notification n = builder.build();
 
