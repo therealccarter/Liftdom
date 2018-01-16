@@ -168,7 +168,7 @@ public class AssistorServiceClass extends Service {
 
             android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
                     .Builder(this, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.launcher_no_background)
+                    .setSmallIcon(R.drawable.just_knight_white_small)
                     .setContentIntent(onClickPendingIntent)
                     .setContentTitle("Bench Press")
                     .setContentText("3 reps @ 135lbs")
