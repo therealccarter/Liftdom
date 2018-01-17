@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +71,10 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isTemplateImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
 
+    DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
+    //.child("assistorModel");
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+
     public interface scrollToBottomInterface{
         void scrollToBottom();
     }
@@ -89,6 +96,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.exInfoHolder2) LinearLayout exInfoHolder2;
     @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
     @BindView(R.id.serviceCardView) CardView serviceCardView;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -113,6 +121,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         HideKey.initialize(getActivity());
 
         Log.i("deadInfo", "onCreateView called (assistor holder)");
+
+        Log.i("assistorInfo", "onCreateView");
 
         checkForOldData();
 
@@ -426,10 +436,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         return view;
     }
 
-    private void updateWorkoutStateFromTemplate(){
-
-    }
-
     // index will always be the last item checked, or the first item.
 
     public void updateWorkoutState(){
@@ -642,16 +648,20 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    Log.i("assistorInfo", "runningAssistor triggered/exists");
                     DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                     LocalDate localDate = LocalDate.now();
                     String dateTimeString = fmt.print(localDate);
                     modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
-                            Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
-                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
+                            Log.i("assistorInfo", "runningAssistor confirmed");
+                            //cleanUpState();
+                            //Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
+                            //savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                            //        modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
                             //noProgressInflateViews();
+                            setUpFirebaseAdapter();
                         }else{
                             noProgressInflateViews();
                         }
@@ -668,6 +678,24 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+    }
+
+    private void setUpFirebaseAdapter(){
+        Log.i("assistorInfo", "setUpFirebaseAdapter called");
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<WorkoutProgressModelClass, WorkoutProgressViewHolder>
+                (WorkoutProgressModelClass.class, R.layout.workout_progress_parent_item,
+                        WorkoutProgressViewHolder.class, mRunningAssistorRef) {
+            @Override
+            protected void populateViewHolder(WorkoutProgressViewHolder viewHolder, WorkoutProgressModelClass model, int position) {
+                viewHolder.setWorkoutProgressModel(model);
+                viewHolder.setFragment(AssistorHolderFrag.this);
+                Log.i("assistorInfo", "setUpFirebaseAdapter populateViewHolder");
+            }
+        };
+
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
     private void finishWorkout(){
@@ -748,7 +776,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
             privateJournal, String publicComment, boolean isTemplateImperial1){
 
-        for(int i = 0; i < runningMap.size(); i ++){
+        Log.i("assistorInfo", "savedProgressInflateViews");
+
+        for(int i = 0; i < runningMap.size(); i++){
             if(i == 0){
                 loadingView.setVisibility(View.GONE);
                 serviceCardView.setVisibility(View.VISIBLE);
@@ -777,24 +807,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         privateJournalView.setText(privateJournal);
         publicCommentView.setText(publicComment);
 
-    }
-
-    private boolean hasOnlyExNames(HashMap<String, List<String>> map){
-        boolean onlyExNames = true;
-
-        for(Map.Entry<String, List<String>> entry : map.entrySet()){
-            List<String> list = entry.getValue();
-            for(String string : list){
-                if(!isExerciseName(string)){
-                    String delims = "[_]";
-                    String[] tokens = string.split(delims);
-                    if(tokens[1].equals("checked")){
-                        onlyExNames = false;
-                    }
-                }
-            }
-        }
-        return onlyExNames;
     }
 
     private void noProgressInflateViews(){
@@ -886,6 +898,24 @@ public class AssistorHolderFrag extends android.app.Fragment
                 }
             }
         }
+    }
+
+    private boolean hasOnlyExNames(HashMap<String, List<String>> map){
+        boolean onlyExNames = true;
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            List<String> list = entry.getValue();
+            for(String string : list){
+                if(!isExerciseName(string)){
+                    String delims = "[_]";
+                    String[] tokens = string.split(delims);
+                    if(tokens[1].equals("checked")){
+                        onlyExNames = false;
+                    }
+                }
+            }
+        }
+        return onlyExNames;
     }
 
     private boolean isOfIndex(int index, String key){

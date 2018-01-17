@@ -234,7 +234,7 @@ public class AssistorServiceClass extends Service {
 
     private final PendingIntent retrieveMapAction(final String action){
         Log.i("serviceInfo", "retrieveMapAction");
-        final ComponentName serviceName = new ComponentName(this, MainActivity.class);
+        final ComponentName serviceName = new ComponentName(this, AssistorServiceClass.class);
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
 
