@@ -120,7 +120,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         HideKey.initialize(getActivity());
 
-        Log.i("deadInfo", "onCreateView called (assistor holder)");
+        Log.i("assistorInfo", "onCreateView called (assistor holder)");
 
         Log.i("assistorInfo", "onCreateView");
 
@@ -490,13 +490,13 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onResume(){
         if(mTemplateClass == null){
-            Log.i("deadInfo", "templateClass is null (onResume)");
+            Log.i("assistorInfo", "templateClass is null (onResume)");
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra("fragID",  0);
             startActivity(intent);
             super.onResume();
         }else{
-            Log.i("deadInfo", "AssistorHolderFrag (onResume)");
+            Log.i("assistorInfo", "AssistorHolderFrag (onResume)");
             super.onResume();
         }
     }
@@ -571,15 +571,15 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void cleanUpState(){
-        Log.i("deadInfo", "cleanUpState called (assistor holder)");
+        Log.i("assistorInfo", "cleanUpState called (assistor holder)");
         for(ExNameWAFrag frag : exNameFragList){
             frag.cleanUpSubFrags();
         }
         exNameFragList.clear();
-        getChildFragmentManager().executePendingTransactions();
-        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        //getChildFragmentManager().executePendingTransactions();
         for(String tag : fragTagList){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
             }
         }
@@ -589,12 +589,12 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private void checkForOldData(){
         if(mTemplateClass != null){
-            Log.i("deadInfo", "templateClass is not null");
+            Log.i("assistorInfo", "templateClass is not null");
             //cleanUpState();
             isTemplateImperial = mTemplateClass.isIsImperial();
             initializeViews();
         }else{
-            Log.i("deadInfo", "templateClass is null");
+            Log.i("assistorInfo", "templateClass is null");
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra("fragID",  0);
             startActivity(intent);
@@ -656,12 +656,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                     if(dateTimeString.equals(modelClass.getDate())){
                         if(!modelClass.isCompletedBool()){
                             Log.i("assistorInfo", "runningAssistor confirmed");
-                            //cleanUpState();
+                            cleanUpState();
                             //Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
-                            //savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                            //        modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
+                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
+                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
                             //noProgressInflateViews();
-                            setUpFirebaseAdapter();
+                            //setUpFirebaseAdapter();
                         }else{
                             noProgressInflateViews();
                         }
@@ -687,8 +687,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                         WorkoutProgressViewHolder.class, mRunningAssistorRef) {
             @Override
             protected void populateViewHolder(WorkoutProgressViewHolder viewHolder, WorkoutProgressModelClass model, int position) {
-                viewHolder.setWorkoutProgressModel(model);
+                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 viewHolder.setFragment(AssistorHolderFrag.this);
+                viewHolder.setFragmentTransaction(fragmentTransaction);
+                viewHolder.setWorkoutProgressModel(model);
                 Log.i("assistorInfo", "setUpFirebaseAdapter populateViewHolder");
             }
         };
@@ -799,6 +801,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         fragmentTransaction.commitAllowingStateLoss();
                         getChildFragmentManager().executePendingTransactions();
                         exNameFragList.add(exNameFrag);
+                        fragTagList.add(tag);
                     }
                 }
             }
@@ -850,6 +853,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 fragmentTransaction.commitAllowingStateLoss();
                                 getChildFragmentManager().executePendingTransactions();
                                 exNameFragList.add(exNameFrag);
+                                fragTagList.add(tag);
                             }
                         }
                     }
@@ -886,6 +890,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                         fragmentTransaction.commitAllowingStateLoss();
                                         getChildFragmentManager().executePendingTransactions();
                                         exNameFragList.add(exNameFrag);
+                                        fragTagList.add(tag);
                                     }
                                 }
                             }

@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -22,10 +23,15 @@ public class WorkoutProgressViewHolder extends RecyclerView.ViewHolder {
     private WorkoutProgressModelClass mWorkoutProgressModel;
     private Fragment mFragmentParent;
     int exNameInc = 0;
+    FragmentTransaction mFragmentTransaction;
 
     public WorkoutProgressViewHolder(View itemView){
         super(itemView);
         mParentLL = (LinearLayout) itemView.findViewById(R.id.assistorInfoLL);
+    }
+
+    public void setFragmentTransaction(FragmentTransaction fragmentTransaction){
+        mFragmentTransaction = fragmentTransaction;
     }
 
     public void setWorkoutProgressModel(WorkoutProgressModelClass workoutProgressModel){
@@ -60,9 +66,9 @@ public class WorkoutProgressViewHolder extends RecyclerView.ViewHolder {
                     exNameFrag.fragTag = tag;
                     exNameFrag.isEdit = true;
                     //if (!getActivity().isFinishing()) {
-                        fragmentTransaction.add(R.id.assistorInfoLL, exNameFrag, tag);
+                        fragmentTransaction.add(mParentLL.getId(), exNameFrag, tag);
                         fragmentTransaction.commitAllowingStateLoss();
-                        mFragmentParent.getChildFragmentManager().executePendingTransactions();
+                        //mFragmentParent.getChildFragmentManager().executePendingTransactions();
                         //exNameFragList.add(exNameFrag);
                     //}
                 }
