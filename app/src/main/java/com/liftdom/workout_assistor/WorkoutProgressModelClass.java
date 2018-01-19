@@ -61,7 +61,6 @@ public class WorkoutProgressModelClass {
 
     public void next(){
 
-
     }
 
     public void previous(){

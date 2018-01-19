@@ -199,6 +199,11 @@ public class AssistorServiceClass extends Service {
             Log.i("serviceInfo", "not isChecked");
         }
 
+        /**
+         * Need to check for first or last and modify notification based on that.
+         * Need to now get next and previous working.
+         */
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Log.i("serviceInfo", "greater than M");
             //Notification.Action action1 = new Notification.Action.Builder(
