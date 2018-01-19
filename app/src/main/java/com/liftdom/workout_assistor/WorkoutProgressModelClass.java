@@ -1,5 +1,8 @@
 package com.liftdom.workout_assistor;
 
+import android.content.Intent;
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +35,69 @@ public class WorkoutProgressModelClass {
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
         mIsTemplateImperial = isTemplateImperial;
+    }
+
+    public String exNameForCursor(){
+        String exName;
+
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        exName = getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").get(0);
+
+        return exName;
+    }
+
+    public String setForCursor(){
+        String set;
+
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        set = getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").get(Integer.parseInt(tokens[2]));
+
+        return set;
+    }
+
+    public void next(){
+
+    }
+
+    public void previous(){
+
+    }
+
+    public void toggleCheck(){
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        String currentSet = getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").get(Integer.parseInt(tokens[2]));
+        Log.i("serviceInfo", "currentSet = " + currentSet);
+
+        String[] tokens2 = currentSet.split(delims);
+
+        if(tokens2[1].equals("checked")){
+            tokens2[1] = "unchecked";
+        }else{
+            tokens2[1] = "checked";
+        }
+
+        String newString = "";
+
+        for(int i = 0; i < tokens2.length; i++){
+            if(i == 0){
+                newString = tokens2[i];
+            }else{
+                newString = newString + "_" + tokens2[i];
+            }
+        }
+
+        getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").set(Integer.parseInt(tokens[2]), newString);
+        String currentSet2 = getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").get(Integer.parseInt
+                (tokens[2]));
+        Log.i("serviceInfo", "currentSet = " + currentSet2);
+
+
     }
 
     public String getViewCursor() {

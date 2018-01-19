@@ -9,10 +9,13 @@ import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
@@ -30,6 +33,7 @@ public class AssistorServiceClass extends Service {
     public static final String UNCHECK_ACTION = "com.liftdom.workout_assistor.uncheck";
     public static final String TOGGLECHECK_ACTION = "com.liftdom.workout_assistor.togglecheck";
     public static final String CHANNEL_ID = "assistor_channel_01";
+    private NotificationManagerCompat mNotificationManager;
 
     WorkoutProgressModelClass workoutProgressModelClass;
 
@@ -37,7 +41,7 @@ public class AssistorServiceClass extends Service {
 
     String myString;
     RemoteViews notificationView;
-    String uid;
+    String uid = FirebaseAuth.getInstance().getUid();
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -56,6 +60,8 @@ public class AssistorServiceClass extends Service {
 
         Log.i("serviceInfo", "Service Started (onCreate)");
 
+        mNotificationManager = NotificationManagerCompat.from(this);
+
         final IntentFilter filter = new IntentFilter();
         filter.addAction(NEXT_ACTION);
         filter.addAction(PREVIOUS_ACTION);
@@ -63,6 +69,22 @@ public class AssistorServiceClass extends Service {
         filter.addAction(UNCHECK_ACTION);
         filter.addAction(TOGGLECHECK_ACTION);
         registerReceiver(mIntentReceiver, filter);
+
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
+                ("assistorModel");
+        runningRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("serviceInfo", "FIREBASE workoutProgressModelClass updated");
+                workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                startForeground(101, buildNotification());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //mediaSession = new MediaSessionCompat(this, "debug tag for media session");
 
@@ -80,31 +102,14 @@ public class AssistorServiceClass extends Service {
         Log.i("serviceInfo", "Service Started (onStartCommand)");
 
         if(intent != null){
-            if(intent.getStringExtra("uid") != null){
-                uid = intent.getStringExtra("uid");
-                Log.i("serviceInfo", "uid set");
-            }
+            //if(intent.getStringExtra("uid") != null){
+            //    uid = intent.getStringExtra("uid");
+            //    Log.i("serviceInfo", "uid set");
+            //}
 
             Log.i("serviceInfo", "onStartCommand/intent != null");
             handleCommandIntent(intent);
         }
-
-        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
-                ("assistorModel");
-        runningRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
-                startForeground(101, buildNotification());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
 
         return START_STICKY; // check for null intent
     }
@@ -117,20 +122,40 @@ public class AssistorServiceClass extends Service {
         if(action != null){
             if(action.equals(NEXT_ACTION)){
                 Log.i("serviceInfo", "NEXT_ACTION");
+                processNextAction();
             }else if(action.equals(PREVIOUS_ACTION)){
                 Log.i("serviceInfo", "PREVIOUS_ACTION");
+                processPreviousAction();
             }else if(action.equals(CHECK_ACTION)){
-                Log.i("serviceInfo", "Building notification...");
+                //Log.i("serviceInfo", "Building notification...");
             }else if(action.equals(UNCHECK_ACTION)){
-                Log.i("serviceInfo", "Building notification...");
+                //Log.i("serviceInfo", "Building notification...");
             }else if(action.equals(TOGGLECHECK_ACTION)){
                 Log.i("serviceInfo", "TOGGLECHECK_ACTION");
+                processToggleCheckAction();
             }
         }
     }
 
-    private void updateNotification(){
+    private void processNextAction(){
+        workoutProgressModelClass.next();
+    }
 
+    private void processPreviousAction(){
+        workoutProgressModelClass.previous();
+    }
+
+    private void processToggleCheckAction(){
+        workoutProgressModelClass.toggleCheck();
+        updateFirebaseProgressModel();
+        mNotificationManager.notify(101, buildNotification());
+        //startForeground(101, buildNotification());
+    }
+
+    private void updateFirebaseProgressModel(){
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
+                ("assistorModel");
+        runningRef.setValue(workoutProgressModelClass);
     }
 
     private Notification buildNotification(){
@@ -147,6 +172,32 @@ public class AssistorServiceClass extends Service {
                 onClickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
+
+        final String exerciseName;
+        final String setSchemeUnformatted;
+        final String setSchemeFormatted;
+        final int checkedOrUncheckedResource;
+
+        if(workoutProgressModelClass.getViewCursor() == null){
+            // if first time
+            workoutProgressModelClass.setViewCursor("1_0_1");
+            // need methods to get exname, setscheme, checked status
+            //exerciseName = workoutProgressModelClass.getExNameForCursor();
+            //setSchemeFormatted = workoutProgressModelClass.getSetSchemeForCursor();
+        }
+
+        exerciseName = workoutProgressModelClass.exNameForCursor();
+        //exerciseName = "Bench Press - \n (Barbell - Decline)";
+        setSchemeUnformatted = workoutProgressModelClass.setForCursor();
+        setSchemeFormatted = formatSetScheme(setSchemeUnformatted);
+
+        if(isChecked(setSchemeUnformatted)){
+            checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;
+            Log.i("serviceInfo", "isChecked");
+        }else{
+            checkedOrUncheckedResource = R.drawable.ic_crop_square_white_small;
+            Log.i("serviceInfo", "not isChecked");
+        }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Log.i("serviceInfo", "greater than M");
@@ -176,26 +227,28 @@ public class AssistorServiceClass extends Service {
             android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
                     .Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.just_knight_white_small)
+                    .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                            .setShowActionsInCompactView(0, 1, 2))
                     .setContentIntent(onClickPendingIntent)
-                    .setContentTitle("Bench Press")
-                    .setContentText("3 reps @ 135lbs")
+                    .setContentTitle(exerciseName)
+                    .setContentText(setSchemeFormatted)
                     .setWhen(System.currentTimeMillis())
                     .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setVisibility(Notification.VISIBILITY_PUBLIC)
                     .addAction(R.drawable.ic_previous,
                             "Previous",
                             retrieveMapAction(PREVIOUS_ACTION))
-                    .addAction(R.drawable.ic_crop_square_white_small, "Check",
+                    .addAction(checkedOrUncheckedResource, "Check",
                             retrieveMapAction(TOGGLECHECK_ACTION))
                     .addAction(R.drawable.ic_next,
                             "Next",
                             retrieveMapAction(NEXT_ACTION));
 
 
-            android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
-                    .NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(0, 1, 2);
-            builder.setStyle(style);
+            //android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
+            //        .NotificationCompat.MediaStyle()
+            //        .setShowActionsInCompactView(0, 1, 2);
+            //builder.setStyle(style);
 
             Notification n = builder.build();
 
@@ -226,6 +279,40 @@ public class AssistorServiceClass extends Service {
 
             return n;
         }
+    }
+
+    private String formatSetScheme(String unformatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unformatted.split(delims);
+
+        String delims2 = "[@]";
+        String[] tokens2 = tokens[0].split(delims2);
+
+        String unit;
+        if(workoutProgressModelClass.isIsTemplateImperial()){
+            unit = "lbs";
+        }else{
+            unit = "kgs";
+        }
+
+        formatted = tokens2[0] + " reps @ " + tokens2[1] + " " + unit;
+
+        return formatted;
+    }
+
+    private boolean isChecked(String string){
+        boolean checked = false;
+
+        String delims = "[_]";
+        String[] tokens = string.split(delims);
+
+        if(tokens[1].equals("checked")){
+            checked = true;
+        }
+
+        return checked;
     }
 
     private int getCheckedForCurrentPosition(){

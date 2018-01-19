@@ -203,6 +203,8 @@
 
     <!-- STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
 
+    <string name="contactMeBugs">Contact me at <b>liftdomapp@gmail.com</b> about any bugs or questions.</string>
+
     <string name="pleaseWait">Please wait or results may not be saved&#8230;</string>
 
     <string name="smolov">Smolov</string>
