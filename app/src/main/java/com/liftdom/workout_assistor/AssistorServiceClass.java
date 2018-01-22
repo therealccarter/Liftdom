@@ -145,6 +145,8 @@ public class AssistorServiceClass extends Service {
 
     private void processPreviousAction(){
         workoutProgressModelClass.previous();
+        updateFirebaseProgressModel();
+        startForeground(101, buildNotification());
     }
 
     private void processToggleCheckAction(){
