@@ -101,6 +101,10 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
 
+    private ValueEventListener runningAssistorListener;
+
+    DatabaseReference runningAssistorRef;
+
     public void firstTimeShowcase(CheckBox checkBox){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -642,9 +646,9 @@ public class AssistorHolderFrag extends android.app.Fragment
          * I'm excited though! Could make it so we don't have to deal with the save button AND get a notification bar working.
          */
 
-        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+        runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
-        runningAssistorRef.addValueEventListener(new ValueEventListener() {
+        runningAssistorListener = runningAssistorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -678,6 +682,13 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+    }
+
+    @Override
+    public void onStop(){
+        Log.i("onStop", "AssistorHolderFrag onStop called");
+        runningAssistorRef.removeEventListener(runningAssistorListener);
+        super.onStop();
     }
 
     private void setUpFirebaseAdapter(){
