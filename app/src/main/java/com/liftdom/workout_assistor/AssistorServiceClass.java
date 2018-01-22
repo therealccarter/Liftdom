@@ -139,6 +139,8 @@ public class AssistorServiceClass extends Service {
 
     private void processNextAction(){
         workoutProgressModelClass.next();
+        updateFirebaseProgressModel();
+        startForeground(101, buildNotification());
     }
 
     private void processPreviousAction(){
@@ -148,8 +150,8 @@ public class AssistorServiceClass extends Service {
     private void processToggleCheckAction(){
         workoutProgressModelClass.toggleCheck();
         updateFirebaseProgressModel();
-        mNotificationManager.notify(101, buildNotification());
-        //startForeground(101, buildNotification());
+        //mNotificationManager.notify(101, buildNotification());
+        startForeground(101, buildNotification());
     }
 
     private void updateFirebaseProgressModel(){

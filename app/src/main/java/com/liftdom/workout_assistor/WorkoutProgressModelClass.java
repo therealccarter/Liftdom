@@ -60,7 +60,38 @@ public class WorkoutProgressModelClass {
     }
 
     public void next(){
+        /**
+         * So, what we need to do is take the current cursor and try to first increment [2] by 1.
+         * First we need to see if this is a superset map.
+         * Case 1: (!superset)
+         *  We'll need to do a check to see if incrementing by 1 goes past the limit.
+         *  If it does, we'll go to the next map, [0] + 1, [1] = 1. Go back through loop until it sticks.
+         *  If it doesn't, and is within bounds, we increment and end.
+         * Case 2: (superset)
+         *  We increment [1] + 1, and if it isn't the last one, we stay at the same [2], but move cursor there.
+         */
 
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        if(getExInfoHashMap().get(tokens[0] + "_key").size() < 2){
+            // not superset
+            if(getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").size() >= (Integer.parseInt
+                    (tokens[2]) + 1)){
+                int newValue = Integer.parseInt(tokens[2]) + 1;
+                setViewCursor(tokens[0] + "_" + tokens[1] + "_" + String.valueOf(newValue));
+            }else{
+                // go to next super-map
+                if(getExInfoHashMap().size() >= (Integer.parseInt(tokens[0]) + 1)){
+                    int newValue = Integer.parseInt(tokens[0]) + 1;
+                    setViewCursor(String.valueOf(newValue) + "_0_1");
+                }else{
+                    // done
+                }
+            }
+        }else{
+            // superset
+        }
     }
 
     public void previous(){
