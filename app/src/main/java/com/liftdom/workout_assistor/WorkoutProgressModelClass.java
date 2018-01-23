@@ -188,13 +188,64 @@ public class WorkoutProgressModelClass {
                 }
             }else{
                 // superset
-
-
-
                 /**
-                 * This one will be a bit harder. We're going to have to jump between each list,
-                 * so [1] = 0, [1] = 1, [1] = 2, [1] = 0, etc                 *
+                 * Let's just say I'm at 2_0_5. Here would be the correct sequence of previous button clicks
+                 * 2_0_5
+                 * 2_0_4
+                 * 2_1_3
+                 * 2_0_3
+                 * 2_1_2
+                 * 2_0_2
+                 * 2_1_1
+                 * 2_0_1
+                 * How do we produce that?
                  */
+                int minusValue = Integer.parseInt(tokens[1]) - 1;
+
+                if(getExInfoHashMap().get(tokens[0] + key).get(String.valueOf(minusValue) + key).size() < Integer
+                        .parseInt(tokens[2]) - 1){
+                    // overflow
+                    // guarantees we're in [1] = 0 because overflow lists are inherently first in their map
+                    if(tokens[2].equals("1")){
+                        // jump to previous map
+                        /**
+                         * If the current map is 1_key, we're back at the beginning. Do nothing.
+                         * If the previous map is not a superset, just jump to the size of that map - 1.
+                         * If the previous map is a superset:
+                         *  Find out if the first one has extra sets. If it does, jump to the last of that first one.
+                         *  If they're all the same length, jump to the last index of the last list
+                         */
+                        jumpToPrevious();
+                    }else{
+                        // decrement [2]
+                        int newValue = Integer.parseInt(tokens[2]) - 1;
+                        setViewCursor(tokens[0] + "_" + tokens[1] + "_" + String.valueOf(newValue));
+                    }
+                }else{
+                    // not overflow, can go to previous list
+                    // let's just say I'm in 2_1_2, aka 3@55. Previous should be 2_0_1
+                    // OK so if [1] == 0 then we go to the highest [1] with [2] - 1
+                    // we're still going to have to jump to previous map if we end up at x_0_1
+                    if((tokens[1] + "_" + tokens[2]).equals("0_1")){
+                        // jump to previous map
+                        jumpToPrevious();
+                    }else{
+                        // subtract em
+
+                        /**
+                         * Let's really think this one out.
+                         */
+
+                        int decremented1 = Integer.parseInt(tokens[1]) - 1;
+                        int decremented2 = Integer.parseInt(tokens[2]) - 1;
+
+                        if(tokens[1].equals("0")){
+                            // in first list, jump to max list and [2] - 1
+                        }
+                        setViewCursor(tokens[0] + "_" + String.valueOf(decremented1) + "_" + String.valueOf(decremented2));
+                    }
+                }
+
                 //if(getExInfoHashMap().get(tokens[0] + key).size() > (Integer.parseInt(tokens[1]) + 1)){
                 //    // if room to increase ([1])
                 //    //Log.i("progressModel", "107, cursor = " + cursor);
@@ -242,6 +293,40 @@ public class WorkoutProgressModelClass {
                 //        //Log.i("progressModel", "move forward (superset - else end 2)");
                 //    }
                 //}
+            }
+        }
+    }
+
+    private void jumpToPrevious(){
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+        String cursor = getViewCursor();
+        String key = "_key";
+
+        if(!tokens[0].equals("1")){
+            int decremented0 = Integer.parseInt(tokens[0]) - 1;
+            if(getExInfoHashMap().get(String.valueOf(decremented0) + key).size() < 2){
+                // not superset
+                int size = getExInfoHashMap().get(String.valueOf(decremented0) + key).get("0_key")
+                        .size();
+                setViewCursor(String.valueOf(decremented0) + "_" + "0_" + String.valueOf(size - 1));
+            }else{
+                // superset
+                if(getExInfoHashMap().get(String.valueOf(decremented0) + key).get("0_key").size()
+                        > getExInfoHashMap().get(String.valueOf(decremented0) + key).get("1_key").size()){
+                    // has overflow
+                    int size2 = getExInfoHashMap().get(String.valueOf(decremented0) + key).get
+                            ("0_key").size();
+                    setViewCursor(String.valueOf(decremented0) + "_" + "0_" + String.valueOf(size2 -
+                            1));
+                }else{
+                    // has no overflow
+                    int numberOfLists = getExInfoHashMap().get(String.valueOf(decremented0) + key).size();
+                    int numberOfItems = getExInfoHashMap().get(String.valueOf(decremented0) + key)
+                            .get("0_key").size();
+                    setViewCursor(String.valueOf(decremented0) + "_" + String.valueOf(numberOfLists)
+                            + "_" + String.valueOf(numberOfItems));
+                }
             }
         }
     }
