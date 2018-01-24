@@ -3,6 +3,8 @@ package com.liftdom.workout_assistor;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -339,7 +341,21 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        workoutHistoryRef.setValue(historyModelClass);
+                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                                        .ACTIVITY_SERVICE);
+                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service.getClassName())) {
+                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                                            getActivity().stopService(stopIntent);
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
 

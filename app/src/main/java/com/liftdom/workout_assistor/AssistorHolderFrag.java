@@ -535,7 +535,9 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     FancyShowCaseView fancyShowCaseView = new FancyShowCaseView.Builder(getActivity())
                             .title("This is the Workout Assistor!" +
-                                    "\n It's where you will complete workouts and rest days.")
+                                    "\n It's where you will complete workouts and rest days." +
+                                    "\n You can use the notification bar functionality to complete sets without " +
+                                    "having to unlock your phone or be in the app itself!")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
 
@@ -547,9 +549,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                             .build();
 
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .title("The gold 'Save Progress' button saves your workout progress if you need to leave " +
-                                    "this page. \n \n" +
-                                    "The Private Journal is where you can take workout notes. It'll only be viewable " +
+                            .title("The Private Journal is where you can take workout notes. It'll only be viewable " +
                                      "by you. \n \n " +
                                      "The Public Description is what your followers will see as the " +
                                      "description for this workout.\n \n" +

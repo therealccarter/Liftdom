@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Created by Brodin on 12/4/2017.
@@ -75,9 +78,14 @@ public class AssistorServiceClass extends Service {
         runningRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("serviceInfo", "FIREBASE workoutProgressModelClass updated");
-                workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
-                startForeground(101, buildNotification());
+                if(dataSnapshot == null){
+                    stopSelf(101);
+                }else{
+                    Log.i("serviceInfo", "FIREBASE workoutProgressModelClass updated");
+                    workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                    startForeground(101, buildNotification());
+                    checkDate();
+                }
             }
 
             @Override
@@ -96,17 +104,28 @@ public class AssistorServiceClass extends Service {
 
     }
 
+    private void checkDate(){
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+
+        if(!dateTimeString.equals(workoutProgressModelClass.getDate())){
+            stopSelf(101);
+        }
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
         Log.i("serviceInfo", "Service Started (onStartCommand)");
+
+        //checkDate();
 
         if(intent != null){
             //if(intent.getStringExtra("uid") != null){
             //    uid = intent.getStringExtra("uid");
             //    Log.i("serviceInfo", "uid set");
             //}
-
             Log.i("serviceInfo", "onStartCommand/intent != null");
             handleCommandIntent(intent);
         }
@@ -201,7 +220,7 @@ public class AssistorServiceClass extends Service {
                                 .setShowActionsInCompactView(0))
                         .setContentIntent(onClickPendingIntent)
                         .setContentTitle("Workout Done!")
-                        .setContentText("Click this notification to finish up.")
+                        .setContentText("Click this notification to finalize.")
                         .setWhen(System.currentTimeMillis())
                         .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setVisibility(Notification.VISIBILITY_PUBLIC)
