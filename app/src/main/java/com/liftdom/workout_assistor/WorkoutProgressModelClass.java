@@ -71,6 +71,89 @@ public class WorkoutProgressModelClass {
     public String setIndex(){
         String setIndex;
 
+        int x = 0;
+        int y = 0;
+
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+        int tokensInt0 = Integer.parseInt(tokens[0]);
+        int tokensInt1 = Integer.parseInt(tokens[1]);
+        int tokensInt2 = Integer.parseInt(tokens[2]);
+        String key = "_key";
+
+        /**
+         * For each map less than [0], get size of all lists - amount of lists x 1
+         * For the map that matches [0], get [2] - 1 and multiply it by [1]
+         */
+
+        for(int i = 1; i <= tokensInt0; i++){
+            if(i != tokensInt0){
+                // is a map before, get number of all items in here.
+                if(getExInfoHashMap().get(String.valueOf(i) + key).size() == 1){
+                    // non superset map
+                    int size = getExInfoHashMap().get(String.valueOf(i) + key).get("0_key").size() - 1;
+                    x = x + size;
+                }else{
+                    // superset map
+                    for(Map.Entry<String, List<String>> entry : getExInfoHashMap().get(String.valueOf(i) + key).entrySet()){
+                        int size = entry.getValue().size() - 1;
+                        x = x + size;
+                    }
+                }
+            }else{
+                // is the current cursor map, get number of items leading up to. Refer to theory.
+                if(getExInfoHashMap().get(String.valueOf(i) + key).size() == 1){
+                    // non superset map
+                    x = x + tokensInt2;
+                }else{
+                    // superset map
+                    /**
+                     * Let's say we're at 2_0_2 and there are 2 maps, 0_key and 1_key.
+                     * That means that we're 3 in.
+                     * 2_1_2 means we're 4 in.
+                     * 2_0_3 means we're 5 in.
+                     * 2_1_3 means we're 6 in.
+                     *
+                     * So I think the way to go is if [2] > 1 we do [2] - 1 * size + [2] * [1] + 1
+                     *
+                     * now we need to account for overflow
+                     */
+
+                    int size = getExInfoHashMap().get(String.valueOf(i) + key).size();
+                    int size1 = getExInfoHashMap().get(String.valueOf(i) + key).get("1_key").size() - 1;
+
+                    if(tokensInt2 == 1){
+                        // we're in a first pass through the superset map
+                        // ok this seems to work
+                        x = x + (tokensInt2 * (tokensInt1 + 1));
+                    }else{
+                        // we've gone through the superset loop
+                        if(tokensInt1 == 0 && tokensInt2 > size1){
+                            // if in overflow
+                            x = x + (((tokensInt2 - (tokensInt2 - size1)) * size) + (tokensInt2 - size1));
+                        }else{
+                            x = x + (((tokensInt2 - 1) * size) + (tokensInt1 + 1));
+                        }
+                    }
+
+                }
+            }
+        }
+
+        for(Map.Entry<String, HashMap<String, List<String>>> entry1 : getExInfoHashMap().entrySet()){
+            for(Map.Entry<String, List<String>> entry2 : entry1.getValue().entrySet()){
+                y = y + (entry2.getValue().size() - 1);
+            }
+        }
+
+        setIndex = "(" + x + "/" + y + ")";
+
+        return setIndex;
+    }
+
+    public String setIndex1(){
+        String setIndex;
+
         String delims = "[_]";
         String[] tokens = getViewCursor().split(delims);
 
