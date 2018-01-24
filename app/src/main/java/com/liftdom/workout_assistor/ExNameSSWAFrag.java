@@ -27,7 +27,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ExNameSSWAFrag extends android.app.Fragment
-            implements RepsWeightSSWAFrag.removeFragCallback{
+            implements RepsWeightSSWAFrag.removeFragCallback,
+            RepsWeightSSWAFrag.updateStateCallback{
 
 
     public ExNameSSWAFrag() {
@@ -48,6 +49,16 @@ public class ExNameSSWAFrag extends android.app.Fragment
     }
 
     private removeFragCallback1 removeFrag1;
+
+    public interface updateStateCallback{
+        void updateWorkoutState();
+    }
+
+    private updateStateCallback updateWorkoutState;
+
+    public void updateWorkoutState(){
+        updateWorkoutState.updateWorkoutState();
+    }
 
     @BindView(R.id.exerciseName) TextView exNameView;
     @BindView(R.id.repsWeightContainerSS) LinearLayout repsWeightContainer;
@@ -84,11 +95,8 @@ public class ExNameSSWAFrag extends android.app.Fragment
             }
         }
 
-
-
         removeFrag1 = (removeFragCallback1) getParentFragment();
-
-
+        updateWorkoutState = (updateStateCallback) getParentFragment();
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

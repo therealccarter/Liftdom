@@ -31,7 +31,9 @@ import java.util.Map;
  */
 public class ExNameWAFrag extends android.app.Fragment
         implements RepsWeightWAFrag.removeFragCallback,
-                    ExNameSSWAFrag.removeFragCallback1{
+        ExNameSSWAFrag.removeFragCallback1,
+        RepsWeightWAFrag.updateStateCallback,
+        ExNameSSWAFrag.updateStateCallback{
 
 
     public ExNameWAFrag() {
@@ -59,6 +61,12 @@ public class ExNameWAFrag extends android.app.Fragment
         void removeFrag(String fragTag);
     }
 
+    public interface updateWorkoutStateCallback{
+        void updateWorkoutState();
+    }
+
+    private updateWorkoutStateCallback updateWorkoutState;
+
     private removeFragCallback removeFrag;
 
     public interface startFirstTimeShowcase{
@@ -71,6 +79,10 @@ public class ExNameWAFrag extends android.app.Fragment
      */
 
     private startFirstTimeShowcase firstTimeShowcaseCallback;
+
+    public void updateWorkoutState(){
+        updateWorkoutState.updateWorkoutState();
+    }
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
@@ -87,6 +99,7 @@ public class ExNameWAFrag extends android.app.Fragment
 
         removeFrag = (removeFragCallback) getParentFragment();
         firstTimeShowcaseCallback = (startFirstTimeShowcase) getParentFragment();
+        updateWorkoutState = (updateWorkoutStateCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 

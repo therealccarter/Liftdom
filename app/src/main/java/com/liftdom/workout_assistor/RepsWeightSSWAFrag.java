@@ -39,6 +39,12 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
     private removeFragCallback removeFrag;
 
+    public interface updateStateCallback{
+        void updateWorkoutState();
+    }
+
+    private updateStateCallback updateWorkoutState;
+
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
@@ -59,6 +65,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         removeFrag = (removeFragCallback) getParentFragment();
+        updateWorkoutState = (updateStateCallback) getParentFragment();
 
         if(isTemplateImperial){
             unitView.setText("lbs");
@@ -149,6 +156,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 }else{
                     holderView.setBackgroundColor(Color.parseColor("#ededed"));
                 }
+                updateWorkoutState.updateWorkoutState();
             }
         });
 

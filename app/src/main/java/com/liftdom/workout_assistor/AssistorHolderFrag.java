@@ -52,7 +52,8 @@ import java.util.Map;
  */
 public class AssistorHolderFrag extends android.app.Fragment
                 implements ExNameWAFrag.removeFragCallback,
-                ExNameWAFrag.startFirstTimeShowcase{
+                ExNameWAFrag.startFirstTimeShowcase,
+                ExNameWAFrag.updateWorkoutStateCallback{
 
 
     public AssistorHolderFrag() {
@@ -467,17 +468,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
-        runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                try{
-                    Snackbar snackbar = Snackbar.make(getView(), "Progress Saved", Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                } catch (NullPointerException e){
-
-                }
-            }
-        });
+        runningAssistorRef.setValue(progressModelClass);
 
         //for(ExNameWAFrag exNameWAFrag : exNameFragList){
         //    removeFrag(exNameWAFrag.fragTag);
@@ -502,6 +493,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         }else{
             Log.i("assistorInfo", "AssistorHolderFrag (onResume)");
             super.onResume();
+        }
+        if(runningAssistorListener == null){
+            checkForOldData();
+        }else{
+            runningAssistorRef.addValueEventListener(runningAssistorListener);
         }
     }
 

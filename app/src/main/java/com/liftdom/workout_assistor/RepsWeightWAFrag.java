@@ -41,6 +41,12 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
     private removeFragCallback removeFrag;
 
+    public interface updateStateCallback{
+        void updateWorkoutState();
+    }
+
+    private updateStateCallback updateWorkoutState;
+
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
@@ -60,6 +66,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         removeFrag = (removeFragCallback) getParentFragment();
+        updateWorkoutState = (updateStateCallback) getParentFragment();
 
         Log.i("deadInfo", "repsWeightString: " + repsWeightString);
 
@@ -157,6 +164,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 }else{
                     holderView.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 }
+                updateWorkoutState.updateWorkoutState();
             }
         });
 

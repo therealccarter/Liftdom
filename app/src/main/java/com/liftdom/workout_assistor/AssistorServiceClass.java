@@ -224,6 +224,7 @@ public class AssistorServiceClass extends Service {
                         .setWhen(System.currentTimeMillis())
                         .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setVisibility(Notification.VISIBILITY_PUBLIC)
+                        //.setPublicVersion()
                         .addAction(R.drawable.ic_previous,
                                 "Previous",
                                 retrieveMapAction(PREVIOUS_ACTION));

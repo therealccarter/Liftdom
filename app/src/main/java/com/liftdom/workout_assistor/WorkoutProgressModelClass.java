@@ -151,6 +151,21 @@ public class WorkoutProgressModelClass {
         return setIndex;
     }
 
+    public void reFindViewCursor(){
+        /**
+         * In case of exercise/set deletion, try to find if the old view cursor data matches itself,
+         * if not,
+         * First find identical data set (full data set, meaning exercise + superset value + set_checkedValue).
+         * then we'd check if the exercise still exists. If it does, we try to find if it has a superset.
+         * then try to find the exact set_checkedValue, then try to find just the set, then if all else fails
+         * we'd just have to reset to 1_0_1. Also we'd have to have a case for the possibility of having no exercises.
+         * If no exercises, we'd have to stop the service. And then update runningAssistor when an exercise is added.
+         * That ties into how we need to update the process of adding exercises to the WA to guarantee a valid ex/sets.
+         *
+         * If the set being deleted is the view cursor, go back one. If eventually nothing left, reset.
+         */
+    }
+
     public String setIndex1(){
         String setIndex;
 
