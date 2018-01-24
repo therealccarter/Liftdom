@@ -250,7 +250,7 @@ public class AssistorServiceClass extends Service {
             exerciseName = workoutProgressModelClass.exNameForCursor();
             //exerciseName = "Bench Press - \n (Barbell - Decline)";
             setSchemeUnformatted = workoutProgressModelClass.setForCursor();
-            setSchemeFormatted = formatSetScheme(setSchemeUnformatted);
+            setSchemeFormatted = formatSetScheme(setSchemeUnformatted) + " " + workoutProgressModelClass.setIndex();
 
             if(isChecked(setSchemeUnformatted)){
                 checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;

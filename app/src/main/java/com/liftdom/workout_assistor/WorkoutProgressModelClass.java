@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Brodin on 5/31/2017.
@@ -34,6 +35,77 @@ public class WorkoutProgressModelClass {
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
         mIsTemplateImperial = isTemplateImperial;
+    }
+
+    public String exIndex(){
+        String exIndex;
+
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        int x = 0;
+        int y = 0;
+        String key = "_key";
+        boolean keepGoing = true;
+        /**
+         * x/y
+         * so for the x value we need to go through each [0] and add the amount of [1]'s to an incrementer. Then we
+         * stop once the values [0]_[1] = the one we're in.
+         */
+        for(Map.Entry<String, HashMap<String, List<String>>> entry1 : mExInfoHashMap.entrySet()){
+            String entry1Key = entry1.getKey();
+            y++;
+            if(keepGoing){
+                x++;
+                if(entry1Key.equals(tokens[0] + key)){
+                    keepGoing = false;
+                }
+            }
+        }
+
+        exIndex = "(" + x + "/" + y + ")";
+
+        return exIndex;
+    }
+
+    public String setIndex(){
+        String setIndex;
+
+        String delims = "[_]";
+        String[] tokens = getViewCursor().split(delims);
+
+        int x = 0;
+        int y = 0;
+        String key = "_key";
+        boolean keepGoing = true;
+        /**
+         * x/y
+         * so for the x value we need to go through each [0] and add the amount of [1]'s to an incrementer. Then we
+         * stop once the values [0]_[1] = the one we're in.
+         *
+         * Try math maybe?
+         */
+        for(Map.Entry<String, HashMap<String, List<String>>> entry1 : mExInfoHashMap.entrySet()){
+            String entry1Key = entry1.getKey();
+            for(Map.Entry<String, List<String>> entry2 : entry1.getValue().entrySet()){
+                if(entry2.getValue().size() == 1){
+
+                }else{
+
+                }
+                y++;
+                if(keepGoing){
+                    x++;
+                    if(entry2.getKey().equals(tokens[1] + key) && entry1Key.equals(tokens[0] + key)){
+                        keepGoing = false;
+                    }
+                }
+            }
+        }
+
+        setIndex = "(" + x + "/" + y + ")";
+
+        return setIndex;
     }
 
     public String exNameForCursor(){
