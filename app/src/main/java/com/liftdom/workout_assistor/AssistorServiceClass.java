@@ -227,7 +227,8 @@ public class AssistorServiceClass extends Service {
                         //.setPublicVersion()
                         .addAction(R.drawable.ic_previous,
                                 "Previous",
-                                retrieveMapAction(PREVIOUS_ACTION));
+                                retrieveMapAction(PREVIOUS_ACTION))
+                        .setAutoCancel(false);
 
 
                 //android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app

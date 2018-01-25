@@ -501,6 +501,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
+    /**
+     * Edge case and set/ex deletion time.
+     */
+
     @Override
     public void onStart(){
         super.onStart();
@@ -572,19 +576,26 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private void cleanUpState(){
         Log.i("assistorInfo", "cleanUpState called (assistor holder)");
-        for(ExNameWAFrag frag : exNameFragList){
-            frag.cleanUpSubFrags();
-        }
-        exNameFragList.clear();
-        //getChildFragmentManager().executePendingTransactions();
-        for(String tag : fragTagList){
-            if(getChildFragmentManager().findFragmentByTag(tag) != null){
-                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+        try{
+            for(ExNameWAFrag frag : exNameFragList){
+                frag.cleanUpSubFrags();
             }
+            exNameFragList.clear();
+            //getChildFragmentManager().executePendingTransactions();
+            for(String tag : fragTagList){
+                if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                }
+            }
+            exNameInc = 0;
+            fragTagList.clear();
+        }catch (IllegalStateException e){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.putExtra("fragID",  0);
+            startActivity(intent);
         }
-        exNameInc = 0;
-        fragTagList.clear();
+
     }
 
     private void checkForOldData(){
