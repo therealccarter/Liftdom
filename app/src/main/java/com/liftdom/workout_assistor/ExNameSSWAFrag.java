@@ -107,7 +107,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
 
                 // set dialog message
                 builder
-                        .setMessage("Are you sure you want to delete this exercise?")
+                        .setMessage("Are you sure you want to delete this?")
                         .setCancelable(false)
                         .setPositiveButton("Delete",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
@@ -185,6 +185,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
                 repsWeightFragList.remove(inc - 1);
                 --fragCount;
             }
+            removeFrag1.removeFrag2(fragTag2);
         }
     }
 

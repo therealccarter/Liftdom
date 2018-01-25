@@ -98,6 +98,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
     @BindView(R.id.serviceCardView) CardView serviceCardView;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.resetWorkoutButton) Button resetWorkoutProgressButton;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -131,8 +132,47 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         checkForOldData();
 
-
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
+
+        resetWorkoutProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                // set title
+                builder.setTitle("Reset Workout Progress?");
+
+                // set dialog message
+                builder
+                        .setMessage("This will reset your workout progress to its original state. Caution!")
+                        .setCancelable(false)
+                        .setPositiveButton("Reset",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                cleanUpState();
+                                runningAssistorRef.setValue(null);
+                                //noProgressInflateViews();
+                                //runningAssistorRef.removeEventListener(runningAssistorListener);
+                                //runningAssistorRef.setValue(null);
+                                //Intent intent = new Intent(getActivity(), MainActivity.class);
+                                //intent.putExtra("fragID",  2);
+                                //startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Don't reset",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = builder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
 
         addExButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -443,6 +483,35 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     // index will always be the last item checked, or the first item.
 
+    public void updateWorkoutStateNoProgress(){
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+        boolean completedBool = false; // obviously this will be set to true in assistor saved
+        String mediaResource = "";
+
+        // might need to make this not clickable without inflated views so it isn't set to null
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            //for(int i = 1; i <= exNameFragList.size(); i++){}
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial);
+
+        //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        cleanUpState();
+        runningAssistorRef.setValue(progressModelClass);
+    }
+
     public void updateWorkoutState(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -574,30 +643,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
     }
 
-    private void cleanUpState(){
-        Log.i("assistorInfo", "cleanUpState called (assistor holder)");
-        try{
-            for(ExNameWAFrag frag : exNameFragList){
-                frag.cleanUpSubFrags();
-            }
-            exNameFragList.clear();
-            //getChildFragmentManager().executePendingTransactions();
-            for(String tag : fragTagList){
-                if(getChildFragmentManager().findFragmentByTag(tag) != null){
-                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                    fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                }
-            }
-            exNameInc = 0;
-            fragTagList.clear();
-        }catch (IllegalStateException e){
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra("fragID",  2);
-            startActivity(intent);
-        }
-
-    }
-
     private void checkForOldData(){
         if(mTemplateClass != null){
             Log.i("assistorInfo", "templateClass is not null");
@@ -689,6 +734,29 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+    }
+
+    private void cleanUpState(){
+        Log.i("assistorInfo", "cleanUpState called (assistor holder)");
+        try{
+            for(ExNameWAFrag frag : exNameFragList){
+                frag.cleanUpSubFrags();
+            }
+            exNameFragList.clear();
+            //getChildFragmentManager().executePendingTransactions();
+            for(String tag : fragTagList){
+                if(getChildFragmentManager().findFragmentByTag(tag) != null){
+                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                }
+            }
+            exNameInc = 0;
+            fragTagList.clear();
+        }catch (IllegalStateException e){
+            //Intent intent = new Intent(getActivity(), MainActivity.class);
+            //intent.putExtra("fragID",  2);
+            //startActivity(intent);
+        }
     }
 
     @Override
@@ -814,12 +882,14 @@ public class AssistorHolderFrag extends android.app.Fragment
                     exNameFrag.isEditInfoList = exerciseMap;
                     exNameFrag.fragTag = tag;
                     exNameFrag.isEdit = true;
-                    if (!getActivity().isFinishing()) {
-                        fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                        fragmentTransaction.commitAllowingStateLoss();
-                        getChildFragmentManager().executePendingTransactions();
-                        exNameFragList.add(exNameFrag);
-                        fragTagList.add(tag);
+                    if(getActivity() != null){
+                        if (!getActivity().isFinishing()) {
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                            fragmentTransaction.commitAllowingStateLoss();
+                            getChildFragmentManager().executePendingTransactions();
+                            exNameFragList.add(exNameFrag);
+                            fragTagList.add(tag);
+                        }
                     }
                 }
             }
@@ -877,7 +947,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
                 }
                 if(i == (smolovMap.size() - 1)){
-                    updateWorkoutState();
+                    updateWorkoutStateNoProgress();
                     serviceCardView.setVisibility(View.VISIBLE);
                 }
             }
@@ -914,7 +984,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                             }
                         }
                         if(i == (map.size() - 1)){
-                            updateWorkoutState();
+                            updateWorkoutStateNoProgress();
                             serviceCardView.setVisibility(View.VISIBLE);
                         }
                     }

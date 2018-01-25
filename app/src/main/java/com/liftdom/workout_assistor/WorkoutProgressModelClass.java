@@ -193,6 +193,12 @@ public class WorkoutProgressModelClass {
          */
     }
 
+    /**
+     * We should, instead of deleting this on AssistorSaved, update this class with the ref keys necessary to
+     * re-do/edit the workout we did that day.
+     *
+     */
+
     public String setIndex1(){
         String setIndex;
 

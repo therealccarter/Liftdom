@@ -298,6 +298,8 @@
 
     <string name="publicComment">Public Description:</string>
 
+    <string name="resetWorkout">Reset Workout \n (Caution!)</string>
+
     <string name="addExercise">(+) Add Exercise</string>
     <string name="removeExercise">(-) Remove Exercise</string>
     <string name="addDay">(+) Add Day Set</string>
