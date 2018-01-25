@@ -151,6 +151,33 @@ public class WorkoutProgressModelClass {
         return setIndex;
     }
 
+    public void setViewCursorToLast(){
+
+        String key = "_key";
+
+        int size0 = getExInfoHashMap().size();
+        int size1 = getExInfoHashMap().get(String.valueOf(size0) + key).size();
+
+        if(size1 == 1){
+            // non-superset
+            int size2 = getExInfoHashMap().get(String.valueOf(size0) + key).get(String.valueOf(size1 - 1) + key).size();
+            Log.i("lastSetAction", size0 + "_" + size1 + "_" + size2);
+            setViewCursor(size0 + "_" + String.valueOf(size1 - 1) + "_" + String.valueOf(size2 - 1));
+        }else{
+            // superset
+            if(getExInfoHashMap().get(String.valueOf(size0) + key).get("0_key").size() != getExInfoHashMap().get
+                    (String.valueOf(size0) + key).get("1_key").size()){
+                // overflow
+                int size2 = getExInfoHashMap().get(String.valueOf(size0) + key).get("0_key").size();
+                setViewCursor(size0 + "_0_" + String.valueOf(size2 - 1));
+            }else{
+                // not overflow
+                int size2 = getExInfoHashMap().get(String.valueOf(size0) + key).get("1_key").size();
+                setViewCursor(size0 + "_" + String.valueOf(size1 - 1) + "_" + String.valueOf(size2 - 1));
+            }
+        }
+    }
+
     public void reFindViewCursor(){
         /**
          * In case of exercise/set deletion, try to find if the old view cursor data matches itself,

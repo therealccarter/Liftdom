@@ -4,8 +4,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.*;
-import android.graphics.drawable.Icon;
-import android.media.session.MediaSession;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -13,9 +11,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
@@ -35,6 +31,8 @@ public class AssistorServiceClass extends Service {
     public static final String CHECK_ACTION = "com.liftdom.workout_assistor.check";
     public static final String UNCHECK_ACTION = "com.liftdom.workout_assistor.uncheck";
     public static final String TOGGLECHECK_ACTION = "com.liftdom.workout_assistor.togglecheck";
+    public static final String FIRSTSET_ACTION = "com.liftdom.workout_assistor.reset";
+    public static final String LASTSET_ACTION = "com.liftdom.workout_assistor.lastsetaction";
     public static final String CHANNEL_ID = "assistor_channel_01";
     private NotificationManagerCompat mNotificationManager;
 
@@ -71,6 +69,8 @@ public class AssistorServiceClass extends Service {
         filter.addAction(CHECK_ACTION);
         filter.addAction(UNCHECK_ACTION);
         filter.addAction(TOGGLECHECK_ACTION);
+        filter.addAction(FIRSTSET_ACTION);
+        filter.addAction(LASTSET_ACTION);
         registerReceiver(mIntentReceiver, filter);
 
         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
@@ -152,8 +152,25 @@ public class AssistorServiceClass extends Service {
             }else if(action.equals(TOGGLECHECK_ACTION)){
                 Log.i("serviceInfo", "TOGGLECHECK_ACTION");
                 processToggleCheckAction();
+            }else if(action.equals(FIRSTSET_ACTION)){
+                processFirstSetAction();
+            }else if(action.equals(LASTSET_ACTION)){
+                processLastSetAction();
             }
         }
+    }
+
+    private void processLastSetAction(){
+        Log.i("lastSetAction", "processLastSetAction called");
+        workoutProgressModelClass.setViewCursorToLast();
+        updateFirebaseProgressModel();
+        startForeground(101, buildNotification());
+    }
+
+    private void processFirstSetAction(){
+        workoutProgressModelClass.setViewCursor("1_0_1");
+        updateFirebaseProgressModel();
+        startForeground(101, buildNotification());
     }
 
     private void processNextAction(){
@@ -209,141 +226,265 @@ public class AssistorServiceClass extends Service {
             //setSchemeFormatted = workoutProgressModelClass.getSetSchemeForCursor();
         }
 
-        if(workoutProgressModelClass.getViewCursor().equals("workoutDone")){
-            // workout done
+        if(workoutProgressModelClass.getViewCursor().equals("1_0_1")){
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                Log.i("serviceInfo", "greater than M");
-                android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
-                        .Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.just_knight_white_small)
-                        .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                                .setShowActionsInCompactView(0))
-                        .setContentIntent(onClickPendingIntent)
-                        .setContentTitle("Workout Done!")
-                        .setContentText("Click this notification to finalize.")
-                        .setWhen(System.currentTimeMillis())
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
-                        .setVisibility(Notification.VISIBILITY_PUBLIC)
-                        //.setPublicVersion()
-                        .addAction(R.drawable.ic_previous,
-                                "Previous",
-                                retrieveMapAction(PREVIOUS_ACTION))
-                        .setAutoCancel(false);
 
+                exerciseName = workoutProgressModelClass.exNameForCursor();
+                //exerciseName = "Bench Press - \n (Barbell - Decline)";
+                setSchemeUnformatted = workoutProgressModelClass.setForCursor();
+                setSchemeFormatted = formatSetScheme(setSchemeUnformatted) + " " + workoutProgressModelClass.setIndex();
 
-                //android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
-                //        .NotificationCompat.MediaStyle()
-                //        .setShowActionsInCompactView(0, 1, 2);
-                //builder.setStyle(style);
+                if(isChecked(setSchemeUnformatted)){
+                    checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;
+                    Log.i("serviceInfo", "isChecked");
+                }else{
+                    checkedOrUncheckedResource = R.drawable.ic_crop_square_white_small;
+                    Log.i("serviceInfo", "not isChecked");
+                }
+
+                android.support.v4.app.NotificationCompat.Builder builder
+                        = firstSetBuilder(onClickPendingIntent, exerciseName, setSchemeFormatted,
+                        checkedOrUncheckedResource);
 
                 Notification n = builder.build();
 
                 return n;
+
             }else{
-                // we'll deal with this later, but before next release.
-                Log.i("serviceInfo", "less than M");
-                NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
-                        R.drawable.ic_skip_previous_white_36dp, "",
-                        retrieveMapAction(PREVIOUS_ACTION))
-                        .build();
-                NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
-                        checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
-                        .build();
-                NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
-                        R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
-                        .build();
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Bench Press (Barbell - Flat)")
-                        .setContentText("1 rep @ 135lbs")
-                        .addAction(action1)
-                        .addAction(action2)
-                        .addAction(action3);
+                exerciseName = workoutProgressModelClass.exNameForCursor();
+                //exerciseName = "Bench Press - \n (Barbell - Decline)";
+                setSchemeUnformatted = workoutProgressModelClass.setForCursor();
+                setSchemeFormatted = formatSetScheme(setSchemeUnformatted) + " " + workoutProgressModelClass.setIndex();
+
+                if(isChecked(setSchemeUnformatted)){
+                    checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;
+                    Log.i("serviceInfo", "isChecked");
+                }else{
+                    checkedOrUncheckedResource = R.drawable.ic_crop_square_white_small;
+                    Log.i("serviceInfo", "not isChecked");
+                }
+
+                android.support.v4.app.NotificationCompat.Builder builder
+                        = firstSetBuilderCompat(onClickPendingIntent, exerciseName, setSchemeFormatted,
+                        checkedOrUncheckedResource);
 
                 Notification n = builder.build();
 
                 return n;
+
             }
         }else{
-            // gonna have to do something to account for receiving a "done" message
+            if(workoutProgressModelClass.getViewCursor().equals("workoutDone")){
+                // workout done
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            exerciseName = workoutProgressModelClass.exNameForCursor();
-            //exerciseName = "Bench Press - \n (Barbell - Decline)";
-            setSchemeUnformatted = workoutProgressModelClass.setForCursor();
-            setSchemeFormatted = formatSetScheme(setSchemeUnformatted) + " " + workoutProgressModelClass.setIndex();
+                    Log.i("serviceInfo", "greater than M");
 
-            if(isChecked(setSchemeUnformatted)){
-                checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;
-                Log.i("serviceInfo", "isChecked");
+                    android.support.v4.app.NotificationCompat.Builder builder
+                            = workoutDoneBuilder(onClickPendingIntent);
+
+                    Notification n = builder.build();
+
+                    return n;
+                }else{
+                    // we'll deal with this later, but before next release.
+                    Log.i("serviceInfo", "less than M");
+                    NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
+                            R.drawable.ic_skip_previous_white_36dp, "",
+                            retrieveMapAction(PREVIOUS_ACTION))
+                            .build();
+                    NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
+                            checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
+                            .build();
+                    NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
+                            R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
+                            .build();
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("Bench Press (Barbell - Flat)")
+                            .setContentText("1 rep @ 135lbs")
+                            .addAction(action1)
+                            .addAction(action2)
+                            .addAction(action3);
+
+                    Notification n = builder.build();
+
+                    return n;
+                }
             }else{
-                checkedOrUncheckedResource = R.drawable.ic_crop_square_white_small;
-                Log.i("serviceInfo", "not isChecked");
-            }
+                // gonna have to do something to account for receiving a "done" message
 
-            /**
-             * Need to check for first or last and modify notification based on that.
-             * Need to now get next and previous working.
-             */
+                exerciseName = workoutProgressModelClass.exNameForCursor();
+                //exerciseName = "Bench Press - \n (Barbell - Decline)";
+                setSchemeUnformatted = workoutProgressModelClass.setForCursor();
+                setSchemeFormatted = formatSetScheme(setSchemeUnformatted) + " " + workoutProgressModelClass.setIndex();
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                Log.i("serviceInfo", "greater than M");
-                android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
-                        .Builder(this, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.just_knight_white_small)
-                        .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                                .setShowActionsInCompactView(0, 1, 2))
-                        .setContentIntent(onClickPendingIntent)
-                        .setContentTitle(exerciseName)
-                        .setContentText(setSchemeFormatted)
-                        .setWhen(System.currentTimeMillis())
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
-                        .setVisibility(Notification.VISIBILITY_PUBLIC)
-                        .addAction(R.drawable.ic_previous,
-                                "Previous",
-                                retrieveMapAction(PREVIOUS_ACTION))
-                        .addAction(checkedOrUncheckedResource, "Check",
-                                retrieveMapAction(TOGGLECHECK_ACTION))
-                        .addAction(R.drawable.ic_next,
-                                "Next",
-                                retrieveMapAction(NEXT_ACTION));
+                if(isChecked(setSchemeUnformatted)){
+                    checkedOrUncheckedResource = R.drawable.ic_crop_checked_white_small;
+                    Log.i("serviceInfo", "isChecked");
+                }else{
+                    checkedOrUncheckedResource = R.drawable.ic_crop_square_white_small;
+                    Log.i("serviceInfo", "not isChecked");
+                }
 
+                /**
+                 * Need to check for first or last and modify notification based on that.
+                 * Need to now get next and previous working.
+                 */
 
-                //android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
-                //        .NotificationCompat.MediaStyle()
-                //        .setShowActionsInCompactView(0, 1, 2);
-                //builder.setStyle(style);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-                Notification n = builder.build();
+                    Log.i("serviceInfo", "greater than M");
 
-                return n;
-            }else{
-                // we'll deal with this later, but before next release.
-                Log.i("serviceInfo", "less than M");
-                NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
-                        R.drawable.ic_skip_previous_white_36dp, "",
-                        retrieveMapAction(PREVIOUS_ACTION))
-                        .build();
-                NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
-                        checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
-                        .build();
-                NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
-                        R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
-                        .build();
+                    android.support.v4.app.NotificationCompat.Builder builder =
+                            normalSetBuilder(
+                                    onClickPendingIntent, exerciseName,
+                                    setSchemeFormatted, checkedOrUncheckedResource
+                            );
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Bench Press (Barbell - Flat)")
-                        .setContentText("1 rep @ 135lbs")
-                        .addAction(action1)
-                        .addAction(action2)
-                        .addAction(action3);
+                    //android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app
+                    //        .NotificationCompat.MediaStyle()
+                    //        .setShowActionsInCompactView(0, 1, 2);
+                    //builder.setStyle(style);
 
-                Notification n = builder.build();
+                    Notification n = builder.build();
 
-                return n;
+                    return n;
+                }else{
+                    // we'll deal with this later, but before next release.
+                    Log.i("serviceInfo", "less than M");
+                    NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
+                            R.drawable.ic_skip_previous_white_36dp, "",
+                            retrieveMapAction(PREVIOUS_ACTION))
+                            .build();
+                    NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
+                            checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
+                            .build();
+                    NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
+                            R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
+                            .build();
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("Bench Press (Barbell - Flat)")
+                            .setContentText("1 rep @ 135lbs")
+                            .addAction(action1)
+                            .addAction(action2)
+                            .addAction(action3);
+
+                    Notification n = builder.build();
+
+                    return n;
+                }
             }
         }
+    }
+
+    private NotificationCompat.Builder firstSetBuilder(PendingIntent onClickPendingIntent, String exerciseName,
+                                                       String setSchemeFormatted, int checkedOrUncheckedResource){
+        Log.i("lastSetAction", "firstSetBuilder called");
+        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.just_knight_white_small)
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2))
+                .setContentIntent(onClickPendingIntent)
+                .setContentTitle(exerciseName)
+                .setContentText(setSchemeFormatted)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .addAction(R.drawable.ic_previous,
+                        "Previous",
+                        retrieveMapAction(LASTSET_ACTION))
+                .addAction(checkedOrUncheckedResource, "Check",
+                        retrieveMapAction(TOGGLECHECK_ACTION))
+                .addAction(R.drawable.ic_next,
+                        "Next",
+                        retrieveMapAction(NEXT_ACTION))
+                .setAutoCancel(false);
+
+        return builder;
+    }
+
+    private NotificationCompat.Builder firstSetBuilderCompat(PendingIntent onClickPendingIntent, String exerciseName,
+                                                       String setSchemeFormatted, int checkedOrUncheckedResource){
+        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.just_knight_white_small)
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2))
+                .setContentIntent(onClickPendingIntent)
+                .setContentTitle(exerciseName)
+                .setContentText(setSchemeFormatted)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .addAction(R.drawable.ic_previous,
+                        "Previous",
+                        retrieveMapAction(LASTSET_ACTION))
+                .addAction(checkedOrUncheckedResource, "Check",
+                        retrieveMapAction(TOGGLECHECK_ACTION))
+                .addAction(R.drawable.ic_next,
+                        "Next",
+                        retrieveMapAction(NEXT_ACTION))
+                .setAutoCancel(false);
+
+        return builder;
+    }
+
+    private NotificationCompat.Builder normalSetBuilder(PendingIntent onClickPendingIntent, String exerciseName,
+                                                        String setSchemeFormatted, int checkedOrUncheckedResource){
+        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.just_knight_white_small)
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2))
+                .setContentIntent(onClickPendingIntent)
+                .setContentTitle(exerciseName)
+                .setContentText(setSchemeFormatted)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .addAction(R.drawable.ic_previous,
+                        "Previous",
+                        retrieveMapAction(PREVIOUS_ACTION))
+                .addAction(checkedOrUncheckedResource, "Check",
+                        retrieveMapAction(TOGGLECHECK_ACTION))
+                .addAction(R.drawable.ic_next,
+                        "Next",
+                        retrieveMapAction(NEXT_ACTION))
+                .setAutoCancel(false);
+
+        return builder;
+    }
+
+    private NotificationCompat.Builder workoutDoneBuilder(PendingIntent onClickPendingIntent){
+
+        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.just_knight_white_small)
+                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1))
+                .setContentIntent(onClickPendingIntent)
+                .setContentTitle("Workout Done!")
+                .setContentText("Click this notification to finalize.")
+                .setWhen(System.currentTimeMillis())
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                //.setPublicVersion()
+                .addAction(R.drawable.ic_previous,
+                        "Previous",
+                        retrieveMapAction(PREVIOUS_ACTION))
+                .addAction(R.drawable.ic_next,
+                        "First set",
+                        retrieveMapAction(FIRSTSET_ACTION))
+                .setAutoCancel(false);
+
+        return builder;
     }
 
     private String formatSetScheme(String unformatted){

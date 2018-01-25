@@ -592,7 +592,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             fragTagList.clear();
         }catch (IllegalStateException e){
             Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra("fragID",  0);
+            intent.putExtra("fragID",  2);
             startActivity(intent);
         }
 
