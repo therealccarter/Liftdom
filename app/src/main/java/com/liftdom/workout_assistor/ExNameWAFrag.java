@@ -547,6 +547,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         repsWeightFragList1.remove(newIndex);
                     }
                     --repsWeightInc;
+                    updateWorkoutState.updateWorkoutState();
                 }
             }
         }else{
@@ -568,6 +569,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         repsWeightFragList2.remove(newIndex);
                     }
                     --repsWeightInc;
+                    updateWorkoutState.updateWorkoutState();
                 }
             }
         }
@@ -596,6 +598,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     exNameSupersetFragList.remove(newIndex);
                 }
                 --exNameSupersetInc;
+                updateWorkoutState.updateWorkoutState();
             }
         }
     }

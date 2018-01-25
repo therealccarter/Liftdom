@@ -9,6 +9,7 @@ bug that showed uncompleted supersets
 bug causing crash when saving program (while having come from Assistor)
 bug causing service stoppage due to .setAutoCancel being true.
 bug causing crash due to IllegalStateException due to desynced cleanUpState call
+added reset workout progress button
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================

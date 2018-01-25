@@ -97,7 +97,6 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.exInfoHolder2) LinearLayout exInfoHolder2;
     @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
     @BindView(R.id.serviceCardView) CardView serviceCardView;
-    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.resetWorkoutButton) Button resetWorkoutProgressButton;
 
     boolean isFirstTimeFirstTime = true;
@@ -144,7 +143,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                 // set dialog message
                 builder
-                        .setMessage("This will reset your workout progress to its original state. Caution!")
+                        .setMessage("Caution!\nThis will reset your workout progress to its original state.")
                         .setCancelable(false)
                         .setPositiveButton("Reset",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
@@ -767,23 +766,24 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void setUpFirebaseAdapter(){
-        Log.i("assistorInfo", "setUpFirebaseAdapter called");
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<WorkoutProgressModelClass, WorkoutProgressViewHolder>
-                (WorkoutProgressModelClass.class, R.layout.workout_progress_parent_item,
-                        WorkoutProgressViewHolder.class, mRunningAssistorRef) {
-            @Override
-            protected void populateViewHolder(WorkoutProgressViewHolder viewHolder, WorkoutProgressModelClass model, int position) {
-                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                viewHolder.setFragment(AssistorHolderFrag.this);
-                viewHolder.setFragmentTransaction(fragmentTransaction);
-                viewHolder.setWorkoutProgressModel(model);
-                Log.i("assistorInfo", "setUpFirebaseAdapter populateViewHolder");
-            }
-        };
-
-        mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
+        //Log.i("assistorInfo", "setUpFirebaseAdapter called");
+        //mFirebaseAdapter = new FirebaseRecyclerAdapter<WorkoutProgressModelClass, WorkoutProgressViewHolder>
+        //        (WorkoutProgressModelClass.class, R.layout.workout_progress_parent_item,
+        //                WorkoutProgressViewHolder.class, mRunningAssistorRef) {
+        //    @Override
+        //    protected void populateViewHolder(WorkoutProgressViewHolder viewHolder, WorkoutProgressModelClass model,
+        //    int position) {
+        //        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        //        viewHolder.setFragment(AssistorHolderFrag.this);
+        //        viewHolder.setFragmentTransaction(fragmentTransaction);
+        //        viewHolder.setWorkoutProgressModel(model);
+        //        Log.i("assistorInfo", "setUpFirebaseAdapter populateViewHolder");
+        //    }
+        //};
+//
+        //mRecyclerView.setHasFixedSize(false);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
     private void finishWorkout(){
@@ -1098,6 +1098,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     fragTagList.remove(tagListIndex);
                 }
                 --exNameInc;
+                updateWorkoutState();
             }
         }
     }
