@@ -98,21 +98,21 @@ public class AssistorServiceClass extends Service {
             }
         });
 
-        //DatabaseReference unitRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
-        //        .child("isImperial");
-        //unitRef.addValueEventListener(new ValueEventListener() {
-        //    @Override
-        //    public void onDataChange(DataSnapshot dataSnapshot) {
-        //        if(dataSnapshot != null){
-        //            isUserImperial = dataSnapshot.getValue(Boolean.class);
-        //        }
-        //    }
-//
-        //    @Override
-        //    public void onCancelled(DatabaseError databaseError) {
-//
-        //    }
-        //});
+        DatabaseReference unitRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+                .child("isImperial");
+        unitRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null){
+                    isUserImperial = dataSnapshot.getValue(Boolean.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //mediaSession = new MediaSessionCompat(this, "debug tag for media session");
 
