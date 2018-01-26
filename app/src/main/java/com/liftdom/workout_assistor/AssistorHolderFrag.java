@@ -6,14 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,11 +20,10 @@ import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
@@ -67,7 +61,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     ArrayList<ExNameWAFrag> exNameFragList = new ArrayList<>();
     int exNameInc = 0;
     boolean savedState = false;
-    WorkoutProgressModelClass modelClass;
+    WorkoutProgressModelClass workoutProgressModelClass;
     String smolovWeekDayString;
     boolean isTemplateImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
@@ -102,6 +96,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
 
+    boolean isUserImperial = true;
+
     private ValueEventListener runningAssistorListener;
 
     DatabaseReference runningAssistorRef;
@@ -128,6 +124,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         Log.i("assistorInfo", "onCreateView called (assistor holder)");
 
         Log.i("assistorInfo", "onCreateView");
+
+        checkIfUserIsImperial();
 
         checkForOldData();
 
@@ -175,19 +173,26 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         addExButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                exNameInc++;
-                String tag = String.valueOf(exNameInc) + "ex";
-                android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                exNameFrag.isTemplateImperial = isTemplateImperial;
-                exNameFrag.fragTag = tag;
-                if (!getActivity().isFinishing()) {
-                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                    fragmentTransaction.commitAllowingStateLoss();
-                    getChildFragmentManager().executePendingTransactions();
-                    exNameFragList.add(exNameFrag);
-                    fragTagList.add(tag);
-                }
+
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = 101;
+                intent.putExtra("exID", exID);
+                startActivityForResult(intent, 2);
+
+                // IMPORTANT SHIT BELOW. DO NOT DELETE.
+                //exNameInc++;
+                //String tag = String.valueOf(exNameInc) + "ex";
+                //android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                //ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                //exNameFrag.isTemplateImperial = isTemplateImperial;
+                //exNameFrag.fragTag = tag;
+                //if (!getActivity().isFinishing()) {
+                //    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                //    fragmentTransaction.commitAllowingStateLoss();
+                //    getChildFragmentManager().executePendingTransactions();
+                //    exNameFragList.add(exNameFrag);
+                //    fragTagList.add(tag);
+                //}
             }
         });
 
@@ -591,7 +596,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             deactivateLL.setVisibility(View.GONE);
         }
 
-
         final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
                 .child("firstTime").child(uid).child("isAssistorFirstTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -633,6 +637,22 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     firstTimeRef.setValue(null);
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkIfUserIsImperial(){
+        DatabaseReference userImperialRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+                .child("isImperial");
+        userImperialRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isUserImperial = dataSnapshot.getValue(Boolean.class);
             }
 
             @Override
@@ -707,14 +727,14 @@ public class AssistorHolderFrag extends android.app.Fragment
                     DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                     LocalDate localDate = LocalDate.now();
                     String dateTimeString = fmt.print(localDate);
-                    modelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
-                    if(dateTimeString.equals(modelClass.getDate())){
-                        if(!modelClass.isCompletedBool()){
+                    workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                    if(dateTimeString.equals(workoutProgressModelClass.getDate())){
+                        if(!workoutProgressModelClass.isCompletedBool()){
                             Log.i("assistorInfo", "runningAssistor confirmed");
                             cleanUpState();
                             //Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
-                            savedProgressInflateViews(modelClass.getExInfoHashMap(), modelClass.getPrivateJournal(),
-                                    modelClass.getPublicComment(), modelClass.isIsTemplateImperial());
+                            savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
+                                    workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                             //noProgressInflateViews();
                             //setUpFirebaseAdapter();
                         }else{
@@ -879,6 +899,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
                     exNameFrag.isTemplateImperial = isTemplateImperial1;
+                    exNameFrag.isUserImperial = isUserImperial;
                     exNameFrag.isEditInfoList = exerciseMap;
                     exNameFrag.fragTag = tag;
                     exNameFrag.isEdit = true;
@@ -935,6 +956,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                             ExNameWAFrag exNameFrag = new ExNameWAFrag();
                             exNameFrag.isTemplateImperial = isTemplateImperial;
                             exNameFrag.infoList = stringList;
+                            exNameFrag.isUserImperial = isUserImperial;
                             exNameFrag.fragTag = tag;
                             if (!getActivity().isFinishing()) {
                                 fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -972,6 +994,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
                                     exNameFrag.isTemplateImperial = isTemplateImperial;
                                     exNameFrag.infoList = stringList;
+                                    exNameFrag.isUserImperial = isUserImperial;
                                     exNameFrag.fragTag = tag;
                                     if (!getActivity().isFinishing()) {
                                         fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -1049,6 +1072,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
+            // workout done
             HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
             int inc = 0;
             for(ExNameWAFrag exNameFrag : exNameFragList){
@@ -1073,6 +1097,44 @@ public class AssistorHolderFrag extends android.app.Fragment
             assistorSavedFrag.publicDescription = publicComment;
             fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
             fragmentTransaction.commit();
+        }else if(requestCode == 2){
+            // new exercise
+            if(data != null){
+                if(data.getStringExtra("MESSAGE") != null){
+                    //exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+
+                    Log.i("addExInfo", "onActivityResult called");
+
+                    /**
+                     * So we're going to take the ex name from this intent
+                     * and then start a new activity for result (requestCode == 3).
+                     * The new activity would have template editor style functions for adding set schemes
+                     * and supersets. We'll have to do all that later though, it's a large undertaking.
+                     *
+                     * What if we write directly to fb?
+                     */
+
+
+                    workoutProgressModelClass.addExercise(data.getStringExtra("MESSAGE"));
+                    runningAssistorRef.setValue(workoutProgressModelClass);
+
+                    //exNameInc++;
+                    //String tag = String.valueOf(exNameInc) + "ex";
+                    //android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager()
+                    // .beginTransaction();
+                    //ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                    //exNameFrag.isTemplateImperial = isTemplateImperial;
+                    //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
+                    //exNameFrag.fragTag = tag;
+                    //if (!getActivity().isFinishing()) {
+                    //    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                    //    fragmentTransaction.commitAllowingStateLoss();
+                    //    getChildFragmentManager().executePendingTransactions();
+                    //    exNameFragList.add(exNameFrag);
+                    //    fragTagList.add(tag);
+                    //}
+                }
+            }
         }
     }
 

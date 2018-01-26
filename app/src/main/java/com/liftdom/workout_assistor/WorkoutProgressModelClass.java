@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,6 +150,20 @@ public class WorkoutProgressModelClass {
         setIndex = "(" + x + "/" + y + ")";
 
         return setIndex;
+    }
+
+    public void addExercise(String exName){
+
+        String key = String.valueOf(getExInfoHashMap().size() + 1) + "_key";
+
+        List<String> list = new ArrayList<>();
+        list.add(0, exName);
+        list.add(1, "0@0_unchecked");
+
+        HashMap<String, List<String>> map1 = new HashMap<>();
+        map1.put("0_key", list);
+
+        mExInfoHashMap.put(key, map1);
     }
 
     public void setViewCursorToLast(){

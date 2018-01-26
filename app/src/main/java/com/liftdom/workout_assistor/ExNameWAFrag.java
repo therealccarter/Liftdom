@@ -54,6 +54,7 @@ public class ExNameWAFrag extends android.app.Fragment
     ArrayList<ExNameSSWAFrag> exNameSupersetFragList = new ArrayList<>();
     ArrayList<ArrayList<String>> splitInfoList = new ArrayList<>();
     public boolean isTemplateImperial;
+    public boolean isUserImperial;
 
     // need to set up update progress callback
 
@@ -128,6 +129,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                 repsWeightFrag.isTemplateImperial = isTemplateImperial;
+                repsWeightFrag.isUserImperial = isUserImperial;
                 repsWeightFrag.repsWeightString = " @ ";
                 repsWeightFrag.fragTag1 = tag;
                 fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
@@ -243,6 +245,7 @@ public class ExNameWAFrag extends android.app.Fragment
             android.app.FragmentManager fragmentManager = getChildFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+            repsWeightFrag.isUserImperial = isUserImperial;
             repsWeightFrag.isTemplateImperial = isTemplateImperial;
             repsWeightFrag.repsWeightString = " @ ";
             repsWeightFrag.fragTag1 = tag;
@@ -283,6 +286,7 @@ public class ExNameWAFrag extends android.app.Fragment
                                 RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                                 repsWeightFrag.isTemplateImperial = isTemplateImperial;
                                 repsWeightFrag.repsWeightString = arrayList.get(i + 1);
+                                repsWeightFrag.isUserImperial = isUserImperial;
                                 repsWeightFrag.fragTag1 = tag;
                                 fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
                                 fragmentTransaction.commitAllowingStateLoss();
@@ -300,6 +304,7 @@ public class ExNameWAFrag extends android.app.Fragment
                                 android.app.FragmentManager fragmentManager = getChildFragmentManager();
                                 android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                                exNameFrag.isUserImperial = isUserImperial;
                                 exNameFrag.isTemplateImperial = isTemplateImperial;
                                 ArrayList<String> newSubList = new ArrayList<>();
                                 newSubList.add(arrayList.get(0));
@@ -332,6 +337,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
                     repsWeightFrag.isTemplateImperial = isTemplateImperial;
                     repsWeightFrag.repsWeightString = finalList.get(0).get(i);
+                    repsWeightFrag.isUserImperial = isUserImperial;
                     repsWeightFrag.fragTag1 = tag;
                     fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
                     fragmentTransaction.commitAllowingStateLoss();
@@ -358,6 +364,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         android.app.FragmentManager fragmentManager = getChildFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                        repsWeightFrag.isUserImperial = isUserImperial;
                         repsWeightFrag.isTemplateImperial = isTemplateImperial;
                         repsWeightFrag.repsWeightString = arrayList.get(i + 1);
                         repsWeightFrag.fragTag1 = tag;
@@ -378,6 +385,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         android.app.FragmentManager fragmentManager = getChildFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                        exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.isTemplateImperial = isTemplateImperial;
                         ArrayList<String> newSubList = new ArrayList<>();
                         newSubList.add(arrayList.get(0));

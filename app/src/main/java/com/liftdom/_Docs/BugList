@@ -10,12 +10,13 @@ bug causing crash when saving program (while having come from Assistor)
 bug causing service stoppage due to .setAutoCancel being true.
 bug causing crash due to IllegalStateException due to desynced cleanUpState call
 added reset workout progress button
+made "add exercise" function in WA smoother
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service) (make sure to kill on workout finish)
 lockscreen and WA need to have lb/kg conversion functionality before we update
-Constant updates for WA
+WA autosave function (on check, on ex/set deletion, on ex/set addition)
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -36,7 +37,7 @@ re-check user made programs functionality (full)
 add share option for finished workout
 more quotes in more places
 add better running support
-redo add-exercise flow in WA (choose ex auto -> set set-scheme)
+redo add-exercise flow in WA (set set-scheme + superset)
 percentage functionality {
     percentages as node in template class
 }
@@ -50,8 +51,8 @@ more programs {
     nSuns
 }
 add option to do a workout on a rest day/revise that day's workout{
-    all we'd have to do is push the workout to the runningAssistor type thing
-    and re-inflate it into the WA. Also we'd have to store the feed ID.
+    Just don't delete the runningAssistor, and on assistorSaved just add
+    the refID's to the workoutProgressModel.
 }
 fill in the Knowledge Center (including ex descriptions in other packages)
 Advanced calendar view template editor a la Google Calendar (repeat every other, etc)

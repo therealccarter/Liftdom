@@ -32,6 +32,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     boolean inflateBottomView = false;
     boolean isEdit = false;
     public boolean isTemplateImperial;
+    public boolean isUserImperial;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -67,7 +68,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         removeFrag = (removeFragCallback) getParentFragment();
         updateWorkoutState = (updateStateCallback) getParentFragment();
 
-        if(isTemplateImperial){
+        if(isUserImperial){
             unitView.setText("lbs");
         }else{
             unitView.setText("kgs");
@@ -97,10 +98,10 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                     weightEditText.setFilters(filterArray);
                     unitView.setVisibility(View.GONE);
                     weightEditText.setText(tokens[1]);
-                    repsEditText.setEnabled(false);
+                    weightEditText.setEnabled(false);
                 }else{
-                    weightEditText.setText(tokens[1]);
-                    repsEditText.setEnabled(true);
+                    weightEditText.setText(convertUnitsToUser(tokens[1]));
+                    weightEditText.setEnabled(true);
                 }
 
                 if(tokens[2].equals("checked")){
@@ -129,10 +130,10 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                     weightEditText.setFilters(filterArray);
                     unitView.setVisibility(View.GONE);
                     weightEditText.setText(tokens[1]);
-                    repsEditText.setEnabled(false);
+                    weightEditText.setEnabled(false);
                 }else{
-                    weightEditText.setText(tokens[1]);
-                    repsEditText.setEnabled(true);
+                    weightEditText.setText(convertUnitsToUser(tokens[1]));
+                    weightEditText.setEnabled(true);
                 }
             }
         }
@@ -174,18 +175,89 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         return view;
     }
 
-    public String getInfo(){
-        //TODO: Just like a lot of things, we'll have to adjust for different units later
-        if(repsEditText != null){
+    private String convertUnitsToUser(String unConverted){
+        String converted;
 
+        if(isUserImperial && !isTemplateImperial){
+            // user is lbs, template is kgs
+            converted = metricToImperial(unConverted);
+        }else if(!isUserImperial && isTemplateImperial){
+            // user is kgs, template is lbs
+            converted = imperialToMetric(unConverted);
+        }else{
+            converted = unConverted;
         }
-        String info = repsEditText.getText().toString() + "@" + weightEditText.getText().toString();
+
+        return converted;
+    }
+
+    private String convertUnitsBackToTemplate(String unConverted){
+        String converted;
+
+        if(isUserImperial && !isTemplateImperial){
+            // user is lbs, template is kgs
+            converted = imperialToMetric(unConverted);
+        }else if(!isUserImperial && isTemplateImperial){
+            // user is kgs, template is lbs
+            converted = metricToImperial(unConverted);
+        }else{
+            converted = unConverted;
+        }
+
+        return converted;
+    }
+
+    private String metricToImperial(String input){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
+            return input;
+        }else{
+            double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            String newString = tokens[0] + "@" + String.valueOf(lbsInt);
+            return newString;
+        }
+    }
+
+    private String imperialToMetric(String input){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
+            return input;
+        }else{
+            double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            String newString = tokens[0] + "@" + String.valueOf(kgInt);
+            return newString;
+        }
+    }
+
+    public String getInfo(){
+
+        String repsText = repsEditText.getText().toString();
+        String weightText = weightEditText.getText().toString();
+
+        if(repsText.isEmpty()){
+            repsText = "0";
+        }
+
+        if(weightText.isEmpty()){
+            weightText = "0";
+        }else{
+            weightText = convertUnitsBackToTemplate(weightText);
+        }
+
+        String info = repsText + "@" + weightText;
+
         if(checkBox.isChecked()){
             info = info + "_checked";
         }else{
             info = info + "_unchecked";
         }
+
         info = info + "_ss";
+
         return info;
     }
 

@@ -32,6 +32,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     String repsWeightString = "false";
     String fragTag1;
     public boolean isTemplateImperial;
+    public boolean isUserImperial;
     boolean isEdit = false;
 
 
@@ -70,7 +71,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         Log.i("deadInfo", "repsWeightString: " + repsWeightString);
 
-        if(isTemplateImperial){
+        if(isUserImperial){
             unitView.setText("lbs");
         }else{
             unitView.setText("kgs");
@@ -104,7 +105,8 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                     weightEditText.setText(tokens[1]);
                     weightEditText.setEnabled(false);
                 }else{
-                    weightEditText.setText(tokens[1]);
+                    // normal
+                    weightEditText.setText(convertUnitsToUser(tokens[1]));
                     weightEditText.setEnabled(true);
                 }
 
@@ -149,7 +151,8 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                     weightEditText.setEnabled(true);
                 }
                 else{
-                    weightEditText.setText(tokens[1]);
+                    // normal
+                    weightEditText.setText(convertUnitsToUser(tokens[1]));
                     weightEditText.setEnabled(true);
                 }
             }
@@ -188,6 +191,64 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         return view;
     }
 
+    private String convertUnitsToUser(String unConverted){
+        String converted;
+
+        if(isUserImperial && !isTemplateImperial){
+            // user is lbs, template is kgs
+            converted = metricToImperial(unConverted);
+        }else if(!isUserImperial && isTemplateImperial){
+            // user is kgs, template is lbs
+            converted = imperialToMetric(unConverted);
+        }else{
+            converted = unConverted;
+        }
+
+        return converted;
+    }
+
+    private String convertUnitsBackToTemplate(String unConverted){
+        String converted;
+
+        if(isUserImperial && !isTemplateImperial){
+            // user is lbs, template is kgs
+            converted = imperialToMetric(unConverted);
+        }else if(!isUserImperial && isTemplateImperial){
+            // user is kgs, template is lbs
+            converted = metricToImperial(unConverted);
+        }else{
+            converted = unConverted;
+        }
+
+        return converted;
+    }
+
+    private String metricToImperial(String input){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
+            return input;
+        }else{
+            double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            String newString = tokens[0] + "@" + String.valueOf(lbsInt);
+            return newString;
+        }
+    }
+
+    private String imperialToMetric(String input){
+        String delims = "[@]";
+        String[] tokens = input.split(delims);
+        if(tokens[1].equals("B.W.")){
+            return input;
+        }else{
+            double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            String newString = tokens[0] + "@" + String.valueOf(kgInt);
+            return newString;
+        }
+    }
+
     @Override
     public void onResume(){
         // Are we going to have to go through and check for every frag? Maybe...
@@ -205,13 +266,27 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     }
 
     public String getInfo(){
-        //TODO: Just like a lot of things, we'll have to adjust for different units later
-        String info = repsEditText.getText().toString() + "@" + weightEditText.getText().toString();
+
+        String repsText = repsEditText.getText().toString();
+        String weightText = weightEditText.getText().toString();
+
+        if(repsText.isEmpty()){
+            repsText = "0";
+        }
+
+        if(weightText.isEmpty()){
+            weightText = "0";
+        }else{
+            weightText = convertUnitsBackToTemplate(weightText);
+        }
+
+        String info = repsText + "@" + weightText;
         if(checkBox.isChecked()){
             info = info + "_checked";
         }else{
             info = info + "_unchecked";
         }
+
         return info;
     }
 

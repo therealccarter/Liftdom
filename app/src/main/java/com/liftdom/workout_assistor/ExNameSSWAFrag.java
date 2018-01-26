@@ -42,6 +42,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
     int fragCount = 0;
     boolean inflateBottomView;
     public boolean isTemplateImperial;
+    public boolean isUserImperial;
     boolean isEdit = false;
 
     public interface removeFragCallback1{
@@ -81,6 +82,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
                 android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 RepsWeightSSWAFrag repsWeightFrag = new RepsWeightSSWAFrag();
                 repsWeightFrag.isTemplateImperial = isTemplateImperial;
+                repsWeightFrag.isUserImperial = isUserImperial;
                 repsWeightFrag.repsWeightString = infoList.get(i);
                 repsWeightFrag.tag = countString;
                 if(isEdit){
