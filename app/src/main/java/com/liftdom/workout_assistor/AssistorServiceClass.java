@@ -374,25 +374,8 @@ public class AssistorServiceClass extends Service {
 
                     // Workout done builder (compat)
 
-                    Log.i("serviceInfo", "less than M");
-                    NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
-                            R.drawable.ic_skip_previous_white_36dp, "",
-                            retrieveMapAction(PREVIOUS_ACTION))
-                            .build();
-                    NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
-                            checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
-                            .build();
-                    NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
-                            R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
-                            .build();
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("Bench Press (Barbell - Flat)")
-                            .setContentText("1 rep @ 135lbs")
-                            .addAction(action1)
-                            .addAction(action2)
-                            .addAction(action3);
+                    android.support.v4.app.NotificationCompat.Builder builder
+                            = workoutDoneBuilderCompat(onClickPendingIntent);
 
                     Notification n = builder.build();
 
@@ -431,25 +414,11 @@ public class AssistorServiceClass extends Service {
 
                     // Normal set builder (compat)
 
-                    Log.i("serviceInfo", "less than M");
-                    NotificationCompat.Action action1 = new NotificationCompat.Action.Builder(
-                            R.drawable.ic_skip_previous_white_36dp, "",
-                            retrieveMapAction(PREVIOUS_ACTION))
-                            .build();
-                    NotificationCompat.Action action2 = new NotificationCompat.Action.Builder(
-                            checkOrUncheckedId, "", retrieveMapAction(TOGGLECHECK_ACTION))
-                            .build();
-                    NotificationCompat.Action action3 = new NotificationCompat.Action.Builder(
-                            R.drawable.ic_skip_next_white_36dp, "", retrieveMapAction(NEXT_ACTION))
-                            .build();
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("Bench Press (Barbell - Flat)")
-                            .setContentText("1 rep @ 135lbs")
-                            .addAction(action1)
-                            .addAction(action2)
-                            .addAction(action3);
+                    android.support.v4.app.NotificationCompat.Builder builder =
+                            normalSetBuilderCompat(
+                                    onClickPendingIntent, exerciseName,
+                                    setSchemeFormatted, checkedOrUncheckedResource
+                            );
 
                     Notification n = builder.build();
 
@@ -547,7 +516,8 @@ public class AssistorServiceClass extends Service {
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
-                .setWhen(System.currentTimeMillis())
+                //.setWhen(System.currentTimeMillis())
+                .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
@@ -573,7 +543,8 @@ public class AssistorServiceClass extends Service {
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
-                .setWhen(System.currentTimeMillis())
+                //.setWhen(System.currentTimeMillis())
+                .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
@@ -599,7 +570,8 @@ public class AssistorServiceClass extends Service {
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle("Workout Done!")
                 .setContentText("Click this notification to finalize.")
-                .setWhen(System.currentTimeMillis())
+                //.setWhen(System.currentTimeMillis())
+                .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 //.setPublicVersion()

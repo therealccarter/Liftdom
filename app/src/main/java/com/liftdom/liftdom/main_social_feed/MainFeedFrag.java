@@ -4,6 +4,7 @@ package com.liftdom.liftdom.main_social_feed;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,9 @@ import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +73,8 @@ public class MainFeedFrag extends Fragment {
     private DatabaseReference rootRef;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseRecyclerAdapter firebaseAdapter;
+
+    boolean isFirstKonfetti;
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
@@ -150,6 +156,26 @@ public class MainFeedFrag extends Fragment {
         return view;
     }
 
+    private void konfetti(){
+        KonfettiView konfettiView = (KonfettiView) getActivity().findViewById(R.id.viewKonfetti);
+
+        if(isFirstKonfetti){
+            konfettiView.build()
+                    .addColors(Color.parseColor("#D1B91D"), Color.WHITE)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 3f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.RECT)
+                    .addSizes(new Size(12, 5f))
+                    .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                    .stream(300, 3000L);
+
+            isFirstKonfetti = false;
+        }
+    }
+
+    // RELEASE NOTES
     private void checkForReleaseNotes(){
         if(!MainActivitySingleton.getInstance().isReleaseCheck){
             DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
@@ -158,7 +184,7 @@ public class MainFeedFrag extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 115;
+                        final int currentVersionInt = 116;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);
@@ -170,6 +196,8 @@ public class MainFeedFrag extends Fragment {
                                     // display release notes for currentVersionString
                                     currentVersionRef.setValue(currentVersionString);
                                     Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                    isFirstKonfetti = true;
+                                    konfetti();
                                     startActivity(intent);
                                 }else{
                                     MainActivitySingleton.getInstance().isReleaseCheck = true;
@@ -178,6 +206,8 @@ public class MainFeedFrag extends Fragment {
                                     if(currentVersionInt > databaseVersionInt){
                                         currentVersionRef.setValue(currentVersionString);
                                         Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                        isFirstKonfetti = true;
+                                        konfetti();
                                         startActivity(intent);
                                     }
                                 }

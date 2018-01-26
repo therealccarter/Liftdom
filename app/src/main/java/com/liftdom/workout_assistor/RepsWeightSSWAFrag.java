@@ -246,10 +246,12 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         String info = repsText + "@" + weightText;
 
-        if(checkBox.isChecked()){
-            info = info + "_checked";
-        }else{
-            info = info + "_unchecked";
+        if(checkBox != null){
+            if(checkBox.isChecked()){
+                info = info + "_checked";
+            }else{
+                info = info + "_unchecked";
+            }
         }
 
         info = info + "_ss";

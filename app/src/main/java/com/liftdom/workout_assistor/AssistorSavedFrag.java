@@ -890,8 +890,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             isFirstKonfetti = false;
         }
-
-
     }
 
     private List<String> getCompletedExercises(){

@@ -22,73 +22,81 @@
             android:paddingBottom="2dp"
     />
 
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:layout_weight="1"
     >
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/newFeaturesTitle"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/black"
-        />
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/newFeaturesTitle"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:textColor="@color/black"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/newFeaturesText"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/darkGrey"
-                android:layout_marginBottom="20dp"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/newFeaturesText"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkGrey"
+                    android:layout_marginBottom="20dp"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fixesTitle"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/black"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fixesTitle"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:textColor="@color/black"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fixesText"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/darkGrey"
-                android:layout_marginBottom="20dp"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fixesText"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkGrey"
+                    android:layout_marginBottom="20dp"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workingOnTitle"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/black"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/workingOnTitle"
+                    android:gravity="center"
+                    android:textSize="22sp"
+                    android:textColor="@color/black"
+            />
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/workingOnText"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/darkGrey"
-                android:layout_marginBottom="20dp"
-        />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/workingOnText"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkGrey"
+                    android:layout_marginBottom="20dp"
+            />
 
-    </LinearLayout>
+        </LinearLayout>
 
-
+    </ScrollView>
 
     <Button
             android:layout_width="match_parent"
