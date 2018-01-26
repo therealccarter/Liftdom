@@ -43,6 +43,8 @@ public class AssistorServiceClass extends Service {
     String myString;
     RemoteViews notificationView;
     String uid = FirebaseAuth.getInstance().getUid();
+    boolean isUserImperial = true;
+
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -96,6 +98,22 @@ public class AssistorServiceClass extends Service {
             }
         });
 
+        //DatabaseReference unitRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+        //        .child("isImperial");
+        //unitRef.addValueEventListener(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        if(dataSnapshot != null){
+        //            isUserImperial = dataSnapshot.getValue(Boolean.class);
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
+
         //mediaSession = new MediaSessionCompat(this, "debug tag for media session");
 
         //mediaSession.setActive(true);
@@ -128,6 +146,9 @@ public class AssistorServiceClass extends Service {
             //    uid = intent.getStringExtra("uid");
             //    Log.i("serviceInfo", "uid set");
             //}
+            if(intent.getStringExtra("userImperial") != null){
+                isUserImperial = Boolean.valueOf(intent.getStringExtra("userImperial"));
+            }
             Log.i("serviceInfo", "onStartCommand/intent != null");
             handleCommandIntent(intent);
         }
@@ -197,10 +218,69 @@ public class AssistorServiceClass extends Service {
         runningRef.setValue(workoutProgressModelClass);
     }
 
+    private String metricToImperial(String input){
+
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        String newString = String.valueOf(lbsInt);
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        String newString = String.valueOf(kgInt);
+
+        return newString;
+    }
+
+    private String formatSetScheme(String unformatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unformatted.split(delims);
+
+        String delims2 = "[@]";
+        String[] tokens2 = tokens[0].split(delims2);
+
+        String unit;
+        if(isUserImperial){
+            unit = "lbs";
+        }else{
+            unit = "kgs";
+        }
+
+        formatted = tokens2[0] + " reps @ " + checkForUnits(tokens2[1]) + " " + unit;
+
+        return formatted;
+    }
+
+    private String checkForUnits(String input){
+        String converted;
+
+        if(!input.equals("B.W.")){
+            if(isUserImperial && !workoutProgressModelClass.isIsTemplateImperial()){
+                // user is lbs, template is kgs
+                converted = metricToImperial(input);
+            }else if(!isUserImperial && workoutProgressModelClass.isIsTemplateImperial()){
+                // user is kgs, template is lbs
+                converted = imperialToMetric(input);
+            }else{
+                converted = input;
+            }
+        }else{
+            converted = input;
+        }
+
+        return converted;
+    }
+
     private Notification buildNotification(){
         Log.i("serviceInfo", "Building notification...");
 
-        int checkOrUncheckedId = getCheckedForCurrentPosition();
+        int checkOrUncheckedId = getCheckedForCurrentPosition(); // not using this
 
         Intent onClickIntent = new Intent(this, MainActivity.class);
         onClickIntent.putExtra("fragID",  2);
@@ -532,27 +612,6 @@ public class AssistorServiceClass extends Service {
                 .setAutoCancel(false);
 
         return builder;
-    }
-
-    private String formatSetScheme(String unformatted){
-        String formatted;
-
-        String delims = "[_]";
-        String[] tokens = unformatted.split(delims);
-
-        String delims2 = "[@]";
-        String[] tokens2 = tokens[0].split(delims2);
-
-        String unit;
-        if(workoutProgressModelClass.isIsTemplateImperial()){
-            unit = "lbs";
-        }else{
-            unit = "kgs";
-        }
-
-        formatted = tokens2[0] + " reps @ " + tokens2[1] + " " + unit;
-
-        return formatted;
     }
 
     private boolean isChecked(String string){

@@ -11,11 +11,11 @@ bug causing service stoppage due to .setAutoCancel being true.
 bug causing crash due to IllegalStateException due to desynced cleanUpState call
 added reset workout progress button
 made "add exercise" function in WA smoother
+lockscreen and WA need to have lb/kg conversion functionality before we update
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 lockscreen functionality (service) (make sure to kill on workout finish)
-lockscreen and WA need to have lb/kg conversion functionality before we update
 WA autosave function (on check, on ex/set deletion, on ex/set addition)
 =====================================================
 

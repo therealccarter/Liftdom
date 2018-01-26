@@ -442,6 +442,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                 Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
                 startIntent.putExtra("uid", uid);
+                startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
                 getActivity().startService(startIntent);
             }
         });

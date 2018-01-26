@@ -208,35 +208,31 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     }
 
     private String metricToImperial(String input){
-        String delims = "[@]";
-        String[] tokens = input.split(delims);
-        if(tokens[1].equals("B.W.")){
-            return input;
-        }else{
-            double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
-            int lbsInt = (int) Math.round(lbsDouble);
-            String newString = tokens[0] + "@" + String.valueOf(lbsInt);
-            return newString;
-        }
+
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        String newString = String.valueOf(lbsInt);
+
+        return newString;
     }
 
     private String imperialToMetric(String input){
-        String delims = "[@]";
-        String[] tokens = input.split(delims);
-        if(tokens[1].equals("B.W.")){
-            return input;
-        }else{
-            double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
-            int kgInt = (int) Math.round(kgDouble);
-            String newString = tokens[0] + "@" + String.valueOf(kgInt);
-            return newString;
-        }
+
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        String newString = String.valueOf(kgInt);
+
+        return newString;
     }
 
     public String getInfo(){
+        String repsText = "";
+        String weightText = "";
 
-        String repsText = repsEditText.getText().toString();
-        String weightText = weightEditText.getText().toString();
+        if(repsEditText != null && weightEditText != null){
+            repsText = repsEditText.getText().toString();
+            weightText = weightEditText.getText().toString();
+        }
 
         if(repsText.isEmpty()){
             repsText = "0";
