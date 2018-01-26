@@ -7,7 +7,18 @@ currently on v1.15
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-
+percentage functionality {
+    percentages as node in template class
+}
+banner that shows other users (also a "see all" option)
+redesign user profile {
+    fix up layout
+    possibly add streak to header instead of "focus"
+    add three tab slider {
+        Workout Feed (custom recycler/adapter) / Calendar / Stats (active template, streak, maxes, etc)
+    }
+}
+nSuns
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -31,9 +42,6 @@ add share option for finished workout
 more quotes in more places
 add better running support
 redo add-exercise flow in WA (set set-scheme + superset)
-percentage functionality {
-    percentages as node in template class
-}
 add feedback page (or just create chat with each user)
 more programs {
     PPL
@@ -41,7 +49,6 @@ more programs {
     Starting Strength
     Mad Cow
     Texas Method
-    nSuns
 }
 add option to do a workout on a rest day/revise that day's workout{
     Just don't delete the runningAssistor, and on assistorSaved just add
@@ -53,7 +60,6 @@ Advanced calendar view template editor a la Google Calendar (repeat every other,
 
 ===== social/user-related ==========
 add confetti on update
-banner that shows other users (also a "see all" option)
 Empty search show all users
 Discover tab // or community tab, shows everypne
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
@@ -64,13 +70,6 @@ badge notification{
     items are notification_item_classes so they can be read by a recyclerview
     classes will have relevant info for intents and user data and whatnot
     boolean hasRead.
-}
-redesign user profile {
-    fix up layout
-    possibly add streak to header instead of "focus"
-    add three tab slider {
-        Workout Feed (custom recycler/adapter) / Calendar / Stats (active template, streak, maxes, etc)
-    }
 }
 ======================
 =====================================================
