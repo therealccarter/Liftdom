@@ -2,6 +2,7 @@
 
 ============================
 currently on v1.15
+ add konfetti on update
  checked for more instances of templateModelClass being GC'd
  bug that showed uncompleted supersets
  bug causing crash when saving program (while having come from Assistor)

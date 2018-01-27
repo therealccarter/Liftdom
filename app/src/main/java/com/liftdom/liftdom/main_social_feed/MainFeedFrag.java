@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +80,7 @@ public class MainFeedFrag extends Fragment {
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noPostsView) TextView noPostsView;
+    @BindView(R.id.randomUsersBannerLL) LinearLayout randomUsersBannerLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +103,6 @@ public class MainFeedFrag extends Fragment {
         //}else{
         //    //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
         //}
-
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startActivity(new Intent(getContext(), SignInActivity.class));

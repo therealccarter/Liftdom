@@ -3,22 +3,23 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.15
+currently on v1.16
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
+banner that shows other random users
 percentage functionality {
     percentages as node in template class
 }
-banner that shows other users (also a "see all" option)
 redesign user profile {
-    fix up layout
+    possibly consolidate CurrentUserProfile and OtherUserProfile
     possibly add streak to header instead of "focus"
     add three tab slider {
         Workout Feed (custom recycler/adapter) / Calendar / Stats (active template, streak, maxes, etc)
     }
 }
 nSuns
+send program via user profile
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -36,6 +37,10 @@ re-check user made programs functionality (full)
 
 ============ TO-DO FEATURE LIST =============================
 ===== lifting/core-related =========
+try this for notification-bar/lockscreen view difference {
+    https://developer.android.com/reference/android/app/
+    Notification.Builder.html#setPublicVersion(android.app.Notification)
+}
 WA update on set addition
 use .setPublicVersion to show different lockscreen service view
 add share option for finished workout
@@ -59,9 +64,9 @@ Advanced calendar view template editor a la Google Calendar (repeat every other,
 ======================
 
 ===== social/user-related ==========
-add confetti on update
+fix overflow icon (currently is always search bar)
 Empty search show all users
-Discover tab // or community tab, shows everypne
+Discover tab // or community tab, show highest rated posts from everyone
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality(bool hasRead))
 badge notification{
