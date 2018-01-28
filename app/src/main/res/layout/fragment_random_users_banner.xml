@@ -1,8 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="200dp"
+             android:layout_height="150dp"
+              android:orientation="vertical"
              tools:context="com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag">
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="end"
+    >
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/followSomeFellowLifters"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
+        />
 
-</FrameLayout>
+        <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:id="@+id/fellowLiftersCloseButton"
+                android:src="@drawable/close_button_grey"
+                android:layout_marginEnd="10dp"
+        />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/followFellowLiftersRecycler"
+    >
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+</LinearLayout>

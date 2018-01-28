@@ -19,7 +19,8 @@ redesign user profile {
     }
 }
 nSuns
-send program via user profile
+send programs via user profile
+disable tutorial for now (add option to re-enable)
 =====================================================
 
 ============ BUG LIST =====================================================
