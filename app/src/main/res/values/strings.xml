@@ -13,11 +13,11 @@
 
     <!-- ============== RELEASE NOTES ================== -->
 
-    <!-- DATE OF UPDATE: 01/26/17 -->
+    <!-- DATE OF UPDATE: 01/28/17 -->
 
-    <string name="currentVersion">Liftdom v1.16</string>
+    <string name="currentVersion">Liftdom v1.17</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.16 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.17 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">

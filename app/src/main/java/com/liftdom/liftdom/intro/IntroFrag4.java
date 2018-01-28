@@ -116,7 +116,7 @@ public class IntroFrag4 extends SlideFragment {
                 userNameRef.setValue("true");
                 DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
                         (userId);
-                firstTimeRef.setValue(firstTimeModelClass);
+                //firstTimeRef.setValue(firstTimeModelClass);
 
                 DatabaseReference firstTimeTemplateRef = FirebaseDatabase.getInstance().getReference().child
                         ("defaultTemplates").child("FirstTimeProgram");
