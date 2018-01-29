@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.liftdom.liftdom.R;
 
 /**
@@ -22,6 +23,8 @@ public class RandomUsersBannerFrag extends Fragment {
     public RandomUsersBannerFrag() {
         // Required empty public constructor
     }
+
+    private FirebaseRecyclerAdapter firebaseAdapter;
 
     @BindView(R.id.followFellowLiftersRecycler) RecyclerView fellowLiftersRecyclerView;
     @BindView(R.id.fellowLiftersCloseButton) ImageView closeButton;

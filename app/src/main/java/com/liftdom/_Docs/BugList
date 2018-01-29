@@ -8,19 +8,29 @@ currently on v1.17
 
 ============ CURRENTLY WORKING ON: ===============================================
 banner that shows other random users
+=====================================================
+
+============ ON DECK FOR v1.18: ===============================================
 percentage functionality {
     percentages as node in template class
 }
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
     possibly add streak to header instead of "focus"
+    send programs via user profile
     add three tab slider {
         Workout Feed (custom recycler/adapter) / Calendar / Stats (active template, streak, maxes, etc)
     }
 }
 nSuns
-send programs via user profile
-disable tutorial for now (add option to re-enable)
+(add option to re-enable tutorial)
+basic notification bell functionality - badge notification{
+    notification icon in nav drawer header.
+    notification node in firebase.
+    items are notification_item_classes so they can be read by a recyclerview
+    classes will have relevant info for intents and user data and whatnot
+    boolean hasRead.
+}
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -65,21 +75,15 @@ Advanced calendar view template editor a la Google Calendar (repeat every other,
 ======================
 
 ===== social/user-related ==========
+Forum
 fix overflow icon (currently is always search bar)
 Empty search show all users
 Discover tab // or community tab, show highest rated posts from everyone
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality(bool hasRead))
-badge notification{
-    notification icon in nav drawer header.
-    notification node in firebase.
-    items are notification_item_classes so they can be read by a recyclerview
-    classes will have relevant info for intents and user data and whatnot
-    boolean hasRead.
-}
+forum
 ======================
 =====================================================
-
 
 ============ UNREPLICABLE/UNDECIDED =============================================
 maybe just have one user profile? (could really utilize methods/delegating here)
