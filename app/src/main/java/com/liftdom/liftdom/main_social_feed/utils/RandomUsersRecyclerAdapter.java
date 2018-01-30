@@ -19,24 +19,25 @@ import java.util.Map;
 public class RandomUsersRecyclerAdapter extends RecyclerView.Adapter<RandomUsersBannerViewHolder>{
 
     private HashMap<String, String> mUserMap;
-    private HashMap<String, List<String>> mFormattedMap;
+    private HashMap<String, List<String>> mFormattedMap = new HashMap<>();
     private Context mContext;
+    private String mUid;
 
 
-    public RandomUsersRecyclerAdapter(HashMap<String, String> userMap, Context context){
+    public RandomUsersRecyclerAdapter(HashMap<String, String> userMap, Context context, String uid){
         mContext = context;
         mUserMap = userMap;
-        formatMap();
+        mUid = uid;
     }
 
-    private void formatMap(){
+    public void formatMap(){
         int i = 0;
         for(Map.Entry<String, String> entry : mUserMap.entrySet()){
             List<String> newList = new ArrayList<>();
             newList.add(entry.getKey());
             newList.add(entry.getValue());
-            i++;
             mFormattedMap.put(i + "_key", newList);
+            i++;
         }
     }
 
@@ -49,6 +50,7 @@ public class RandomUsersRecyclerAdapter extends RecyclerView.Adapter<RandomUsers
 
     @Override
     public void onBindViewHolder(RandomUsersBannerViewHolder viewHolder, int position){
+        viewHolder.setUid(mUid);
         viewHolder.setxUid(mFormattedMap.get(position + "_key").get(0));
         viewHolder.setxUserName(mFormattedMap.get(position + "_key").get(1));
         viewHolder.setContext(mContext);

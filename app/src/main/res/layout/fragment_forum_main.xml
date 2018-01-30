@@ -9,14 +9,17 @@
 
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/comingSoonView"
-            android:text="Forum Coming Soon!"
-            android:gravity="center"
+            android:text="Forum under construction, so for now check out some fellow lifters!"
+            android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:layout_marginBottom="40dp"
     />
+
+
+
 
 
 </LinearLayout>

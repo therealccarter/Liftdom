@@ -27,12 +27,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
-import com.liftdom.liftdom.MainActivitySingleton;
+import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.ReleaseNotesActivity;
-import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
+import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -40,11 +39,12 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+import org.joda.time.LocalDate;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFeedFrag extends Fragment {
+public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.removeFragCallback{
 
     public MainFeedFrag() {
         // Required empty public constructor
@@ -94,6 +94,10 @@ public class MainFeedFrag extends Fragment {
 
         navChanger(0);
         headerChanger("Home");
+
+        if(savedInstanceState == null){
+            checkForRandomUsersBanner();
+        }
 
         //if(!MainActivitySingleton.getInstance().isBannerViewInitialized){
         //    String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
@@ -155,6 +159,63 @@ public class MainFeedFrag extends Fragment {
         }
 
         return view;
+    }
+
+    private void checkForRandomUsersBanner(){
+        final DatabaseReference randomUsersRef = FirebaseDatabase.getInstance().getReference().child("mainFeedBanner").child
+                (FirebaseAuth.getInstance().getCurrentUser().getUid());
+        randomUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String currentDate = LocalDate.now().toString();
+                String day = LocalDate.now().toString("dd");
+                double dayDouble = Double.parseDouble(day);
+                if(dayDouble % (double) 3 == 0.0){
+                    if(dataSnapshot.exists()){
+                        String delims = "[_]";
+                        String value = dataSnapshot.getValue(String.class);
+                        String[] tokens = value.split(delims);
+                        if(tokens[0].equals(currentDate) && tokens[1].equals("open")){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
+                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commit();
+                        }else if(!tokens[0].equals(currentDate)){
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
+                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commit();
+                            randomUsersRef.setValue(currentDate + "_open");
+                        }
+                    }else{
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
+                        fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                        fragmentTransaction.commit();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void removeRandomUsersBanner(){
+        String currentDate = LocalDate.now().toString();
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragmentManager.findFragmentByTag("randomUsersBanner")).commit();
+        DatabaseReference randomUsersRef = FirebaseDatabase.getInstance().getReference().child("mainFeedBanner").child
+                (FirebaseAuth.getInstance().getCurrentUser().getUid());
+        randomUsersRef.setValue(currentDate + "_closed");
     }
 
     private void konfetti(){

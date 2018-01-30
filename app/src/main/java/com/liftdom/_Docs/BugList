@@ -19,7 +19,9 @@ redesign user profile {
     possibly add streak to header instead of "focus"
     send programs via user profile
     add three tab slider {
-        Workout Feed (custom recycler/adapter) / Calendar / Stats (active template, streak, maxes, etc)
+        Workout Feed (custom recycler/adapter)(Self-feed)
+        / Calendar
+        / Stats (active template, streak, maxes, etc)
     }
 }
 nSuns
