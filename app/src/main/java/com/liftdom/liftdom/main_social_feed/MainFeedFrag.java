@@ -16,19 +16,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.appodeal.ads.Appodeal;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
-import com.liftdom.liftdom.*;
+import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.ReleaseNotesActivity;
+import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
@@ -216,6 +216,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         DatabaseReference randomUsersRef = FirebaseDatabase.getInstance().getReference().child("mainFeedBanner").child
                 (FirebaseAuth.getInstance().getCurrentUser().getUid());
         randomUsersRef.setValue(currentDate + "_closed");
+        Toast.makeText(getContext(), "You can always view more users in the forum!", Toast.LENGTH_SHORT).show();
     }
 
     private void konfetti(){
@@ -246,7 +247,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 116;
+                        final int currentVersionInt = 118;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);

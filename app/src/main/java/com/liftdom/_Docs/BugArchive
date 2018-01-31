@@ -1,18 +1,23 @@
 
+
+
+============================
+currently on v1.17
+banner that shows other random users (forum band-aid as well)
 disable tutorial for now
 ============================
 currently on v1.15
- add konfetti on update
- checked for more instances of templateModelClass being GC'd
- bug that showed uncompleted supersets
- bug causing crash when saving program (while having come from Assistor)
- bug causing service stoppage due to .setAutoCancel being true.
- bug causing crash due to IllegalStateException due to desynced cleanUpState call
- added reset workout progress button
- made "add exercise" function in WA smoother
- lockscreen and WA need to have lb/kg conversion functionality before we update
- lockscreen functionality (service) (make sure to kill on workout finish)
- WA autosave function (on check, on ex/set deletion, on ex addition)
+add konfetti on update
+checked for more instances of templateModelClass being GC'd
+bug that showed uncompleted supersets
+bug causing crash when saving program (while having come from Assistor)
+bug causing service stoppage due to .setAutoCancel being true.
+bug causing crash due to IllegalStateException due to desynced cleanUpState call
+added reset workout progress button
+made "add exercise" function in WA smoother
+lockscreen and WA need to have lb/kg conversion functionality before we update
+lockscreen functionality (service) (make sure to kill on workout finish)
+WA autosave function (on check, on ex/set deletion, on ex addition)
 ============================
 big bug when app is garbage collected in the background (assistor holder + assistor saved)
 put streak in the nav drawer header // redesign header // more emphasis on streak

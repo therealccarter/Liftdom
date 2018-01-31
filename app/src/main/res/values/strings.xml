@@ -15,29 +15,21 @@
 
     <!-- DATE OF UPDATE: 01/28/17 -->
 
-    <string name="currentVersion">Liftdom v1.17</string>
+    <string name="currentVersion">Liftdom v1.18</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.17 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.18 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Full lock-screen/notification bar functionality!\n
-        Workout Assistor (Today\'s Workout) now updates itself when a set is checked, deleted or exercise is added!\n
-        Full metric/imperial support in Workout Assistor and service (lock-screen/notification bar)!
+        Banner that shows fellow lifters in Main Feed and Forum!
     </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Fixed bug that showed uncompleted supersets.\n
-        Fixed bug causing crash when saving program (while having come from Assistor).\n
-        Fixed bug causing service stoppage due to .setAutoCancel being true.\n
-        Fixed bug causing crash due to IllegalStateException due to de-synced cleanUpState call.\n
-        General bug fixes/stability
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Better inter-user engagement and discovery.\n
         Ability to use percentages in workout programs.\n
         Ability to edit an already completed workout, if on the same day.\n
         Improve the notification-bar layout.
