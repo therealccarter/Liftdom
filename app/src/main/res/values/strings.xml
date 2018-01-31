@@ -71,6 +71,10 @@
 
     <!-- STRINGS FOR GENERIC TEMPLATE HOLDER ================================================================== -->
 
+    <string name="forumUnderConstruction">Forum Under Construction</string>
+
+    <string name="soForNowFollowLifters">So for now, follow some fellow lifters!</string>
+
     <string name="followSomeFellowLifters">Follow some fellow lifters!</string>
 
     <string name="contactMeBugs">Contact me at <b>liftdomapp@gmail.com</b> about any bugs or questions.

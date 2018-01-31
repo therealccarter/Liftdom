@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.main_social_feed.utils;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class RandomUsersRecyclerAdapter extends RecyclerView.Adapter<RandomUsers
     private HashMap<String, List<String>> mFormattedMap = new HashMap<>();
     private Context mContext;
     private String mUid;
+    public FragmentActivity mActivity;
 
 
     public RandomUsersRecyclerAdapter(HashMap<String, String> userMap, Context context, String uid){
@@ -54,6 +56,7 @@ public class RandomUsersRecyclerAdapter extends RecyclerView.Adapter<RandomUsers
         viewHolder.setxUid(mFormattedMap.get(position + "_key").get(0));
         viewHolder.setxUserName(mFormattedMap.get(position + "_key").get(1));
         viewHolder.setContext(mContext);
+        viewHolder.setFragmentActivity(mActivity);
     }
 
     @Override

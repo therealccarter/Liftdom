@@ -2,9 +2,13 @@ package com.liftdom.liftdom.main_social_feed.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +26,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
+import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.w3c.dom.Text;
 
@@ -43,6 +49,7 @@ public class RandomUsersBannerViewHolder extends RecyclerView.ViewHolder {
     private String xUserName;
     private String uid;
     Context mContext;
+    private FragmentActivity mFragmentActivity;
 
     public RandomUsersBannerViewHolder(View itemView){
         super(itemView);
@@ -67,7 +74,46 @@ public class RandomUsersBannerViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        mUserNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfile();
+            }
+        });
 
+        mProfilePicView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfile();
+            }
+        });
+
+    }
+
+    public FragmentActivity getFragmentActivity() {
+        return mFragmentActivity;
+    }
+
+    public void setFragmentActivity(FragmentActivity mFragmentActivity) {
+        this.mFragmentActivity = mFragmentActivity;
+    }
+
+    private void goToProfile(){
+        if(uid.equals(xUid)){
+            Intent intent = new Intent(getContext(), CurrentUserProfile.class);
+            mContext.startActivity(intent);
+        } else {
+            FragmentManager fragmentManager = getFragmentActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+            otherUserProfileFrag.userName = xUserName;
+            otherUserProfileFrag.xUid = xUid;
+
+            fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 
     public String getUid() {
@@ -162,6 +208,22 @@ public class RandomUsersBannerViewHolder extends RecyclerView.ViewHolder {
                 }else{
                     mFollowUserButton.setVisibility(View.VISIBLE);
                     mUnFollowUserButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference levelRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
+                ("powerLevel");
+        levelRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    mPowerLevelView.setText(dataSnapshot.getValue(String.class));
                 }
             }
 

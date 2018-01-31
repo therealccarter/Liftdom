@@ -3,6 +3,7 @@ package com.liftdom.liftdom.main_social_feed.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -47,6 +49,7 @@ public class RandomUsersBannerFrag extends Fragment {
     @BindView(R.id.followFellowLiftersRecycler) RecyclerView fellowLiftersRecyclerView;
     @BindView(R.id.fellowLiftersCloseButton) ImageView closeButton;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.closeButtonLL) LinearLayout closeButtonLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +59,11 @@ public class RandomUsersBannerFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        removeFrag = (removeFragCallback) getParentFragment();
+        if(!isShowAllTheTime){
+            removeFrag = (removeFragCallback) getParentFragment();
+        }else{
+            closeButtonLL.setVisibility(View.GONE);
+        }
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,10 +94,23 @@ public class RandomUsersBannerFrag extends Fragment {
         fellowLiftersRecyclerView.setItemViewCacheSize(10);
         RandomUsersRecyclerAdapter adapter = new RandomUsersRecyclerAdapter(mUserMap, getContext(), uid);
         adapter.formatMap();
+        adapter.mActivity = getActivity();
         fellowLiftersRecyclerView.setAdapter(adapter);
         fellowLiftersRecyclerView.setHasFixedSize(false);
         fellowLiftersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
                 .HORIZONTAL, false));
+    }
+
+    private void setUpRecyclerViewGrid(){
+        loadingView.setVisibility(View.GONE);
+        fellowLiftersRecyclerView.setVisibility(View.VISIBLE);
+        fellowLiftersRecyclerView.setItemViewCacheSize(10);
+        RandomUsersRecyclerAdapter adapter = new RandomUsersRecyclerAdapter(mUserMap, getContext(), uid);
+        adapter.formatMap();
+        adapter.mActivity = getActivity();
+        fellowLiftersRecyclerView.setAdapter(adapter);
+        fellowLiftersRecyclerView.setHasFixedSize(false);
+        fellowLiftersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
     }
 
     private void initializeRecyclerForLast10(){
@@ -150,7 +170,7 @@ public class RandomUsersBannerFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     mUserMap.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(String.class));
-                    setUpRecyclerView();
+                    setUpRecyclerViewGrid();
                 }
             }
 
