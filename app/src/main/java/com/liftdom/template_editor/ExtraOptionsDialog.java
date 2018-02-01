@@ -6,10 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -21,15 +18,14 @@ public class ExtraOptionsDialog extends AppCompatActivity {
     @BindView(R.id.repsRadioGroup) RadioGroup repsRadioGroup;
     @BindView(R.id.numericalWeightRadioButton) RadioButton numericalWeightRadioButton;
     @BindView(R.id.bodyWeightRadioButton) RadioButton bodyWeightRadioButton;
+    @BindView(R.id.percentageRadioButton) RadioButton percentageRadioButton;
     @BindView(R.id.numericalRepsRadioButton) RadioButton numericalRepsRadioButton;
     @BindView(R.id.toFailureRadioButton) RadioButton toFailureRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setTitle("Options:");
         setContentView(R.layout.activity_extra_options);
-        //this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_1);
         this.setFinishOnTouchOutside(true);
 
         ButterKnife.bind(this);
@@ -49,29 +45,55 @@ public class ExtraOptionsDialog extends AppCompatActivity {
             numericalRepsRadioButton.setChecked(true);
         }
 
+        /**
+         * But how can we ensure that using someone else's percentage-based template works if
+         * we're using arbitrary-based percentages? Some sort of notification when first receiving a template with
+         * arbitrary percentages. Just would need a method in the template editor model class. They could then just
+         * go in and edit that.
+         */
+
+        /**
+         * So what we'll do is create a string that gives us the required data.
+         * For example, p_85_a_365 which means (percentage flag) 85% of arbitrary number 365 (lbs or kgs depending on
+         * template imperial status).
+         * We could also choose from current maxes, and that'd be p_85_Bench Press (Barbell - Flat)
+         *
+         * We need to have an option to set this through the parent exercise as well as through the sets level child
+         */
+
+        percentageRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+
+                }
+            }
+        });
+
         confirm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
+            Intent intent = new Intent();
 
-                if(weightRadioGroup.getCheckedRadioButtonId() == numericalWeightRadioButton.getId()){
-                    String message = "defaultWeight";
-                    intent.putExtra("MESSAGE1", message);
-                }else{
-                    String message = "bodyweight";
-                    intent.putExtra("MESSAGE1", message);
-                }
+            if(weightRadioGroup.getCheckedRadioButtonId() == numericalWeightRadioButton.getId()){
+                String message = "defaultWeight";
+                intent.putExtra("MESSAGE1", message);
+            }else if(weightRadioGroup.getCheckedRadioButtonId() == percentageRadioButton.getId()){
 
-                if(repsRadioGroup.getCheckedRadioButtonId() == numericalRepsRadioButton.getId()){
-                    String message = "defaultReps";
-                    intent.putExtra("MESSAGE2", message);
-                }else{
-                    String message = "to failure";
-                    intent.putExtra("MESSAGE2", message);
-                }
+            }else{
+                String message = "bodyweight";
+                intent.putExtra("MESSAGE1", message);
+            }
 
-                setResult(3, intent);
-                finish();
+            if(repsRadioGroup.getCheckedRadioButtonId() == numericalRepsRadioButton.getId()){
+                String message = "defaultReps";
+                intent.putExtra("MESSAGE2", message);
+            }else{
+                String message = "to failure";
+                intent.putExtra("MESSAGE2", message);
+            }
 
+            setResult(3, intent);
+            finish();
             }
         });
 

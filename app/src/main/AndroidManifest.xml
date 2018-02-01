@@ -170,6 +170,24 @@
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
 
+        <activity android:name="com.liftdom.misc_activities.BugReportingActivity">
+        </activity>
+        <activity
+                android:name="com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity
+                android:name=".ReleaseNotesActivity"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+
+        <service android:name="com.liftdom.workout_assistor.AssistorServiceClass"/>
+
+        <activity
+                android:name="com.liftdom.template_editor.PercentageChooserDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+
         <!-- BEGIN APPODEAL STUFF =============================================================================== -->
 
         <activity
@@ -455,16 +473,6 @@
                 android:name=".utils.DirectMessageDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name="com.liftdom.misc_activities.BugReportingActivity">
-        </activity>
-        <activity
-                android:name="com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar">
-        </activity>
-        <activity android:name=".ReleaseNotesActivity"
-                  android:theme="@style/AppCompatDialogNoTitleBar">
-        </activity>
-        <service android:name="com.liftdom.workout_assistor.AssistorServiceClass"/>
     </application>
 
 </manifest>

@@ -9,63 +9,141 @@
         android:background="@color/offWhite"
         tools:context="com.liftdom.template_editor.ExtraOptionsDialog">
 
-    <RadioGroup
-            android:layout_width="wrap_content"
+    <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/weightRadioGroup"
-            android:layout_marginBottom="20dp"
     >
-        <RadioButton
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/numericalWeightRadioButton"
-                android:text="@string/defaultWeightOptionText"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:buttonTint="@color/black"
-        />
+                android:orientation="vertical"
+        >
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/weightRadioGroup"
+            >
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/numericalWeightRadioButton"
+                        android:text="@string/defaultWeightOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+                />
 
-        <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bodyWeightRadioButton"
-                android:text="@string/bodyWeightOptionText"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:buttonTint="@color/black"
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bodyWeightRadioButton"
+                        android:text="@string/bodyWeightOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+                />
 
-        />
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/percentageRadioButton"
+                        android:text="@string/percentageWeightOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+                />
 
-    </RadioGroup>
+            </RadioGroup>
 
-    <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/repsRadioGroup"
-    >
-        <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/numericalRepsRadioButton"
-                android:text="@string/defaultRepsOptionText"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:buttonTint="@color/black"
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            >
 
-        />
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black"
+                />
 
-        <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/toFailureRadioButton"
-                android:text="@string/toFailureOptionText"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:buttonTint="@color/black"
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/percentToUse"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                />
 
-        />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chooseFromMaxes"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                />
 
-    </RadioGroup>
+                <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                >
+
+                </Spinner>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setAnArbitraryWeight"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                />
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black"
+                />
+
+            </LinearLayout>
+
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/repsRadioGroup"
+            >
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/numericalRepsRadioButton"
+                        android:text="@string/defaultRepsOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+
+                />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/toFailureRadioButton"
+                        android:text="@string/toFailureOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+
+                />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
             android:layout_width="match_parent"

@@ -77,26 +77,62 @@
                 android:textSize="18sp"
         />
 
-        <EditText
-                android:id="@+id/weight"
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/weight"
-                android:inputType="number"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textSize="22sp"
-                android:imeOptions="actionDone"
-                android:maxLength="3"
-        />
+                android:id="@+id/weightLL"
+                android:orientation="horizontal"
+        >
+            <EditText
+                    android:id="@+id/weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/weight"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="22sp"
+                    android:imeOptions="actionDone"
+                    android:maxLength="3"
+            />
 
-        <TextView
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lbs"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lbs"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-        />
+                android:id="@+id/percentageLL"
+                android:orientation="horizontal"
+        >
+            <EditText
+                    android:id="@+id/percentageEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="22sp"
+                    android:imeOptions="actionDone"
+                    android:maxLength="3"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="@string/percentage"
+            />
+
+        </LinearLayout>
 
     </LinearLayout>
 

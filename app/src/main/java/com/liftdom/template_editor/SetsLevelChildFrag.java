@@ -9,10 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -53,6 +50,9 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.lbs) TextView units;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
+    @BindView(R.id.weightLL) LinearLayout weightLL;
+    @BindView(R.id.percentageLL) LinearLayout percentageLL;
+    @BindView(R.id.percentageEditText) EditText percentageEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,7 +126,6 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: Have percentage option
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();

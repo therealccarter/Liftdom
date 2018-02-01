@@ -76,6 +76,8 @@
 
     <string name="notificationBarBeta">(Notification bar functionality in beta)</string>
 
+    <string name="percentage">%</string>
+
     <string name="smolov">Smolov</string>
 
     <string name="smolovBeta">Smolov (Beta)</string>
@@ -198,6 +200,12 @@
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
     <string name="repsAt">reps @</string>
 
+    <string name="percentToUse">Percentage To Use</string>
+
+    <string name="chooseFromMaxes">Choose from one of your maxes:</string>
+
+    <string name="setAnArbitraryWeight">Or, set an arbitrary weight:</string>
+
     <string name="todo">TO-DO</string>
     <string name="templates">Programs</string>
     <string name="openDrawer">Open Drawer</string>
@@ -231,6 +239,15 @@
         to
         <b>
             <i>bodyweight.</i>
+        </b>
+    </string>
+    <string name="percentageWeightOptionText">Percentage: Change
+        <b>
+            <i>weight</i>
+        </b>
+        to a
+        <b>
+            <i>percentage.</i>
         </b>
     </string>
     <string name="toFailureOptionText">To Failure:
@@ -775,5 +792,6 @@
     <string name="settings_fragment_dialog_title">Please wait &#8230;</string>
     <string name="settings_fragment_dialog_message">Loading&#8230;</string>
     <string name="settings_fragment_prompt">Please choose a theme:</string>
+    <string name="title_activity_percentage_chooser_dialog">PercentageChooserDialog</string>
 
 </resources>
