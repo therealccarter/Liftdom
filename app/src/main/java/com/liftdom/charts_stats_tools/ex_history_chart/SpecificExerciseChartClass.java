@@ -42,6 +42,7 @@ public class SpecificExerciseChartClass {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     incrementor++;
+                    Log.i("statChartsInfo", String.valueOf(incrementor));
 
                     //if(dataSnapshot1.getKey().equals("2017-06-12")){
 
@@ -58,20 +59,40 @@ public class SpecificExerciseChartClass {
                                 if (incrementor == dataSnapshot.getChildrenCount()) {
                                     if (!SpecificExerciseValueList.isEmpty()) {
                                         statChartsFrag.valueConverter(SpecificExerciseValueList, exName, true);
-                                        Log.i("info", "completed!");
+                                        Log.i("statChartsInfo", "completed!");
                                     }
                                 }
-                            } else {
+                            }else{
                                 ValueAndDateObject valueAndDateObject = new ValueAndDateObject();
                                 valueAndDateObject.setDate(historyModelClass.getDate());
                                 valueAndDateObject.setValue(historyModelClass.getExMaxWeightLifted(exName));
 
                                 SpecificExerciseValueList.add(valueAndDateObject);
 
+                                Log.i("statChartsInfo", "incrementor = " + String.valueOf(incrementor) + ", " +
+                                        "childrenCount = " + String.valueOf(dataSnapshot.getChildrenCount()));
                                 if (incrementor == dataSnapshot.getChildrenCount()) {
                                     if (!SpecificExerciseValueList.isEmpty()) {
                                         statChartsFrag.valueConverter(SpecificExerciseValueList, exName, false);
-                                        Log.i("info", "completed!");
+                                        Log.i("statChartsInfo", "completed! (not overall)");
+                                    }
+                                }
+                            }
+                        }else{
+                            if(isOverall){
+                                if (incrementor == dataSnapshot.getChildrenCount()) {
+                                    if (!SpecificExerciseValueList.isEmpty()) {
+                                        statChartsFrag.valueConverter(SpecificExerciseValueList, exName, true);
+                                        Log.i("statChartsInfo", "completed!");
+                                    }
+                                }
+                            }else{
+                                Log.i("statChartsInfo", "incrementor = " + String.valueOf(incrementor) + ", " +
+                                        "childrenCount = " + String.valueOf(dataSnapshot.getChildrenCount()));
+                                if (incrementor == dataSnapshot.getChildrenCount()) {
+                                    if (!SpecificExerciseValueList.isEmpty()) {
+                                        statChartsFrag.valueConverter(SpecificExerciseValueList, exName, false);
+                                        Log.i("statChartsInfo", "completed! (not overall)");
                                     }
                                 }
                             }

@@ -18,6 +18,62 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
         >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repsSetting"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+            />
+
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/repsRadioGroup"
+            >
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/numericalRepsRadioButton"
+                        android:text="@string/defaultRepsOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+
+                />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/toFailureRadioButton"
+                        android:text="@string/toFailureOptionText"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+
+                />
+
+            </RadioGroup>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weightsSetting"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+            />
+
             <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,6 +107,7 @@
                         android:textColor="@color/black"
                         android:layout_margin="5dp"
                         android:buttonTint="@color/black"
+                        android:visibility="gone"
                 />
 
             </RadioGroup>
@@ -60,35 +117,32 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/percentageLL"
+                    android:visibility="gone"
             >
 
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/black"
-                />
-
                 <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/percentToUse"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
+                        android:gravity="center"
                 />
 
                 <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/chooseFromMaxes"
                         android:textColor="@color/black"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
+                        android:gravity="center"
                 />
 
                 <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/maxesSpinner"
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
                 >
@@ -96,12 +150,11 @@
                 </Spinner>
 
                 <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/setAnArbitraryWeight"
                         android:textColor="@color/black"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
+                        android:gravity="center"
                 />
 
                 <View
@@ -111,35 +164,6 @@
                 />
 
             </LinearLayout>
-
-            <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/repsRadioGroup"
-            >
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/numericalRepsRadioButton"
-                        android:text="@string/defaultRepsOptionText"
-                        android:textColor="@color/black"
-                        android:layout_margin="5dp"
-                        android:buttonTint="@color/black"
-
-                />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/toFailureRadioButton"
-                        android:text="@string/toFailureOptionText"
-                        android:textColor="@color/black"
-                        android:layout_margin="5dp"
-                        android:buttonTint="@color/black"
-
-                />
-
-            </RadioGroup>
 
         </LinearLayout>
 

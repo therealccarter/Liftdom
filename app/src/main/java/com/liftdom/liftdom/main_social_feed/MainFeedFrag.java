@@ -95,9 +95,6 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         navChanger(0);
         headerChanger("Home");
 
-        if(savedInstanceState == null){
-            checkForRandomUsersBanner();
-        }
 
         //if(!MainActivitySingleton.getInstance().isBannerViewInitialized){
         //    String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
@@ -114,6 +111,9 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             //showTutorialChoice();
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
+            if(savedInstanceState == null){
+                checkForRandomUsersBanner();
+            }
             final DatabaseReference socialRef = rootRef.child("feed").child(uid);
             socialRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -247,7 +247,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 118;
+                        final int currentVersionInt = 119;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);

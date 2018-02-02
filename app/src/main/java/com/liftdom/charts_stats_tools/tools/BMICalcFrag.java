@@ -121,33 +121,55 @@ public class BMICalcFrag extends Fragment {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                boolean isEmptyString = false;
+
                 boolean isMale = false;
                 if(sex.equals("male")){
                     isMale = true;
                 }
 
-                double heightCm;
+                double heightCm = 0;
                 if(isImperial){
-                    String newHeight = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText()
-                            .toString();
-                    heightCm = heightConvertToMet(newHeight);
+                    String heightFeet = heightFeetEdit.getText().toString();
+                    String heightInches = heightInchesEdit.getText().toString();
+                    if(!heightFeet.isEmpty() && !heightInches.isEmpty()){
+                        String newHeight = heightFeet + "_" + heightInches;
+                        heightCm = heightConvertToMet(newHeight);
+                    }else{
+                        isEmptyString = true;
+                    }
                 }else{
-                    heightCm = (double) Integer.parseInt(height);
+                    String heightCmString = heightCmEdit.getText().toString();
+                    if(!heightCmString.isEmpty()){
+                        heightCm = Double.parseDouble(heightCmString);
+                    }else{
+                        isEmptyString = true;
+                    }
                 }
 
-                bodyWeight = Double.parseDouble(weightEdit.getText().toString());
-                double weightKg;
-                if(isImperial){
-                    weightKg = weightConvertToMet(bodyWeight);
+                double weightKg = 0;
+                String weightString = weightEdit.getText().toString();
+                if(!weightString.isEmpty()){
+                    bodyWeight = Double.parseDouble(weightString);
+                    if(isImperial){
+                        weightKg = weightConvertToMet(bodyWeight);
+                    }else{
+                        weightKg = bodyWeight;
+                    }
                 }else{
-                    weightKg = bodyWeight;
+                    isEmptyString = true;
                 }
 
-                BMICalculatorClass calcClass = new BMICalculatorClass(weightKg, heightCm);
 
-                double BMI = calcClass.getBMI();
+                if(!isEmptyString){
+                    BMICalculatorClass calcClass = new BMICalculatorClass(weightKg, heightCm);
 
-                resultsView.setText(Double.toString(BMI));
+                    double BMI = calcClass.getBMI();
+
+                    String bmiString = String.valueOf(BMI);
+
+                    resultsView.setText(bmiString);
+                }
 
                 //TODO: In summary view, tell them what it means concerning their age and sex
                 // call a method here that returns an appropriate string.

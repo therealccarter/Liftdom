@@ -74,6 +74,8 @@ public class AssistorServiceClass extends Service {
         filter.addAction(FIRSTSET_ACTION);
         filter.addAction(LASTSET_ACTION);
         registerReceiver(mIntentReceiver, filter);
+        //has leaked IntentReceiver com.liftdom.workout_assistor.AssistorServiceClass$1@2ff3b64 that was originally registered here.
+        // Are you missing a call to unregisterReceiver()?
 
         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -616,6 +618,7 @@ public class AssistorServiceClass extends Service {
     public void onDestroy(){
         super.onDestroy();
         //stopForeground(true); may do an if/else in onStartCommand?
+        unregisterReceiver(mIntentReceiver);
     }
 
     @Override

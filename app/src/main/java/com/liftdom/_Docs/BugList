@@ -3,7 +3,7 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.18
+currently on v1.19
 ----------------------
 
 ====================================================
@@ -14,7 +14,7 @@ percentage functionality {
 }
 =====================================================
 
-============ ON DECK FOR v1.19+: ===============================================
+============ ON DECK FOR v1.20+: ===============================================
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
     possibly add streak to header instead of "focus"

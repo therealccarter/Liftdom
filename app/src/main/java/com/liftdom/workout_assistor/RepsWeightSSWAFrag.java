@@ -241,7 +241,9 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         if(weightText.isEmpty()){
             weightText = "0";
         }else{
-            weightText = convertUnitsBackToTemplate(weightText);
+            if(!weightText.equals("B.W.")){
+                weightText = convertUnitsBackToTemplate(weightText);
+            }
         }
 
         String info = repsText + "@" + weightText;

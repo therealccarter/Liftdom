@@ -15,24 +15,28 @@
 
     <!-- DATE OF UPDATE: 01/28/17 -->
 
-    <string name="currentVersion">Liftdom v1.18</string>
+    <string name="currentVersion">Liftdom v1.19</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.18 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.19 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Banner that shows fellow lifters in Main Feed and Forum!
+
     </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
+        Fixed critical bugs causing crashes on the Main Feed, Workout Assistor, and when using the BMI calculator.\n
+        Also fixed bug causing no exercises to show up on the Exercise History Chart. Working on making that look better
+        as well.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
         Ability to use percentages in workout programs.\n
         Ability to edit an already completed workout, if on the same day.\n
-        Improve the notification-bar layout.
+        Improve the notification-bar layout.\n
+        Fix up the Exercise History Chart page.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->
@@ -199,6 +203,10 @@
 
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
     <string name="repsAt">reps @</string>
+
+    <string name="repsSetting">Rep Settings</string>
+
+    <string name="weightsSetting">Weight Settings</string>
 
     <string name="percentToUse">Percentage To Use</string>
 
