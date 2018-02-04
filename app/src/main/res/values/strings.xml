@@ -13,7 +13,7 @@
 
     <!-- ============== RELEASE NOTES ================== -->
 
-    <!-- DATE OF UPDATE: 01/28/17 -->
+    <!-- DATE OF UPDATE: 02/1/17 -->
 
     <string name="currentVersion">Liftdom v1.19</string>
 
@@ -80,7 +80,9 @@
 
     <string name="notificationBarBeta">(Notification bar functionality in beta)</string>
 
-    <string name="percentage">%</string>
+    <string name="percent">%</string>
+
+    <string name="percentOf">% of </string>
 
     <string name="smolov">Smolov</string>
 
@@ -210,9 +212,9 @@
 
     <string name="percentToUse">Percentage To Use</string>
 
-    <string name="chooseFromMaxes">Choose from one of your maxes:</string>
+    <string name="chooseFromMaxes">Or, choose from one of your maxes:</string>
 
-    <string name="setAnArbitraryWeight">Or, set an arbitrary weight:</string>
+    <string name="setAnArbitraryWeight">Set an arbitrary weight:</string>
 
     <string name="todo">TO-DO</string>
     <string name="templates">Programs</string>

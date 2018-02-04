@@ -40,7 +40,7 @@
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:imeOptions="actionDone"
                 android:maxLength="2"
         />
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/x"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
         />
 
         <EditText
@@ -62,11 +62,10 @@
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:imeOptions="actionDone"
                 android:maxLength="2"
         />
-
 
         <TextView
                 android:id="@+id/at"
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/at"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
         />
 
         <LinearLayout
@@ -91,7 +90,7 @@
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
             />
@@ -101,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/lbs"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
             />
 
         </LinearLayout>
@@ -114,13 +113,13 @@
                 android:visibility="gone"
         >
             <EditText
-                    android:id="@+id/percentageEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/percentageEditText"
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
             />
@@ -130,7 +129,21 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:text="@string/percentage"
+                    android:text="@string/percentOf"
+            />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/percentageWeightButton"
+                    android:text="         "
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:textAllCaps="false"
+                    android:background="@color/grey"
+                    android:layout_marginStart="5dp"
+                    android:padding="3dp"
+                    android:textSize="14sp"
             />
 
         </LinearLayout>

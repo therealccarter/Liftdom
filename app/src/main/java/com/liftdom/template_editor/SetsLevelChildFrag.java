@@ -53,6 +53,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.weightLL) LinearLayout weightLL;
     @BindView(R.id.percentageLL) LinearLayout percentageLL;
     @BindView(R.id.percentageEditText) EditText percentageEditText;
+    @BindView(R.id.percentageWeightButton) Button percentageWeightButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,11 +128,24 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
+                if(percentageLL.getVisibility() == View.VISIBLE){
+                    intent.putExtra("isPercentageString", "true");
+                }else{
+                    intent.putExtra("isPercentageString", "false");
+                }
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
                 intent.putExtra("repsText", repsText);
                 intent.putExtra("weightText", weightText);
                 startActivityForResult(intent, 3);
+            }
+        });
+
+        percentageWeightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PercentageOptionsDialog.class);
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -167,6 +181,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 if(data.getStringExtra("MESSAGE1") != null) {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
+                        percentageLL.setVisibility(View.GONE);
+                        weightLL.setVisibility(View.VISIBLE);
                         InputFilter[] filterArray = new InputFilter[1];
                         filterArray[0] = new InputFilter.LengthFilter(4);
                         weightEditText.setFilters(filterArray);
@@ -175,6 +191,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         weightEditText.setEnabled(false);
                     } else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
+                            percentageLL.setVisibility(View.GONE);
+                            weightLL.setVisibility(View.VISIBLE);
                             InputFilter[] filterArray = new InputFilter[1];
                             filterArray[0] = new InputFilter.LengthFilter(2);
                             weightEditText.setFilters(filterArray);
@@ -184,6 +202,9 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                             units.setVisibility(View.VISIBLE);
                             weightEditText.setEnabled(true);
                         }
+                    }else if(message.equals("percentage")){
+                        weightLL.setVisibility(View.GONE);
+                        percentageLL.setVisibility(View.VISIBLE);
                     }
                 }
                 if(data.getStringExtra("MESSAGE2") != null) {

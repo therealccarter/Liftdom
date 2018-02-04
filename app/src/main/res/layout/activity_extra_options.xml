@@ -107,63 +107,9 @@
                         android:textColor="@color/black"
                         android:layout_margin="5dp"
                         android:buttonTint="@color/black"
-                        android:visibility="gone"
                 />
 
             </RadioGroup>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="12dp"
-                    android:id="@+id/percentageLL"
-                    android:visibility="gone"
-            >
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/percentToUse"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:gravity="center"
-                />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chooseFromMaxes"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                />
-
-                <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/maxesSpinner"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginStart="15dp"
-                >
-
-                </Spinner>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/setAnArbitraryWeight"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                />
-
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/black"
-                />
-
-            </LinearLayout>
 
         </LinearLayout>
 

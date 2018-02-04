@@ -1,34 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.liftdom.template_editor.PercentageChooserDialog">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.liftdom.template_editor.PercentageOptionsDialog">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
+    <ScrollView
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_percentage_chooser_dialog"/>
-
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/percentageLL"
+        >
 
-</android.support.design.widget.CoordinatorLayout>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percentToUse"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:background="@color/liftrGold1"
+            />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="@color/black"
+                    android:layout_marginBottom="5dp"
+            />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setAnArbitraryWeight"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="15sp"
+            />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+            >
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="315"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/unitsView"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                />
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chooseFromMaxes"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="15sp"
+            />
+
+            <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maxesSpinner"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+            >
+
+            </Spinner>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+            />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

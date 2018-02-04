@@ -184,7 +184,7 @@
         <service android:name="com.liftdom.workout_assistor.AssistorServiceClass"/>
 
         <activity
-                android:name="com.liftdom.template_editor.PercentageChooserDialog"
+                android:name="com.liftdom.template_editor.PercentageOptionsDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
 

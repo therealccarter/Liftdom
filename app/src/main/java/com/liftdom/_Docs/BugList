@@ -51,10 +51,12 @@ re-check user made programs functionality (full)
 
 ============ TO-DO FEATURE LIST =============================
 ===== lifting/core-related =========
+implement some sort of "short term memory" type thing for when changing weight options in template editor
 try this for notification-bar/lockscreen view difference {
     https://developer.android.com/reference/android/app/
     Notification.Builder.html#setPublicVersion(android.app.Notification)
 }
+make StatChartsFrag not look like shit (different colors for ex's, stack vertically)
 WA update on set addition
 use .setPublicVersion to show different lockscreen service view
 add share option for finished workout
