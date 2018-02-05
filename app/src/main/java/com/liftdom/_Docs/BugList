@@ -40,6 +40,8 @@ basic notification bell functionality - badge notification{
 ==== easier ==========
 bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 chris b bug - crash when WA save dialog is clicked
+on save of edit template, added duplicates.
+should've been 1,2,3; instead was 1,2,3,4,5,6;
 ============
 ==== harder ==========
 re-check user made programs functionality (full)
@@ -56,6 +58,7 @@ try this for notification-bar/lockscreen view difference {
     https://developer.android.com/reference/android/app/
     Notification.Builder.html#setPublicVersion(android.app.Notification)
 }
+need to make kgs have decimal capability
 make StatChartsFrag not look like shit (different colors for ex's, stack vertically)
 WA update on set addition
 use .setPublicVersion to show different lockscreen service view

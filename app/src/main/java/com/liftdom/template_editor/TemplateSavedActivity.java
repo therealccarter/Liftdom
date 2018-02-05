@@ -243,12 +243,20 @@ public class TemplateSavedActivity extends BaseActivity {
 
             String workoutType = "placeholder";
 
+            boolean unitsIsImperial;
+
+            if(isEdit){
+                unitsIsImperial = TemplateEditorSingleton.getInstance().isTemplateImperial;
+            }else{
+                unitsIsImperial = TemplateEditorSingleton.getInstance().isCurrentUserImperial;
+            }
+
             final TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
                                                 xUserId2, xUserName2, xIsPublic,
                                                 xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo,
-                    xAlgorithmDateMap, TemplateEditorSingleton.getInstance().isCurrentUserImperial);
+                    xAlgorithmDateMap, unitsIsImperial);
 
             if(TemplateEditorSingleton.getInstance().isFromPublic){
                 modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);

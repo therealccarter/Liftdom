@@ -114,6 +114,26 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         return newValue;
     }
 
+    private String reHandleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -165,6 +185,23 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         }
     }
 
+    public String getInfoList(){
+        String setSchemeString = "";
+        String setsString = setsEditText.getText().toString();
+        String repsString = repsEditText.getText().toString();
+        String weightString;
+        if(isEdit){
+            weightString = reHandleUnitConversion(weightEditText.getText().toString());
+        }else{
+            weightString = weightEditText.getText().toString();
+        }
+        if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
+            setSchemeString = setsString + "x" + repsString + "@" +
+                    weightString;
+        }
+        return setSchemeString;
+    }
+
     boolean isNumber(String input){
         boolean isNumber = false;
 
@@ -183,18 +220,6 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         }
 
         return isNumber;
-    }
-
-    public String getInfoList(){
-        String setSchemeString = "";
-        String setsString = setsEditText.getText().toString();
-        String repsString = repsEditText.getText().toString();
-        String weightString = weightEditText.getText().toString();
-        if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-            setSchemeString = setsString + "x" + repsString + "@" +
-                    weightString;
-        }
-        return setSchemeString;
     }
 
 }

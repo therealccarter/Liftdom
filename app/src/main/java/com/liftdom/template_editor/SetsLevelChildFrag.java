@@ -145,6 +145,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), PercentageOptionsDialog.class);
+                intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                        .isCurrentUserImperial));
                 startActivityForResult(intent, 4);
             }
         });
@@ -165,6 +167,26 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             // the template is metric, but the user is imperial
             double valueDouble = Double.parseDouble(oldValue);
             int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
+
+    private String reHandleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
             newValue = String.valueOf(valueInt);
         }else{
             newValue = oldValue;
@@ -227,6 +249,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     }
                 }
             }
+        }else if(requestCode == 4){
+            if(data != null){
+
+            }
         }
     }
 
@@ -234,7 +260,12 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         String setSchemeString = "";
         String setsString = setsEditText.getText().toString();
         String repsString = repsEditText.getText().toString();
-        String weightString = weightEditText.getText().toString();
+        String weightString;
+        if(isEdit){
+            weightString = reHandleUnitConversion(weightEditText.getText().toString());
+        }else{
+            weightString = weightEditText.getText().toString();
+        }
         if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
             setSchemeString = setsString + "x" + repsString + "@" +
                     weightString;

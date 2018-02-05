@@ -46,8 +46,6 @@ public class MotivationalQuotes {
                     "been removed. - Paul Carter",
             "For me, life is continuously being hungry. The meaning of life is not simply to exist, to survive, but " +
                     "to move ahead, to go up, to achieve, to conquer. - Arnold Schwarzenegger",
-            "If you're capable of sending a legible text message between sets, you probably aren't working hard " +
-                    "enough. - Dave Tate",
             "Don’t have $100.00 shoes and a 10 cent squat. - Louie Simmons",
             "Courage doesn’t always roar. Sometimes courage is the quiet voice at the end of the day saying, \"I will " +
                     "try again tomorrow.\" - Mary Anne Radmacher",

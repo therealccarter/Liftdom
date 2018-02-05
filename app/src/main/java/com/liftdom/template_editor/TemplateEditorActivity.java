@@ -520,11 +520,8 @@ public class TemplateEditorActivity extends BaseActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                        if(userModelClass.isIsImperial()){
-                            TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
-                        }else{
-                            TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
-                        }
+                        TemplateEditorSingleton.getInstance().isCurrentUserImperial = userModelClass.isIsImperial();
+                        TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
                     }
 
                     @Override
