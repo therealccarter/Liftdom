@@ -24,8 +24,8 @@
             android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="22sp"
-            android:imeOptions="actionDone"
+            android:textSize="18sp"
+            android:imeOptions="actionNext"
             android:maxLength="2"
     />
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="@string/x"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
     />
 
     <EditText
@@ -46,11 +46,10 @@
             android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="22sp"
-            android:imeOptions="actionDone"
+            android:textSize="18sp"
+            android:imeOptions="actionNext"
             android:maxLength="2"
     />
-
 
     <TextView
             android:id="@+id/at"
@@ -58,28 +57,81 @@
             android:layout_height="wrap_content"
             android:text="@string/at"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
     />
 
-    <EditText
-            android:id="@+id/weight"
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/weight"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="22sp"
-            android:imeOptions="actionDone"
-            android:maxLength="4"
-    />
+            android:id="@+id/weightLL"
+            android:orientation="horizontal"
+    >
+
+        <EditText
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/weight"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
+                android:imeOptions="actionDone"
+                android:maxLength="4"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/percentageLL"
+            android:orientation="horizontal"
+            android:layout_marginEnd="3dp"
+            android:visibility="gone"
+    >
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/percentageEditText"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
+                android:imeOptions="actionDone"
+                android:maxLength="3"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@string/percentOf"
+        />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/percentageWeightButton"
+                android:hint="        "
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textAllCaps="false"
+                android:background="@color/grey"
+                android:layout_marginStart="5dp"
+                android:padding="3dp"
+                android:textSize="18sp"
+        />
+
+    </LinearLayout>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lbs"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginEnd="40dp"
     />
 

@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
@@ -36,6 +34,10 @@ public class SetsLevelSSFrag extends android.app.Fragment {
     @BindView(R.id.weight) EditText weightEditText;
     @BindView(R.id.lbs) TextView units;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
+    @BindView(R.id.weightLL) LinearLayout weightLL;
+    @BindView(R.id.percentageLL) LinearLayout percentageLL;
+    @BindView(R.id.percentageEditText) EditText percentageEditText;
+    @BindView(R.id.percentageWeightButton) Button percentageWeightButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,11 +85,28 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
+                if(percentageLL.getVisibility() == View.VISIBLE){
+                    intent.putExtra("isPercentageString", "true");
+                }else{
+                    intent.putExtra("isPercentageString", "false");
+                }
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
                 intent.putExtra("repsText", repsText);
                 intent.putExtra("weightText", weightText);
                 startActivityForResult(intent, 3);
+            }
+        });
+
+        percentageWeightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PercentageOptionsDialog.class);
+                intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                        .isCurrentUserImperial));
+                intent.putExtra("currentPercentOf", percentageWeightButton.getText().toString());
+                intent.putExtra("isFrom", "setsLevel");
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -134,6 +153,61 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         return newValue;
     }
 
+    public void setRepsToFailure(){
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(4);
+        repsEditText.setFilters(filterArray);
+        repsEditText.setText("T.F.");
+        repsEditText.setEnabled(false);
+    }
+
+    public void setRepsToDefault(){
+        if(!isNumber(repsEditText.getText().toString())){
+            InputFilter[] filterArray = new InputFilter[1];
+            filterArray[0] = new InputFilter.LengthFilter(2);
+            repsEditText.setFilters(filterArray);
+            repsEditText.setText("");
+            repsEditText.setEnabled(true);
+            repsEditText.setHint("R");
+        }
+    }
+
+    public void setWeightToBW(){
+        percentageLL.setVisibility(View.GONE);
+        weightLL.setVisibility(View.VISIBLE);
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(4);
+        weightEditText.setFilters(filterArray);
+        weightEditText.setText("B.W.");
+        units.setVisibility(View.GONE);
+        weightEditText.setEnabled(false);
+    }
+
+    public void setWeightToDefault(){
+        if(!isNumber(weightEditText.getText().toString())){
+            percentageLL.setVisibility(View.GONE);
+            weightLL.setVisibility(View.VISIBLE);
+            InputFilter[] filterArray = new InputFilter[1];
+            filterArray[0] = new InputFilter.LengthFilter(2);
+            weightEditText.setFilters(filterArray);
+            weightEditText.setText("");
+            weightEditText.setEnabled(true);
+            weightEditText.setHint("W");
+            units.setVisibility(View.VISIBLE);
+            weightEditText.setEnabled(true);
+        }
+    }
+
+    public void setPercentageWeight(String weight){
+        percentageWeightButton.setText(weight);
+    }
+
+    public void setWeightToPercentAndSetWeightText(String weight){
+        weightLL.setVisibility(View.GONE);
+        percentageLL.setVisibility(View.VISIBLE);
+        percentageWeightButton.setText(weight);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,43 +217,29 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                 if(data.getStringExtra("MESSAGE1") != null && data != null ) {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
-                        InputFilter[] filterArray = new InputFilter[1];
-                        filterArray[0] = new InputFilter.LengthFilter(4);
-                        weightEditText.setFilters(filterArray);
-                        weightEditText.setText("B.W.");
-                        units.setVisibility(View.GONE);
-                        weightEditText.setEnabled(false);
-                    } else if(message.equals("defaultWeight")){
+                        setWeightToBW();
+                    }else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
-                            InputFilter[] filterArray = new InputFilter[1];
-                            filterArray[0] = new InputFilter.LengthFilter(2);
-                            weightEditText.setFilters(filterArray);
-                            weightEditText.setText("");
-                            weightEditText.setEnabled(true);
-                            weightEditText.setHint("W");
-                            units.setVisibility(View.VISIBLE);
-                            weightEditText.setEnabled(true);
+                            setWeightToDefault();
                         }
+                    }else if(message.equals("percentage")){
+                        weightLL.setVisibility(View.GONE);
+                        percentageLL.setVisibility(View.VISIBLE);
                     }
                 }
                 if(data.getStringExtra("MESSAGE2") != null && data != null ) {
                     String message = data.getStringExtra("MESSAGE2");
                     if(message.equals("to failure")){
-                        InputFilter[] filterArray = new InputFilter[1];
-                        filterArray[0] = new InputFilter.LengthFilter(4);
-                        repsEditText.setFilters(filterArray);
-                        repsEditText.setText("T.F.");
-                        repsEditText.setEnabled(false);
+                        setRepsToFailure();
                     } else if(message.equals("defaultReps")){
                         if(!isNumber(repsEditText.getText().toString())){
-                            InputFilter[] filterArray = new InputFilter[1];
-                            filterArray[0] = new InputFilter.LengthFilter(2);
-                            repsEditText.setFilters(filterArray);
-                            repsEditText.setText("");
-                            repsEditText.setEnabled(true);
-                            repsEditText.setHint("R");
+                            setRepsToDefault();
                         }
                     }
+                }
+            }else if(requestCode == 4){
+                if(data != null){
+                    setPercentageWeight(data.getStringExtra("weightResult"));
                 }
             }
         }
@@ -193,7 +253,12 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         if(isEdit){
             weightString = reHandleUnitConversion(weightEditText.getText().toString());
         }else{
-            weightString = weightEditText.getText().toString();
+            if(percentageLL.getVisibility() == View.VISIBLE){
+                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
+                        .getText().toString();
+            }else{
+                weightString = weightEditText.getText().toString();
+            }
         }
         if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
             setSchemeString = setsString + "x" + repsString + "@" +

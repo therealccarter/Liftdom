@@ -36,7 +36,7 @@ public class PercentageOptionsDialog extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        HideKey.initialize(this);
+        //HideKey.initialize(this);
 
         if(getIntent().getStringExtra("isFrom") != null){
             if(getIntent().getStringExtra("isFrom").equals("setsLevel")){

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
@@ -53,6 +54,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
     // Butterknife
     @BindView(R.id.movementName) Button exerciseButton;
     @BindView(R.id.destroyFrag) ImageButton destroyFrag;
+    @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,6 +113,17 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
             }
         }
 
+        extraOptionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
+                intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                        .isCurrentUserImperial));
+                intent.putExtra("isFrom", "exLevel");
+                startActivityForResult(intent, 3);
+            }
+        });
+
         return view;
     }
 
@@ -145,6 +158,12 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 setSchemeList.get(i).weightEditText.setEnabled(true);
                             }
                         }
+                    }
+                }
+            }else if(requestCode == 3 && resultCode == 8){
+                if(!setSchemeList.isEmpty()){
+                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                        setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
                     }
                 }
             }
