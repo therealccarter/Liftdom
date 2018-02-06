@@ -211,10 +211,18 @@
     <string name="weightsSetting">Weight Settings</string>
 
     <string name="percentToUse">Percentage To Use</string>
-
     <string name="chooseFromMaxes">Or, choose from one of your maxes:</string>
-
     <string name="setAnArbitraryWeight">Set an arbitrary weight:</string>
+    <string name="maxBasedSoonAndReminder">
+        Don\'t forget that you can set a percentage weight for all set schemes via the Extra Options button on the
+        left of an exercise.\n
+        Also, max-based percentage option coming soon.
+    </string>
+    <string name="exLevelPercentageReminder">
+        Reminder! \n
+        You\'re setting the percentage weight from exercise-level, so it will apply to all child set-schemes,
+        replacing whatever value is currently there.
+    </string>
 
     <string name="todo">TO-DO</string>
     <string name="templates">Programs</string>
@@ -506,6 +514,8 @@
     <string name="algorithm">Algorithm</string>
     <string name="setAlgorithm">Set Auto-Growth Algorithm</string>
     <string name="addSuperset">Add Superset Exercise</string>
+    <string name="exLevelPercentageSetting">Child Set-Schemes Percentage Settings</string>
+    <string name="setSchemeSettings">Edit Child Set-Scheme Settings\n(T.F. - B.W. - %)</string>
 
     <string name="activityFeed">Feed</string>
     <string name="forum">Forum</string>

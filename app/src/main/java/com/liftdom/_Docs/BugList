@@ -10,11 +10,13 @@ currently on v1.19
 
 ============ CURRENTLY WORKING ON: ===============================================
 percentage functionality {
-    percentages as node in template class
+    percentage data encoded into weight string
+    just arbitrary weights for now
 }
 =====================================================
 
 ============ ON DECK FOR v1.20+: ===============================================
+better max support/editing (* = set manually, not in liftdom workout)
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
     possibly add streak to header instead of "focus"
@@ -59,6 +61,10 @@ try this for notification-bar/lockscreen view difference {
     Notification.Builder.html#setPublicVersion(android.app.Notification)
 }
 need to make kgs have decimal capability
+more percentage work{
+    Will just be doing arbitrary weight now.
+    Need to have possibility of choosing from maxes (which I also need to expand on)
+}
 make StatChartsFrag not look like shit (different colors for ex's, stack vertically)
 WA update on set addition
 use .setPublicVersion to show different lockscreen service view

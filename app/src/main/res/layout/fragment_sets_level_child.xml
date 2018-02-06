@@ -95,14 +95,6 @@
                     android:maxLength="3"
             />
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/lbs"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-            />
-
         </LinearLayout>
 
         <LinearLayout
@@ -110,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/percentageLL"
                 android:orientation="horizontal"
+                android:layout_marginEnd="3dp"
                 android:visibility="gone"
         >
             <EditText
@@ -136,17 +129,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/percentageWeightButton"
-                    android:text="         "
+                    android:hint="        "
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:textAllCaps="false"
                     android:background="@color/grey"
                     android:layout_marginStart="5dp"
                     android:padding="3dp"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
             />
 
         </LinearLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbs"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+        />
 
     </LinearLayout>
 

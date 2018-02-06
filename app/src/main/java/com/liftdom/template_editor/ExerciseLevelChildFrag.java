@@ -299,27 +299,42 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
             } else if(requestCode == 3){
-                if(data.getStringExtra("choice") != null){
-                    String message = data.getStringExtra("choice");
-                    if(message.equals("algo")){
-                        Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
-                        String exName = getExerciseValueFormatted();
-                        intent.putExtra("exName", exName);
-                        if(getDoWValue() != null){
-                            intent.putExtra("day", getDoWValue());
+                if(resultCode == 7){
+                    // handle set scheme choice
+                    Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
+                    intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                            .isCurrentUserImperial));
+                    intent.putExtra("isFrom", "exLevel");
+                    startActivityForResult(intent, 3);
+                }else if(resultCode == 8){
+                    if(!setsLevelChildFragAL.isEmpty()){
+                        for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                            setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
                         }
-                        startActivityForResult(intent, 4);
-                    }else if(message.equals("superset")){
-                        supersetFragCount++;
-                        String fragString = "ss" + Integer.toString(supersetFragCount);
-                        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                        ExerciseLevelSSFrag exerciseLevelSSFrag = new ExerciseLevelSSFrag();
-                        exerciseLevelSSFrag.fragTag = fragString;
-                        exerciseLevelSSFrag.initialSchemeCount = setsLevelChildFragAL.size();
-                        fragmentTransaction.add(R.id.superSetHolder, exerciseLevelSSFrag, fragString);
-                        fragmentTransaction.commitAllowingStateLoss();
-                        hasSupersets = true;
-                        superSetFragList.add(exerciseLevelSSFrag);
+                    }
+                }else{
+                    if(data.getStringExtra("choice") != null){
+                        String message = data.getStringExtra("choice");
+                        if(message.equals("algo")){
+                            Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
+                            String exName = getExerciseValueFormatted();
+                            intent.putExtra("exName", exName);
+                            if(getDoWValue() != null){
+                                intent.putExtra("day", getDoWValue());
+                            }
+                            startActivityForResult(intent, 4);
+                        }else if(message.equals("superset")){
+                            supersetFragCount++;
+                            String fragString = "ss" + Integer.toString(supersetFragCount);
+                            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                            ExerciseLevelSSFrag exerciseLevelSSFrag = new ExerciseLevelSSFrag();
+                            exerciseLevelSSFrag.fragTag = fragString;
+                            exerciseLevelSSFrag.initialSchemeCount = setsLevelChildFragAL.size();
+                            fragmentTransaction.add(R.id.superSetHolder, exerciseLevelSSFrag, fragString);
+                            fragmentTransaction.commitAllowingStateLoss();
+                            hasSupersets = true;
+                            superSetFragList.add(exerciseLevelSSFrag);
+                        }
                     }
                 }
             } else if(requestCode == 4){
