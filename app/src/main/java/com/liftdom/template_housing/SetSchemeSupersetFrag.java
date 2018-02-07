@@ -74,15 +74,15 @@ public class SetSchemeSupersetFrag extends Fragment {
 
         if(tokens[2].equals("a")){
             double weight;
-            //int weight2;
+            int weight2;
 
             double percentage = Double.parseDouble(tokens[3])/(double)100;
 
             weight = Double.parseDouble(tokens[1]) * percentage;
 
-            weight = (int) Math.round(weight);
+            weight2 = (int) Math.round(weight);
 
-            formatted = String.valueOf(weight);
+            formatted = String.valueOf(weight2);
         }else{
             formatted = unFormatted;
         }
