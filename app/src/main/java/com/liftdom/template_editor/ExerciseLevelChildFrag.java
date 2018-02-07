@@ -368,7 +368,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
                     String exerciseName = data.getStringExtra("exercise");
-
                 }
             }
         }
@@ -396,61 +395,55 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         extraOptionsButton.setImageResource(R.drawable.three_dot_menu);
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
+    public void setExerciseInfo(){
+        List<String> infoList = new ArrayList<>();
+        if(!getExerciseValueFormatted().equals("Click to select exercise")){
+            infoList.add(getExerciseValueFormatted());
+
+            for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                if(!setsLevelChildFrag.getSetSchemeString().equals("")){
+                    String delims = "[x, @]";
+                    String[] schemeTokens = setsLevelChildFrag.getSetSchemeString().split(delims);
+                    if(schemeTokens.length == 3){
+                        infoList.add(setsLevelChildFrag.getSetSchemeString());
+                    }
+                }
+            }
+
+            for(ExerciseLevelSSFrag exerciseLevelSSFrag : superSetFragList){
+                if(!exerciseLevelSSFrag.getSupersetInfoList().isEmpty()){
+                    infoList.addAll(exerciseLevelSSFrag.getSupersetInfoList());
+                }
+            }
+
+            TemplateEditorSingleton.getInstance().setValues2(getDoW1(), infoList);
+        }
+
+        if(!algorithmList.isEmpty()){
+            if(algorithmList.size() > 10){
+                algorithmList.set(10, getDoWValue());
+            }else{
+                algorithmList.add(getDoWValue());
+            }
+            TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
+            TemplateEditorSingleton.getInstance().setAlgorithmList(getExerciseValueFormatted(), algorithmList);
+            if(hasSupersets){
+                for(ExerciseLevelSSFrag exFrag : superSetFragList){
+                    String exName = exFrag.getExerciseValueFormatted();
+                    if(!exName.equals("Click to select exercise")){
+                        List<String> stringList = new ArrayList<>();
+                        stringList.addAll(algorithmList);
+                        stringList.add("ss");
+                        TemplateEditorSingleton.getInstance().setAlgorithmList(exFrag.getExerciseValueFormatted(), stringList);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-
-        if(EditTemplateAssemblerClass.getInstance().isOnSaveClick){
-
-            List<String> infoList = new ArrayList<>();
-            if(!getExerciseValueFormatted().equals("Click to select exercise")){
-                infoList.add(getExerciseValueFormatted());
-
-                for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
-                    if(!setsLevelChildFrag.getSetSchemeString().equals("")){
-                        String delims = "[x, @]";
-                        String[] schemeTokens = setsLevelChildFrag.getSetSchemeString().split(delims);
-                        if(schemeTokens.length == 3){
-                            infoList.add(setsLevelChildFrag.getSetSchemeString());
-                        }
-                    }
-                }
-
-                for(ExerciseLevelSSFrag exerciseLevelSSFrag : superSetFragList){
-                    if(!exerciseLevelSSFrag.getSupersetInfoList().isEmpty()){
-                        infoList.addAll(exerciseLevelSSFrag.getSupersetInfoList());
-                    }
-                }
-
-                TemplateEditorSingleton.getInstance().setValues2(getDoW1(), infoList);
-            }
-
-            if(!algorithmList.isEmpty()){
-                if(algorithmList.size() > 10){
-                    algorithmList.set(10, getDoWValue());
-                }else{
-                    algorithmList.add(getDoWValue());
-                }
-                TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-                TemplateEditorSingleton.getInstance().setAlgorithmList(getExerciseValueFormatted(), algorithmList);
-                if(hasSupersets){
-                    for(ExerciseLevelSSFrag exFrag : superSetFragList){
-                        String exName = exFrag.getExerciseValueFormatted();
-                        if(!exName.equals("Click to select exercise")){
-                            List<String> stringList = new ArrayList<>();
-                            stringList.addAll(algorithmList);
-                            stringList.add("ss");
-                            TemplateEditorSingleton.getInstance().setAlgorithmList(exFrag.getExerciseValueFormatted(), stringList);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public String getParentEx1(){

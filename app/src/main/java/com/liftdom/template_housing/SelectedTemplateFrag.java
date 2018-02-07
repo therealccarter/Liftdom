@@ -248,9 +248,16 @@ public class SelectedTemplateFrag extends Fragment {
                 // set title
                 alertDialogBuilder.setTitle("Delete template:");
 
+                String message;
+                if(isFromMyPublicList){
+                    message = "Are you sure you want to delete this template from the public listing?";
+                }else{
+                    message = "Are you sure you want to delete this template?";
+                }
+
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("Are you sure you want to delete this template?")
+                        .setMessage(message)
                         .setCancelable(false)
                         .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {

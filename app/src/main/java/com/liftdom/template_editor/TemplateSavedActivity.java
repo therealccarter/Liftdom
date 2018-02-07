@@ -237,8 +237,10 @@ public class TemplateSavedActivity extends BaseActivity {
             if(isEdit){
                 DateTime dateTime = new DateTime(DateTimeZone.UTC);
                 dateUpdated = dateTime.toString();
+                Log.i("isEdit", "yes");
             }else{
                 dateUpdated = xDateCreated;
+                Log.i("isEdit", "no");
             }
 
             String workoutType = "placeholder";

@@ -159,29 +159,32 @@ public class SaveTemplateDialog extends AppCompatActivity {
                         // show it
                         alertDialog.show();
                     }
-
                 }else{
                     DateTime dateTime = new DateTime(DateTimeZone.UTC);
                     String dateTimeString = dateTime.toString();
 
                     if(templateName != null && !templateName.getText().toString().equals("")){
-                        String isEdit = "yes";
-                        Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
-                        intent.putExtra("key1", templateName.getText().toString());
-                        intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
-                        intent.putExtra("isFromEditor", true);
-                        intent.putExtra("isEdit", isEdit);
-                        //intent.putExtra("isAlgorithm", algBool);
+                        //String isEdit = "yes";
+                        //Intent intent = new Intent(v.getContext(), TemplateSavedActivity.class);
+                        //intent.putExtra("key1", templateName.getText().toString());
+                        //intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
+                        //intent.putExtra("isFromEditor", true);
+                        //intent.putExtra("isEdit", isEdit);
+                        ////intent.putExtra("isAlgorithm", algBool);
 
-                        if(!isEditBool){
-                            TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
-                        }
+                        //if(!isEditBool){
+                        //    TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                        //}
 
-                        TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
-                        //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
-                        TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
+                        //TemplateEditorSingleton.getInstance().mIsPublic = isPublic;
+                        ////TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+                        //TemplateEditorSingleton.getInstance().mTemplateName = templateName.getText().toString();
 
-                        startActivity(intent);
+                        Intent intent1 = new Intent();
+                        intent1.putExtra("templateName", templateName.getText().toString());
+                        setResult(1, intent1);
+                        //startActivity(intent);
+                        finish();
 
                     }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(SaveTemplateDialog.this);

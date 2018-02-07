@@ -41,7 +41,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="20sp"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:maxLength="2"
         />
 
@@ -63,7 +63,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="20sp"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:maxLength="2"
         />
 

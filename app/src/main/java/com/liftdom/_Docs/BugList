@@ -44,6 +44,7 @@ basic notification bell functionality - badge notification{
 
 ============ BUG LIST =====================================================
 ==== easier ==========
+selected template exercises out of order
 bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 chris b bug - crash when WA save dialog is clicked
 ============
@@ -56,6 +57,7 @@ re-check user made programs functionality (full)
 ============
 
 ============ TO-DO FEATURE LIST =============================
+more monetization
 ===== lifting/core-related =========
 implement some sort of "short term memory" type thing for when changing weight options in template editor
 try this for notification-bar/lockscreen view difference {

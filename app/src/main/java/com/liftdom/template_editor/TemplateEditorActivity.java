@@ -44,6 +44,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,9 @@ public class TemplateEditorActivity extends BaseActivity
     int fragIdCount = 0;
 
     boolean isFirstTimeTut = false;
+
+    boolean isTemplateEdit;
+    boolean isFromPublic;
 
     String templateNameEdit;
 
@@ -172,9 +177,11 @@ public class TemplateEditorActivity extends BaseActivity
 
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")){
+                isTemplateEdit = true;
                 if (getIntent().getExtras().getString("isFromPublic") != null) {
                     if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
                         // if template isEdit, isFromPublic
+                        isFromPublic = true;
 
                         TemplateEditorSingleton.getInstance().isFromPublic = true;
 
@@ -744,7 +751,6 @@ public class TemplateEditorActivity extends BaseActivity
                     // show it
                     alertDialog.show();
                 }else{
-
                     if(hasEmptyDays){
                         AlertDialog.Builder builder = new AlertDialog.Builder(TemplateEditorActivity.this);
                         // set title
@@ -820,14 +826,14 @@ public class TemplateEditorActivity extends BaseActivity
                                 intent.putExtra("isActiveTemplate", checkBool);
                                 //intent.putExtra("isAlgorithm", algBool);
                                 intent.putExtra("isPublic", isPublic);
-                                startActivity(intent);
+                                startActivityForResult(intent, 1);
                             }else{
                                 intent.putExtra("isEdit", "no");
                                 intent.putExtra("isActiveTemplate", checkBool);
                                 //intent.putExtra("isAlgorithm", algBool);
                                 intent.putExtra("isPublic", isPublic);
                                 intent.putExtra("description", descriptionString);
-                                startActivity(intent);
+                                startActivityForResult(intent, 1);
                             }
                         }else{
                             intent.putExtra("isEdit", "no");
@@ -835,7 +841,7 @@ public class TemplateEditorActivity extends BaseActivity
                             //intent.putExtra("isAlgorithm", algBool);
                             intent.putExtra("isPublic", isPublic);
                             intent.putExtra("description", descriptionString);
-                            startActivity(intent);
+                            startActivityForResult(intent, 1);
                         }
 
                         EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;
@@ -847,11 +853,43 @@ public class TemplateEditorActivity extends BaseActivity
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == 1){
+                if(data != null){
+                    // get info from the exercise frags
 
-        if(resultCode == 4){
+                    for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+                        dayOfWeekChildFrag.setDoWInfo();
+                    }
+
+                    // set up other key things for template saved
+                    Boolean activeTemplateCheckBool = activeTemplateCheckbox.isChecked();
+                    String isEdit = null;
+                    if(isTemplateEdit){
+                        isEdit = "yes";
+                    }
+                    Intent intent = new Intent(TemplateEditorActivity.this, TemplateSavedActivity.class);
+                    intent.putExtra("key1", data.getStringExtra("templateName"));
+                    intent.putExtra("isActiveTemplate", activeTemplateCheckBool);
+                    intent.putExtra("isFromEditor", true);
+                    intent.putExtra("isEdit", isEdit);
+                    //intent.putExtra("isAlgorithm", algBool);
+
+                    if(!isTemplateEdit){
+                        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                        String dateTimeString = dateTime.toString();
+                        TemplateEditorSingleton.getInstance().mDateCreated = dateTimeString;
+                    }
+
+                    TemplateEditorSingleton.getInstance().mIsPublic = isFromPublic;
+                    //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+                    TemplateEditorSingleton.getInstance().mTemplateName = data.getStringExtra("templateName");
+
+                    startActivity(intent);
+                }
+            }
         }
     }
 

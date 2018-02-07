@@ -2,14 +2,9 @@ package com.liftdom.template_editor;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +20,10 @@ import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 
 public class DayOfWeekChildFrag extends android.app.Fragment
@@ -76,6 +68,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         void daySelectedFromFrag(String doW, String tag);
         void dayUnselectedFromFrag(String doW, String tag);
         ArrayList<String> getSelectedDaysOtherThan(String tag);
+    }
+
+    public void setDoWInfo(){
+        for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+            exerciseLevelChildFrag.setExerciseInfo();
+        }
     }
 
     public void daySelectedToFrag(String doW){
