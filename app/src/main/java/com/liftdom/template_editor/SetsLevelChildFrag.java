@@ -338,7 +338,13 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         String repsString = repsEditText.getText().toString();
         String weightString;
         if(isEdit){
-            weightString = reHandleUnitConversion(weightEditText.getText().toString());
+            if(percentageLL.getVisibility() == View.VISIBLE){
+                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + reHandleUnitConversion(percentageWeightButton
+                        .getText().toString());
+            }else{
+                weightString = reHandleUnitConversion(weightEditText.getText().toString());
+            }
+            //weightString = reHandleUnitConversion(weightEditText.getText().toString());
         }else{
             if(percentageLL.getVisibility() == View.VISIBLE){
                 weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
