@@ -179,6 +179,7 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
+        //TODO: use query to sort by date.
         mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>
                 (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, mFeedRef) {
             @Override

@@ -42,8 +42,22 @@ public class ExNameSupersetFrag extends Fragment {
 
         exerciseName.setText(exNameString);
 
-
         return view;
+    }
+
+
+
+    boolean isExerciseName(String input){
+        boolean isExercise = true;
+
+        if(input.length() != 0) {
+            char c = input.charAt(0);
+            if (Character.isDigit(c)) {
+                isExercise = false;
+            }
+        }
+
+        return isExercise;
     }
 
 }

@@ -55,22 +55,62 @@ public class HousingSetSchemeFrag extends Fragment {
         }
 
          if(isCurrentUserImperial){
-             pounds.setText("lbs");
+             pounds.setText(" lbs");
          }else{
-             pounds.setText("kgs");
+             pounds.setText(" kgs");
          }
 
-        setSchemesView.setText(handleUnitConversion(setSchemeString));
+        if(isPercentage(setSchemeString)){
+            String delims = "[@]";
+            String[] tokens = setSchemeString.split(delims);
+            String formattedWeight = formatPercentageWeight(tokens[1]);
+            String fullFormattedString = tokens[0] + "@" + formattedWeight;
+            setSchemesView.setText(handleUnitConversion(fullFormattedString));
+        }else{
+            setSchemesView.setText(handleUnitConversion(setSchemeString));
+        }
 
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public String formatPercentageWeight(String unFormatted){
+        String formatted;
 
-        savedInstanceState.putString("set_scheme_string", setSchemeString);
+        String delims = "[_]";
+        String[] tokens = unFormatted.split(delims);
 
-        super.onSaveInstanceState(savedInstanceState);
+        if(tokens[2].equals("a")){
+            double weight;
+            //int weight2;
+
+            double percentage = Double.parseDouble(tokens[3])/(double)100;
+
+            weight = Double.parseDouble(tokens[1]) * percentage;
+
+            weight = (int) Math.round(weight);
+
+            formatted = String.valueOf(weight);
+        }else{
+            formatted = unFormatted;
+        }
+
+        return formatted;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        char c = tokens1[1].charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            percentage = true;
+        }
+
+
+        return percentage;
     }
 
     private String handleUnitConversion(String oldValue){
@@ -101,6 +141,14 @@ public class HousingSetSchemeFrag extends Fragment {
         }
 
         return newString;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        savedInstanceState.putString("set_scheme_string", setSchemeString);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

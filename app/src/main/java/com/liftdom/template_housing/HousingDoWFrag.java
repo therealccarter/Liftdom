@@ -130,7 +130,6 @@ public class HousingDoWFrag extends Fragment {
         }
 
         return isExercise;
-
     }
 
     String titleFormatter(String unformatted){
