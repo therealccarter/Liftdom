@@ -101,16 +101,25 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 }
 
                 // weight
-                String weightWithSpaces = setSchemesEachArray[2];
-                String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
-                if(weightWithoutSpaces.equals("B.W.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    weightEditText.setFilters(filterArray);
-                    weightEditText.setText("B.W.");
-                    weightEditText.setEnabled(false);
+                if(isPercentage(setSchemeEdited)){
+                    String delims2 = "[@]";
+                    String[] tokens2 = setSchemeEdited.split(delims2);
+                    String delimsP = "[_]";
+                    String[] tokensP = tokens2[1].split(delimsP);
+                    setWeightToPercentAndSetWeightText(tokensP[3]);
+                    percentageEditText.setText(tokensP[1]);
                 }else{
-                    weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                    String weightWithSpaces = setSchemesEachArray[2];
+                    String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+                    if(weightWithoutSpaces.equals("B.W.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
+                        weightEditText.setText("B.W.");
+                        weightEditText.setEnabled(false);
+                    }else{
+                        weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                    }
                 }
             }
 
@@ -153,6 +162,46 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public String formatPercentageWeight(String unFormatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unFormatted.split(delims);
+
+        if(tokens[2].equals("a")){
+            double weight;
+            int weight2;
+
+            double percentage = Double.parseDouble(tokens[3])/(double)100;
+
+            weight = Double.parseDouble(tokens[1]) * percentage;
+
+            weight2 = (int) Math.round(weight);
+
+            formatted = String.valueOf(weight2);
+        }else{
+            formatted = unFormatted;
+        }
+
+        return formatted;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        char c = tokens1[1].charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            percentage = true;
+        }
+
+
+        return percentage;
     }
 
     private String handleUnitConversion(String oldValue){

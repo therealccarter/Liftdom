@@ -13,6 +13,10 @@ percentage functionality {
     percentage data encoded into weight string
     just arbitrary weights for now
 }
+on save of edit template, added duplicates. should've been 1,2,3; instead was 1,2,3,4,5,6;{
+    it's because every time we click save and then close, it still adds everything to the list.
+}
+gabby bug (assistorsaved index issue)(check Fb)
 =====================================================
 
 ============ ON DECK FOR v1.20+: ===============================================
@@ -42,8 +46,6 @@ basic notification bell functionality - badge notification{
 ==== easier ==========
 bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 chris b bug - crash when WA save dialog is clicked
-on save of edit template, added duplicates.
-should've been 1,2,3; instead was 1,2,3,4,5,6;
 ============
 ==== harder ==========
 re-check user made programs functionality (full)

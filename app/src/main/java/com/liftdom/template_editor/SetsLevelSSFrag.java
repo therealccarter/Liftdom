@@ -70,14 +70,29 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                     repsEditText.setEnabled(false);
                 }else{
                     repsEditText.setText(tokens[1]);
-                }if(tokens[2].equals("B.W.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    weightEditText.setFilters(filterArray);
-                    weightEditText.setText("B.W.");
-                    weightEditText.setEnabled(false);
+                }
+
+
+                // weight
+                if(isPercentage(isEditSetScheme)){
+                    String delims2 = "[@]";
+                    String[] tokens2 = isEditSetScheme.split(delims2);
+                    String delimsP = "[_]";
+                    String[] tokensP = tokens2[1].split(delimsP);
+                    setWeightToPercentAndSetWeightText(tokensP[3]);
+                    percentageEditText.setText(tokensP[1]);
                 }else{
-                    weightEditText.setText(handleUnitConversion(tokens[2]));
+                    String weightWithSpaces = tokens[2];
+                    String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
+                    if(weightWithoutSpaces.equals("B.W.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
+                        weightEditText.setText("B.W.");
+                        weightEditText.setEnabled(false);
+                    }else{
+                        weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                    }
                 }
             }
         }
@@ -111,6 +126,22 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        char c = tokens1[1].charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            percentage = true;
+        }
+
+
+        return percentage;
     }
 
     private String handleUnitConversion(String oldValue){
