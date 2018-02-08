@@ -468,6 +468,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 String fragString2 = Integer.toString(fragIdCount2);
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                SetsLevelChildFrag setsLevelChildFrag1 = new SetsLevelChildFrag();
+                for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                    if(setsLevelChildFrag.fragTag.equals(tag)){
+                        setsLevelChildFrag1 = setsLevelChildFrag;
+                    }
+                }
+                setsLevelChildFragAL.remove(setsLevelChildFrag1);
                 for(ExerciseLevelSSFrag exFrag : superSetFragList){
                     exFrag.removeSetScheme(fragString2);
                 }

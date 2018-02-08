@@ -519,7 +519,7 @@
     <string name="algorithm">Algorithm</string>
     <string name="setAlgorithm">Set Auto-Growth Algorithm</string>
     <string name="addSuperset">Add Superset Exercise</string>
-    <string name="exLevelPercentageSetting">Child Set-Schemes Percentage Settings</string>
+    <string name="exLevelPercentageSetting">Set-Schemes Percentage Settings</string>
     <string name="setSchemeSettings">Edit Child Set-Scheme Settings\n(T.F. - B.W. - %)</string>
 
     <string name="activityFeed">Feed</string>

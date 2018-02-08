@@ -39,6 +39,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.exNameAndDowView) TextView exNameDowView;
     @BindView(R.id.clearButton) Button clearButton;
     @BindView(R.id.unitsView) TextView units;
+    @BindView(R.id.percentWeightsWeeksEditText) EditText percentWeeksEditText;
+    @BindView(R.id.percentWeightsIncreaseEditText) EditText percentIncreaseEditText;
 
 
     @Override
