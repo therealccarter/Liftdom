@@ -203,6 +203,10 @@
     <!-- Exercise Selector -->
     <string name="close">Close</string>
 
+    <string name="onlyAppliesToNumerical">(Only applies to sets using numerical weight format)</string>
+
+    <string name="onlyAppliesToPercents">(Only applies to sets using percentage weight format)</string>
+
     <!-- END STRINGS FOR GENERIC TEMPLATE EDITOR ================================================================== -->
     <string name="repsAt">reps @</string>
 
@@ -240,6 +244,7 @@
     <string name="increaseSets">\u0020 increase SETS by</string>
     <string name="increaseReps">\u0020 increase REPS by</string>
     <string name="increaseWeight">\u0020 increase WEIGHT by</string>
+    <string name="increasePercent">\u0020 increase PERCENT by</string>
     <string name="defaultWeightOptionButton">Numeric Weights</string>
     <string name="bodyWeightOptionButton">Bodyweight</string>
     <string name="toFailureOptionButton">To Failure</string>

@@ -7,6 +7,7 @@ currently on v1.19
 on save of edit template, added duplicates. should've been 1,2,3; instead was 1,2,3,4,5,6;{
     it's because every time we click save and then close, it still adds everything to the list.
 }
+fixed bug causing percentages to not be saved on edit
 ----------------------
 
 ====================================================
@@ -18,6 +19,8 @@ percentage functionality {
 }
 gabby bug (assistorsaved index issue)(check Fb)
 selected templates should show percentages fully, not processed.
+selected templates layouts look like garbage (too big)
+selected templates should be sorted by update time
 =====================================================
 
 ============ ON DECK FOR v1.20+: ===============================================
@@ -59,6 +62,12 @@ re-check user made programs functionality (full)
 
 ============ TO-DO FEATURE LIST =============================
 more monetization
+frame publicity posts as looking for beta testers/early adopters
+have the tutorials be made viewable by buttons
+ask for good reviews, feedback if not good.
+check here for more{
+ https://medium.com/@lowcarbrob/0-to-15k-active-users-in-a-month-tips-from-a-indiedev-41d05ab048fd
+}
 ===== lifting/core-related =========
 implement some sort of "short term memory" type thing for when changing weight options in template editor
 try this for notification-bar/lockscreen view difference {
