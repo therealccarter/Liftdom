@@ -70,46 +70,48 @@ public class HousingDoWFrag extends Fragment {
                     boolean isFirstEx = true;
                     boolean isFirstSetSchemes = true;
                     for(String string : list){
-                        if(isExerciseName(string) && isFirstEx){
-                            // add exname frag
-                            isFirstEx = false;
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingExNameFrag exNameFrag = new HousingExNameFrag();
-                            exNameFrag.exNameString = string;
-                            fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                            fragmentTransaction.commit();
-                        }else if(isExerciseName(string) && !isFirstEx) {
-                            // add exname frag
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
-                            exNameFrag.exNameString = string;
-                            fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                            fragmentTransaction.commit();
-                            isFirstSetSchemes = false;
-                        }else if(!isExerciseName(string) && isFirstSetSchemes){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
-                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                            setSchemeFrag.setSchemeString = string;
-                            fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                            fragmentTransaction.commit();
-                        }else if(!isExerciseName(string) && !isFirstSetSchemes){
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
-                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                            setSchemeFrag.setSchemeString = string;
-                            fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                            fragmentTransaction.commit();
+                        if(!string.isEmpty()){
+                            if(isExerciseName(string) && isFirstEx){
+                                // add exname frag
+                                isFirstEx = false;
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                HousingExNameFrag exNameFrag = new HousingExNameFrag();
+                                exNameFrag.exNameString = string;
+                                fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+                                fragmentTransaction.commit();
+                            }else if(isExerciseName(string) && !isFirstEx) {
+                                // add exname frag
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
+                                exNameFrag.exNameString = string;
+                                fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+                                fragmentTransaction.commit();
+                                isFirstSetSchemes = false;
+                            }else if(!isExerciseName(string) && isFirstSetSchemes){
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
+                                setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                                setSchemeFrag.isTemplateImperial = isTemplateImperial;
+                                setSchemeFrag.setSchemeString = string;
+                                fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+                                fragmentTransaction.commit();
+                            }else if(!isExerciseName(string) && !isFirstSetSchemes){
+                                FragmentManager fragmentManager = getChildFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager
+                                        .beginTransaction();
+                                SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
+                                setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                                setSchemeFrag.isTemplateImperial = isTemplateImperial;
+                                setSchemeFrag.setSchemeString = string;
+                                fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+                                fragmentTransaction.commit();
+                            }
                         }
                     }
                 }

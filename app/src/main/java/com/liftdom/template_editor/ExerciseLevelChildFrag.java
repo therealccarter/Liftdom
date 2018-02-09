@@ -135,7 +135,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             for(String string : fromEditList){
                 inc++;
                 if(inc != 1){
-                    if(isExerciseName(string)){
+                    if(isExerciseName(string) && !string.isEmpty()){
                         // superset ex
                         isFirstSetSchemes = false;
                         ArrayList<String> list = new ArrayList<>();
@@ -156,7 +156,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         if (getActivity() != null) {
                             fragmentTransaction.commitAllowingStateLoss();
                         }
-                    }else if(!isExerciseName(string) && !isFirstSetSchemes){
+                    }else if(!isExerciseName(string) && !isFirstSetSchemes || string.isEmpty()){
                         // superset set schemes
                         supersetList.get(supersetInc - 1).add(string);
                     }

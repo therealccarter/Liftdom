@@ -9,6 +9,7 @@ on save of edit template, added duplicates. should've been 1,2,3; instead was 1,
 }
 fixed bug causing percentages to not be saved on edit
 fixed bug causing removal of set-schemes in the program editor to not save
+fixed bug causing issues if superset set-schemes are not filled in
 ----------------------
 
 ====================================================
@@ -17,6 +18,9 @@ fixed bug causing removal of set-schemes in the program editor to not save
 percentage functionality {
     percentage data encoded into weight string
     just arbitrary weights for now
+    for algorithm, we'll have to maintain compatibility by updating templates' algo lists{
+        just shift everything above 7 up two and make 8 and 9 an empty string
+    }
 }
 gabby bug (assistorsaved index issue)(check Fb)
 selected templates should show percentages fully, not processed.
