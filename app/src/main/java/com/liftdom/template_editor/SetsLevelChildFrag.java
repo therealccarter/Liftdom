@@ -353,10 +353,19 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 weightString = weightEditText.getText().toString();
             }
         }
-        if (!setsString.equals("") && !repsString.equals("") && !weightString.equals("")) {
-            setSchemeString = setsString + "x" + repsString + "@" +
-                    weightString;
+
+        if(setsString.isEmpty()){
+            setsString = "0";
         }
+        if(repsString.isEmpty()){
+            repsString = "0";
+        }
+        if(weightString.isEmpty()){
+            weightString = "0";
+        }
+
+        setSchemeString = setsString + "x" + repsString + "@" + weightString;
+
         return setSchemeString;
     }
 

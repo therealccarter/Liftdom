@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:id="@+id/exerciseName"
             android:textColor="@color/white"
             android:gravity="center"

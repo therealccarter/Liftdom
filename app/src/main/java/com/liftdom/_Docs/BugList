@@ -10,6 +10,7 @@ on save of edit template, added duplicates. should've been 1,2,3; instead was 1,
 fixed bug causing percentages to not be saved on edit
 fixed bug causing removal of set-schemes in the program editor to not save
 fixed bug causing issues if superset set-schemes are not filled in
+fixed bug causing non-filled in set schemes to not be saved at all
 ----------------------
 
 ====================================================

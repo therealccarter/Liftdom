@@ -57,13 +57,41 @@ public class SetSchemeSupersetFrag extends Fragment {
                 String[] tokens = setSchemeString.split(delims);
                 String formattedWeight = formatPercentageWeight(tokens[1]);
                 String fullFormattedString = tokens[0] + "@" + formattedWeight;
-                setSchemesView.setText(handleUnitConversion(fullFormattedString));
+                String formatted = addSpacesToSetScheme(handleUnitConversion(fullFormattedString));
+                setSchemesView.setText(formatted);
             }else{
-                setSchemesView.setText(handleUnitConversion(setSchemeString));
+                String formatted = addSpacesToSetScheme(handleUnitConversion(setSchemeString));
+                setSchemesView.setText(formatted);
             }
         }
 
         return view;
+    }
+
+    public String addSpacesToSetScheme(String unFormatted){
+        String formatted;
+
+        String delims = "[x,@]";
+        String[] tokens = unFormatted.split(delims);
+
+        formatted = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+
+        return formatted;
+    }
+
+    public String formatPercentToString(String unFormatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unFormatted.split(delims);
+
+        if(tokens[2].equals("a")){
+            formatted = tokens[1] + " % of " + tokens[3];
+        }else{
+            formatted = unFormatted;
+        }
+
+        return formatted;
     }
 
     public String formatPercentageWeight(String unFormatted){

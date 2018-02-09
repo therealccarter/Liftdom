@@ -432,22 +432,22 @@
                 <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/confirmButton"
-                        android:background="@color/confirmgreen"
-                        android:src="@drawable/ic_check_white_24dp"
+                        android:id="@+id/cancelButton"
+                        android:background="@color/black"
+                        android:src="@drawable/close_button_white"
                         android:scaleType="centerInside"
-                        android:padding="6dp"
+                        android:padding="10dp"
                         android:layout_weight="1"
                 />
 
                 <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/cancelButton"
-                        android:background="@color/black"
-                        android:src="@drawable/close_button_white"
+                        android:id="@+id/confirmButton"
+                        android:background="@color/confirmgreen"
+                        android:src="@drawable/ic_check_white_24dp"
                         android:scaleType="centerInside"
-                        android:padding="10dp"
+                        android:padding="6dp"
                         android:layout_weight="1"
                 />
 
