@@ -78,7 +78,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 repsIncreasedEditText.setText(tempList.get(4));
                 weightsWeeksEditText.setText(tempList.get(5));
                 weightsIncreasedEditText.setText(tempList.get(6));
-                boolean isLoop = Boolean.valueOf(tempList.get(7));
+                percentWeeksEditText.setText(tempList.get(7));
+                percentIncreaseEditText.setText(tempList.get(8));
+                boolean isLoop = Boolean.valueOf(tempList.get(9));
                 if(isLoop){
                     algorithmLooper.setChecked(true);
                 }
@@ -89,29 +91,33 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 for(Map.Entry<String, List<String>> entry : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
                     List<String> tempList = entry.getValue();
                     if(tempList.get(0).equals(exName)){
-                        if(tempList.size() < 12){
-                            if(Boolean.valueOf(tempList.get(8))){ // apply to all
+                        if(tempList.size() < 14){
+                            if(Boolean.valueOf(tempList.get(10))){ // apply to all ex instances
                                 setsWeeksEditText.setText(tempList.get(1));
                                 setsIncreasedEditText.setText(tempList.get(2));
                                 repsWeeksEditText.setText(tempList.get(3));
                                 repsIncreasedEditText.setText(tempList.get(4));
                                 weightsWeeksEditText.setText(tempList.get(5));
                                 weightsIncreasedEditText.setText(tempList.get(6));
-                                boolean isLoop = Boolean.valueOf(tempList.get(7));
+                                percentWeeksEditText.setText(tempList.get(7));
+                                percentIncreaseEditText.setText(tempList.get(8));
+                                boolean isLoop = Boolean.valueOf(tempList.get(9));
                                 if(isLoop){
                                     algorithmLooper.setChecked(true);
                                 }
                                 applyAlgoToExs.setChecked(true);
                             }else{
                                 if(!day.equals("null")){
-                                    if(tempList.get(10).equals(day)){
+                                    if(tempList.get(12).equals(day)){
                                         setsWeeksEditText.setText(tempList.get(1));
                                         setsIncreasedEditText.setText(tempList.get(2));
                                         repsWeeksEditText.setText(tempList.get(3));
                                         repsIncreasedEditText.setText(tempList.get(4));
                                         weightsWeeksEditText.setText(tempList.get(5));
                                         weightsIncreasedEditText.setText(tempList.get(6));
-                                        boolean isLoop = Boolean.valueOf(tempList.get(7));
+                                        percentWeeksEditText.setText(tempList.get(7));
+                                        percentIncreaseEditText.setText(tempList.get(8));
+                                        boolean isLoop = Boolean.valueOf(tempList.get(9));
                                         if(isLoop){
                                             algorithmLooper.setChecked(true);
                                         }
@@ -144,6 +150,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 repsIncreasedEditText.setText("");
                 weightsWeeksEditText.setText("");
                 weightsIncreasedEditText.setText("");
+                percentWeeksEditText.setText("");
+                percentIncreaseEditText.setText("");
                 algoInfoList.clear();
                 tempAlgoInfoList.clear();
                 tempAlgoInfoList2.clear();
@@ -180,10 +188,12 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 String setsWeeks = setsWeeksEditText.getText().toString();
                 String repsWeeks = repsWeeksEditText.getText().toString();
                 String weightWeeks = weightsWeeksEditText.getText().toString();
+                String percentWeeks = percentWeeksEditText.getText().toString();
 
                 String setsIncrease = setsIncreasedEditText.getText().toString();
                 String repsIncrease = repsIncreasedEditText.getText().toString();
                 String weightIncrease = weightsIncreasedEditText.getText().toString();
+                String percentIncrease = percentIncreaseEditText.getText().toString();
 
                 String isLooper = String.valueOf(algorithmLooper.isChecked());
                 String applyToAllExInstance = String.valueOf(applyAlgoToExs.isChecked());
@@ -193,9 +203,10 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 tempAlgoInfoList.clear();
                 tempAlgoInfoList2.clear();
 
-                if(setsIncrease.equals("") &&
-                        repsIncrease.equals("") &&
-                        weightIncrease.equals("")){
+                if(setsIncrease.isEmpty() &&
+                        repsIncrease.isEmpty() &&
+                        weightIncrease.isEmpty() &&
+                        percentIncrease.isEmpty()){
                     isEmpty = true;
                     Intent intent = new Intent();
                     intent.putExtra("isEmpty", isEmpty);
@@ -205,29 +216,33 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     if(TemplateEditorSingleton.getInstance().isAlgoApplyToAll){
 
                         // this is what is going down to the exlevelfrag
-                        algoInfoList.add("all");                     //0
-                        algoInfoList.add(setsWeeks);                 //1
+                        algoInfoList.add("all");                    //0
+                        algoInfoList.add(setsWeeks);                //1
                         algoInfoList.add(setsIncrease);             //2
                         algoInfoList.add(repsWeeks);                //3
                         algoInfoList.add(repsIncrease);             //4
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
-                        algoInfoList.add(isLooper);                 //7
-                        algoInfoList.add(applyToAllExInstance);     //8
-                        algoInfoList.add(applyToAllExs);            //9
+                        algoInfoList.add(percentWeeks);             //7
+                        algoInfoList.add(percentIncrease);          //8
+                        algoInfoList.add(isLooper);                 //9
+                        algoInfoList.add(applyToAllExInstance);     //10
+                        algoInfoList.add(applyToAllExs);            //11
 
                         // this is what's going to the singleton
                         tempAlgoInfoList2.add("all");               //0
-                        tempAlgoInfoList2.add(setsWeeks);            //1
-                        tempAlgoInfoList2.add(setsIncrease);         //2
-                        tempAlgoInfoList2.add(repsWeeks);            //3
-                        tempAlgoInfoList2.add(repsIncrease);         //4
-                        tempAlgoInfoList2.add(weightWeeks);          //5
-                        tempAlgoInfoList2.add(weightIncrease);       //6
-                        tempAlgoInfoList2.add(isLooper);             //7
-                        tempAlgoInfoList.add(applyToAllExInstance); //8
-                        tempAlgoInfoList.add(applyToAllExs);        //9
-                        tempAlgoInfoList.add(day);                  //10
+                        tempAlgoInfoList2.add(setsWeeks);           //1
+                        tempAlgoInfoList2.add(setsIncrease);        //2
+                        tempAlgoInfoList2.add(repsWeeks);           //3
+                        tempAlgoInfoList2.add(repsIncrease);        //4
+                        tempAlgoInfoList2.add(weightWeeks);         //5
+                        tempAlgoInfoList2.add(weightIncrease);      //6
+                        tempAlgoInfoList2.add(percentWeeks);        //7
+                        tempAlgoInfoList2.add(percentIncrease);     //8
+                        tempAlgoInfoList2.add(isLooper);            //9
+                        tempAlgoInfoList.add(applyToAllExInstance); //10
+                        tempAlgoInfoList.add(applyToAllExs);        //11
+                        tempAlgoInfoList.add(day);                  //12
 
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.clear();
                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
@@ -240,7 +255,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         setResult(4, intent);
 
                         finish();
-                    } else{
+                    }else{
 
                         // this is what is going down to the exlevelfrag
                         algoInfoList.add(exName);                   //0
@@ -250,9 +265,11 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         algoInfoList.add(repsIncrease);             //4
                         algoInfoList.add(weightWeeks);              //5
                         algoInfoList.add(weightIncrease);           //6
-                        algoInfoList.add(isLooper);                 //7
-                        algoInfoList.add(applyToAllExInstance);     //8
-                        algoInfoList.add(applyToAllExs);            //9
+                        algoInfoList.add(percentWeeks);             //7
+                        algoInfoList.add(percentIncrease);          //8
+                        algoInfoList.add(isLooper);                 //9
+                        algoInfoList.add(applyToAllExInstance);     //10
+                        algoInfoList.add(applyToAllExs);            //11
 
                         // this is what's going to the singleton
                         tempAlgoInfoList.add(exName);               //0
@@ -262,14 +279,14 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         tempAlgoInfoList.add(repsIncrease);         //4
                         tempAlgoInfoList.add(weightWeeks);          //5
                         tempAlgoInfoList.add(weightIncrease);       //6
-                        tempAlgoInfoList.add(isLooper);             //7
-                        tempAlgoInfoList.add(applyToAllExInstance); //8
-                        tempAlgoInfoList.add(applyToAllExs);        //9
-                        tempAlgoInfoList.add(day);                  //10
+                        tempAlgoInfoList.add(percentWeeks);         //7
+                        tempAlgoInfoList.add(percentIncrease);      //8
+                        tempAlgoInfoList.add(isLooper);             //9
+                        tempAlgoInfoList.add(applyToAllExInstance); //10
+                        tempAlgoInfoList.add(applyToAllExs);        //11
+                        tempAlgoInfoList.add(day);                  //12
 
-
-
-                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(stringSize() + "_key", 
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.put(mapSize() + "_key",
                                 tempAlgoInfoList);
 
                         Intent intent = new Intent();
@@ -295,10 +312,12 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                 String setsIncrease = setsIncreasedEditText.getText().toString();
                 String repsIncrease = repsIncreasedEditText.getText().toString();
                 String weightIncrease = weightsIncreasedEditText.getText().toString();
+                String percentIncrease = percentIncreaseEditText.getText().toString();
 
                 if(setsIncrease.isEmpty() &&
                    repsIncrease.isEmpty() &&
-                   weightIncrease.isEmpty()){
+                   weightIncrease.isEmpty() &&
+                   percentIncrease.isEmpty()){
                     isEmpty = true;
                     Intent intent = new Intent();
                     intent.putExtra("isEmpty", isEmpty);
@@ -313,7 +332,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         });
     }
 
-    private String stringSize(){
+    private String mapSize(){
         int intSize = EditTemplateAssemblerClass.getInstance().tempAlgoInfo.size();
         intSize++;
 

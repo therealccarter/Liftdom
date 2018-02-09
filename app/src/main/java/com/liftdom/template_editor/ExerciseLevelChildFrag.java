@@ -420,8 +420,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         }
 
         if(!algorithmList.isEmpty()){
-            if(algorithmList.size() > 10){
-                algorithmList.set(10, getDoWValue());
+            if(algorithmList.size() > 12){
+                algorithmList.set(12, getDoWValue());
             }else{
                 algorithmList.add(getDoWValue());
             }

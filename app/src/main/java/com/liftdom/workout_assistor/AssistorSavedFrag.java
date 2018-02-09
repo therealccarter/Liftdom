@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,7 +33,6 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
-import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
@@ -173,7 +171,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                             .length - 1], completedMapFormatted);
                                     if (completedTotalPoundageSS >= modelTotalPoundageSS) {
                                         // superset completed, increase the algo
-                                        generateAlgoForSuperset2(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                        generateAlgoForSupersetAll(splitExName, tokens[tokens.length - 1], map2.getValue()
                                                 .get(0));
                                     } else {
                                         // set to false
@@ -187,7 +185,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     if (!exercisesAlreadyGenerated.contains(exName)) {
                                         if (totalPoundage2 >= totalPoundage) {
                                             // algo
-                                            generateAlgo2(exName, false);
+                                            generateAlgoAll(exName, false);
                                             exercisesAlreadyGenerated.add(exName);
                                         } else {
                                             // set to false
@@ -1051,7 +1049,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
         return isSS;
     }
 
-    private void generateAlgoForSuperset2(String exName, String tag, String exNameUnformatted){
+    private void generateAlgoForSupersetAll(String exName, String tag, String exNameUnformatted){
 
         HashMap<String, List<String>> hashMapCopy = new HashMap<>();
         hashMapCopy.putAll(originalHashmap);
@@ -1327,7 +1325,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
     }
 
-    private void generateAlgo2(String exName, boolean isSuperset) {
+    private void generateAlgoAll(String exName, boolean isSuperset) {
 
         isSuperset = false;
 

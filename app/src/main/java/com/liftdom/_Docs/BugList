@@ -37,7 +37,7 @@ redesign user profile {
     }
 }
 nSuns
-(add option to re-enable tutorial)
+feedback/contact page
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.
     notification node in firebase.
