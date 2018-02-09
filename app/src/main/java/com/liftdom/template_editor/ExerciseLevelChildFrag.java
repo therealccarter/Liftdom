@@ -108,7 +108,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         if(isEdit){
             for(Map.Entry<String, List<String>> map : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
                 if(map.getValue().get(0).equals(fromEditList.get(0))){
-                    if(map.getValue().get(10).equals(editInitialDays)){
+                    if(map.getValue().get(12).equals(editInitialDays)){
                         algorithmList.clear();
                         //map.getValue().remove(10);
                         algorithmList.addAll(map.getValue());
@@ -488,7 +488,13 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         if(supersetFragCount != 0){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                superSetFragList.remove(supersetFragCount - 1);
+                ExerciseLevelSSFrag exerciseLevelSSFrag = new ExerciseLevelSSFrag();
+                for(ExerciseLevelSSFrag exerciseLevelSSFrag1 : superSetFragList){
+                    if(exerciseLevelSSFrag1.fragTag.equals(tag)){
+                        exerciseLevelSSFrag = exerciseLevelSSFrag1;
+                    }
+                }
+                superSetFragList.remove(exerciseLevelSSFrag);
                 --supersetFragCount;
                 if(supersetFragCount == 0){
                     hasSupersets = false;

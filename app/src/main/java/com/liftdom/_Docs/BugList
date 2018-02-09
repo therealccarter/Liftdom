@@ -11,6 +11,8 @@ fixed bug causing percentages to not be saved on edit
 fixed bug causing removal of set-schemes in the program editor to not save
 fixed bug causing issues if superset set-schemes are not filled in
 fixed bug causing non-filled in set schemes to not be saved at all
+fixed bug causing algorithm to not be saved if using supersets
+fixed bug causing weight to be reset after choosing a superset exercise
 ----------------------
 
 ====================================================

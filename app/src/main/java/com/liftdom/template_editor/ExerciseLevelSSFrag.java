@@ -153,7 +153,9 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 InputFilter[] filterArray = new InputFilter[1];
                                 filterArray[0] = new InputFilter.LengthFilter(3);
                                 setSchemeList.get(i).weightEditText.setFilters(filterArray);
-                                setSchemeList.get(i).weightEditText.setText("");
+                                if(setSchemeList.get(i).weightEditText.getText().toString().equals("B.W.")){
+                                    setSchemeList.get(i).weightEditText.setText("");
+                                }
                                 setSchemeList.get(i).units.setVisibility(View.VISIBLE);
                                 setSchemeList.get(i).weightEditText.setEnabled(true);
                             }
