@@ -394,9 +394,9 @@
     <!-- TEMPLATE LANDER TEXT -->
     <string name="new_template">New Program</string>
     <string name="newTemplateFromScratch">(+) New Program</string>
-    <string name="premade_templates">Pre-made</string>
+    <string name="premade_templates">Pre-Made Programs</string>
     <string name="saved_templates">Saved Programs</string>
-    <string name="userMadeTemplates">User-made</string>
+    <string name="userMadeTemplates">User-Made Programs</string>
 
     <string name="completeWorkout">Complete Workout</string>
 
