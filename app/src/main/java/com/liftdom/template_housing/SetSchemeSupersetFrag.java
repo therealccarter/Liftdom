@@ -55,7 +55,7 @@ public class SetSchemeSupersetFrag extends Fragment {
             if(isPercentage(setSchemeString)){
                 String delims = "[@]";
                 String[] tokens = setSchemeString.split(delims);
-                String formattedWeight = formatPercentageWeight(tokens[1]);
+                String formattedWeight = formatPercentToString(tokens[1]);
                 String fullFormattedString = tokens[0] + "@" + formattedWeight;
                 String formatted = addSpacesToSetScheme(handleUnitConversion(fullFormattedString));
                 setSchemesView.setText(formatted);

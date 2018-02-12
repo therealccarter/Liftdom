@@ -887,39 +887,40 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         Log.i("assistorInfo", "savedProgressInflateViews");
 
-        for(int i = 0; i < runningMap.size(); i++){
-            if(i == 0){
-                loadingView.setVisibility(View.GONE);
-                serviceCardView.setVisibility(View.VISIBLE);
-            }
-            for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
-                if(isOfIndex(i, entry.getKey())){
-                    exNameInc++;
-                    String tag = String.valueOf(exNameInc) + "ex";
-                    HashMap<String, List<String>> exerciseMap = entry.getValue();
-                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                    exNameFrag.isTemplateImperial = isTemplateImperial1;
-                    exNameFrag.isUserImperial = isUserImperial;
-                    exNameFrag.isEditInfoList = exerciseMap;
-                    exNameFrag.fragTag = tag;
-                    exNameFrag.isEdit = true;
-                    if(getActivity() != null){
-                        if (!getActivity().isFinishing()) {
-                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            getChildFragmentManager().executePendingTransactions();
-                            exNameFragList.add(exNameFrag);
-                            fragTagList.add(tag);
+        if(runningMap != null){
+            for(int i = 0; i < runningMap.size(); i++){
+                if(i == 0){
+                    loadingView.setVisibility(View.GONE);
+                    serviceCardView.setVisibility(View.VISIBLE);
+                }
+                for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
+                    if(isOfIndex(i, entry.getKey())){
+                        exNameInc++;
+                        String tag = String.valueOf(exNameInc) + "ex";
+                        HashMap<String, List<String>> exerciseMap = entry.getValue();
+                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                        exNameFrag.isTemplateImperial = isTemplateImperial1;
+                        exNameFrag.isUserImperial = isUserImperial;
+                        exNameFrag.isEditInfoList = exerciseMap;
+                        exNameFrag.fragTag = tag;
+                        exNameFrag.isEdit = true;
+                        if(getActivity() != null){
+                            if (!getActivity().isFinishing()) {
+                                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                                getChildFragmentManager().executePendingTransactions();
+                                exNameFragList.add(exNameFrag);
+                                fragTagList.add(tag);
+                            }
                         }
                     }
                 }
             }
+
+            privateJournalView.setText(privateJournal);
+            publicCommentView.setText(publicComment);
         }
-
-        privateJournalView.setText(privateJournal);
-        publicCommentView.setText(publicComment);
-
     }
 
     private void noProgressInflateViews(){
