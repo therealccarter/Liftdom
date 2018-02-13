@@ -368,11 +368,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!completedExerciseList.isEmpty()){
                         if (!completedExerciseList.get(0).equals("Example Exercise")) {
-                            if (dataSnapshot.exists()) {
+                            if(dataSnapshot.exists()){
                                 exercisesModelClass = dataSnapshot.getValue(CompletedExercisesModelClass.class);
                                 exercisesModelClass.addItems(completedExerciseList);
                                 completedExercisesRef.setValue(exercisesModelClass);
-                            } else {
+                            }else{
                                 exercisesModelClass = new CompletedExercisesModelClass();
                                 exercisesModelClass.addItems(completedExerciseList);
                                 completedExercisesRef.setValue(exercisesModelClass);

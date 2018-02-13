@@ -97,17 +97,24 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                     repsEditText.setEnabled(true);
                 }
 
-                if(tokens[1].equals("B.W.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    weightEditText.setFilters(filterArray);
-                    unitView.setVisibility(View.GONE);
-                    weightEditText.setText(tokens[1]);
-                    weightEditText.setEnabled(false);
-                }else{
-                    // normal
-                    weightEditText.setText(convertUnitsToUser(tokens[1]));
+                if(isPercentage(repsWeightString)){
+                    String converted = convertUnitsToUser(tokens[1]);
+                    String formatted = formatPercentageWeight(converted);
+                    weightEditText.setText(formatted);
                     weightEditText.setEnabled(true);
+                }else{
+                    if(tokens[1].equals("B.W.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
+                        unitView.setVisibility(View.GONE);
+                        weightEditText.setText(tokens[1]);
+                        weightEditText.setEnabled(false);
+                    }else{
+                        // normal
+                        weightEditText.setText(convertUnitsToUser(tokens[1]));
+                        weightEditText.setEnabled(true);
+                    }
                 }
 
                 if(tokens[2].equals("checked")){
@@ -116,44 +123,50 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 }else{
                     checkBox.setChecked(false);
                 }
+
             }else{
-                String[] tokens = repsWeightString.split("@");
 
-                if(repsWeightString.equals("10@B.W.")){
+                if(isPercentage(repsWeightString)){
 
-                }
-
-                Log.i("deadInfo", "tokens[0] = " + tokens[0]);
-
-                if(tokens[0].equals("T.F.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    repsEditText.setFilters(filterArray);
-                    repsEditText.setText("T.F.");
-                    repsEditText.setEnabled(false);
-                }else if(tokens[0].equals(" ")){
-                    repsEditText.setText("");
-                    repsEditText.setEnabled(true);
                 }else{
-                    repsEditText.setText(tokens[0]);
-                    repsEditText.setEnabled(true);
-                }
+                    String[] tokens = repsWeightString.split("@");
 
-                if(tokens[1].equals("B.W.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    weightEditText.setFilters(filterArray);
-                    unitView.setVisibility(View.GONE);
-                    weightEditText.setText(tokens[1]);
-                    weightEditText.setEnabled(false);
-                }else if(tokens[1].equals(" ")){
-                    weightEditText.setText("");
-                    weightEditText.setEnabled(true);
-                }
-                else{
-                    // normal
-                    weightEditText.setText(convertUnitsToUser(tokens[1]));
-                    weightEditText.setEnabled(true);
+                    if(repsWeightString.equals("10@B.W.")){
+
+                    }
+
+                    Log.i("deadInfo", "tokens[0] = " + tokens[0]);
+
+                    if(tokens[0].equals("T.F.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        repsEditText.setFilters(filterArray);
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    }else if(tokens[0].equals(" ")){
+                        repsEditText.setText("");
+                        repsEditText.setEnabled(true);
+                    }else{
+                        repsEditText.setText(tokens[0]);
+                        repsEditText.setEnabled(true);
+                    }
+
+                    if(tokens[1].equals("B.W.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        weightEditText.setFilters(filterArray);
+                        unitView.setVisibility(View.GONE);
+                        weightEditText.setText(tokens[1]);
+                        weightEditText.setEnabled(false);
+                    }else if(tokens[1].equals(" ")){
+                        weightEditText.setText("");
+                        weightEditText.setEnabled(true);
+                    }
+                    else{
+                        // normal
+                        weightEditText.setText(convertUnitsToUser(tokens[1]));
+                        weightEditText.setEnabled(true);
+                    }
                 }
             }
         }
@@ -189,6 +202,46 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public String formatPercentageWeight(String unFormatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unFormatted.split(delims);
+
+        if(tokens[2].equals("a")){
+            double weight;
+            int weight2;
+
+            double percentage = Double.parseDouble(tokens[3])/(double)100;
+
+            weight = Double.parseDouble(tokens[1]) * percentage;
+
+            weight2 = (int) Math.round(weight);
+
+            formatted = String.valueOf(weight2);
+        }else{
+            formatted = unFormatted;
+        }
+
+        return formatted;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        char c = tokens1[1].charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            percentage = true;
+        }
+
+
+        return percentage;
     }
 
     private String convertUnitsToUser(String unConverted){
