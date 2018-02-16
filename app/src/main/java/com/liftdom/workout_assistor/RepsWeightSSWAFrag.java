@@ -344,7 +344,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                         unitView.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
                         updateWorkoutState.updateWorkoutState();
-                    } else if(message.equals("defaultWeight")){
+                    }else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
                             InputFilter[] filterArray = new InputFilter[1];
                             filterArray[0] = new InputFilter.LengthFilter(3);
@@ -367,7 +367,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                         repsEditText.setText("T.F.");
                         repsEditText.setEnabled(false);
                         updateWorkoutState.updateWorkoutState();
-                    } else if(message.equals("defaultReps")){
+                    }else if(message.equals("defaultReps")){
                         if(!isNumber(repsEditText.getText().toString())){
                             InputFilter[] filterArray = new InputFilter[1];
                             filterArray[0] = new InputFilter.LengthFilter(2);
@@ -390,7 +390,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         if(inputWithout.equals("")){
             isNumber = true;
-        } else{
+        }else{
             try {
                 int num = Integer.parseInt(input);
                 Log.i("",num+" is a number");
