@@ -36,6 +36,13 @@ public class ExtraOptionsDialog extends AppCompatActivity {
 
         if(isPercentageString.equals("true")){
             percentageRadioButton.setChecked(true);
+        }else if(isPercentageString.equals("dontShow")){
+            percentageRadioButton.setVisibility(View.GONE);
+            if(!isNumber(weightText)){ // if weight is text
+                bodyWeightRadioButton.setChecked(true);
+            }else{
+                numericalWeightRadioButton.setChecked(true);
+            }
         }else{
             if(!isNumber(weightText)){ // if weight is text
                 bodyWeightRadioButton.setChecked(true);
