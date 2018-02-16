@@ -329,8 +329,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
-                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    feedFanOut(refKey, completedWorkoutModelClass);
+                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    //feedFanOut(refKey, completedWorkoutModelClass);
 
                     dontLeavePage.setVisibility(View.GONE);
 
@@ -339,21 +339,24 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
-                                        .ACTIVITY_SERVICE);
-                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
-                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service.getClassName())) {
-                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                                            getActivity().stopService(stopIntent);
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                        //workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new
+                        //OnCompleteListener<Void>() {
+                        //    @Override
+                        //    public void onComplete(@NonNull Task<Void> task) {
+                        //        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                        //                .ACTIVITY_SERVICE);
+                        //        if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                        //            for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices
+                        //    (Integer.MAX_VALUE)) {
+                        //                if (AssistorServiceClass.class.getName().equals(serviceInfo.service
+                        //        .getClassName())) {
+                        //                    Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                        //                    getActivity().stopService(stopIntent);
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //});
                     }
                 }
 
@@ -509,46 +512,48 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isTemplateMenuSecondTime");
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Great job! \n \n" +
-                                    "Here's where you'll receive Power Level XP and level up. " +
-                                    "\n \n Your XP gain is based off of the workout you did, as well as " +
-                                    "how many consecutive days you've checked off your workouts/rest days.")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build();
-
-                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-                            .title("Not only will your Completion Streak (consecutive days) add a multiplier " +
-                                    "to the XP you gain, but your Completion Streak can also be used to unlock " +
-                                    "rewards and premium features." +
-                                    "\n \n Remember, check off rest days too to keep the Streak up!" +
-                                    "\n \n Good luck!")
-                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
-                            .build();
-
-                    new FancyShowCaseQueue()
-                            .add(fancyShowCaseView1)
-                            .add(fancyShowCaseView2)
-                            .show();
-
-                    //DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child("activeTemplate");
-                    firstTimeRef.setValue(null);
-                    //firstTimeActiveRef.setValue(null);
-                }else{
-                    //Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child
+        //        ("isTemplateMenuSecondTime");
+        //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        if(dataSnapshot.exists()){
+        //            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+        //                    .title("Great job! \n \n" +
+        //                            "Here's where you'll receive Power Level XP and level up. " +
+        //                            "\n \n Your XP gain is based off of the workout you did, as well as " +
+        //                            "how many consecutive days you've checked off your workouts/rest days.")
+        //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+        //                    .build();
+//
+        //            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+        //                    .title("Not only will your Completion Streak (consecutive days) add a multiplier " +
+        //                            "to the XP you gain, but your Completion Streak can also be used to unlock " +
+        //                            "rewards and premium features." +
+        //                            "\n \n Remember, check off rest days too to keep the Streak up!" +
+        //                            "\n \n Good luck!")
+        //                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+        //                    .build();
+//
+        //            new FancyShowCaseQueue()
+        //                    .add(fancyShowCaseView1)
+        //                    .add(fancyShowCaseView2)
+        //                    .show();
+//
+        //            //DatabaseReference firstTimeActiveRef = mRootRef.child("user").child(uid).child
+        // ("activeTemplate");
+        //            firstTimeRef.setValue(null);
+        //            //firstTimeActiveRef.setValue(null);
+        //        }else{
+        //            //Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
     }
 
     @Override
@@ -1049,6 +1054,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
         }
 
         return isSS;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        char c = tokens1[1].charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            percentage = true;
+        }
+
+
+        return percentage;
     }
 
     private void generateAlgoForSupersetAll(String exName, String tag, String exNameUnformatted){
@@ -1686,7 +1707,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                         if (Boolean.parseBoolean(algoDateMap.getValue().get(2))) {
                                                             // compare, keep everything the same, set to true.
                                                             hasEx = true;
-                                                            int weeksSinceLast = getWeeksSinceLast(map.getValue().get(1));
+                                                            int weeksSinceLast = getWeeksSinceLast(algoDateMap.getValue().get(1));
 
                                                             int sets = 0;
                                                             int reps = 0;
@@ -1725,64 +1746,115 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                 }
                                                             }
 
-                                                            //TODO: Alert user that looping only works if you set weight increases
+                                                            if(isPercentage(string)){
 
-                                                            if(algoMap.getValue().get(5).equals("") || algoMap.getValue().get
-                                                                    (6).equals("")) {
+                                                                String weightPercentString = tokens[2];
 
-                                                            }else{
-                                                                // map2.getValue().get(5) == ""
-                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
-                                                                        .get(5))) {
-                                                                    if (!isExerciseName(tokens[2])) {
-                                                                        if(!isNonIntWeight){
-                                                                            weight = Integer.parseInt(tokens[2]);
-                                                                            weight += Integer.parseInt(algoMap.getValue()
-                                                                                    .get(6));
+                                                                if(algoMap.getValue().get(7).equals("") || algoMap.getValue().get
+                                                                        (8).equals("")) {
+
+                                                                }else{
+                                                                    // map2.getValue().get(5) == ""
+                                                                    if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
+                                                                            .get(7))) {
+                                                                        //if (!isExerciseName(tokens[2])) {
+                                                                            //if(!isNonIntWeight){
+                                                                                String delimsP = "[_]";
+                                                                                String[] tokensP = weightPercentString.split(delimsP);
+                                                                                int weightPercentInt = Integer
+                                                                                        .parseInt(tokensP[1]);
+                                                                                weightPercentInt += Integer.parseInt(algoMap.getValue()
+                                                                                        .get(8));
+                                                                                weightPercentString = "p_" +
+                                                                                        weightPercentInt + "_a_" +
+                                                                                        tokensP[3];
+                                                                            //}
+                                                                            if (Boolean.parseBoolean(algoMap.getValue().get(9))){
+                                                                                if(Integer.parseInt(algoMap.getValue().get(1))
+                                                                                        == Integer.parseInt(algoMap
+                                                                                        .getValue().get(7))
+                                                                                        || Integer.parseInt(algoMap.getValue().get(3))
+                                                                                        == Integer.parseInt(algoMap
+                                                                                        .getValue().get(7))){
+
+                                                                                }else{
+                                                                                    for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                        sets = sets - Integer.parseInt(algoMap
+                                                                                                .getValue().get(2));
+                                                                                        reps = reps - Integer.parseInt(algoMap
+                                                                                                .getValue().get(4));
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        //}
+                                                                    } else {
+                                                                        if (!isExerciseName(tokens[2])) {
+                                                                            weightPercentString = tokens[2];
                                                                         }
-                                                                        if (Boolean.parseBoolean(algoMap.getValue().get(7)
-                                                                        )) {
-                                                                            /**
-                                                                             *
-                                                                             */
-                                                                            if(Integer.parseInt(algoMap.getValue().get(1)
-                                                                            ) == Integer.parseInt(algoMap.getValue().get
-                                                                                    (5)) || Integer.parseInt(algoMap
-                                                                                    .getValue().get(3)) == Integer
-                                                                                    .parseInt(algoMap.getValue().get(5))){
+                                                                    }
+                                                                    String concat = Integer.toString(sets)
+                                                                                + "x" + Integer.toString(reps)
+                                                                                + "@" + weightPercentString;
 
-                                                                            }else{
-                                                                                for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                    sets = sets - Integer.parseInt(algoMap
-                                                                                            .getValue
-                                                                                            ().get(2));
-                                                                                    reps = reps - Integer.parseInt(algoMap
-                                                                                            .getValue
-                                                                                            ().get(4));
+                                                                    newValueList.add(concat);
+                                                                }
+                                                            }else{
+
+                                                                //TODO: Alert user that looping only works if you set weight increases
+
+                                                                if(algoMap.getValue().get(5).equals("") || algoMap.getValue().get
+                                                                        (6).equals("")) {
+
+                                                                }else{
+                                                                    // map2.getValue().get(5) == ""
+                                                                    if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
+                                                                            .get(5))) {
+                                                                        if (!isExerciseName(tokens[2])) {
+                                                                            if(!isNonIntWeight){
+                                                                                weight = Integer.parseInt(tokens[2]);
+                                                                                weight += Integer.parseInt(algoMap.getValue()
+                                                                                        .get(6));
+                                                                            }
+                                                                            if (Boolean.parseBoolean(algoMap.getValue().get(9))){
+                                                                                if(Integer.parseInt(algoMap.getValue().get(1))
+                                                                                        == Integer.parseInt(algoMap.getValue().get(5))
+                                                                                        || Integer.parseInt(algoMap.getValue().get(3))
+                                                                                        == Integer.parseInt(algoMap.getValue().get(5))){
+
+                                                                                }else{
+                                                                                    for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                        sets = sets - Integer.parseInt(algoMap
+                                                                                                .getValue
+                                                                                                        ().get(2));
+                                                                                        reps = reps - Integer.parseInt(algoMap
+                                                                                                .getValue
+                                                                                                        ().get(4));
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
-                                                                    }
-                                                                } else {
-                                                                    if (!isExerciseName(tokens[2])) {
-                                                                        weight = Integer.parseInt(tokens[2]);
+                                                                    } else {
+                                                                        if (!isExerciseName(tokens[2])) {
+                                                                            weight = Integer.parseInt(tokens[2]);
+                                                                        }
                                                                     }
                                                                 }
+
+                                                                String concat;
+
+                                                                if(!isNonIntWeight){
+                                                                    concat = Integer.toString(sets)
+                                                                            + "x" + Integer.toString(reps)
+                                                                            + "@" + Integer.toString(weight);
+                                                                }else{
+                                                                    concat = Integer.toString(sets)
+                                                                            + "x" + Integer.toString(reps)
+                                                                            + "@" + tokens[2];
+                                                                }
+
+                                                                newValueList.add(concat);
                                                             }
 
-                                                            String concat;
-
-                                                            if(!isNonIntWeight){
-                                                                concat = Integer.toString(sets)
-                                                                        + "x" + Integer.toString(reps)
-                                                                        + "@" + Integer.toString(weight);
-                                                            }else{
-                                                                concat = Integer.toString(sets)
-                                                                        + "x" + Integer.toString(reps)
-                                                                        + "@" + tokens[2];
-                                                            }
-
-                                                            newValueList.add(concat);
                                                         } else {
                                                             newValueList.add(string);
                                                         }
@@ -2056,7 +2128,14 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                             }
                                                         }
 
-                                                        //TODO: Alert user that looping only works if you set weight increases
+                                                        if(isPercentage(string)){
+
+                                                        }else{
+
+                                                        }
+
+
+                                                            //TODO: Alert user that looping only works if you set weight increases
 
                                                         if(map2.getValue().get(5).equals("") || map2.getValue().get
                                                                 (6).equals("")) {
