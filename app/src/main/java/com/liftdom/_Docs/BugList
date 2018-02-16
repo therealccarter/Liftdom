@@ -30,7 +30,9 @@ percentage functionality {
     }
 }
 gabby bug (assistorsaved index issue)(check Fb)
+gabby bug 2(onSavedInstanceState main feed bug)(check Fb)
 selected templates should be sorted by update time
+
 =====================================================
 
 ============ ON DECK FOR v1.20+: ===============================================
@@ -71,6 +73,7 @@ re-check user made programs functionality (full)
 ============
 
 ============ TO-DO FEATURE LIST =============================
+better competitive stuff (login streaks, leaderboards, etc)
 more monetization
 frame publicity posts as looking for beta testers/early adopters
 have the tutorials be made viewable by buttons

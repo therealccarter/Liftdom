@@ -2194,10 +2194,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             weight = Integer.parseInt(tokens[2]);
                                                                             weight += Integer.parseInt(map2.getValue().get(6));
                                                                         }
-                                                                        if (Boolean.parseBoolean(map2.getValue().get(7))) {
-                                                                            /**
-                                                                             *
-                                                                             */
+                                                                        if (Boolean.parseBoolean(map2.getValue().get(9))) {
                                                                             if(Integer.parseInt(map2.getValue().get(1)
                                                                             ) == Integer.parseInt(map2.getValue().get
                                                                                     (5)) || Integer.parseInt(map2

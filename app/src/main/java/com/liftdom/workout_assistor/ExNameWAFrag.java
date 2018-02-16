@@ -666,6 +666,9 @@ public class ExNameWAFrag extends android.app.Fragment
 
         String[] tokens = infoString.split("x");
         int setsNumber = Integer.valueOf(tokens[0]);
+        if(setsNumber == 0){
+            setsNumber = 1;
+        }
         for(int i = 0; i < setsNumber; i++){
             generatedList.add(tokens[1]);
         }
