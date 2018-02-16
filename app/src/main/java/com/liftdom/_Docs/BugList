@@ -14,6 +14,7 @@ fixed bug causing non-filled in set schemes to not be saved at all
 fixed bug causing algorithm to not be saved if using supersets
 fixed bug causing weight to be reset after choosing a superset exercise
 fixed invalid index bug at AssistorSaved 371
+fixed bug causing active program to not be set/unset correctly
 selected templates should show percentages fully, not processed.
 selected templates layouts look like garbage (too big)
 ----------------------

@@ -377,8 +377,21 @@ public class SelectedTemplateFrag extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
+                            if(userModelClass.getActiveTemplate() != null){
+                                if(!userModelClass.getActiveTemplate().equals(templateName)){
+                                    DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                            ("runningAssistor").child(uid);
+                                    runningRef.setValue(null);
+                                }
+                            }else{
+                                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                        ("runningAssistor").child(uid);
+                                runningRef.setValue(null);
+                            }
+
                             userModelClass.setActiveTemplate(templateName);
-                            activeTemplateRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            activeTemplateRef.setValue(userModelClass)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     CharSequence toastText = "Set as Active Template";
@@ -429,17 +442,12 @@ public class SelectedTemplateFrag extends Fragment {
 
                 } else if(!isChecked){
                     activeTemplateRef.child("activeTemplate").setValue(null);
-
-                    CharSequence toastText = "Unselected as Active Template";
-                    int duration = Toast.LENGTH_SHORT;
-
-                    try{
-                        //Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                        //snackbar.show();
-                        Toast.makeText(getContext(), toastText, Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException e){
-
-                    }
+                    DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                            ("runningAssistor").child(uid);
+                    runningRef.setValue(null);
+                    //TODO: Possibly have this not get set to null so they don't lose their progress.
+                    //TODO: At the same time, they need to be able to switch to a new one. But that's fixed on check.
+                    //TODO: So the best way would be to ask if they want to erase the running ref
                 }
             }
         });

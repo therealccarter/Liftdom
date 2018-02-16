@@ -2129,68 +2129,114 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                         }
 
                                                         if(isPercentage(string)){
+                                                            String weightPercentString = tokens[2];
 
-                                                        }else{
+                                                            if(map2.getValue().get(7).equals("") || map2.getValue().get
+                                                                    (8).equals("")) {
 
-                                                        }
-
-
-                                                            //TODO: Alert user that looping only works if you set weight increases
-
-                                                        if(map2.getValue().get(5).equals("") || map2.getValue().get
-                                                                (6).equals("")) {
-
-                                                        }else{
-                                                            // map2.getValue().get(5) == ""
-                                                            if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
-                                                                if (!isExerciseName(tokens[2])) {
-                                                                    if(!isNonIntWeight){
-                                                                        weight = Integer.parseInt(tokens[2]);
-                                                                        weight += Integer.parseInt(map2.getValue().get(6));
-                                                                    }
-                                                                    if (Boolean.parseBoolean(map2.getValue().get(7))) {
-                                                                        /**
-                                                                         *
-                                                                         */
-                                                                        if(Integer.parseInt(map2.getValue().get(1)
-                                                                        ) == Integer.parseInt(map2.getValue().get
-                                                                                (5)) || Integer.parseInt(map2
-                                                                                .getValue().get(3)) == Integer
-                                                                                .parseInt(map2.getValue().get(5))){
+                                                            }else{
+                                                                // map2.getValue().get(5) == ""
+                                                                if (weeksSinceLast >= Integer.parseInt(map2.getValue()
+                                                                        .get(7))) {
+                                                                    //if (!isExerciseName(tokens[2])) {
+                                                                    //if(!isNonIntWeight){
+                                                                    String delimsP = "[_]";
+                                                                    String[] tokensP = weightPercentString.split(delimsP);
+                                                                    int weightPercentInt = Integer
+                                                                            .parseInt(tokensP[1]);
+                                                                    weightPercentInt += Integer.parseInt(map2.getValue()
+                                                                            .get(8));
+                                                                    weightPercentString = "p_" +
+                                                                            weightPercentInt + "_a_" +
+                                                                            tokensP[3];
+                                                                    //}
+                                                                    if (Boolean.parseBoolean(map2.getValue().get(9))){
+                                                                        if(Integer.parseInt(map2.getValue().get(1))
+                                                                                == Integer.parseInt(map2
+                                                                                .getValue().get(7))
+                                                                                || Integer.parseInt(map2.getValue().get(3))
+                                                                                == Integer.parseInt(map2
+                                                                                .getValue().get(7))){
 
                                                                         }else{
                                                                             for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                sets = sets - Integer.parseInt(map2.getValue
-                                                                                        ().get(2));
-                                                                                reps = reps - Integer.parseInt(map2.getValue
-                                                                                        ().get(4));
+                                                                                sets = sets - Integer.parseInt(map2
+                                                                                        .getValue().get(2));
+                                                                                reps = reps - Integer.parseInt(map2
+                                                                                        .getValue().get(4));
                                                                             }
                                                                         }
                                                                     }
+                                                                    //}
+                                                                } else {
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        weightPercentString = tokens[2];
+                                                                    }
                                                                 }
-                                                            } else {
-                                                                if (!isExerciseName(tokens[2])) {
-                                                                    weight = Integer.parseInt(tokens[2]);
+                                                                String concat = Integer.toString(sets)
+                                                                        + "x" + Integer.toString(reps)
+                                                                        + "@" + weightPercentString;
+
+                                                                newValueList.add(concat);
+                                                            }
+                                                        }else{
+
+                                                            //TODO: Alert user that looping only works if you set weight increases
+
+                                                            if(map2.getValue().get(5).equals("") || map2.getValue().get
+                                                                    (6).equals("")) {
+
+                                                            }else{
+                                                                // map2.getValue().get(5) == ""
+                                                                if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        if(!isNonIntWeight){
+                                                                            weight = Integer.parseInt(tokens[2]);
+                                                                            weight += Integer.parseInt(map2.getValue().get(6));
+                                                                        }
+                                                                        if (Boolean.parseBoolean(map2.getValue().get(7))) {
+                                                                            /**
+                                                                             *
+                                                                             */
+                                                                            if(Integer.parseInt(map2.getValue().get(1)
+                                                                            ) == Integer.parseInt(map2.getValue().get
+                                                                                    (5)) || Integer.parseInt(map2
+                                                                                    .getValue().get(3)) == Integer
+                                                                                    .parseInt(map2.getValue().get(5))){
+
+                                                                            }else{
+                                                                                for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                    sets = sets - Integer.parseInt(map2.getValue
+                                                                                            ().get(2));
+                                                                                    reps = reps - Integer.parseInt(map2.getValue
+                                                                                            ().get(4));
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                } else {
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        weight = Integer.parseInt(tokens[2]);
+                                                                    }
                                                                 }
                                                             }
+
+                                                            String concat;
+
+                                                            if(!isNonIntWeight){
+                                                                concat = Integer.toString(sets)
+                                                                        + "x" + Integer.toString(reps)
+                                                                        + "@" + Integer.toString(weight);
+                                                            }else{
+                                                                concat = Integer.toString(sets)
+                                                                        + "x" + Integer.toString(reps)
+                                                                        + "@" + tokens[2];
+                                                            }
+
+                                                            newValueList.add(concat);
+                                                            //newValueMap.get(valueMapEntry.getKey()).add(concat);
                                                         }
 
-                                                        String concat;
-
-                                                        if(!isNonIntWeight){
-                                                            concat = Integer.toString(sets)
-                                                                    + "x" + Integer.toString(reps)
-                                                                    + "@" + Integer.toString(weight);
-                                                        }else{
-                                                            concat = Integer.toString(sets)
-                                                                    + "x" + Integer.toString(reps)
-                                                                    + "@" + tokens[2];
-                                                        }
-
-
-
-                                                        newValueList.add(concat);
-                                                        //newValueMap.get(valueMapEntry.getKey()).add(concat);
                                                     } else {
                                                         // don't compare, set the date to today, and set bool to true.
                                                         newValueList.add(string);

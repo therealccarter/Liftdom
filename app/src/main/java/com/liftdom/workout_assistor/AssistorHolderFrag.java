@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -647,6 +649,20 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
     }
 
+    @Override
+    public void onPause(){
+        Log.i("onStop", "AssistorHolderFrag onPause called");
+        //runningAssistorRef.removeEventListener(runningAssistorListener);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop(){
+        Log.i("onStop", "AssistorHolderFrag onStop called");
+        runningAssistorRef.removeEventListener(runningAssistorListener);
+        super.onStop();
+    }
+
     private void checkIfUserIsImperial(){
         DatabaseReference userImperialRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
                 .child("isImperial");
@@ -777,13 +793,6 @@ public class AssistorHolderFrag extends android.app.Fragment
             //intent.putExtra("fragID",  2);
             //startActivity(intent);
         }
-    }
-
-    @Override
-    public void onStop(){
-        Log.i("onStop", "AssistorHolderFrag onStop called");
-        runningAssistorRef.removeEventListener(runningAssistorListener);
-        super.onStop();
     }
 
     private void setUpFirebaseAdapter(){
@@ -930,94 +939,129 @@ public class AssistorHolderFrag extends android.app.Fragment
          * testing!
          */
 
-        // without having saved any progress
-        DateTime dateTime = new DateTime();
-        int currentWeekday = dateTime.getDayOfWeek();
-        if(mTemplateClass.getWorkoutType().equals("Smolov")){
-            Smolov smolov = new Smolov(mTemplateClass.getExtraInfo().get("exName"),
-                    mTemplateClass.getExtraInfo().get("maxWeight"));
-            HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
-                    (mTemplateClass.getExtraInfo().get("beginDate"));
-            if(smolov.getIsOneRepMaxDay()){
-                maxDayView.setVisibility(View.VISIBLE);
-            }
+        DatabaseReference activeTemplateRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+                .child("activeTemplate");
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    String templateNameString = dataSnapshot.getValue(String.class);
 
-            smolovWeekDayString = smolov.getWeekDayString();
+                    DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child("templates").child(uid)
+                            .child(templateNameString);
 
-            for(int i = 0; i < smolovMap.size(); i++){
-                if(i == 0){
-                    loadingView.setVisibility(View.GONE);
-                }
-                for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
-                    if(!entry.getKey().equals("0_key")){
-                        if(isOfIndex(i, entry.getKey())){
-                            exNameInc++;
-                            String tag = String.valueOf(exNameInc) + "ex";
-                            List<String> stringList = entry.getValue();
-                            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                            ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                            exNameFrag.isTemplateImperial = isTemplateImperial;
-                            exNameFrag.infoList = stringList;
-                            exNameFrag.isUserImperial = isUserImperial;
-                            exNameFrag.fragTag = tag;
-                            if (!getActivity().isFinishing()) {
-                                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                                fragmentTransaction.commitAllowingStateLoss();
-                                getChildFragmentManager().executePendingTransactions();
-                                exNameFragList.add(exNameFrag);
-                                fragTagList.add(tag);
-                            }
-                        }
-                    }
-                }
-                if(i == (smolovMap.size() - 1)){
-                    updateWorkoutStateNoProgress();
-                    serviceCardView.setVisibility(View.VISIBLE);
-                }
-            }
+                    templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                                // without having saved any progress
+                                DateTime dateTime = new DateTime();
+                                int currentWeekday = dateTime.getDayOfWeek();
+                                if(mTemplateClass.getWorkoutType().equals("Smolov")){
+                                    Smolov smolov = new Smolov(mTemplateClass.getExtraInfo().get("exName"),
+                                            mTemplateClass.getExtraInfo().get("maxWeight"));
+                                    HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+                                            (mTemplateClass.getExtraInfo().get("beginDate"));
+                                    if(smolov.getIsOneRepMaxDay()){
+                                        maxDayView.setVisibility(View.VISIBLE);
+                                    }
+
+                                    smolovWeekDayString = smolov.getWeekDayString();
+
+                                    for(int i = 0; i < smolovMap.size(); i++){
+                                        if(i == 0){
+                                            loadingView.setVisibility(View.GONE);
+                                        }
+                                        for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
+                                            if(!entry.getKey().equals("0_key")){
+                                                if(isOfIndex(i, entry.getKey())){
+                                                    exNameInc++;
+                                                    String tag = String.valueOf(exNameInc) + "ex";
+                                                    List<String> stringList = entry.getValue();
+                                                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                                                    exNameFrag.isTemplateImperial = isTemplateImperial;
+                                                    exNameFrag.infoList = stringList;
+                                                    exNameFrag.isUserImperial = isUserImperial;
+                                                    exNameFrag.fragTag = tag;
+                                                    if (!getActivity().isFinishing()) {
+                                                        fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                                        fragmentTransaction.commitAllowingStateLoss();
+                                                        getChildFragmentManager().executePendingTransactions();
+                                                        exNameFragList.add(exNameFrag);
+                                                        fragTagList.add(tag);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if(i == (smolovMap.size() - 1)){
+                                            updateWorkoutStateNoProgress();
+                                            serviceCardView.setVisibility(View.VISIBLE);
+                                        }
+                                    }
 
 
-        }else{
-            if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
-                if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
-                    HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
-                    for(int i = 0; i < map.size(); i++){
-                        if(i == 0){
-                            loadingView.setVisibility(View.GONE);
-                            serviceCardView.setVisibility(View.VISIBLE);
-                        }
-                        for(Map.Entry<String, List<String>> entry : map.entrySet()) {
-                            if(!entry.getKey().equals("0_key")){
-                                if(isOfIndex(i, entry.getKey())){
-                                    exNameInc++;
-                                    String tag = String.valueOf(exNameInc) + "ex";
-                                    List<String> stringList = entry.getValue();
-                                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                                    exNameFrag.isTemplateImperial = isTemplateImperial;
-                                    exNameFrag.infoList = stringList;
-                                    exNameFrag.isUserImperial = isUserImperial;
-                                    exNameFrag.fragTag = tag;
-                                    if(getActivity() != null){
-                                        if(!getActivity().isFinishing()) {
-                                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                                            fragmentTransaction.commitAllowingStateLoss();
-                                            getChildFragmentManager().executePendingTransactions();
-                                            exNameFragList.add(exNameFrag);
-                                            fragTagList.add(tag);
+                                }else{
+                                    if(mTemplateClass.getMapForDay(intToWeekday(currentWeekday)) != null){
+                                        if(!mTemplateClass.getMapForDay(intToWeekday(currentWeekday)).isEmpty()){
+                                            HashMap<String, List<String>> map = mTemplateClass.getMapForDay(intToWeekday(currentWeekday));
+                                            for(int i = 0; i < map.size(); i++){
+                                                if(i == 0){
+                                                    loadingView.setVisibility(View.GONE);
+                                                    serviceCardView.setVisibility(View.VISIBLE);
+                                                }
+                                                for(Map.Entry<String, List<String>> entry : map.entrySet()) {
+                                                    if(!entry.getKey().equals("0_key")){
+                                                        if(isOfIndex(i, entry.getKey())){
+                                                            exNameInc++;
+                                                            String tag = String.valueOf(exNameInc) + "ex";
+                                                            List<String> stringList = entry.getValue();
+                                                            android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                                                            ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                                                            exNameFrag.isTemplateImperial = isTemplateImperial;
+                                                            exNameFrag.infoList = stringList;
+                                                            exNameFrag.isUserImperial = isUserImperial;
+                                                            exNameFrag.fragTag = tag;
+                                                            if(getActivity() != null){
+                                                                if(!getActivity().isFinishing()) {
+                                                                    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                                                    fragmentTransaction.commitAllowingStateLoss();
+                                                                    getChildFragmentManager().executePendingTransactions();
+                                                                    exNameFragList.add(exNameFrag);
+                                                                    fragTagList.add(tag);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if(i == (map.size() - 1)){
+                                                    updateWorkoutStateNoProgress();
+                                                    serviceCardView.setVisibility(View.VISIBLE);
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                        if(i == (map.size() - 1)){
-                            updateWorkoutStateNoProgress();
-                            serviceCardView.setVisibility(View.VISIBLE);
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-                    }
+                    });
+                }else{
+
                 }
             }
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private boolean hasOnlyExNames(HashMap<String, List<String>> map){
