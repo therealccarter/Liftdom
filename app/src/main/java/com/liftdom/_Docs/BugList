@@ -82,6 +82,7 @@ check here for more{
  https://medium.com/@lowcarbrob/0-to-15k-active-users-in-a-month-tips-from-a-indiedev-41d05ab048fd
 }
 ===== lifting/core-related =========
+alert user if their percentage goes above 100%
 implement some sort of "short term memory" type thing for when changing weight options in template editor
 try this for notification-bar/lockscreen view difference {
     https://developer.android.com/reference/android/app/

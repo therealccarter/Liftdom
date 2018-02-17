@@ -749,11 +749,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         if(!workoutProgressModelClass.isCompletedBool()){
                             Log.i("assistorInfo", "runningAssistor confirmed");
                             cleanUpState();
-                            //Toast.makeText(getActivity(), "running assistor set", Toast.LENGTH_SHORT);
                             savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
                                     workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
-                            //noProgressInflateViews();
-                            //setUpFirebaseAdapter();
                         }else{
                             noProgressInflateViews();
                         }
@@ -761,6 +758,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         noProgressInflateViews();
                     }
                 }else{
+                    cleanUpState();
                     noProgressInflateViews();
                 }
             }
@@ -935,8 +933,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void noProgressInflateViews(){
 
         /**
-         * So what we're currently at: some of this stuff isn't being retained on GC so we need to do a lot of fun
-         * testing!
+         * Current problem: after the listener has been set, saving a template causes the updated info to be added
+         * onto the existing running assistor node. It should either totally delete it or delete the current stuff and
+         * add the new info in place of the old info.
          */
 
         DatabaseReference activeTemplateRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
