@@ -255,7 +255,8 @@ public class TemplateEditorSingleton {
         mapFive.clear();
         mapSix.clear();
         mapSeven.clear();
-        mIsAlgorithm = false;
+        mIsAlgorithm = false; // so right now the problem is that when adding a superset, for some reason algorithm
+        // gets set to false
         mAlgorithmInfo.clear();
     }
 }

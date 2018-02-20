@@ -328,7 +328,7 @@ public class TemplateEditorActivity extends BaseActivity
                                         TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
                                         List<String> tempAlgoInfoList2 = new ArrayList<>();
                                         tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                        String weightValue = handleUnitConversion(tempAlgoInfoList2.get(0));
+                                        String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
                                         tempAlgoInfoList2.set(6, weightValue);
                                         EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
                                     }else{
@@ -491,7 +491,7 @@ public class TemplateEditorActivity extends BaseActivity
                                     TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
                                     List<String> tempAlgoInfoList2 = new ArrayList<>();
                                     tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                    String weightValue = handleUnitConversion(tempAlgoInfoList2.get(0));
+                                    String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
                                     tempAlgoInfoList2.set(6, weightValue);
                                     EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
                                 }else{

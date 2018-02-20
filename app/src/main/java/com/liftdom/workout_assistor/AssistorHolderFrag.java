@@ -663,23 +663,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         super.onStop();
     }
 
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-        Log.i("onStop", "AssistorHolderFrag onDestroyView called");
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Log.i("onStop", "AssistorHolderFrag onDestroy called");
-    }
-
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        Log.i("onStop", "AssistorHolderFrag onDetatch called");
-    }
 
     private void checkIfUserIsImperial(){
         DatabaseReference userImperialRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)

@@ -23,6 +23,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     String day = "null";
     String exName = "null";
     boolean wasApplyToAll;
+    boolean wasCleared = false;
 
     @BindView(R.id.setsWeeksEditText) EditText setsWeeksEditText;
     @BindView(R.id.setsIncreaseEditText) EditText setsIncreasedEditText;
@@ -50,6 +51,8 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ButterKnife.bind(this);
+
+        wasCleared = false;
 
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
@@ -143,6 +146,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                wasCleared = true;
+
                 String tag = "null";
                 setsWeeksEditText.setText("");
                 setsIncreasedEditText.setText("");
@@ -210,6 +216,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     isEmpty = true;
                     Intent intent = new Intent();
                     intent.putExtra("isEmpty", isEmpty);
+                    if(wasCleared){
+                        intent.putExtra("wasCleared", "yes");
+                    }
                     setResult(5, intent);
                     finish();
                 }else{
@@ -250,6 +259,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
                         intent.putExtra("applyToAll", "yes");
+                        if(wasCleared){
+                            intent.putExtra("wasCleared", "yes");
+                        }
 
 
                         setResult(4, intent);
@@ -291,6 +303,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
 
                         Intent intent = new Intent();
                         intent.putExtra("list", algoInfoList);
+                        if(wasCleared){
+                            intent.putExtra("wasCleared", "yes");
+                        }
                         if(wasApplyToAll){
                             intent.putExtra("wasApplyToAll", "yes");
                         }

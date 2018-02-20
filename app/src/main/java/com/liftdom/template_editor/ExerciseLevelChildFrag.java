@@ -364,6 +364,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                         setToGoldFromDoW();
                     }
                 }
+                if(data.getStringExtra("wasCleared") != null){
+                    if(data.getStringExtra("wasCleared").equals("yes")){
+                        removeGoldCallback.removeGold();
+                    }
+                }
 
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
