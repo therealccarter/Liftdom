@@ -768,16 +768,12 @@ public class TemplateEditorActivity extends BaseActivity
                                 .setPositiveButton("Save anyway",new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
 
-                                        Intent intent = new Intent(v.getContext(), SaveTemplateDialog.class);
+                                        Intent intent = new Intent(TemplateEditorActivity.this, SaveTemplateDialog.class);
 
                                         boolean checkBool = activeTemplateCheckbox.isChecked();
-                                        //boolean algBool = EditTemplateAssemblerClass.getInstance().isApplyAlgo;
                                         boolean isPublic = makePublicCheckbox.isChecked();
                                         String descriptionString = templateDescriptionEdit.getText().toString();
                                         TemplateEditorSingleton.getInstance().mDescription = descriptionString;
-
-                                        //ArrayList<ArrayList> algorithmMasterList = new ArrayList<>();
-
 
                                         if(getIntent().getExtras().getString("isEdit") != null) {
                                             if(getIntent().getExtras().getString("isEdit").equals("yes")) {
@@ -787,7 +783,14 @@ public class TemplateEditorActivity extends BaseActivity
                                                 intent.putExtra("isActiveTemplate", checkBool);
                                                 //intent.putExtra("isAlgorithm", algBool);
                                                 intent.putExtra("isPublic", isPublic);
-                                                startActivity(intent);
+                                                startActivityForResult(intent, 1);
+                                            }else{
+                                                intent.putExtra("isEdit", "no");
+                                                intent.putExtra("isActiveTemplate", checkBool);
+                                                //intent.putExtra("isAlgorithm", algBool);
+                                                intent.putExtra("isPublic", isPublic);
+                                                intent.putExtra("description", descriptionString);
+                                                startActivityForResult(intent, 1);
                                             }
                                         }else{
                                             intent.putExtra("isEdit", "no");
@@ -795,7 +798,7 @@ public class TemplateEditorActivity extends BaseActivity
                                             //intent.putExtra("isAlgorithm", algBool);
                                             intent.putExtra("isPublic", isPublic);
                                             intent.putExtra("description", descriptionString);
-                                            startActivity(intent);
+                                            startActivityForResult(intent, 1);
                                         }
 
                                         EditTemplateAssemblerClass.getInstance().isOnSaveClick = true;

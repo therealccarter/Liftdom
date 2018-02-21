@@ -19,11 +19,6 @@ fixed bug causing extra new data to be added to the WA after saving the active p
 fixed bug causing algorithm to not save if adding supersets
 selected templates should show percentages fully, not processed.
 selected templates layouts look like garbage (too big)
-----------------------
-
-====================================================
-
-============ CURRENTLY WORKING ON: ===============================================
 fix bug not allowing to save if there are empty day sets
 percentage functionality {
     percentage data encoded into weight string
@@ -32,6 +27,12 @@ percentage functionality {
         just shift everything above 7 up two and make 8 and 9 an empty string
     }
 }
+----------------------
+
+====================================================
+
+============ CURRENTLY WORKING ON: ===============================================
+
 gabby bug (assistorsaved index issue)(check Fb)
 gabby bug 2(onSavedInstanceState main feed bug)(check Fb)
 selected templates should be sorted by update time
