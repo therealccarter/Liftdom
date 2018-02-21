@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
@@ -18,9 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.android.gms.auth.api.signin.SignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,21 +25,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
-import com.liftdom.misc_activities.PremiumFeaturesActivity;
+import com.liftdom.liftdom.feedback.FeedbackActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import it.sephiroth.android.library.bottomnavigation.BadgeProvider;
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -76,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
                         new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Premium Features").withIdentifier(6),
+                        new PrimaryDrawerItem().withName("Feedback/Bug Reports").withIdentifier(6),
                         new PrimaryDrawerItem().withName("App Settings").withIdentifier(7)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -109,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
                                 intent = new Intent(context, ChartsStatsToolsActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(context, PremiumFeaturesActivity.class);
+                                intent = new Intent(context, FeedbackActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(context, SettingsListActivity.class);

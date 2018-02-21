@@ -169,7 +169,6 @@
                 android:name=".WorkoutPostSingleActivity"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-
         <activity android:name="com.liftdom.misc_activities.BugReportingActivity">
         </activity>
         <activity
@@ -472,6 +471,8 @@
         <activity
                 android:name=".utils.DirectMessageDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".feedback.FeedbackActivity">
         </activity>
     </application>
 
