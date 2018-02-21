@@ -16,6 +16,7 @@ fixed bug causing weight to be reset after choosing a superset exercise
 fixed invalid index bug at AssistorSaved 371
 fixed bug causing active program to not be set/unset correctly
 fixed bug causing extra new data to be added to the WA after saving the active program
+fixed bug causing algorithm to not save if adding supersets
 selected templates should show percentages fully, not processed.
 selected templates layouts look like garbage (too big)
 ----------------------
@@ -23,6 +24,7 @@ selected templates layouts look like garbage (too big)
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
+fix bug not allowing to save if there are empty day sets
 percentage functionality {
     percentage data encoded into weight string
     just arbitrary weights for now

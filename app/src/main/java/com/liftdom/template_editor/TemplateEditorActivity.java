@@ -221,6 +221,7 @@ public class TemplateEditorActivity extends BaseActivity
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
+
                                 TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
                                 TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
                                         .getPublicTemplateKeyId();
@@ -324,6 +325,7 @@ public class TemplateEditorActivity extends BaseActivity
                                 fragmentTransaction.commitAllowingStateLoss();
 
                                 if(templateClass.getIsAlgorithm()){
+                                    TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
                                     if(templateClass.getIsAlgoApplyToAll()){
                                         TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
                                         List<String> tempAlgoInfoList2 = new ArrayList<>();
@@ -354,6 +356,8 @@ public class TemplateEditorActivity extends BaseActivity
                 }else{
                     // isEdit, not from public
                     templateNameEdit = getIntent().getExtras().getString("templateName");
+
+
 
                     // Check for active template
                     DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
@@ -487,6 +491,7 @@ public class TemplateEditorActivity extends BaseActivity
                             fragmentTransaction.commitAllowingStateLoss();
 
                             if(templateClass.getIsAlgorithm()){
+                                TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
                                 if(templateClass.getIsAlgoApplyToAll()){
                                     TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
                                     List<String> tempAlgoInfoList2 = new ArrayList<>();
