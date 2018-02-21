@@ -25,10 +25,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
-import com.liftdom.liftdom.MainActivitySingleton;
+import com.liftdom.liftdom.*;
 import com.liftdom.liftdom.R;
-import com.liftdom.liftdom.ReleaseNotesActivity;
-import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
@@ -190,11 +188,17 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                             randomUsersRef.setValue(currentDate + "_open");
                         }
                     }else{
-                        FragmentManager fragmentManager = getChildFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
-                        fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
-                        fragmentTransaction.commit();
+                        try{
+                            FragmentManager fragmentManager = getChildFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
+                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commit();
+                        }catch (IllegalStateException e){
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            intent.putExtra("fragID",  0);
+                            startActivity(intent);
+                        }
                     }
                 }
 

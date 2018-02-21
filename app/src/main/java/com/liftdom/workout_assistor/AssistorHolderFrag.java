@@ -256,7 +256,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 2 == 0.0 || isTutorialFirstTime){
+                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
@@ -371,7 +371,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 2 == 0.0 || isTutorialFirstTime){
+                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkout();
                             }else{
