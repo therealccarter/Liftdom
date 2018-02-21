@@ -329,8 +329,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
-                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    //feedFanOut(refKey, completedWorkoutModelClass);
+                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    feedFanOut(refKey, completedWorkoutModelClass);
 
                     dontLeavePage.setVisibility(View.GONE);
 
@@ -339,24 +339,21 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        //workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new
-                        //OnCompleteListener<Void>() {
-                        //    @Override
-                        //    public void onComplete(@NonNull Task<Void> task) {
-                        //        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
-                        //                .ACTIVITY_SERVICE);
-                        //        if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
-                        //            for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices
-                        //    (Integer.MAX_VALUE)) {
-                        //                if (AssistorServiceClass.class.getName().equals(serviceInfo.service
-                        //        .getClassName())) {
-                        //                    Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                        //                    getActivity().stopService(stopIntent);
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-                        //});
+                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                                        .ACTIVITY_SERVICE);
+                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service.getClassName())) {
+                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                                            getActivity().stopService(stopIntent);
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
 

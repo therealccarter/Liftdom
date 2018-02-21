@@ -70,8 +70,8 @@ public class BaseActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(2),
-                        new PrimaryDrawerItem().withName("Workout Programming").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("Workout Programming").withIdentifier(2),
+                        new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
                         new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
@@ -93,12 +93,12 @@ public class BaseActivity extends AppCompatActivity {
                             }
                             if (drawerItem.getIdentifier() == 2) {
                                 intent = new Intent(context, MainActivity.class);
-                                intent.putExtra("fragID", 2);
+                                intent.putExtra("fragID", 1);
                                 startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 3) {
                                 intent = new Intent(context, MainActivity.class);
-                                intent.putExtra("fragID", 1);
+                                intent.putExtra("fragID", 2);
                                 startActivity(intent);
                                 drawer.setSelection(position);
                             }

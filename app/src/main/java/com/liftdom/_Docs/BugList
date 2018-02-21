@@ -3,7 +3,7 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.20
+currently on v1.22
 
 ----------------------
 
@@ -15,7 +15,7 @@ feedback/contact page
 
 =====================================================
 
-============ ON DECK FOR v1.21+: ===============================================
+============ ON DECK FOR v1.22+: ===============================================
 better max support/editing (* = set manually, not in liftdom workout)
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
