@@ -3,43 +3,19 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.19
-on save of edit template, added duplicates. should've been 1,2,3; instead was 1,2,3,4,5,6;{
-    it's because every time we click save and then close, it still adds everything to the list.
-}
-fixed bug causing percentages to not be saved on edit
-fixed bug causing removal of set-schemes in the program editor to not save
-fixed bug causing issues if superset set-schemes are not filled in
-fixed bug causing non-filled in set schemes to not be saved at all
-fixed bug causing algorithm to not be saved if using supersets
-fixed bug causing weight to be reset after choosing a superset exercise
-fixed invalid index bug at AssistorSaved 371
-fixed bug causing active program to not be set/unset correctly
-fixed bug causing extra new data to be added to the WA after saving the active program
-fixed bug causing algorithm to not save if adding supersets
-fixed bug not allowing to save if there are empty day sets
-fixed bug causing illegalStateException in MainFeedFrag (Gabby bug)
-selected templates should show percentages fully, not processed.
-selected templates layouts look like garbage (too big)
-percentage functionality {
-    percentage data encoded into weight string
-    just arbitrary weights for now
-    for algorithm, we'll have to maintain compatibility by updating templates' algo lists{
-        just shift everything above 7 up two and make 8 and 9 an empty string
-    }
-}
+currently on v1.20
+
 ----------------------
 
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-
-gabby bug (assistorsaved index issue)(check Fb)
-gabby bug 2(onSavedInstanceState main feed bug)(check Fb)
 selected templates should be sorted by update time
+feedback/contact page
+
 =====================================================
 
-============ ON DECK FOR v1.20+: ===============================================
+============ ON DECK FOR v1.21+: ===============================================
 better max support/editing (* = set manually, not in liftdom workout)
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
@@ -52,7 +28,6 @@ redesign user profile {
     }
 }
 nSuns
-feedback/contact page
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.
     notification node in firebase.
@@ -60,6 +35,8 @@ basic notification bell functionality - badge notification{
     classes will have relevant info for intents and user data and whatnot
     boolean hasRead.
 }
+Improve the notification-bar layout.
+Fix up the Exercise History Chart page.
 =====================================================
 
 ============ BUG LIST =====================================================
