@@ -4,7 +4,8 @@
 
 ======== ***Completed*** =======================================================
 currently on v1.21
-
+fixed up the layout of saved program page if you have no saved programs
+fixed bug causing calendar to not show 2018 dates
 ----------------------
 
 ====================================================
@@ -12,7 +13,7 @@ currently on v1.21
 ============ CURRENTLY WORKING ON: ===============================================
 selected templates should be sorted by update time
 feedback/contact page
-
+add "view more" button to the users banner that goes to the forum
 =====================================================
 
 ============ ON DECK FOR v1.22+: ===============================================

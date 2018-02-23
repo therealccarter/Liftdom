@@ -560,6 +560,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     @Override
     public void onResume(){
+        Log.i("lifecycleAssistor", "AssistorHolderFrag onResume called");
         if(mTemplateClass == null){
             Log.i("assistorInfo", "templateClass is null (onResume)");
             Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -651,15 +652,18 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     @Override
     public void onPause(){
-        Log.i("onStop", "AssistorHolderFrag onPause called");
+        Log.i("lifecycleAssistor", "AssistorHolderFrag onPause called");
         //runningAssistorRef.removeEventListener(runningAssistorListener);
         super.onPause();
     }
 
     @Override
     public void onStop(){
-        Log.i("onStop", "AssistorHolderFrag onStop called");
-        runningAssistorRef.removeEventListener(runningAssistorListener);
+        Log.i("lifecycleAssistor", "AssistorHolderFrag onStop called");
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
+
         super.onStop();
     }
 

@@ -557,7 +557,13 @@
 
     <string name="premiumFeatures">Premium Features</string>
 
+    <string name="feedbackBugReports">Feedback/Bug Reports</string>
+    <string name="feedbackBugReportsText">Let me know about any bugs or crashes you encounter, feature requests, or any
+        feedback and I will get back to you as soon as possible.</string>
+
     <string name="home">Home</string>
+
+    <string name="options">Options:</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>
 

@@ -472,7 +472,8 @@
                 android:name=".utils.DirectMessageDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".feedback.FeedbackActivity">
+        <activity android:name=".feedback.FeedbackActivity"
+                  android:label="">
         </activity>
     </application>
 

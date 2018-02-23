@@ -60,7 +60,7 @@ public class PremiumFeaturesActivity extends BaseActivity {
         title.setTypeface(lobster);
         comingSoonView.setTypeface(lobster);
 
-        setUpNavDrawer(PremiumFeaturesActivity.this, toolbar);
-        setNavDrawerSelection(6);
+        //setUpNavDrawer(PremiumFeaturesActivity.this, toolbar);
+        //setNavDrawerSelection(6);
     }
 }

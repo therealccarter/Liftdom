@@ -26,6 +26,7 @@
             android:text="@string/noSavedTemplates"
             android:layout_margin="10dp"
             android:id="@+id/noSavedTemplates"
+            android:gravity="center"
             android:visibility="gone"
         />
 
@@ -45,10 +46,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/createTemplate"
-                    android:textSize="24sp"
+                    android:text="@string/options"
+                    android:textSize="20sp"
                     android:layout_margin="10dp"
                     android:textColor="@color/white"
+                    android:layout_weight="2"
             />
 
             <ImageView
@@ -56,6 +58,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/simple_down_arrow_small"
+                    android:layout_marginEnd="10dp"
             />
         </LinearLayout>
 
@@ -66,7 +69,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:id="@+id/createTemplateLinearLayout"
-                android:background="@color/transDarkGrey"
+                android:background="@color/grey"
                 android:layout_marginBottom="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -79,20 +82,19 @@
                 android:textAllCaps="false"
                 android:text="@string/newTemplateFromScratch"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:background="@color/confirmgreen"
                 android:minHeight="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
             />
 
             <Button
                     android:id="@+id/button_premade_templates"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                     android:textAllCaps="false"
                     android:text="@string/premade_templates"
                     android:textColor="@color/white"
@@ -101,16 +103,14 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
                     android:minHeight="0dp"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="-50dp"
-                    android:paddingEnd="10dp"
+                    android:padding="3dp"
+                    android:layout_marginTop="20dp"
             />
 
             <Button
                     android:id="@+id/userMadeTemplates"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/simple_right_arrow_verysmall"
                     android:textAllCaps="false"
                     android:text="@string/userMadeTemplates"
                     android:textColor="@color/white"
@@ -119,9 +119,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
                     android:minHeight="0dp"
+                    android:padding="3dp"
                     android:layout_marginTop="10dp"
-                    android:drawablePadding="-50dp"
-                    android:paddingEnd="10dp"
             />
 
         </LinearLayout>
