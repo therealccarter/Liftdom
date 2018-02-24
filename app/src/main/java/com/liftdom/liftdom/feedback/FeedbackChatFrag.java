@@ -18,8 +18,7 @@ import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageModelClass;
@@ -46,8 +45,10 @@ public class FeedbackChatFrag extends Fragment {
     String chatId;
     public String refKey;
     private List<String> userList;
+    public boolean isFromMaster;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public String otherUid;
     public HashMap<String, String> memberMap;
     private DatabaseReference mChatGroupReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -84,35 +85,53 @@ public class FeedbackChatFrag extends Fragment {
         //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         //bottomNavigation.setVisibility(View.GONE);
 
-        mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("feedbackChat").child(uid)
-                .child(chatId);
+        if(!isFromMaster){
+            otherUid = uid;
+        }
 
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        userName = sharedPref.getString("userName", "loading...");
+        mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("feedbackChat").child(otherUid);
 
-        sendMessageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(!newMessageView.getText().toString().equals("")){
+        mChatGroupReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    final String key = dataSnapshot1.getKey();
+                    setUpFirebaseAdapter(mChatGroupReference.child(key));
+                    chatId = key;
 
-                    String message = newMessageView.getText().toString();
+                    SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                    userName = sharedPref.getString("userName", "loading...");
 
-                    DateTime dateTime = new DateTime(DateTimeZone.UTC);
-                    String dateTimeString = dateTime.toString();
+                    sendMessageButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            if(!newMessageView.getText().toString().equals("")){
 
-                    ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(message,
-                            uid, userName, dateTimeString, 0, "none");
+                                String message = newMessageView.getText().toString();
 
-                    mChatGroupReference.push().setValue(chatMessageModelClass);
+                                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                                String dateTimeString = dateTime.toString();
 
-                    updateChatGroups(message, dateTimeString);
+                                ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(message,
+                                        uid, userName, dateTimeString, 0, "none");
 
-                    newMessageView.setText("");
-                    //linearLayoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
+                                mChatGroupReference.child(key).push().setValue(chatMessageModelClass);
+
+                                updateChatGroups(message, dateTimeString);
+
+                                newMessageView.setText("");
+                                //linearLayoutManager.scrollToPosition(mFirebaseAdapter.getItemCount());
+                            }
+                        }
+                    });
                 }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
-
-        setUpFirebaseAdapter(mChatGroupReference);
 
         return view;
     }
@@ -169,9 +188,9 @@ public class FeedbackChatFrag extends Fragment {
         // for each member of the current chat, update their chat group nodes
         Map fanoutObject = new HashMap<>();
 
-        fanoutObject.put("/feedbackChatMaster/" + refKey + "/previewString", userName + ": "
+        fanoutObject.put("/feedbackChatMaster/" + chatId + "/previewString", userName + ": "
                 + getTruncatedString(message));
-        fanoutObject.put("/feedbackChatMaster/" + refKey + "/activeDate", dateTime);
+        fanoutObject.put("/feedbackChatMaster/" + chatId + "/activeDate", dateTime);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.updateChildren(fanoutObject);

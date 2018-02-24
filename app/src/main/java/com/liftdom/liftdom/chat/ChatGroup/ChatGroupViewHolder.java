@@ -12,12 +12,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag;
+import com.liftdom.liftdom.feedback.FeedbackChatFrag;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Brodin on 5/3/2017.
@@ -34,6 +36,8 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
     private HashMap<String, String> memberMap;
     private String mRefKey;
     FragmentActivity mActivity;
+    private boolean isFromFeedbackMaster;
+    private String uidOfUser;
 
     public ChatGroupViewHolder(View itemView){
         super(itemView);
@@ -48,19 +52,46 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View view){
-        FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(isFromFeedbackMaster){
+            FragmentTransaction fragmentTransaction = mActivity.getSupportFragmentManager().beginTransaction();
+            FeedbackChatFrag feedbackChatFrag = new FeedbackChatFrag();
+            for(Map.Entry<String, String> entry : getMemberMap().entrySet()){
+                feedbackChatFrag.otherUid = entry.getKey();
+            }
+            feedbackChatFrag.isFromMaster = true;
+            fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatFrag);
+            fragmentTransaction.commit();
+        }else{
+            FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ChatSpecificFrag chatSpecificFrag = new ChatSpecificFrag();
-        chatSpecificFrag.memberMap = getMemberMap();
-        chatSpecificFrag.refKey = getRefKey();
-        Bundle chatIdBundle = new Bundle();
-        chatIdBundle.putString("chatId", mChatId);
-        chatSpecificFrag.setArguments(chatIdBundle);
+            ChatSpecificFrag chatSpecificFrag = new ChatSpecificFrag();
+            chatSpecificFrag.memberMap = getMemberMap();
+            chatSpecificFrag.refKey = getRefKey();
+            Bundle chatIdBundle = new Bundle();
+            chatIdBundle.putString("chatId", mChatId);
+            chatSpecificFrag.setArguments(chatIdBundle);
 
-        fragmentTransaction.replace(R.id.mainFragHolder, chatSpecificFrag);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+            fragmentTransaction.replace(R.id.mainFragHolder, chatSpecificFrag);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    }
+
+    public boolean isFromFeedbackMaster() {
+        return isFromFeedbackMaster;
+    }
+
+    public void setFromFeedbackMaster(boolean fromFeedbackMaster) {
+        isFromFeedbackMaster = fromFeedbackMaster;
+    }
+
+    public String getUidOfUser() {
+        return uidOfUser;
+    }
+
+    public void setUidOfUser(String uidOfUser) {
+        this.uidOfUser = uidOfUser;
     }
 
     public HashMap<String, String> getMemberMap(){

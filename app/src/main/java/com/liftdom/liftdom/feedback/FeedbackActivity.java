@@ -50,7 +50,7 @@ public class FeedbackActivity extends BaseActivity {
         setNavDrawerSelection(6);
 
         if(uid.equals(masterId)){
-
+            addFeedbackMasterFrag();
         }else{
             DatabaseReference feedbackRef = FirebaseDatabase.getInstance().getReference().child("feedbackChat").child(uid);
             feedbackRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,12 +103,11 @@ public class FeedbackActivity extends BaseActivity {
                 userMap.put(uid, userName);
                 //userMap.put("EtOzrDhD0VSsFOUIAcUW9KbXk353", "Brodin");
                 ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName,
-                        "preview text",
-                        userMap, uniqueID, refKey);
+                        "preview text", userMap, uniqueID, refKey);
                 String dateUTC = new DateTime(DateTimeZone.UTC).toString();
                 chatGroupModelClass.setActiveDate(dateUTC);
                 Map fanoutObject = new HashMap<>();
-                fanoutObject.put("/feedbackChatMaster/" + refKey,
+                fanoutObject.put("/feedbackChatMaster/" + uniqueID,
                         chatGroupModelClass);
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 rootRef.updateChildren(fanoutObject);
@@ -138,16 +137,15 @@ public class FeedbackActivity extends BaseActivity {
         loadingView.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         FeedbackChatFrag feedbackChatFrag = new FeedbackChatFrag();
-
-        //fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatFrag);
-        //fragmentTransaction.commit();
+        fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatFrag);
+        fragmentTransaction.commit();
     }
 
     private void addFeedbackMasterFrag(){
         loadingView.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        FeedbackChatFrag feedbackChatFrag = new FeedbackChatFrag();
-        //fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatFrag);
-        //fragmentTransaction.commit();
+        FeedbackChatMasterFrag feedbackChatMasterFrag = new FeedbackChatMasterFrag();
+        fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatMasterFrag);
+        fragmentTransaction.commit();
     }
 }
