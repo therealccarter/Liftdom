@@ -168,7 +168,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 String currentDate = LocalDate.now().toString();
                 String day = LocalDate.now().toString("dd");
                 double dayDouble = Double.parseDouble(day);
-                if(dayDouble % (double) 4 == 0.0){
+                if(dayDouble % (double) 1 == 0.0){
                     if(dataSnapshot.exists()){
                         String delims = "[_]";
                         String value = dataSnapshot.getValue(String.class);

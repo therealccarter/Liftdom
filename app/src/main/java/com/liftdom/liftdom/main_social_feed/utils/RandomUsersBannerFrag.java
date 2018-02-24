@@ -1,6 +1,7 @@
 package com.liftdom.liftdom.main_social_feed.utils;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,11 +13,13 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_assistor.RepsWeightWAFrag;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -50,6 +53,7 @@ public class RandomUsersBannerFrag extends Fragment {
     @BindView(R.id.fellowLiftersCloseButton) ImageView closeButton;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.closeButtonLL) LinearLayout closeButtonLL;
+    @BindView(R.id.viewMoreUsers) TextView viewMoreUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +88,15 @@ public class RandomUsersBannerFrag extends Fragment {
         }else{
             initializeRecyclerForLast30();
         }
+
+        viewMoreUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("fragID", 3);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

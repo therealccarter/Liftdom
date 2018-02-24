@@ -212,6 +212,15 @@ public class MainActivity extends BaseActivity implements
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(2, false);
+            } else if(id == 3){
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(3, false);
             }
         } else{
             if(mFirebaseUser == null){
