@@ -43,7 +43,7 @@ public class FeedbackChatFrag extends Fragment {
         // Required empty public constructor
     }
 
-    public String mChatId;
+    String chatId;
     public String refKey;
     private List<String> userList;
 
@@ -72,21 +72,19 @@ public class FeedbackChatFrag extends Fragment {
 
         HideKey.initialize(getActivity(), view);
 
-        userList = new ArrayList<>();
-
-        for(Map.Entry<String, String> mapEntry : memberMap.entrySet()){
-            userList.add(mapEntry.getKey());
-        }
+        //userList = new ArrayList<>();
+        //
+        //for(Map.Entry<String, String> mapEntry : memberMap.entrySet()){
+        //    userList.add(mapEntry.getKey());
+        //}
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
 
-        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
-        bottomNavigation.setVisibility(View.GONE);
+        //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        //bottomNavigation.setVisibility(View.GONE);
 
-        String chatId = getArguments().getString("chatId");
-
-        mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("chats")
+        mChatGroupReference = FirebaseDatabase.getInstance().getReference().child("feedbackChat").child(uid)
                 .child(chatId);
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
@@ -171,16 +169,12 @@ public class FeedbackChatFrag extends Fragment {
         // for each member of the current chat, update their chat group nodes
         Map fanoutObject = new HashMap<>();
 
-        for(String user : userList){
-            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/previewString", userName + ": "
-                    + getTruncatedString
-                    (message));
-            fanoutObject.put("/chatGroups/" + user + "/" + refKey + "/activeDate", dateTime);
-        }
+        fanoutObject.put("/feedbackChatMaster/" + refKey + "/previewString", userName + ": "
+                + getTruncatedString(message));
+        fanoutObject.put("/feedbackChatMaster/" + refKey + "/activeDate", dateTime);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.updateChildren(fanoutObject);
-
     }
 
     private String getTruncatedString(String unCut){
@@ -197,8 +191,8 @@ public class FeedbackChatFrag extends Fragment {
     @Override
     public void onDestroyView(){
         super.onDestroyView();
-        BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
-        bottomNavigation.setVisibility(View.VISIBLE);
+        //BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
+        //bottomNavigation.setVisibility(View.VISIBLE);
     }
 
     @Override

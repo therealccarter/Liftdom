@@ -88,7 +88,6 @@ public class FeedbackActivity extends BaseActivity {
         final DatabaseReference feedbackMasterRef = FirebaseDatabase.getInstance().getReference().child
                 ("feedbackChatMaster");
 
-
         final String chatName = "feedback";
         final String uniqueID = UUID.randomUUID().toString();
         final String refKey = feedbackMasterRef.push().getKey();
@@ -139,6 +138,7 @@ public class FeedbackActivity extends BaseActivity {
         loadingView.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         FeedbackChatFrag feedbackChatFrag = new FeedbackChatFrag();
+
         //fragmentTransaction.add(R.id.feedbackChatFrameLayout, feedbackChatFrag);
         //fragmentTransaction.commit();
     }

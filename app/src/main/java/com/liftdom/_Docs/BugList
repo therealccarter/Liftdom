@@ -4,6 +4,7 @@
 
 ======== ***Completed*** =======================================================
 currently on v1.21
+fixed bug causing crash when removing set-schemes in the Program Editor
 fixed up the layout of saved program page if you have no saved programs
 fixed bug causing calendar to not show 2018 dates
 ----------------------

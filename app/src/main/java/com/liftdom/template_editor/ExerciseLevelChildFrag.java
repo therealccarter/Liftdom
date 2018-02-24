@@ -475,8 +475,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
                 SetsLevelChildFrag setsLevelChildFrag1 = new SetsLevelChildFrag();
                 for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
-                    if(setsLevelChildFrag.fragTag.equals(tag)){
-                        setsLevelChildFrag1 = setsLevelChildFrag;
+                    if(setsLevelChildFrag.fragTag != null){
+                        if(setsLevelChildFrag.fragTag.equals(tag)){
+                            setsLevelChildFrag1 = setsLevelChildFrag;
+                        }
                     }
                 }
                 setsLevelChildFragAL.remove(setsLevelChildFrag1);
