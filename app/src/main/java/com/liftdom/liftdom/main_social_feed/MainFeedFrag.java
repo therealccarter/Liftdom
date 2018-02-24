@@ -168,7 +168,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 String currentDate = LocalDate.now().toString();
                 String day = LocalDate.now().toString("dd");
                 double dayDouble = Double.parseDouble(day);
-                if(dayDouble % (double) 1 == 0.0){
+                if(dayDouble % (double) 3 == 0.0){
                     if(dataSnapshot.exists()){
                         String delims = "[_]";
                         String value = dataSnapshot.getValue(String.class);
@@ -251,7 +251,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 120;
+                        final int currentVersionInt = 122;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);

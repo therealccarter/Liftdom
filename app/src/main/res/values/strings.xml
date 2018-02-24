@@ -15,39 +15,31 @@
 
     <!-- DATE OF UPDATE: 02/21/17 -->
 
-    <string name="currentVersion">Liftdom v1.21</string>
+    <string name="currentVersion">Liftdom v1.22</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.21 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.22 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Percentage Functionality: You can now use percentages as weights!
+        Added a Feedback/Bug-reporting page!\n
+        (It\'s near the bottom of the sidebar on the left.)
     </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Fixed bug causing duplicate set-schemes to be saved. \n
-        Fixed bug causing percentages to not be saved on edit. \n
-        Fixed bug causing the removal of set-schemes in the program editor to not save.\n
-        Fixed bug causing issues if superset set-schemes are not filled in.\n
-        Fixed bug causing non-filled in set schemes to not be saved at all.\n
-        Fixed bug causing algorithm to not be saved if using supersets.\n
-        Fixed bug causing weight to be reset after choosing a superset exercise.\n
-        Fixed invalid index bug in AssistorSaved.\n
-        Fixed bug causing active program to not be set/unset correctly.\n
-        Fixed bug causing extra new data to be added to the WA after saving the active program.\n
-        Fixed bug causing algorithm to not save if adding new supersets.\n
-        Fixed bug not allowing to save if there are empty day sets.\n
-        Fixed bug causing illegalStateException in MainFeedFrag.\n
-        Selected templates should show percentages fully, not processed.\n
-        Fixed saved programs layouts.\n
+        Fixed bug causing crash when removing set-schemes in the Program Editor.\n
+        Fixed up the layout of saved program page if you have no saved programs.\n
+        Fixed bug causing calendar to not show 2018 dates.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Add feedback page.\n
-        Selected templates should be sorted by update time.\n
+        Saved Programs should be sorted by update time.\n
         Ability to edit an already completed workout, if on the same day.\n
+        Ability to do a workout on a rest day.\n
+        Have the random users banner scroll upward with the main feed.
+        Rehaul of the User Profile page.
+        Notification functionality.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->

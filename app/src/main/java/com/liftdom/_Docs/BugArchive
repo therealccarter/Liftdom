@@ -1,6 +1,13 @@
 
 
 
+=======================
+currently on v1.21
+fixed bug causing crash when removing set-schemes in the Program Editor
+fixed up the layout of saved program page if you have no saved programs
+fixed bug causing calendar to not show 2018 dates
+add "view more" button to the users banner that goes to the forum
+feedback/contact page
 ===========================
 currently on v1.19
 on save of edit template, added duplicates. should've been 1,2,3; instead was 1,2,3,4,5,6;{
