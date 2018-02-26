@@ -177,14 +177,14 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                             FragmentManager fragmentManager = getChildFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
-                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
-                            fragmentTransaction.commit();
+                            fragmentTransaction.replace(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commitAllowingStateLoss();
                         }else if(!tokens[0].equals(currentDate)){
                             FragmentManager fragmentManager = getChildFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
-                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
-                            fragmentTransaction.commit();
+                            fragmentTransaction.replace(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commitAllowingStateLoss();
                             randomUsersRef.setValue(currentDate + "_open");
                         }
                     }else{
@@ -192,8 +192,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                             FragmentManager fragmentManager = getChildFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
-                            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
-                            fragmentTransaction.commit();
+                            fragmentTransaction.replace(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
+                            fragmentTransaction.commitAllowingStateLoss();
                         }catch (IllegalStateException e){
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.putExtra("fragID",  0);
