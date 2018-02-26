@@ -179,17 +179,17 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        //TODO: use query to sort by date.
+        Query query = mFeedRef.orderByChild("dateUpdated");
         mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>
-                (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, mFeedRef) {
+                (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, query) {
             @Override
             protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
                 viewHolder.setTemplateNameView(model.getTemplateName());
-                viewHolder.setTimeStampView(model.getDateCreated());
+                viewHolder.setTimeStampView(model.getDateUpdated());
                 viewHolder.setDaysView(model.getDays());
                 viewHolder.setDescriptionView(model.getDescription());
                 viewHolder.setActivity(getActivity());
-                if(position == 0){
+                if(loadingView.getVisibility() == View.VISIBLE){
                     AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
                             .loadingView2);
                     if(loadingView != null){
@@ -201,7 +201,13 @@ public class SavedTemplatesFrag extends Fragment {
 
 
         mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 

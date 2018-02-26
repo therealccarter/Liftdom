@@ -4,18 +4,12 @@
 
 ======== ***Completed*** =======================================================
 currently on v1.22
-
+saved templates should be sorted by update time
 ----------------------
 
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-selected templates should be sorted by update time
-=====================================================
-
-============ ON DECK FOR v1.23+: ===============================================
-better max support/editing (* = set manually, not in liftdom workout)
-decimal percentage functionality
 redesign user profile {
     possibly consolidate CurrentUserProfile and OtherUserProfile
     possibly add streak to header instead of "focus"
@@ -26,7 +20,6 @@ redesign user profile {
         / Stats (active template, streak, maxes, etc)
     }
 }
-nSuns
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.
     notification node in firebase.
@@ -34,6 +27,13 @@ basic notification bell functionality - badge notification{
     classes will have relevant info for intents and user data and whatnot
     boolean hasRead.
 }
+add decision to have algorithm only increase on completion of weight goal
+=====================================================
+
+============ ON DECK FOR v1.23+: ===============================================
+better max support/editing (* = set manually, not in liftdom workout)
+decimal percentage functionality
+nSuns
 Improve the notification-bar layout.
 Fix up the Exercise History Chart page.
 =====================================================
