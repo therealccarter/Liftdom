@@ -28,7 +28,7 @@
             <fragment android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:id="@+id/fragment2"
-                      android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag"
+                      android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag2"
                       tools:layout="@layout/fragment_profile_info"
             />
 

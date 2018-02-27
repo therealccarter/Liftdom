@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="com.liftdom.user_profile.single_user_profile.UserProfileFrag">
+
+    <fragment android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/fragment2"
+              android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag2"
+              tools:layout="@layout/fragment_profile_info"
+    />
+
+    <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.liftdom.user_profile.ProfileOptionsTabFrag"
+            tools:layout="@layout/fragment_profile_options_tab"
+    />
+
+</LinearLayout>

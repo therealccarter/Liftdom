@@ -32,10 +32,10 @@ import com.liftdom.user_profile.UserModelClass;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileHeaderFrag extends Fragment {
+public class ProfileHeaderFrag2 extends Fragment {
 
 
-    public ProfileHeaderFrag() {
+    public ProfileHeaderFrag2() {
         // Required empty public constructor
     }
 

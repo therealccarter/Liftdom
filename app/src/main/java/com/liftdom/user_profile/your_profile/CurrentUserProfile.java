@@ -74,6 +74,13 @@ public class CurrentUserProfile extends BaseActivity {
 
         HideKey.initialize(CurrentUserProfile.this);
 
+        /**
+         * What we're going to do here.
+         * Have one fragment for both your profile and other people's.
+         * Have a simple check for if the desired profile is yours or not, and have a method for setting up each case.
+         * We could then either use that fragment in a full size holder activity or a floating activity.
+         */
+
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
         mAuth = FirebaseAuth.getInstance();
