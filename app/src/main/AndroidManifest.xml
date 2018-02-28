@@ -472,8 +472,11 @@
                 android:name=".utils.DirectMessageDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".feedback.FeedbackActivity"
-                  android:label="">
+        <activity
+                android:name=".feedback.FeedbackActivity"
+                android:label="">
+        </activity>
+        <activity android:name="com.liftdom.user_profile.single_user_profile.UserProfileFullActivity">
         </activity>
     </application>
 

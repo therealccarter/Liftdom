@@ -47,20 +47,27 @@ public class ProfileOptionsTabFrag extends Fragment {
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if(!isOtherUser){
-            // is you
-            xUid = uid;
+        if(xUid.equals(uid)){
+            // your profile
+            //xUid = uid;
         }else{
-            // uncomment this to get message view up
-            //messageLayout.setVisibility(View.VISIBLE);
+
         }
+
+        //if(!isOtherUser){
+        //    // is you
+        //    xUid = uid;
+        //}else{
+        //    // uncomment this to get message view up
+        //    //messageLayout.setVisibility(View.VISIBLE);
+        //}
 
         //TODO: really need to get that back arrow going..
 
         messageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startFollowersActivity();
+                startPrivateMessage();
             }
         });
 
@@ -94,6 +101,10 @@ public class ProfileOptionsTabFrag extends Fragment {
 
 
         return view;
+    }
+
+    private void startPrivateMessage(){
+
     }
 
     private void startFollowersActivity(){

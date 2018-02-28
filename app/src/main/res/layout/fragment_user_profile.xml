@@ -5,18 +5,22 @@
               android:orientation="vertical"
              tools:context="com.liftdom.user_profile.single_user_profile.UserProfileFrag">
 
-    <fragment android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/fragment2"
-              android:name="com.liftdom.user_profile.your_profile.ProfileHeaderFrag2"
-              tools:layout="@layout/fragment_profile_info"
-    />
-
-    <fragment
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.liftdom.user_profile.ProfileOptionsTabFrag"
-            tools:layout="@layout/fragment_profile_options_tab"
-    />
+            android:id="@+id/headerHolder"
+            android:orientation="vertical"
+    >
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/headerHolder2"
+            android:orientation="vertical"
+    >
+
+    </LinearLayout>
 
 </LinearLayout>

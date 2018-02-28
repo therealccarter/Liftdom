@@ -28,7 +28,7 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.feedback.FeedbackActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.user_profile.your_profile.CurrentUserProfile;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -139,7 +139,7 @@ public class BaseActivity extends AppCompatActivity {
                             profilePicView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
                                     startActivity(intent);
                                 }
                             });
@@ -152,7 +152,7 @@ public class BaseActivity extends AppCompatActivity {
                             profilePicView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
                                     startActivity(intent);
                                 }
                             });
@@ -171,7 +171,7 @@ public class BaseActivity extends AppCompatActivity {
                             userNameView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
                                     startActivity(intent);
                                 }
                             });

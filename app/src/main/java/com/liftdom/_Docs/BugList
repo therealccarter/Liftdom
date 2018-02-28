@@ -55,7 +55,10 @@ re-check user made programs functionality (full)
 
 ============ TO-DO FEATURE LIST =============================
 better competitive stuff (login streaks, leaderboards, etc)
-more monetization
+more monetization{
+    look into the hiding of banner ads when switching frags to allow for multiple ads in same activity
+    look at Zhuinden suggestion (setVisisbleHint? can't remember)
+}
 frame publicity posts as looking for beta testers/early adopters
 have the tutorials be made viewable by buttons
 ask for good reviews, feedback if not good.
