@@ -1,14 +1,17 @@
 package com.liftdom.user_profile.single_user_profile;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
 import com.liftdom.liftdom.R;
 
 public class UserProfileFullActivity extends AppCompatActivity {
 
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.profileLinearLayout) LinearLayout profileLinearLayout;
 
@@ -19,7 +22,25 @@ public class UserProfileFullActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        if(getIntent().getStringExtra("xUid") != null){
+            if(getIntent().getStringExtra("xUid").equals(uid)){
+                // current user
+                addProfileFrag(uid);
+            }else{
+                // other user
+                addProfileFrag(getIntent().getStringExtra("xUid"));
+            }
+        }else{
+            // current user
+            addProfileFrag(uid);
+        }
+    }
 
-
+    private void addProfileFrag(String userId){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        UserProfileFrag userProfileFrag = new UserProfileFrag();
+        userProfileFrag.uidFromOutside = userId;
+        fragmentTransaction.replace(profileLinearLayout.getId(), userProfileFrag);
+        fragmentTransaction.commit();
     }
 }

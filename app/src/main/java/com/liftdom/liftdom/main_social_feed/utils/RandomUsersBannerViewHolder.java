@@ -27,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.w3c.dom.Text;
@@ -99,20 +100,22 @@ public class RandomUsersBannerViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void goToProfile(){
+        Intent intent = new Intent(getContext(), UserProfileFullActivity.class);
         if(uid.equals(xUid)){
-            Intent intent = new Intent(getContext(), CurrentUserProfile.class);
             mContext.startActivity(intent);
         } else {
-            FragmentManager fragmentManager = getFragmentActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
-            otherUserProfileFrag.userName = xUserName;
-            otherUserProfileFrag.xUid = xUid;
-
-            fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            intent.putExtra("xUid", xUid);
+            mContext.startActivity(intent);
+            //FragmentManager fragmentManager = getFragmentActivity().getSupportFragmentManager();
+            //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+            //OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+            //otherUserProfileFrag.userName = xUserName;
+            //otherUserProfileFrag.xUid = xUid;
+//
+            //fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+            //fragmentTransaction.addToBackStack(null);
+            //fragmentTransaction.commit();
         }
     }
 

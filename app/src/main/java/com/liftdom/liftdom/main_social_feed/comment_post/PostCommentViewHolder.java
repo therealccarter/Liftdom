@@ -23,6 +23,7 @@ import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.FollowersModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 
 import java.util.ArrayList;
@@ -70,20 +71,22 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
         mUserNameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserProfileFullActivity.class);
                 if(getCurrentUid().equals(commentUid)){
-                    Intent intent = new Intent(getActivity(), CurrentUserProfile.class);
                     getActivity().startActivity(intent);
                 } else {
-                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
-                    otherUserProfileFrag.userName = getUserName();
-                    otherUserProfileFrag.xUid = commentUid;
-
-                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    intent.putExtra("xUid", commentUid);
+                    getActivity().startActivity(intent);
+                    //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                    //OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    //otherUserProfileFrag.userName = getUserName();
+                    //otherUserProfileFrag.xUid = commentUid;
+//
+                    //fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    //fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.commit();
                 }
             }
         });

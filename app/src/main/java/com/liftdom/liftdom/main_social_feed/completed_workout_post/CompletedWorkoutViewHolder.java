@@ -30,6 +30,7 @@ import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
@@ -111,20 +112,23 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent = new Intent(mActivity, UserProfileFullActivity.class);
                 if(getCurrentUid().equals(xUid)){
-                    Intent intent = new Intent(mActivity, CurrentUserProfile.class);
                     mActivity.startActivity(intent);
                 } else {
-                    FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
-                    otherUserProfileFrag.userName = mUserName;
-                    otherUserProfileFrag.xUid = xUid;
-
-                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    intent.putExtra("xUid", xUid);
+                    mActivity.startActivity(intent);
+                    //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                    //OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    //otherUserProfileFrag.userName = mUserName;
+                    //otherUserProfileFrag.xUid = xUid;
+//
+                    //fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    //fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.commit();
                 }
             }
         });

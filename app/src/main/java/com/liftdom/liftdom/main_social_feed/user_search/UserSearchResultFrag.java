@@ -26,6 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 
 /**
@@ -49,7 +50,7 @@ public class UserSearchResultFrag extends Fragment {
     @BindView(R.id.userInfoHolder) LinearLayout userInfoHolder;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_search_result, container, false);
@@ -94,20 +95,22 @@ public class UserSearchResultFrag extends Fragment {
 
         userInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UserProfileFullActivity.class);
                 if(uid.equals(xUid)){
-                    Intent intent = new Intent(getContext(), CurrentUserProfile.class);
                     startActivity(intent);
                 } else {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
-                    otherUserProfileFrag.userName = userName;
-                    otherUserProfileFrag.xUid = xUid;
-
-                    fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    intent.putExtra("xUid", xUid);
+                    startActivity(intent);
+                    //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                    //OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    //otherUserProfileFrag.userName = userName;
+                    //otherUserProfileFrag.xUid = xUid;
+//
+                    //fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    //fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.commit();
                 }
             }
         });

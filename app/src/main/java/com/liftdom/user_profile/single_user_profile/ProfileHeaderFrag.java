@@ -85,7 +85,7 @@ public class ProfileHeaderFrag extends Fragment {
         });
 
         StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("images/user/" +
-                uidPov + "/profilePic.png");
+                uidFromOutside + "/profilePic.png");
 
         profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

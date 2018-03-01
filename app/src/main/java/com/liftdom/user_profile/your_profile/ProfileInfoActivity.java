@@ -35,6 +35,7 @@ import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -269,7 +270,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     saveLoadingView.setVisibility(View.GONE);
-                                    Intent intent = new Intent(getApplicationContext(), CurrentUserProfile.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
@@ -410,7 +411,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 .setPositiveButton("Exit",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
 
-                        Intent intent = new Intent(ProfileInfoActivity.this, CurrentUserProfile.class);
+                        Intent intent = new Intent(ProfileInfoActivity.this, UserProfileFullActivity.class);
                         startActivity(intent);
                         finish();
                     }
