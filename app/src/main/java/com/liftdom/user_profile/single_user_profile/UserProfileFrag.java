@@ -4,6 +4,7 @@ package com.liftdom.user_profile.single_user_profile;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.SlidingTabLayout;
 import com.liftdom.user_profile.ProfileOptionsTabFrag;
 
 /**
@@ -24,10 +27,16 @@ public class UserProfileFrag extends Fragment {
         // Required empty public constructor
     }
 
+    ProfilePagerAdapter adapter;
+    CharSequence Titles[]={"Workouts", "Calendar"};
+    int NumbOfTabs = 2;
+
     String uidFromOutside;
 
     @BindView(R.id.headerHolder) LinearLayout headerHolder;
     @BindView(R.id.headerHolder2) LinearLayout headerHolder2;
+    @BindView(R.id.tabs) SlidingTabLayout tabsView;
+    @BindView(R.id.pager) ViewPager pager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,11 +58,31 @@ public class UserProfileFrag extends Fragment {
             fragmentTransaction.replace(headerHolder2.getId(), profileOptionsTabFrag);
 
             fragmentTransaction.commitAllowingStateLoss();
+
+            setUpSlidingLayout();
         }
 
-
-
         return view;
+    }
+
+    private void setUpSlidingLayout(){
+        boolean isOtherUser = false;
+        if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(uidFromOutside)){
+            isOtherUser = true;
+        }
+
+        adapter = new ProfilePagerAdapter(this.getChildFragmentManager(), Titles, NumbOfTabs,
+                uidFromOutside, isOtherUser);
+
+        pager.setAdapter(adapter);
+        tabsView.setDistributeEvenly(true);
+        tabsView.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+        tabsView.setViewPager(pager);
     }
 
 }
