@@ -142,8 +142,15 @@ public class ExNameWAFrag extends android.app.Fragment
 
         if(isEdit){
             ArrayList<List<String>> finalList = new ArrayList<>();
-            for(Map.Entry<String, List<String>> entry : isEditInfoList.entrySet()){
-                finalList.add(entry.getValue());
+            for(int i = 0; i < isEditInfoList.size(); i++){
+                //final int iVal = i;
+                for(Map.Entry<String, List<String>> entry : isEditInfoList.entrySet()){
+                    String delims = "[_]";
+                    String[] tokens = entry.getKey().split(delims);
+                    if(Integer.parseInt(tokens[0]) == i){
+                        finalList.add(entry.getValue());
+                    }
+                }
             }
             int biggestSize = getBiggestSizeList(finalList);
             inflateFragsFromEdit(finalList, biggestSize);
