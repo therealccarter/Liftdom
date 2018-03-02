@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -81,7 +82,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     private boolean isRepped;
     private int reppedCount;
     private final AVLoadingIndicatorView mLoadingReppedView;
-
+    final CardView.LayoutParams params;
+    private boolean mIsSelfFeed;
+    private List<String> mHasReppedList;
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
@@ -107,6 +110,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mLoadingReppedView = (AVLoadingIndicatorView) itemView.findViewById(R.id.loadingReppedView);
         //mBannerView = (BannerView) itemView.findViewById(R.id.appodealBannerView);
         //mPostInfoHolderLL = (LinearLayout) itemView.findViewById(R.id.postInfoHolderLL);
+
+        params = new CardView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -201,6 +206,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    public void hideLayout(){
+        params.height = 0;
+        mCardViewParent.setLayoutParams(params);
+    }
+
     public void setIsRepped(boolean isRepped1){
         // initial
         if(isRepped1){
@@ -255,6 +265,17 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
                                                 "/" + mRefKey + "/hasRepped/", false);
 
+                                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                                "/" + mRefKey + "/repCount/", newReppedCount);
+
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            List<String> hasReppedList = getHasReppedList();
+                                            hasReppedList.remove(getCurrentUid());
+
+                                            fanoutReppedObject.put("/selfFeed/" + xUid +
+                                                    "/" + mRefKey + "/repCount/", hasReppedList);
+                                        }
+
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
@@ -285,6 +306,17 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
                             "/" + mRefKey + "/hasRepped/", false);
 
+                    fanoutReppedObject.put("/selfFeed/" + xUid +
+                            "/" + mRefKey + "/repCount/", newReppedCount);
+
+                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                        List<String> hasReppedList = getHasReppedList();
+                        hasReppedList.remove(getCurrentUid());
+
+                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                "/" + mRefKey + "/repCount/", hasReppedList);
+                    }
+
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
                         @Override
@@ -311,6 +343,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     private int reppedInc1 = 0;
 
+    public List<String> getHasReppedList() {
+        return mHasReppedList;
+    }
+
+    public void setHasReppedList(List<String> mHasReppedList) {
+        this.mHasReppedList = mHasReppedList;
+    }
+
     private void addRepToPost(){
         // first we need the followers of the OP. Put em in a list.
         // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
@@ -324,6 +364,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    // if the poster has followers
                     final int childCount = (int) dataSnapshot.getChildrenCount();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         reppedInc1++;
@@ -351,6 +392,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedObject.put("/feed/" + getCurrentUid() +
                                                 "/" + mRefKey + "/hasRepped/", true);
 
+                                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                                "/" + mRefKey + "/repCount/", newRepCount);
+
+                                        List<String> hasReppedList = getHasReppedList();
+                                        hasReppedList.add(getCurrentUid());
+
+                                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                                "/" + mRefKey + "/repCount/", hasReppedList);
+
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
@@ -375,11 +425,21 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         //}
                     }
                 }else{
+                    // if the poster has no friends
                     fanoutReppedObject.put("/feed/" + getCurrentUid() +
                             "/" + mRefKey + "/repCount/", newRepCount);
 
                     fanoutReppedObject.put("/feed/" + getCurrentUid() +
                             "/" + mRefKey + "/hasRepped/", true);
+
+                    fanoutReppedObject.put("/selfFeed/" + xUid +
+                            "/" + mRefKey + "/repCount/", newRepCount);
+
+                    List<String> hasReppedList = getHasReppedList();
+                    hasReppedList.add(getCurrentUid());
+
+                    fanoutReppedObject.put("/selfFeed/" + xUid +
+                            "/" + mRefKey + "/repCount/", hasReppedList);
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
@@ -507,9 +567,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         }
                                         if(commentInc1 == childCount){
                                             if(!getCurrentUid().equals(xUid)){
+                                                // if you're commenting on someone else's post, put it in their feed.
+                                                // so if you're commenting on your own post, it doesn't put it in
+                                                //  yours because it already did!
                                                 fanoutCommentObject.put("/feed/" + xUid +
                                                         "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                                             }
+
+                                            fanoutCommentObject.put("/selfFeed/" + xUid + "/" + mRefKey +
+                                                            "/commentMap/" + commentRefKey, commentModelClass);
 
                                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                             rootRef.updateChildren(fanoutCommentObject);

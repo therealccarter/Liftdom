@@ -302,6 +302,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                     // posting to main feed
                     DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+                    //DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
 
                     String refKey = myFeedRef.push().getKey();
 
@@ -330,6 +331,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
 
                     myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     feedFanOut(refKey, completedWorkoutModelClass);
 
                     dontLeavePage.setVisibility(View.GONE);
@@ -596,6 +598,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         inc++;
 
                         if(inc == dataSnapshot.getChildrenCount()){
+                            fanoutObject.put("/selfFeed/" + uid + "/" + refKey, completedWorkoutModelClass);
                             DatabaseReference rootRef = mRootRef;
                             rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

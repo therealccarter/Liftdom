@@ -29,6 +29,7 @@ public class CompletedWorkoutModelClass {
     private int mRepCount;
     private List<UserNameIdModelClass> mRepUserList;
     private boolean mHasRepped;
+    private List<String> mHasReppedUserList;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -47,6 +48,28 @@ public class CompletedWorkoutModelClass {
         mMediaRef = mediaRef;
         mWorkoutInfoMap = workoutInfoMap;
         mCommentMap = commentMap;
+    }
+
+    public void addToHasReppedList(String uid){
+        if(getHasReppedUserList() != null && !getHasReppedUserList().isEmpty()){
+            if(!getHasReppedUserList().contains(uid)){
+                mHasReppedUserList.add(uid);
+            }
+        }else{
+            mHasReppedUserList.add(uid);
+        }
+    }
+
+    public void removeFromHasReppedList(String uid){
+        if(getHasReppedUserList() != null && !getHasReppedUserList().isEmpty()){
+            if(getHasReppedUserList().contains(uid)){
+                getHasReppedUserList().remove(uid);
+            }
+        }
+    }
+
+    public List<String> getHasReppedUserList(){
+        return this.mHasReppedUserList;
     }
 
     public boolean isHasRepped() {

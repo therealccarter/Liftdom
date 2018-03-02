@@ -385,28 +385,36 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
-                //viewHolder.setPosition(position);
-                viewHolder.setImperialPOV(isImperial);
-                viewHolder.setActivity(getActivity());
-                viewHolder.setRefKey(model.getRef());
-                viewHolder.setUserId(model.getUserId());
-                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
-                        model.isIsImperial());
-                viewHolder.setUpProfilePics(model.getUserId());
-                viewHolder.setCommentRecycler(model.getRef());
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setUserLevel(model.getUserId(), rootRef);
-                viewHolder.setPublicDescription(model.getPublicDescription());
-                viewHolder.setTimeStamp(model.getDateTime());
-                //viewHolder.setReppedCount(model.getRepCount());
-                viewHolder.setRepsCounterView(model.getRepCount());
-                viewHolder.setIsRepped(model.isHasRepped());
-                //viewHolder.setActivity(getActivity());
-                if(model.getBonusList() != null){
-                    if(!model.getBonusList().isEmpty()){
-                        viewHolder.setBonusView(model.getBonusList());
+                //if(model.getUserId().equals(uid)){
+                    //viewHolder.setPosition(position);
+                    viewHolder.setImperialPOV(isImperial);
+                    viewHolder.setActivity(getActivity());
+                    viewHolder.setRefKey(model.getRef());
+                    viewHolder.setUserId(model.getUserId());
+                    viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+                            model.isIsImperial());
+                    viewHolder.setUpProfilePics(model.getUserId());
+                    viewHolder.setCommentRecycler(model.getRef());
+                    viewHolder.setUserName(model.getUserName());
+                    viewHolder.setUserLevel(model.getUserId(), rootRef);
+                    viewHolder.setPublicDescription(model.getPublicDescription());
+                    viewHolder.setTimeStamp(model.getDateTime());
+                    //viewHolder.setReppedCount(model.getRepCount());
+                    viewHolder.setRepsCounterView(model.getRepCount());
+                    viewHolder.setIsRepped(model.isHasRepped());
+                    //viewHolder.setActivity(getActivity());
+                    if(model.getBonusList() != null){
+                        if(!model.getBonusList().isEmpty()){
+                            viewHolder.setBonusView(model.getBonusList());
+                        }
                     }
-                }
+                    if(model.getHasReppedUserList() != null && !model.getHasReppedUserList().isEmpty()){
+
+                    }
+                //}else{
+                //    viewHolder.hideLayout();
+                //}
+
             }
         };
 
