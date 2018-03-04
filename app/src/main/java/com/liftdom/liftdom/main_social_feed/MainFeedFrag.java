@@ -417,6 +417,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             }
         };
 
+        //firebaseAdapter.setHasStableIds(true);
         recyclerView.setAdapter(firebaseAdapter);
     }
 

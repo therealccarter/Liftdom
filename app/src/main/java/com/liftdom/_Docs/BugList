@@ -7,30 +7,24 @@ currently on v1.22
 saved templates should be sorted by update time
 fixed bug causing random users banner to show twice
 Fixed bug causing the WA to incorrectly order workout sets
+new repping system in the background
 ----------------------
-
-if you're in the self feed you need to put "true" in the personal feed shit. OR we just go pure list...
-also right now it isn't removing the gold if it's un-repped
-
-
-So, several issues going on. When scrolling quickly/far in the main feed,
- profile pictures are getting misplaced.
-Another weird issue is that when I rep my latest post, it doesn't update to
- Bourque's feed. But it does update to Gabby's. Weird.
 
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 redesign user profile {
-    possibly consolidate CurrentUserProfile and OtherUserProfile
-    possibly add streak to header instead of "focus"
+    consolidated CurrentUserProfile and OtherUserProfile
+    added streak to header instead of "focus"
     send programs via user profile
-    add three tab slider {
+    add two tab slider {
         Workout Feed (custom recycler/adapter)(Self-feed)
-        / Calendar
-        / Stats (active template, streak, maxes, etc)
+        Calendar
     }
 }
+=====================================================
+
+============ ON DECK FOR v1.23+: ===============================================
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.
     notification node in firebase.
@@ -39,9 +33,6 @@ basic notification bell functionality - badge notification{
     boolean hasRead.
 }
 add decision to have algorithm only increase on completion of weight goal
-=====================================================
-
-============ ON DECK FOR v1.23+: ===============================================
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
 nSuns
@@ -113,10 +104,14 @@ Advanced calendar view template editor a la Google Calendar (repeat every other,
 ======================
 
 ===== social/user-related ==========
+Add third tab to profile slider (Stats (active template, streak, maxes, etc))
 Forum
 fix overflow icon (currently is always search bar)
 Empty search show all users
-Discover tab // or community tab, show highest rated posts from everyone
+Discover tab // or community tab, show highest rated posts from everyone{
+    instead, could just add a default checkbox that adds your workout to the public pool.
+    the main feed then just has a
+}
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
 chat unread stuff (including badge/notifications/unread functionality(bool hasRead))
 forum
@@ -137,4 +132,21 @@ look into design stuff like font
 // be a real companion. personalize the shit...
     // tell them about eating and sleeping and stretching, foam rolling,etc
     // give them options for push notifications and reminders
+=====================================================
+
+======== RANDOM STUFF I WROTE DOWN =================================================
+"Important steps for scaled success"
+-------------------------------------
+Fix up the chat, big time.
+Notification Bell.
+Public posts tab (posted via public-checkmark in WA)
+Take a good look at completion/log-in streak. Need compulsive opening of Liftdom...
+Exercise Search/Custom Exercises.
+Main feed performance/visual rehaul
+Scaling of power level needs to be looked at. We need faster leveling at the low levels probably.
+Share completed workouts to Facebook/Twitter/Raw copy
+Target niche workout programs/subreddits with good sized followings.
+Need true running support (detect if running, then have good extra options for it)(simple - ___miles/yds or ___kms/ms)
+Leaderboard tab in Assistor Saved (Global/Local)
+CompletedWorkoutViewholder - if is the current day, display in minutes or hours ago.
 =====================================================

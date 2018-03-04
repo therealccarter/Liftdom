@@ -733,7 +733,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         posterProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(mActivity).load(uri).crossFade().into(xProfilePic);
+                Glide.with(mActivity).load(uri).into(xProfilePic);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
