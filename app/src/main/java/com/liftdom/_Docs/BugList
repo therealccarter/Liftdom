@@ -12,6 +12,12 @@ Fixed bug causing the WA to incorrectly order workout sets
 if you're in the self feed you need to put "true" in the personal feed shit. OR we just go pure list...
 also right now it isn't removing the gold if it's un-repped
 
+
+So, several issues going on. When scrolling quickly/far in the main feed,
+ profile pictures are getting misplaced.
+Another weird issue is that when I rep my latest post, it doesn't update to
+ Bourque's feed. But it does update to Gabby's. Weird.
+
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================

@@ -130,9 +130,6 @@ public class SelfFeedFrag extends Fragment {
                 viewHolder.setCurrentUserId(uid);
                 viewHolder.setImperialPOV(isImperial);
                 viewHolder.setActivity(getActivity());
-                if(model.getRef().equals("-L6J3vdCHk87cFFxrd1v")){
-                    Log.i("i","d");
-                }
                 viewHolder.setRefKey(model.getRef());
                 viewHolder.setUserId(model.getUserId());
                 viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
@@ -143,10 +140,10 @@ public class SelfFeedFrag extends Fragment {
                 viewHolder.setUserLevel(model.getUserId(), rootRef);
                 viewHolder.setPublicDescription(model.getPublicDescription());
                 viewHolder.setTimeStamp(model.getDateTime());
-                viewHolder.setHasReppedList(model.getHasReppedList(), true);
+                viewHolder.setHasReppedList(model.getHasReppedList());
                 //viewHolder.setReppedCount(model.getRepCount());
-                viewHolder.setRepsCounterView(model.getRepCount());
-                viewHolder.setIsRepped(model.isHasRepped(), true);
+                //viewHolder.setRepsCounterView(model.getRepCount());
+                //viewHolder.setIsRepped(model.isHasRepped(), true);
                 //viewHolder.setActivity(getActivity());
                 if(model.getBonusList() != null){
                     if(!model.getBonusList().isEmpty()){

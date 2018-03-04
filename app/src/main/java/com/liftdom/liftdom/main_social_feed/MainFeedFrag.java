@@ -401,9 +401,9 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                     viewHolder.setPublicDescription(model.getPublicDescription());
                     viewHolder.setTimeStamp(model.getDateTime());
                     //viewHolder.setReppedCount(model.getRepCount());
-                    viewHolder.setHasReppedList(model.getHasReppedList(), false);
-                    viewHolder.setRepsCounterView(model.getRepCount());
-                    viewHolder.setIsRepped(model.isHasRepped(), false);
+                    viewHolder.setHasReppedList(model.getHasReppedList());
+                    //viewHolder.setRepsCounterView(model.getRepCount());
+                    //viewHolder.setIsRepped(model.isHasRepped(), false);
                     //viewHolder.setActivity(getActivity());
                     if(model.getBonusList() != null){
                         if(!model.getBonusList().isEmpty()){

@@ -240,25 +240,30 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         return mHasReppedList;
     }
 
-    public void setHasReppedList(List<String> mHasReppedList, boolean isSelfFeed) {
+    public void setHasReppedList(List<String> mHasReppedList) {
         this.mHasReppedList = mHasReppedList;
-        if(isSelfFeed){
-            if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                if(getHasReppedList().contains(getCurrentUid())){
-                    mRepsIconWhite.setVisibility(View.GONE);
-                    mLoadingReppedView.setVisibility(View.GONE);
-                    mRepsIconGold.setVisibility(View.VISIBLE);
-                }else{
-                    mRepsIconWhite.setVisibility(View.VISIBLE);
-                    mLoadingReppedView.setVisibility(View.GONE);
-                    mRepsIconGold.setVisibility(View.GONE);
-                }
+
+        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+            int repsCount = getHasReppedList().size();
+            mRepsCounterView.setVisibility(View.VISIBLE);
+            mRepsCounterView.setText(String.valueOf(repsCount));
+            if(getHasReppedList().contains(getCurrentUid())){
+                mRepsIconWhite.setVisibility(View.GONE);
+                mLoadingReppedView.setVisibility(View.GONE);
+                mRepsIconGold.setVisibility(View.VISIBLE);
             }else{
                 mRepsIconWhite.setVisibility(View.VISIBLE);
                 mLoadingReppedView.setVisibility(View.GONE);
                 mRepsIconGold.setVisibility(View.GONE);
             }
+        }else{
+            mRepsIconWhite.setVisibility(View.VISIBLE);
+            mLoadingReppedView.setVisibility(View.GONE);
+            mRepsIconGold.setVisibility(View.GONE);
+            mRepsCounterView.setVisibility(View.GONE);
+            mRepsCounterView.setText(String.valueOf(getReppedCount()));
         }
+
     }
 
     private void removeRepFromPost(){
@@ -283,32 +288,33 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
                                     if(!key.equals(getCurrentUid())){
-                                        fanoutReppedRemoveObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/repCount/", newReppedCount);
-                                    }
-                                    if(reppedRemoveInc1 == childCount){
-                                        if(!getCurrentUid().equals(xUid)){
-                                            fanoutReppedRemoveObject.put("/feed/" + xUid +
-                                                    "/" + mRefKey + "/repCount/", newReppedCount);
-                                        }
-
-                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/repCount/", newReppedCount);
-
-                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasRepped/", false);
-
-                                        fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
-                                                "/" + mRefKey + "/repCount/", newReppedCount);
-
-
                                         if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
                                             List<String> hasReppedList;
                                             hasReppedList = getHasReppedList();
                                             hasReppedList.remove(getCurrentUid());
-                                            fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                                            fanoutReppedRemoveObject.put("/feed/" + key +
                                                     "/" + mRefKey + "/hasReppedList/", hasReppedList);
                                         }
+                                        //fanoutReppedRemoveObject.put("/feed/" + key +
+                                        //        "/" + mRefKey + "/repCount/", newReppedCount);
+                                    }
+                                    if(reppedRemoveInc1 == childCount){
+                                        List<String> hasReppedList = new ArrayList<>();
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            hasReppedList = getHasReppedList();
+                                            hasReppedList.remove(getCurrentUid());
+                                        }
+
+                                        if(!getCurrentUid().equals(xUid)){
+                                            fanoutReppedRemoveObject.put("/feed/" + xUid +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }
+
+                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                                        fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
@@ -334,23 +340,35 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         //}
                     }
                 }else{
-                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/repCount/", newReppedCount);
+                    //fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/repCount/", newReppedCount);
+//
+                    //fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/hasRepped/", false);
+//
+                    //fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                    //        "/" + mRefKey + "/repCount/", newReppedCount);
+//
+//
+                    //if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                    //    List<String> hasReppedList;
+                    //    hasReppedList = getHasReppedList();
+                    //    hasReppedList.remove(getCurrentUid());
+                    //    fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                    //            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    //}
 
-                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasRepped/", false);
-
-                    fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
-                            "/" + mRefKey + "/repCount/", newReppedCount);
-
-
+                    List<String> hasReppedList = new ArrayList<>();
                     if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                        List<String> hasReppedList;
                         hasReppedList = getHasReppedList();
                         hasReppedList.remove(getCurrentUid());
-                        fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
-                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
                     }
+
+                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                    fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
@@ -400,24 +418,18 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
                                     if(!key.equals(getCurrentUid())){
+                                        List<String> hasReppedList;
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            hasReppedList = getHasReppedList();
+                                            hasReppedList.add(getCurrentUid());
+                                        }else{
+                                            hasReppedList = new ArrayList<>();
+                                            hasReppedList.add(getCurrentUid());
+                                        }
                                         fanoutReppedObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/repCount/", newRepCount);
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
                                     }
                                     if(reppedInc1 == childCount){
-                                        if(!getCurrentUid().equals(xUid)){
-                                            fanoutReppedObject.put("/feed/" + xUid +
-                                                    "/" + mRefKey + "/repCount/", newRepCount);
-                                        }
-
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/repCount/", newRepCount);
-
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasRepped/", true);
-
-                                        fanoutReppedObject.put("/selfFeed/" + xUid +
-                                                "/" + mRefKey + "/repCount/", newRepCount);
-
                                         List<String> hasReppedList;
                                         if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
                                             hasReppedList = getHasReppedList();
@@ -427,13 +439,16 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                             hasReppedList.add(getCurrentUid());
                                         }
 
-                                        /**
-                                         * So, several issues going on. When scrolling quickly/far in the main feed,
-                                         *  profile pictures are getting misplaced.
-                                         * Another weird issue is that when I rep my latest post, it doesn't update to
-                                         *  Bourque's feed. But it does update to Gabby's. Weird.
-                                         */
+                                        if(!getCurrentUid().equals(xUid)){
+                                            fanoutReppedObject.put("/feed/" + xUid +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }
 
+                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                                        //fanoutReppedObject.put("/selfFeed/" + xUid +
+                                        //        "/" + mRefKey + "/repCount/", newRepCount);
 
                                         fanoutReppedObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/hasReppedList/", hasReppedList);
@@ -463,14 +478,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     }
                 }else{
                     // if the poster has no friends
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/repCount/", newRepCount);
+                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/repCount/", newRepCount);
 
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasRepped/", true);
+                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/hasRepped/", true);
 
-                    fanoutReppedObject.put("/selfFeed/" + xUid +
-                            "/" + mRefKey + "/repCount/", newRepCount);
+                    //fanoutReppedObject.put("/selfFeed/" + xUid +
+                    //        "/" + mRefKey + "/repCount/", newRepCount);
 
                     List<String> hasReppedList;
                     if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
@@ -480,6 +495,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         hasReppedList = new ArrayList<>();
                         hasReppedList.add(getCurrentUid());
                     }
+
+                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
                     fanoutReppedObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/hasReppedList/", hasReppedList);
