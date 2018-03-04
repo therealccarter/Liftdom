@@ -387,6 +387,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 }
                 //if(model.getUserId().equals(uid)){
                     //viewHolder.setPosition(position);
+                    viewHolder.setCurrentUserId(uid);
                     viewHolder.setImperialPOV(isImperial);
                     viewHolder.setActivity(getActivity());
                     viewHolder.setRefKey(model.getRef());
@@ -400,16 +401,14 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                     viewHolder.setPublicDescription(model.getPublicDescription());
                     viewHolder.setTimeStamp(model.getDateTime());
                     //viewHolder.setReppedCount(model.getRepCount());
+                    viewHolder.setHasReppedList(model.getHasReppedList(), false);
                     viewHolder.setRepsCounterView(model.getRepCount());
-                    viewHolder.setIsRepped(model.isHasRepped());
+                    viewHolder.setIsRepped(model.isHasRepped(), false);
                     //viewHolder.setActivity(getActivity());
                     if(model.getBonusList() != null){
                         if(!model.getBonusList().isEmpty()){
                             viewHolder.setBonusView(model.getBonusList());
                         }
-                    }
-                    if(model.getHasReppedUserList() != null && !model.getHasReppedUserList().isEmpty()){
-
                     }
                 //}else{
                 //    viewHolder.hideLayout();

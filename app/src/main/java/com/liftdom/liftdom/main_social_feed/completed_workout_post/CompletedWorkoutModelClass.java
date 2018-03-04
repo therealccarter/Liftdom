@@ -29,7 +29,7 @@ public class CompletedWorkoutModelClass {
     private int mRepCount;
     private List<UserNameIdModelClass> mRepUserList;
     private boolean mHasRepped;
-    private List<String> mHasReppedUserList;
+    private List<String> mHasReppedList;
 
     public CompletedWorkoutModelClass(){
         // necessary for Firebase
@@ -38,7 +38,7 @@ public class CompletedWorkoutModelClass {
     public CompletedWorkoutModelClass(String userId, String userName, String publicDescription, String dateTime,
                                       boolean isImperial, String ref, String mediaRef,
                                       HashMap<String, List<String>> workoutInfoMap, Map<String,
-            PostCommentModelClass> commentMap){
+            PostCommentModelClass> commentMap, List<String> hasReppedList){
         mUserId = userId;
         mUserName = userName;
         mPublicDescription = publicDescription;
@@ -48,28 +48,38 @@ public class CompletedWorkoutModelClass {
         mMediaRef = mediaRef;
         mWorkoutInfoMap = workoutInfoMap;
         mCommentMap = commentMap;
+        try{
+            mHasReppedList = hasReppedList;
+        }catch (NullPointerException e){
+
+        }
+
     }
 
     public void addToHasReppedList(String uid){
-        if(getHasReppedUserList() != null && !getHasReppedUserList().isEmpty()){
-            if(!getHasReppedUserList().contains(uid)){
-                mHasReppedUserList.add(uid);
+        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+            if(!getHasReppedList().contains(uid)){
+                mHasReppedList.add(uid);
             }
         }else{
-            mHasReppedUserList.add(uid);
+            mHasReppedList.add(uid);
         }
     }
 
     public void removeFromHasReppedList(String uid){
-        if(getHasReppedUserList() != null && !getHasReppedUserList().isEmpty()){
-            if(getHasReppedUserList().contains(uid)){
-                getHasReppedUserList().remove(uid);
+        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+            if(getHasReppedList().contains(uid)){
+                getHasReppedList().remove(uid);
             }
         }
     }
 
-    public List<String> getHasReppedUserList(){
-        return this.mHasReppedUserList;
+    public List<String> getHasReppedList(){
+        return this.mHasReppedList;
+    }
+
+    public void setHasReppedList(List<String> mHasReppedList) {
+        this.mHasReppedList = mHasReppedList;
     }
 
     public boolean isHasRepped() {

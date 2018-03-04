@@ -37,6 +37,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     final CardView.LayoutParams params;
     private boolean mIsSelfFeed;
     private List<String> mHasReppedList;
+    private String mCurrentUserId;
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
@@ -211,22 +213,53 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mCardViewParent.setLayoutParams(params);
     }
 
-    public void setIsRepped(boolean isRepped1){
-        // initial
-        if(isRepped1){
-            mRepsIconWhite.setVisibility(View.GONE);
-            mLoadingReppedView.setVisibility(View.GONE);
-            mRepsIconGold.setVisibility(View.VISIBLE);
-        }else{
-            mRepsIconWhite.setVisibility(View.VISIBLE);
-            mLoadingReppedView.setVisibility(View.GONE);
-            mRepsIconGold.setVisibility(View.GONE);
+    public void setIsRepped(boolean isRepped1, boolean isSelfFeed){
+        if(!isSelfFeed){
+            // initial
+            if(isRepped1){
+                mRepsIconWhite.setVisibility(View.GONE);
+                mLoadingReppedView.setVisibility(View.GONE);
+                mRepsIconGold.setVisibility(View.VISIBLE);
+            }else{
+                mRepsIconWhite.setVisibility(View.VISIBLE);
+                mLoadingReppedView.setVisibility(View.GONE);
+                mRepsIconGold.setVisibility(View.GONE);
+            }
         }
     }
 
     private Map fanoutReppedRemoveObject = new HashMap<>();
 
     private int reppedRemoveInc1 = 0;
+
+    private Map fanoutReppedObject = new HashMap<>();
+
+    private int reppedInc1 = 0;
+
+    public List<String> getHasReppedList() {
+        return mHasReppedList;
+    }
+
+    public void setHasReppedList(List<String> mHasReppedList, boolean isSelfFeed) {
+        this.mHasReppedList = mHasReppedList;
+        if(isSelfFeed){
+            if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                if(getHasReppedList().contains(getCurrentUid())){
+                    mRepsIconWhite.setVisibility(View.GONE);
+                    mLoadingReppedView.setVisibility(View.GONE);
+                    mRepsIconGold.setVisibility(View.VISIBLE);
+                }else{
+                    mRepsIconWhite.setVisibility(View.VISIBLE);
+                    mLoadingReppedView.setVisibility(View.GONE);
+                    mRepsIconGold.setVisibility(View.GONE);
+                }
+            }else{
+                mRepsIconWhite.setVisibility(View.VISIBLE);
+                mLoadingReppedView.setVisibility(View.GONE);
+                mRepsIconGold.setVisibility(View.GONE);
+            }
+        }
+    }
 
     private void removeRepFromPost(){
         mRepsIconGold.setVisibility(View.GONE);
@@ -265,15 +298,16 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
                                                 "/" + mRefKey + "/hasRepped/", false);
 
-                                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                        fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/repCount/", newReppedCount);
 
-                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                                            List<String> hasReppedList = getHasReppedList();
-                                            hasReppedList.remove(getCurrentUid());
 
-                                            fanoutReppedObject.put("/selfFeed/" + xUid +
-                                                    "/" + mRefKey + "/repCount/", hasReppedList);
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            List<String> hasReppedList;
+                                            hasReppedList = getHasReppedList();
+                                            hasReppedList.remove(getCurrentUid());
+                                            fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
                                         }
 
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -306,15 +340,16 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
                             "/" + mRefKey + "/hasRepped/", false);
 
-                    fanoutReppedObject.put("/selfFeed/" + xUid +
+                    fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/repCount/", newReppedCount);
 
-                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                        List<String> hasReppedList = getHasReppedList();
-                        hasReppedList.remove(getCurrentUid());
 
-                        fanoutReppedObject.put("/selfFeed/" + xUid +
-                                "/" + mRefKey + "/repCount/", hasReppedList);
+                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                        List<String> hasReppedList;
+                        hasReppedList = getHasReppedList();
+                        hasReppedList.remove(getCurrentUid());
+                        fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
+                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
                     }
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -337,18 +372,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
             }
         });
-    }
-
-    private Map fanoutReppedObject = new HashMap<>();
-
-    private int reppedInc1 = 0;
-
-    public List<String> getHasReppedList() {
-        return mHasReppedList;
-    }
-
-    public void setHasReppedList(List<String> mHasReppedList) {
-        this.mHasReppedList = mHasReppedList;
     }
 
     private void addRepToPost(){
@@ -395,11 +418,25 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/repCount/", newRepCount);
 
-                                        List<String> hasReppedList = getHasReppedList();
-                                        hasReppedList.add(getCurrentUid());
+                                        List<String> hasReppedList;
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            hasReppedList = getHasReppedList();
+                                            hasReppedList.add(getCurrentUid());
+                                        }else{
+                                            hasReppedList = new ArrayList<>();
+                                            hasReppedList.add(getCurrentUid());
+                                        }
+
+                                        /**
+                                         * So, several issues going on. When scrolling quickly/far in the main feed,
+                                         *  profile pictures are getting misplaced.
+                                         * Another weird issue is that when I rep my latest post, it doesn't update to
+                                         *  Bourque's feed. But it does update to Gabby's. Weird.
+                                         */
+
 
                                         fanoutReppedObject.put("/selfFeed/" + xUid +
-                                                "/" + mRefKey + "/repCount/", hasReppedList);
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
@@ -435,11 +472,17 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     fanoutReppedObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/repCount/", newRepCount);
 
-                    List<String> hasReppedList = getHasReppedList();
-                    hasReppedList.add(getCurrentUid());
+                    List<String> hasReppedList;
+                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                        hasReppedList = getHasReppedList();
+                        hasReppedList.add(getCurrentUid());
+                    }else{
+                        hasReppedList = new ArrayList<>();
+                        hasReppedList.add(getCurrentUid());
+                    }
 
                     fanoutReppedObject.put("/selfFeed/" + xUid +
-                            "/" + mRefKey + "/repCount/", hasReppedList);
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
@@ -768,7 +811,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String getCurrentUid(){
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        return mCurrentUserId;
+    }
+
+    public void setCurrentUserId(String userId){
+        this.mCurrentUserId = userId;
     }
 
     public void setRefKey(String refKey){

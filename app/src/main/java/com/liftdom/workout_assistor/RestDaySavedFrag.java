@@ -170,7 +170,7 @@ public class RestDaySavedFrag extends Fragment {
 
                         completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                                 userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
-                                workoutInfoMap, commentModelClassMap);
+                                workoutInfoMap, commentModelClassMap, null);
 
                         if(isLevelUp){
                             List<String> bonusList = new ArrayList<>();

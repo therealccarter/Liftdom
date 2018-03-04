@@ -1,42 +1,32 @@
 package com.liftdom.knowledge_center;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.BaseActivity;
-import com.liftdom.liftdom.MainActivity;
-import com.liftdom.misc_activities.PremiumFeaturesActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.misc_activities.SettingsListActivity;
-import com.liftdom.user_profile.your_profile.CurrentUserProfile;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class KnowledgeCenterHolderActivity extends BaseActivity
         implements ArticlesMainFrag.headerChangeToFrag,
@@ -101,6 +91,42 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
         ImageView imageView = (ImageView) findViewById(R.id.toolbarImage1);
 
         collapsingToolbarLayout.setTitle(title);
+
+    }
+
+    private void BLAM(){
+        DatabaseReference feedRef = FirebaseDatabase.getInstance().getReference().child("feed");
+
+        feedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    i++;
+                    final String userId = dataSnapshot1.getKey();
+                    int j = 0;
+                    Map<String, CompletedWorkoutModelClass> map = new LinkedHashMap<>();
+                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()){
+                        j++;
+                        String key = dataSnapshot2.getKey();
+                        CompletedWorkoutModelClass value = dataSnapshot2.getValue(CompletedWorkoutModelClass.class);
+                        if(userId.equals(value.getUserId())){
+                            map.put(key, value);
+                        }
+                        if(j == dataSnapshot1.getChildrenCount()){
+                            DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("selfFeed").child(userId);
+                            selfFeedRef.setValue(map);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

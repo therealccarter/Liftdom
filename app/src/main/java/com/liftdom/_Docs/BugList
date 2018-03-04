@@ -9,6 +9,9 @@ fixed bug causing random users banner to show twice
 Fixed bug causing the WA to incorrectly order workout sets
 ----------------------
 
+if you're in the self feed you need to put "true" in the personal feed shit. OR we just go pure list...
+also right now it isn't removing the gold if it's un-repped
+
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================

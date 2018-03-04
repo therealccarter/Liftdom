@@ -310,7 +310,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                     completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                             userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
-                            workoutInfoMapProcessed, commentModelClassMap);
+                            workoutInfoMapProcessed, commentModelClassMap, null);
 
                     if (isFirstTimeFirstTime) {
                         List<String> bonusList = new ArrayList<>();
