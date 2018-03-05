@@ -8,6 +8,8 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +25,8 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.BaseActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
+import com.liftdom.liftdom.utils.SlidingTabLayout;
+import com.liftdom.user_profile.single_user_profile.ProfilePagerAdapter;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -40,6 +44,9 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
     @BindView(R.id.collapsingToolbar1) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbarImage1) ImageView toolbarImage;
     @BindView(R.id.comingSoonView) TextView comingSoonView;
+    @BindView(R.id.tabs) SlidingTabLayout tabsView;
+    @BindView(R.id.pager) ViewPager pager;
+    @BindView(R.id.nestedScrollView) NestedScrollView nestedScrollView;
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
@@ -56,6 +63,8 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+
+        nestedScrollView.setFillViewport(true);
 
         if(savedInstanceState == null){
             // get an instance of FragmentTransaction from your Activity
@@ -83,6 +92,8 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
 
         Appodeal.show(this, Appodeal.BANNER_BOTTOM);
 
+        //setUpSlidingLayout();
+
     }
 
     public void changeHeader(String title){
@@ -93,7 +104,6 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
         collapsingToolbarLayout.setTitle(title);
 
     }
-
     private void BLAM(){
         DatabaseReference feedRef = FirebaseDatabase.getInstance().getReference().child("feed");
 

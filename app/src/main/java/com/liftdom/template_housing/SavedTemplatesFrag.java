@@ -48,25 +48,7 @@ public class SavedTemplatesFrag extends Fragment {
         // Required empty public constructor
     }
 
-    headerChangeFromFrag mCallback;
 
-    public interface headerChangeFromFrag{
-        void changeHeaderTitle(String title);
-    }
-
-    private void headerChanger(String title){
-        mCallback.changeHeaderTitle(title);
-    }
-
-    bottomNavChanger navChangerCallback;
-
-    public interface bottomNavChanger{
-        void setBottomNavIndex(int navIndex);
-    }
-
-    private void navChanger(int navIndex){
-        navChangerCallback.setBottomNavIndex(navIndex);
-    }
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -91,8 +73,6 @@ public class SavedTemplatesFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_templates, container, false);
 
         ButterKnife.bind(this, view);
-
-        navChanger(1);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -216,31 +196,30 @@ public class SavedTemplatesFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
-        headerChanger("Saved Programs");
-
-        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
-                ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
-                ("isSavedProgFirstTime");
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    new FancyShowCaseView.Builder(getActivity())
-                            .title("All of your saved programs will be here. \n Your Active Template will have a gold" +
-                                    " title.")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build().show();
-
-                    firstTimeRef.setValue(null);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
+        //        ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
+        //        ("isSavedProgFirstTime");
+        //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        if(dataSnapshot.exists()){
+        //            new FancyShowCaseView.Builder(getActivity())
+        //                    .title("All of your saved programs will be here. \n Your Active Template will have a " +
+        //                    "gold" +
+        //                            " title.")
+        //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+        //                    .build().show();
+//
+        //            firstTimeRef.setValue(null);
+//
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
     }
 
     @Override
@@ -251,18 +230,4 @@ public class SavedTemplatesFrag extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (headerChangeFromFrag) activity;
-            navChangerCallback = (bottomNavChanger) activity;
-        } catch (ClassCastException e) {
-            //throw new ClassCastException(activity.toString()
-            //        + " must implement OnHeadlineSelectedListener");
-        }
-    }
 }

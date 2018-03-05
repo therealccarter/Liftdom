@@ -24,6 +24,7 @@ import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
+import com.liftdom.template_housing.SavedProgramsHolderFrag;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
 import com.liftdom.template_housing.SelectedTemplateFrag;
@@ -46,12 +47,12 @@ public class MainActivity extends BaseActivity implements
         ForumMainFrag.headerChangeFromFrag,
         WorkoutAssistorFrag.headerChangeFromFrag,
         MainFeedFrag.headerChangeFromFrag,
-        SavedTemplatesFrag.headerChangeFromFrag,
+        SavedProgramsHolderFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
         MainFeedFrag.bottomNavChanger,
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
-        SavedTemplatesFrag.bottomNavChanger,
+        SavedProgramsHolderFrag.bottomNavChanger,
         SelectedTemplateFrag.bottomNavChanger,
         WorkoutAssistorFrag.bottomNavChanger,
         AssistorHolderFrag.scrollToBottomInterface
