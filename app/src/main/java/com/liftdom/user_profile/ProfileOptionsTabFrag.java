@@ -115,12 +115,14 @@ public class ProfileOptionsTabFrag extends Fragment {
     private void startPrivateMessage(){
         Intent intent = new Intent(getContext(), ProfileActionsDialogActivity.class);
         intent.putExtra("action", "1");
+        intent.putExtra("uidFromOutside", xUid);
         startActivity(intent);
     }
 
     private void startProgramMessage(){
         Intent intent = new Intent(getContext(), ProfileActionsDialogActivity.class);
         intent.putExtra("action", "2");
+        intent.putExtra("uidFromOutside", xUid);
         startActivity(intent);
     }
 

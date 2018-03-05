@@ -19,12 +19,16 @@ public class SendDirectMessageFrag extends Fragment {
         // Required empty public constructor
     }
 
+    String uidFromOutside;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_send_direct_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_send_direct_message, container, false);
+
+        return view;
     }
 
 }
