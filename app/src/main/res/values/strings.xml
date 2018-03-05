@@ -833,5 +833,6 @@
     <string name="settings_fragment_dialog_message">Loading&#8230;</string>
     <string name="settings_fragment_prompt">Please choose a theme:</string>
     <string name="title_activity_percentage_chooser_dialog">PercentageChooserDialog</string>
+    <string name="title_activity_profile_actions_dialog">ProfileActionsDialogActivity</string>
 
 </resources>

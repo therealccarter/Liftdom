@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity;
+import com.liftdom.user_profile.single_user_profile.ProfileActionsDialogActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +36,8 @@ public class ProfileOptionsTabFrag extends Fragment {
     @BindView(R.id.followingCountTextView) TextView followingCountView;
     @BindView(R.id.followersTitleView) TextView followersTitleView;
     @BindView(R.id.followingTitleView) TextView followingTitleView;
-    @BindView(R.id.messageLinearLayout) LinearLayout messageLayout;
+    @BindView(R.id.sendMessageLinearLayout) LinearLayout sendMessageLayout;
+    @BindView(R.id.sendProgramLinearLayout) LinearLayout sendProgramLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,15 +61,22 @@ public class ProfileOptionsTabFrag extends Fragment {
         //    xUid = uid;
         //}else{
         //    // uncomment this to get message view up
-        //    //messageLayout.setVisibility(View.VISIBLE);
+        //    //sendMessageLayout.setVisibility(View.VISIBLE);
         //}
 
         //TODO: really need to get that back arrow going..
 
-        messageLayout.setOnClickListener(new View.OnClickListener() {
+        sendMessageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startPrivateMessage();
+            }
+        });
+
+        sendProgramLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startProgramMessage();
             }
         });
 
@@ -104,7 +113,15 @@ public class ProfileOptionsTabFrag extends Fragment {
     }
 
     private void startPrivateMessage(){
+        Intent intent = new Intent(getContext(), ProfileActionsDialogActivity.class);
+        intent.putExtra("action", "1");
+        startActivity(intent);
+    }
 
+    private void startProgramMessage(){
+        Intent intent = new Intent(getContext(), ProfileActionsDialogActivity.class);
+        intent.putExtra("action", "2");
+        startActivity(intent);
     }
 
     private void startFollowersActivity(){
