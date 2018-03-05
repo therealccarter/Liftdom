@@ -6,7 +6,7 @@
 
     <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="140dp"
             android:src="@drawable/header_pattern"
             android:scaleType="centerCrop"
     />
@@ -23,17 +23,15 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="140dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal|bottom"
     >
         <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
                 android:id="@+id/profilePicView"
                 android:src="@drawable/justblack"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="5dp"
         />
 
         <LinearLayout
@@ -41,12 +39,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginEnd="5dp"
+                android:paddingStart="10dp"
+                android:background="@color/transDarkGrey2"
 
         >
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
+                    android:textSize="20sp"
                     android:textColor="@color/white"
                     android:id="@+id/userName"
                     android:paddingTop="3dp"
@@ -56,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/black"
                     android:paddingBottom="2dp"
             >
 
@@ -65,14 +64,14 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:text="@string/level"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                 />
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/currentLevel"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/liftrGold1"
                 />
 
@@ -82,13 +81,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/black"
             >
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bodyWeight"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="@color/white"
                         android:id="@+id/textView"/>
 
@@ -96,14 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/bodyWeight"
-                        android:textSize="17sp"
-                        android:textColor="@color/liftrGold1"
-                />
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/liftrGold1"
                 />
 
@@ -112,7 +103,6 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/black"
                     android:orientation="horizontal"
                     android:paddingBottom="5dp"
             >
@@ -121,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/justCompletionStreak"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textColor="@color/white"
                 />
 
@@ -129,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/currentStreak"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textColor="@color/liftrGold1"
                 />
 

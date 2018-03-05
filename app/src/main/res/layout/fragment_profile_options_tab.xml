@@ -7,51 +7,24 @@
         android:background="@color/darkerGrey"
         tools:context="com.liftdom.user_profile.ProfileOptionsTabFrag">
 
+
     <LinearLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:id="@+id/messageLinearLayout"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
     >
 
-        <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_message_black_24dp"
-                android:tint="@color/liftrGold1"
-                android:visibility="gone"
-        />
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sendMessagePlain"
-                android:textColor="@color/liftrGold2"
-                android:gravity="center"
-        />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-    >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/followersCountTextView"
                 android:textColor="@color/liftrGold1"
+                android:textSize="14sp"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:text="@string/elipses"
         />
 
@@ -62,15 +35,8 @@
                 android:text="@string/followers"
                 android:textColor="@color/liftrGold2"
                 android:gravity="center"
-                android:layout_marginStart="3dp"
-        />
+                android:textSize="13sp"
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/liftrGold2"
-                android:text=", "
-                android:visibility="gone"
         />
 
     </LinearLayout>
@@ -79,27 +45,29 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
     >
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/followingTitleView"
-                android:text="@string/following"
-                android:textColor="@color/liftrGold2"
-                android:layout_marginEnd="3dp"
-        />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/followingCountTextView"
                 android:textColor="@color/liftrGold1"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:text="@string/elipses"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/followingTitleView"
+                android:text="@string/following"
+                android:textColor="@color/liftrGold2"
+                android:textSize="13sp"
+
         />
 
     </LinearLayout>
@@ -111,9 +79,8 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
     >
 
         <ImageView
@@ -125,9 +92,37 @@
         />
 
         <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sendProgram"
+                android:textColor="@color/liftrGold2"
+                android:gravity="center"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:id="@+id/messageLinearLayout"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+    >
+        <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_message_black_24dp"
+                android:tint="@color/liftrGold1"
+                android:visibility="gone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sendMessagePlain"
                 android:textColor="@color/liftrGold2"
                 android:gravity="center"
         />

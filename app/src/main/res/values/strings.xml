@@ -191,7 +191,7 @@
 
     <string name="newChat">New Chat</string>
     <string name="sendMessage">Send Message...</string>
-    <string name="sendMessagePlain">Send Message</string>
+    <string name="sendMessagePlain">Send\nMessage</string>
 
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>
@@ -576,7 +576,7 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
     <string name="message">Message</string>
-    <string name="sendProgram">Send Program</string>
+    <string name="sendProgram">Send\nProgram</string>
 
     <string name="renameTemplate">RENAME PROGRAM TO...</string>
 
