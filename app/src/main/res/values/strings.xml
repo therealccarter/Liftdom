@@ -192,6 +192,7 @@
     <string name="newChat">New Chat</string>
     <string name="sendMessage">Send Message...</string>
     <string name="sendMessagePlain">Send\nMessage</string>
+    <string name="userProfile">User Profile</string>
 
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>

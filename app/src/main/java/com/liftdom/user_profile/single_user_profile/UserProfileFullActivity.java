@@ -3,13 +3,16 @@ package com.liftdom.user_profile.single_user_profile;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
+import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
+import com.liftdom.liftdom.BaseActivity;
 import com.liftdom.liftdom.R;
 
-public class UserProfileFullActivity extends AppCompatActivity {
+public class UserProfileFullActivity extends BaseActivity {
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -21,6 +24,12 @@ public class UserProfileFullActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile_full);
 
         ButterKnife.bind(this);
+
+        // Handle Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+
+        setUpNavDrawer(UserProfileFullActivity.this, toolbar);
 
         if(getIntent().getStringExtra("xUid") != null){
             if(getIntent().getStringExtra("xUid").equals(uid)){

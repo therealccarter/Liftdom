@@ -234,7 +234,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public ViewPager getViewPager() {
         if(mViewPager == null){
-            mViewPager = (ViewPager) findViewById(R.id.ViewPager01);
+            //mViewPager = (ViewPager) findViewById(R.id.ViewPager01);
         }
         return mViewPager;
     }
