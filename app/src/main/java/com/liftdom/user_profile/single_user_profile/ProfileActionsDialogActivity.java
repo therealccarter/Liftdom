@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,12 +19,14 @@ public class ProfileActionsDialogActivity extends AppCompatActivity {
     String uidFromOutside;
 
     @BindView(R.id.profileActionsHolder) LinearLayout profileActionsHolder;
+    @BindView(R.id.closeButton) Button closeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_actions_dialog);
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        //setFinishOnTouchOutside(true);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ButterKnife.bind(this);
 
@@ -36,6 +39,13 @@ public class ProfileActionsDialogActivity extends AppCompatActivity {
                 addSendProgramFrag();
             }
         }
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void addSendMessageFrag(){

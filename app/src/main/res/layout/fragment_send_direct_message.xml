@@ -1,9 +1,94 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.liftdom.user_profile.single_user_profile.SendDirectMessageFrag">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/offWhite"
+              tools:context="com.liftdom.user_profile.single_user_profile.SendDirectMessageFrag">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameView"
+    />
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageSentView"
+            android:text="@string/messageSent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageFailedView"
+            android:text="@string/messageFailed"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@color/offWhite"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/messageHolder"
+            android:gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+    >
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/messageEditText"
+                android:layout_weight="2"
+                android:hint="@string/sendMessage"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:maxLength="600"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:inputType="textCapSentences"
+        />
+
+        <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/sendMessageView"
+                android:src="@drawable/ic_send_black_24dp"
+                android:background="@color/transparent"
+                android:layout_gravity="center"
+                android:contentDescription="Send"
+                android:layout_marginEnd="10dp"
+                android:paddingEnd="10dp"
+        />
+
+    </LinearLayout>
 
 
 
-</FrameLayout>
+
+</LinearLayout>

@@ -480,8 +480,7 @@
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.ProfileActionsDialogActivity"
-                android:label="@string/title_activity_profile_actions_dialog"
-                android:theme="@style/AppTheme">
+                android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>
 

@@ -194,6 +194,9 @@
     <string name="sendMessagePlain">Send\nMessage</string>
     <string name="userProfile">User Profile</string>
 
+    <string name="messageSent">Message Sent!</string>
+    <string name="messageFailed">Message Failed\n(check your connection)</string>
+
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>
     <string name="removeSet">(-) Remove Set Scheme</string>
