@@ -10,6 +10,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userNameView"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:background="@color/liftrGold1"
     />
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -28,8 +32,10 @@
             android:text="@string/messageSent"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
     />
 
     <TextView
@@ -39,7 +45,7 @@
             android:text="@string/messageFailed"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:visibility="gone"
     />
 
@@ -49,8 +55,8 @@
             android:orientation="horizontal"
             android:background="@color/offWhite"
             android:layout_marginStart="5dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:id="@+id/messageHolder"
             android:gravity="center_vertical"
             android:focusable="true"
@@ -59,7 +65,7 @@
     >
         <EditText
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/messageEditText"
                 android:layout_weight="2"
                 android:hint="@string/sendMessage"

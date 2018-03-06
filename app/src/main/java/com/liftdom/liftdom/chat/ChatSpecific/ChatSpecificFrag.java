@@ -176,7 +176,6 @@ public class ChatSpecificFrag extends Fragment {
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         rootRef.updateChildren(fanoutObject);
-
     }
 
     private String getTruncatedString(String unCut){

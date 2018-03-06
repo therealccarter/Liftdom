@@ -217,8 +217,8 @@ public class ChatMainFrag extends Fragment {
 
                                         if(memberList.size() == 1){
                                             if(memberList.get(0).equals(uid)){
-                                                MainActivity mainActivity = (MainActivity) getActivity();
-                                                chatName = mainActivity.getUsername();
+                                                SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                                chatName = sharedPref.getString("userName", "loading...");
                                             }
                                         }
 

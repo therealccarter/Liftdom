@@ -49,6 +49,7 @@
                     android:paddingStart="15dp"
                     android:paddingBottom="10dp"
                     android:maxLength="600"
+                    android:inputType="textCapSentences"
             />
 
             <ImageButton

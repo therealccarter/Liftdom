@@ -21,6 +21,7 @@ redesign user profile {
         Workout Feed (custom recycler/adapter)(Self-feed)
         Calendar
     }
+    you can now send direct messages
 }
 add program inbox (ties into messaging workout programs)
 do some more main feed optimization

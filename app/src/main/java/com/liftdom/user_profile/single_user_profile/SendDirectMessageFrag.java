@@ -1,7 +1,10 @@
 package com.liftdom.user_profile.single_user_profile;
 
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +16,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.chat.ChatGroup.ChatGroupModelClass;
+import com.liftdom.liftdom.chat.ChatSpecific.ChatMessageModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,9 +44,11 @@ public class SendDirectMessageFrag extends Fragment {
     }
 
     String uidFromOutside;
+    String userNameFromOutside;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     boolean hasOneOnOneChatAlready = false;
     String chatId;
+    String chatGroupRefKey;
 
     @BindView(R.id.userNameView) TextView userNameView;
     @BindView(R.id.messageHolder) LinearLayout messageHolder;
@@ -69,6 +82,8 @@ public class SendDirectMessageFrag extends Fragment {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingView.setVisibility(View.VISIBLE);
+                messageHolder.setVisibility(View.GONE);
                 String message = messageEditText.getText().toString();
                 if(!message.isEmpty()){
                     if(hasOneOnOneChatAlready){
@@ -92,37 +107,45 @@ public class SendDirectMessageFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                String text = "Send message to " + userModelClass.getUserName();
+                String text = "To " + userModelClass.getUserName() + ":";
                 userNameView.setText(text);
-            }
+                userNameFromOutside = userModelClass.getUserName();
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        DatabaseReference chatGroupRef = FirebaseDatabase.getInstance().getReference().child("chatGroups").child(uid);
-        chatGroupRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int i = 0;
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    i++;
-                    ChatGroupModelClass chatGroupModelClass = dataSnapshot1.getValue(ChatGroupModelClass.class);
-                    if(chatGroupModelClass.getMemberMap().size() == 2){
-                        for(Map.Entry<String, String> entry : chatGroupModelClass.getMemberMap().entrySet()){
-                            if(entry.getKey().equals(uidFromOutside)){
-                                hasOneOnOneChatAlready = true;
-                                chatId = chatGroupModelClass.getChatId();
+                DatabaseReference chatGroupRef = FirebaseDatabase.getInstance().getReference().child("chatGroups").child(uid);
+                chatGroupRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            int i = 0;
+                            for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                                i++;
+                                ChatGroupModelClass chatGroupModelClass = dataSnapshot1.getValue(ChatGroupModelClass.class);
+                                if(chatGroupModelClass.getMemberMap().size() == 2){
+                                    for(Map.Entry<String, String> entry : chatGroupModelClass.getMemberMap().entrySet()){
+                                        if(entry.getKey().equals(uidFromOutside)){
+                                            hasOneOnOneChatAlready = true;
+                                            chatId = chatGroupModelClass.getChatId();
+                                            chatGroupRefKey = chatGroupModelClass.getRefKey();
+                                        }
+                                    }
+                                }
+                                if(i == dataSnapshot.getChildrenCount()){
+                                    loadingView.setVisibility(View.GONE);
+                                    messageHolder.setVisibility(View.VISIBLE);
+                                }
                             }
+                        }else{
+                            loadingView.setVisibility(View.GONE);
+                            messageHolder.setVisibility(View.VISIBLE);
                         }
+
                     }
-                    if(i == dataSnapshot.getChildrenCount()){
-                        loadingView.setVisibility(View.GONE);
-                        messageHolder.setVisibility(View.VISIBLE);
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
-                }
+                });
             }
 
             @Override
@@ -130,14 +153,115 @@ public class SendDirectMessageFrag extends Fragment {
 
             }
         });
+
+
     }
 
     private void sendMessageToExistingChat(String message){
         // logic here should be the same as in chat specific
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference().child("chats").child(chatId);
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+
+        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+        String dateTimeString = dateTime.toString();
+
+        ChatMessageModelClass chatMessageModelClass = new ChatMessageModelClass(message,
+                uid, userName, dateTimeString, 0, "none");
+
+        chatRef.push().setValue(chatMessageModelClass);
+
+        updateChatGroups(message, dateTimeString, userName);
     }
 
     private void createNewChatGroupAndSendMessage(String message){
+        DatabaseReference chatGroupReference = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("chatGroups").child(uid);
 
+        Map fanoutObject = new HashMap<>();
+        String refKey = chatGroupReference.push().getKey();
+
+        chatGroupRefKey = refKey;
+
+        String chatName = null;
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName1 = sharedPref.getString("userName", "loading...");
+
+        chatName = userName1 + ", " + userNameFromOutside;
+
+        final String uniqueID = UUID.randomUUID().toString();
+        chatId = uniqueID;
+
+        final HashMap<String, String> userMap = new HashMap<>();
+
+        userMap.put(uid, userName1);
+        userMap.put(uidFromOutside, userNameFromOutside);
+
+        ArrayList<String> userList = new ArrayList<>();
+        userList.add(uid);
+        userList.add(uidFromOutside);
+
+        ChatGroupModelClass chatGroupModelClass = new ChatGroupModelClass(chatName,
+                "preview text", userMap, uniqueID, refKey);
+        String dateUTC = new DateTime(DateTimeZone.UTC).toString();
+        chatGroupModelClass.setActiveDate(dateUTC);
+
+        for(String userId : userList){
+            fanoutObject.put("/chatGroups/" + userId + "/" + refKey,
+                    chatGroupModelClass);
+        }
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.updateChildren(fanoutObject);
+
+        sendMessageToExistingChat(message);
+    }
+
+    private void updateChatGroups(String message, String dateTime, String userName){
+        // for each member of the current chat, update their chat group nodes
+        Map fanoutObject = new HashMap<>();
+
+        ArrayList<String> userList = new ArrayList<>();
+        userList.add(uid);
+        userList.add(uidFromOutside);
+
+        for(String user : userList){
+            fanoutObject.put("/chatGroups/" + user + "/" + chatGroupRefKey + "/previewString", userName + ": "
+                    + getTruncatedString(message));
+            fanoutObject.put("/chatGroups/" + user + "/" + chatGroupRefKey + "/activeDate", dateTime);
+        }
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.updateChildren(fanoutObject).addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                loadingView.setVisibility(View.GONE);
+                messageHolder.setVisibility(View.GONE);
+                messageSentView.setVisibility(View.VISIBLE);
+                userNameView.setVisibility(View.GONE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadingView.setVisibility(View.GONE);
+                messageHolder.setVisibility(View.GONE);
+                messageFailedView.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private String getTruncatedString(String unCut){
+        String cut;
+        if(unCut.length() > 15){
+            cut = unCut.substring(0, Math.min(unCut.length(), 15)) + "...";
+        }else{
+            cut = unCut;
+        }
+
+        return cut;
     }
 
 }
