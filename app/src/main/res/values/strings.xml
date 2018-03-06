@@ -580,7 +580,7 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
     <string name="message">Message</string>
-    <string name="sendProgram">Send\nProgram</string>
+    <string name="fromSendProgram">Send\nProgram</string>
 
     <string name="renameTemplate">RENAME PROGRAM TO...</string>
 

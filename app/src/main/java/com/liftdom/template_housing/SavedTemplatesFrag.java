@@ -48,7 +48,7 @@ public class SavedTemplatesFrag extends Fragment {
         // Required empty public constructor
     }
 
-
+    public boolean isFromSendProgram;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;

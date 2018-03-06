@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
@@ -29,6 +28,7 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     private final LinearLayout mTemplateHeader;
     private final LinearLayout parentLL;
     private FragmentActivity mActivity;
+    private boolean isFromSendProgram;
 
     public SavedTemplateViewHolder(View itemView){
         super(itemView);
@@ -44,12 +44,17 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
-                selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+                if(isFromSendProgram){
 
-                fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                }else{
+                    SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
+                    selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+
             }
         });
 
@@ -58,12 +63,16 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
-                selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+                if(isFromSendProgram){
 
-                fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                }else{
+                    SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
+                    selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -92,6 +101,13 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
         mActivity = fragmentActivity;
     }
 
+    public boolean isFromSendProgram() {
+        return isFromSendProgram;
+    }
+
+    public void setFromSendProgram(boolean fromSendProgram) {
+        isFromSendProgram = fromSendProgram;
+    }
 
     public void setTemplateNameView(String templateName){
         mTemplateNameView.setText(templateName);

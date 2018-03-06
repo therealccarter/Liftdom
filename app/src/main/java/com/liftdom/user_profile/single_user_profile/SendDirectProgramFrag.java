@@ -27,6 +27,8 @@ public class SendDirectProgramFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_send_direct_program, container, false);
 
+
+
         return view;
     }
 
