@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.user_profile.single_user_profile.SendDirectProgramFrag;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -29,6 +30,7 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     private final LinearLayout parentLL;
     private FragmentActivity mActivity;
     private boolean isFromSendProgram;
+    private String uidFromOutside;
 
     public SavedTemplateViewHolder(View itemView){
         super(itemView);
@@ -45,7 +47,13 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 if(isFromSendProgram){
+                    SendDirectProgramFrag sendDirectProgramFrag = new SendDirectProgramFrag();
+                    sendDirectProgramFrag.uidFromOutside = uidFromOutside;
+                    sendDirectProgramFrag.templateName = mTemplateNameView.getText().toString();
 
+                    fragmentTransaction.replace(R.id.profileActionsHolder, sendDirectProgramFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }else{
                     SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                     selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
@@ -64,7 +72,13 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 if(isFromSendProgram){
+                    SendDirectProgramFrag sendDirectProgramFrag = new SendDirectProgramFrag();
+                    sendDirectProgramFrag.uidFromOutside = uidFromOutside;
+                    sendDirectProgramFrag.templateName = mTemplateNameView.getText().toString();
 
+                    fragmentTransaction.replace(R.id.profileActionsHolder, sendDirectProgramFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }else{
                     SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                     selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
@@ -107,6 +121,14 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
 
     public void setFromSendProgram(boolean fromSendProgram) {
         isFromSendProgram = fromSendProgram;
+    }
+
+    public String getUidFromOutside() {
+        return uidFromOutside;
+    }
+
+    public void setUidFromOutside(String uidFromOutside) {
+        this.uidFromOutside = uidFromOutside;
     }
 
     public void setTemplateNameView(String templateName){

@@ -197,6 +197,9 @@
     <string name="messageSent">Message Sent!</string>
     <string name="messageFailed">Message Failed\n(check your connection)</string>
 
+    <string name="sendProgram">Send Program</string>
+    <string name="selectAProgramToSend">Select a Program to Send:</string>
+
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>
     <string name="removeSet">(-) Remove Set Scheme</string>

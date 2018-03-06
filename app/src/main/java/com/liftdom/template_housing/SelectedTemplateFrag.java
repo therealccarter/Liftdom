@@ -36,6 +36,8 @@ import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +57,7 @@ public class SelectedTemplateFrag extends Fragment {
     public String templateName;
     public boolean isFromPublicList;
     public boolean isFromMyPublicList;
+    public boolean isFromInbox;
     public String firebaseKey;
 
     @BindView(R.id.selectedTemplateTitle) TextView selectedTemplateNameView;
@@ -209,6 +212,9 @@ public class SelectedTemplateFrag extends Fragment {
             }else if(isFromMyPublicList){
                 // personal public template
                 setUpInfoViews(1);
+            }else if(isFromInbox){
+                // from inbox
+                setUpInfoViews(3);
             }else{
                 // personal template
                 setUpInfoViews(2);
@@ -473,6 +479,12 @@ public class SelectedTemplateFrag extends Fragment {
 
             specificTemplateRef = mRootRef.child("publicTemplates").child
                     ("myPublic").child(uid).child(templateName);
+        }else if(situation == 3){
+            choicesBar.setVisibility(View.GONE);
+            publishButton.setVisibility(View.GONE);
+            saveTemplateButton.setVisibility(View.VISIBLE);
+
+            specificTemplateRef = mRootRef.child("templatesInbox").child(uid).child(templateName);
         }else{
             specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
         }
@@ -703,42 +715,98 @@ public class SelectedTemplateFrag extends Fragment {
         }else if(requestCode == 3){
             if(resultCode == 3){
                 if(data != null){
-                    final String returnedName = data.getExtras().getString("templateName");
-                    final DatabaseReference specificTemplateRef = mRootRef.child("publicTemplates").child("public").child
-                            (firebaseKey);
-                    specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
-                            String templateName = modelClass.getTemplateName();
-                            modelClass.setUserId2(uid);
-                            modelClass.setTemplateName(returnedName);
+                    if(isFromInbox){
+                        final String returnedName = data.getExtras().getString("templateName");
+                        final DatabaseReference specificTemplateRef = mRootRef.child("templatesInbox").child(uid)
+                                .child(templateName);
+                        specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                            SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                            final String userName = sharedPref.getString("userName", "loading...");
+                                SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                final String userName = sharedPref.getString("userName", "loading...");
 
-                            modelClass.setUserName2(userName);
-                            DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
-                            myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    CharSequence toastText = "Template Saved";
-                                    int duration = Toast.LENGTH_SHORT;
-                                    try{
-                                        Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
-                                        snackbar.show();
-                                    } catch (NullPointerException e){
+                                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                                String dateUpdated = dateTime.toString();
 
+                                String templateName = modelClass.getTemplateName();
+                                modelClass.setUserId2(uid);
+                                modelClass.setUserName2(userName);
+                                modelClass.setTemplateName(returnedName);
+                                modelClass.setDateUpdated(dateUpdated);
+
+                                DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
+                                myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        CharSequence toastText = "Template Saved";
+                                        int duration = Toast.LENGTH_SHORT;
+                                        try{
+                                            Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                                            snackbar.show();
+                                        } catch (NullPointerException e){
+
+                                        }
+                                        specificTemplateRef.setValue(null);
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                                        fragmentTransaction.replace(R.id.mainFragHolder, new SavedProgramsHolderFrag(), "myTemplatesTag");
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
                                     }
-                                }
-                            });
-                        }
+                                });
+                            }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        final String returnedName = data.getExtras().getString("templateName");
+                        final DatabaseReference specificTemplateRef = mRootRef.child("publicTemplates").child("public").child
+                                (firebaseKey);
+                        specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                                SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                final String userName = sharedPref.getString("userName", "loading...");
+
+                                DateTime dateTime = new DateTime(DateTimeZone.UTC);
+                                String dateUpdated = dateTime.toString();
+
+                                String templateName = modelClass.getTemplateName();
+                                modelClass.setUserId2(uid);
+                                modelClass.setUserName2(userName);
+                                modelClass.setTemplateName(returnedName);
+                                modelClass.setDateUpdated(dateUpdated);
+
+                                DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
+                                myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        CharSequence toastText = "Template Saved";
+                                        int duration = Toast.LENGTH_SHORT;
+                                        try{
+                                            Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
+                                            snackbar.show();
+                                        } catch (NullPointerException e){
+
+                                        }
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
             }
         }

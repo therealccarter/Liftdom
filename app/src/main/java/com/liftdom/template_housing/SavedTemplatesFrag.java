@@ -49,6 +49,7 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     public boolean isFromSendProgram;
+    public String uidFromOutside;
 
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -65,6 +66,7 @@ public class SavedTemplatesFrag extends Fragment {
     @BindView(R.id.button_from_scratch) Button button_from_scratch;
     @BindView(R.id.recycler_view_saved_templates) RecyclerView mRecyclerView;
     @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.selectProgramTitleView) TextView selectProgramTitleView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,29 +78,36 @@ public class SavedTemplatesFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
+        if(isFromSendProgram){
+            selectProgramTitleView.setVisibility(View.VISIBLE);
+            setMargins(mRecyclerView, 0, 0, 0, 0);
+        }
+
         if(savedInstanceState == null) {
-            DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
+            if(!isFromSendProgram){
+                DatabaseReference mDatabase  = FirebaseDatabase.getInstance().getReference();
 
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
+                final DatabaseReference mTemplateRef = mDatabase.child("templates").child(uid);
 
-            mTemplateRef.addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.getValue() == null) {
-                                noSavedTemplates.setVisibility(View.VISIBLE);
-                                linearLayout_new_template.setVisibility(View.VISIBLE);
-                                loadingView.setVisibility(View.GONE);
+                mTemplateRef.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.getValue() == null) {
+                                    noSavedTemplates.setVisibility(View.VISIBLE);
+                                    linearLayout_new_template.setVisibility(View.VISIBLE);
+                                    loadingView.setVisibility(View.GONE);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+            }
         }
 
         linearLayout_new_template.setOnClickListener(new View.OnClickListener(){
@@ -164,6 +173,12 @@ public class SavedTemplatesFrag extends Fragment {
                 (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, query) {
             @Override
             protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
+                if(isFromSendProgram){
+                    viewHolder.setFromSendProgram(true);
+                    viewHolder.setUidFromOutside(uidFromOutside);
+                }else{
+                    viewHolder.setFromSendProgram(false);
+                }
                 viewHolder.setTemplateNameView(model.getTemplateName());
                 viewHolder.setTimeStampView(model.getDateUpdated());
                 viewHolder.setDaysView(model.getDays());
@@ -191,7 +206,13 @@ public class SavedTemplatesFrag extends Fragment {
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
-
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
 
     @Override
     public void onStart(){

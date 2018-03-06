@@ -25,6 +25,7 @@ redesign user profile {
 }
 add program inbox (ties into messaging workout programs)
 do some more main feed optimization
+fix chris's bug at AS 2369
 =====================================================
 
 ============ ON DECK FOR v1.23+: ===============================================
