@@ -1,5 +1,8 @@
 package com.liftdom.misc_activities.followers_following;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,17 +45,24 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
         rootRef = FirebaseDatabase.getInstance().getReference();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
+
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+
         if(getIntent().getExtras() != null){
             if(getIntent().getStringExtra("type").equals("followers")){
                 titleView.setText(R.string.followers);
                 xUid = getIntent().getStringExtra("uid");
                 DatabaseReference databaseReference = rootRef.child("followers").child(xUid);
-                setUpFirebaseAdapter(databaseReference);
+                setUpFirebaseAdapter(databaseReference, userName);
             }else if(getIntent().getStringExtra("type").equals("following")){
                 titleView.setText(R.string.following);
                 xUid = getIntent().getStringExtra("uid");
                 DatabaseReference databaseReference = rootRef.child("following").child(xUid);
-                setUpFirebaseAdapter(databaseReference);
+                setUpFirebaseAdapter(databaseReference, userName);
             }
         }
 
@@ -64,12 +74,12 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpFirebaseAdapter(DatabaseReference databaseReference){
+    private void setUpFirebaseAdapter(DatabaseReference databaseReference, final String userName){
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setItemViewCacheSize(10);
+        recyclerView.setItemViewCacheSize(20);
 
         firebaseAdapter = new FirebaseRecyclerAdapter<UserNameIdModelClass, FollowersFollowingViewHolder>
                 (UserNameIdModelClass.class, R.layout.followers_following_list_item, FollowersFollowingViewHolder.class,
@@ -79,10 +89,15 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
-                viewHolder.setContext(getApplicationContext());
-                viewHolder.setxUid(model.getUserId());
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setUid(uid);
+                if(model.getUserId().equals(uid)){
+                    viewHolder.hideLayout();
+                }else{
+                    viewHolder.setContext(FollowersFollowingDialogActivity.this);
+                    viewHolder.setxUid(model.getUserId());
+                    viewHolder.setUserName(model.getUserName());
+                    viewHolder.setUid(uid);
+                    viewHolder.setYourUserName(userName);
+                }
             }
         };
 

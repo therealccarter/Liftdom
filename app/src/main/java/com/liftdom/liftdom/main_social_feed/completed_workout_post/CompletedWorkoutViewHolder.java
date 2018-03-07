@@ -123,7 +123,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 if(getCurrentUid().equals(xUid)){
                     mActivity.startActivity(intent);
                 } else {
-
                     intent.putExtra("xUid", xUid);
                     mActivity.startActivity(intent);
                     //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
@@ -733,7 +732,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         posterProfilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(mActivity).load(uri).into(xProfilePic);
+                try{
+                    Glide.with(mActivity).load(uri).into(xProfilePic);
+                }catch (IllegalArgumentException e){
+
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

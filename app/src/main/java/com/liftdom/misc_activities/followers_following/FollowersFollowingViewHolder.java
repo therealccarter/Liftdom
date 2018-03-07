@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +41,9 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
     private final AVLoadingIndicatorView mLoadingView;
     Context mContext;
     FragmentActivity mActivity;
+    private final LinearLayout parentLL;
+    private String yourUserName;
+
 
     public FollowersFollowingViewHolder(View itemView){
         super(itemView);
@@ -48,6 +52,7 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
         mFollowUserButton = (Button) itemView.findViewById(R.id.followUserButton);
         mUnFollowUserButton = (Button) itemView.findViewById(R.id.unFollowUserButton);
         mLoadingView = (AVLoadingIndicatorView) itemView.findViewById(R.id.loadingView);
+        parentLL = (LinearLayout) itemView.findViewById(R.id.parentLL);
 
         mFollowUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +74,8 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
 
         mFollowUserButton.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.VISIBLE);
-        SharedPreferences sharedPref = mActivity.getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        UserNameIdModelClass meModelClass = new UserNameIdModelClass(sharedPref.getString("userName", "loading..."), uid);
+
+        UserNameIdModelClass meModelClass = new UserNameIdModelClass(yourUserName, uid);
         final UserNameIdModelClass otherModelClass = new UserNameIdModelClass(userName, xUid);
         // first, the OTHER person gains YOU as a follower
         DatabaseReference followerRef = mRootRef.child("followers").child(xUid).child(uid);
@@ -90,11 +95,20 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    public String getYourUserName() {
+        return yourUserName;
+    }
+
+    public void setYourUserName(String yourUserName) {
+        this.yourUserName = yourUserName;
+    }
+
     private void unfollowUser(){
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
         mUnFollowUserButton.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.VISIBLE);
+
         DatabaseReference followerRef = mRootRef.child("followers").child(xUid).child(uid);
         followerRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -132,7 +146,7 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onSuccess(Uri uri) {
                 Log.i("glide", "success");
-                Glide.with(mContext).load(uri).placeholder(R.drawable.usertest).crossFade().into(mProfilePicView);
+                Glide.with(mContext).load(uri).placeholder(R.drawable.usertest).into(mProfilePicView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -165,10 +179,12 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     if(!uid.equals(xUid)){
+                        mLoadingView.setVisibility(View.GONE);
                         mFollowUserButton.setVisibility(View.GONE);
                         mUnFollowUserButton.setVisibility(View.VISIBLE);
                     }
                 }else{
+                    mLoadingView.setVisibility(View.GONE);
                     mFollowUserButton.setVisibility(View.VISIBLE);
                     mUnFollowUserButton.setVisibility(View.GONE);
                 }
@@ -179,7 +195,10 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
 
             }
         });
+    }
 
-
+    public void hideLayout(){
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+        parentLL.setLayoutParams(layoutParams);
     }
 }
