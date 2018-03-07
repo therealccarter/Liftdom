@@ -1990,21 +1990,23 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                         .get(6));
                                                                             }
                                                                             if (Boolean.parseBoolean(algoMap.getValue().get(9))){
-                                                                                if(Integer.parseInt(algoMap.getValue().get(1))
-                                                                                        == Integer.parseInt(algoMap.getValue().get(5))
-                                                                                        || Integer.parseInt(algoMap.getValue().get(3))
-                                                                                        == Integer.parseInt(algoMap.getValue().get(5))){
+                                                                                //if(Integer.parseInt(algoMap.getValue
+                                                                                //().get(1))
+                                                                                //        == Integer.parseInt(algoMap
+                                                                                //.getValue().get(5))
+                                                                                //        || Integer.parseInt(algoMap
+                                                                                //.getValue().get(3))
+                                                                                //        == Integer.parseInt(algoMap
+                                                                                //.getValue().get(5))){
 
-                                                                                }else{
+                                                                                //}else{
                                                                                     for (int j = 1; j < weeksSinceLast; j++) {
                                                                                         sets = sets - Integer.parseInt(algoMap
-                                                                                                .getValue
-                                                                                                        ().get(2));
+                                                                                                .getValue().get(2));
                                                                                         reps = reps - Integer.parseInt(algoMap
-                                                                                                .getValue
-                                                                                                        ().get(4));
+                                                                                                .getValue().get(4));
                                                                                     }
-                                                                                }
+                                                                                //}
                                                                             }
                                                                         }
                                                                     } else {
@@ -2369,20 +2371,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             weight += Integer.parseInt(map2.getValue().get(6));
                                                                         }
                                                                         if (Boolean.parseBoolean(map2.getValue().get(9))) {
-                                                                            if(Integer.parseInt(map2.getValue().get(1)
-                                                                            ) == Integer.parseInt(map2.getValue().get
-                                                                                    (5)) || Integer.parseInt(map2
-                                                                                    .getValue().get(3)) == Integer
-                                                                                    .parseInt(map2.getValue().get(5))){
+                                                                            //if(Integer.parseInt(map2.getValue().get(1)
+                                                                            //) == Integer.parseInt(map2.getValue().get
+                                                                            //        (5)) || Integer.parseInt(map2
+                                                                            //        .getValue().get(3)) == Integer
+                                                                            //        .parseInt(map2.getValue().get
+                                                                            // (5))){ possibly if it's more than,
+                                                                            // it'd go negative? which would be bad
 
-                                                                            }else{
+                                                                            //}else{
                                                                                 for (int j = 1; j < weeksSinceLast; j++) {
                                                                                     sets = sets - Integer.parseInt(map2.getValue
                                                                                             ().get(2));
                                                                                     reps = reps - Integer.parseInt(map2.getValue
                                                                                             ().get(4));
                                                                                 }
-                                                                            }
+                                                                            //}
                                                                         }
                                                                     }
                                                                 } else {

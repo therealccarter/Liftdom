@@ -94,6 +94,7 @@ public class SendDirectProgramFrag extends Fragment {
                 DateTime dateTime = new DateTime(DateTimeZone.UTC);
                 String dateUpdated = dateTime.toString();
                 templateModelClass.setDateUpdated(dateUpdated);
+                templateModelClass.setAlgorithmDateMap(null);
 
                 DatabaseReference inboxRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox")
                         .child(uidFromOutside).child(templateName);

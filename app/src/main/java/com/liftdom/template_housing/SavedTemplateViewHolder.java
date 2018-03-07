@@ -30,6 +30,7 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     private final LinearLayout parentLL;
     private FragmentActivity mActivity;
     private boolean isFromSendProgram;
+    private boolean isFromInbox;
     private String uidFromOutside;
 
     public SavedTemplateViewHolder(View itemView){
@@ -58,6 +59,10 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                     SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                     selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
 
+                    if(isFromInbox){
+                        selectedTemplateFrag.isFromInbox = true;
+                    }
+
                     fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
@@ -82,6 +87,10 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
                 }else{
                     SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
                     selectedTemplateFrag.templateName = mTemplateNameView.getText().toString();
+
+                    if(isFromInbox){
+                        selectedTemplateFrag.isFromInbox = true;
+                    }
 
                     fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
                     fragmentTransaction.addToBackStack(null);
@@ -109,6 +118,14 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
 
             }
         });
+    }
+
+    public boolean isFromInbox() {
+        return isFromInbox;
+    }
+
+    public void setFromInbox(boolean fromInbox) {
+        isFromInbox = fromInbox;
     }
 
     public void setActivity(FragmentActivity fragmentActivity){

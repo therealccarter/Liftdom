@@ -30,6 +30,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -133,7 +134,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                     noPostsView.setVisibility(View.GONE);
                                     setUpFirebaseAdapter(socialRef, false);
                                 }
-
+                                kablam();
                             }
 
                             @Override
@@ -157,6 +158,27 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         }
 
         return view;
+    }
+
+    private void kablam(){
+        DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
+                ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("TryAgn2ElecB");
+        burkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                templateModelClass.setUserName2("Brodin");
+                templateModelClass.setUserId2(uid);
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox").child
+                        (uid).child("TryAgn2ElecB");
+                myRef.setValue(templateModelClass);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void checkForRandomUsersBanner(){

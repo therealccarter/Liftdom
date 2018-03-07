@@ -200,6 +200,9 @@
     <string name="sendProgram">Send Program</string>
     <string name="selectAProgramToSend">Select a Program to Send:</string>
 
+    <string name="programInboxTitle">Any programs that other users send you will be here:</string>
+    <string name="noProgramsInInbox">Inbox Empty</string>
+
     <!-- movementSetsRepsFrag stuff -->
     <string name="addSet">(+) Add Set Scheme</string>
     <string name="removeSet">(-) Remove Set Scheme</string>

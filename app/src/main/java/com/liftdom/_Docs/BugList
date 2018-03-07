@@ -8,11 +8,6 @@ saved templates should be sorted by update time
 fixed bug causing random users banner to show twice
 Fixed bug causing the WA to incorrectly order workout sets
 new repping system in the background
-----------------------
-
-====================================================
-
-============ CURRENTLY WORKING ON: ===============================================
 redesign user profile {
     consolidated CurrentUserProfile and OtherUserProfile
     added streak to header instead of "focus"
@@ -24,6 +19,11 @@ redesign user profile {
     you can now send direct messages
 }
 add program inbox (ties into messaging workout programs)
+----------------------
+
+====================================================
+
+============ CURRENTLY WORKING ON: ===============================================
 do some more main feed optimization
 fix chris's bug at AS 2369
 =====================================================
