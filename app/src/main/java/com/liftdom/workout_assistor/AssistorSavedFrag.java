@@ -2364,6 +2364,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                                                             }else{
                                                                 // map2.getValue().get(5) == ""
+                                                                // below is an important line, that's the conditional
                                                                 if (weeksSinceLast >= Integer.parseInt(map2.getValue().get(5))) {
                                                                     if (!isExerciseName(tokens[2])) {
                                                                         if(!isNonIntWeight){
