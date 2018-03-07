@@ -154,7 +154,6 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
                 }
             });
-
         }
 
         return view;

@@ -19,6 +19,7 @@ redesign user profile {
     you can now send direct messages
 }
 add program inbox (ties into messaging workout programs)
+fixed bug causing algorithm to not save if you change the days of that particular exercise
 ----------------------
 
 ====================================================

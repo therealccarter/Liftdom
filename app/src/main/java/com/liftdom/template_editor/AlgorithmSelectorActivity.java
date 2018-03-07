@@ -111,7 +111,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                                 applyAlgoToExs.setChecked(true);
                             }else{
                                 if(!day.equals("null")){
-                                    if(tempList.get(12).equals(day)){
+                                    if(containsDay(tempList.get(12), day)){
                                         setsWeeksEditText.setText(tempList.get(1));
                                         setsIncreasedEditText.setText(tempList.get(2));
                                         repsWeeksEditText.setText(tempList.get(3));
@@ -363,5 +363,24 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
             formatted = formatted + string + "/";
         }
         return formatted;
+    }
+
+    private boolean containsDay(String algoDays, String newDays){
+        boolean contains = false;
+
+        String delims = "[_]";
+        String[] tokens1 = algoDays.split(delims);
+        String[] tokens2 = newDays.split(delims);
+
+        for(int i = 0; i < tokens1.length; i++){
+            String day1 = tokens1[i];
+            for(int j = 0; j < tokens2.length; j++){
+                if(day1.equals(tokens2[j])){
+                    contains = true;
+                }
+            }
+        }
+
+        return contains;
     }
 }

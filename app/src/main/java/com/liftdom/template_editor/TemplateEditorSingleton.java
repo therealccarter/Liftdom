@@ -233,6 +233,7 @@ public class TemplateEditorSingleton {
     }
 
     public void setAlgorithmList(String exName, List<String> algoList){
+        Log.i("algoLog", exName + " added (templateEditorSingleton)");
         int listSize = mAlgorithmInfo.size();
         String key = String.valueOf(listSize + 1) + "_key";
 

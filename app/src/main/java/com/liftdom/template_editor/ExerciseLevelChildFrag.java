@@ -108,7 +108,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         if(isEdit){
             for(Map.Entry<String, List<String>> map : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
                 if(map.getValue().get(0).equals(fromEditList.get(0))){
-                    if(map.getValue().get(12).equals(editInitialDays)){
+                    if(map.getValue().get(12).equals(editInitialDays) || containsDay(map.getValue().get(12), editInitialDays)){
+                        Log.i("algoLog", map.getValue().get(0) + " set from isEdit (ex level)");
                         algorithmList.clear();
                         //map.getValue().remove(10);
                         algorithmList.addAll(map.getValue());
@@ -254,6 +255,25 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         callback = (doWCallback) getParentFragment();
 
         return view;
+    }
+
+    private boolean containsDay(String algoDays, String newDays){
+        boolean contains = false;
+
+        String delims = "[_]";
+        String[] tokens1 = algoDays.split(delims);
+        String[] tokens2 = newDays.split(delims);
+
+        for(int i = 0; i < tokens1.length; i++){
+            String day1 = tokens1[i];
+            for(int j = 0; j < tokens2.length; j++){
+                if(day1.equals(tokens2[j])){
+                    contains = true;
+                }
+            }
+        }
+
+        return contains;
     }
 
     ArrayList<ExerciseLevelSSFrag> superSetFragList = new ArrayList<>();
@@ -425,6 +445,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         }
 
         if(!algorithmList.isEmpty()){
+            Log.i("algoLog", getExerciseValueFormatted() + " is not empty (ex level)");
             if(algorithmList.size() > 12){
                 algorithmList.set(12, getDoWValue());
             }else{
@@ -443,6 +464,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
             }
+        }else{
+            Log.i("algoLog", getExerciseValueFormatted() + " is empty (ex level)");
         }
     }
 
@@ -540,13 +563,6 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         return spinnerText.replaceAll("\n", "");
     }
 
-    private String stringSize(){
-        int intSize = TemplateEditorSingleton.getInstance().mAlgorithmInfo.size();
-        intSize++;
-
-        String stringVersion = String.valueOf(intSize);
-        return stringVersion;
-    }
 
 
 
