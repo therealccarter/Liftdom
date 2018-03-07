@@ -137,6 +137,14 @@ public class HousingDoWFrag extends Fragment {
     String titleFormatter(String unformatted){
         String formatted = unformatted.replaceAll("_", "/");
 
+        if(formatted.length() != 0) {
+            int index = formatted.length() - 1;
+            char c = formatted.charAt(index);
+            if(String.valueOf(c).equals("/")){
+                formatted = formatted.substring(0, index);
+            }
+        }
+
 
         return formatted;
     }

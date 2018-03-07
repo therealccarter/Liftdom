@@ -471,6 +471,7 @@ public class SelectedTemplateFrag extends Fragment {
             choicesBar.setVisibility(View.GONE);
             publishButton.setVisibility(View.GONE);
             saveTemplateButton.setVisibility(View.VISIBLE);
+            setAsActiveTemplate.setVisibility(View.GONE);
 
             specificTemplateRef = mRootRef.child("publicTemplates").child
                     ("public").child(firebaseKey);
@@ -483,6 +484,7 @@ public class SelectedTemplateFrag extends Fragment {
             choicesBar.setVisibility(View.GONE);
             publishButton.setVisibility(View.GONE);
             saveTemplateButton.setVisibility(View.VISIBLE);
+            setAsActiveTemplate.setVisibility(View.GONE);
 
             specificTemplateRef = mRootRef.child("templatesInbox").child(uid).child(templateName);
         }else{
@@ -740,7 +742,7 @@ public class SelectedTemplateFrag extends Fragment {
                                 myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        CharSequence toastText = "Template Saved";
+                                        CharSequence toastText = "Program Saved";
                                         int duration = Toast.LENGTH_SHORT;
                                         try{
                                             Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
@@ -748,13 +750,17 @@ public class SelectedTemplateFrag extends Fragment {
                                         } catch (NullPointerException e){
 
                                         }
-                                        specificTemplateRef.setValue(null);
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        specificTemplateRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                                        fragmentTransaction.replace(R.id.mainFragHolder, new SavedProgramsHolderFrag(), "myTemplatesTag");
-                                        fragmentTransaction.addToBackStack(null);
-                                        fragmentTransaction.commit();
+                                                fragmentTransaction.replace(R.id.mainFragHolder, new SavedProgramsHolderFrag(), "myTemplatesTag");
+                                                fragmentTransaction.addToBackStack(null);
+                                                fragmentTransaction.commit();
+                                            }
+                                        });
                                     }
                                 });
                             }

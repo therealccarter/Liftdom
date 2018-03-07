@@ -134,7 +134,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                     noPostsView.setVisibility(View.GONE);
                                     setUpFirebaseAdapter(socialRef, false);
                                 }
-                                kablam();
+                                //kablam();
                             }
 
                             @Override
