@@ -394,6 +394,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
+                    android:gravity="center"
             />
 
             <CheckBox
@@ -407,7 +408,7 @@
                     android:layout_marginEnd="15dp"
                     android:text="@string/algoExApply"
                     android:layout_marginBottom="20dp"
-
+                    android:gravity="center"
             />
 
             <CheckBox
@@ -421,7 +422,21 @@
                     android:layout_marginEnd="15dp"
                     android:text="@string/algoAllExApply"
                     android:layout_marginBottom="20dp"
+                    android:gravity="center"
+            />
 
+            <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/applyAlgoWeightCheck"
+                    android:buttonTint="@color/liftrGold1"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/algoWeightCheck"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
             />
 
             <LinearLayout

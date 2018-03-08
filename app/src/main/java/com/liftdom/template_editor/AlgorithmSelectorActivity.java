@@ -36,6 +36,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
     @BindView(R.id.algorithmLooper) CheckBox algorithmLooper;
     @BindView(R.id.applyAlgoToExs) CheckBox applyAlgoToExs;
     @BindView(R.id.applyAlgoToAllExs) CheckBox applyAlgoToAllExs;
+    @BindView(R.id.applyAlgoWeightCheck) CheckBox applyAlgoWeightCheck; // now we need to work through this
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.exNameAndDowView) TextView exNameDowView;
     @BindView(R.id.clearButton) Button clearButton;

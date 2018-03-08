@@ -201,6 +201,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         }
                     }
                 } else {
+                    // not algo all
                     DateTime dateTime = new DateTime();
                     int currentWeekday = dateTime.getDayOfWeek();
                     if (templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
@@ -258,8 +259,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         } else {
                                             // set to false
                                             String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                    ("0_key")
-                                                    .get(0);
+                                                    ("0_key").get(0);
                                             String bool = "false";
                                             templateClass.setNewDateMapValues(todayString, exName, bool);
                                         }
