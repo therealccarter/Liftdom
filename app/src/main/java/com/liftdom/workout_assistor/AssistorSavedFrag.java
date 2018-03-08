@@ -2375,54 +2375,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                                                                                 //}else{
 
-                                                                                /**
-                                                                                 * So what're the cases where this would
-                                                                                 * fuck up?
-                                                                                 * 1. If sets/reps are not set to increase.
-                                                                                 * 2. If sets - wSL < 1 || reps - wSL < 1
-                                                                                 *
-                                                                                 * idk
-                                                                                 *
-                                                                                 * Let's write out some cases.
-                                                                                 *
-                                                                                 * ---------------------------------------
-                                                                                 * 1 x 2 @ 30 (OG set scheme)
-                                                                                 * ---------------------------------------
-                                                                                 * s = 1_1 (every 1 weeks, increase s by 1)
-                                                                                 * r = 2_1 (every 2 weeks, increase r by 1)
-                                                                                 * w = 3_1 (every 3 weeks, increase w by 1)
-                                                                                 * ----------------------------------------
-                                                                                 *
-                                                                                 * wSL = 1
-                                                                                 * 2 x 2 @ 30
-                                                                                 *
-                                                                                 * wSL = 2
-                                                                                 * 3 x 3 @ 30
-                                                                                 *
-                                                                                 * wSL = 3
-                                                                                 * 4 x 3 @ 31
-                                                                                 *
-                                                                                 * wSL = 4 (now it's above w so we loop
-                                                                                 * (wSL - 1) times)
-                                                                                 * (loop 1){
-                                                                                 *      s = 4 - 1 // s == 3
-                                                                                 *      r = 3 - 1 // r == 2
-                                                                                 * }
-                                                                                 * (loop 2){
-                                                                                 *      s = 3 - 1 // s == 2
-                                                                                 * }
-                                                                                 * (loop 3){
-                                                                                 *      s = 2 - 1 // s == 1
-                                                                                 * }
-                                                                                 * 1 x 2 @ 31 | what we actually got: 2 x 2 @ 31
-                                                                                 *
-                                                                                 * this is bc we're increasing s/r
-                                                                                 * before checking for the loop
-                                                                                 *
-                                                                                 * we're going to have to apply the %
-                                                                                 * method to the weight thing
-                                                                                 */
-
                                                                                 sets = Integer.parseInt(tokens[0]);
                                                                                 reps = Integer.parseInt(tokens[1]);
 
