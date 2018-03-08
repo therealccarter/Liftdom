@@ -256,10 +256,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
-                                alertDialog.dismiss();
-                                finishWorkout();
-                            }else{
+                            if(dayDouble % (double) 3 == 0.0 && !isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkoutFromAd();
 
@@ -290,6 +287,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                                         Log.i("appodeal", "closed");
                                     }
                                 });
+                            }else{
+                                alertDialog.dismiss();
+                                finishWorkout();
                             }
 
 
@@ -362,6 +362,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                     Button negativeButton = (Button) dialogView.findViewById(R.id.negativeView);
                     negativeButton.setText(R.string.cancel);
 
+                    /**
+                     * Couple problems I'm seeing here.
+                     * Why did another algoInfoDateMap get created?
+                     * Why didn't the shit increase weight? because I set both dates to 2-07
+                     */
+
                     positiveButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -371,11 +377,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                             // possibly have rando number generate
 
-                            if(dayDouble % (double) 3 == 0.0 || isTutorialFirstTime){
-                                alertDialog.dismiss();
-                                finishWorkout();
-                            }else{
-
+                            if(dayDouble % (double) 3 == 0.0 && !isTutorialFirstTime){
                                 alertDialog.dismiss();
                                 finishWorkoutFromAd();
 
@@ -406,6 +408,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                                         Log.i("appodeal", "closed");
                                     }
                                 });
+                            }else{
+                                alertDialog.dismiss();
+                                finishWorkout();
                             }
 
                         }
