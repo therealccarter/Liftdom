@@ -2430,17 +2430,31 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                     if(!map2.getValue().get(1).isEmpty()
                                                                                             && !map2.getValue().get(2).isEmpty()){
                                                                                         int setsWeek = Integer.parseInt(map2.getValue().get(1));
-                                                                                        int setsInc = Integer.parseInt(map2.getValue().get(2));
-                                                                                        if(j % setsWeek == 0){
-                                                                                            sets = sets - setsInc;
+                                                                                        if(setsWeek < Integer.parseInt(map2.getValue().get(5))){
+                                                                                            int setsInc = Integer.parseInt(map2.getValue().get(2));
+                                                                                            if(j % setsWeek == 0){
+                                                                                                if(sets - setsInc > 0){
+                                                                                                    sets = sets - setsInc;
+                                                                                                }else{
+                                                                                                    sets = 1;
+                                                                                                }
+
+                                                                                            }
                                                                                         }
                                                                                     }
                                                                                     if(!map2.getValue().get(3).isEmpty()
                                                                                             && !map2.getValue().get(4).isEmpty()){
                                                                                         int repsWeek = Integer.parseInt(map2.getValue().get(3));
-                                                                                        int repsInc = Integer.parseInt(map2.getValue().get(4));
-                                                                                        if(j % repsWeek == 0){
-                                                                                            reps = reps - repsInc;
+                                                                                        if(repsWeek < Integer.parseInt(map2.getValue().get(5))){
+                                                                                            int repsInc = Integer.parseInt(map2.getValue().get(4));
+                                                                                            if(j % repsWeek == 0){
+                                                                                                if(reps - repsInc > 0){
+                                                                                                    reps = reps - repsInc;
+                                                                                                }else{
+                                                                                                    reps = 1;
+                                                                                                }
+
+                                                                                            }
                                                                                         }
                                                                                     }
                                                                                     // reset algoDateMap(1) to today
