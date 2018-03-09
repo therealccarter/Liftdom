@@ -1860,10 +1860,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
         boolean firstLoopBool = true;
 
         LocalDate newDate = LocalDate.now();
-        for(Map.Entry<String, List<String>> algoMap : templateClass.getAlgorithmInfo().entrySet()){
-            if(algoMap.getValue().get(0).equals(exName)){
+        for(Map.Entry<String, List<String>> algoInfoMap : templateClass.getAlgorithmInfo().entrySet()){
+            if(algoInfoMap.getValue().get(0).equals(exName)){
                 // so now we're in the correct algorithm map
                 List<String> newValueList = new ArrayList<>();
+                boolean updateOldDate = false;
                 boolean instantiateList = false;
                 for(Map.Entry<String, List<String>> map : hashMapCopy.entrySet()){
                     String key = tag + "_key";
@@ -1879,164 +1880,248 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         boolean hasEx = false;
                                         for(Map.Entry<String, List<String>> algoDateMap : templateClass
                                                 .getAlgorithmDateMap().entrySet()){
-                                            if(isRunning){
+
                                                 try {
-                                                if(isToday(algoDateMap.getValue().get(3))) {
-                                                    if (algoDateMap.getValue().get(0).equals(exNameFormatted)) {
-                                                        if (Boolean.parseBoolean(algoDateMap.getValue().get(2))) {
-                                                            // compare, keep everything the same, set to true.
-                                                            hasEx = true;
-                                                            int weeksSinceLast = getWeeksSinceLast(algoDateMap.getValue().get(1));
 
-                                                            int sets = 0;
-                                                            int reps = 0;
-                                                            int weight = 0;
+                                                    if (isToday(algoDateMap.getValue().get(3))) {
+                                                        if (algoDateMap.getValue().get(0).equals(exNameFormatted)) {
+                                                            if (Boolean.parseBoolean(algoDateMap.getValue().get(2))) {
+                                                                // compare, keep everything the same, set to true.
+                                                                hasEx = true;
+                                                                if(isRunning){
+                                                                    int weeksSinceLast = getWeeksSinceLast(algoDateMap.getValue().get(1));
 
-                                                            boolean isNonIntWeight = false;
+                                                                    int sets = 0;
+                                                                    int reps = 0;
+                                                                    int weight = 0;
+                                                                    String weightPercentString = "";
 
-                                                            if(isExerciseName(tokens[2])){
-                                                                isNonIntWeight = true;
-                                                            }
+                                                                    boolean isNonIntWeight = false;
+                                                                    boolean isPercentWeight = false;
 
-                                                            if(algoMap.getValue().get(1).equals("") || algoMap.getValue()
-                                                                    .get
-                                                                    (2).equals("")){
-                                                                sets = Integer.parseInt(tokens[0]);
-                                                            }else{
-                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
-                                                                        .get(1))) {
-                                                                    sets = Integer.parseInt(tokens[0]);
-                                                                    sets += Integer.parseInt(algoMap.getValue().get(2));
-                                                                } else {
-                                                                    sets = Integer.parseInt(tokens[0]);
-                                                                }
-                                                            }
+                                                                    if(isExerciseName(tokens[2])){
+                                                                        isNonIntWeight = true;
+                                                                    }
 
-                                                            if(algoMap.getValue().get(3).equals("") || algoMap.getValue().get
-                                                                    (4).equals("")) {
-                                                                reps = Integer.parseInt(tokens[1]);
-                                                            }else{
-                                                                if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
-                                                                        .get(3))) {
-                                                                    reps = Integer.parseInt(tokens[1]);
-                                                                    reps += Integer.parseInt(algoMap.getValue().get(4));
-                                                                } else {
-                                                                    reps = Integer.parseInt(tokens[1]);
-                                                                }
-                                                            }
+                                                                    if(isPercentage(string)){
+                                                                        isPercentWeight = true;
+                                                                        weightPercentString = tokens[2];
 
-                                                            if(isPercentage(string)){
-                                                                String weightPercentString = tokens[2];
-
-                                                                if(algoMap.getValue().get(7).equals("") || algoMap.getValue().get
-                                                                        (8).equals("")) {
-
-                                                                }else{
-                                                                    // map2.getValue().get(5) == ""
-                                                                    if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
-                                                                            .get(7))) {
-                                                                        //if (!isExerciseName(tokens[2])) {
-                                                                            //if(!isNonIntWeight){
+                                                                        if(!algoInfoMap.getValue().get(7).equals("") && !
+                                                                                algoInfoMap.getValue().get(8).equals("")) {
+                                                                            // map2.getValue().get(5) == ""
+                                                                            // below is an important line, that's the conditional
+                                                                            if (weeksSinceLast % Integer.parseInt
+                                                                                    (algoInfoMap.getValue().get(7)) == 0) {
+                                                                                //if (!isExerciseName(tokens[2])) {
                                                                                 String delimsP = "[_]";
-                                                                                String[] tokensP = weightPercentString.split(delimsP);
-                                                                                int weightPercentInt = Integer
-                                                                                        .parseInt(tokensP[1]);
-                                                                                weightPercentInt += Integer.parseInt(algoMap.getValue()
-                                                                                        .get(8));
-                                                                                weightPercentString = "p_" +
-                                                                                        weightPercentInt + "_a_" +
-                                                                                        tokensP[3];
-                                                                            //}
-                                                                            if (Boolean.parseBoolean(algoMap.getValue().get(9))){
-                                                                                if(Integer.parseInt(algoMap.getValue().get(1))
-                                                                                        == Integer.parseInt(algoMap
-                                                                                        .getValue().get(7))
-                                                                                        || Integer.parseInt(algoMap.getValue().get(3))
-                                                                                        == Integer.parseInt(algoMap
-                                                                                        .getValue().get(7))){
+                                                                                String[] tokensP =weightPercentString.split(delimsP);
+                                                                                int weightPercentInt = Integer.parseInt(tokensP[1]);
+                                                                                weightPercentInt += Integer.parseInt(algoInfoMap.getValue().get(8));
+                                                                                weightPercentString = "p_" + weightPercentInt
+                                                                                        + "_a_" + tokensP[3];
+                                                                                if (Boolean.parseBoolean(algoInfoMap.getValue().get(9))) {
+                                                                                    // loop == true
 
-                                                                                }else{
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    reps = Integer.parseInt(tokens[1]);
+
                                                                                     for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                        sets = sets - Integer.parseInt(algoMap
-                                                                                                .getValue().get(2));
-                                                                                        reps = reps - Integer.parseInt(algoMap
-                                                                                                .getValue().get(4));
+                                                                                        if(!algoInfoMap.getValue().get(1).isEmpty()
+                                                                                                && !algoInfoMap.getValue().get(2).isEmpty()){
+                                                                                            int setsWeek = Integer.parseInt(algoInfoMap.getValue().get(1));
+                                                                                            if(setsWeek < Integer.parseInt(algoInfoMap.getValue().get(7))){
+                                                                                                int setsInc = Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                                if(j % setsWeek == 0){
+                                                                                                    if(sets - setsInc > 0){
+                                                                                                        sets = sets - setsInc;
+                                                                                                    }else{
+                                                                                                        sets = 1;
+                                                                                                    }
+
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                        if(!algoInfoMap.getValue().get(3).isEmpty()
+                                                                                                && !algoInfoMap.getValue().get(4).isEmpty()){
+                                                                                            int repsWeek = Integer.parseInt(algoInfoMap.getValue().get(3));
+                                                                                            if(repsWeek < Integer.parseInt(algoInfoMap.getValue().get(7))){
+                                                                                                int repsInc = Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                                if(j % repsWeek == 0){
+                                                                                                    if(reps - repsInc > 0){
+                                                                                                        reps = reps - repsInc;
+                                                                                                    }else{
+                                                                                                        reps = 1;
+                                                                                                    }
+
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                        // reset algoDateMap(1) to today
+                                                                                        // string to avoid taking away
+                                                                                        // too much.
+                                                                                    }
+                                                                                    //}
+                                                                                    updateOldDate = true;
+                                                                                }
+                                                                            }else {
+                                                                                if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }else{
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(1)) == 0) {
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                        sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                    } else {
+                                                                                        sets = Integer.parseInt(tokens[0]);
                                                                                     }
                                                                                 }
+
+                                                                                if(algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                }else{
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+
+                                                                                if (!isExerciseName(tokens[2])) {
+                                                                                    weight = Integer.parseInt(tokens[2]);
+                                                                                }
                                                                             }
-                                                                        //}
-                                                                    } else {
-                                                                        if (!isExerciseName(tokens[2])) {
-                                                                            weightPercentString = tokens[2];
                                                                         }
+                                                                    }else{
+
+                                                                        //TODO: Alert user that looping only works if you set weight increases
+
+                                                                        if(!algoInfoMap.getValue().get(5).equals("")
+                                                                                && !algoInfoMap.getValue().get(6).equals("")) {
+                                                                            // map2.getValue().get(5) == ""
+                                                                            // below is an important line, that's the conditional
+                                                                            if (weeksSinceLast % Integer.parseInt
+                                                                                    (algoInfoMap.getValue().get(5)) == 0) {
+                                                                                if (!isExerciseName(tokens[2])) {
+                                                                                    if(!isNonIntWeight){
+                                                                                        weight = Integer.parseInt(tokens[2]);
+                                                                                        weight += Integer.parseInt(algoInfoMap.getValue().get(6));
+                                                                                    }
+                                                                                    if (Boolean.parseBoolean(algoInfoMap.getValue().get(9))) {
+                                                                                        // loop == true
+
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                        reps = Integer.parseInt(tokens[1]);
+
+                                                                                        for (int j = 1; j < weeksSinceLast; j++) {
+                                                                                            if(!algoInfoMap.getValue().get(1).isEmpty()
+                                                                                                    && !algoInfoMap.getValue().get(2).isEmpty()){
+                                                                                                int setsWeek = Integer.parseInt(algoInfoMap.getValue().get(1));
+                                                                                                if(setsWeek < Integer.parseInt(algoInfoMap.getValue().get(5))){
+                                                                                                    int setsInc = Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                                    if(j % setsWeek == 0){
+                                                                                                        if(sets - setsInc > 0){
+                                                                                                            sets = sets - setsInc;
+                                                                                                        }else{
+                                                                                                            sets = 1;
+                                                                                                        }
+
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                            if(!algoInfoMap.getValue().get(3).isEmpty()
+                                                                                                    && !algoInfoMap.getValue().get(4).isEmpty()){
+                                                                                                int repsWeek = Integer.parseInt(algoInfoMap.getValue().get(3));
+                                                                                                if(repsWeek < Integer.parseInt(algoInfoMap.getValue().get(5))){
+                                                                                                    int repsInc = Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                                    if(j % repsWeek == 0){
+                                                                                                        if(reps - repsInc > 0){
+                                                                                                            reps = reps - repsInc;
+                                                                                                        }else{
+                                                                                                            reps = 1;
+                                                                                                        }
+
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                            // reset algoDateMap(1) to today
+                                                                                            // string to avoid taking away
+                                                                                            // too much.
+                                                                                        }
+                                                                                        //}
+                                                                                        updateOldDate = true;
+                                                                                    }
+                                                                                }
+                                                                                //}else if(weeksSinceLast == Integer.parseInt
+                                                                                //(map2.getValue().get(5))){
+                                                                                //   if (!isExerciseName(tokens[2])) {
+                                                                                //       if(!isNonIntWeight){
+                                                                                //           weight = Integer.parseInt(tokens[2]);
+                                                                                //           weight += Integer.parseInt
+                                                                                //   (map2.getValue().get(6));
+                                                                                //       }
+                                                                                //   }
+                                                                            }else {
+                                                                                if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }else{
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(1)) == 0) {
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                        sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                    } else {
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                    }
+                                                                                }
+
+                                                                                if(algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                }else{
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+
+                                                                                if (!isExerciseName(tokens[2])) {
+                                                                                    weight = Integer.parseInt(tokens[2]);
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                        //newValueMap.get(valueMapEntry.getKey()).add(concat);
                                                                     }
-                                                                    String concat = Integer.toString(sets)
+
+                                                                    String concat;
+
+                                                                    if(isPercentWeight){
+                                                                        concat = Integer.toString(sets)
                                                                                 + "x" + Integer.toString(reps)
                                                                                 + "@" + weightPercentString;
-
-                                                                    newValueList.add(concat);
-                                                                }
-                                                            }else{
-
-                                                                //TODO: Alert user that looping only works if you set weight increases
-
-                                                                if(algoMap.getValue().get(5).equals("") || algoMap.getValue().get
-                                                                        (6).equals("")) {
-
-                                                                }else{
-                                                                    // map2.getValue().get(5) == ""
-                                                                    if (weeksSinceLast >= Integer.parseInt(algoMap.getValue()
-                                                                            .get(5))) {
-                                                                        if (!isExerciseName(tokens[2])) {
-                                                                            if(!isNonIntWeight){
-                                                                                weight = Integer.parseInt(tokens[2]);
-                                                                                weight += Integer.parseInt(algoMap.getValue()
-                                                                                        .get(6));
-                                                                            }
-                                                                            if (Boolean.parseBoolean(algoMap.getValue().get(9))){
-                                                                                //if(Integer.parseInt(algoMap.getValue
-                                                                                //().get(1))
-                                                                                //        == Integer.parseInt(algoMap
-                                                                                //.getValue().get(5))
-                                                                                //        || Integer.parseInt(algoMap
-                                                                                //.getValue().get(3))
-                                                                                //        == Integer.parseInt(algoMap
-                                                                                //.getValue().get(5))){
-
-                                                                                //}else{
-                                                                                    for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                        sets = sets - Integer.parseInt(algoMap
-                                                                                                .getValue().get(2));
-                                                                                        reps = reps - Integer.parseInt(algoMap
-                                                                                                .getValue().get(4));
-                                                                                    }
-                                                                                //}
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        if (!isExerciseName(tokens[2])) {
-                                                                            weight = Integer.parseInt(tokens[2]);
+                                                                    }else{
+                                                                        if(!isNonIntWeight){
+                                                                            concat = Integer.toString(sets)
+                                                                                    + "x" + Integer.toString(reps)
+                                                                                    + "@" + Integer.toString(weight);
+                                                                        }else{
+                                                                            concat = Integer.toString(sets)
+                                                                                    + "x" + Integer.toString(reps)
+                                                                                    + "@" + tokens[2];
                                                                         }
                                                                     }
-                                                                }
 
-                                                                String concat;
 
-                                                                if(!isNonIntWeight){
-                                                                    concat = Integer.toString(sets)
-                                                                            + "x" + Integer.toString(reps)
-                                                                            + "@" + Integer.toString(weight);
-                                                                }else{
-                                                                    concat = Integer.toString(sets)
-                                                                            + "x" + Integer.toString(reps)
-                                                                            + "@" + tokens[2];
-                                                                }
-
-                                                                newValueList.add(concat);
+                                                                    newValueList.add(concat);
+                                                                } else {
+                                                                newValueList.add(string);
                                                             }
-
-                                                        } else {
-                                                            newValueList.add(string);
                                                         }
                                                     }
                                                 }
@@ -2044,14 +2129,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                     Log.i("info", "out of bounds");
                                             }
 
-                                        }else{
-                                                // if is not running
-                                                instantiateList = true;
-                                            }
-                                        if(!hasEx){
-                                            // no recorded instance of this ex on this day
-                                            instantiateList = true;
-                                        }
+                                        //}else{
+                                        //        // if is not running
+                                        //        instantiateList = true;
+                                        //    }
+
+                                    }
+                                    if(!hasEx){
+                                        // no recorded instance of this ex on this day
+                                        instantiateList = true;
                                     }
                                 }else{
                                     // no algo completed info at all
@@ -2060,8 +2146,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             }else {
                                 newValueList.add(string);
                             }
-
                         }
+
+
                         if(instantiateList){
                             // CREATE map
 
@@ -2069,7 +2156,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 DateTime dateTime = new DateTime();
                                 int currentWeekday = dateTime.getDayOfWeek();
 
-                                if(templateClass.getAlgorithmDateMap() == null){
+                                if (templateClass.getAlgorithmDateMap() == null) {
+                                    // creates new (first) date map
                                     HashMap<String, List<String>> newHashMap = new HashMap<>();
                                     String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
                                             .get(0);
@@ -2081,7 +2169,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     newList.add(newDate.toString());
                                     newHashMap.put("0_key", newList);
                                     templateClass.setAlgorithmDateMap(newHashMap);
-                                }else{
+                                } else {
+                                    // creates new algoDateMap at algoDateMap.size + 1
                                     HashMap<String, List<String>> newHashMap = new HashMap<>();
                                     newHashMap.putAll(templateClass.getAlgorithmDateMap());
                                     String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get("0_key")
@@ -2132,7 +2221,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 newMap.putAll(templateClass.getAlgorithmDateMap());
                                 List<String> newList = new ArrayList<>();
                                 newList.add(exNameFormatted);
-                                newList.add(oldDate);
+                                if(!isRunning || oldDate == null || updateOldDate){
+                                    newList.add(LocalDate.now().toString());
+                                }else{
+                                    newList.add(oldDate);
+                                }
                                 newList.add("true");
                                 newList.add(todayString);
                                 newList.add(LocalDate.now().toString());
@@ -2143,11 +2236,16 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 newMap.putAll(templateClass.getAlgorithmDateMap());
                                 List<String> newList = new ArrayList<>();
                                 newList.add(exNameFormatted);
-                                if(oldDate == null){
+                                if(!isRunning || oldDate == null || updateOldDate){
                                     newList.add(LocalDate.now().toString());
                                 }else{
                                     newList.add(oldDate);
                                 }
+                                //if(oldDate == null){
+                                //    newList.add(LocalDate.now().toString());
+                                //}else{
+                                //    newList.add(oldDate);
+                                //}
                                 newList.add("true");
                                 newList.add(todayString);
                                 newList.add(LocalDate.now().toString());
@@ -2255,10 +2353,10 @@ public class AssistorSavedFrag extends android.app.Fragment {
         boolean goneThroughOnce = false;
 
         LocalDate newDate = LocalDate.now();
-        for (Map.Entry<String, List<String>> map2 : templateClass.getAlgorithmInfo().entrySet()) {
+        for (Map.Entry<String, List<String>> algoInfoMap : templateClass.getAlgorithmInfo().entrySet()) {
             //if(map2.getValue().size() < 12){
                 if(!goneThroughOnce){
-                    if(map2.getValue().get(0).equals(exName)) {
+                    if(algoInfoMap.getValue().get(0).equals(exName)) {
                     goneThroughOnce = true;
                     //List<String> newValueList = new ArrayList<>();
                     //newValueList.add(exName);
@@ -2276,14 +2374,14 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 if (templateClass.getAlgorithmDateMap() != null) {
                                         boolean hasEx = false;
                                         // need to check for the case of if empty or if no entries were found
-                                        for (Map.Entry<String, List<String>> map : templateClass.getAlgorithmDateMap().entrySet()) {
-                                            if (isToday(map.getValue().get(3))) {
-                                                if (map.getValue().get(0).equals(exName)) {
-                                                    if (Boolean.parseBoolean(map.getValue().get(2))) {
+                                        for (Map.Entry<String, List<String>> algoDateMap : templateClass.getAlgorithmDateMap().entrySet()) {
+                                            if (isToday(algoDateMap.getValue().get(3))) {
+                                                if (algoDateMap.getValue().get(0).equals(exName)) {
+                                                    if (Boolean.parseBoolean(algoDateMap.getValue().get(2))) {
                                                         // compare, keep everything the same, set to true.
                                                         hasEx = true;
                                                         if(isRunning) {
-                                                            int weeksSinceLast = getWeeksSinceLast(map.getValue().get(1));
+                                                            int weeksSinceLast = getWeeksSinceLast(algoDateMap.getValue().get(1));
 
                                                             int sets = 0;
                                                             int reps = 0;
@@ -2301,42 +2399,31 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                 isPercentWeight = true;
                                                                 weightPercentString = tokens[2];
 
-                                                                if(!map2.getValue().get(7).equals("") && !
-                                                                        map2.getValue().get(8).equals("")) {
+                                                                if(!algoInfoMap.getValue().get(7).equals("") && !
+                                                                        algoInfoMap.getValue().get(8).equals("")) {
                                                                     // map2.getValue().get(5) == ""
                                                                     // below is an important line, that's the conditional
                                                                     if (weeksSinceLast % Integer.parseInt
-                                                                            (map2.getValue().get(7)) == 0) {
+                                                                            (algoInfoMap.getValue().get(7)) == 0) {
                                                                         //if (!isExerciseName(tokens[2])) {
                                                                         String delimsP = "[_]";
                                                                         String[] tokensP =weightPercentString.split(delimsP);
                                                                         int weightPercentInt = Integer.parseInt(tokensP[1]);
-                                                                        weightPercentInt += Integer.parseInt(map2.getValue().get(8));
+                                                                        weightPercentInt += Integer.parseInt(algoInfoMap.getValue().get(8));
                                                                         weightPercentString = "p_" + weightPercentInt
                                                                                 + "_a_" + tokensP[3];
-                                                                            if (Boolean.parseBoolean(map2.getValue().get(9))) {
+                                                                            if (Boolean.parseBoolean(algoInfoMap.getValue().get(9))) {
                                                                                 // loop == true
-
-                                                                                //if(Integer.parseInt(map2.getValue().get
-                                                                                // (1)
-                                                                                //) == Integer.parseInt(map2.getValue().get
-                                                                                //        (5)) || Integer.parseInt(map2
-                                                                                //        .getValue().get(3)) == Integer
-                                                                                //        .parseInt(map2.getValue().get
-                                                                                // (5))){ possibly if it's more than,
-                                                                                // it'd go negative? which would be bad
-
-                                                                                //}else{
 
                                                                                 sets = Integer.parseInt(tokens[0]);
                                                                                 reps = Integer.parseInt(tokens[1]);
 
                                                                                 for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                    if(!map2.getValue().get(1).isEmpty()
-                                                                                            && !map2.getValue().get(2).isEmpty()){
-                                                                                        int setsWeek = Integer.parseInt(map2.getValue().get(1));
-                                                                                        if(setsWeek < Integer.parseInt(map2.getValue().get(7))){
-                                                                                            int setsInc = Integer.parseInt(map2.getValue().get(2));
+                                                                                    if(!algoInfoMap.getValue().get(1).isEmpty()
+                                                                                            && !algoInfoMap.getValue().get(2).isEmpty()){
+                                                                                        int setsWeek = Integer.parseInt(algoInfoMap.getValue().get(1));
+                                                                                        if(setsWeek < Integer.parseInt(algoInfoMap.getValue().get(7))){
+                                                                                            int setsInc = Integer.parseInt(algoInfoMap.getValue().get(2));
                                                                                             if(j % setsWeek == 0){
                                                                                                 if(sets - setsInc > 0){
                                                                                                     sets = sets - setsInc;
@@ -2347,11 +2434,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                             }
                                                                                         }
                                                                                     }
-                                                                                    if(!map2.getValue().get(3).isEmpty()
-                                                                                            && !map2.getValue().get(4).isEmpty()){
-                                                                                        int repsWeek = Integer.parseInt(map2.getValue().get(3));
-                                                                                        if(repsWeek < Integer.parseInt(map2.getValue().get(7))){
-                                                                                            int repsInc = Integer.parseInt(map2.getValue().get(4));
+                                                                                    if(!algoInfoMap.getValue().get(3).isEmpty()
+                                                                                            && !algoInfoMap.getValue().get(4).isEmpty()){
+                                                                                        int repsWeek = Integer.parseInt(algoInfoMap.getValue().get(3));
+                                                                                        if(repsWeek < Integer.parseInt(algoInfoMap.getValue().get(7))){
+                                                                                            int repsInc = Integer.parseInt(algoInfoMap.getValue().get(4));
                                                                                             if(j % repsWeek == 0){
                                                                                                 if(reps - repsInc > 0){
                                                                                                     reps = reps - repsInc;
@@ -2369,37 +2456,27 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                 //}
                                                                                 updateOldDate = true;
                                                                             }
-                                                                        //}
-                                                                        //}else if(weeksSinceLast == Integer.parseInt
-                                                                        //(map2.getValue().get(5))){
-                                                                        //   if (!isExerciseName(tokens[2])) {
-                                                                        //       if(!isNonIntWeight){
-                                                                        //           weight = Integer.parseInt(tokens[2]);
-                                                                        //           weight += Integer.parseInt
-                                                                        //   (map2.getValue().get(6));
-                                                                        //       }
-                                                                        //   }
                                                                     }else {
-                                                                        if(map2.getValue().get(1).equals("") || map2.getValue().get(2).equals("")){
+                                                                        if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
                                                                             sets = Integer.parseInt(tokens[0]);
                                                                         }else{
-                                                                            if (weeksSinceLast % Integer.parseInt(map2.getValue()
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
                                                                                     .get(1)) == 0) {
                                                                                 sets = Integer.parseInt(tokens[0]);
-                                                                                sets += Integer.parseInt(map2.getValue().get(2));
+                                                                                sets += Integer.parseInt(algoInfoMap.getValue().get(2));
                                                                             } else {
                                                                                 sets = Integer.parseInt(tokens[0]);
                                                                             }
                                                                         }
 
-                                                                        if(map2.getValue().get(3).equals("") || map2.getValue().get
+                                                                        if(algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
                                                                                 (4).equals("")) {
                                                                             reps = Integer.parseInt(tokens[1]);
                                                                         }else{
-                                                                            if (weeksSinceLast % Integer.parseInt(map2.getValue()
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
                                                                                     .get(3)) == 0) {
                                                                                 reps = Integer.parseInt(tokens[1]);
-                                                                                reps += Integer.parseInt(map2.getValue().get(4));
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
                                                                             } else {
                                                                                 reps = Integer.parseInt(tokens[1]);
                                                                             }
@@ -2414,52 +2491,29 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                                                                 //TODO: Alert user that looping only works if you set weight increases
 
-                                                                if(!map2.getValue().get(5).equals("")
-                                                                        && !map2.getValue().get(6).equals("")) {
+                                                                if(!algoInfoMap.getValue().get(5).equals("")
+                                                                        && !algoInfoMap.getValue().get(6).equals("")) {
                                                                     // map2.getValue().get(5) == ""
                                                                     // below is an important line, that's the conditional
                                                                     if (weeksSinceLast % Integer.parseInt
-                                                                            (map2.getValue().get(5)) == 0) {
+                                                                            (algoInfoMap.getValue().get(5)) == 0) {
                                                                         if (!isExerciseName(tokens[2])) {
                                                                             if(!isNonIntWeight){
                                                                                 weight = Integer.parseInt(tokens[2]);
-                                                                                weight += Integer.parseInt(map2.getValue().get(6));
+                                                                                weight += Integer.parseInt(algoInfoMap.getValue().get(6));
                                                                             }
-                                                                            if (Boolean.parseBoolean(map2.getValue().get(9))) {
+                                                                            if (Boolean.parseBoolean(algoInfoMap.getValue().get(9))) {
                                                                                 // loop == true
-
-                                                                                //String delimsP = "[_]";
-                                                                                //String[] tokensP =
-                                                                                //weightPercentString.split(delimsP);
-                                                                                //int weightPercentInt = Integer
-                                                                                //        .parseInt(tokensP[1]);
-                                                                                //weightPercentInt += Integer.parseInt
-                                                                                //(map2.getValue()
-                                                                                //        .get(8));
-                                                                                //weightPercentString = "p_" +
-                                                                                //        weightPercentInt + "_a_" +
-                                                                                //        tokensP[3];
-
-                                                                                //if(Integer.parseInt(map2.getValue().get
-                                                                                // (1)
-                                                                                //) == Integer.parseInt(map2.getValue().get
-                                                                                //        (5)) || Integer.parseInt(map2
-                                                                                //        .getValue().get(3)) == Integer
-                                                                                //        .parseInt(map2.getValue().get
-                                                                                // (5))){ possibly if it's more than,
-                                                                                // it'd go negative? which would be bad
-
-                                                                                //}else{
 
                                                                                 sets = Integer.parseInt(tokens[0]);
                                                                                 reps = Integer.parseInt(tokens[1]);
 
                                                                                 for (int j = 1; j < weeksSinceLast; j++) {
-                                                                                    if(!map2.getValue().get(1).isEmpty()
-                                                                                            && !map2.getValue().get(2).isEmpty()){
-                                                                                        int setsWeek = Integer.parseInt(map2.getValue().get(1));
-                                                                                        if(setsWeek < Integer.parseInt(map2.getValue().get(5))){
-                                                                                            int setsInc = Integer.parseInt(map2.getValue().get(2));
+                                                                                    if(!algoInfoMap.getValue().get(1).isEmpty()
+                                                                                            && !algoInfoMap.getValue().get(2).isEmpty()){
+                                                                                        int setsWeek = Integer.parseInt(algoInfoMap.getValue().get(1));
+                                                                                        if(setsWeek < Integer.parseInt(algoInfoMap.getValue().get(5))){
+                                                                                            int setsInc = Integer.parseInt(algoInfoMap.getValue().get(2));
                                                                                             if(j % setsWeek == 0){
                                                                                                 if(sets - setsInc > 0){
                                                                                                     sets = sets - setsInc;
@@ -2470,11 +2524,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                             }
                                                                                         }
                                                                                     }
-                                                                                    if(!map2.getValue().get(3).isEmpty()
-                                                                                            && !map2.getValue().get(4).isEmpty()){
-                                                                                        int repsWeek = Integer.parseInt(map2.getValue().get(3));
-                                                                                        if(repsWeek < Integer.parseInt(map2.getValue().get(5))){
-                                                                                            int repsInc = Integer.parseInt(map2.getValue().get(4));
+                                                                                    if(!algoInfoMap.getValue().get(3).isEmpty()
+                                                                                            && !algoInfoMap.getValue().get(4).isEmpty()){
+                                                                                        int repsWeek = Integer.parseInt(algoInfoMap.getValue().get(3));
+                                                                                        if(repsWeek < Integer.parseInt(algoInfoMap.getValue().get(5))){
+                                                                                            int repsInc = Integer.parseInt(algoInfoMap.getValue().get(4));
                                                                                             if(j % repsWeek == 0){
                                                                                                 if(reps - repsInc > 0){
                                                                                                     reps = reps - repsInc;
@@ -2503,26 +2557,26 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                         //       }
                                                                         //   }
                                                                     }else {
-                                                                        if(map2.getValue().get(1).equals("") || map2.getValue().get(2).equals("")){
+                                                                        if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
                                                                             sets = Integer.parseInt(tokens[0]);
                                                                         }else{
-                                                                            if (weeksSinceLast % Integer.parseInt(map2.getValue()
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
                                                                                     .get(1)) == 0) {
                                                                                 sets = Integer.parseInt(tokens[0]);
-                                                                                sets += Integer.parseInt(map2.getValue().get(2));
+                                                                                sets += Integer.parseInt(algoInfoMap.getValue().get(2));
                                                                             } else {
                                                                                 sets = Integer.parseInt(tokens[0]);
                                                                             }
                                                                         }
 
-                                                                        if(map2.getValue().get(3).equals("") || map2.getValue().get
+                                                                        if(algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
                                                                                 (4).equals("")) {
                                                                             reps = Integer.parseInt(tokens[1]);
                                                                         }else{
-                                                                            if (weeksSinceLast % Integer.parseInt(map2.getValue()
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
                                                                                     .get(3)) == 0) {
                                                                                 reps = Integer.parseInt(tokens[1]);
-                                                                                reps += Integer.parseInt(map2.getValue().get(4));
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
                                                                             } else {
                                                                                 reps = Integer.parseInt(tokens[1]);
                                                                             }
