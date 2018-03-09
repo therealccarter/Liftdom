@@ -463,6 +463,13 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         if(fragIdCount1 != 0){
             if(getChildFragmentManager().findFragmentByTag(tag) != null){
                 fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
+                ExerciseLevelChildFrag exerciseLevelChildFrag1  = new ExerciseLevelChildFrag();
+                for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+                    if(exerciseLevelChildFrag.fragTag.equals(tag)){
+                        exerciseLevelChildFrag1 = exerciseLevelChildFrag;
+                    }
+                }
+                exLevelFragList.remove(exerciseLevelChildFrag1);
                 --fragIdCount1;
             }
         }
