@@ -7,133 +7,140 @@
               tools:context="com.liftdom.template_editor.SetsLevelSSFrag">
 
     <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/three_dot_menu"
             android:layout_marginTop="10dp"
             android:id="@+id/extraOptionsButton"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="-40dp"
-    />
-
-    <EditText
-            android:id="@+id/sets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/set"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="18sp"
-            android:imeOptions="actionNext"
-            android:maxLength="2"
-    />
-
-    <TextView
-            android:id="@+id/by"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/x"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-    />
-
-    <EditText
-            android:id="@+id/reps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/reps"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="18sp"
-            android:imeOptions="actionNext"
-            android:maxLength="2"
-    />
-
-    <TextView
-            android:id="@+id/at"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/at"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_weight="1"
     />
 
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/weightLL"
             android:orientation="horizontal"
+            android:layout_weight="1"
     >
-
         <EditText
-                android:id="@+id/weight"
+                android:id="@+id/sets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/weight"
+                android:hint="@string/set"
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="18sp"
-                android:imeOptions="actionDone"
-                android:maxLength="4"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
         />
 
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/percentageLL"
-            android:orientation="horizontal"
-            android:layout_marginEnd="3dp"
-            android:visibility="gone"
-    >
-        <EditText
+        <TextView
+                android:id="@+id/by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/percentageEditText"
+                android:text="@string/x"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+        />
+
+        <EditText
+                android:id="@+id/reps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/reps"
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="18sp"
-                android:imeOptions="actionDone"
-                android:maxLength="3"
+                android:imeOptions="actionNext"
+                android:maxLength="2"
         />
+
+        <TextView
+                android:id="@+id/at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/at"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+        />
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/weightLL"
+                android:orientation="horizontal"
+        >
+
+            <EditText
+                    android:id="@+id/weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/weight"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp"
+                    android:imeOptions="actionDone"
+                    android:maxLength="4"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/percentageLL"
+                android:orientation="horizontal"
+                android:layout_marginEnd="3dp"
+                android:visibility="gone"
+        >
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/percentageEditText"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp"
+                    android:imeOptions="actionDone"
+                    android:maxLength="3"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="@string/percentOf"
+            />
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/percentageWeightButton"
+                    android:hint="        "
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:textAllCaps="false"
+                    android:background="@color/grey"
+                    android:layout_marginStart="5dp"
+                    android:padding="3dp"
+                    android:textSize="18sp"
+            />
+
+        </LinearLayout>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/lbs"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:text="@string/percentOf"
-        />
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/percentageWeightButton"
-                android:hint="        "
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:textAllCaps="false"
-                android:background="@color/grey"
-                android:layout_marginStart="5dp"
-                android:padding="3dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:layout_marginEnd="40dp"
         />
 
     </LinearLayout>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lbs"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginEnd="40dp"
-    />
 
 </LinearLayout>
 

@@ -315,9 +315,9 @@ public class SetsLevelSSFrag extends android.app.Fragment {
 
         String inputWithout = input.replaceAll("\\s+","");
 
-        if(inputWithout.equals("")){
-            isNumber = true;
-        } else{
+        //if(inputWithout.equals("")){
+        //    isNumber = true;
+        //} else{
             try {
                 int num = Integer.parseInt(input);
                 Log.i("",num+" is a number");
@@ -325,7 +325,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
             } catch (NumberFormatException e) {
                 isNumber = false;
             }
-        }
+        //}
 
         return isNumber;
     }

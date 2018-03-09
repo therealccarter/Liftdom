@@ -4,6 +4,7 @@
 
 ======== ***Completed*** =======================================================
 currently on v1.22
+----------------------
 saved templates should be sorted by update time
 fixed bug causing random users banner to show twice
 Fixed bug causing the WA to incorrectly order workout sets
@@ -21,6 +22,8 @@ redesign user profile {
 add program inbox (ties into messaging workout programs)
 fixed bug causing algorithm to not save if you change the days of that particular exercise
 fixed bug causing deleted exercises to not actually be deleted
+fixed bug causing exercises to be out of order in Selected Programs page
+fixed bug causing reps/weight format to not be set in the Program Editor
 ----------------------
 
 ====================================================
@@ -28,7 +31,8 @@ fixed bug causing deleted exercises to not actually be deleted
 ============ CURRENTLY WORKING ON: ===============================================
 do some more main feed optimization
 fix chris's bug at AS 2369
-T.F. bug in getTotalPoundage
+total algorithm engine rework (stability/functionality improvements, numerous bug fixes)
+add decision to have algorithm only increase on completion of weight goal
 =====================================================
 
 ============ ON DECK FOR v1.23+: ===============================================
@@ -39,7 +43,6 @@ basic notification bell functionality - badge notification{
     classes will have relevant info for intents and user data and whatnot
     boolean hasRead.
 }
-add decision to have algorithm only increase on completion of weight goal
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
 nSuns

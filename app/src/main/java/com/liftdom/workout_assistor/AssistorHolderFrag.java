@@ -1081,6 +1081,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         for(Map.Entry<String, List<String>> entry : map.entrySet()){
             List<String> list = entry.getValue();
             for(String string : list){
+                //if(string.equals("Overhead Press (Dumbbell)")){
+                //    Log.i("i", "i");
+                //}
                 if(!isExerciseName(string)){
                     String delims = "[_]";
                     String[] tokens = string.split(delims);
@@ -1231,6 +1234,13 @@ public class AssistorHolderFrag extends android.app.Fragment
             char c = input.charAt(0);
             if (Character.isDigit(c)) {
                 isExercise = false;
+            }
+            if(input.length() > 5){
+                String string = input.substring(0, 4);
+                //String string2 = input.substring(0, 2);
+                if(string.equals("T.F.")){
+                    isExercise = false;
+                }
             }
         }
 

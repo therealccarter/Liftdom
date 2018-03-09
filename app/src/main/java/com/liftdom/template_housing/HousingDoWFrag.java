@@ -64,53 +64,59 @@ public class HousingDoWFrag extends Fragment {
         doWStringView.setTypeface(lobster);
 
         if(map != null){
-            for(Map.Entry<String, List<String>> entry : map.entrySet()){ // map is null
-                if(!entry.getKey().equals("0_key")){
-                    List<String> list = entry.getValue();
-                    boolean isFirstEx = true;
-                    boolean isFirstSetSchemes = true;
-                    for(String string : list){
-                        if(!string.isEmpty()){
-                            if(isExerciseName(string) && isFirstEx){
-                                // add exname frag
-                                isFirstEx = false;
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager
-                                        .beginTransaction();
-                                HousingExNameFrag exNameFrag = new HousingExNameFrag();
-                                exNameFrag.exNameString = string;
-                                fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                                fragmentTransaction.commit();
-                            }else if(isExerciseName(string) && !isFirstEx) {
-                                // add exname frag
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager
-                                        .beginTransaction();
-                                ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
-                                exNameFrag.exNameString = string;
-                                fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                                fragmentTransaction.commit();
-                                isFirstSetSchemes = false;
-                            }else if(!isExerciseName(string) && isFirstSetSchemes){
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager
-                                        .beginTransaction();
-                                HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
-                                setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                                setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                                setSchemeFrag.setSchemeString = string;
-                                fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                                fragmentTransaction.commit();
-                            }else if(!isExerciseName(string) && !isFirstSetSchemes){
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager
-                                        .beginTransaction();
-                                SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
-                                setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                                setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                                setSchemeFrag.setSchemeString = string;
-                                fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                                fragmentTransaction.commit();
+            for(int i = 0; i < map.size(); i ++){
+                for(Map.Entry<String, List<String>> entry : map.entrySet()){ // map is null
+                    if(!entry.getKey().equals("0_key")){
+                        String delims = "[_]";
+                        String[] tokens = entry.getKey().split(delims);
+                        if(Integer.parseInt(tokens[0]) == i){
+                            List<String> list = entry.getValue();
+                            boolean isFirstEx = true;
+                            boolean isFirstSetSchemes = true;
+                            for(String string : list){
+                                if(!string.isEmpty()){
+                                    if(isExerciseName(string) && isFirstEx){
+                                        // add exname frag
+                                        isFirstEx = false;
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HousingExNameFrag exNameFrag = new HousingExNameFrag();
+                                        exNameFrag.exNameString = string;
+                                        fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+                                        fragmentTransaction.commit();
+                                    }else if(isExerciseName(string) && !isFirstEx) {
+                                        // add exname frag
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
+                                        exNameFrag.exNameString = string;
+                                        fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+                                        fragmentTransaction.commit();
+                                        isFirstSetSchemes = false;
+                                    }else if(!isExerciseName(string) && isFirstSetSchemes){
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
+                                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
+                                        setSchemeFrag.setSchemeString = string;
+                                        fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+                                        fragmentTransaction.commit();
+                                    }else if(!isExerciseName(string) && !isFirstSetSchemes){
+                                        FragmentManager fragmentManager = getChildFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager
+                                                .beginTransaction();
+                                        SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
+                                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+                                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
+                                        setSchemeFrag.setSchemeString = string;
+                                        fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+                                        fragmentTransaction.commit();
+                                    }
+                                }
                             }
                         }
                     }
