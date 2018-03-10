@@ -170,35 +170,44 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
         return uid;
     }
 
-    public void setUid(final String uid) {
+    public void setUid(final String uid, boolean isYou) {
         this.uid = uid;
-        DatabaseReference followingSpecificRef = FirebaseDatabase.getInstance().getReference().child("following")
-                .child(uid).child(xUid);
-        followingSpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    if(!uid.equals(xUid)){
+        if(isYou){
+            mLoadingView.setVisibility(View.GONE);
+            mFollowUserButton.setVisibility(View.GONE);
+            mUnFollowUserButton.setVisibility(View.GONE);
+        }else{
+            DatabaseReference followingSpecificRef = FirebaseDatabase.getInstance().getReference().child("following")
+                    .child(uid).child(xUid);
+            followingSpecificRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        if(!uid.equals(xUid)){
+                            mLoadingView.setVisibility(View.GONE);
+                            mFollowUserButton.setVisibility(View.GONE);
+                            mUnFollowUserButton.setVisibility(View.VISIBLE);
+                        }
+                    }else{
                         mLoadingView.setVisibility(View.GONE);
-                        mFollowUserButton.setVisibility(View.GONE);
-                        mUnFollowUserButton.setVisibility(View.VISIBLE);
+                        mFollowUserButton.setVisibility(View.VISIBLE);
+                        mUnFollowUserButton.setVisibility(View.GONE);
                     }
-                }else{
-                    mLoadingView.setVisibility(View.GONE);
-                    mFollowUserButton.setVisibility(View.VISIBLE);
-                    mUnFollowUserButton.setVisibility(View.GONE);
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     public void hideLayout(){
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
-        parentLL.setLayoutParams(layoutParams);
+        //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+        //parentLL.setLayoutParams(layoutParams);
+        mLoadingView.setVisibility(View.GONE);
+        mFollowUserButton.setVisibility(View.GONE);
+        mUnFollowUserButton.setVisibility(View.GONE);
     }
 }

@@ -485,6 +485,26 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         }
     }
 
+    public void removeExercises(){
+        ArrayList<String> tagList = new ArrayList<>();
+        for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+            tagList.add(exerciseLevelChildFrag.fragTag);
+        }
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        for(String tag : tagList){
+            fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag));
+            ExerciseLevelChildFrag exerciseLevelChildFrag1  = new ExerciseLevelChildFrag();
+            for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+                if(exerciseLevelChildFrag.fragTag.equals(tag)){
+                    exerciseLevelChildFrag1 = exerciseLevelChildFrag;
+                }
+            }
+            exLevelFragList.remove(exerciseLevelChildFrag1);
+            --fragIdCount1;
+        }
+        fragmentTransaction.commit();
+    }
+
     boolean isExerciseName(String input) {
 
         boolean isExercise = true;

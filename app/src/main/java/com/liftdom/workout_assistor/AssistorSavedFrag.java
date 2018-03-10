@@ -1253,6 +1253,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             }
                                                                             //}
                                                                             updateOldDate = true;
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
                                                                     }else {
                                                                         if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
@@ -1349,6 +1376,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                 }
                                                                                 //}
                                                                                 updateOldDate = true;
+                                                                            }else{
+                                                                                if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }else{
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(1)) == 0) {
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                        sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                    } else {
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                    }
+                                                                                }
+
+                                                                                if(!isNonIntRep) {
+                                                                                    if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                            (4).equals("")) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    } else {
+                                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                                .get(3)) == 0) {
+                                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                                            reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                        } else {
+                                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                                        }
+                                                                                    }
+                                                                                }
                                                                             }
                                                                         //}
                                                                         //}else if(weeksSinceLast == Integer.parseInt
@@ -1770,6 +1824,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                         }
                                                                         //}
                                                                         updateOldDate = true;
+                                                                    }else{
+                                                                        if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                        }else{
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                    .get(1)) == 0) {
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                                sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                            } else {
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }
+                                                                        }
+
+                                                                        if(!isNonIntRep) {
+                                                                            if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                    (4).equals("")) {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                            } else {
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(3)) == 0) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                    reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                } else {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }else {
                                                                     if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
@@ -1866,6 +1947,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             }
                                                                             //}
                                                                             updateOldDate = true;
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
                                                                     //}
                                                                     //}else if(weeksSinceLast == Integer.parseInt
@@ -2268,6 +2376,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                     }
                                                                                     //}
                                                                                     updateOldDate = true;
+                                                                                }else{
+                                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                    }else{
+                                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                                .get(1)) == 0) {
+                                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                        } else {
+                                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                                        }
+                                                                                    }
+
+                                                                                    if(!isNonIntRep) {
+                                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                                (4).equals("")) {
+                                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                                        } else {
+                                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                                    .get(3)) == 0) {
+                                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                            } else {
+                                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                            }
+                                                                                        }
+                                                                                    }
                                                                                 }
                                                                             }else {
                                                                                 if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
@@ -2364,6 +2499,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                     }
                                                                                     //}
                                                                                     updateOldDate = true;
+                                                                                }else{
+                                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                                    }else{
+                                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                                .get(1)) == 0) {
+                                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                        } else {
+                                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                                        }
+                                                                                    }
+
+                                                                                    if(!isNonIntRep) {
+                                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                                (4).equals("")) {
+                                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                                        } else {
+                                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                                    .get(3)) == 0) {
+                                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                            } else {
+                                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                            }
+                                                                                        }
+                                                                                    }
                                                                                 }
                                                                                 //}
                                                                                 //}else if(weeksSinceLast == Integer.parseInt
@@ -2794,6 +2956,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             }
                                                                             //}
                                                                             updateOldDate = true;
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
                                                                     }else {
                                                                         if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
@@ -2890,17 +3079,34 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             }
                                                                             //}
                                                                             updateOldDate = true;
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
-                                                                        //}
-                                                                        //}else if(weeksSinceLast == Integer.parseInt
-                                                                        //(map2.getValue().get(5))){
-                                                                        //   if (!isExerciseName(tokens[2])) {
-                                                                        //       if(!isNonIntWeight){
-                                                                        //           weight = Integer.parseInt(tokens[2]);
-                                                                        //           weight += Integer.parseInt
-                                                                        //   (map2.getValue().get(6));
-                                                                        //       }
-                                                                        //   }
                                                                     }else {
                                                                         if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
                                                                             sets = Integer.parseInt(tokens[0]);

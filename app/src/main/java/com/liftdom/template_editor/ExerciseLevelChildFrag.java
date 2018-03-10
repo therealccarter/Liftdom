@@ -108,7 +108,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         if(isEdit){
             for(Map.Entry<String, List<String>> map : EditTemplateAssemblerClass.getInstance().tempAlgoInfo.entrySet()){
                 if(map.getValue().get(0).equals(fromEditList.get(0))){
-                    if(map.getValue().get(12).equals(editInitialDays) || containsDay(map.getValue().get(12), editInitialDays)){
+                    if(map.getValue().get(13).equals(editInitialDays) || containsDay(map.getValue().get(13),
+                            editInitialDays)){
                         Log.i("algoLog", map.getValue().get(0) + " set from isEdit (ex level)");
                         algorithmList.clear();
                         //map.getValue().remove(10);
@@ -387,6 +388,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 if(data.getStringExtra("wasCleared") != null){
                     if(data.getStringExtra("wasCleared").equals("yes")){
                         removeGoldCallback.removeGold();
+                        algorithmList.clear();
                     }
                 }
 
@@ -446,8 +448,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         if(!algorithmList.isEmpty()){
             Log.i("algoLog", getExerciseValueFormatted() + " is not empty (ex level)");
-            if(algorithmList.size() > 12){
-                algorithmList.set(12, getDoWValue());
+            if(algorithmList.size() > 13){
+                algorithmList.set(13, getDoWValue());
             }else{
                 algorithmList.add(getDoWValue());
             }

@@ -89,15 +89,17 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
+                viewHolder.setContext(FollowersFollowingDialogActivity.this);
+                viewHolder.setxUid(model.getUserId());
+                viewHolder.setUserName(model.getUserName());
                 if(model.getUserId().equals(uid)){
-                    viewHolder.hideLayout();
+                    viewHolder.setUid(uid, true);
                 }else{
-                    viewHolder.setContext(FollowersFollowingDialogActivity.this);
-                    viewHolder.setxUid(model.getUserId());
-                    viewHolder.setUserName(model.getUserName());
-                    viewHolder.setUid(uid);
-                    viewHolder.setYourUserName(userName);
+                    viewHolder.setUid(uid, false);
                 }
+
+                viewHolder.setYourUserName(userName);
+
             }
         };
 

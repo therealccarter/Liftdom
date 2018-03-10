@@ -24,6 +24,9 @@ fixed bug causing algorithm to not save if you change the days of that particula
 fixed bug causing deleted exercises to not actually be deleted
 fixed bug causing exercises to be out of order in Selected Programs page
 fixed bug causing reps/weight format to not be set in the Program Editor
+fixed bug causing your profile to not show up in other users' followers/following page
+fixed bug causing day-sets to not really be deleted
+fixed bug causing sets/reps to be set to 0 if algo is not looping
 ----------------------
 
 ====================================================

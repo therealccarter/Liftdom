@@ -648,6 +648,7 @@ public class TemplateEditorActivity extends BaseActivity
                             doW2.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW2.removeExercises();
                         --fragIdCount;
                     }else if(fragIdCount == 3){
                         ArrayList<String> removeList = new ArrayList<>();
@@ -658,6 +659,7 @@ public class TemplateEditorActivity extends BaseActivity
                             doW3.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW3.removeExercises();
                         --fragIdCount;
                     }else if(fragIdCount == 4){
                         ArrayList<String> removeList = new ArrayList<>();
@@ -669,6 +671,7 @@ public class TemplateEditorActivity extends BaseActivity
 
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW4.removeExercises();
                         --fragIdCount;
                     }else if(fragIdCount == 5){
                         ArrayList<String> removeList = new ArrayList<>();
@@ -679,6 +682,7 @@ public class TemplateEditorActivity extends BaseActivity
                             doW5.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW5.removeExercises();
                         --fragIdCount;
                     }else if(fragIdCount == 6){
                         ArrayList<String> removeList = new ArrayList<>();
@@ -689,6 +693,7 @@ public class TemplateEditorActivity extends BaseActivity
                             doW6.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW6.removeExercises();
                         --fragIdCount;
                     }else if(fragIdCount == 7){
                         ArrayList<String> removeList = new ArrayList<>();
@@ -699,6 +704,7 @@ public class TemplateEditorActivity extends BaseActivity
                             doW7.setToNull();
                         }
                         fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                        doW7.removeExercises();
                         --fragIdCount;
                     }
                 }
