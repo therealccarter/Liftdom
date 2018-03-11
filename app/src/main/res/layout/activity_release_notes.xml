@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="@string/releaseNotesTitle"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:background="@color/liftrGold1"
             android:layout_weight="0"
@@ -40,10 +40,13 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/newFeaturesView"
                     android:text="@string/newFeaturesTitle"
                     android:gravity="center"
-                    android:textSize="22sp"
-                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textColor="@color/liftrGold1"
+                    android:background="@color/darkGrey"
+                    android:layout_marginBottom="5dp"
             />
 
             <TextView
@@ -51,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/newFeaturesText"
                     android:gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textColor="@color/darkGrey"
                     android:layout_marginBottom="20dp"
             />
@@ -59,10 +62,13 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/fixesView"
                     android:text="@string/fixesTitle"
                     android:gravity="center"
-                    android:textSize="22sp"
-                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textColor="@color/liftrGold1"
+                    android:background="@color/darkGrey"
+                    android:layout_marginBottom="5dp"
             />
 
             <TextView
@@ -70,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/fixesText"
                     android:gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textColor="@color/darkGrey"
                     android:layout_marginBottom="20dp"
             />
@@ -78,10 +84,13 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/workingOnView"
                     android:text="@string/workingOnTitle"
                     android:gravity="center"
-                    android:textSize="22sp"
-                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textColor="@color/liftrGold1"
+                    android:background="@color/darkGrey"
+                    android:layout_marginBottom="5dp"
             />
 
             <TextView
@@ -89,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/workingOnText"
                     android:gravity="center"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textColor="@color/darkGrey"
                     android:layout_marginBottom="20dp"
             />

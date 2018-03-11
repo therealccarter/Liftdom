@@ -150,11 +150,17 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
                         }
                     }
+
+                    completedMapFormatted = formatCompletedMap(completedMap);
+
+                    HashMap<String, List<String>> completedMapForAlgo;
+
                     if(applyAlgoWeightCheck){
-                        completedMapFormatted = formatCompletedMap(completedMap);
+                        completedMapForAlgo = formatCompletedMap(completedMap);
                     }else{
-                        completedMapFormatted = formatCompletedMapNoWeightCheck(completedMap);
+                        completedMapForAlgo = formatCompletedMapNoWeightCheck(completedMap);
                     }
+
                     completedExerciseList = getCompletedExercises();
 
                     // init done
@@ -168,7 +174,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             Log.i("i", "i");
                         }
                         int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
-                        for (Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()) {
+                        for (Map.Entry<String, List<String>> map2 : completedMapForAlgo.entrySet()) {
                             // For each list in the completed/actual maps
                             String delims = "[_]";
                             String[] tokens = map2.getValue().get(0).split(delims);
@@ -185,7 +191,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
                                                 .length - 1], modelMapFormatted);
                                         int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                                .length - 1], completedMapFormatted);
+                                                .length - 1], completedMapForAlgo);
                                         if (completedTotalPoundageSS >= modelTotalPoundageSS) {
                                             // superset completed, increase the algo
                                             generateAlgoForSupersetAll(splitExName, tokens[tokens.length - 1], map2.getValue()
@@ -203,7 +209,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     }
                                 } else if (tokens.length < 3) {
                                     if(applyAlgoWeightCheck){
-                                        int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                        int totalPoundage2 = getTotalPoundage(completedMapForAlgo, exName);
                                         if(exName.equals("Overhead Press (Dumbbell)")){
                                             Log.i("i", "i");
                                         }
@@ -241,7 +247,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
                         }
                     }
+
                     completedMapFormatted = formatCompletedMap(completedMap);
+                    // completedMapFormatted = formatCompletedMap(completedMap);
                     completedExerciseList = getCompletedExercises();
 
                     // init done
@@ -252,20 +260,29 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         // For each list in the model/expected maps
                         String exName = map1.getValue().get(0);
                         int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
-                        for (Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()) {
+
+                        boolean applyAlgoWeightCheck = false;
+
+                        for(Map.Entry<String, List<String>> algoEntry : templateClass.getAlgorithmInfo().entrySet()){
+                            if(algoEntry.getValue().get(0).equals(exName)){
+                                applyAlgoWeightCheck = Boolean.parseBoolean(algoEntry.getValue().get(12));
+                            }
+                        }
+
+                        HashMap<String, List<String>> completedMapForAlgo;
+
+                        if(applyAlgoWeightCheck){
+                            completedMapForAlgo = formatCompletedMap(completedMap);
+                        }else{
+                            completedMapForAlgo = formatCompletedMapNoWeightCheck(completedMap);
+                        }
+
+                        for (Map.Entry<String, List<String>> map2 : completedMapForAlgo.entrySet()) {
                             // For each list in the completed/actual maps
 
                             String delims = "[_]";
                             String[] tokens = map2.getValue().get(0).split(delims);
                             String splitExName = tokens[0];
-
-                            boolean applyAlgoWeightCheck = false;
-
-                            for(Map.Entry<String, List<String>> algoEntry : templateClass.getAlgorithmInfo().entrySet()){
-                                if(algoEntry.getValue().get(0).equals(splitExName)){
-                                    applyAlgoWeightCheck = Boolean.parseBoolean(algoEntry.getValue().get(12));
-                                }
-                            }
 
                             String exNameCompleted = map2.getValue().get(0);
 
@@ -277,7 +294,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
                                                 .length - 1], modelMapFormatted);
                                         int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                                .length - 1], completedMapFormatted);
+                                                .length - 1], completedMapForAlgo);
                                         if (completedTotalPoundageSS >= modelTotalPoundageSS) {
                                             // superset completed, increase the algo
                                             generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
@@ -296,7 +313,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                     }
                                 } else if (tokens.length < 3) {
                                     if(applyAlgoWeightCheck){
-                                        int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                        int totalPoundage2 = getTotalPoundage(completedMapForAlgo, exName);
                                         if (!exercisesAlreadyGenerated.contains(exName)) {
                                             if (totalPoundage2 >= totalPoundage) {
                                                 // algo
@@ -382,9 +399,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
-                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    //feedFanOut(refKey, completedWorkoutModelClass);
+                    feedFanOut(refKey, completedWorkoutModelClass);
 
                     dontLeavePage.setVisibility(View.GONE);
 
@@ -393,25 +410,21 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        //workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new
-                        //
-                        //OnCompleteListener<Void>() {
-                        //    @Override
-                        //    public void onComplete(@NonNull Task<Void> task) {
-                        //        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
-                        //                .ACTIVITY_SERVICE);
-                        //        if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
-                        //            for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices
-                        //    (Integer.MAX_VALUE)) {
-                        //                if (AssistorServiceClass.class.getName().equals(serviceInfo.service
-                        //                        .getClassName())) {
-                        //                    Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                        //                    getActivity().stopService(stopIntent);
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-                        //});
+                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service
+                                                .getClassName())) {
+                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                                            getActivity().stopService(stopIntent);
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     }
                 }
 

@@ -13,33 +13,44 @@
 
     <!-- ============== RELEASE NOTES ================== -->
 
-    <!-- DATE OF UPDATE: 02/21/17 -->
+    <!-- DATE OF UPDATE: 03/10/18 -->
 
-    <string name="currentVersion">Liftdom v1.22</string>
+    <string name="currentVersion">Liftdom v1.23</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.22 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.23 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Added a Feedback/Bug-reporting page!\n
-        (It\'s near the bottom of the sidebar on the left.)
+        Total rehaul of the User Profile page including a feed of only their posts.
+        Saved Programs now sorted by update time.\n
+        Ability to DM users from User Profile page.
+        Ability to directly send custom Programs from User Profile page.
+        Added program inbox for Programs DM\'d to you.
+        Added decision to have algorithm only increase on completion of weight goal.
     </string>
 
     <string name="fixesTitle">Fixes:</string>
     <string name="fixesText">
-        Fixed bug causing crash when removing set-schemes in the Program Editor.\n
-        Fixed up the layout of saved program page if you have no saved programs.\n
-        Fixed bug causing calendar to not show 2018 dates.
+        Total algorithm engine rework (stability/functionality improvements, numerous bug fix.
+        New repping system in the backgrounds.
+        Fixed bug causing random users banner to show twice.\n
+        Fixed bug causing the WA to incorrectly order workout sets.\n
+        Fixed bug causing algorithm to not save if you change the days of that particular exercise.\n
+        Fixed bug causing deleted exercises to not actually be deleted.\n
+        Fixed bug causing exercises to be out of order in Selected Programs page.\n
+        Fixed bug causing reps/weight format to not be set in the Program Editor.\n
+        Fixed bug causing your profile to not show up in other users' followers/following page.\n
+        Fixed bug causing day-sets to not really be deleted.\n
+        Fixed bug causing sets/reps to be set to 0 if algo is not looping.\n
+        Fixed a billion other bugs but who cares lol.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Saved Programs should be sorted by update time.\n
+        Notification functionality (be notified when someone reps your post, messages you, comments on your posts,
+        etc).\n
         Ability to edit an already completed workout, if on the same day.\n
         Ability to do a workout on a rest day.\n
-        Have the random users banner scroll upward with the main feed.
-        Rehaul of the User Profile page.
-        Notification functionality.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->

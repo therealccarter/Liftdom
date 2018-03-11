@@ -31,30 +31,49 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
     }
 
     private void setInfoList(HashMap<String, List<String>> map){
+        boolean isTotallyEmpty = true;
         for(int i = 0; i < map.size(); i++){
             for(Map.Entry<String, List<String>> mapEntry : map.entrySet()){
-                String[] keyTokens = mapEntry.getKey().split("_");
-                if(Integer.parseInt(keyTokens[0]) == i){
-                    List<String> list = new ArrayList<>();
-                    list.addAll(mapEntry.getValue());
-                    boolean isFirstEx = true;
-                    boolean isFirstRepsWeight = true;
-                    for(String string : list){
-                        if(isExerciseName(string) && isFirstEx){
-                            mWorkoutInfoList.add(string);
-                            isFirstEx = false;
-                        }else if(isExerciseName(string) && !isFirstEx){
-                            mWorkoutInfoList.add(string + "_ss");
-                            isFirstRepsWeight = false;
-                        }else if(!isExerciseName(string) && isFirstRepsWeight){
-                            mWorkoutInfoList.add(string);
-                        }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                            mWorkoutInfoList.add(string);
+                if(!hasOnlyExNames(mapEntry.getValue())){
+                    isTotallyEmpty = false;
+                    String[] keyTokens = mapEntry.getKey().split("_");
+                    if(Integer.parseInt(keyTokens[0]) == i){
+                        List<String> list = new ArrayList<>();
+                        list.addAll(mapEntry.getValue());
+                        boolean isFirstEx = true;
+                        boolean isFirstRepsWeight = true;
+                        for(String string : list){
+                            if(isExerciseName(string) && isFirstEx){
+                                mWorkoutInfoList.add(string);
+                                isFirstEx = false;
+                            }else if(isExerciseName(string) && !isFirstEx){
+                                mWorkoutInfoList.add(string + "_ss");
+                                isFirstRepsWeight = false;
+                            }else if(!isExerciseName(string) && isFirstRepsWeight){
+                                mWorkoutInfoList.add(string);
+                            }else if(!isExerciseName(string) && !isFirstRepsWeight){
+                                mWorkoutInfoList.add(string);
+                            }
                         }
                     }
                 }
             }
         }
+        if(isTotallyEmpty){
+            mWorkoutInfoList.add("No exercises completed.");
+        }
+    }
+
+    private boolean hasOnlyExNames(List<String> list){
+        boolean onlyExNames = true;
+
+        for(String string : list){
+            if(!isExerciseName(string)){
+                onlyExNames = false;
+            }
+        }
+
+        return onlyExNames;
     }
 
     public boolean getIsImperialPOV() {

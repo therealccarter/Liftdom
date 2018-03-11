@@ -3,47 +3,19 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.22
+currently on v1.23
 ----------------------
-saved templates should be sorted by update time
-fixed bug causing random users banner to show twice
-Fixed bug causing the WA to incorrectly order workout sets
-new repping system in the background
-redesign user profile {
-    consolidated CurrentUserProfile and OtherUserProfile
-    added streak to header instead of "focus"
-    send programs via user profile
-    add two tab slider {
-        Workout Feed (custom recycler/adapter)(Self-feed)
-        Calendar
-    }
-    you can now send direct messages
-}
-add program inbox (ties into messaging workout programs)
-fixed bug causing algorithm to not save if you change the days of that particular exercise
-fixed bug causing deleted exercises to not actually be deleted
-fixed bug causing exercises to be out of order in Selected Programs page
-fixed bug causing reps/weight format to not be set in the Program Editor
-fixed bug causing your profile to not show up in other users' followers/following page
-fixed bug causing day-sets to not really be deleted
-fixed bug causing sets/reps to be set to 0 if algo is not looping
+
 ----------------------
 
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 do some more main feed optimization
-fix chris's bug at AS 2369
-total algorithm engine rework (stability/functionality improvements, numerous bug fixes)
-add decision to have algorithm only increase on completion of weight goal
 =====================================================
 
-Some algo concerns:
-Main concern is about the days check. Doesn't seem to be any. It's working for now but that
-    may be because hasRunThroughOnce is making sure we don't see the second copy.
-    But what happens if we're on _Tuesday and we run through the other one first?
-
 ============ ON DECK FOR v1.23+: ===============================================
+Have the random users banner scroll upward with the main feed.
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.
     notification node in firebase.
@@ -70,6 +42,10 @@ re-check user made programs functionality (full)
     (view holder) see if we need to change from multiple hidden views to one inserted view (use methods?)
     (recycler adapter) maybe do the operations currently in here in the assistor saved frag
 }
+Some algo concerns:
+Main concern is about the days check. Doesn't seem to be any. It's working for now but that
+    may be because hasRunThroughOnce is making sure we don't see the second copy.
+    But what happens if we're on _Tuesday and we run through the other one first?
 ============
 
 ============ TO-DO FEATURE LIST =============================
@@ -86,6 +62,7 @@ check here for more{
  https://medium.com/@lowcarbrob/0-to-15k-active-users-in-a-month-tips-from-a-indiedev-41d05ab048fd
 }
 ===== lifting/core-related =========
+fix up the view of post info in completed workout view holder
 hamburger needs back functionality
 alert user if their percentage goes above 100%
 implement some sort of "short term memory" type thing for when changing weight options in template editor

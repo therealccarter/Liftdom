@@ -91,6 +91,8 @@
                     android:textSize="14sp"
             />
 
+            <!-- TODO: add loading view here-->
+
             <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

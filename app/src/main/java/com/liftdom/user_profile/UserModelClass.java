@@ -155,8 +155,15 @@ public class UserModelClass {
             setLastCompletedDay(LocalDate.now().toString());
         }
 
+        boolean hasNoCompletedExercises = true;
+        for(Map.Entry<String, List<String>> mapEntry : completedMap.entrySet()){
+            if(mapEntry.getValue().size() > 1){
+                hasNoCompletedExercises = false;
+            }
+        }
+
         // get xp from workout
-        if(completedMap == null){
+        if(completedMap == null || hasNoCompletedExercises){
             double constant = 0.023;
             double xpFromWorkoutDouble = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) *
                     constant;
@@ -230,7 +237,7 @@ public class UserModelClass {
         int powerLevel = Integer.parseInt(getPowerLevel());
         double bonus = 0;
 
-        bonus = generateGoalXp(powerLevel) * 0.05;
+        bonus = generateGoalXp(powerLevel) * 0.03;
 
         return bonus;
     }
@@ -243,7 +250,7 @@ public class UserModelClass {
 
         // handle sets
         double dub = getTotalSets(completedMap) + (getTotalReps(completedMap) / 2) + (getTotalPoundage(completedMap) *
-                0.01) + getScalingBonus();
+                0.09) + getScalingBonus();
 
         xpFromWorkout = (int) Math.round(dub);
 
@@ -368,25 +375,25 @@ public class UserModelClass {
     private double getMultiplier(int streak){
         double multiplier = 0;
 
-        if(streak > 0 && streak < 5){
+        if(streak > 0 && streak < 3){
             multiplier = 1.0;
-        }else if(streak > 4 && streak < 10){
+        }else if(streak > 2 && streak < 6){
             multiplier = 1.5;
-        }else if(streak > 9 && streak < 15){
+        }else if(streak > 5 && streak < 9){
             multiplier = 2.0;
-        }else if(streak > 14 && streak < 20){
+        }else if(streak > 8 && streak < 12){
             multiplier = 2.5;
-        }else if(streak > 19 && streak < 25){
+        }else if(streak > 11 && streak < 18){
             multiplier = 3.0;
-        }else if(streak > 24 && streak < 30){
+        }else if(streak > 17 && streak < 21){
             multiplier = 3.5;
-        }else if(streak > 29 && streak < 35){
+        }else if(streak > 20 && streak < 24){
             multiplier = 4.0;
-        }else if(streak > 34 && streak < 40){
+        }else if(streak > 23 && streak < 27){
             multiplier = 4.5;
-        }else if(streak > 39 && streak < 45){
+        }else if(streak > 26 && streak < 30){
             multiplier = 5.0;
-        }else if(streak > 44){
+        }else if(streak > 32){
             multiplier = 5.5;
         }
 
