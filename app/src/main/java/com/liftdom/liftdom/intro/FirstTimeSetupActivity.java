@@ -93,7 +93,7 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
         final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                 feetInchesHeight, cmHeight, pounds,
                 kgs, maxList, sex, repLevel, powerLevel, currentStreak,
-                currentFocus, activeTemplate);
+                currentFocus, activeTemplate, "0");
 
         FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true, true);
 

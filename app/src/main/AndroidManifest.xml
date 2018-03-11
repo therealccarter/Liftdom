@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.liftdom.liftdom">
 
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
@@ -480,6 +479,8 @@
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.ProfileActionsDialogActivity"
                 android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".notifications_bell.NotificationsActivity">
         </activity>
     </application>
 

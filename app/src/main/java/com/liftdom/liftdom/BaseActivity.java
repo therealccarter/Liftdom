@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.feedback.FeedbackActivity;
+import com.liftdom.liftdom.notifications_bell.NotificationsActivity;
 import com.liftdom.misc_activities.SettingsListActivity;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
@@ -167,6 +169,24 @@ public class BaseActivity extends AppCompatActivity {
                             TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
                             TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
                             TextView streakTextView = (TextView) drawer.getHeader().findViewById(R.id.currentStreakTextView);
+                            TextView notificationCountView = (TextView) drawer.getHeader().findViewById(R.id
+                                    .notificationsTextView);
+                            LinearLayout notificationLL = (LinearLayout) drawer.getHeader().findViewById(R.id
+                                    .notificationsLL);
+
+                            if(userModelClass.getNotificationCount() != null
+                                    && !userModelClass.getNotificationCount().isEmpty()
+                                    && !userModelClass.getNotificationCount().equals("")){
+                                notificationCountView.setText(userModelClass.getNotificationCount());
+                            }
+
+                            notificationLL.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
 
                             userNameView.setOnClickListener(new View.OnClickListener() {
                                 @Override

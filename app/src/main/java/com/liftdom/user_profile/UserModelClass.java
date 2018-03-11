@@ -32,6 +32,7 @@ public class UserModelClass {
     private List<String> followingList;
     private String mLastCompletedDay;
     private String mCurrentXpWithinLevel;
+    private String mNotificationCount;
 
     public UserModelClass(){
         // necessary for firebase
@@ -40,8 +41,8 @@ public class UserModelClass {
     public UserModelClass(String userName, String userId, String email, String age, boolean isImperial,
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
-                          String repLevel, String powerLevel, String currentStreak, String currentFocus, String
-                                  activeTemplate){
+                          String repLevel, String powerLevel, String currentStreak, String currentFocus,
+                          String activeTemplate, String notificationCount){
         mUserName = userName;
         mUserId = userId;
         mEmail = email;
@@ -58,6 +59,11 @@ public class UserModelClass {
         mCurrentStreak = currentStreak;
         mCurrentFocus = currentFocus;
         mActiveTemplate = activeTemplate;
+        try{
+            mNotificationCount = notificationCount;
+        }catch (NullPointerException e){
+
+        }
 
         updateUnits(isImperial);
     }
@@ -413,6 +419,15 @@ public class UserModelClass {
 
 
     // =================================== end level up stuff ===================================
+
+
+    public String getNotificationCount() {
+        return mNotificationCount;
+    }
+
+    public void setNotificationCount(String mNotificationCount) {
+        this.mNotificationCount = mNotificationCount;
+    }
 
     public void updateUnits(boolean isImperial){
         if(isImperial){
