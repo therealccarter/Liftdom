@@ -29,6 +29,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.WorkoutPostSingleActivity;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
+import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
@@ -153,7 +154,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                                     (getCurrentUid()).child(mRefKey).child("commentCount");
 
-                            String refKey = commentRef.push().getKey();
+                            final String refKey = commentRef.push().getKey();
 
                             PostCommentModelClass commentModelClass = new PostCommentModelClass(
                                     userModelClass.getUserId(), userModelClass.getUserName(), mCommentEditText
@@ -167,6 +168,37 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             });
 
                             fanoutCommentPost(refKey, commentModelClass);
+
+                            final DatabaseReference otherUserRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("user").child(xUid).child("notificationCount");
+                            otherUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    NotificationModelClass notificationModelClass = new NotificationModelClass(
+                                            "Comment", getCurrentUid(), getRefKey(), DateTime.now(DateTimeZone.UTC).toString
+                                            (), refKey);
+
+                                    DatabaseReference otherUserNotificationRef = FirebaseDatabase.getInstance()
+                                            .getReference().child("notifications").child(xUid).child(refKey);
+                                    otherUserNotificationRef.setValue(notificationModelClass);
+
+                                    if(dataSnapshot.exists()){
+                                        int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
+                                        currentCount++;
+                                        otherUserRef.setValue(String.valueOf(currentCount));
+                                    }else{
+                                        otherUserRef.setValue("1");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
 
                             //mCommentRecyclerView.refreshDrawableState();
 

@@ -44,8 +44,8 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
     @BindView(R.id.collapsingToolbar1) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbarImage1) ImageView toolbarImage;
     @BindView(R.id.comingSoonView) TextView comingSoonView;
-    @BindView(R.id.tabs) SlidingTabLayout tabsView;
-    @BindView(R.id.pager) ViewPager pager;
+    //@BindView(R.id.tabs) SlidingTabLayout tabsView;
+    //@BindView(R.id.pager) ViewPager pager;
     @BindView(R.id.nestedScrollView) NestedScrollView nestedScrollView;
 
     // declare_auth

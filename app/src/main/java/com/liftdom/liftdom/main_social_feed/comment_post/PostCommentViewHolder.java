@@ -133,6 +133,43 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
 
             }
         });
+
+        final DatabaseReference parentNotificationRef = FirebaseDatabase.getInstance().getReference().child
+                ("notifications").child(parentUid).child(mRefKey);
+        parentNotificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                final DatabaseReference parentUserRef = FirebaseDatabase.getInstance().getReference().child("user").child
+                        (parentUid).child("notificationCount");
+                parentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
+                            currentCount--;
+                            parentUserRef.setValue(String.valueOf(currentCount));
+                        }else{
+                            parentUserRef.setValue("0");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                if(dataSnapshot.exists()){
+                    parentNotificationRef.setValue(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public String getCommentUid() {

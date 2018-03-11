@@ -19,21 +19,29 @@ public class NotificationModelClass {
 
     private String mType;
     private String mUidFromOutside;
-    private String mUserNameFromOutside;
     private String mRefKey;
     private String mDateTime;
+    private String mCommentRefKey;
 
     public NotificationModelClass(){
         // necessary for Firebase
     }
 
-    public NotificationModelClass(String type, String uidFromOutside, String userNameFromOutside, String refKey,
-                                  String dateTime){
+    public NotificationModelClass(String type, String uidFromOutside, String refKey,
+                                  String dateTime, String commentRefKey){
         mType = type;
         mUidFromOutside = uidFromOutside;
-        mUserNameFromOutside = userNameFromOutside;
         mRefKey = refKey;
         mDateTime = dateTime;
+        mCommentRefKey = commentRefKey;
+    }
+
+    public String getCommentRefKey() {
+        return mCommentRefKey;
+    }
+
+    public void setCommentRefKey(String mCommentRefKey) {
+        this.mCommentRefKey = mCommentRefKey;
     }
 
     public String getType() {
@@ -50,14 +58,6 @@ public class NotificationModelClass {
 
     public void setUidFromOutside(String mUidFromOutside) {
         this.mUidFromOutside = mUidFromOutside;
-    }
-
-    public String getUserNameFromOutside() {
-        return mUserNameFromOutside;
-    }
-
-    public void setUserNameFromOutside(String mUserNameFromOutside) {
-        this.mUserNameFromOutside = mUserNameFromOutside;
     }
 
     public String getRefKey() {

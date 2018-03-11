@@ -162,11 +162,14 @@ public class UserModelClass {
         }
 
         boolean hasNoCompletedExercises = true;
-        for(Map.Entry<String, List<String>> mapEntry : completedMap.entrySet()){
-            if(mapEntry.getValue().size() > 1){
-                hasNoCompletedExercises = false;
+        if(completedMap != null){
+            for(Map.Entry<String, List<String>> mapEntry : completedMap.entrySet()){
+                if(mapEntry.getValue().size() > 1){
+                    hasNoCompletedExercises = false;
+                }
             }
         }
+
 
         // get xp from workout
         if(completedMap == null || hasNoCompletedExercises){
