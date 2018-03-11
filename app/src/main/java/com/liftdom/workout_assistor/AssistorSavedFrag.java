@@ -132,6 +132,16 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             if (templateClass.getIsAlgorithm()) {
                 if (templateClass.getIsAlgoApplyToAll()) {
+                    boolean applyAlgoWeightCheck = false;
+                    for(Map.Entry<String, List<String>> allInfo : templateClass.getAlgorithmInfo().entrySet()){
+                        if(allInfo.getKey().equals("0_key")){
+                            if(allInfo.getValue().get(0).equals("all")){
+                                if(Boolean.parseBoolean(allInfo.getValue().get(12))){
+                                    applyAlgoWeightCheck = true;
+                                }
+                            }
+                        }
+                    }
                     DateTime dateTime = new DateTime();
                     int currentWeekday = dateTime.getDayOfWeek();
                     if (templateClass.getMapForDay(intToWeekday(currentWeekday)) != null) {
@@ -140,7 +150,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             originalHashmap.putAll(templateClass.getMapForDay(intToWeekday(currentWeekday)));
                         }
                     }
-                    completedMapFormatted = formatCompletedMap(completedMap);
+                    if(applyAlgoWeightCheck){
+                        completedMapFormatted = formatCompletedMap(completedMap);
+                    }else{
+                        completedMapFormatted = formatCompletedMapNoWeightCheck(completedMap);
+                    }
                     completedExerciseList = getCompletedExercises();
 
                     // init done
@@ -156,7 +170,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         int totalPoundage = getTotalPoundage(modelMapFormatted, exName);
                         for (Map.Entry<String, List<String>> map2 : completedMapFormatted.entrySet()) {
                             // For each list in the completed/actual maps
-
                             String delims = "[_]";
                             String[] tokens = map2.getValue().get(0).split(delims);
                             String splitExName = tokens[0];
@@ -167,39 +180,51 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             if (exName.equals(exNameCompleted)) {
                                 // same ex names
                                 if (tokens.length > 2 && tokens[1].equals("p")) {
-                                    // is parent superset ex
-                                    int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                            .length - 1], modelMapFormatted);
-                                    int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                            .length - 1], completedMapFormatted);
-                                    if (completedTotalPoundageSS >= modelTotalPoundageSS) {
-                                        // superset completed, increase the algo
-                                        generateAlgoForSupersetAll(splitExName, tokens[tokens.length - 1], map2.getValue()
-                                                .get(0));
-                                    } else {
-                                        // set to false
-                                        String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                ("0_key").get(0);
-                                        String bool = "false";
-                                        templateClass.setNewDateMapValues(todayString, exName, bool);
-                                    }
-                                } else if (tokens.length < 3) {
-                                    int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
-                                    if(exName.equals("Overhead Press (Dumbbell)")){
-                                        Log.i("i", "i");
-                                    }
-                                    if (!exercisesAlreadyGenerated.contains(exName)) {
-                                        if (totalPoundage2 >= totalPoundage) {
-                                            // algo
-                                            generateAlgoAll(exName, false);
-                                            exercisesAlreadyGenerated.add(exName);
+                                    if(applyAlgoWeightCheck){
+                                        // is parent superset ex
+                                        int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                                .length - 1], modelMapFormatted);
+                                        int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                                .length - 1], completedMapFormatted);
+                                        if (completedTotalPoundageSS >= modelTotalPoundageSS) {
+                                            // superset completed, increase the algo
+                                            generateAlgoForSupersetAll(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                    .get(0));
                                         } else {
                                             // set to false
                                             String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                    ("0_key")
-                                                    .get(0);
+                                                    ("0_key").get(0);
                                             String bool = "false";
                                             templateClass.setNewDateMapValues(todayString, exName, bool);
+                                        }
+                                    }else{
+                                        generateAlgoForSupersetAll(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                .get(0));
+                                    }
+                                } else if (tokens.length < 3) {
+                                    if(applyAlgoWeightCheck){
+                                        int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                        if(exName.equals("Overhead Press (Dumbbell)")){
+                                            Log.i("i", "i");
+                                        }
+                                        if (!exercisesAlreadyGenerated.contains(exName)) {
+                                            if (totalPoundage2 >= totalPoundage) {
+                                                // algo
+                                                generateAlgoAll(exName, false);
+                                                exercisesAlreadyGenerated.add(exName);
+                                            } else {
+                                                // set to false
+                                                String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                        ("0_key")
+                                                        .get(0);
+                                                String bool = "false";
+                                                templateClass.setNewDateMapValues(todayString, exName, bool);
+                                            }
+                                        }
+                                    }else{
+                                        if(!exercisesAlreadyGenerated.contains(exName)){
+                                            generateAlgoAll(exName, false);
+                                            exercisesAlreadyGenerated.add(exName);
                                         }
                                     }
                                 }
@@ -234,43 +259,61 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             String[] tokens = map2.getValue().get(0).split(delims);
                             String splitExName = tokens[0];
 
+                            boolean applyAlgoWeightCheck = false;
+
+                            for(Map.Entry<String, List<String>> algoEntry : templateClass.getAlgorithmInfo().entrySet()){
+                                if(algoEntry.getValue().get(0).equals(splitExName)){
+                                    applyAlgoWeightCheck = Boolean.parseBoolean(algoEntry.getValue().get(12));
+                                }
+                            }
+
                             String exNameCompleted = map2.getValue().get(0);
 
                             if (exName.equals(exNameCompleted)) {
                                 // same ex names
                                 if (tokens.length > 2 && tokens[1].equals("p")) {
-                                    // is parent superset ex
-                                    int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                            .length - 1], modelMapFormatted);
-                                    int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
-                                            .length - 1], completedMapFormatted);
-                                    if (completedTotalPoundageSS >= modelTotalPoundageSS) {
-                                        // superset completed, increase the algo
-                                        generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
-                                                .get(0));
-                                    } else {
-                                        // set to false
-                                        String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
-                                                ("0_key").get(0);
-                                        String bool = "false";
-                                        templateClass.setNewDateMapValues(todayString, exName, bool);
-                                    }
-                                } else if (tokens.length < 3) {
-                                    int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
-                                    if(exName.equals("Overhead Press (Dumbbell)")){
-                                        Log.i("i", "i");
-                                    }
-                                    if (!exercisesAlreadyGenerated.contains(exName)) {
-                                        if (totalPoundage2 >= totalPoundage) {
-                                            // algo
-                                            generateAlgo(exName, false);
-                                            exercisesAlreadyGenerated.add(exName);
+                                    if(applyAlgoWeightCheck){
+                                        // is parent superset ex
+                                        int modelTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                                .length - 1], modelMapFormatted);
+                                        int completedTotalPoundageSS = getPoundageForModelSuperset(splitExName, tokens[tokens
+                                                .length - 1], completedMapFormatted);
+                                        if (completedTotalPoundageSS >= modelTotalPoundageSS) {
+                                            // superset completed, increase the algo
+                                            generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                    .get(0));
                                         } else {
                                             // set to false
                                             String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
                                                     ("0_key").get(0);
                                             String bool = "false";
                                             templateClass.setNewDateMapValues(todayString, exName, bool);
+                                        }
+                                    }else{
+                                        // superset completed, increase the algo
+                                        generateAlgoForSuperset(splitExName, tokens[tokens.length - 1], map2.getValue()
+                                                .get(0));
+                                    }
+                                } else if (tokens.length < 3) {
+                                    if(applyAlgoWeightCheck){
+                                        int totalPoundage2 = getTotalPoundage(completedMapFormatted, exName);
+                                        if (!exercisesAlreadyGenerated.contains(exName)) {
+                                            if (totalPoundage2 >= totalPoundage) {
+                                                // algo
+                                                generateAlgo(exName, false);
+                                                exercisesAlreadyGenerated.add(exName);
+                                            } else {
+                                                // set to false
+                                                String todayString = templateClass.getMapForDay(intToWeekday(currentWeekday)).get
+                                                        ("0_key").get(0);
+                                                String bool = "false";
+                                                templateClass.setNewDateMapValues(todayString, exName, bool);
+                                            }
+                                        }
+                                    }else{
+                                        if (!exercisesAlreadyGenerated.contains(exName)) {
+                                            generateAlgo(exName, false);
+                                            exercisesAlreadyGenerated.add(exName);
                                         }
                                     }
                                 }
@@ -1313,6 +1356,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             weight = Integer.parseInt(tokens[2]);
                                                                         }
                                                                     }
+                                                                }else{
+                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }else{
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(1)) == 0) {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                        } else {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                        }
+                                                                    }
+
+                                                                    if(!isNonIntRep) {
+                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                (4).equals("")) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        } else {
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                    .get(3)) == 0) {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                            } else {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 }
                                                             }else{
 
@@ -1445,6 +1515,37 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                         if (!isExerciseName(tokens[2])) {
                                                                             weight = Integer.parseInt(tokens[2]);
                                                                         }
+                                                                    }
+                                                                }else{
+                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }else{
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(1)) == 0) {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                        } else {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                        }
+                                                                    }
+
+                                                                    if(!isNonIntRep) {
+                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                (4).equals("")) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        } else {
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                    .get(3)) == 0) {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                            } else {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        weight = Integer.parseInt(tokens[2]);
                                                                     }
                                                                 }
 
@@ -1884,6 +1985,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                         weight = Integer.parseInt(tokens[2]);
                                                                     }
                                                                 }
+                                                            }else{
+                                                                if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                }else{
+                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                            .get(1)) == 0) {
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                        sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                    } else {
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }
+                                                                }
+
+                                                                if(!isNonIntRep) {
+                                                                    if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                            (4).equals("")) {
+                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                    } else {
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(3)) == 0) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                            reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                        } else {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        }
+                                                                    }
+                                                                }
                                                             }
                                                         }else{
 
@@ -2016,6 +2144,37 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                     if (!isExerciseName(tokens[2])) {
                                                                         weight = Integer.parseInt(tokens[2]);
                                                                     }
+                                                                }
+                                                            }else{
+                                                                if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                }else{
+                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                            .get(1)) == 0) {
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                        sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                    } else {
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }
+                                                                }
+
+                                                                if(!isNonIntRep) {
+                                                                    if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                            (4).equals("")) {
+                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                    } else {
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(3)) == 0) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                            reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                        } else {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                if (!isExerciseName(tokens[2])) {
+                                                                    weight = Integer.parseInt(tokens[2]);
                                                                 }
                                                             }
 
@@ -2436,6 +2595,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                     weight = Integer.parseInt(tokens[2]);
                                                                                 }
                                                                             }
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
                                                                     }else{
 
@@ -2568,6 +2754,37 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                                 if (!isExerciseName(tokens[2])) {
                                                                                     weight = Integer.parseInt(tokens[2]);
                                                                                 }
+                                                                            }
+                                                                        }else{
+                                                                            if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                                sets = Integer.parseInt(tokens[0]);
+                                                                            }else{
+                                                                                if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                        .get(1)) == 0) {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                    sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                                } else {
+                                                                                    sets = Integer.parseInt(tokens[0]);
+                                                                                }
+                                                                            }
+
+                                                                            if(!isNonIntRep) {
+                                                                                if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                        (4).equals("")) {
+                                                                                    reps = Integer.parseInt(tokens[1]);
+                                                                                } else {
+                                                                                    if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                            .get(3)) == 0) {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                        reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                                    } else {
+                                                                                        reps = Integer.parseInt(tokens[1]);
+                                                                                    }
+                                                                                }
+                                                                            }
+
+                                                                            if (!isExerciseName(tokens[2])) {
+                                                                                weight = Integer.parseInt(tokens[2]);
                                                                             }
                                                                         }
 
@@ -3016,6 +3233,33 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                             weight = Integer.parseInt(tokens[2]);
                                                                         }
                                                                     }
+                                                                }else{
+                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }else{
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(1)) == 0) {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                        } else {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                        }
+                                                                    }
+
+                                                                    if(!isNonIntRep) {
+                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                (4).equals("")) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        } else {
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                    .get(3)) == 0) {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                            } else {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 }
                                                             }else{
 
@@ -3138,6 +3382,37 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                                         if (!isExerciseName(tokens[2])) {
                                                                             weight = Integer.parseInt(tokens[2]);
                                                                         }
+                                                                    }
+                                                                }else{
+                                                                    if(algoInfoMap.getValue().get(1).equals("") || algoInfoMap.getValue().get(2).equals("")){
+                                                                        sets = Integer.parseInt(tokens[0]);
+                                                                    }else{
+                                                                        if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                .get(1)) == 0) {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                            sets += Integer.parseInt(algoInfoMap.getValue().get(2));
+                                                                        } else {
+                                                                            sets = Integer.parseInt(tokens[0]);
+                                                                        }
+                                                                    }
+
+                                                                    if(!isNonIntRep) {
+                                                                        if (algoInfoMap.getValue().get(3).equals("") || algoInfoMap.getValue().get
+                                                                                (4).equals("")) {
+                                                                            reps = Integer.parseInt(tokens[1]);
+                                                                        } else {
+                                                                            if (weeksSinceLast % Integer.parseInt(algoInfoMap.getValue()
+                                                                                    .get(3)) == 0) {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                                reps += Integer.parseInt(algoInfoMap.getValue().get(4));
+                                                                            } else {
+                                                                                reps = Integer.parseInt(tokens[1]);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    if (!isExerciseName(tokens[2])) {
+                                                                        weight = Integer.parseInt(tokens[2]);
                                                                     }
                                                                 }
 
@@ -3604,6 +3879,86 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return formattedMap;
     }
+
+    private HashMap<String, List<String>> formatCompletedMapNoWeightCheck(HashMap<String, HashMap<String,
+            List<String>>> map){
+        HashMap<String, List<String>> formattedMap = new HashMap<>();
+        ArrayList<String> instanceList = new ArrayList<>();
+
+        for(Map.Entry<String, HashMap<String, List<String>>> subMap : map.entrySet()){
+            if(subMap.getValue().size() > 1){
+                String[] tokens2 = subMap.getKey().split("[_]");
+                String parent = subMap.getValue().get("0_key").get(0);
+                List<String> childList = new ArrayList<>();
+                int instanceInc = 0;
+                for(Map.Entry<String, List<String>> subHashMap : subMap.getValue().entrySet()){
+                    // is superset map
+                    boolean isSuperset = false;
+                    List<String> subList = new ArrayList<>();
+                    for(String string : subHashMap.getValue()){
+                        if(isExerciseName(string)){
+
+                            if(subHashMap.getKey().equals("0_key")){
+                                String extraExercises = getExercisesInSupersetMap(subMap.getValue());
+                                if(instanceList.contains(string + extraExercises)){
+                                    instanceInc++;
+                                }
+                                subList.add(string + "_" + "p" + extraExercises + "_" + String.valueOf(tokens2[0]));
+                            }else{
+                                subList.add(string + "_" + parent + "_" + String.valueOf(tokens2[0]));
+                                childList.add(string);
+                            }
+                        }else{
+                            String delims = "[_]";
+                            String[] tokens = string.split(delims);
+                            subList.add(tokens[0]);
+                            //if(tokens[1].equals("checked")){
+                            //    subList.add(tokens[0]);
+                            //}
+                            //if(tokens.length > 2){
+                            //    if(tokens[2].equals("ss")){
+                            //        isSuperset = true;
+                            //    }
+                            //}
+                        }
+                    }
+                    formattedMap.put(formattedMap.size() + "_key", subList);
+                }
+
+            }else{
+                // not superset map
+                for(Map.Entry<String, List<String>> subHashMap : subMap.getValue().entrySet()){
+                    boolean isSuperset = false;
+                    List<String> subList = new ArrayList<>();
+                    for(String string : subHashMap.getValue()){
+                        if(isExerciseName(string)){
+                            subList.add(string);
+                        }else{
+                            String delims = "[_]";
+                            String[] tokens = string.split(delims);
+                            subList.add(tokens[0]);
+                            //if(tokens[1].equals("checked")){
+                            //    subList.add(tokens[0]);
+                            //}
+                            //if(tokens.length > 2){
+                            //    if(tokens[2].equals("ss")){
+                            //        isSuperset = true;
+                            //    }
+                            //}
+                        }
+                    }
+                    if(isSuperset){
+                        String newName = subList.get(0) + "_ss";
+                        subList.set(0, newName);
+                    }
+                    formattedMap.put(formattedMap.size() + "_key", subList);
+                }
+            }
+        }
+
+        return formattedMap;
+    }
+
 
     private List<String> expandList(String data){
         List<String> returnList = new ArrayList<>();

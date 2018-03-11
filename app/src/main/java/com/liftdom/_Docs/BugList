@@ -38,6 +38,11 @@ total algorithm engine rework (stability/functionality improvements, numerous bu
 add decision to have algorithm only increase on completion of weight goal
 =====================================================
 
+Some algo concerns:
+Main concern is about the days check. Doesn't seem to be any. It's working for now but that
+    may be because hasRunThroughOnce is making sure we don't see the second copy.
+    But what happens if we're on _Tuesday and we run through the other one first?
+
 ============ ON DECK FOR v1.23+: ===============================================
 basic notification bell functionality - badge notification{
     notification icon in nav drawer header.

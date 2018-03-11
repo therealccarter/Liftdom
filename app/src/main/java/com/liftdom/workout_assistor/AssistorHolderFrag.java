@@ -1085,11 +1085,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                 //    Log.i("i", "i");
                 //}
                 if(!isExerciseName(string)){
-                    String delims = "[_]";
-                    String[] tokens = string.split(delims);
-                    if(tokens[1].equals("checked")){
-                        onlyExNames = false;
-                    }
+                    onlyExNames = false;
+                    //String delims = "[_]";
+                    //String[] tokens = string.split(delims);
+                    //if(tokens[1].equals("checked")){
+                    //    onlyExNames = false;
+                    //}
                 }
             }
         }
