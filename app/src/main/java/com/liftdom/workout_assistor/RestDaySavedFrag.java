@@ -251,6 +251,7 @@ public class RestDaySavedFrag extends Fragment {
                         inc++;
 
                         if(inc == dataSnapshot.getChildrenCount()){
+                            fanoutObject.put("/selfFeed/" + uid + "/" + refKey, completedWorkoutModelClass);
                             DatabaseReference rootRef = mRootRef;
                             rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

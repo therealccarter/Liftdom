@@ -115,6 +115,8 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
                                 null);
                         inc++;
                         if(inc == dataSnapshot.getChildrenCount()){
+                            fanoutObject.put("/selfFeed/" + getParentUid() + "/" + parentRefKey + "/commentMap/" +
+                                            mRefKey, null);
                             fanoutObject.put("/feed/" + getParentUid() + "/" + parentRefKey + "/commentMap/" + mRefKey,
                                     null);
                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -124,7 +126,10 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
                 }else{
                     DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                             (getParentUid()).child(parentRefKey).child("commentMap").child(mRefKey);
+                    DatabaseReference commentSelfRef = FirebaseDatabase.getInstance().getReference().child("selfFeed")
+                            .child(getParentUid()).child(parentRefKey).child("commentMap").child(mRefKey);
                     commentRef.setValue(null);
+                    commentSelfRef.setValue(null);
                 }
             }
 

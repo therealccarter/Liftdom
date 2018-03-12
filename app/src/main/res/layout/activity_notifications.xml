@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/noNotificationsView"
             android:text="@string/noNotifications"
-            android:textColor="@color/backgroundgrey1"
+            android:textColor="@color/grey"
             android:textSize="28sp"
             android:gravity="center"
             android:visibility="gone"

@@ -177,7 +177,9 @@ public class BaseActivity extends AppCompatActivity {
                             if(userModelClass.getNotificationCount() != null
                                     && !userModelClass.getNotificationCount().isEmpty()
                                     && !userModelClass.getNotificationCount().equals("")){
-                                notificationCountView.setText(userModelClass.getNotificationCount());
+                                if(!userModelClass.getNotificationCount().equals("0")){
+                                    notificationCountView.setText(userModelClass.getNotificationCount());
+                                }
                             }
 
                             notificationLL.setOnClickListener(new View.OnClickListener() {
