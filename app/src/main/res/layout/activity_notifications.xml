@@ -9,6 +9,17 @@
         android:background="@color/backgroundgrey2"
         tools:context="com.liftdom.liftdom.notifications_bell.NotificationsActivity">
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notifications"
+            android:id="@+id/notificationsTitle"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:layout_margin="20dp"
+            android:gravity="center"
+    />
+
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
             android:layout_height="70dp"

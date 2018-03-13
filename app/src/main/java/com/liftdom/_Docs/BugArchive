@@ -1,5 +1,16 @@
 
-
+currently on v1.23
+----------------------
+fixed rest day saved crash
+fixed knowledge center crash
+basic notification bell functionality - further functionality/cleanup in next update{
+    notification icon in nav drawer header.
+    notification node in firebase.
+    items are notification_item_classes so they can be read by a recyclerview
+    classes will have relevant info for intents and user data and whatnot
+    boolean hasRead.
+}
+fixed bug causing rest days to not be posted to self-feed
 currently on v1.22
 ----------------------
 saved templates should be sorted by update time

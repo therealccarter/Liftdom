@@ -3,21 +3,14 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.23
+currently on v1.24
 ----------------------
-fixed rest day saved crash
-fixed knowledge center crash
+
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-basic notification bell functionality - badge notification{
-    notification icon in nav drawer header.
-    notification node in firebase.
-    items are notification_item_classes so they can be read by a recyclerview
-    classes will have relevant info for intents and user data and whatnot
-    boolean hasRead.
-}
+
 =====================================================
 
 ============ ON DECK FOR v1.23+: ===============================================
