@@ -106,6 +106,14 @@
 
     <string name="noNotifications">No Notifications Found</string>
 
+    <string name="isNowFollowingYou"> is now following you.</string>
+
+    <string name="hasCommentedOnYour"> has commented on your </string>
+
+    <string name="hasReppedYour"> has repped your </string>
+
+    <string name="post"> post.</string>
+
     <string name="title">Liftdom</string>
     <string name="action_settings">Settings</string>
     <string name="chooseFromTemplate">Choose From Programs</string>
