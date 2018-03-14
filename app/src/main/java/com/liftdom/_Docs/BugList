@@ -6,30 +6,32 @@
 currently on v1.24
 ----------------------
 added notification icon to user profile
+made user profiles clickable in followers/following list
+fixed up layout of notifications activity
+more notifications functionality (clicking to go to post that was commented on, have sending programs alert user)
+numerous layout fixes, made user profile dialog version.
+fixed calendar view scroll issue
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-
+make main social feed toolbar disappear
+Have the random users banner scroll upward with the main feed.
 =====================================================
 
 ============ ON DECK FOR v1.23+: ===============================================
 main feed optimization (total rehaul?)
-Have the random users banner scroll upward with the main feed.
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
 Improve the notification-bar layout.
 Fix up the Exercise History Chart page.
 Add past update text to a dedicated page for that
 nSuns
-add dialog version of user profile
 =====================================================
 
 ============ BUG LIST =====================================================
 ==== easier ==========
-selected template exercises out of order
 bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
-chris b bug - crash when WA save dialog is clicked
 ============
 ==== harder ==========
 re-check user made programs functionality (full)
@@ -56,6 +58,7 @@ ask for good reviews, feedback if not good.
 check here for more{
  https://medium.com/@lowcarbrob/0-to-15k-active-users-in-a-month-tips-from-a-indiedev-41d05ab048fd
 }
+
 ===== lifting/core-related =========
 fix up the view of post info in completed workout view holder
 hamburger needs back functionality
@@ -100,17 +103,16 @@ fix overflow icon (currently is always search bar)
 Empty search show all users
 Discover tab // or community tab, show highest rated posts from everyone{
     instead, could just add a default checkbox that adds your workout to the public pool.
-    the main feed then just has a
+    the main feed then just has a slider that also shows the global community
 }
 glide caching in chat (maybe just do it differently, load in parent, get from parent)
-chat unread stuff (including badge/notifications/unread functionality(bool hasRead))
+chat unread stuff/rehaul (including badge/notifications/unread functionality(bool hasRead))
 forum
 ======================
 =====================================================
 
 ============ UNREPLICABLE/UNDECIDED =============================================
 maybe just have one user profile? (could really utilize methods/delegating here)
-make main social feed toolbar disappear
 sign in text is cut off (API 21 issue)
 bottom nav text is cut off (API 21 issue)
 =====================================================

@@ -46,6 +46,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomDayTextAppearance"
+           parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CustomDayTextAppearance2"
+           parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="stickyListHeadersListViewStyle"></style>
 
     <style name="AppCompatDialogNoTitleBar" parent="Base.Theme.AppCompat">

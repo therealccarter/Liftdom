@@ -110,6 +110,8 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             uid = xUid;
         }
 
+
+
         // things that only happen upon action
 
         widget.clearSelection();

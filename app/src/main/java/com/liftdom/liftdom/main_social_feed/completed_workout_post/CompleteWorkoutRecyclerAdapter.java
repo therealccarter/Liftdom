@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
@@ -27,6 +28,7 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
     FragmentActivity mActivity;
     boolean isOriginallyImperial;
     boolean mIsFullComments;
+    String currentUid;
 
     public CompleteWorkoutRecyclerAdapter(List<CompletedWorkoutModelClass> list, Context context, FragmentActivity activity){
         this.mCompletedWorkoutList = list;
@@ -42,6 +44,7 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         this.mRootRef = FirebaseDatabase.getInstance().getReference();
         this.mActivity = activity;
         this.mIsFullComments = isFullComments;
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @Override
@@ -66,7 +69,9 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         viewHolder.setUserLevel(mCompletedWorkoutList.get(position).getUserId(), mRootRef);
         viewHolder.setActivity(mActivity);
         viewHolder.setUserId(mCompletedWorkoutList.get(position).getUserId());
+        viewHolder.setCurrentUserId(currentUid);
         viewHolder.setUpProfilePics(mCompletedWorkoutList.get(position).getUserId());
+        viewHolder.setHasReppedList(mCompletedWorkoutList.get(position).getHasReppedList());
         viewHolder.setPublicDescription(mCompletedWorkoutList.get(position).getPublicDescription());
         viewHolder.setTimeStamp(mCompletedWorkoutList.get(position).getDateTime());
         //if(mCompletedWorkoutList.get(position).getWorkoutInfoMap() != null){

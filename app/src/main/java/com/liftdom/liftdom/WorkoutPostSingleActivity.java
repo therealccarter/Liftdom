@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,11 +23,13 @@ public class WorkoutPostSingleActivity extends AppCompatActivity {
     private DatabaseReference mFeedRef;
 
     @BindView(R.id.recycler_view_feed) RecyclerView mRecyclerView;
+    @BindView(R.id.closeButton) TextView closeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_post_single);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFinishOnTouchOutside(true);
 
         ButterKnife.bind(this);
@@ -35,6 +40,12 @@ public class WorkoutPostSingleActivity extends AppCompatActivity {
             setUpRecycler();
         }
 
+        closeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.WorkoutPostSingleActivity;
+import com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity;
 import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -26,23 +28,24 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
     private String mDateTime;
     private String mRefKey;
     private final TextView userNameView;
-    private final LinearLayout followedLL;
-    private final LinearLayout commentedLL;
-    private final TextView postView1;
-    private final LinearLayout reppedLL;
-    private final TextView postView2;
+    private final TextView hasFollowedYouView;
+    private final TextView hasCommentedView;
+    private final TextView hasReppedView;
+    private final TextView hasSentProgramView;
     private final TextView dateTimeView;
     private FragmentActivity mActivity;
 
     public NotificationViewHolder(View itemView){
         super(itemView);
         userNameView = (TextView) itemView.findViewById(R.id.userNameView);
-        followedLL = (LinearLayout) itemView.findViewById(R.id.followedLL);
-        commentedLL = (LinearLayout) itemView.findViewById(R.id.commentedLL);
-        postView1 = (TextView) itemView.findViewById(R.id.postView1);
-        reppedLL = (LinearLayout) itemView.findViewById(R.id.reppedLL);
-        postView2 = (TextView) itemView.findViewById(R.id.postView2);
+
+        hasFollowedYouView = (TextView) itemView.findViewById(R.id.hasFollowedYou);
+        hasCommentedView = (TextView) itemView.findViewById(R.id.hasCommentedView);
+        hasReppedView = (TextView) itemView.findViewById(R.id.hasReppedView);
+        hasSentProgramView = (TextView) itemView.findViewById(R.id.hasSentProgram);
+
         dateTimeView = (TextView) itemView.findViewById(R.id.dateTimeView);
+
     }
 
     public String getOtherUserId() {
@@ -68,7 +71,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
         userNameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, UserProfileFullActivity.class);
+                Intent intent = new Intent(mActivity, UserProfileDialogActivity.class);
                 if(getCurrentUserId().equals(mOtherUserId)){
                     mActivity.startActivity(intent);
                 } else {
@@ -102,13 +105,39 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
     public void setType(String mType) {
         this.mType = mType;
         if(mType.equals("follower")){
-            followedLL.setVisibility(View.VISIBLE);
+            String text = mActivity.getResources().getString(R.string.hasFollowedYou);
+            hasFollowedYouView.setText(text);
+            hasFollowedYouView.setVisibility(View.VISIBLE);
         }else if(mType.equals("comment")){
-            commentedLL.setVisibility(View.VISIBLE);
+            String text = mActivity.getResources().getString(R.string.hasCommentedOnYourPost);
+            hasCommentedView.setText(text);
+            hasCommentedView.setVisibility(View.VISIBLE);
+            hasCommentedView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mActivity, WorkoutPostSingleActivity.class);
+                    intent.putExtra("refKey", mRefKey);
+                    mActivity.startActivity(intent);
+                }
+            });
             // post 1
         }else if(mType.equals("rep")){
-            reppedLL.setVisibility(View.VISIBLE);
+            String text = mActivity.getResources().getString(R.string.hasReppedYourPost);
+            hasReppedView.setText(text);
+            hasReppedView.setVisibility(View.VISIBLE);
+            hasReppedView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mActivity, WorkoutPostSingleActivity.class);
+                    intent.putExtra("refKey", mRefKey);
+                    mActivity.startActivity(intent);
+                }
+            });
             // post 2
+        }else if(mType.equals("programSent")){
+            String text = mActivity.getResources().getString(R.string.hasSentYouAProgram);
+            hasSentProgramView.setText(text);
+            hasSentProgramView.setVisibility(View.VISIBLE);
         }
     }
 

@@ -92,15 +92,16 @@
 
     <string name="noNotifications">No Notifications Found</string>
 
-    <string name="isNowFollowingYou"> is now following you.</string>
+    <string name="hasFollowedYou">has followed you.</string>
 
-    <string name="hasCommentedOnYour"> has commented on your </string>
+    <string name="hasCommentedOnYourPost">has commented on your post.</string>
 
-    <string name="hasReppedYour"> has repped your </string>
+    <string name="hasReppedYourPost">has repped your post.</string>
 
-    <string name="post"> post.</string>
+    <string name="hasSentYouAProgram">has sent you a program.</string>
 
     <string name="notifications">Notifications</string>
+
 
     <string name="title">Liftdom</string>
     <string name="action_settings">Settings</string>

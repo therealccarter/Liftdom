@@ -1,6 +1,7 @@
 package com.liftdom.user_profile.single_user_profile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
@@ -92,7 +94,7 @@ public class SendDirectProgramFrag extends Fragment {
                 templateModelClass.setUserId2(uidFromOutside);
                 templateModelClass.setUserName2(userNameFromOutside);
                 DateTime dateTime = new DateTime(DateTimeZone.UTC);
-                String dateUpdated = dateTime.toString();
+                final String dateUpdated = dateTime.toString();
                 templateModelClass.setDateUpdated(dateUpdated);
                 templateModelClass.setAlgorithmDateMap(null);
 
@@ -104,6 +106,36 @@ public class SendDirectProgramFrag extends Fragment {
                         loadingView.setVisibility(View.GONE);
                         sendTemplateTitleView.setText("Program Sent!");
                         sendTemplateTitleView.setVisibility(View.VISIBLE);
+
+                        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
+                                .child("user").child(uidFromOutside).child("notificationCount");
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference()
+                                        .child("notifications").child(uidFromOutside);
+
+                                NotificationModelClass notificationModelClass = new NotificationModelClass(
+                                        "programSent", uid, templateName, dateUpdated, null
+                                );
+
+                                notificationRef.push().setValue(notificationModelClass);
+
+                                if(dataSnapshot.exists()){
+                                    int count = Integer.parseInt(dataSnapshot.getValue(String.class));
+                                    count++;
+                                    userRef.setValue(String.valueOf(count));
+                                }else{
+                                    userRef.setValue("1");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -113,7 +145,6 @@ public class SendDirectProgramFrag extends Fragment {
                         sendTemplateTitleView.setVisibility(View.VISIBLE);
                     }
                 });
-
             }
 
             @Override

@@ -13,16 +13,15 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             app:cardElevation="7dp"
             android:background="@color/grey"
             android:backgroundTint="@color/grey"
     >
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
                 android:background="@color/grey"
         >
             <LinearLayout
@@ -30,6 +29,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_weight="1"
+                    android:gravity="top"
             >
                 <TextView
                         android:layout_width="wrap_content"
@@ -38,96 +38,65 @@
                         android:text="DudeBro"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:gravity="center_vertical"
+                        android:textSize="17sp"
                 />
 
-                <LinearLayout
+                <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/followedLL"
-                        android:orientation="horizontal"
-                        android:layout_marginStart="5dp"
-                        android:visibility="gone"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/isNowFollowingYou"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/backgroundgrey1"
-                            android:textSize="16sp"
-                    />
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/commentedLL"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hasFollowedYou"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/backgroundgrey1"
+                        android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/hasCommentedOnYour"
-                            android:gravity="center_vertical"
-                            android:layout_marginEnd="5dp"
-                            android:textSize="16sp"
-                    />
+                />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:id="@+id/postView1"
-                            android:text="@string/post"
-                            android:gravity="center_vertical"
-                            android:textSize="16sp"
-                    />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/reppedLL"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hasCommentedView"
+                        android:text="@string/hasCommentedOnYourPost"
+                        android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
-                >
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/hasReppedYour"
-                            android:gravity="center_vertical"
-                            android:layout_marginEnd="5dp"
-                            android:textSize="16sp"
-                    />
+                />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:id="@+id/postView2"
-                            android:text="@string/post"
-                            android:gravity="center_vertical"
-                            android:textSize="16sp"
-                    />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hasReppedView"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        android:layout_marginStart="5dp"
+                />
 
-                </LinearLayout>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hasSentProgram"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        android:layout_marginStart="5dp"
+                />
+
 
             </LinearLayout>
 
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/dateTimeView"
                     android:text="3/10/18"
                     android:layout_weight="0.1"
-                    android:gravity="end|center_vertical"
+                    android:textColor="@color/backgroundgrey1"
+                    android:gravity="end"
+                    android:layout_gravity="bottom"
                     android:layout_marginEnd="10dp"
-                    android:textColor="@color/darkGrey"
+                    android:layout_marginBottom="7dp"
+                    android:textSize="12sp"
             />
 
         </LinearLayout>

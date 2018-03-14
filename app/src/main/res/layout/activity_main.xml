@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -7,38 +7,44 @@
         android:background="@color/offWhite"
         xmlns:app="http://schemas.android.com/apk/res-auto"
 >
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/black"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
-            <TextView
+    <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/black"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home"
+                        android:textSize="24sp"
+                        android:textColor="@color/liftrGold1"
+                        android:id="@+id/title"
+                />
+
+            </android.support.v7.widget.Toolbar>
+
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home"
-                    android:textSize="24sp"
-                    android:textColor="@color/liftrGold1"
-                    android:id="@+id/title"
-            />
+                    android:id="@+id/searchViewLL"
+            >
+                <com.search.material.library.MaterialSearchView
+                        android:id="@+id/search_view"
+                        style="@style/MaterialSearchViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/liftrGold1"
+                />
+            </LinearLayout>
 
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/searchViewLL"
-        >
-            <com.search.material.library.MaterialSearchView
-                    android:id="@+id/search_view"
-                    style="@style/MaterialSearchViewStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/liftrGold1"
-            />
-        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <nl.dionsegijn.konfetti.KonfettiView
             android:id="@+id/viewKonfetti"
@@ -47,27 +53,39 @@
     />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/offWhite"
-            android:id="@+id/mainFragHolder"
-            android:orientation="vertical"
-            android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"
+        android:id="@+id/mainFragHolder"
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize"
     >
 
     </LinearLayout>
 
-    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black"
-            android:backgroundTint="@color/black"
-            app:bbn_entries="@menu/bottombar_menu_5items"
-            app:layout_behavior="@string/bbn_default_view_behavior"
-            android:id="@+id/BottomNavigation"
+            android:layout_gravity="bottom"
     >
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        >
+            <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:backgroundTint="@color/black"
+                    app:bbn_entries="@menu/bottombar_menu_5items"
+                    app:layout_behavior="@string/bbn_default_view_behavior"
+                    android:id="@+id/BottomNavigation"
+            >
 
-    </it.sephiroth.android.library.bottomnavigation.BottomNavigation>
+            </it.sephiroth.android.library.bottomnavigation.BottomNavigation>
 
-</RelativeLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

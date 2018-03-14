@@ -32,6 +32,7 @@ import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
 import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
+import com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity;
 import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -120,7 +121,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
         mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, UserProfileFullActivity.class);
+                Intent intent = new Intent(mActivity, UserProfileDialogActivity.class);
                 if(getCurrentUid().equals(xUid)){
                     mActivity.startActivity(intent);
                 } else {
