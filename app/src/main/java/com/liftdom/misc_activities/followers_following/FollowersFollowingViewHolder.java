@@ -2,6 +2,7 @@ package com.liftdom.misc_activities.followers_following;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
+import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**
@@ -43,6 +45,7 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
     FragmentActivity mActivity;
     private final LinearLayout parentLL;
     private String yourUserName;
+    private FragmentActivity fragmentActivity;
 
 
     public FollowersFollowingViewHolder(View itemView){
@@ -65,6 +68,32 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View v) {
                 unfollowUser();
+            }
+        });
+
+        mProfilePicView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(fragmentActivity, UserProfileFullActivity.class);
+                if(uid.equals(xUid)){
+                    fragmentActivity.startActivity(intent);
+                }else{
+                    intent.putExtra("xUid", xUid);
+                    fragmentActivity.startActivity(intent);
+                }
+            }
+        });
+
+        mUserNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(fragmentActivity, UserProfileFullActivity.class);
+                if(uid.equals(xUid)){
+                    fragmentActivity.startActivity(intent);
+                }else{
+                    intent.putExtra("xUid", xUid);
+                    fragmentActivity.startActivity(intent);
+                }
             }
         });
     }
@@ -93,6 +122,14 @@ public class FollowersFollowingViewHolder extends RecyclerView.ViewHolder{
                 });
             }
         });
+    }
+
+    public FragmentActivity getFragmentActivity() {
+        return fragmentActivity;
+    }
+
+    public void setFragmentActivity(FragmentActivity fragmentActivity) {
+        this.fragmentActivity = fragmentActivity;
     }
 
     public String getYourUserName() {

@@ -11,15 +11,48 @@
             android:scaleType="centerCrop"
     />
 
-    <ImageView
-            android:layout_width="24dp"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profileInfo"
-            android:src="@drawable/settings_small"
-            android:layout_gravity="end"
-            android:layout_marginEnd="7dp"
-            android:layout_marginTop="5dp"
-    />
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="10dp"
+    >
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notificationsLL"
+                android:gravity="end"
+                android:layout_marginEnd="10dp"
+        >
+            <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:src="@drawable/ic_add_alert_grey_18dp"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/notificationsTextView"
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="16sp"
+                    android:paddingEnd="15dp"
+                    android:gravity="center"
+            />
+
+        </LinearLayout>
+
+        <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileInfo"
+                android:src="@drawable/settings_small"
+                android:layout_marginEnd="10dp"
+        />
+
+    </LinearLayout>
+
 
     <LinearLayout
             android:layout_width="match_parent"

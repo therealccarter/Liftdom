@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
+import com.liftdom.liftdom.notifications_bell.NotificationsActivity;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.your_profile.ProfileInfoActivity;
@@ -60,6 +62,8 @@ public class ProfileHeaderFrag extends Fragment {
     @BindView(R.id.followUserButton) Button followUserButton;
     @BindView(R.id.unFollowUserButton) Button unFollowUserButton;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.notificationsTextView) TextView notificationCountView;
+    @BindView(R.id.notificationsLL) LinearLayout notificationLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,8 +74,10 @@ public class ProfileHeaderFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         if(uidPov.equals(uidFromOutside)){
+            notificationLL.setVisibility(View.VISIBLE);
             infoButton.setVisibility(View.VISIBLE);
         }else{
+            notificationLL.setVisibility(View.GONE);
             infoButton.setVisibility(View.GONE);
         }
 
@@ -80,6 +86,25 @@ public class ProfileHeaderFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                if(uidPov.equals(uidFromOutside)){
+                    if(userModelClass.getNotificationCount() != null
+                            && !userModelClass.getNotificationCount().isEmpty()
+                            && !userModelClass.getNotificationCount().equals("")){
+                        if(!userModelClass.getNotificationCount().equals("0")){
+                            notificationCountView.setText(userModelClass.getNotificationCount());
+                        }
+                    }
+
+                    notificationLL.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), NotificationsActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+
                 userName.setText(userModelClass.getUserName());
                 mUserName = userModelClass.getUserName();
                 currentLevel.setText(userModelClass.getPowerLevel());

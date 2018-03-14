@@ -89,6 +89,7 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
+                viewHolder.setFragmentActivity(FollowersFollowingDialogActivity.this);
                 viewHolder.setContext(FollowersFollowingDialogActivity.this);
                 viewHolder.setxUid(model.getUserId());
                 viewHolder.setUserName(model.getUserName());

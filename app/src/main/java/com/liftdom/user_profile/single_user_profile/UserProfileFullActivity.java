@@ -25,9 +25,7 @@ public class UserProfileFullActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setUpNavDrawer(UserProfileFullActivity.this, toolbar);
 

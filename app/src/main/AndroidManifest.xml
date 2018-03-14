@@ -474,13 +474,15 @@
                 android:name=".feedback.FeedbackActivity"
                 android:label="">
         </activity>
-        <activity android:name="com.liftdom.user_profile.single_user_profile.UserProfileFullActivity">
+        <activity android:name="com.liftdom.user_profile.single_user_profile.UserProfileFullActivity"
+                android:label="">
         </activity>
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.ProfileActionsDialogActivity"
                 android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
-        <activity android:name=".notifications_bell.NotificationsActivity">
+        <activity android:name=".notifications_bell.NotificationsActivity"
+                android:label="">
         </activity>
     </application>
 
