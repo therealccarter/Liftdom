@@ -8,7 +8,6 @@
         android:orientation="vertical"
         android:background="@color/offWhite"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="100dp"
 >
         <ScrollView
                 android:layout_width="match_parent"

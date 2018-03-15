@@ -4,6 +4,7 @@ package com.liftdom.workout_assistor;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -114,6 +115,9 @@ public class WorkoutAssistorFrag extends Fragment{
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
         currentTemplateView.setTypeface(lobster);
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
+        appBarLayout.setExpanded(true, true);
 
         if(savedInstanceState == null){
 

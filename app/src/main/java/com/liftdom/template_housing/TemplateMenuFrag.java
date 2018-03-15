@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -84,6 +85,9 @@ public class TemplateMenuFrag extends Fragment {
         navChanger(1);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
+        appBarLayout.setExpanded(true, true);
 
         MotivationalQuotes motivationalQuotes = new MotivationalQuotes();
         quoteArray = motivationalQuotes.getQuote();

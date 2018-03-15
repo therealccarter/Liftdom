@@ -19,7 +19,8 @@ make main social feed toolbar disappear
 Have the random users banner scroll upward with the main feed.
 =====================================================
 
-============ ON DECK FOR v1.23+: ===============================================
+============ ON DECK FOR v1.25+: ===============================================
+Exercise Search/Custom Exercises.
 main feed optimization (total rehaul?)
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
@@ -27,6 +28,11 @@ Improve the notification-bar layout.
 Fix up the Exercise History Chart page.
 Add past update text to a dedicated page for that
 nSuns
+add option to do a workout on a rest day/revise that day's workout{
+    Just don't delete the runningAssistor, and on assistorSaved just add
+    the refID's to the workoutProgressModel.
+}
+hamburger needs back functionality
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -61,7 +67,6 @@ check here for more{
 
 ===== lifting/core-related =========
 fix up the view of post info in completed workout view holder
-hamburger needs back functionality
 alert user if their percentage goes above 100%
 implement some sort of "short term memory" type thing for when changing weight options in template editor
 try this for notification-bar/lockscreen view difference {
@@ -87,10 +92,6 @@ more programs {
     Starting Strength
     Mad Cow
     Texas Method
-}
-add option to do a workout on a rest day/revise that day's workout{
-    Just don't delete the runningAssistor, and on assistorSaved just add
-    the refID's to the workoutProgressModel.
 }
 fill in the Knowledge Center (including ex descriptions in other packages)
 Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
@@ -130,10 +131,8 @@ look into design stuff like font
 "Important steps for scaled success"
 -------------------------------------
 Fix up the chat, big time.
-Notification Bell.
 Public posts tab (posted via public-checkmark in WA)
 Take a good look at completion/log-in streak. Need compulsive opening of Liftdom...
-Exercise Search/Custom Exercises.
 Main feed performance/visual rehaul
 Scaling of power level needs to be looked at. We need faster leveling at the low levels probably.
 Share completed workouts to Facebook/Twitter/Raw copy

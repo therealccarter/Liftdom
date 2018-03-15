@@ -240,6 +240,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    public void addMarginTop(){
+        params.topMargin = 40;
+        mCardViewParent.setLayoutParams(params);
+    }
+
     public void hideLayout(){
         params.height = 0;
         mCardViewParent.setLayoutParams(params);

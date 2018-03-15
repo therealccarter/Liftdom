@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -70,6 +71,9 @@ public class ForumMainFrag extends Fragment {
 
         headerChanger("Forum");
         navChanger(3);
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
+        appBarLayout.setExpanded(true, true);
 
         if(savedInstanceState == null){
             FragmentManager fragmentManager = getChildFragmentManager();

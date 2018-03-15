@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,6 +72,9 @@ public class ChatMainFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         headerChanger("Chat");
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
+        appBarLayout.setExpanded(true, true);
 
         newChatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
