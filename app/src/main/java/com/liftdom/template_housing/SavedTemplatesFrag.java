@@ -99,6 +99,9 @@ public class SavedTemplatesFrag extends Fragment {
                                     noSavedTemplates.setVisibility(View.VISIBLE);
                                     linearLayout_new_template.setVisibility(View.VISIBLE);
                                     loadingView.setVisibility(View.GONE);
+                                }else{
+                                    loadingView.setVisibility(View.GONE);
+                                    setUpFirebaseAdapter();
                                 }
                             }
 
@@ -107,6 +110,9 @@ public class SavedTemplatesFrag extends Fragment {
 
                             }
                         });
+            }else{
+                loadingView.setVisibility(View.GONE);
+                setUpFirebaseAdapter();
             }
         }
 
@@ -162,7 +168,7 @@ public class SavedTemplatesFrag extends Fragment {
             }
         });
 
-        setUpFirebaseAdapter();
+
 
         return view;
     }
@@ -184,18 +190,11 @@ public class SavedTemplatesFrag extends Fragment {
                 viewHolder.setDaysView(model.getDays());
                 viewHolder.setDescriptionView(model.getDescription());
                 viewHolder.setActivity(getActivity());
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
-                            .loadingView2);
-                    if(loadingView != null){
-                        loadingView.setVisibility(View.GONE);
-                    }
-                }
             }
         };
 
 
-        mRecyclerView.setHasFixedSize(false);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         linearLayoutManager.setReverseLayout(true);

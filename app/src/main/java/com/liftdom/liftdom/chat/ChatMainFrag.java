@@ -109,8 +109,11 @@ public class ChatMainFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
+
+        Query query = mChatGroupReference.orderByChild("activeDate");
+
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>
-                (ChatGroupModelClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, mChatGroupReference) {
+                (ChatGroupModelClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, query) {
             @Override
             protected void populateViewHolder(ChatGroupViewHolder viewHolder,
                                               ChatGroupModelClass model, int position) {
@@ -153,8 +156,12 @@ public class ChatMainFrag extends Fragment {
             }
         };
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 

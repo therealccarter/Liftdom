@@ -11,11 +11,13 @@ fixed up layout of notifications activity
 more notifications functionality (clicking to go to post that was commented on, have sending programs alert user)
 numerous layout fixes, made user profile dialog version.
 fixed calendar view scroll issue
+fixed bug causing dates to be messed up in chat group frag
+chats now grouped by active date
+toolbar disappears on scroll now
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-make main social feed toolbar disappear
 Have the random users banner scroll upward with the main feed.
 =====================================================
 

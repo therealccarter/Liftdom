@@ -321,7 +321,7 @@
     <string name="searchUsers">Search users...</string>
     <string name="noResults">No Results</string>
 
-    <string name="noPosts">No posts yet...</string>
+    <string name="noPosts">No posts yet&#8230;\n Create a workout program and get started!</string>
 
     <string name="followUser">(+) Follow</string>
     <string name="unfollowUser">(-) Un-follow</string>
@@ -330,6 +330,8 @@
     <string name="editedBy">Edited by:\u0020</string>
 
     <string name="saveTemplate">Save Program</string>
+
+    <string name="author">Author: </string>
 
     <string name="publicTemplates">Public Programs</string>
     <string name="myPublicTemplates">My Public Programs</string>

@@ -4,6 +4,7 @@ package com.liftdom.liftdom.chat.ChatSpecific;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,6 +81,9 @@ public class ChatSpecificFrag extends Fragment {
 
         BottomNavigation bottomNavigation = (BottomNavigation) getActivity().findViewById(R.id.BottomNavigation);
         bottomNavigation.setVisibility(View.GONE);
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
+        appBarLayout.setExpanded(false, true);
 
         String chatId = getArguments().getString("chatId");
 

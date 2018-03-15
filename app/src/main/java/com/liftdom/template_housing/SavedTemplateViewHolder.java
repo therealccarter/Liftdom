@@ -32,6 +32,9 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
     private boolean isFromSendProgram;
     private boolean isFromInbox;
     private String uidFromOutside;
+    private final TextView mAuthoredBy;
+    private String authoredBy;
+    private final LinearLayout mAuthorLL;
 
     public SavedTemplateViewHolder(View itemView){
         super(itemView);
@@ -41,6 +44,8 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
         mDescriptionView = (TextView) itemView.findViewById(R.id.descriptionView);
         mTemplateHeader = (LinearLayout) itemView.findViewById(R.id.savedTemplateHeader);
         parentLL = (LinearLayout) itemView.findViewById(R.id.parentLL);
+        mAuthoredBy = (TextView) itemView.findViewById(R.id.authorName);
+        mAuthorLL = (LinearLayout) itemView.findViewById(R.id.authorLL);
 
         parentLL.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -118,6 +123,16 @@ public class SavedTemplateViewHolder extends RecyclerView.ViewHolder{
 
             }
         });
+    }
+
+    public String getAuthoredBy() {
+        return authoredBy;
+    }
+
+    public void setAuthoredBy(String authoredBy) {
+        this.authoredBy = authoredBy;
+        mAuthoredBy.setText(authoredBy);
+        mAuthorLL.setVisibility(View.VISIBLE);
     }
 
     public boolean isFromInbox() {

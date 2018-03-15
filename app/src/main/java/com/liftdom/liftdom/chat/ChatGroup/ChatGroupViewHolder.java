@@ -132,9 +132,9 @@ public class ChatGroupViewHolder extends RecyclerView.ViewHolder implements View
         String newDate = dateTimeNow.toString("mm:dd:yyyy");
         String localDateString;
         if(newDate.equals(oldDate)){
-            localDateString = "Today, " + dateTime.toString("h:m a");
+            localDateString = "Today, " + dateTime.toString("h:mm a");
         }else{
-            localDateString = dateTime.toString("MMM d, h:m a");
+            localDateString = dateTime.toString("MMM d, h:mm a");
         }
 
         mActiveDayView.setText(localDateString);

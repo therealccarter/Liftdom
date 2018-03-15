@@ -51,9 +51,10 @@ public class ProgramInboxFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    setUpFirebaseAdapter();
+                    programInboxTitle.setVisibility(View.GONE);
                     loadingView.setVisibility(View.GONE);
                     noProgramsFoundView.setVisibility(View.GONE);
+                    setUpFirebaseAdapter();
                 }else{
                     loadingView.setVisibility(View.GONE);
                     noProgramsFoundView.setVisibility(View.VISIBLE);
@@ -75,12 +76,6 @@ public class ProgramInboxFrag extends Fragment {
                 (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, query) {
             @Override
             protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    loadingView.setVisibility(View.GONE);
-                }
-                if(noProgramsFoundView.getVisibility() == View.VISIBLE){
-                    noProgramsFoundView.setVisibility(View.GONE);
-                }
                 viewHolder.setFromInbox(true);
                 viewHolder.setFromSendProgram(false);
                 viewHolder.setTemplateNameView(model.getTemplateName());
@@ -88,6 +83,7 @@ public class ProgramInboxFrag extends Fragment {
                 viewHolder.setDaysView(model.getDays());
                 viewHolder.setDescriptionView(model.getDescription());
                 viewHolder.setActivity(getActivity());
+                viewHolder.setAuthoredBy(model.getUserName());
             }
         };
 
