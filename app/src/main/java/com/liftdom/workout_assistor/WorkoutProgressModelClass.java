@@ -21,14 +21,16 @@ public class WorkoutProgressModelClass {
     private String mMediaResource;
     private boolean mIsTemplateImperial;
     private String mViewCursor; // the current set we're on
+    private String mRefKey;
+    private boolean mIsRevise;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
     }
 
     public WorkoutProgressModelClass(String date, boolean completedBool, HashMap<String, HashMap<String, List<String>>> exInfoHashMap,
-                                     String privateJournal, String publicComment, String mediaResource, boolean
-                                             isTemplateImperial){
+                                     String privateJournal, String publicComment, String mediaResource,
+                                     boolean isTemplateImperial, String refKey, boolean isRevise){
         mDate = date;
         mCompletedBool = completedBool;
         mExInfoHashMap = exInfoHashMap;
@@ -36,6 +38,26 @@ public class WorkoutProgressModelClass {
         mPublicComment = publicComment;
         mMediaResource = mediaResource;
         mIsTemplateImperial = isTemplateImperial;
+        if(refKey != null){
+            mRefKey = refKey;
+        }
+        mIsRevise = isRevise;
+    }
+
+    public boolean isIsRevise() {
+        return mIsRevise;
+    }
+
+    public void setIsRevise(boolean mIsRevise) {
+        this.mIsRevise = mIsRevise;
+    }
+
+    public String getRefKey() {
+        return mRefKey;
+    }
+
+    public void setRefKey(String mRefKey) {
+        this.mRefKey = mRefKey;
     }
 
     public String exIndex(){

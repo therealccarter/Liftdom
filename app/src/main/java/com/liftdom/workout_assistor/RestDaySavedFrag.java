@@ -37,6 +37,8 @@ import nl.dionsegijn.konfetti.models.Size;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +63,8 @@ public class RestDaySavedFrag extends Fragment {
     String privateJournal = null;
     String mediaRef = null;
     CompletedWorkoutModelClass completedWorkoutModelClass;
+    String redoRefKey;
+    boolean isRevisedWorkout;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -157,7 +161,13 @@ public class RestDaySavedFrag extends Fragment {
 
                         // feed fanout
                         DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
-                        String refKey = myFeedRef.push().getKey();
+                        String refKey;
+
+                        if(isRevisedWorkout){
+                            refKey = redoRefKey;
+                        }else{
+                            refKey = myFeedRef.push().getKey();
+                        }
 
                         String dateUTC = new DateTime(DateTimeZone.UTC).toString();
                         HashMap<String, List<String>> workoutInfoMap = new HashMap<>();
@@ -168,22 +178,26 @@ public class RestDaySavedFrag extends Fragment {
 
                         Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
 
-                        completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
-                                userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
-                                workoutInfoMap, commentModelClassMap, null);
+                        if(isRevisedWorkout){
+                            setNewCompletedWorkoutModelClass();
+                        }else{
+                            completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                                    userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
+                                    workoutInfoMap, commentModelClassMap, null);
 
-                        if(isLevelUp){
+                            if(isLevelUp){
+                                List<String> bonusList = new ArrayList<>();
+                                bonusList.add("Level up!");
+                                completedWorkoutModelClass.setBonusList(bonusList);
+                            }
+
                             List<String> bonusList = new ArrayList<>();
-                            bonusList.add("Level up!");
+                            bonusList.add("Rest Day");
                             completedWorkoutModelClass.setBonusList(bonusList);
+
+                            myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                            feedFanOut(refKey, completedWorkoutModelClass);
                         }
-
-                        List<String> bonusList = new ArrayList<>();
-                        bonusList.add("Rest Day");
-                        completedWorkoutModelClass.setBonusList(bonusList);
-
-                        myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                        feedFanOut(refKey, completedWorkoutModelClass);
 
                         // workout history
                         String date = LocalDate.now().toString();
@@ -197,6 +211,8 @@ public class RestDaySavedFrag extends Fragment {
                                 userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef, null,
                                 isImperial);
                         workoutHistoryRef.setValue(historyModelClass);
+
+                        setRestDayModelClass(refKey);
 
                         dontLeavePage.setVisibility(View.GONE);
 
@@ -228,6 +244,42 @@ public class RestDaySavedFrag extends Fragment {
         });
 
         return view;
+    }
+
+    private void setNewCompletedWorkoutModelClass(){
+        final DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference()
+                .child("selfFeed").child(uid).child(redoRefKey);
+        selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CompletedWorkoutModelClass workoutModelClass = dataSnapshot.getValue(CompletedWorkoutModelClass.class);
+                workoutModelClass.setPublicDescription(publicDescription);
+                //selfFeedRef.setValue(completedWorkoutModelClass);
+                DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+                myFeedRef.child(redoRefKey).setValue(workoutModelClass);
+                feedFanOut(redoRefKey, completedWorkoutModelClass);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // starting to realize I need to possibly also update the workout history ref.
+    }
+
+    private void setRestDayModelClass(String refKey){
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                .child("runningAssistor").child(uid).child("assistorModel");
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+
+        RestDayModelClass restDayModelClass = new RestDayModelClass(true, dateTimeString, refKey, false);
+
+        runningRef.setValue(restDayModelClass);
     }
 
     @Override

@@ -19,21 +19,25 @@ toolbar disappears on scroll now
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
+Add some more clear suggestions for users on first time{
+    Just saying "no posts yet" doesn't help them much.
+}
+Exercise Search/Custom Exercises.
+add option to do a workout on a rest day/revise that day's workout{
+    Just don't delete the runningAssistor, and on assistorSaved just add
+    the refID's to the workoutProgressModel.
+}
 =====================================================
 
 ============ ON DECK FOR v1.25+: ===============================================
-Exercise Search/Custom Exercises.
-main feed optimization (total rehaul?)
+main feed optimization (total rehaul?)(use android profiler)
+global/community feed
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
 Improve the notification-bar layout.
 Fix up the Exercise History Chart page.
 Add past update text to a dedicated page for that
 nSuns
-add option to do a workout on a rest day/revise that day's workout{
-    Just don't delete the runningAssistor, and on assistorSaved just add
-    the refID's to the workoutProgressModel.
-}
 hamburger needs back functionality
 =====================================================
 

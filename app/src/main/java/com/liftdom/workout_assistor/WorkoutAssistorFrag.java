@@ -29,6 +29,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,26 +130,94 @@ public class WorkoutAssistorFrag extends Fragment{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
 
-                        setTemplateName();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager
-                                .beginTransaction();
-                        WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
-                        if(loadingView.getVisibility() == View.VISIBLE){
-                            loadingView.setVisibility(View.GONE);
-                        }
+                        // USER HAS COMPLETED A WORKOUT FOR TODAY
 
-                        if (!getActivity().isFinishing()) {
-                            if(exInfoHolderLL != null){
-                                try{
-                                    fragmentTransaction.replace(R.id.exInfoHolder,
-                                            workoutFinishedFrag);
-                                    fragmentTransaction.commitAllowingStateLoss();
-                                }catch (IllegalArgumentException e){
-                                    Snackbar.make(getView(), "Error: No view found for id 0x7f0800f5", Snackbar.LENGTH_SHORT);
+                        final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                ("runningAssistor").child(uid).child("assistorModel");
+                        runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(final DataSnapshot dataSnapshot1) {
+                                if(dataSnapshot1.exists()){
+
+                                    DatabaseReference restDayRef = runningRef.child("isRestDay");
+
+                                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                                    LocalDate localDate = LocalDate.now();
+                                    final String dateTimeString = fmt.print(localDate);
+
+                                    restDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot2) {
+                                            if(dataSnapshot2.exists()){
+                                                RestDayModelClass restDayModelClass = dataSnapshot2.getValue
+                                                        (RestDayModelClass.class);
+                                                if(restDayModelClass.isIsRevise() && restDayModelClass.getDate()
+                                                        .equals(dateTimeString)){
+                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                    RestDayFrag restDayFrag = new RestDayFrag();
+                                                    if (!getActivity().isFinishing()) {
+                                                        try {
+                                                            LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                                    .exInfoHolder);
+                                                            fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                                                            fragmentTransaction.commitAllowingStateLoss();
+                                                        }catch (NullPointerException e){
+
+                                                        }
+                                                    }
+                                                }
+                                            }else{
+                                                WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
+                                                        (WorkoutProgressModelClass.class);
+
+                                                if(progressModelClass.getDate().equals(dateTimeString)){
+                                                    if(progressModelClass.isIsRevise() && progressModelClass.getRefKey() != null){
+                                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                                        assistorHolderFrag.isRevisedWorkout = true;
+                                                        assistorHolderFrag.refKey = progressModelClass.getRefKey();
+                                                        if (!getActivity().isFinishing()) {
+                                                            try {
+                                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                                        .exInfoHolder);
+                                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                                fragmentTransaction.commitAllowingStateLoss();
+                                                            }catch (NullPointerException e){
+
+                                                            }
+                                                        }
+                                                    }else{
+                                                        setUpWorkoutFinishedFrag();
+                                                        //setTemplateName();
+                                                        //initiliazeFrags();
+                                                    }
+                                                }else{
+                                                    setUpWorkoutFinishedFrag();
+                                                    //setTemplateName();
+                                                    //initiliazeFrags();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }else{
+                                    setUpWorkoutFinishedFrag();
                                 }
                             }
-                        }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }else{
                         initiliazeFrags();
                     }
@@ -165,6 +235,28 @@ public class WorkoutAssistorFrag extends Fragment{
 
 
         return view;
+    }
+
+    private void setUpWorkoutFinishedFrag(){
+        setTemplateName();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        WorkoutFinishedFrag workoutFinishedFrag = new WorkoutFinishedFrag();
+        if(loadingView.getVisibility() == View.VISIBLE){
+            loadingView.setVisibility(View.GONE);
+        }
+        if (!getActivity().isFinishing()) {
+            if(exInfoHolderLL != null){
+                try{
+                    fragmentTransaction.replace(R.id.exInfoHolder,
+                            workoutFinishedFrag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }catch (IllegalArgumentException e){
+                    Snackbar.make(getView(), "Error: No view found for id 0x7f0800f5", Snackbar.LENGTH_SHORT);
+                }
+            }
+        }
     }
 
     private void setTemplateName(){

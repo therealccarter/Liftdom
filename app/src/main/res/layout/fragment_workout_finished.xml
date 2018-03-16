@@ -20,12 +20,12 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/viewStretchingAndAdvice"
+            android:text="@string/reviseWorkout"
             android:background="@color/black"
             android:textColor="@color/liftrGold2"
             android:textSize="20sp"
             android:padding="10dp"
-            android:id="@+id/restAdviceButton"
+            android:id="@+id/reviseWorkout"
             android:layout_margin="10dp"
     />
 

@@ -78,6 +78,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
     List<String> completedExerciseList;
     String smolovWeekDayString;
+    String redoRefKey;
+    boolean isRevisedWorkout;
 
     boolean isFirstTimeFirstTime;
 
@@ -373,7 +375,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
                     //DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
 
-                    String refKey = myFeedRef.push().getKey();
+                    String refKey;
+                    if(redoRefKey != null){
+                        refKey = redoRefKey;
+                    }else{
+                        refKey = myFeedRef.push().getKey();
+                    }
+
 
                     Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
 
@@ -402,6 +410,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     feedFanOut(refKey, completedWorkoutModelClass);
+
+                    DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                            ("runningAssistor").child(uid).child("assistorModel");
+
+                    runningRef.child("refKey").setValue(refKey);
+                    runningRef.child("isRevise").setValue(false);
 
                     dontLeavePage.setVisibility(View.GONE);
 

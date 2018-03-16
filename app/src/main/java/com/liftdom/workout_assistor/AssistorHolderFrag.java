@@ -67,6 +67,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     String smolovWeekDayString;
     boolean isTemplateImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
+    boolean isRevisedWorkout;
+    String refKey;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -129,7 +131,11 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         checkIfUserIsImperial();
 
-        checkForOldData();
+        if(isRevisedWorkout){
+
+        }else{
+            checkForOldData();
+        }
 
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
 
@@ -515,8 +521,18 @@ public class AssistorHolderFrag extends android.app.Fragment
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
         }
 
-        WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
-                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial);
+        WorkoutProgressModelClass progressModelClass;
+
+        if(isRevisedWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, true);
+        }else{
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    null, false);
+        }
+
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
@@ -544,8 +560,17 @@ public class AssistorHolderFrag extends android.app.Fragment
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
         }
 
-        WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
-                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial);
+        WorkoutProgressModelClass progressModelClass;
+
+        if(isRevisedWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, true);
+        }else{
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    null, false);
+        }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
@@ -605,6 +630,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             deactivateLL.setVisibility(View.GONE);
         }
 
+
+    }
+
+    private void wasInOnStartNowDeleted(){
         final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference()
                 .child("firstTime").child(uid).child("isAssistorFirstTime");
         firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -631,10 +660,10 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
                             .title("The Private Journal is where you can take workout notes. It'll only be viewable " +
-                                     "by you. \n \n " +
-                                     "The Public Description is what your followers will see as the " +
-                                     "description for this workout.\n \n" +
-                                      "Good luck and have fun!")
+                                    "by you. \n \n " +
+                                    "The Public Description is what your followers will see as the " +
+                                    "description for this workout.\n \n" +
+                                    "Good luck and have fun!")
                             .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
                             .build();
 
@@ -827,6 +856,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void finishWorkout(){
+        updateWorkoutState();
         List<String> exInfo = new ArrayList<>();
         for(ExNameWAFrag exNameFrag : exNameFragList){
             exInfo.addAll(exNameFrag.getExInfo());
@@ -859,11 +889,16 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
+        if(isRevisedWorkout){
+            assistorSavedFrag.isRevisedWorkout = true;
+            assistorSavedFrag.redoRefKey = refKey;
+        }
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
         fragmentTransaction.commit();
     }
 
     private void finishWorkoutFromAd(){
+        updateWorkoutState();
         List<String> exInfo = new ArrayList<>();
         for(ExNameWAFrag exNameFrag : exNameFragList){
             exInfo.addAll(exNameFrag.getExInfo());
@@ -896,6 +931,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
+        if(isRevisedWorkout){
+            assistorSavedFrag.isRevisedWorkout = true;
+            assistorSavedFrag.redoRefKey = refKey;
+        }
         assistorSavedFrag.isFromAd = true;
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
         fragmentTransaction.commit();

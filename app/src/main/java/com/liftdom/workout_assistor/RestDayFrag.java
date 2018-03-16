@@ -26,6 +26,8 @@ import org.joda.time.LocalDate;
  */
 public class RestDayFrag extends Fragment {
 
+    String refKey;
+    boolean isReviseWorkout;
 
     public RestDayFrag() {
         // Required empty public constructor
@@ -75,6 +77,10 @@ public class RestDayFrag extends Fragment {
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();
                 restDaySavedFrag.privateJournal = privateJournal.getText().toString();
                 restDaySavedFrag.publicDescription = publicComment.getText().toString();
+                if(isReviseWorkout){
+                    restDaySavedFrag.redoRefKey = refKey;
+                    restDaySavedFrag.isRevisedWorkout = true;
+                }
                 LinearLayout exInfoHolder = (LinearLayout) getActivity().findViewById(R.id.exInfoHolder);
                 fragmentTransaction.replace(exInfoHolder.getId(), restDaySavedFrag);
                 fragmentTransaction.commit();
