@@ -14,19 +14,15 @@ fixed calendar view scroll issue
 fixed bug causing dates to be messed up in chat group frag
 chats now grouped by active date
 toolbar disappears on scroll now
+revise that day's workout
+Add some more clear suggestions for users on first time
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
-Add some more clear suggestions for users on first time{
-    Just saying "no posts yet" doesn't help them much.
-}
 Exercise Search/Custom Exercises.
-add option to do a workout on a rest day/revise that day's workout{
-    Just don't delete the runningAssistor, and on assistorSaved just add
-    the refID's to the workoutProgressModel.
-}
+add option to do a workout on a rest day
 =====================================================
 
 ============ ON DECK FOR v1.25+: ===============================================
@@ -35,7 +31,7 @@ global/community feed
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality
 Improve the notification-bar layout.
-Fix up the Exercise History Chart page.
+Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))
 Add past update text to a dedicated page for that
 nSuns
 hamburger needs back functionality

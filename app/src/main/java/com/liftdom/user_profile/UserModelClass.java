@@ -127,7 +127,7 @@ public class UserModelClass {
         setPowerLevel(String.valueOf(current));
     }
 
-    public HashMap<String, String> generateXpMap(HashMap<String, List<String>> completedMap){
+    public HashMap<String, String> generateXpMap(HashMap<String, List<String>> completedMap, boolean isRevised){
         // will also set related values, so we'll only have to call one method
 
         /**
@@ -142,62 +142,73 @@ public class UserModelClass {
         HashMap<String, String> resultsMap = new HashMap<>();
         int xpFromWorkout = 0;
 
-        // set up last completed day/streak stuff
-        if(getLastCompletedDay() == null){
-            setCurrentStreak("1");
-            resultsMap.put("currentStreak", "1");
-            setLastCompletedDay(LocalDate.now().toString());
+
+
+        // need to prevent user from gaining xp if from revised workout
+
+        if(isRevised){
+            resultsMap.put("currentStreak", getCurrentStreak());
+            resultsMap.put("xpFromWorkout", "0");
+            double multiplier = getMultiplier(Integer.parseInt(getCurrentStreak()));
+            resultsMap.put("streakMultiplier", String.valueOf(multiplier));
+            resultsMap.put("totalXpGained", "0");
         }else{
-            //LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
-            if(getLastCompletedDay().equals(LocalDate.now().minusDays(1).toString())){
-                int currentStreak = Integer.parseInt(getCurrentStreak());
-                currentStreak++;
-                setCurrentStreak(String.valueOf(currentStreak));
-                resultsMap.put("currentStreak", getCurrentStreak());
-            }else{
+            // set up last completed day/streak stuff
+            if(getLastCompletedDay() == null){
                 setCurrentStreak("1");
                 resultsMap.put("currentStreak", "1");
+                setLastCompletedDay(LocalDate.now().toString());
+            }else{
+                //LocalDate lastCompletedDay = LocalDate.parse(getLastCompletedDay());
+                if(getLastCompletedDay().equals(LocalDate.now().minusDays(1).toString())){
+                    int currentStreak = Integer.parseInt(getCurrentStreak());
+                    currentStreak++;
+                    setCurrentStreak(String.valueOf(currentStreak));
+                    resultsMap.put("currentStreak", getCurrentStreak());
+                }else{
+                    setCurrentStreak("1");
+                    resultsMap.put("currentStreak", "1");
+                }
+                setLastCompletedDay(LocalDate.now().toString());
             }
-            setLastCompletedDay(LocalDate.now().toString());
-        }
 
-        boolean hasNoCompletedExercises = true;
-        if(completedMap != null){
-            for(Map.Entry<String, List<String>> mapEntry : completedMap.entrySet()){
-                if(mapEntry.getValue().size() > 1){
-                    hasNoCompletedExercises = false;
+            boolean hasNoCompletedExercises = true;
+            if(completedMap != null){
+                for(Map.Entry<String, List<String>> mapEntry : completedMap.entrySet()){
+                    if(mapEntry.getValue().size() > 1){
+                        hasNoCompletedExercises = false;
+                    }
                 }
             }
+
+            // get xp from workout
+            if(completedMap == null || hasNoCompletedExercises){
+                double constant = 0.023;
+                double xpFromWorkoutDouble = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) *
+                        constant;
+                xpFromWorkoutDouble = xpFromWorkoutDouble * 100;
+                xpFromWorkout = (int) Math.round(xpFromWorkoutDouble);
+                resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
+            }else{
+                // call method to get xp based on completed ex map
+                xpFromWorkout = getXpFromMap(completedMap);
+                resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
+            }
+
+            // call method to get multiplier
+            double multiplier = getMultiplier(Integer.parseInt(getCurrentStreak()));
+            resultsMap.put("streakMultiplier", String.valueOf(multiplier));
+
+            // call method to apply multiplier to xp from workout
+            int totalXpGained = generateTotalXpGained(xpFromWorkout, multiplier);
+            resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
+
+            if(getCurrentXpWithinLevel() == null){
+                setCurrentXpWithinLevel("0");
+            }
+
+            setPowerLevelWithXp(totalXpGained, Integer.parseInt(getPowerLevel()));
         }
-
-
-        // get xp from workout
-        if(completedMap == null || hasNoCompletedExercises){
-            double constant = 0.023;
-            double xpFromWorkoutDouble = Double.parseDouble(getPowerLevel()) * Double.parseDouble(getPowerLevel()) *
-                    constant;
-            xpFromWorkoutDouble = xpFromWorkoutDouble * 100;
-            xpFromWorkout = (int) Math.round(xpFromWorkoutDouble);
-            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
-        }else{
-            // call method to get xp based on completed ex map
-            xpFromWorkout = getXpFromMap(completedMap);
-            resultsMap.put("xpFromWorkout", String.valueOf(xpFromWorkout));
-        }
-
-        // call method to get multiplier
-        double multiplier = getMultiplier(Integer.parseInt(getCurrentStreak()));
-        resultsMap.put("streakMultiplier", String.valueOf(multiplier));
-
-        // call method to apply multiplier to xp from workout
-        int totalXpGained = generateTotalXpGained(xpFromWorkout, multiplier);
-        resultsMap.put("totalXpGained", String.valueOf(totalXpGained));
-
-        if(getCurrentXpWithinLevel() == null){
-            setCurrentXpWithinLevel("0");
-        }
-
-        setPowerLevelWithXp(totalXpGained, Integer.parseInt(getPowerLevel()));
 
         // return map
         return resultsMap;
@@ -206,7 +217,6 @@ public class UserModelClass {
     private void setPowerLevelWithXp(int totalXpGained, int currentPowerLevel){
 
         int newCurrentXpWithinLevel = 0;
-
 
         for(int i = 0; i < 50; i++){
             int goalXp = generateGoalXp(currentPowerLevel);

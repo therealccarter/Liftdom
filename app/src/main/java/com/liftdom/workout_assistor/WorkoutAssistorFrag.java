@@ -130,74 +130,100 @@ public class WorkoutAssistorFrag extends Fragment{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
 
-                        // USER HAS COMPLETED A WORKOUT FOR TODAY
-
-                        final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
-                                ("runningAssistor").child(uid).child("assistorModel");
-                        runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        DatabaseReference activeNameRef = FirebaseDatabase.getInstance().getReference()
+                                .child("user").child(uid).child("activeTemplate");
+                        activeNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(final DataSnapshot dataSnapshot1) {
-                                if(dataSnapshot1.exists()){
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    String name = dataSnapshot.getValue(String.class);
+                                    currentTemplateView.setText(name);
 
-                                    DatabaseReference restDayRef = runningRef.child("isRestDay");
+                                    // USER HAS COMPLETED A WORKOUT FOR TODAY
 
-                                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                                    LocalDate localDate = LocalDate.now();
-                                    final String dateTimeString = fmt.print(localDate);
-
-                                    restDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                            ("runningAssistor").child(uid).child("assistorModel");
+                                    runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot2) {
-                                            if(dataSnapshot2.exists()){
-                                                RestDayModelClass restDayModelClass = dataSnapshot2.getValue
-                                                        (RestDayModelClass.class);
-                                                if(restDayModelClass.isIsRevise() && restDayModelClass.getDate()
-                                                        .equals(dateTimeString)){
-                                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                    RestDayFrag restDayFrag = new RestDayFrag();
-                                                    if (!getActivity().isFinishing()) {
-                                                        try {
-                                                            LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                                    .exInfoHolder);
-                                                            fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
-                                                            fragmentTransaction.commitAllowingStateLoss();
-                                                        }catch (NullPointerException e){
+                                        public void onDataChange(final DataSnapshot dataSnapshot1) {
+                                            if(dataSnapshot1.exists()){
 
-                                                        }
-                                                    }
-                                                }
-                                            }else{
-                                                WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
-                                                        (WorkoutProgressModelClass.class);
+                                                DatabaseReference restDayRef = runningRef.child("isRestDay");
 
-                                                if(progressModelClass.getDate().equals(dateTimeString)){
-                                                    if(progressModelClass.isIsRevise() && progressModelClass.getRefKey() != null){
-                                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                                        assistorHolderFrag.isRevisedWorkout = true;
-                                                        assistorHolderFrag.refKey = progressModelClass.getRefKey();
-                                                        if (!getActivity().isFinishing()) {
-                                                            try {
-                                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                                        .exInfoHolder);
-                                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
-                                                                fragmentTransaction.commitAllowingStateLoss();
-                                                            }catch (NullPointerException e){
+                                                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                                                LocalDate localDate = LocalDate.now();
+                                                final String dateTimeString = fmt.print(localDate);
 
+                                                restDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot2) {
+                                                        if(dataSnapshot2.exists()){
+                                                            RestDayModelClass restDayModelClass = dataSnapshot1.getValue
+                                                                    (RestDayModelClass.class);
+                                                            if(restDayModelClass.isIsRevise() && restDayModelClass.getDate()
+                                                                    .equals(dateTimeString)){
+                                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                                RestDayFrag restDayFrag = new RestDayFrag();
+                                                                restDayFrag.isReviseWorkout = true;
+                                                                restDayFrag.refKey = restDayModelClass.getRefKey();
+                                                                if (!getActivity().isFinishing()) {
+                                                                    try {
+                                                                        loadingView.setVisibility(View.GONE);
+                                                                        LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                                                .exInfoHolder);
+                                                                        fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                                                                        fragmentTransaction.commitAllowingStateLoss();
+                                                                    }catch (NullPointerException e){
+
+                                                                    }
+                                                                }
+                                                            }else{
+                                                                setUpWorkoutFinishedFrag();
+                                                            }
+                                                        }else{
+                                                            WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
+                                                                    (WorkoutProgressModelClass.class);
+
+                                                            if(progressModelClass.getDate().equals(dateTimeString)){
+                                                                if(progressModelClass.isIsRevise() && progressModelClass.getRefKey() != null){
+                                                                    android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                                                    android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                                    AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                                                                    assistorHolderFrag.isRevisedWorkout = true;
+                                                                    assistorHolderFrag.refKey = progressModelClass.getRefKey();
+                                                                    if (!getActivity().isFinishing()) {
+                                                                        try {
+                                                                            loadingView.setVisibility(View.GONE);
+                                                                            LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                                                    .exInfoHolder);
+                                                                            fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                                                            fragmentTransaction.commitAllowingStateLoss();
+                                                                        }catch (NullPointerException e){
+
+                                                                        }
+                                                                    }
+                                                                }else{
+                                                                    setUpWorkoutFinishedFrag();
+                                                                    //setTemplateName();
+                                                                    //initiliazeFrags();
+                                                                }
+                                                            }else{
+                                                                setUpWorkoutFinishedFrag();
+                                                                //setTemplateName();
+                                                                //initiliazeFrags();
                                                             }
                                                         }
-                                                    }else{
-                                                        setUpWorkoutFinishedFrag();
-                                                        //setTemplateName();
-                                                        //initiliazeFrags();
                                                     }
-                                                }else{
-                                                    setUpWorkoutFinishedFrag();
-                                                    //setTemplateName();
-                                                    //initiliazeFrags();
-                                                }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                            }else{
+                                                setUpWorkoutFinishedFrag();
                                             }
                                         }
 
@@ -206,9 +232,20 @@ public class WorkoutAssistorFrag extends Fragment{
 
                                         }
                                     });
-
                                 }else{
-                                    setUpWorkoutFinishedFrag();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
+                                    if (!getActivity().isFinishing()) {
+                                        try {
+                                            LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                                    .exInfoHolder);
+                                            fragmentTransaction.replace(exInfoHolder.getId(), noActiveTemplateFrag);
+                                            fragmentTransaction.commitAllowingStateLoss();
+                                        }catch (NullPointerException e){
+
+                                        }
+                                    }
                                 }
                             }
 

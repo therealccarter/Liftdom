@@ -321,7 +321,8 @@
     <string name="searchUsers">Search users...</string>
     <string name="noResults">No Results</string>
 
-    <string name="noPosts">No posts yet&#8230;\n Create a workout program and get started!</string>
+    <string name="noPosts">No posts yet&#8230;</string>
+    <string name="clickHereToGoToWorkoutProgramming">Get started by clicking here to go to Workout Programming.</string>
 
     <string name="followUser">(+) Follow</string>
     <string name="unfollowUser">(-) Un-follow</string>
@@ -428,6 +429,8 @@
 
     <string name="completeWorkout">Complete Workout</string>
 
+    <string name="cancelRevision">Cancel Revision</string>
+
     <string name="viewExInfo">View Exercise Info</string>
 
     <string name="selectOtherEx">Select Exercise</string>
@@ -514,7 +517,7 @@
     <string name="healUpString">Heal up, today is a rest day!</string>
     <string name="viewStretchingAndAdvice">View stretching and nutrition advice</string>
     <string name="doneForTheDay">You\'re done for the day. Rest up!</string>
-    <string name="reviseWorkout">Did extra or need to revise today\'s workout?\nClick here.</string>
+    <string name="reviseWorkout">Did extra or need to revise today\'s workout?\nClick here!</string>
 
     <string name="howTo">How-to</string>
 

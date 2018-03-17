@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +82,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.noPostsView) TextView noPostsView;
     @BindView(R.id.randomUsersBannerLL) LinearLayout randomUsersBannerLL;
+    @BindView(R.id.noPostsHolder) LinearLayout noPostsLL;
+    @BindView(R.id.goToWorkoutProgramming) Button goToWorkoutProgramming;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +98,14 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         navChanger(0);
         headerChanger("Home");
 
+        goToWorkoutProgramming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("fragID",  1);
+                startActivity(intent);
+            }
+        });
 
         //if(!MainActivitySingleton.getInstance().isBannerViewInitialized){
         //    String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
@@ -146,7 +157,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
                     }else{
                         loadingView.setVisibility(View.GONE);
-                        noPostsView.setVisibility(View.VISIBLE);
+                        noPostsLL.setVisibility(View.VISIBLE);
                     }
                 }
 

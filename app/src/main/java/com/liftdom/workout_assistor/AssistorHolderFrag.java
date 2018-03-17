@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
@@ -96,6 +99,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.deactivateLL) LinearLayout deactivateLL;
     @BindView(R.id.serviceCardView) CardView serviceCardView;
     @BindView(R.id.resetWorkoutButton) Button resetWorkoutProgressButton;
+    @BindView(R.id.cancelRevision) Button cancelRevisionButton;
+    @BindView(R.id.cancelRevisionHolder) CardView cancelRevisionHolder;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -131,13 +136,47 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         checkIfUserIsImperial();
 
-        if(isRevisedWorkout){
+        checkForOldData();
 
-        }else{
-            checkForOldData();
+        if(isRevisedWorkout){
+            cancelRevisionHolder.setVisibility(View.VISIBLE);
         }
 
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
+
+        cancelRevisionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                        .child("runningAssistor").child(uid).child("assistorModel").child("isRevise");
+                runningRef.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("fragID",  2);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        cancelRevisionHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                                .child("runningAssistor").child(uid).child("assistorModel").child("isRevise");
+
+                runningRef.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("fragID",  2);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
         resetWorkoutProgressButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -592,11 +631,17 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onResume(){
         Log.i("lifecycleAssistor", "AssistorHolderFrag onResume called");
         if(mTemplateClass == null){
-            Log.i("assistorInfo", "templateClass is null (onResume)");
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra("fragID",  0);
-            startActivity(intent);
-            super.onResume();
+            if(isRevisedWorkout){
+                //initializeViews();
+                checkForOldData();
+                super.onResume();
+            }else{
+                Log.i("assistorInfo", "templateClass is null (onResume)");
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("fragID",  0);
+                startActivity(intent);
+                super.onResume();
+            }
         }else{
             Log.i("assistorInfo", "AssistorHolderFrag (onResume)");
             super.onResume();
@@ -605,6 +650,86 @@ public class AssistorHolderFrag extends android.app.Fragment
             checkForOldData();
         }else{
             runningAssistorRef.addValueEventListener(runningAssistorListener);
+        }
+    }
+
+    private void checkForOldData(){
+        if(mTemplateClass != null){
+            Log.i("assistorInfo", "templateClass is not null");
+            //cleanUpState();
+            isTemplateImperial = mTemplateClass.isIsImperial();
+            initializeViews();
+        }else{
+            if(isRevisedWorkout){
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
+                        .child("user").child(uid).child("activeTemplate");
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            String templateName = dataSnapshot.getValue(String.class);
+                            DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference()
+                                    .child("templates").child(uid).child(templateName);
+
+                            templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                                    initializeViews();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }else{
+                Log.i("assistorInfo", "templateClass is null");
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("fragID",  0);
+                startActivity(intent);
+                //cleanUpState();
+                //DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+                //activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                //    @Override
+                //    public void onDataChange(DataSnapshot dataSnapshot) {
+                //        String templateName = dataSnapshot.getValue(String.class);
+                //        if(templateName != null){
+                //            DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
+                //                    (templateName);
+                //            activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                //                @Override
+                //                public void onDataChange(DataSnapshot dataSnapshot) {
+                //                    mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                //                    isTemplateImperial = mTemplateClass.isIsImperial();
+                //                    initializeViews();
+                //                }
+//
+                //                @Override
+                //                public void onCancelled(DatabaseError databaseError) {
+//
+                //                }
+                //            });
+                //        }else{
+//
+                //        }
+//
+                //    }
+//
+                //    @Override
+                //    public void onCancelled(DatabaseError databaseError) {
+//
+                //    }
+                //});
+            }
         }
     }
 
@@ -701,7 +826,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         super.onStop();
     }
 
-
     private void checkIfUserIsImperial(){
         DatabaseReference userImperialRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
                 .child("isImperial");
@@ -716,53 +840,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
-    }
-
-    private void checkForOldData(){
-        if(mTemplateClass != null){
-            Log.i("assistorInfo", "templateClass is not null");
-            //cleanUpState();
-            isTemplateImperial = mTemplateClass.isIsImperial();
-            initializeViews();
-        }else{
-            Log.i("assistorInfo", "templateClass is null");
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra("fragID",  0);
-            startActivity(intent);
-            //cleanUpState();
-            //DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
-            //activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            //    @Override
-            //    public void onDataChange(DataSnapshot dataSnapshot) {
-            //        String templateName = dataSnapshot.getValue(String.class);
-            //        if(templateName != null){
-            //            DatabaseReference activeTemplateClassRef = mRootRef.child("templates").child(uid).child
-            //                    (templateName);
-            //            activeTemplateClassRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            //                @Override
-            //                public void onDataChange(DataSnapshot dataSnapshot) {
-            //                    mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
-            //                    isTemplateImperial = mTemplateClass.isIsImperial();
-            //                    initializeViews();
-            //                }
-//
-            //                @Override
-            //                public void onCancelled(DatabaseError databaseError) {
-//
-            //                }
-            //            });
-            //        }else{
-//
-            //        }
-//
-            //    }
-//
-            //    @Override
-            //    public void onCancelled(DatabaseError databaseError) {
-//
-            //    }
-            //});
-        }
     }
 
     private void initializeViews(){
@@ -788,6 +865,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         if(!workoutProgressModelClass.isCompletedBool()){
                             Log.i("assistorInfo", "runningAssistor confirmed");
                             cleanUpState();
+                            isTemplateImperial = workoutProgressModelClass.isIsTemplateImperial();
                             savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
                                     workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                         }else{

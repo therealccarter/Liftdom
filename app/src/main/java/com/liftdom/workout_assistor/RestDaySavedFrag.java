@@ -141,7 +141,7 @@ public class RestDaySavedFrag extends Fragment {
                         powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
 
 
-                        HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null);
+                        HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(null, isRevisedWorkout);
                         // day v days
                         completionStreak = xpInfoMap.get("currentStreak");
 

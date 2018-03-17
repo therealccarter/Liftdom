@@ -738,7 +738,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             powerLevelXpView2.setText(String.valueOf(generateGoalXp(currentPowerLevel)));
 
-            HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(completedMapFormatted);
+            HashMap<String, String> xpInfoMap = userModelClass.generateXpMap(completedMapFormatted, isRevisedWorkout);
             // day v days
             completionStreak = xpInfoMap.get("currentStreak");
 
