@@ -80,6 +80,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     String smolovWeekDayString;
     String redoRefKey;
     boolean isRevisedWorkout;
+    boolean isFromRestDay;
 
     boolean isFirstTimeFirstTime;
 
@@ -131,8 +132,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
         });
 
         if(savedInstanceState == null) {
-
-            if (templateClass.getIsAlgorithm()) {
+            if (templateClass.getIsAlgorithm() && !isFromRestDay) {
                 if (templateClass.getIsAlgoApplyToAll()) {
                     boolean applyAlgoWeightCheck = false;
                     for(Map.Entry<String, List<String>> allInfo : templateClass.getAlgorithmInfo().entrySet()){
@@ -416,6 +416,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                     runningRef.child("refKey").setValue(refKey);
                     runningRef.child("isRevise").setValue(false);
+                    runningRef.child("completedBool").setValue(true);
 
                     dontLeavePage.setVisibility(View.GONE);
 

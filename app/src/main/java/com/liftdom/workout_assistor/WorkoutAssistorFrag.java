@@ -256,7 +256,51 @@ public class WorkoutAssistorFrag extends Fragment{
                         });
 
                     }else{
-                        initiliazeFrags();
+                        final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                                .child("runningAssistor").child(uid).child("assistorModel");
+                        runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(final DataSnapshot dataSnapshot1) {
+                                if(dataSnapshot1.exists()){
+                                    DatabaseReference restDayRef = runningRef.child("isRestDay");
+
+                                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                                    LocalDate localDate = LocalDate.now();
+                                    final String dateTimeString = fmt.print(localDate);
+
+                                    restDayRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot2) {
+                                            if(dataSnapshot2.exists()){
+                                                initiliazeFrags();
+                                            }else{
+                                                WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
+                                                        (WorkoutProgressModelClass.class);
+                                                if(progressModelClass.getDate().equals(dateTimeString)){
+                                                    if(!progressModelClass.isCompletedBool()){
+                                                        initiliazeFragForHolder();
+                                                    }
+                                                }else{
+                                                    initiliazeFrags();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else{
+                                    initiliazeFrags();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
                 }
@@ -305,6 +349,54 @@ public class WorkoutAssistorFrag extends Fragment{
 
                 if(activeTemplateString != null) {
                     currentTemplateView.setText(activeTemplateString);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void initiliazeFragForHolder(){
+        DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String templateName = dataSnapshot.getValue(String.class);
+                if(templateName != null){
+                    DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName);
+
+                    templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+                            assistorHolderFrag.mTemplateClass = templateModelClass;
+                            if (!getActivity().isFinishing()) {
+                                try {
+                                    loadingView.setVisibility(View.GONE);
+                                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                                            .exInfoHolder);
+                                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                }catch (NullPointerException e){
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }else{
+                    initiliazeFrags();
                 }
             }
 

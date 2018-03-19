@@ -37,6 +37,7 @@ public class TemplateMenuFrag extends Fragment {
     String[] quoteArray;
     public MainActivity mainActivity;
     public boolean isFromIntent = false;
+    public String extras;
 
     public TemplateMenuFrag() {
         // Required empty public constructor
@@ -154,6 +155,23 @@ public class TemplateMenuFrag extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        if(extras != null){
+            String delims = "[_]";
+            String[] tokens = extras.split(delims);
+            if(tokens[1].equals("inbox")){
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                SelectedTemplateFrag selectedTemplateFrag = new SelectedTemplateFrag();
+
+                selectedTemplateFrag.templateName = tokens[2];
+                selectedTemplateFrag.isFromInbox = true;
+
+                fragmentTransaction.replace(R.id.mainFragHolder, selectedTemplateFrag);
+                fragmentTransaction.commit();
+            }
+        }
 
         return view;
 

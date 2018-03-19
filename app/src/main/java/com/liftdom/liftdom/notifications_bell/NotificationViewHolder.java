@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.WorkoutPostSingleActivity;
 import com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity;
@@ -138,6 +139,14 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
             String text = mActivity.getResources().getString(R.string.hasSentYouAProgram);
             hasSentProgramView.setText(text);
             hasSentProgramView.setVisibility(View.VISIBLE);
+            hasSentProgramView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mActivity, MainActivity.class);
+                    intent.putExtra("fragIDAndExtras", "1_inbox_" + mRefKey);
+                    mActivity.startActivity(intent);
+                }
+            });
         }
     }
 

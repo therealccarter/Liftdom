@@ -3,9 +3,11 @@ package com.liftdom.workout_assistor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,16 +41,20 @@ public class RestDayFrag extends Fragment {
 
     String refKey;
     boolean isReviseWorkout;
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public RestDayFrag() {
         // Required empty public constructor
     }
 
-    @BindView(R.id.restAdviceButton) Button restAdviceButton;
+
     @BindView(R.id.restDayComplete) Button restDayCompleteButton;
     @BindView(R.id.privateJournal) EditText privateJournal;
     @BindView(R.id.publicComment) EditText publicComment;
     //@BindView(R.id.appodealBannerView) BannerView appodealBannerView;
+    @BindView(R.id.workoutInsteadButton) Button workoutOnRestDayButton;
+    @BindView(R.id.workoutInsteadHolder) CardView workoutOnRestDayHolder;
+    @BindView(R.id.loadingHolder) LinearLayout loadingHolder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,10 +72,60 @@ public class RestDayFrag extends Fragment {
         //Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
         //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
-        restAdviceButton.setOnClickListener(new View.OnClickListener() {
+        workoutOnRestDayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), KnowledgeCenterHolderActivity.class);
-                startActivity(intent);
+
+                workoutOnRestDayHolder.setVisibility(View.GONE);
+                loadingHolder.setVisibility(View.VISIBLE);
+
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user")
+                        .child(uid).child("isImperial");
+
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean isTemplateImperial = dataSnapshot.getValue(Boolean.class);
+
+                        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                        final LocalDate localDate = LocalDate.now();
+                        String dateTimeString = fmt.print(localDate);
+
+                        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+
+                        HashMap<String, List<String>> subMap = new HashMap<>();
+
+                        List<String> subList = new ArrayList<>();
+
+                        subList.add("CLICK TO CHOOSE EXERCISE");
+                        subList.add("1@1_unchecked");
+
+                        subMap.put("0_key", subList);
+
+                        runningMap.put("1_key", subMap);
+
+                        WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                                false, runningMap, "", "", "", isTemplateImperial,
+                                null, false, true);
+
+                        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                ("runningAssistor").child(uid).child("assistorModel");
+
+                        runningRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.putExtra("fragID",  2);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -69,7 +136,7 @@ public class RestDayFrag extends Fragment {
 
                 double dayDouble = Double.parseDouble(day);
 
-                if(dayDouble % (double) 4 == 0.0){
+                if(dayDouble % (double) 3 == 0.0){
                     Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
                 }
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

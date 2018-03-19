@@ -72,6 +72,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     ArrayList<String> fragTagList = new ArrayList<>();
     boolean isRevisedWorkout;
     String refKey;
+    boolean isFromRestDay;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -147,34 +148,14 @@ public class AssistorHolderFrag extends android.app.Fragment
         cancelRevisionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
-                        .child("runningAssistor").child(uid).child("assistorModel").child("isRevise");
-                runningRef.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.putExtra("fragID",  2);
-                        startActivity(intent);
-                    }
-                });
+                cancelRevision();
             }
         });
 
         cancelRevisionHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
-                                .child("runningAssistor").child(uid).child("assistorModel").child("isRevise");
-
-                runningRef.setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.putExtra("fragID",  2);
-                        startActivity(intent);
-                    }
-                });
+                cancelRevision();
             }
         });
 
@@ -540,6 +521,56 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     // index will always be the last item checked, or the first item.
 
+    private void cancelRevision(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // set title
+        builder.setTitle("Reset Workout Progress?");
+
+        // set dialog message
+        builder
+                .setMessage("Caution!\nThis will cancel your current revision.")
+                .setCancelable(false)
+                .setPositiveButton("Cancel revision",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                                .child("runningAssistor").child(uid).child("assistorModel");
+                        //if(isFromRestDay){
+                        //    runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        //        @Override
+                        //        public void onComplete(@NonNull Task<Void> task) {
+                        //            Intent intent = new Intent(getActivity(), MainActivity.class);
+                        //            intent.putExtra("fragID",  2);
+                        //            startActivity(intent);
+                        //        }
+                        //    });
+                        //}else{
+                            runningRef.child("isRevise").setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    intent.putExtra("fragID",  2);
+                                    startActivity(intent);
+                                }
+                            });
+                        //}
+                    }
+                })
+                .setNegativeButton("Keep editing",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
     public void updateWorkoutStateNoProgress(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -565,11 +596,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isRevisedWorkout){
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                    refKey, true);
+                    refKey, isRevisedWorkout, isFromRestDay);
         }else{
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                    null, false);
+                    null, isRevisedWorkout, isFromRestDay);
         }
 
 
@@ -604,11 +635,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isRevisedWorkout){
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                    refKey, true);
+                    refKey, isRevisedWorkout, isFromRestDay);
         }else{
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                    null, false);
+                    null, isRevisedWorkout, isFromRestDay);
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
@@ -866,6 +897,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                             Log.i("assistorInfo", "runningAssistor confirmed");
                             cleanUpState();
                             isTemplateImperial = workoutProgressModelClass.isIsTemplateImperial();
+                            isFromRestDay = workoutProgressModelClass.isIsFromRestDay();
+                            if(isFromRestDay){
+                                cancelRevisionHolder.setVisibility(View.VISIBLE);
+                            }
                             savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
                                     workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                         }else{
@@ -967,6 +1002,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
+        assistorSavedFrag.isFromRestDay = isFromRestDay;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
@@ -1009,6 +1045,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.completedMap = runningMap;
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
+        assistorSavedFrag.isFromRestDay = isFromRestDay;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
@@ -1275,6 +1312,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             assistorSavedFrag.completedMap = runningMap;
             assistorSavedFrag.privateJournal = privateJournal;
             assistorSavedFrag.publicDescription = publicComment;
+            assistorSavedFrag.isFromRestDay = isFromRestDay;
             fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
             fragmentTransaction.commit();
         }else if(requestCode == 2){

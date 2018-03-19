@@ -51,9 +51,14 @@ public class WorkoutFinishedFrag extends Fragment {
                 runningRef.child("isRevise").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.putExtra("fragID",  2);
-                        startActivity(intent);
+                        runningRef.child("completedBool").setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.putExtra("fragID",  2);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
             }

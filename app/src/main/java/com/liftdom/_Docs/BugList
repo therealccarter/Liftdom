@@ -16,17 +16,21 @@ chats now grouped by active date
 toolbar disappears on scroll now
 revise that day's workout
 Add some more clear suggestions for users on first time
+add option to do a workout on a rest day
+notifications now can also send you to the sent program you received
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
-Exercise Search/Custom Exercises.
-add option to do a workout on a rest day
 =====================================================
 
 ============ ON DECK FOR v1.25+: ===============================================
+Exercise Search/Custom Exercises.
 main feed optimization (total rehaul?)(use android profiler)
+show workout count in profile
+Smolov says "Exercise: null, current 1rm: null"
+follow all users
 global/community feed
 better max support/editing (* = set manually, not in liftdom workout)
 decimal percentage functionality

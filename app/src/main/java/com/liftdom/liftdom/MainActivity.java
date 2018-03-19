@@ -184,44 +184,64 @@ public class MainActivity extends BaseActivity implements
 
 
         if (getIntent().getExtras() != null) {
-            int id = getIntent().getExtras().getInt("fragID");
+            if(getIntent().getStringExtra("fragIDAndExtras") != null){
+                String delims = "[_]";
+                String mExtras = getIntent().getStringExtra("fragIDAndExtras");
+                String[] tokens = mExtras.split(delims);
 
-            if(id == 0){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                int id = Integer.parseInt(tokens[0]);
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                bottomNavigation.setSelectedIndex(0, false);
+                if(id == 1){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
+                    templateMenuFrag.extras = mExtras;
+                    fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(1, false);
+                }
 
-            }else if(id == 1){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
+            }else{
+                int id = getIntent().getExtras().getInt("fragID");
 
-                fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                bottomNavigation.setSelectedIndex(1, false);
-            } else if(id == 2){
+                if(id == 0){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(0, false);
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                bottomNavigation.setSelectedIndex(2, false);
-            } else if(id == 3){
+                }else if(id == 1){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.mainFragHolder, templateMenuFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(1, false);
+                } else if(id == 2){
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                bottomNavigation.setSelectedIndex(3, false);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(2, false);
+                } else if(id == 3){
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(3, false);
+                }
             }
         } else{
             if(mFirebaseUser == null){

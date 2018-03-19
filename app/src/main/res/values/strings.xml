@@ -182,7 +182,7 @@
 
     <string name="saveState">Save Current Workout State</string>
 
-    <string name="activateStatusBarWA">Activate in Notification Bar</string>
+    <string name="activateStatusBarWA">Activate in Notification Bar\n(Highly recommended!)</string>
 
     <string name="deactivateStatusBarWA">De-activate in Notification Bar</string>
 
@@ -430,6 +430,10 @@
     <string name="completeWorkout">Complete Workout</string>
 
     <string name="cancelRevision">Cancel Revision</string>
+
+    <string name="doAWorkoutOnRestDay">Want to work out instead of rest? Click here.</string>
+
+    <string name="pleaseWaitReal">Please wait&#8230;</string>
 
     <string name="viewExInfo">View Exercise Info</string>
 

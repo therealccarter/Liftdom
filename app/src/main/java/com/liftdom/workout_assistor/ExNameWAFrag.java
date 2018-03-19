@@ -240,6 +240,7 @@ public class ExNameWAFrag extends android.app.Fragment
             if(data != null){
                 if(data.getStringExtra("MESSAGE") != null){
                     exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                    updateWorkoutState();
                 }
             }
         }

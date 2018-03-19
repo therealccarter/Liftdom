@@ -23,6 +23,7 @@ public class WorkoutProgressModelClass {
     private String mViewCursor; // the current set we're on
     private String mRefKey;
     private boolean mIsRevise;
+    private boolean mIsFromRestDay;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -30,7 +31,8 @@ public class WorkoutProgressModelClass {
 
     public WorkoutProgressModelClass(String date, boolean completedBool, HashMap<String, HashMap<String, List<String>>> exInfoHashMap,
                                      String privateJournal, String publicComment, String mediaResource,
-                                     boolean isTemplateImperial, String refKey, boolean isRevise){
+                                     boolean isTemplateImperial, String refKey, boolean isRevise, boolean
+                                             isFromRestDay){
         mDate = date;
         mCompletedBool = completedBool;
         mExInfoHashMap = exInfoHashMap;
@@ -42,6 +44,15 @@ public class WorkoutProgressModelClass {
             mRefKey = refKey;
         }
         mIsRevise = isRevise;
+        mIsFromRestDay = isFromRestDay;
+    }
+
+    public boolean isIsFromRestDay() {
+        return mIsFromRestDay;
+    }
+
+    public void setIsFromRestDay(boolean mIsFromRestDay) {
+        this.mIsFromRestDay = mIsFromRestDay;
     }
 
     public boolean isIsRevise() {
