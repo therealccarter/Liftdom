@@ -100,6 +100,17 @@ public class NotificationsActivity extends BaseActivity {
                     viewHolder.setRefKey(model.getRefKey());
                 }
 
+                try{
+                    if(position != firebaseAdapter.getItemCount() - 1){
+                        NotificationModelClass modelClass2 = (NotificationModelClass) firebaseAdapter.getItem
+                                (position + 1);
+                        if(!model.getFormattedDateTime().equals(modelClass2.getFormattedDateTime())){
+                            viewHolder.showDividerAbove();
+                        }
+                    }
+                }catch (NullPointerException e){
+
+                }
 
             }
         };

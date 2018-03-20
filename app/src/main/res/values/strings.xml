@@ -15,27 +15,34 @@
 
     <!-- DATE OF UPDATE: 03/12/18 -->
 
-    <string name="currentVersion">Liftdom v1.24</string>
+    <string name="currentVersion">Liftdom v1.25</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.24 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.25 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Basic notification bell - you will now know if a user follows you, reps your post, or comments on your post!\n
-        (Further functionality/cleanup in next update)
+        You can now revise your current day\'s workout, if you\'ve already finished it.\n
+        You can now do a workout on a rest day.\n
+        Chats now grouped by active date.\n
+        Toolbar disappears on scroll now.\n
+        More notifications functionality (on click).\n
+        Notifications now can also send you to the sent program you received.\n
+        Notifications now grouped by date (sorta).\n
+        Added notification icon to user profile.\n
+        Made user profiles clickable in followers/following list.\n
     </string>
 
-    <string name="fixesTitle">Fixes:</string>
+    <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed rest day saved crash.\n
-        Fixed knowledge center crash.\n
-        Fixed bug causing rest days to not be posted to self-feed.
+        Added some more clear suggestions for users on first time.\n
+        Fixed up layout of notifications activity.\n
+        Various crash fixes.\n
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Ability to edit an already completed workout, if on the same day.\n
-        Ability to do a workout on a rest day.\n
+        Add custom exercises.\n
+        Add exercise search bar.\n
         Main feed optimizations.
     </string>
 

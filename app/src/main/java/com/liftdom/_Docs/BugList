@@ -3,30 +3,18 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.24
+currently on v1.25
 ----------------------
-added notification icon to user profile
-made user profiles clickable in followers/following list
-fixed up layout of notifications activity
-more notifications functionality (clicking to go to post that was commented on, have sending programs alert user)
-numerous layout fixes, made user profile dialog version.
-fixed calendar view scroll issue
-fixed bug causing dates to be messed up in chat group frag
-chats now grouped by active date
-toolbar disappears on scroll now
-revise that day's workout
-Add some more clear suggestions for users on first time
-add option to do a workout on a rest day
-notifications now can also send you to the sent program you received
+
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
+Exercise Search/Custom Exercises.
 =====================================================
 
-============ ON DECK FOR v1.25+: ===============================================
-Exercise Search/Custom Exercises.
+============ ON DECK FOR v1.26+: ===============================================
 main feed optimization (total rehaul?)(use android profiler)
 show workout count in profile
 Smolov says "Exercise: null, current 1rm: null"

@@ -1,4 +1,21 @@
 
+currently on v1.24
+----------------------
+added notification icon to user profile
+made user profiles clickable in followers/following list
+fixed up layout of notifications activity
+more notifications functionality (clicking to go to post that was commented on, have sending programs alert user)
+numerous layout fixes, made user profile dialog version.
+fixed calendar view scroll issue
+fixed bug causing dates to be messed up in chat group frag
+chats now grouped by active date
+toolbar disappears on scroll now
+revise that day's workout
+Add some more clear suggestions for users on first time
+add option to do a workout on a rest day
+notifications now can also send you to the sent program you received
+notifications now grouped by date (sorta)
+----------------------
 currently on v1.23
 ----------------------
 fixed rest day saved crash

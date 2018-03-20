@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey2"
+        android:background="@color/offerGrey"
         tools:context="com.liftdom.liftdom.notifications_bell.NotificationsActivity">
 
     <android.support.v7.widget.Toolbar
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/noNotificationsView"
             android:text="@string/noNotifications"
-            android:textColor="@color/grey"
+            android:textColor="@color/backgroundgrey2"
             android:textSize="28sp"
             android:gravity="center"
             android:visibility="gone"
@@ -53,7 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recycler_view"
-            android:background="@color/backgroundgrey2"
+            android:background="@color/offerGrey"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
     >
 
     </android.support.v7.widget.RecyclerView>

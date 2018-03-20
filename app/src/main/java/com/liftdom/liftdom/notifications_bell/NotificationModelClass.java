@@ -1,5 +1,8 @@
 package com.liftdom.liftdom.notifications_bell;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 /**
  * Created by Brodin on 3/11/2018.
  */
@@ -75,4 +78,18 @@ public class NotificationModelClass {
     public void setDateTime(String mDateTime) {
         this.mDateTime = mDateTime;
     }
+
+    public String getFormattedDateTime(){
+        String formattedLocalDate;
+        if(getDateTime() != null){
+            DateTime dateTimeOriginal = DateTime.parse(mDateTime);
+            DateTime localDate = dateTimeOriginal.withZone(DateTimeZone.getDefault());
+            formattedLocalDate = localDate.toString("MM/dd/yyyy");
+        }else{
+            formattedLocalDate = null;
+        }
+        return formattedLocalDate;
+    }
+
+
 }
