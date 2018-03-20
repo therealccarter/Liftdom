@@ -38,7 +38,7 @@
         <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</item>
         <!--<item name="searchSuggestionBackground">...</item>-->
         <item name="android:textColor">@color/liftrGold1</item>
-        <item name="android:textColorHint">@color/liftrGold3</item>
+        <item name="android:textColorHint">@color/liftrGold2</item>
         <item name="android:hint">@string/searchUsers</item>
     </style>
 

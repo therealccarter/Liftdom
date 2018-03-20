@@ -4,6 +4,7 @@
               android:layout_height="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:layout_marginBottom="120dp"
               tools:context="com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag">
 
 

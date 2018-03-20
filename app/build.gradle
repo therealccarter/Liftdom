@@ -124,6 +124,7 @@ dependencies {
     implementation 'com.github.faruktoptas:FancyShowCaseView:0.1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.irozon.keyhide:keyhide:1.0.0'
+    implementation 'com.amsen.par:searchview:0.8.1'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //implementation "android.arch.lifecycle:extensions:1.0.0"

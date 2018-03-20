@@ -6,8 +6,10 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,6 +26,7 @@ import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
+import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.template_housing.SavedProgramsHolderFrag;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.template_housing.SavedTemplatesFrag;
@@ -385,12 +388,14 @@ public class MainActivity extends BaseActivity implements
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-
+                AppBarLayout appBarLayout = findViewById(R.id.appBar);
+                appBarLayout.setExpanded(false, true);
             }
 
             @Override
             public void onSearchViewClosed() {
-
+                AppBarLayout appBarLayout = findViewById(R.id.appBar);
+                appBarLayout.setExpanded(true, false);
             }
         });
 
@@ -398,6 +403,19 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("infoClick", "hello");
+                try{
+                    searchView.closeSearch();
+                    String userName = ((AppCompatTextView) view).getText().toString();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    UserSearchFrag userSearchFrag = new UserSearchFrag();
+                    userSearchFrag.searchString = userName;
+                    fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }catch (NullPointerException e){
+
+                }
             }
         });
 
@@ -439,15 +457,42 @@ public class MainActivity extends BaseActivity implements
         // set typeAheadData
         typeAheadData = new ArrayList<>();
 
-        DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference().child("following").child(uid).child
-                ("followingMap");
+        DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference().child("following").child(uid);
         followingRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    int index = 0;
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        String userName = dataSnapshot1.getValue(String.class);
-                        typeAheadData.add(userName);
+                        UserNameIdModelClass userNameIdModelClass = dataSnapshot1.getValue(UserNameIdModelClass.class);
+                        if(userNameIdModelClass.getUserName() != null){
+                            String userName = userNameIdModelClass.getUserName();
+                            typeAheadData.add(userName);
+                        }
+                        index++;
+                        if(index == dataSnapshot.getChildrenCount()){
+                            DatabaseReference followerRef = FirebaseDatabase.getInstance().getReference()
+                                    .child("followers").child(uid);
+                            followerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()) {
+                                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                            UserNameIdModelClass userNameIdModelClass = dataSnapshot1.getValue(UserNameIdModelClass.class);
+                                            if (userNameIdModelClass.getUserName() != null) {
+                                                String userName = userNameIdModelClass.getUserName();
+                                                typeAheadData.add(userName);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
                 }
             }
