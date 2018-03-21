@@ -7,11 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.*;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import android.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.MainActivity;
@@ -33,11 +34,11 @@ public class ExSelectorActivity extends AppCompatActivity {
     int Numboftabs = 4;
     //CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
     //int Numboftabs = 3;
-    //private MaterialSearchView searchView;
+    private MaterialSearchView searchView;
     private ArrayList<String> typeAheadData;
 
     @BindView(R.id.confirmButton) Button confirmButton;
-    @BindView(R.id.search_view) MaterialSearchView searchView;
+    //@BindView(R.id.search_view) MaterialSearchView searchView;
 
     //public ExSelectorActivity(Boolean isExclusive){
 //
@@ -47,9 +48,16 @@ public class ExSelectorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart_ex_selector);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         this.setFinishOnTouchOutside(false);
 
         ButterKnife.bind(this);
+
+        // Handle Toolbar
+        final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
         setUpTypeAheadData();
 
@@ -71,7 +79,7 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(false); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in
         // Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
@@ -173,6 +181,15 @@ public class ExSelectorActivity extends AppCompatActivity {
         searchView.setMenuItem(item);
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 
