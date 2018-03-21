@@ -8,6 +8,20 @@
         android:orientation="vertical"
         tools:context="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity">
 
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchViewLL"
+    >
+        <com.search.material.library.MaterialSearchView
+                android:id="@+id/search_view"
+                style="@style/MaterialSearchViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/liftrGold1"
+        />
+    </LinearLayout>
+
     <com.liftdom.liftdom.utils.SlidingTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
