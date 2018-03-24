@@ -33,6 +33,18 @@
                 android:buttonTint="@color/liftrGold1"
         />
 
+        <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/removeExercise"
+                android:src="@drawable/close_button_light_grey"
+                android:scaleType="centerCrop"
+                android:padding="2dp"
+                android:background="@color/transparent"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
+        />
+
     </LinearLayout>
 
     <View

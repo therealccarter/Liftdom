@@ -41,7 +41,7 @@
             android:id="@+id/noChatFoundView"
             android:layout_marginTop="50dp"
             android:textSize="22sp"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:text="@string/noCustomEx"
             android:gravity="center"
             android:visibility="gone"

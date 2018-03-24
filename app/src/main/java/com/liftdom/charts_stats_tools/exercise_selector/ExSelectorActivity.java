@@ -1,5 +1,6 @@
 package com.liftdom.charts_stats_tools.exercise_selector;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -15,6 +16,8 @@ import android.widget.*;
 import android.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
@@ -23,6 +26,8 @@ import com.liftdom.template_editor.ExercisePickerController;
 import com.search.material.library.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class ExSelectorActivity extends AppCompatActivity {
@@ -36,6 +41,7 @@ public class ExSelectorActivity extends AppCompatActivity {
     //int Numboftabs = 3;
     private MaterialSearchView searchView;
     private ArrayList<String> typeAheadData;
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.confirmButton) Button confirmButton;
     //@BindView(R.id.search_view) MaterialSearchView searchView;
@@ -108,13 +114,13 @@ public class ExSelectorActivity extends AppCompatActivity {
 
                     // need to make this search the exercises and show it
 
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    UserSearchFrag userSearchFrag = new UserSearchFrag();
-                    userSearchFrag.searchString = query;
-                    fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    //FragmentManager fragmentManager = getSupportFragmentManager();
+                    //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    //UserSearchFrag userSearchFrag = new UserSearchFrag();
+                    //userSearchFrag.searchString = query;
+                    //fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
+                    //fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.commit();
 
                     return false;
                 }
@@ -148,14 +154,10 @@ public class ExSelectorActivity extends AppCompatActivity {
                 Log.i("infoClick", "hello");
                 try{
                     searchView.closeSearch();
-                    String userName = ((AppCompatTextView) view).getText().toString();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    UserSearchFrag userSearchFrag = new UserSearchFrag();
-                    userSearchFrag.searchString = userName;
-                    fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", ((AppCompatTextView) view).getText().toString());
+                    setResult(2, intent);
+                    finish();
                 }catch (NullPointerException e){
 
                 }
@@ -169,7 +171,52 @@ public class ExSelectorActivity extends AppCompatActivity {
 
     private void setUpTypeAheadData(){
         typeAheadData = new ArrayList<>();
-        typeAheadData.add("yo");
+        DatabaseReference customExRef = FirebaseDatabase.getInstance().getReference().child("customExercises")
+                .child(uid);
+
+        customExRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    int i = 0;
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        CustomExModelClass customExModelClass = dataSnapshot1.getValue(CustomExModelClass.class);
+                        typeAheadData.add(customExModelClass.getExerciseName());
+                        i++;
+                        if(i == dataSnapshot.getChildrenCount()){
+                            String[] upper = getResources().getStringArray(R.array.upperBodyList);
+                            String[] lower = getResources().getStringArray(R.array.lowerBodyList);
+                            String[] other = getResources().getStringArray(R.array.otherBodyList);
+
+                            List<String> upperList = Arrays.asList(upper);
+                            List<String> lowerList = Arrays.asList(lower);
+                            List<String> otherList = Arrays.asList(other);
+
+                            typeAheadData.addAll(upperList);
+                            typeAheadData.addAll(lowerList);
+                            typeAheadData.addAll(otherList);
+                        }
+                    }
+                }else{
+                    String[] upper = getResources().getStringArray(R.array.upperBodyList);
+                    String[] lower = getResources().getStringArray(R.array.lowerBodyList);
+                    String[] other = getResources().getStringArray(R.array.otherBodyList);
+
+                    List<String> upperList = Arrays.asList(upper);
+                    List<String> lowerList = Arrays.asList(lower);
+                    List<String> otherList = Arrays.asList(other);
+
+                    typeAheadData.addAll(upperList);
+                    typeAheadData.addAll(lowerList);
+                    typeAheadData.addAll(otherList);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -178,6 +225,7 @@ public class ExSelectorActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         MenuItem item = menu.findItem(R.id.action_search);
+        item.setTitle(R.string.searchExercises);
         searchView.setMenuItem(item);
 
         return true;
@@ -218,7 +266,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                         List<String> searchData = new ArrayList<>();
 
                         for (String str : typeAheadData) {
-                            if (str.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                            if (hasSearchWord(constraint.toString().toLowerCase(), str)) {
                                 searchData.add(str);
                             }
                         }
@@ -281,11 +329,25 @@ public class ExSelectorActivity extends AppCompatActivity {
 
             public MyViewHolder(View convertView) {
                 textView = (TextView) convertView.findViewById(android.R.id.text1);
-                textView.setTextColor(Color.parseColor("#D1B91D"));
+                textView.setTextColor(Color.parseColor("#FFFFFF"));
+                textView.setBackgroundColor(Color.parseColor("#000000"));
+            }
+        }
+    }
+
+    private boolean hasSearchWord(String input, String str){
+        boolean matches = false;
+
+        String delims = "[ ,(,),-]";
+        String[] tokens = str.split(delims);
+        List<String> tokensList = Arrays.asList(tokens);
+
+        for(String string : tokensList){
+            if(string.toLowerCase().startsWith(input)){
+                matches = true;
             }
         }
 
-
-
+        return matches;
     }
 }

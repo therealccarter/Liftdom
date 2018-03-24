@@ -5,10 +5,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
 
 /**
@@ -21,6 +21,7 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
     private final LinearLayout mMainLinearLayout;
     private final TextView mExNameView;
     private final CheckBox mCheckBox;
+    private final ImageButton mRemoveExercise;
     private String mExName;
     private String mRefKey;
     private boolean noCheckbox = false;
@@ -33,7 +34,7 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
         mMainLinearLayout = (LinearLayout) itemView.findViewById(R.id.mainLinearLayout);
         mExNameView = (TextView) itemView.findViewById(R.id.exNameView);
         mCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-
+        mRemoveExercise = (ImageButton) itemView.findViewById(R.id.removeExercise);
 
         mView.setOnClickListener(this);
 
@@ -53,6 +54,16 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
                         Log.i("info", "out of bounds issue");
                     }
                 }
+            }
+        });
+
+        mRemoveExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference exRef = FirebaseDatabase.getInstance().getReference().child("customExercises")
+                        .child(uid).child(getRefKey());
+                exRef.setValue(null);
             }
         });
 

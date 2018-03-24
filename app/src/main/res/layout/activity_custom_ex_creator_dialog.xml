@@ -38,7 +38,7 @@
             android:id="@+id/customExEditText"
             android:hint="@string/elipses"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:maxLength="15"
             android:foregroundTint="@color/liftrGold1"
     />
