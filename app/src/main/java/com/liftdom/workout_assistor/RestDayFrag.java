@@ -106,7 +106,7 @@ public class RestDayFrag extends Fragment {
 
                         WorkoutProgressModelClass progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                                 false, runningMap, "", "", "", isTemplateImperial,
-                                null, false, true);
+                                null, true, true);
 
                         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
                                 ("runningAssistor").child(uid).child("assistorModel");

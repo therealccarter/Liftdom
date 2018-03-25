@@ -459,13 +459,21 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
-
-
         saveProgressButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 updateWorkoutState();
             }
         });
+
+        if(savedInstanceState == null){
+            activateStatusBarService.setVisibility(View.GONE);
+            deactivateLL.setVisibility(View.VISIBLE);
+
+            Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+            startIntent.putExtra("uid", uid);
+            startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
+            getActivity().startService(startIntent);
+        }
 
         activateStatusBarService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -533,6 +541,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                 .setCancelable(false)
                 .setPositiveButton("Cancel revision",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
+                        activateStatusBarService.setVisibility(View.VISIBLE);
+                        deactivateLL.setVisibility(View.GONE);
+
+                        Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                        getActivity().stopService(stopIntent);
                         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
                                 .child("runningAssistor").child(uid).child("assistorModel");
                         //if(isFromRestDay){
@@ -1007,6 +1021,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
         }
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
         fragmentTransaction.commit();
     }
@@ -1049,6 +1066,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
+        }
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
         }
         assistorSavedFrag.isFromAd = true;
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
@@ -1093,6 +1113,23 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             privateJournalView.setText(privateJournal);
             publicCommentView.setText(publicComment);
+        }else{
+            //HashMap<String, HashMap<String, List<String>>> runningMap2 = new HashMap<>();
+//
+            //HashMap<String, List<String>> subMap = new HashMap<>();
+//
+            //List<String> subList = new ArrayList<>();
+//
+            //subList.add("CLICK TO CHOOSE EXERCISE");
+            //subList.add("1@1_unchecked");
+//
+            //subMap.put("0_key", subList);
+//
+            //runningMap2.put("1_key", subMap);
+//
+            //DatabaseReference mapRef = FirebaseDatabase.getInstance().getReference()
+            //        .child("runningAssistor").child(uid).child("assistorModel").child("exInfoHashMap");
+            //mapRef.setValue(runningMap2);
         }
     }
 
@@ -1378,6 +1415,14 @@ public class AssistorHolderFrag extends android.app.Fragment
                     fragTagList.remove(tagListIndex);
                 }
                 --exNameInc;
+                if(exNameInc == 0){
+                    activateStatusBarService.setVisibility(View.VISIBLE);
+                    deactivateLL.setVisibility(View.GONE);
+
+                    Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+
+                    getActivity().stopService(stopIntent);
+                }
                 updateWorkoutState();
             }
         }

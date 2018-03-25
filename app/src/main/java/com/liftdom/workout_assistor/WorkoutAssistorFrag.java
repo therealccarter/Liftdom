@@ -276,7 +276,8 @@ public class WorkoutAssistorFrag extends Fragment{
                                             }else{
                                                 WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
                                                         (WorkoutProgressModelClass.class);
-                                                if(progressModelClass.getDate().equals(dateTimeString)){
+                                                if(progressModelClass.getDate().equals(dateTimeString) &&
+                                                        progressModelClass.isIsRevise()){
                                                     if(!progressModelClass.isCompletedBool()){
                                                         initiliazeFragForHolder();
                                                     }

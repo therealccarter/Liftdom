@@ -382,6 +382,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         refKey = myFeedRef.push().getKey();
                     }
 
+                    final String REFKEY = refKey;
 
                     Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
 
@@ -411,12 +412,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     feedFanOut(refKey, completedWorkoutModelClass);
 
-                    DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
-                            ("runningAssistor").child(uid).child("assistorModel");
-
-                    runningRef.child("refKey").setValue(refKey);
-                    runningRef.child("isRevise").setValue(false);
-                    runningRef.child("completedBool").setValue(true);
+                    //runningRef.child("refKey").setValue(refKey);
+                    //runningRef.child("isRevise").setValue(false);
+                    //runningRef.child("completedBool").setValue(true);
 
                     dontLeavePage.setVisibility(View.GONE);
 
@@ -435,6 +433,17 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                                 .getClassName())) {
                                             Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
                                             getActivity().stopService(stopIntent);
+
+                                            DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                                                    ("runningAssistor").child(uid).child("assistorModel");
+
+                                            Map runningMa = new HashMap<>();
+
+                                            runningMa.put("/refKey", REFKEY);
+                                            runningMa.put("/isRevise", false);
+                                            runningMa.put("/completedBool", true);
+
+                                            runningRef.updateChildren(runningMa);
                                         }
                                     }
                                 }

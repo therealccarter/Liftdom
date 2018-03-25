@@ -88,8 +88,12 @@ public class AssistorServiceClass extends Service {
                     Log.i("serviceInfo", "FIREBASE workoutProgressModelClass updated");
                     workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                     if(workoutProgressModelClass != null){
-                        checkDate();
-                        startForeground(101, buildNotification());
+                        if(workoutProgressModelClass.getExInfoHashMap() == null){
+                            stopSelf(101);
+                        }else{
+                            checkDate();
+                            startForeground(101, buildNotification());
+                        }
                     }
                 }
             }
