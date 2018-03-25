@@ -106,7 +106,12 @@ public class WorkoutHistoryModelClass {
             for(String string : list){
                 if(!isExerciseName(string)){
                     String[] tokens = string.split("@");
-                    double weight = Double.parseDouble(tokens[1]);
+                    double weight;
+                    if(tokens[1].equals("B.W.")){
+                        weight = 0;
+                    }else{
+                        weight = Double.parseDouble(tokens[1]);
+                    }
                     if(weight > maxWeight){
                         maxWeight = weight;
                     }

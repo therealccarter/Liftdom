@@ -42,6 +42,7 @@ public class ExSelectorActivity extends AppCompatActivity {
     private MaterialSearchView searchView;
     private ArrayList<String> typeAheadData;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    boolean isFromExChart;
 
     @BindView(R.id.confirmButton) Button confirmButton;
     //@BindView(R.id.search_view) MaterialSearchView searchView;
@@ -74,6 +75,7 @@ public class ExSelectorActivity extends AppCompatActivity {
             adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
             confirmButton.setVisibility(View.GONE);
         }else{
+            isFromExChart = true;
             // is from ex-chart frag
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
             adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, false, true);
@@ -154,10 +156,16 @@ public class ExSelectorActivity extends AppCompatActivity {
                 Log.i("infoClick", "hello");
                 try{
                     searchView.closeSearch();
-                    Intent intent = new Intent();
-                    intent.putExtra("MESSAGE", ((AppCompatTextView) view).getText().toString());
-                    setResult(2, intent);
-                    finish();
+                    if(isFromExChart){
+                        ExSelectorSingleton.getInstance().upperBodyItems.add(((AppCompatTextView) view).getText().toString());
+                        setResult(1);
+                        finish();
+                    }else{
+                        Intent intent = new Intent();
+                        intent.putExtra("MESSAGE", ((AppCompatTextView) view).getText().toString());
+                        setResult(2, intent);
+                        finish();
+                    }
                 }catch (NullPointerException e){
 
                 }

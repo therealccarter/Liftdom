@@ -15,34 +15,25 @@
 
     <!-- DATE OF UPDATE: 03/12/18 -->
 
-    <string name="currentVersion">Liftdom v1.25</string>
+    <string name="currentVersion">Liftdom v1.26</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.25 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.26 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        You can now revise your current day\'s workout, if you\'ve already finished it.\n
-        You can now do a workout on a rest day.\n
-        Chats now grouped by active date.\n
-        Toolbar disappears on scroll now.\n
-        More notifications functionality (on click).\n
-        Notifications now can also send you to the sent program you received.\n
-        Notifications now grouped by date (sorta).\n
-        Added notification icon to user profile.\n
-        Made user profiles clickable in followers/following list.\n
+        New search bar functionality.\n
+        Added Exercise Search/Custom Exercises in the Exercise Selector.\n
+        Notification bar starts automatically.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Added some more clear suggestions for users on first time.\n
-        Fixed up layout of notifications activity.\n
-        Various crash fixes.\n
+        Fixed many bugs relating to workout revision/workouts on rest day.\n
+        Misc crash fixes.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Add custom exercises.\n
-        Add exercise search bar.\n
         Main feed optimizations.
     </string>
 

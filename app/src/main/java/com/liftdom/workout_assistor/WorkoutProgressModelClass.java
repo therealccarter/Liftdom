@@ -186,8 +186,14 @@ public class WorkoutProgressModelClass {
     }
 
     public void addExercise(String exName){
+        String key;
 
-        String key = String.valueOf(getExInfoHashMap().size() + 1) + "_key";
+        if(getExInfoHashMap() != null){
+            key = String.valueOf(getExInfoHashMap().size() + 1) + "_key";
+        }else{
+            key = "1_key";
+        }
+
 
         List<String> list = new ArrayList<>();
         list.add(0, exName);
@@ -196,7 +202,13 @@ public class WorkoutProgressModelClass {
         HashMap<String, List<String>> map1 = new HashMap<>();
         map1.put("0_key", list);
 
-        mExInfoHashMap.put(key, map1);
+        if(getExInfoHashMap() != null){
+            mExInfoHashMap.put(key, map1);
+        }else{
+            mExInfoHashMap = new HashMap<>();
+            mExInfoHashMap.put(key, map1);
+        }
+
     }
 
     public void setViewCursorToLast(){

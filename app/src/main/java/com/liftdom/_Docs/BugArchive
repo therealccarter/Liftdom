@@ -1,4 +1,12 @@
 
+
+currently on v1.25
+----------------------
+fixed up search view in main activity (now autocompletes for followers/following)
+Exercise Search/Custom Exercises.
+Workout revision/workout on rest day bug fixed
+Assistor Service automatically starts
+----------------------
 currently on v1.24
 ----------------------
 added notification icon to user profile

@@ -786,6 +786,10 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onStart(){
         super.onStart();
 
+        setButtonsForService();
+    }
+
+    private void setButtonsForService(){
         ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
                 .ACTIVITY_SERVICE);
         if(manager.getRunningServices(Integer.MAX_VALUE) != null){
@@ -799,8 +803,22 @@ public class AssistorHolderFrag extends android.app.Fragment
             activateStatusBarService.setVisibility(View.VISIBLE);
             deactivateLL.setVisibility(View.GONE);
         }
+    }
 
+    private boolean isServiceUp(){
+        boolean isUp = false;
 
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                .ACTIVITY_SERVICE);
+        if(manager.getRunningServices(Integer.MAX_VALUE) != null){
+            for(ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)){
+                if(AssistorServiceClass.class.getName().equals(serviceInfo.service.getClassName())){
+                    isUp = true;
+                }
+            }
+        }
+
+        return isUp;
     }
 
     private void wasInOnStartNowDeleted(){
@@ -1114,6 +1132,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             privateJournalView.setText(privateJournal);
             publicCommentView.setText(publicComment);
         }else{
+            loadingView.setVisibility(View.GONE);
             //HashMap<String, HashMap<String, List<String>>> runningMap2 = new HashMap<>();
 //
             //HashMap<String, List<String>> subMap = new HashMap<>();
@@ -1360,6 +1379,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     Log.i("addExInfo", "onActivityResult called");
 
+
+
                     /**
                      * So we're going to take the ex name from this intent
                      * and then start a new activity for result (requestCode == 3).
@@ -1371,7 +1392,21 @@ public class AssistorHolderFrag extends android.app.Fragment
 
 
                     workoutProgressModelClass.addExercise(data.getStringExtra("MESSAGE"));
-                    runningAssistorRef.setValue(workoutProgressModelClass);
+                    runningAssistorRef.setValue(workoutProgressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if(isServiceUp()){
+                                setButtonsForService();
+                            }else{
+                                Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                                startIntent.putExtra("uid", uid);
+                                startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
+                                getActivity().startService(startIntent);
+                                setButtonsForService();
+                            }
+                        }
+                    });
 
                     //exNameInc++;
                     //String tag = String.valueOf(exNameInc) + "ex";
@@ -1416,12 +1451,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                 }
                 --exNameInc;
                 if(exNameInc == 0){
-                    activateStatusBarService.setVisibility(View.VISIBLE);
+                    activateStatusBarService.setVisibility(View.GONE);
                     deactivateLL.setVisibility(View.GONE);
 
                     Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-
                     getActivity().stopService(stopIntent);
+
                 }
                 updateWorkoutState();
             }
