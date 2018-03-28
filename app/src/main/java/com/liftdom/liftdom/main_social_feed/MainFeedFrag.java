@@ -410,7 +410,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         recyclerView.setItemViewCacheSize(10);
 
         firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item,
+                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
                         CompletedWorkoutViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,

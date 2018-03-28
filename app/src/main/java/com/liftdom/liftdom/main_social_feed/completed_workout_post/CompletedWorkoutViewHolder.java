@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,10 +28,7 @@ import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentModelClass;
 import com.liftdom.liftdom.main_social_feed.comment_post.PostCommentViewHolder;
 import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.user_profile.other_profile.OtherUserProfileFrag;
 import com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity;
-import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
-import com.liftdom.user_profile.your_profile.CurrentUserProfile;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -50,45 +44,47 @@ import java.util.Map;
 
 public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
+    // Views
     private final TextView mUserNameView;
     private final TextView mUserLevelView;
     private final TextView mPublicDescriptionView;
     private final TextView mTimestampView;
+    private final RecyclerView mInfoRecyclerView;
+    private final ImageButton mSendCommentButton;
+    private final EditText mCommentEditText;
+    //private final ImageView mUserProfilePic;
+    private final ImageView xProfilePic;
+    private final RecyclerView mCommentRecyclerView;
+    private final TextView mBonusView;
+    private final TextView mGoToAllCommentsView;
+    private final CardView mCardViewParent;
+    private final AVLoadingIndicatorView mLoadingReppedView;
+    //private final LinearLayout mAllCommentsLL;
+
+    // Variables
     private String xUid;
     private FragmentActivity mActivity;
     private String mUserName;
-    private final RecyclerView mInfoRecyclerView;
-    private final LinearLayout mPostInfoHolder;
-    private final ImageButton mSendCommentButton;
-    private final EditText mCommentEditText;
-    private final ImageView mUserProfilePic;
-    private final ImageView xProfilePic;
     private String mRefKey;
-    private final RecyclerView mCommentRecyclerView;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     private DatabaseReference mFeedRef;
-    private final TextView mBonusView;
-    private final Button mGoToAllCommentsButton;
     private int mCommentCount;
     private Query recentMessages;
     private boolean isFullComments;
-    private final LinearLayout mAllCommentsLL;
     private boolean isImperialPOV;
     private final TextView mRepsCounterView;
     private final ImageView mRepsIconWhite;
     private final ImageView mRepsIconGold;
-    //private final LinearLayout mPostInfoHolderLL;
-    //private final BannerView mBannerView;
-    private int mPosition;
-    //private final LinearLayout mCommentFragHolder;
-    private final CardView mCardViewParent;
     private boolean isRepped;
     private int reppedCount;
-    private final AVLoadingIndicatorView mLoadingReppedView;
     final CardView.LayoutParams params;
     private boolean mIsSelfFeed;
     private List<String> mHasReppedList;
     private String mCurrentUserId;
+    private int mPosition;
+    //private final LinearLayout mPostInfoHolderLL;
+    //private final BannerView mBannerView;
+    //private final LinearLayout mCommentFragHolder;
 
     public CompletedWorkoutViewHolder(View itemView){
         super(itemView);
@@ -98,16 +94,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mTimestampView = (TextView) itemView.findViewById(R.id.timeStampView);
         mPublicDescriptionView = (TextView) itemView.findViewById(R.id.publicDescription);
         mInfoRecyclerView = (RecyclerView) itemView.findViewById(R.id.infoRecyclerView);
-        mPostInfoHolder = (LinearLayout) itemView.findViewById(R.id.postInfoHolder);
         mSendCommentButton = (ImageButton) itemView.findViewById(R.id.sendCommentButton);
         mCommentEditText = (EditText) itemView.findViewById(R.id.commentEditText);
-        mUserProfilePic = (ImageView) itemView.findViewById(R.id.currentUserProfilePic);
+        //mUserProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         xProfilePic = (ImageView) itemView.findViewById(R.id.profilePic);
         mCommentRecyclerView = (RecyclerView) itemView.findViewById(R.id.commentsRecyclerView);
         mBonusView = (TextView) itemView.findViewById(R.id.bonusView);
-        mGoToAllCommentsButton = (Button) itemView.findViewById(R.id.goToAllCommentsButton);
+        mGoToAllCommentsView = (TextView) itemView.findViewById(R.id.goToAllCommentsView);
         //mCommentFragHolder = (LinearLayout) itemView.findViewById(R.id.commentFragHolder);
-        mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
+        //mAllCommentsLL = (LinearLayout) itemView.findViewById(R.id.allCommentsLinearLayout);
         mRepsCounterView = (TextView) itemView.findViewById(R.id.repsCountTextView);
         mRepsIconWhite = (ImageView) itemView.findViewById(R.id.repsImageWhite);
         mRepsIconGold = (ImageView) itemView.findViewById(R.id.repsImageGold);
@@ -119,7 +114,29 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        mPostInfoHolder.setOnClickListener(new View.OnClickListener() {
+        mUserNameView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, UserProfileDialogActivity.class);
+                if(getCurrentUid().equals(xUid)){
+                    mActivity.startActivity(intent);
+                } else {
+                    intent.putExtra("xUid", xUid);
+                    mActivity.startActivity(intent);
+                    //FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
+                    //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+                    //OtherUserProfileFrag otherUserProfileFrag = new OtherUserProfileFrag();
+                    //otherUserProfileFrag.userName = mUserName;
+                    //otherUserProfileFrag.xUid = xUid;
+//
+                    //fragmentTransaction.replace(R.id.mainFragHolder, otherUserProfileFrag);
+                    //fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.commit();
+                }
+            }
+        });
+
+        xProfilePic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, UserProfileDialogActivity.class);
                 if(getCurrentUid().equals(xUid)){
@@ -214,7 +231,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
-        mGoToAllCommentsButton.setOnClickListener(new View.OnClickListener() {
+        mGoToAllCommentsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, WorkoutPostSingleActivity.class);
@@ -868,9 +885,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getChildrenCount() > 2){
-                    mAllCommentsLL.setVisibility(View.VISIBLE);
+                    mGoToAllCommentsView.setVisibility(View.VISIBLE);
                 }else{
-                    mAllCommentsLL.setVisibility(View.GONE);
+                    mGoToAllCommentsView.setVisibility(View.GONE);
                 }
                 //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
@@ -904,7 +921,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setFullCommentRecycler(String refKey){
-        mAllCommentsLL.setVisibility(View.GONE);
+        mGoToAllCommentsView.setVisibility(View.GONE);
         mCommentEditText.setTextColor(Color.parseColor("#000000"));
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
