@@ -55,7 +55,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     //private final ImageView mUserProfilePic;
     private final ImageView xProfilePic;
     private final RecyclerView mCommentRecyclerView;
-    private final TextView mBonusView;
+    public final TextView mBonusView;
     private final TextView mGoToAllCommentsView;
     private final CardView mCardViewParent;
     private final AVLoadingIndicatorView mLoadingReppedView;
@@ -302,26 +302,26 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             mRepsCounterView.setVisibility(View.VISIBLE);
             mRepsCounterView.setText(String.valueOf(repsCount));
             if(getHasReppedList().contains(getCurrentUid())){
-                mRepsIconWhite.setVisibility(View.GONE);
-                mLoadingReppedView.setVisibility(View.GONE);
+                mRepsIconWhite.setVisibility(View.INVISIBLE);
+                mLoadingReppedView.setVisibility(View.INVISIBLE);
                 mRepsIconGold.setVisibility(View.VISIBLE);
             }else{
                 mRepsIconWhite.setVisibility(View.VISIBLE);
-                mLoadingReppedView.setVisibility(View.GONE);
-                mRepsIconGold.setVisibility(View.GONE);
+                mLoadingReppedView.setVisibility(View.INVISIBLE);
+                mRepsIconGold.setVisibility(View.INVISIBLE);
             }
         }else{
             mRepsIconWhite.setVisibility(View.VISIBLE);
-            mLoadingReppedView.setVisibility(View.GONE);
-            mRepsIconGold.setVisibility(View.GONE);
-            mRepsCounterView.setVisibility(View.GONE);
+            mLoadingReppedView.setVisibility(View.INVISIBLE);
+            mRepsIconGold.setVisibility(View.INVISIBLE);
+            mRepsCounterView.setVisibility(View.INVISIBLE);
             mRepsCounterView.setText(String.valueOf(getReppedCount()));
         }
 
     }
 
     private void removeRepFromPost(){
-        mRepsIconGold.setVisibility(View.GONE);
+        mRepsIconGold.setVisibility(View.INVISIBLE);
         mLoadingReppedView.setVisibility(View.VISIBLE);
         final int newReppedCount = getReppedCount() - 1;
 
@@ -497,7 +497,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         // first we need the followers of the OP. Put em in a list.
         // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
         // upload it.
-        mRepsIconWhite.setVisibility(View.GONE);
+        mRepsIconWhite.setVisibility(View.INVISIBLE);
         mLoadingReppedView.setVisibility(View.VISIBLE);
         final int newRepCount = getReppedCount() + 1;
 
@@ -832,12 +832,14 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setBonusView(List<String> bonusList){
-        String bonusString = "";
-        for(String string : bonusList){
-            bonusString = bonusString + "\n" + string;
+        if(bonusList != null && !bonusList.isEmpty()){
+            String bonusString = bonusList.get(0);
+            //for(String string : bonusList){
+            //    bonusString = bonusString + "\n" + string;
+            //}
+            mBonusView.setText(bonusString);
+            mBonusView.setVisibility(View.VISIBLE);
         }
-        mBonusView.setText(bonusString);
-        mBonusView.setVisibility(View.VISIBLE);
     }
 
     public void setUpProfilePics(String postUid){
@@ -887,7 +889,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 if(dataSnapshot.getChildrenCount() > 2){
                     mGoToAllCommentsView.setVisibility(View.VISIBLE);
                 }else{
-                    mGoToAllCommentsView.setVisibility(View.GONE);
+                    mGoToAllCommentsView.setVisibility(View.INVISIBLE);
                 }
                 //if(dataSnapshot.exists()){
                     mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
@@ -921,7 +923,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setFullCommentRecycler(String refKey){
-        mGoToAllCommentsView.setVisibility(View.GONE);
+        mGoToAllCommentsView.setVisibility(View.INVISIBLE);
         mCommentEditText.setTextColor(Color.parseColor("#000000"));
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
@@ -1008,10 +1010,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setPublicDescription(String publicDescription){
-        if(publicDescription == null || publicDescription.equals("")){
-            mPublicDescriptionView.setVisibility(View.GONE);
-        }else{
-            mPublicDescriptionView.setVisibility(View.VISIBLE);
+        if(publicDescription != null || !publicDescription.equals("")){
             mPublicDescriptionView.setText(publicDescription);
         }
     }

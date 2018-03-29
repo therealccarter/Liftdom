@@ -42,7 +42,7 @@ public class AssistorServiceClass extends Service {
 
     String myString;
     RemoteViews notificationView;
-    String uid = FirebaseAuth.getInstance().getUid();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     boolean isUserImperial = true;
 
 

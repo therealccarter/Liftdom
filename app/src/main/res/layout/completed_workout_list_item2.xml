@@ -26,8 +26,8 @@
             android:layout_marginStart="12dp"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/profilePic"
-            app:layout_constraintTop_toTopOf="@id/profilePic"
-    />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"/>
 
     <TextView
             android:text="@string/level"
@@ -87,7 +87,7 @@
     />
 
     <TextView
-            android:text="TextView"
+            android:text=""
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/publicDescription"
@@ -164,22 +164,20 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repsImageWhite"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="10dp"
-    />
+            app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/publicDescription"/>
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/commentsRecyclerView"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goToAllCommentsView"
             app:layout_constraintStart_toStartOf="parent"
-    />
+            app:layout_constraintHorizontal_bias="0.0"/>
 
     <EditText
             android:layout_width="0dp"
@@ -189,7 +187,9 @@
             android:imeOptions="actionDone"
             android:maxLength="400"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/sendCommentButton" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toStartOf="@+id/sendCommentButton" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"/>
 
     <ImageButton
             android:layout_width="23dp"
@@ -197,9 +197,7 @@
             android:id="@+id/sendCommentButton"
             app:srcCompat="@drawable/right_chevron_gold"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/commentsRecyclerView"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="@+id/commentEditText" android:layout_marginTop="12dp"/>
 
 </android.support.constraint.ConstraintLayout>

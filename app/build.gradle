@@ -52,7 +52,7 @@ android {
 }
 
 ext {
-    playLibVersion = "11.8.0"
+    playLibVersion = "12.0.0"
     supportLibVersion = "27.1.0"
 }
 

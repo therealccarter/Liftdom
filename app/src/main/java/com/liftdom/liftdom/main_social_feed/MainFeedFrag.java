@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -169,6 +170,60 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         }
 
         return view;
+    }
+
+    private void setUpFirebaseAdapter(DatabaseReference databaseReference, final boolean isImperial){
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemViewCacheSize(10);
+
+        loadingView.setVisibility(View.GONE);
+
+        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
+                        CompletedWorkoutViewHolder.class, databaseReference) {
+            @Override
+            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
+                                              CompletedWorkoutModelClass model, int position) {
+                //if(model.getUserId().equals(uid)){
+                //viewHolder.setPosition(position);
+                viewHolder.setCurrentUserId(uid);
+                viewHolder.setImperialPOV(isImperial);
+                viewHolder.setActivity(getActivity());
+                viewHolder.setRefKey(model.getRef());
+                viewHolder.setUserId(model.getUserId());
+                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+                        model.isIsImperial());
+                viewHolder.setUpProfilePics(model.getUserId());
+                viewHolder.setCommentRecycler(model.getRef());
+                viewHolder.setUserName(model.getUserName());
+                viewHolder.setUserLevel(model.getUserId(), rootRef);
+                viewHolder.setPublicDescription(model.getPublicDescription());
+                viewHolder.setTimeStamp(model.getDateTime());
+                //viewHolder.setReppedCount(model.getRepCount());
+                viewHolder.setHasReppedList(model.getHasReppedList());
+                //viewHolder.setRepsCounterView(model.getRepCount());
+                //viewHolder.setIsRepped(model.isHasRepped(), false);
+                //viewHolder.setActivity(getActivity());
+                if(model.getBonusList() != null){
+                    viewHolder.mBonusView.setText(model.getBonusList().get(0));
+                    //viewHolder.setBonusView(model.getBonusList());
+                }
+                //}else{
+                //    viewHolder.hideLayout();
+                //}
+
+
+            }
+        };
+
+        firebaseAdapter.setHasStableIds(true);
+        recyclerView.setAdapter(firebaseAdapter);
     }
 
     private void kablam(){
@@ -397,61 +452,6 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
             }
         });
-    }
-
-    private void setUpFirebaseAdapter(DatabaseReference databaseReference, final boolean isImperial){
-
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setSmoothScrollbarEnabled(true);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setItemViewCacheSize(10);
-
-        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
-                        CompletedWorkoutViewHolder.class, databaseReference) {
-            @Override
-            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
-                                              CompletedWorkoutModelClass model, int position) {
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    loadingView.setVisibility(View.GONE);
-                }
-                //if(model.getUserId().equals(uid)){
-                    //viewHolder.setPosition(position);
-                    viewHolder.setCurrentUserId(uid);
-                    viewHolder.setImperialPOV(isImperial);
-                    viewHolder.setActivity(getActivity());
-                    viewHolder.setRefKey(model.getRef());
-                    viewHolder.setUserId(model.getUserId());
-                    viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
-                            model.isIsImperial());
-                    viewHolder.setUpProfilePics(model.getUserId());
-                    viewHolder.setCommentRecycler(model.getRef());
-                    viewHolder.setUserName(model.getUserName());
-                    viewHolder.setUserLevel(model.getUserId(), rootRef);
-                    viewHolder.setPublicDescription(model.getPublicDescription());
-                    viewHolder.setTimeStamp(model.getDateTime());
-                    //viewHolder.setReppedCount(model.getRepCount());
-                    viewHolder.setHasReppedList(model.getHasReppedList());
-                    //viewHolder.setRepsCounterView(model.getRepCount());
-                    //viewHolder.setIsRepped(model.isHasRepped(), false);
-                    //viewHolder.setActivity(getActivity());
-                    if(model.getBonusList() != null){
-                        if(!model.getBonusList().isEmpty()){
-                            viewHolder.setBonusView(model.getBonusList());
-                        }
-                    }
-                //}else{
-                //    viewHolder.hideLayout();
-                //}
-
-            }
-        };
-
-        //firebaseAdapter.setHasStableIds(true);
-        recyclerView.setAdapter(firebaseAdapter);
     }
 
     @Override
