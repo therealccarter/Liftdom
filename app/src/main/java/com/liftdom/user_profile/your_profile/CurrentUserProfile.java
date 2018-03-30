@@ -183,41 +183,6 @@ public class CurrentUserProfile extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemViewCacheSize(10);
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item,
-                        CompletedWorkoutViewHolder.class, databaseReference) {
-            @Override
-            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
-                                              CompletedWorkoutModelClass model, int position) {
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    loadingView.setVisibility(View.GONE);
-                }
-                if(model.getUserId().equals(uid)){
-                    //viewHolder.setPosition(position);
-                    viewHolder.setImperialPOV(isImperial);
-                    viewHolder.setActivity(CurrentUserProfile.this);
-                    viewHolder.setRefKey(model.getRef());
-                    viewHolder.setUserId(model.getUserId());
-                    viewHolder.setPostInfo(model.getWorkoutInfoMap(), CurrentUserProfile.this, getApplicationContext(),
-                            model.isIsImperial());
-                    viewHolder.setUpProfilePics(model.getUserId());
-                    viewHolder.setCommentRecycler(model.getRef());
-                    viewHolder.setUserName(model.getUserName());
-                    viewHolder.setUserLevel(model.getUserId(), rootRef);
-                    viewHolder.setPublicDescription(model.getPublicDescription());
-                    viewHolder.setTimeStamp(model.getDateTime());
-                    //viewHolder.setActivity(getActivity());
-                    if(model.getBonusList() != null){
-                        if(!model.getBonusList().isEmpty()){
-                            viewHolder.setBonusView(model.getBonusList());
-                        }
-                    }
-                }else{
-                    viewHolder.setGone();
-                }
-            }
-        };
-
         recyclerView.setAdapter(firebaseAdapter);
     }
 
@@ -237,14 +202,10 @@ public class CurrentUserProfile extends BaseActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        if(firebaseAdapter != null){
+            firebaseAdapter.stopListening();
+        }
     }
     // [END on_stop_remove_listener]
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        if(firebaseAdapter != null){
-            firebaseAdapter.cleanup();
-        }
-    }
 }

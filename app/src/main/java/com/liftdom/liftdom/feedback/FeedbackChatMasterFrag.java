@@ -2,6 +2,7 @@ package com.liftdom.liftdom.feedback;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,11 +54,15 @@ public class FeedbackChatMasterFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>
-                (ChatGroupModelClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, mChatGroupReference) {
+
+        FirebaseRecyclerOptions<ChatGroupModelClass> options = new FirebaseRecyclerOptions
+                .Builder<ChatGroupModelClass>()
+                .setQuery(mChatGroupReference, ChatGroupModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>(options) {
             @Override
-            protected void populateViewHolder(ChatGroupViewHolder viewHolder,
-                                              ChatGroupModelClass model, int position) {
+            protected void onBindViewHolder(@NonNull ChatGroupViewHolder holder, int position, @NonNull ChatGroupModelClass model) {
                 String chatNameUsers = "";
                 if(model.getChatName() == null){
                     if(model.getMemberMap().size() > 2){
@@ -71,30 +77,56 @@ public class FeedbackChatMasterFrag extends Fragment {
                                 }
                             }
                         }
-                        viewHolder.setChatName(chatNameUsers);
+                        holder.setChatName(chatNameUsers);
                     }else{
                         for(Map.Entry<String, String> entry : model.getMemberMap().entrySet()){
                             if(!entry.getKey().equals(uid)){
                                 chatNameUsers = entry.getValue();
                             }
                         }
-                        viewHolder.setChatName(chatNameUsers);
+                        holder.setChatName(chatNameUsers);
                     }
                 }else{
-                    viewHolder.setChatName(model.getChatName());
+                    holder.setChatName(model.getChatName());
                 }
-                viewHolder.setFromFeedbackMaster(true);
-                viewHolder.setPreview(model.getPreviewString());
-                viewHolder.setActiveDay(model.getActiveDate());
-                viewHolder.setChatId(model.getChatId());
-                viewHolder.setActivity(getActivity());
-                viewHolder.setMemberMap(model.getMemberMap());
-                viewHolder.setRefKey(model.getRefKey());
+                holder.setFromFeedbackMaster(true);
+                holder.setPreview(model.getPreviewString());
+                holder.setActiveDay(model.getActiveDate());
+                holder.setChatId(model.getChatId());
+                holder.setActivity(getActivity());
+                holder.setMemberMap(model.getMemberMap());
+                holder.setRefKey(model.getRefKey());
+            }
+
+            @Override
+            public ChatGroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.chat_group_list_item,
+                        parent, false);
+
+                return new ChatGroupViewHolder(view);
             }
         };
 
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mFirebaseAdapter.startListening();
         mRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.stopListening();
+        }
     }
 }

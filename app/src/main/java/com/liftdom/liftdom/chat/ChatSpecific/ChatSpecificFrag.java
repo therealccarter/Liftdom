@@ -4,6 +4,7 @@ package com.liftdom.liftdom.chat.ChatSpecific;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -129,22 +131,32 @@ public class ChatSpecificFrag extends Fragment {
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setItemViewCacheSize(15);
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageModelClass, ChatMessageViewHolder>
-                (ChatMessageModelClass.class, R.layout.chat_message_list_item, ChatMessageViewHolder.class, databaseReference) {
+        FirebaseRecyclerOptions<ChatMessageModelClass> options = new FirebaseRecyclerOptions
+                .Builder<ChatMessageModelClass>()
+                .setQuery(databaseReference, ChatMessageModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatMessageModelClass, ChatMessageViewHolder>(options) {
             @Override
-            protected void populateViewHolder(ChatMessageViewHolder viewHolder,
-                                              ChatMessageModelClass model, int position) {
-                viewHolder.setMessage(model.getTextMessage());
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setTimeStamp(model.getTimeStamp());
-                viewHolder.setUserId(model.getUserId());
+            protected void onBindViewHolder(@NonNull ChatMessageViewHolder holder, int position, @NonNull ChatMessageModelClass
+                    model) {
+
+                holder.setMessage(model.getTextMessage());
+                holder.setUserName(model.getUserName());
+                holder.setTimeStamp(model.getTimeStamp());
+                holder.setUserId(model.getUserId());
                 if(model.getUserId().equals(uid)){
-                    viewHolder.setBackground();
+                    holder.setBackground();
                 }
-                //if(position != 0){
-                //    mRecyclerView.scrollToPosition(mFirebaseAdapter.getItemCount());
-                //
-                //}
+            }
+
+            @Override
+            public ChatMessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.chat_message_list_item,
+                        parent, false);
+
+                return new ChatMessageViewHolder(view);
             }
         };
 
@@ -162,8 +174,8 @@ public class ChatSpecificFrag extends Fragment {
             }
         });
 
+        mFirebaseAdapter.startListening();
         mRecyclerView.setAdapter(mFirebaseAdapter);
-
 
     }
 
@@ -201,10 +213,18 @@ public class ChatSpecificFrag extends Fragment {
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
         if(mFirebaseAdapter != null){
-            mFirebaseAdapter.cleanup();
+            mFirebaseAdapter.stopListening();
         }
     }
 

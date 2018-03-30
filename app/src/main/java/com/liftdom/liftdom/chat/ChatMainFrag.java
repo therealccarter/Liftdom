@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
@@ -112,11 +114,14 @@ public class ChatMainFrag extends Fragment {
 
         Query query = mChatGroupReference.orderByChild("activeDate");
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>
-                (ChatGroupModelClass.class, R.layout.chat_group_list_item, ChatGroupViewHolder.class, query) {
+        FirebaseRecyclerOptions<ChatGroupModelClass> options = new FirebaseRecyclerOptions
+                .Builder<ChatGroupModelClass>()
+                .setQuery(query, ChatGroupModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<ChatGroupModelClass, ChatGroupViewHolder>(options) {
             @Override
-            protected void populateViewHolder(ChatGroupViewHolder viewHolder,
-                                              ChatGroupModelClass model, int position) {
+            protected void onBindViewHolder(@NonNull ChatGroupViewHolder holder, int position, @NonNull ChatGroupModelClass model) {
                 if(position == 0){
                     loadingView.setVisibility(View.GONE);
                     noChatsFoundView.setVisibility(View.GONE);
@@ -135,24 +140,34 @@ public class ChatMainFrag extends Fragment {
                                 }
                             }
                         }
-                        viewHolder.setChatName(chatNameUsers);
+                        holder.setChatName(chatNameUsers);
                     }else{
                         for(Map.Entry<String, String> entry : model.getMemberMap().entrySet()){
                             if(!entry.getKey().equals(uid)){
                                 chatNameUsers = entry.getValue();
                             }
                         }
-                        viewHolder.setChatName(chatNameUsers);
+                        holder.setChatName(chatNameUsers);
                     }
                 }else{
-                    viewHolder.setChatName(model.getChatName());
+                    holder.setChatName(model.getChatName());
                 }
-                viewHolder.setPreview(model.getPreviewString());
-                viewHolder.setActiveDay(model.getActiveDate());
-                viewHolder.setChatId(model.getChatId());
-                viewHolder.setActivity(getActivity());
-                viewHolder.setMemberMap(model.getMemberMap());
-                viewHolder.setRefKey(model.getRefKey());
+                holder.setPreview(model.getPreviewString());
+                holder.setActiveDay(model.getActiveDate());
+                holder.setChatId(model.getChatId());
+                holder.setActivity(getActivity());
+                holder.setMemberMap(model.getMemberMap());
+                holder.setRefKey(model.getRefKey());
+            }
+
+            @Override
+            public ChatGroupViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.chat_group_list_item,
+                        parent, false);
+
+                return new ChatGroupViewHolder(view);
             }
         };
 
@@ -162,6 +177,7 @@ public class ChatMainFrag extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mFirebaseAdapter.startListening();
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
@@ -264,10 +280,18 @@ public class ChatMainFrag extends Fragment {
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
         if(mFirebaseAdapter != null){
-            mFirebaseAdapter.cleanup();
+            mFirebaseAdapter.stopListening();
         }
     }
 

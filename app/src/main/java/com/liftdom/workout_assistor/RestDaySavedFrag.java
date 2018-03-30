@@ -181,19 +181,19 @@ public class RestDaySavedFrag extends Fragment {
                         if(isRevisedWorkout){
                             setNewCompletedWorkoutModelClass();
                         }else{
-                            completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
-                                    userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
-                                    workoutInfoMap, commentModelClassMap, null);
 
-                            if(isLevelUp){
-                                List<String> bonusList = new ArrayList<>();
-                                bonusList.add("Level up!");
-                                completedWorkoutModelClass.setBonusList(bonusList);
-                            }
 
                             List<String> bonusList = new ArrayList<>();
+
+                            if(isLevelUp){
+                                bonusList.add("Level up!");
+                            }
+
                             bonusList.add("Rest Day");
-                            completedWorkoutModelClass.setBonusList(bonusList);
+
+                            completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                                    userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,
+                                    workoutInfoMap, commentModelClassMap, null, bonusList);
 
                             myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                             feedFanOut(refKey, completedWorkoutModelClass);

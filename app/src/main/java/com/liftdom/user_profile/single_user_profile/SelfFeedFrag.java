@@ -2,6 +2,7 @@ package com.liftdom.user_profile.single_user_profile;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -114,58 +116,80 @@ public class SelfFeedFrag extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setItemViewCacheSize(10);
+        //recyclerView.setItemViewCacheSize(10);
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item,
-                        CompletedWorkoutViewHolder.class, databaseReference) {
+        FirebaseRecyclerOptions<CompletedWorkoutModelClass> options = new FirebaseRecyclerOptions
+                .Builder<CompletedWorkoutModelClass>()
+                .setQuery(databaseReference, CompletedWorkoutModelClass.class)
+                .build();
+
+        firebaseAdapter = new FirebaseRecyclerAdapter
+                <CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+                (options) {
             @Override
-            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
-                                              CompletedWorkoutModelClass model, int position) {
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    loadingView.setVisibility(View.GONE);
-                }
-                //if(model.getUserId().equals(uid)){
-                //viewHolder.setPosition(position);
-                viewHolder.setCurrentUserId(uid);
-                viewHolder.setImperialPOV(isImperial);
-                viewHolder.setActivity(getActivity());
-                viewHolder.setRefKey(model.getRef());
-                viewHolder.setUserId(model.getUserId());
-                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+            protected void onBindViewHolder(@NonNull CompletedWorkoutViewHolder holder, int position,
+                                            @NonNull CompletedWorkoutModelClass model) {
+
+                holder.setCurrentUserId(uid);
+                holder.setImperialPOV(isImperial);
+                holder.setActivity(getActivity());
+                holder.setRefKey(model.getRef());
+                holder.setUserId(model.getUserId());
+                holder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
                         model.isIsImperial());
-                viewHolder.setUpProfilePics(model.getUserId());
-                viewHolder.setCommentRecycler(model.getRef());
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setUserLevel(model.getUserId(), rootRef);
-                viewHolder.setPublicDescription(model.getPublicDescription());
-                viewHolder.setTimeStamp(model.getDateTime());
-                viewHolder.setHasReppedList(model.getHasReppedList());
+                holder.setUpProfilePics(model.getUserId());
+                holder.setCommentRecycler(model.getRef());
+                holder.setUserName(model.getUserName());
+                holder.setUserLevel(model.getUserId(), rootRef);
+                holder.setPublicDescription(model.getPublicDescription());
+                //holder.setBonusView(model.getBonusList());
+                holder.setTimeStamp(model.getDateTime());
+                holder.setHasReppedList(model.getHasReppedList());
                 //viewHolder.setReppedCount(model.getRepCount());
                 //viewHolder.setRepsCounterView(model.getRepCount());
-                //viewHolder.setIsRepped(model.isHasRepped(), true);
+                //viewHolder.setIsRepped(model.isHasRepped(), false);
                 //viewHolder.setActivity(getActivity());
-                if(model.getBonusList() != null){
-                    if(!model.getBonusList().isEmpty()){
-                        viewHolder.setBonusView(model.getBonusList());
-                    }
-                }
-
+                //try{
+                //    viewHolder.mBonusView.setText(model.getBonusList().get(0));
+                //}catch (NullPointerException e){
+                //}
+                //viewHolder.setBonusView(model.getBonusList());
+                //}
                 //}else{
                 //    viewHolder.hideLayout();
                 //}
 
             }
+
+            @Override
+            public CompletedWorkoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.completed_workout_list_item2,
+                        parent, false);
+
+                return new CompletedWorkoutViewHolder(view);
+            }
         };
 
+        loadingView.setVisibility(View.GONE);
+        firebaseAdapter.startListening();
         recyclerView.setAdapter(firebaseAdapter);
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(firebaseAdapter != null && firebaseAdapter.getItemCount() == 0){
+            firebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
         if(firebaseAdapter != null){
-            firebaseAdapter.cleanup();
+            firebaseAdapter.stopListening();
         }
     }
 

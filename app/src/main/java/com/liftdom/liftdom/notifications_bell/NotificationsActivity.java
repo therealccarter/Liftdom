@@ -1,16 +1,20 @@
 package com.liftdom.liftdom.notifications_bell;
 
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.BaseActivity;
@@ -82,22 +86,22 @@ public class NotificationsActivity extends BaseActivity {
 
         Query query = databaseReference.orderByChild("dateTime");
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<NotificationModelClass, NotificationViewHolder>
-                (NotificationModelClass.class, R.layout.notifications_list_item,
-                        NotificationViewHolder.class, query) {
-            @Override
-            protected void populateViewHolder(NotificationViewHolder viewHolder, NotificationModelClass model, int position) {
+        FirebaseRecyclerOptions<NotificationModelClass> options = new FirebaseRecyclerOptions
+                .Builder<NotificationModelClass>()
+                .setQuery(query, NotificationModelClass.class)
+                .build();
 
-                if(loadingView.getVisibility() == View.VISIBLE){
-                    loadingView.setVisibility(View.GONE);
-                }
-                viewHolder.setActivity(NotificationsActivity.this);
-                viewHolder.setCurrentUserId(uid);
-                viewHolder.setType(model.getType());
-                viewHolder.setOtherUserId(model.getUidFromOutside());
-                viewHolder.setDateTime(model.getDateTime());
+        firebaseAdapter = new FirebaseRecyclerAdapter<NotificationModelClass, NotificationViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull NotificationViewHolder holder, int position,
+                                            @NonNull NotificationModelClass model) {
+                holder.setActivity(NotificationsActivity.this);
+                holder.setCurrentUserId(uid);
+                holder.setType(model.getType());
+                holder.setOtherUserId(model.getUidFromOutside());
+                holder.setDateTime(model.getDateTime());
                 if(model.getRefKey() != null){
-                    viewHolder.setRefKey(model.getRefKey());
+                    holder.setRefKey(model.getRefKey());
                 }
 
                 try{
@@ -105,16 +109,43 @@ public class NotificationsActivity extends BaseActivity {
                         NotificationModelClass modelClass2 = (NotificationModelClass) firebaseAdapter.getItem
                                 (position + 1);
                         if(!model.getFormattedDateTime().equals(modelClass2.getFormattedDateTime())){
-                            viewHolder.showDividerAbove();
+                            holder.showDividerAbove();
                         }
                     }
                 }catch (NullPointerException e){
 
                 }
+            }
 
+            @Override
+            public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.notifications_list_item,
+                        parent, false);
+
+                return new NotificationViewHolder(view);
             }
         };
 
+        loadingView.setVisibility(View.GONE);
+        firebaseAdapter.startListening();
         recyclerView.setAdapter(firebaseAdapter);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(firebaseAdapter != null && firebaseAdapter.getItemCount() == 0){
+            firebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(firebaseAdapter != null){
+            firebaseAdapter.stopListening();
+        }
     }
 }

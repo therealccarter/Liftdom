@@ -52,7 +52,7 @@ android {
 }
 
 ext {
-    playLibVersion = "12.0.0"
+    playLibVersion = "12.0.1"
     supportLibVersion = "27.1.0"
 }
 
@@ -84,7 +84,8 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$playLibVersion"
     implementation "com.google.firebase:firebase-crash:$playLibVersion"
     implementation "com.google.firebase:firebase-storage:$playLibVersion"
-    implementation 'com.firebaseui:firebase-ui-database:1.2.0'
+    //implementation 'com.firebaseui:firebase-ui-database:1.2.0'
+    implementation 'com.firebaseui:firebase-ui-database:3.3.0'
     implementation "com.google.android.gms:play-services-auth:$playLibVersion"
     implementation "com.google.android.gms:play-services-ads:$playLibVersion"
     implementation "com.google.android.gms:play-services-location:$playLibVersion"

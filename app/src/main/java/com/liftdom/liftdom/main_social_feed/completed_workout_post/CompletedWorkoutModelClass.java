@@ -23,7 +23,7 @@ public class CompletedWorkoutModelClass {
     private String mRef;
     private Map<String, PostCommentModelClass> mCommentMap;
     private String mMediaRef;
-    private List<String> bonusList;
+    private List<String> mBonusList;
     private int mCommentCount;
     private Map<String, PostCommentModelClass> recentCommentsMap;
     private int mRepCount;
@@ -38,7 +38,7 @@ public class CompletedWorkoutModelClass {
     public CompletedWorkoutModelClass(String userId, String userName, String publicDescription, String dateTime,
                                       boolean isImperial, String ref, String mediaRef,
                                       HashMap<String, List<String>> workoutInfoMap, Map<String,
-            PostCommentModelClass> commentMap, List<String> hasReppedList){
+            PostCommentModelClass> commentMap, List<String> hasReppedList, List<String> bonusList){
         mUserId = userId;
         mUserName = userName;
         mPublicDescription = publicDescription;
@@ -53,6 +53,12 @@ public class CompletedWorkoutModelClass {
         }catch (NullPointerException e){
 
         }
+        try{
+            mBonusList = bonusList;
+        }catch (NullPointerException e){
+
+        }
+
 
     }
 
@@ -115,7 +121,7 @@ public class CompletedWorkoutModelClass {
     }
 
     public List<String> getBonusList() {
-        return bonusList;
+        return mBonusList;
     }
 
     public void addToCommentCount(){
@@ -131,14 +137,7 @@ public class CompletedWorkoutModelClass {
     }
 
     public void setBonusList(List<String> bonusList) {
-        if(this.bonusList == null){
-            this.bonusList = bonusList;
-        }else{
-            for(String string : bonusList){
-                this.bonusList.add(string);
-            }
-        }
-
+        mBonusList = bonusList;
     }
 
     public Map<String, PostCommentModelClass> getCommentMap() {

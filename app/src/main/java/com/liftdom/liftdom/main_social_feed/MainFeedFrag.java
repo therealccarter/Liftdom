@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
@@ -182,47 +184,65 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemViewCacheSize(10);
 
-        loadingView.setVisibility(View.GONE);
+        Query query = databaseReference.orderByChild("dateTime");
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
-                        CompletedWorkoutViewHolder.class, databaseReference) {
+        FirebaseRecyclerOptions<CompletedWorkoutModelClass> options = new FirebaseRecyclerOptions
+                .Builder<CompletedWorkoutModelClass>()
+                .setQuery(query, CompletedWorkoutModelClass.class)
+                .build();
+
+        firebaseAdapter = new FirebaseRecyclerAdapter
+                <CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+                (options) {
             @Override
-            protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
-                                              CompletedWorkoutModelClass model, int position) {
-                //if(model.getUserId().equals(uid)){
-                //viewHolder.setPosition(position);
-                viewHolder.setCurrentUserId(uid);
-                viewHolder.setImperialPOV(isImperial);
-                viewHolder.setActivity(getActivity());
-                viewHolder.setRefKey(model.getRef());
-                viewHolder.setUserId(model.getUserId());
-                viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+            protected void onBindViewHolder(@NonNull CompletedWorkoutViewHolder holder, int position,
+                                            @NonNull CompletedWorkoutModelClass model) {
+
+                holder.setCurrentUserId(uid);
+                holder.setImperialPOV(isImperial);
+                holder.setActivity(getActivity());
+                holder.setRefKey(model.getRef());
+                holder.setUserId(model.getUserId());
+                holder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
                         model.isIsImperial());
-                viewHolder.setUpProfilePics(model.getUserId());
-                viewHolder.setCommentRecycler(model.getRef());
-                viewHolder.setUserName(model.getUserName());
-                viewHolder.setUserLevel(model.getUserId(), rootRef);
-                viewHolder.setPublicDescription(model.getPublicDescription());
-                viewHolder.setTimeStamp(model.getDateTime());
+                holder.setUpProfilePics(model.getUserId());
+                holder.setCommentRecycler(model.getRef());
+                holder.setUserName(model.getUserName());
+                holder.setUserLevel(model.getUserId(), rootRef);
+                holder.setPublicDescription(model.getPublicDescription());
+                //holder.setBonusView(model.getBonusList());
+                holder.setTimeStamp(model.getDateTime());
+                holder.setHasReppedList(model.getHasReppedList());
                 //viewHolder.setReppedCount(model.getRepCount());
-                viewHolder.setHasReppedList(model.getHasReppedList());
                 //viewHolder.setRepsCounterView(model.getRepCount());
                 //viewHolder.setIsRepped(model.isHasRepped(), false);
                 //viewHolder.setActivity(getActivity());
-                if(model.getBonusList() != null){
-                    viewHolder.mBonusView.setText(model.getBonusList().get(0));
-                    //viewHolder.setBonusView(model.getBonusList());
-                }
+                //try{
+                //    viewHolder.mBonusView.setText(model.getBonusList().get(0));
+                //}catch (NullPointerException e){
+                //}
+                //viewHolder.setBonusView(model.getBonusList());
+                //}
                 //}else{
                 //    viewHolder.hideLayout();
                 //}
 
+            }
 
+            @Override
+            public CompletedWorkoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.completed_workout_list_item2,
+                        parent, false);
+
+                return new CompletedWorkoutViewHolder(view);
             }
         };
 
-        firebaseAdapter.setHasStableIds(true);
+        //firebaseAdapter.setHasStableIds(true);
+        loadingView.setVisibility(View.GONE);
+        firebaseAdapter.startListening();
         recyclerView.setAdapter(firebaseAdapter);
     }
 
@@ -245,6 +265,55 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
             }
         });
+
+        //firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+        //        (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
+        //                CompletedWorkoutViewHolder.class, databaseReference) {
+        //    @Override
+        //    protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
+        //                                      CompletedWorkoutModelClass model, int position) {
+        //        //if(model.getUserId().equals(uid)){
+        //        //viewHolder.setPosition(position);
+//
+        //        /**
+        //         * Going to try the new FirebaseUI version. Or at least see if we're on the old version.
+        //         */
+//
+        //        viewHolder.setCurrentUserId(uid);
+        //        viewHolder.setImperialPOV(isImperial);
+        //        viewHolder.setActivity(getActivity());
+        //        viewHolder.setRefKey(model.getRef());
+        //        viewHolder.setUserId(model.getUserId());
+        //        viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+        //                model.isIsImperial());
+        //        viewHolder.setUpProfilePics(model.getUserId());
+        //        viewHolder.setCommentRecycler(model.getRef());
+        //        viewHolder.setUserName(model.getUserName());
+        //        viewHolder.setUserLevel(model.getUserId(), rootRef);
+        //        viewHolder.setPublicDescription(model.getPublicDescription());
+        //        viewHolder.setTimeStamp(model.getDateTime());
+        //        //viewHolder.setReppedCount(model.getRepCount());
+        //        viewHolder.setHasReppedList(model.getHasReppedList());
+        //        //viewHolder.setRepsCounterView(model.getRepCount());
+        //        //viewHolder.setIsRepped(model.isHasRepped(), false);
+        //        //viewHolder.setActivity(getActivity());
+        //        //if(model.getBonusList() != null){
+        //        try{
+        //            viewHolder.mBonusView.setText(model.getBonusList().get(0));
+        //        }catch (NullPointerException e){
+//
+        //        }
+//
+        //        //viewHolder.setBonusView(model.getBonusList());
+        //        //}
+        //        //}else{
+        //        //    viewHolder.hideLayout();
+        //        //}
+//
+//
+        //    }
+        //};
+
     }
 
     private void checkForRandomUsersBanner(){
@@ -455,10 +524,18 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(firebaseAdapter != null && firebaseAdapter.getItemCount() == 0){
+            firebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         if(firebaseAdapter != null){
-            firebaseAdapter.cleanup();
+            firebaseAdapter.stopListening();
         }
     }
 

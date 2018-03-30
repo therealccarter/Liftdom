@@ -2,6 +2,7 @@ package com.liftdom.template_housing.public_programs;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -69,42 +71,59 @@ public class MyPublicTemplatesFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, PublicTemplateViewHolder>
-                (TemplateModelClass.class, R.layout.public_template_list_item, PublicTemplateViewHolder.class, mFeedRef) {
-            @Override
-            protected void populateViewHolder(PublicTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
-                viewHolder.setTemplateNameView(model.getTemplateName());
-                viewHolder.setTimeStampView(model.getDateUpdated());
-                viewHolder.setDaysView(model.getDays());
-                viewHolder.setCreatedBy(model.getUserName());
-                if(model.getUserName2() != null){
-                    viewHolder.setEditedBy(model.getUserName2());
-                }
-                viewHolder.setDescriptionView(model.getDescription());
-                viewHolder.setActivity(getActivity());
-                viewHolder.setKey(mFirebaseAdapter.getRef(position).getKey());
-                viewHolder.setIsMyPublicTemplate(true);
 
-                if(position == 0){
-                    AVLoadingIndicatorView loadingView = (AVLoadingIndicatorView) getActivity().findViewById(R.id
-                            .loadingView2);
-                    if(loadingView != null){
-                        loadingView.setVisibility(View.GONE);
-                    }
+        FirebaseRecyclerOptions<TemplateModelClass> options = new FirebaseRecyclerOptions
+                .Builder<TemplateModelClass>()
+                .setQuery(mFeedRef, TemplateModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, PublicTemplateViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull PublicTemplateViewHolder holder, int position, @NonNull TemplateModelClass model) {
+                holder.setTemplateNameView(model.getTemplateName());
+                holder.setTimeStampView(model.getDateUpdated());
+                holder.setDaysView(model.getDays());
+                holder.setCreatedBy(model.getUserName());
+                if(model.getUserName2() != null){
+                    holder.setEditedBy(model.getUserName2());
                 }
+                holder.setDescriptionView(model.getDescription());
+                holder.setActivity(getActivity());
+                holder.setKey(mFirebaseAdapter.getRef(position).getKey());
+                holder.setIsMyPublicTemplate(true);
+            }
+
+            @Override
+            public PublicTemplateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.public_template_list_item,
+                        parent, false);
+
+                return new PublicTemplateViewHolder(view);
             }
         };
 
+        loadingView.setVisibility(View.GONE);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mFirebaseAdapter.startListening();
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
         if(mFirebaseAdapter != null){
-            mFirebaseAdapter.cleanup();
+            mFirebaseAdapter.stopListening();
         }
     }
 

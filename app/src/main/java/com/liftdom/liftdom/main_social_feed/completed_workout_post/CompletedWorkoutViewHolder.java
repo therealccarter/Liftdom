@@ -10,11 +10,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,7 +57,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     //private final ImageView mUserProfilePic;
     private final ImageView xProfilePic;
     private final RecyclerView mCommentRecyclerView;
-    public final TextView mBonusView;
+    private final TextView mBonusView;
     private final TextView mGoToAllCommentsView;
     private final CardView mCardViewParent;
     private final AVLoadingIndicatorView mLoadingReppedView;
@@ -832,13 +834,16 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setBonusView(List<String> bonusList){
-        if(bonusList != null && !bonusList.isEmpty()){
-            String bonusString = bonusList.get(0);
-            //for(String string : bonusList){
-            //    bonusString = bonusString + "\n" + string;
-            //}
+        try{
+            String bonusString = "";
+            for(String string : bonusList){
+                bonusString = bonusString + "\n" + string;
+            }
             mBonusView.setText(bonusString);
-            mBonusView.setVisibility(View.VISIBLE);
+        }catch (NullPointerException e){
+
+        }catch (IndexOutOfBoundsException e){
+
         }
     }
 
@@ -886,33 +891,49 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 if(dataSnapshot.getChildrenCount() > 2){
                     mGoToAllCommentsView.setVisibility(View.VISIBLE);
                 }else{
                     mGoToAllCommentsView.setVisibility(View.INVISIBLE);
                 }
-                //if(dataSnapshot.exists()){
-                    mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
-                            (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, recentMessages) {
-                        @Override
-                        protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
-                            viewHolder.setComment(model.getCommentText());
-                            viewHolder.setDateString(model.getDateString());
-                            viewHolder.setRepNumber(model.getRepNumber());
-                            viewHolder.setRefKey(model.getRefKey());
-                            viewHolder.setUsername(model.getUserName());
-                            viewHolder.setParentUid(xUid);
-                            viewHolder.setParentRefKey(getRefKey());
-                            viewHolder.setCommentUid(model.getUserId());
-                            viewHolder.setContext(mActivity);
-                            viewHolder.setActivity(mActivity);
-                        }
-                    };
 
-                    mCommentRecyclerView.setHasFixedSize(false);
-                    mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-                    mCommentRecyclerView.setAdapter(mFirebaseAdapter);
-                //}
+                FirebaseRecyclerOptions<PostCommentModelClass> options = new FirebaseRecyclerOptions
+                        .Builder<PostCommentModelClass>()
+                        .setQuery(recentMessages, PostCommentModelClass.class)
+                        .build();
+
+                mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull PostCommentViewHolder holder, int position, @NonNull PostCommentModelClass
+                            model) {
+                        holder.setComment(model.getCommentText());
+                        holder.setDateString(model.getDateString());
+                        holder.setRepNumber(model.getRepNumber());
+                        holder.setRefKey(model.getRefKey());
+                        holder.setUsername(model.getUserName());
+                        holder.setParentUid(xUid);
+                        holder.setParentRefKey(getRefKey());
+                        holder.setCommentUid(model.getUserId());
+                        holder.setContext(mActivity);
+                        holder.setActivity(mActivity);
+                    }
+
+                    @Override
+                    public PostCommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(
+                                R.layout.post_comment_list_item,
+                                parent, false);
+
+                        return new PostCommentViewHolder(view);
+                    }
+                };
+
+                mCommentRecyclerView.setHasFixedSize(false);
+                mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+                mFirebaseAdapter.startListening();
+                mCommentRecyclerView.setAdapter(mFirebaseAdapter);
+
             }
 
             @Override
@@ -928,38 +949,40 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
 
-        mFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //if(dataSnapshot.exists()){
-                mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
-                        (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
-                    @Override
-                    protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
-                        viewHolder.setComment(model.getCommentText());
-                        viewHolder.setDateString(model.getDateString());
-                        viewHolder.setRepNumber(model.getRepNumber());
-                        viewHolder.setRefKey(model.getRefKey());
-                        viewHolder.setUsername(model.getUserName());
-                        viewHolder.setParentUid(xUid);
-                        viewHolder.setParentRefKey(getRefKey());
-                        viewHolder.setCommentUid(model.getUserId());
-                        viewHolder.setContext(mActivity);
-                        viewHolder.setActivity(mActivity);
-                    }
-                };
+        FirebaseRecyclerOptions<PostCommentModelClass> options = new FirebaseRecyclerOptions
+                .Builder<PostCommentModelClass>()
+                .setQuery(mFeedRef, PostCommentModelClass.class)
+                .build();
 
-                mCommentRecyclerView.setHasFixedSize(false);
-                mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-                mCommentRecyclerView.setAdapter(mFirebaseAdapter);
-                //}
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull PostCommentViewHolder holder, int position, @NonNull PostCommentModelClass
+                    model) {
+                holder.setComment(model.getCommentText());
+                holder.setDateString(model.getDateString());
+                holder.setRepNumber(model.getRepNumber());
+                holder.setRefKey(model.getRefKey());
+                holder.setUsername(model.getUserName());
+                holder.setParentUid(xUid);
+                holder.setParentRefKey(getRefKey());
+                holder.setCommentUid(model.getUserId());
+                holder.setContext(mActivity);
+                holder.setActivity(mActivity);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public PostCommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.post_comment_list_item,
+                        parent, false);
 
+                return new PostCommentViewHolder(view);
             }
-        });
+        };
+
+        mCommentRecyclerView.setHasFixedSize(false);
+        mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mCommentRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
     private String getCurrentUid(){

@@ -3,10 +3,12 @@ package com.liftdom.misc_activities.followers_following;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -81,37 +84,59 @@ public class FollowersFollowingDialogActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemViewCacheSize(20);
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<UserNameIdModelClass, FollowersFollowingViewHolder>
-                (UserNameIdModelClass.class, R.layout.followers_following_list_item, FollowersFollowingViewHolder.class,
-                        databaseReference) {
+        FirebaseRecyclerOptions<UserNameIdModelClass> options = new FirebaseRecyclerOptions
+                .Builder<UserNameIdModelClass>()
+                .setQuery(databaseReference, UserNameIdModelClass.class)
+                .build();
+
+        firebaseAdapter = new FirebaseRecyclerAdapter<UserNameIdModelClass, FollowersFollowingViewHolder>(options) {
             @Override
-            protected void populateViewHolder(FollowersFollowingViewHolder viewHolder, UserNameIdModelClass model, int position) {
+            protected void onBindViewHolder(@NonNull FollowersFollowingViewHolder holder, int position,
+                                            @NonNull UserNameIdModelClass model) {
                 if(loadingView.getVisibility() == View.VISIBLE){
                     loadingView.setVisibility(View.GONE);
                 }
-                viewHolder.setFragmentActivity(FollowersFollowingDialogActivity.this);
-                viewHolder.setContext(FollowersFollowingDialogActivity.this);
-                viewHolder.setxUid(model.getUserId());
-                viewHolder.setUserName(model.getUserName());
+                holder.setFragmentActivity(FollowersFollowingDialogActivity.this);
+                holder.setContext(FollowersFollowingDialogActivity.this);
+                holder.setxUid(model.getUserId());
+                holder.setUserName(model.getUserName());
                 if(model.getUserId().equals(uid)){
-                    viewHolder.setUid(uid, true);
+                    holder.setUid(uid, true);
                 }else{
-                    viewHolder.setUid(uid, false);
+                    holder.setUid(uid, false);
                 }
 
-                viewHolder.setYourUserName(userName);
+                holder.setYourUserName(userName);
+            }
 
+            @Override
+            public FollowersFollowingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.followers_following_list_item,
+                        parent, false);
+
+                return new FollowersFollowingViewHolder(view);
             }
         };
 
+        loadingView.setVisibility(View.GONE);
+        firebaseAdapter.startListening();
         recyclerView.setAdapter(firebaseAdapter);
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStart(){
+        super.onStart();
+        if(firebaseAdapter != null && firebaseAdapter.getItemCount() == 0){
+            firebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
         if(firebaseAdapter != null){
-            firebaseAdapter.cleanup();
+            firebaseAdapter.stopListening();
         }
     }
 

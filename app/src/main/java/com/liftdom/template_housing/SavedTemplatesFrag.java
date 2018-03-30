@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -174,26 +176,40 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
+
         Query query = mFeedRef.orderByChild("dateUpdated");
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>
-                (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, query) {
+
+        FirebaseRecyclerOptions<TemplateModelClass> options = new FirebaseRecyclerOptions
+                .Builder<TemplateModelClass>()
+                .setQuery(query, TemplateModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>(options) {
             @Override
-            protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
+            protected void onBindViewHolder(@NonNull SavedTemplateViewHolder holder, int position, @NonNull TemplateModelClass model) {
                 if(isFromSendProgram){
-                    viewHolder.setFromSendProgram(true);
-                    viewHolder.setUidFromOutside(uidFromOutside);
+                    holder.setFromSendProgram(true);
+                    holder.setUidFromOutside(uidFromOutside);
                 }else{
-                    viewHolder.setFromSendProgram(false);
+                    holder.setFromSendProgram(false);
                 }
-                viewHolder.setTemplateNameView(model.getTemplateName());
-                viewHolder.setTimeStampView(model.getDateUpdated());
-                viewHolder.setDaysView(model.getDays());
-                viewHolder.setDescriptionView(model.getDescription());
-                viewHolder.setActivity(getActivity());
+                holder.setTemplateNameView(model.getTemplateName());
+                holder.setTimeStampView(model.getDateUpdated());
+                holder.setDaysView(model.getDays());
+                holder.setDescriptionView(model.getDescription());
+                holder.setActivity(getActivity());
+            }
+
+            @Override
+            public SavedTemplateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.saved_template_list_item,
+                        parent, false);
+
+                return new SavedTemplateViewHolder(view);
             }
         };
-
-
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setSmoothScrollbarEnabled(true);
@@ -201,6 +217,7 @@ public class SavedTemplatesFrag extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mFirebaseAdapter.startListening();
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         mRecyclerView.setAdapter(mFirebaseAdapter);
     }
@@ -216,6 +233,9 @@ public class SavedTemplatesFrag extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
         //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child
         //        ("firstTime").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child
         //        ("isSavedProgFirstTime");
@@ -243,10 +263,10 @@ public class SavedTemplatesFrag extends Fragment {
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onStop(){
+        super.onStop();
         if(mFirebaseAdapter != null){
-            mFirebaseAdapter.cleanup();
+            mFirebaseAdapter.stopListening();
         }
     }
 

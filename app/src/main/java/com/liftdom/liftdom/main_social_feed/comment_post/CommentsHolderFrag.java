@@ -2,6 +2,7 @@ package com.liftdom.liftdom.main_social_feed.comment_post;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -68,21 +70,53 @@ public class CommentsHolderFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>
-                (PostCommentModelClass.class, R.layout.post_comment_list_item, PostCommentViewHolder.class, mFeedRef) {
+
+        FirebaseRecyclerOptions<PostCommentModelClass> options = new FirebaseRecyclerOptions
+                .Builder<PostCommentModelClass>()
+                .setQuery(mFeedRef, PostCommentModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<PostCommentModelClass, PostCommentViewHolder>(options) {
             @Override
-            protected void populateViewHolder(PostCommentViewHolder viewHolder, PostCommentModelClass model, int position) {
-                viewHolder.setComment(model.getCommentText());
-                viewHolder.setDateString(model.getDateString());
-                viewHolder.setRepNumber(model.getRepNumber());
-                viewHolder.setRefKey(model.getRefKey());
-                viewHolder.setUsername(model.getUserName());
+            protected void onBindViewHolder(@NonNull PostCommentViewHolder holder, int position, @NonNull PostCommentModelClass model) {
+                holder.setComment(model.getCommentText());
+                holder.setDateString(model.getDateString());
+                holder.setRepNumber(model.getRepNumber());
+                holder.setRefKey(model.getRefKey());
+                holder.setUsername(model.getUserName());
+            }
+
+            @Override
+            public PostCommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.post_comment_list_item,
+                        parent, false);
+
+                return new PostCommentViewHolder(view);
             }
         };
 
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mFirebaseAdapter.startListening();
         mRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.stopListening();
+        }
     }
 
 }

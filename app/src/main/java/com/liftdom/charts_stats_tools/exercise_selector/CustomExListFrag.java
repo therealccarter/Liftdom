@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -111,32 +112,61 @@ public class CustomExListFrag extends Fragment {
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        firebaseAdapter = new FirebaseRecyclerAdapter<CustomExModelClass, CustomExViewHolder>
-                (CustomExModelClass.class, R.layout.custom_ex_list_item, CustomExViewHolder.class, customExRef) {
-            @Override
-            protected void populateViewHolder(CustomExViewHolder viewHolder, CustomExModelClass model, int position) {
+        FirebaseRecyclerOptions<CustomExModelClass> options = new FirebaseRecyclerOptions
+                .Builder<CustomExModelClass>()
+                .setQuery(customExRef, CustomExModelClass.class)
+                .build();
 
+        firebaseAdapter = new FirebaseRecyclerAdapter<CustomExModelClass, CustomExViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull CustomExViewHolder holder, int position, @NonNull CustomExModelClass model) {
                 if(position == 0){
                     loadingView.setVisibility(View.GONE);
                     noChatsFoundView.setVisibility(View.GONE);
                 }
-                viewHolder.setFragActivity(getActivity());
-                viewHolder.setExName(model.getExerciseName());
-                viewHolder.setRefKey(model.getRefKey());
-                viewHolder.setNoCheckbox(noCheckbox);
-                viewHolder.setExclusive(isExclusive);
+                holder.setFragActivity(getActivity());
+                holder.setExName(model.getExerciseName());
+                holder.setRefKey(model.getRefKey());
+                holder.setNoCheckbox(noCheckbox);
+                holder.setExclusive(isExclusive);
                 if(!noCheckbox){
                     if(ExSelectorSingleton.getInstance().customItems.contains(model.getExerciseName())){
-                        viewHolder.setIsChecked(true);
+                        holder.setIsChecked(true);
                     }else{
-                        viewHolder.setIsChecked(false);
+                        holder.setIsChecked(false);
                     }
                 }
             }
+
+            @Override
+            public CustomExViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.custom_ex_list_item,
+                        parent, false);
+
+                return new CustomExViewHolder(view);
+            }
         };
 
+        firebaseAdapter.startListening();
         mRecyclerView.setAdapter(firebaseAdapter);
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(firebaseAdapter != null && firebaseAdapter.getItemCount() == 0){
+            firebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(firebaseAdapter != null){
+            firebaseAdapter.stopListening();
+        }
     }
 
 }

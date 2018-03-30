@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -71,22 +73,37 @@ public class ProgramInboxFrag extends Fragment {
     }
 
     private void setUpFirebaseAdapter(){
+
         Query query = mFeedRef.orderByChild("dateUpdated");
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>
-                (TemplateModelClass.class, R.layout.saved_template_list_item, SavedTemplateViewHolder.class, query) {
+
+        FirebaseRecyclerOptions<TemplateModelClass> options = new FirebaseRecyclerOptions
+                .Builder<TemplateModelClass>()
+                .setQuery(query, TemplateModelClass.class)
+                .build();
+
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<TemplateModelClass, SavedTemplateViewHolder>(options) {
             @Override
-            protected void populateViewHolder(SavedTemplateViewHolder viewHolder, TemplateModelClass model, int position) {
-                viewHolder.setFromInbox(true);
-                viewHolder.setFromSendProgram(false);
-                viewHolder.setTemplateNameView(model.getTemplateName());
-                viewHolder.setTimeStampView(model.getDateUpdated());
-                viewHolder.setDaysView(model.getDays());
-                viewHolder.setDescriptionView(model.getDescription());
-                viewHolder.setActivity(getActivity());
-                viewHolder.setAuthoredBy(model.getUserName());
+            protected void onBindViewHolder(@NonNull SavedTemplateViewHolder holder, int position,
+                                            @NonNull TemplateModelClass model) {
+                holder.setFromInbox(true);
+                holder.setFromSendProgram(false);
+                holder.setTemplateNameView(model.getTemplateName());
+                holder.setTimeStampView(model.getDateUpdated());
+                holder.setDaysView(model.getDays());
+                holder.setDescriptionView(model.getDescription());
+                holder.setActivity(getActivity());
+                holder.setAuthoredBy(model.getUserName());
+            }
+
+            @Override
+            public SavedTemplateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.saved_template_list_item,
+                        parent, false);
+
+                return new SavedTemplateViewHolder(view);
             }
         };
-
 
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -95,8 +112,25 @@ public class ProgramInboxFrag extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        mFirebaseAdapter.startListening();
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         recyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.stopListening();
+        }
     }
 
 }

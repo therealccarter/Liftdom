@@ -386,27 +386,23 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                     Map<String, PostCommentModelClass> commentModelClassMap = new HashMap<String, PostCommentModelClass>();
 
-                    completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
-                            userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
-                            workoutInfoMapProcessed, commentModelClassMap, null);
+                    List<String> bonusList = new ArrayList<>();
 
                     if (isFirstTimeFirstTime) {
-                        List<String> bonusList = new ArrayList<>();
                         bonusList.add(userModelClass.getUserName() + "'s first post!");
-                        completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
                     if (isLevelUp) {
-                        List<String> bonusList = new ArrayList<>();
                         bonusList.add("Level up!");
-                        completedWorkoutModelClass.setBonusList(bonusList);
                     }
 
                     if (smolovWeekDayString != null) {
-                        List<String> bonusList = new ArrayList<>();
                         bonusList.add(smolovWeekDayString);
-                        completedWorkoutModelClass.setBonusList(bonusList);
                     }
+
+                    completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
+                            userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
+                            workoutInfoMapProcessed, commentModelClassMap, null, bonusList);
 
                     myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
