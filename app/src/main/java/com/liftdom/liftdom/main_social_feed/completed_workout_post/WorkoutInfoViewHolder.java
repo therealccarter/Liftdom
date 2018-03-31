@@ -2,16 +2,10 @@ package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Brodin on 6/29/2017.
@@ -19,29 +13,48 @@ import java.util.Map;
 
 public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
-    private final LinearLayout mExNameLL;
-    private final LinearLayout mExNameSSLL;
-    private final LinearLayout mSetSchemeLL;
-    private final LinearLayout mSetSchemeSSLL;
-    private final TextView mExNameView;
-    private final TextView mExNameViewSS;
-    private final TextView mSetSchemeView;
-    private final TextView mSetSchemeViewSS;
+    //private final LinearLayout mExNameLL;
+    //private final LinearLayout mExNameSSLL;
+    //private final LinearLayout mSetSchemeLL;
+    //private final LinearLayout mSetSchemeSSLL;
+    private final TextView mExNameTextView;
+    private final View mExNameView1;
+    private final View mExNameView2;
+    private final TextView mExNameTextViewSS;
+    private final View mExNameSSView1;
+    private final View mExNameSSView2;
+    private final View mExNameSSView3;
+    private final View mExNameSSView4;
+    private final TextView mSetSchemeTextView;
+    private final View mSetSchemeView1;
+    private final View mSetSchemeView2;
+    private final TextView mSetSchemeTextViewSS;
+    private final View mSetSchemeSSView1;
+    private final View mSetSchemeSSView2;
     private String mInfoString;
     private boolean isImperialPOV;
     private boolean isOriginallyImperial;
 
     public WorkoutInfoViewHolder(View itemView){
         super(itemView);
-        mExNameLL = (LinearLayout) itemView.findViewById(R.id.exNameLL);
-        mExNameSSLL = (LinearLayout) itemView.findViewById(R.id.exNameSSLL);
-        mSetSchemeLL = (LinearLayout) itemView.findViewById(R.id.setSchemeLL);
-        mSetSchemeSSLL = (LinearLayout) itemView.findViewById(R.id.setSchemeSSLL);
-        mExNameView = (TextView) itemView.findViewById(R.id.exNameTextView);
-        mExNameViewSS = (TextView) itemView.findViewById(R.id.exNameTextViewSS);
-        mSetSchemeView = (TextView) itemView.findViewById(R.id.setSchemeTextView);
-        mSetSchemeViewSS = (TextView) itemView.findViewById(R.id.setSchemeTextViewSS);
-
+        //mExNameLL = (LinearLayout) itemView.findViewById(R.id.exNameLL);
+        //mExNameSSLL = (LinearLayout) itemView.findViewById(R.id.exNameSSLL);
+        //mSetSchemeLL = (LinearLayout) itemView.findViewById(R.id.setSchemeLL);
+        //mSetSchemeSSLL = (LinearLayout) itemView.findViewById(R.id.setSchemeSSLL);
+        mExNameTextView = (TextView) itemView.findViewById(R.id.exNameTextView);
+        mExNameView1 = (View) itemView.findViewById(R.id.exNameView1);
+        mExNameView2 = (View) itemView.findViewById(R.id.exNameView2);
+        mExNameTextViewSS = (TextView) itemView.findViewById(R.id.exNameTextViewSS);
+        mExNameSSView1 = (View) itemView.findViewById(R.id.exNameSSView1);
+        mExNameSSView2 = (View) itemView.findViewById(R.id.exNameSSView2);
+        mExNameSSView3 = (View) itemView.findViewById(R.id.exNameSSView3);
+        mExNameSSView4 = (View) itemView.findViewById(R.id.exNameSSView4);
+        mSetSchemeTextView = (TextView) itemView.findViewById(R.id.setSchemeTextView);
+        mSetSchemeView1 = (View) itemView.findViewById(R.id.setSchemeView1);
+        mSetSchemeView2 = (View) itemView.findViewById(R.id.setSchemeView2);
+        mSetSchemeTextViewSS = (TextView) itemView.findViewById(R.id.setSchemeTextViewSS);
+        mSetSchemeSSView1 = (View) itemView.findViewById(R.id.setSchemeSSView1);
+        mSetSchemeSSView2 = (View) itemView.findViewById(R.id.setSchemeSSView2);
     }
 
     public boolean getIsImperialPOV() {
@@ -50,6 +63,32 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
     public void setImperialPOV(boolean imperialPOV) {
         isImperialPOV = imperialPOV;
+    }
+
+    private void setExNameVisible(){
+        mExNameView1.setVisibility(View.VISIBLE);
+        mExNameView2.setVisibility(View.VISIBLE);
+        mExNameTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void setExNameSSVisible(){
+        mExNameSSView1.setVisibility(View.VISIBLE);
+        mExNameSSView2.setVisibility(View.VISIBLE);
+        mExNameSSView3.setVisibility(View.VISIBLE);
+        mExNameSSView4.setVisibility(View.VISIBLE);
+        mExNameTextViewSS.setVisibility(View.VISIBLE);
+    }
+
+    private void setSetSchemeVisible(){
+        mSetSchemeView1.setVisibility(View.VISIBLE);
+        mSetSchemeView2.setVisibility(View.VISIBLE);
+        mSetSchemeTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void setSetSchemeSSVisible(){
+        mSetSchemeSSView1.setVisibility(View.VISIBLE);
+        mSetSchemeSSView2.setVisibility(View.VISIBLE);
+        mSetSchemeTextViewSS.setVisibility(View.VISIBLE);
     }
 
     public void setUpView(){
@@ -63,77 +102,64 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         if(arrayList.contains("ss")){
             if(isExerciseName(tokens[0])){
                 // is superset exname
-                mExNameLL.setVisibility(View.GONE);
-                mExNameSSLL.setVisibility(View.VISIBLE);
-                mSetSchemeLL.setVisibility(View.GONE);
-                mSetSchemeSSLL.setVisibility(View.GONE);
-
-                mExNameViewSS.setText(tokens[0]);
+                setExNameSSVisible();
+                mExNameTextViewSS.setText(tokens[0]);
             }else{
                 // is superset set scheme
-                mExNameLL.setVisibility(View.GONE);
-                mExNameSSLL.setVisibility(View.GONE);
-                mSetSchemeLL.setVisibility(View.GONE);
-                mSetSchemeSSLL.setVisibility(View.VISIBLE);
+                setSetSchemeSSVisible();
 
                 if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
                     String newRepsWeight = metricToImperial(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
-                    mSetSchemeViewSS.setText(newRepsWeight);
+                    mSetSchemeTextViewSS.setText(newRepsWeight);
                 }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
                     String newRepsWeight = imperialToMetric(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
-                    mSetSchemeViewSS.setText(newRepsWeight);
+                    mSetSchemeTextViewSS.setText(newRepsWeight);
                 }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
-                    mSetSchemeViewSS.setText(newRepsWeight);
+                    mSetSchemeTextViewSS.setText(newRepsWeight);
                 }else{
                     // both kg
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
-                    mSetSchemeViewSS.setText(newRepsWeight);
+                    mSetSchemeTextViewSS.setText(newRepsWeight);
                 }
             }
         }else{
             if(isExerciseName(tokens[0])){
                 // is normal exname
-                mExNameLL.setVisibility(View.VISIBLE);
-                mExNameSSLL.setVisibility(View.GONE);
-                mSetSchemeLL.setVisibility(View.GONE);
-                mSetSchemeSSLL.setVisibility(View.GONE);
+                setExNameVisible();
 
-                mExNameView.setText(tokens[0]);
+                mExNameTextView.setText(tokens[0]);
             }else{
                 // is normal set scheme
-                mExNameLL.setVisibility(View.GONE);
-                mExNameSSLL.setVisibility(View.GONE);
-                mSetSchemeLL.setVisibility(View.VISIBLE);
-                mSetSchemeSSLL.setVisibility(View.GONE);
+                setSetSchemeVisible();
 
                 if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
                     String newRepsWeight = metricToImperial(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
-                    mSetSchemeView.setText(newRepsWeight);
+                    mSetSchemeTextView.setText(newRepsWeight);
                 }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
                     String newRepsWeight = imperialToMetric(tokens[0]);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
-                    mSetSchemeView.setText(newRepsWeight);
+                    mSetSchemeTextView.setText(newRepsWeight);
                 }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
-                    mSetSchemeView.setText(newRepsWeight);
+                    mSetSchemeTextView.setText(newRepsWeight);
                 }else{
                     // both kg
                     String newRepsWeight = tokens[0];
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
-                    mSetSchemeView.setText(newRepsWeight);
+                    mSetSchemeTextView.setText(newRepsWeight);
                 }
             }
         }

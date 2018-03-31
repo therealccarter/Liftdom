@@ -95,7 +95,8 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
     @Override
     public WorkoutInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         // maybe inflate a different layout for the different cases?
-        View view = (LayoutInflater.from(parent.getContext())).inflate(R.layout.workout_info_list_item, parent, false);
+        View view = (LayoutInflater.from(parent.getContext())).inflate(R.layout.workout_info_list_item2, parent,
+                false);
         WorkoutInfoViewHolder holder = new WorkoutInfoViewHolder(view);
         holder.setIsOriginallyImperial(getIsOriginallyImperial());
         return holder;

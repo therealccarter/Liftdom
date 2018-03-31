@@ -1,41 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkerGrey"
 >
 
     <View
             android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:id="@+id/view3"
-            android:background="@color/liftrGold2"
+            android:layout_height="12dp"
+            android:id="@+id/exNameView1"
+            android:background="@color/liftrGold3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="40dp"
-            app:layout_constraintVertical_bias="0.0"/>
+            android:layout_marginStart="40dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:visibility="gone"
+    />
 
     <View
             android:layout_width="10dp"
             android:layout_height="1dp"
-            android:id="@+id/view4"
-            android:background="@color/liftrGold2"
-            app:layout_constraintStart_toEndOf="@id/view3"
+            android:id="@+id/exNameView2"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/exNameView1"
             app:layout_editor_absoluteY="10dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
 
     <TextView
-            android:text="TextView"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exNameTextView"
             android:textSize="15sp"
             android:textColor="@color/liftrGold1"
-            app:layout_constraintStart_toEndOf="@+id/view4"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toEndOf="@+id/exNameView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
 
+    <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:id="@+id/setSchemeView1"
+            android:background="@color/liftrGold3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="40dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:id="@+id/setSchemeView2"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/setSchemeView1"
+            app:layout_editor_absoluteY="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:text="3x10@90lbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setSchemeTextView"
+            android:textSize="14sp"
+            android:textColor="@color/offWhite"
+            app:layout_constraintStart_toEndOf="@+id/setSchemeView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:id="@+id/exNameSSView1"
+            android:background="@color/liftrGold3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="40dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:id="@+id/exNameSSView2"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/exNameSSView1"
+            app:layout_editor_absoluteY="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="1dp"
+            android:layout_height="11dp"
+            android:id="@+id/exNameSSView3"
+            android:background="@color/liftrGold3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/exNameSSView2"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:id="@+id/exNameSSView4"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/exNameSSView3"
+            app:layout_editor_absoluteY="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:text="3x10@90lbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/exNameTextViewSS"
+            android:textSize="15sp"
+            android:textColor="@color/liftrGold1"
+            app:layout_constraintStart_toEndOf="@+id/exNameSSView4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:id="@+id/setSchemeSSView1"
+            android:background="@color/liftrGold3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="60dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:id="@+id/setSchemeSSView2"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/setSchemeSSView1"
+            app:layout_editor_absoluteY="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:text="3x10@90lbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/setSchemeSSTextView"
+            android:textSize="14sp"
+            android:textColor="@color/offWhite"
+            app:layout_constraintStart_toEndOf="@+id/setSchemeSSView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
 
 
 </android.support.constraint.ConstraintLayout>
