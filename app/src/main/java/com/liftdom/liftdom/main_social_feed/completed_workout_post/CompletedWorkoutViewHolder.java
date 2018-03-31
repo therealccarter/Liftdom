@@ -503,32 +503,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mLoadingReppedView.setVisibility(View.VISIBLE);
         final int newRepCount = getReppedCount() + 1;
 
-        final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
-                ("notificationCount");
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
-                        ("notifications").child(xUid);
-                NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
-                        DateTime.now(DateTimeZone.UTC).toString(), null);
-                notificationRef.push().setValue(notificationModelClass);
-
-                if(dataSnapshot.exists()){
-                    int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
-                    currentCount++;
-                    userRef.setValue(String.valueOf(currentCount));
-                }else{
-                    userRef.setValue("1");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -587,14 +562,48 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {
-                                                mLoadingReppedView.setVisibility(View.GONE);
-                                                mRepsIconGold.setVisibility(View.VISIBLE);
+
+                                                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
+                                                        ("notificationCount");
+                                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        if(dataSnapshot.exists()){
+                                                            int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
+                                                            currentCount++;
+                                                            userRef.setValue(String.valueOf(currentCount));
+                                                        }else{
+                                                            userRef.setValue("1");
+                                                        }
+
+                                                        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
+                                                                ("notifications").child(xUid);
+                                                        NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
+                                                                DateTime.now(DateTimeZone.UTC).toString(), null);
+                                                        notificationRef.push().setValue(notificationModelClass)
+                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        fanoutReppedObject.clear();
+                                                                        reppedInc1 = 0;
+                                                                        mLoadingReppedView.setVisibility(View.GONE);
+                                                                        mRepsIconGold.setVisibility(View.VISIBLE);
+                                                                    }
+                                                                });
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
                                                 //mRepsCounterView.setText(String.valueOf(reppedCount));
                                                 //mRepsCounterView.setVisibility(View.VISIBLE);
                                             }
                                         });
-                                        fanoutReppedObject.clear();
-                                        reppedInc1 = 0;
                                     }
                                 }
                             }
@@ -638,12 +647,12 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         public void onComplete(@NonNull Task task) {
                             mLoadingReppedView.setVisibility(View.GONE);
                             mRepsIconGold.setVisibility(View.VISIBLE);
+                            fanoutReppedObject.clear();
+                            reppedInc1 = 0;
                             //mRepsCounterView.setText(String.valueOf(reppedCount));
                             //mRepsCounterView.setVisibility(View.VISIBLE);
                         }
                     });
-                    fanoutReppedObject.clear();
-                    reppedInc1 = 0;
                 }
             }
 
@@ -877,7 +886,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //xProfilePic.setImageResource(R.drawable.usertest);
+                xProfilePic.setImageResource(R.drawable.usertest);
             }
         });
     }
