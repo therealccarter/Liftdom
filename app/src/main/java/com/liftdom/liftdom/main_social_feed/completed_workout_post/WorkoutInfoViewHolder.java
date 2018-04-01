@@ -1,7 +1,9 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
 
@@ -31,6 +33,8 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     private final TextView mSetSchemeTextViewSS;
     private final View mSetSchemeSSView1;
     private final View mSetSchemeSSView2;
+    private final View mSetSchemeSSView3;
+    private final View mSetSchemeSSView4;
     private String mInfoString;
     private boolean isImperialPOV;
     private boolean isOriginallyImperial;
@@ -55,6 +59,8 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         mSetSchemeTextViewSS = (TextView) itemView.findViewById(R.id.setSchemeTextViewSS);
         mSetSchemeSSView1 = (View) itemView.findViewById(R.id.setSchemeSSView1);
         mSetSchemeSSView2 = (View) itemView.findViewById(R.id.setSchemeSSView2);
+        mSetSchemeSSView3 = (View) itemView.findViewById(R.id.setSchemeSSView3);
+        mSetSchemeSSView4 = (View) itemView.findViewById(R.id.setSchemeSSView4);
     }
 
     public boolean getIsImperialPOV() {
@@ -87,8 +93,19 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
     private void setSetSchemeSSVisible(){
         mSetSchemeSSView1.setVisibility(View.VISIBLE);
-        mSetSchemeSSView2.setVisibility(View.VISIBLE);
+        //mSetSchemeSSView2.setVisibility(View.VISIBLE);
+        mSetSchemeSSView3.setVisibility(View.VISIBLE);
+        mSetSchemeSSView4.setVisibility(View.VISIBLE);
         mSetSchemeTextViewSS.setVisibility(View.VISIBLE);
+    }
+
+    public void setIsLastItem(){
+        // well that didn't work
+        if(mSetSchemeView1.getVisibility() == View.VISIBLE){
+            mSetSchemeView1.setLayoutParams(new ConstraintLayout.LayoutParams(1, 11));
+        }else if(mSetSchemeSSView1.getVisibility() == View.VISIBLE){
+            mSetSchemeSSView1.setLayoutParams(new ConstraintLayout.LayoutParams(1, 11));
+        }
     }
 
     public void setUpView(){
@@ -174,11 +191,11 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String repsTextAdder(String input, String unit){
-        String delims = "[@]";
+        String delims = "[x,@]";
         String[] tokens = input.split(delims);
-        String newString = tokens[0] + " reps @ " + tokens[1];
+        String newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
         if(!tokens[1].equals("B.W.")){
-            newString = tokens[0] + " reps @ " + tokens[1] + unit;
+            newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
         }
         return newString;
     }

@@ -52,7 +52,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
                             }else if(!isExerciseName(string) && isFirstRepsWeight){
                                 mWorkoutInfoList.add(string);
                             }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                                mWorkoutInfoList.add(string);
+                                mWorkoutInfoList.add(string + "_ss");
                             }
                         }
                     }
@@ -107,6 +107,9 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         viewHolder.setInfoString(mWorkoutInfoList.get(position));
         viewHolder.setImperialPOV(getIsImperialPOV());
         viewHolder.setUpView();
+        //if(position == mWorkoutInfoList.size() - 1){
+        //    viewHolder.setIsLastItem();
+        //}
     }
 
     @Override

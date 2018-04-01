@@ -25,7 +25,7 @@
             android:id="@+id/closeButton"
             android:text="@string/close"
             android:textSize="24sp"
-            android:background="@color/darkGrey"
+            android:background="@color/black"
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_weight="0"
