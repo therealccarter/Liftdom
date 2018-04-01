@@ -49,7 +49,7 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
 
     @Override
     public CompletedWorkoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.completed_workout_list_item, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.completed_workout_list_item2, parent,
                 false);
         CompletedWorkoutViewHolder holder = new CompletedWorkoutViewHolder(view);
         return holder;

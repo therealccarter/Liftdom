@@ -39,8 +39,8 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
 
     private final TextView mUserNameView;
     private final TextView mCommentView;
-    private final ImageButton mRepButton;
-    private final ImageView mUserProfilePic;
+    //private final ImageButton mRepButton;
+    //private final ImageView mUserProfilePic;
     private final ImageView mDeleteCommentButton;
     private String mRefKey;
     private int mRepNumber;
@@ -57,8 +57,8 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         mUserNameView = (TextView) itemView.findViewById(R.id.userNameView);
         mCommentView = (TextView) itemView.findViewById(R.id.commentTextView);
-        mRepButton = (ImageButton) itemView.findViewById(R.id.repButton);
-        mUserProfilePic = (ImageView) itemView.findViewById(R.id.userProfilePic);
+        //mRepButton = (ImageButton) itemView.findViewById(R.id.repButton);
+        //mUserProfilePic = (ImageView) itemView.findViewById(R.id.userProfilePic);
         mDeleteCommentButton = (ImageView) itemView.findViewById(R.id.deleteCommentButton);
 
         mDeleteCommentButton.setOnClickListener(new View.OnClickListener() {

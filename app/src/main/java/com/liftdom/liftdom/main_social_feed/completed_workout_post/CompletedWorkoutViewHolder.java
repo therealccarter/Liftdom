@@ -931,7 +931,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                     @Override
                     public PostCommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).inflate(
-                                R.layout.post_comment_list_item,
+                                R.layout.post_comment_list_item2,
                                 parent, false);
 
                         return new PostCommentViewHolder(view);
@@ -982,7 +982,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             @Override
             public PostCommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.post_comment_list_item,
+                        R.layout.post_comment_list_item2,
                         parent, false);
 
                 return new PostCommentViewHolder(view);
@@ -991,6 +991,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
         mCommentRecyclerView.setHasFixedSize(false);
         mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        mFirebaseAdapter.startListening();
         mCommentRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
