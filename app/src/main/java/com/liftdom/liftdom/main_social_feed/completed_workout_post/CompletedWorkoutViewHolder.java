@@ -702,10 +702,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
                             boolean isImperial){
 
-        /**
-         * Maybe if we do the computations here?
-         */
-
         WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
         //adapter.setInfoList(workoutInfoMap);
         adapter.setIsOriginallyImperial(isImperial);
@@ -713,6 +709,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mInfoRecyclerView.setAdapter(adapter);
         mInfoRecyclerView.setHasFixedSize(false);
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+
     }
 
     public void setPosition(int position){
@@ -904,7 +901,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 if(dataSnapshot.getChildrenCount() > 2){
                     mGoToAllCommentsView.setVisibility(View.VISIBLE);
                 }else{
-                    mGoToAllCommentsView.setVisibility(View.INVISIBLE);
+                    mGoToAllCommentsView.setVisibility(View.GONE);
                 }
 
                 FirebaseRecyclerOptions<PostCommentModelClass> options = new FirebaseRecyclerOptions
@@ -953,7 +950,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setFullCommentRecycler(String refKey){
-        mGoToAllCommentsView.setVisibility(View.INVISIBLE);
+        mGoToAllCommentsView.setVisibility(View.GONE);
         mCommentEditText.setTextColor(Color.parseColor("#000000"));
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");

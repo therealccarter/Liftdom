@@ -27,6 +27,8 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
 
         if(map != null){
             setInfoList(map);
+        }else{
+            mWorkoutInfoList.add("Rest Day");
         }
     }
 
@@ -60,7 +62,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
             }
         }
         if(isTotallyEmpty){
-            mWorkoutInfoList.add("No exercises completed.");
+            mWorkoutInfoList.add("Rest Day");
         }
     }
 

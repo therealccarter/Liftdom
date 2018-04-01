@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:background="@color/lessDarkGrey"
 >
     <ImageView
@@ -24,10 +25,10 @@
             android:id="@+id/userName"
             android:textColor="@color/white"
             android:textSize="15sp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@+id/profilePic"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="4dp"/>
 
     <TextView
             android:text="@string/level"
@@ -35,16 +36,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView17"
             android:textColor="@color/grey"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@+id/profilePic"
             app:layout_constraintTop_toBottomOf="@id/userName"
-    />
+            android:layout_marginTop="4dp"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userLevel"
             android:textColor="@color/offWhite"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toEndOf="@id/textView17"
             app:layout_constraintTop_toBottomOf="@id/userName"
     />
@@ -109,7 +111,7 @@
             android:id="@+id/repsCountTextView"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@+id/repsImageWhite"
             app:layout_constraintTop_toBottomOf="@+id/infoRecyclerView"
             android:visibility="visible"
@@ -121,7 +123,7 @@
             app:srcCompat="@drawable/flex_arm_white"
             android:id="@+id/repsImageWhite"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/infoRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
     />
@@ -132,7 +134,7 @@
             app:srcCompat="@drawable/flex_arm_gold"
             android:id="@+id/repsImageGold"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/infoRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"
@@ -157,17 +159,15 @@
 
     <TextView
             android:text="@string/viewAllComments"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:id="@+id/goToAllCommentsView"
             android:visibility="visible"
             android:textColor="@color/offerGrey"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.04" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/publicDescription"/>
 
     <android.support.v7.widget.RecyclerView
@@ -179,7 +179,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/goToAllCommentsView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"/>
 
     <EditText
             android:layout_width="0dp"
@@ -194,7 +194,7 @@
             app:layout_constraintEnd_toStartOf="@+id/sendCommentButton" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
-    />
+            app:layout_constraintVertical_bias="0.52"/>
 
     <ImageButton
             android:layout_width="20dp"
@@ -203,7 +203,7 @@
             app:srcCompat="@drawable/right_chevron_white"
             android:scaleType="centerCrop"
             android:background="@color/lessDarkGrey"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
             app:layout_constraintTop_toTopOf="@+id/commentEditText" android:layout_marginTop="12dp"
     />
 
