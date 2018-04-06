@@ -3,6 +3,7 @@ package com.liftdom.template_housing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -131,11 +132,17 @@ public class HousingSetSchemeFrag extends Fragment {
         String delims1 = "[@]";
         String[] tokens1 = setScheme.split(delims1);
 
-        char c = tokens1[1].charAt(0);
-        String cString = String.valueOf(c);
-        if(cString.equals("p")){
-            percentage = true;
+        try{
+            char c = tokens1[1].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("p")){
+                percentage = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+            Log.i("e", "e");
         }
+
+
 
 
         return percentage;

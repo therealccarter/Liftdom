@@ -5,12 +5,6 @@
 ======== ***Completed*** =======================================================
 currently on v1.26
 ----------------------
-
-----------------------
-====================================================
-
-============ CURRENTLY WORKING ON: ===============================================
-Have the random users banner scroll upward with the main feed.
 main feed optimization{
     total visual rehaul
     use android profiler to find suspect methods{
@@ -20,15 +14,22 @@ main feed optimization{
 
     }
 }
+----------------------
+====================================================
+
+============ CURRENTLY WORKING ON: ===============================================
+Have the random users banner scroll upward with the main feed.
+
 =====================================================
 
 ============ ON DECK FOR v1.26+: ===============================================
 global/community feed
-chat functionality
+true chat functionality
 hamburger needs back functionality
 ads
 check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
 nSuns
+workout reminders
 
 show workout count in profile
 Smolov says "Exercise: null, current 1rm: null"

@@ -49,6 +49,11 @@ android {
         //    minSdkVersion 17
         //}
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+        exclude 'publicsuffixes.gz'
+    }
 }
 
 ext {
@@ -71,8 +76,9 @@ dependencies {
 
     //implementation 'id.zelory:compressor:2.0.0'
     //annotationProcessor 'com.github.bumptech.glide:compiler:3.8.0'
-    implementation project(':adcolony-sdk-3.1.2')
+    //implementation project(':adcolony-sdk-3.1.2')
     //for Inmobi
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -122,6 +128,22 @@ dependencies {
     implementation 'com.irozon.keyhide:keyhide:1.0.0'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation name: 'adcolony-sdk-3.2.1', ext: 'aar'
+    implementation name: 'mmedia-6.4.0', ext: 'aar'
+    implementation name: 'mobvista_alphab', ext: 'aar'
+    implementation name: 'mobvista_appwall', ext: 'aar'
+    implementation name: 'mobvista_appwallext', ext: 'aar'
+    implementation name: 'mobvista_common', ext: 'aar'
+    implementation name: 'mobvista_interstitial', ext: 'aar'
+    implementation name: 'mobvista_mvdownloads', ext: 'aar'
+    implementation name: 'mobvista_mvjscommon', ext: 'aar'
+    implementation name: 'mobvista_mvnative', ext: 'aar'
+    implementation name: 'mobvista_nativeex', ext: 'aar'
+    implementation name: 'mobvista_offerwall', ext: 'aar'
+    implementation name: 'mobvista_playercommon', ext: 'aar'
+    implementation name: 'mobvista_reward', ext: 'aar'
+    implementation name: 'mobvista_videocommon', ext: 'aar'
+    implementation name: 'mobvista_videofeeds', ext: 'aar'
     //implementation "android.arch.lifecycle:extensions:1.0.0"
     //implementation "android.arch.persistence.room:runtime:1.0.0"
     //annotationProcessor "android.arch.persistence.room:compiler:1.0.0"

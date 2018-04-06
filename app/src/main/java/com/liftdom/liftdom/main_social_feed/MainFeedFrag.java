@@ -248,7 +248,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
     private void kablam(){
         DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
-                ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("TryAgn2ElecB");
+                ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("MindPrimary");
         burkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -256,7 +256,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 templateModelClass.setUserName2("Brodin");
                 templateModelClass.setUserId2(uid);
                 DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox").child
-                        (uid).child("TryAgn2ElecB");
+                        (uid).child("MindPrimary");
                 myRef.setValue(templateModelClass);
             }
 
