@@ -408,7 +408,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 126;
+                        final int currentVersionInt = 127;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);
