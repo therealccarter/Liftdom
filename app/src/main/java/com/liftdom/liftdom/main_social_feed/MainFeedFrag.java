@@ -445,6 +445,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                     }
                 }
 
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
