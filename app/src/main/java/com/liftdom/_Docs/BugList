@@ -3,27 +3,19 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.26
+currently on v1.27
 ----------------------
-main feed optimization{
-    total visual rehaul
-    use android profiler to find suspect methods{
-        MaterialRipple takes up over 16ms
-        WorkoutInfo takes 47ms to set up (onCreateViewHolder)
-        setCommentRecycler - 10ms
-
-    }
-}
+Further improved main feed performance. It's a work in progress.
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
-
+global/community feed
+layout rehaul to dark style
 =====================================================
 
-============ ON DECK FOR v1.26+: ===============================================
-global/community feed
+============ ON DECK FOR v1.28+: ===============================================
 true chat functionality
 hamburger needs back functionality
 ads

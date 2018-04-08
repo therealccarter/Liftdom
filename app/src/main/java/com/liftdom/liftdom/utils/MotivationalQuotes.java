@@ -39,7 +39,7 @@ public class MotivationalQuotes {
             "Your love for what you do and willingness to push yourself where others aren't prepared to go is what " +
                     "will make you great. - Laurence Shahlaei",
             "My old routine was McDonald's on the way to the gym, coffee during my workout, Burger King and " +
-                    "Copenhagen post-workout. - Dave Tate",
+                    "Copenhagen post workout. - Dave Tate",
             "If you want something you’ve never had, you must be willing to do something you’ve never done. - Thomas" +
                     " Jefferson",
             "If a man tells you he doesn't lift because he doesn't want to get too bulky, then his testicles have " +

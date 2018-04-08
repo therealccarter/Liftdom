@@ -10,18 +10,19 @@
 
     <View
             android:layout_width="1dp"
-            android:layout_height="11dp"
+            android:layout_height="0dp"
             android:id="@+id/exNameView1"
             android:background="@color/liftrGold3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="40dp"
             app:layout_constraintVertical_bias="0.0"
             android:visibility="gone"
     />
 
     <View
-            android:layout_width="10dp"
+            android:layout_width="20dp"
             android:layout_height="1dp"
             android:id="@+id/exNameView2"
             android:background="@color/liftrGold3"
@@ -32,14 +33,36 @@
             android:visibility="gone"
     />
 
+    <View
+            android:layout_width="1dp"
+            android:layout_height="11dp"
+            android:id="@+id/exNameView3"
+            android:background="@color/liftrGold3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/exNameView2"
+            android:visibility="gone"
+    />
+
+    <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:id="@+id/exNameView4"
+            android:background="@color/liftrGold3"
+            app:layout_constraintStart_toEndOf="@id/exNameView3"
+            app:layout_editor_absoluteY="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+    />
+
     <TextView
-            android:text=""
+            android:text="Ex Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exNameTextView"
             android:textSize="16sp"
             android:textColor="@color/liftrGold1"
-            app:layout_constraintStart_toEndOf="@+id/exNameView2"
+            app:layout_constraintStart_toEndOf="@+id/exNameView4"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"
@@ -51,12 +74,10 @@
             android:id="@+id/setSchemeView1"
             android:background="@color/liftrGold3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/exNameView2"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="40dp"
-            app:layout_constraintVertical_bias="0.0"
             android:visibility="gone"
-    />
+            tools:layout_editor_absoluteX="20dp"/>
 
     <View
             android:layout_width="20dp"
@@ -78,127 +99,6 @@
             android:textSize="15sp"
             android:textColor="@color/offWhite"
             app:layout_constraintStart_toEndOf="@+id/setSchemeView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:id="@+id/exNameSSView1"
-            android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="40dp"
-            app:layout_constraintVertical_bias="0.0"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="20dp"
-            android:layout_height="1dp"
-            android:id="@+id/exNameSSView2"
-            android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/exNameSSView1"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="1dp"
-            android:layout_height="11dp"
-            android:id="@+id/exNameSSView3"
-            android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/exNameSSView2"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="10dp"
-            android:layout_height="1dp"
-            android:id="@+id/exNameSSView4"
-            android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/exNameSSView3"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-
-    <TextView
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/exNameTextViewSS"
-            android:textSize="16sp"
-            android:textColor="@color/liftrGold1"
-            app:layout_constraintStart_toEndOf="@+id/exNameSSView4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:id="@+id/setSchemeSSView1"
-            android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="40dp"
-            app:layout_constraintVertical_bias="0.0"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="20dp"
-            android:layout_height="1dp"
-            android:id="@+id/setSchemeSSView2"
-            android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/setSchemeSSView1"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="invisible"
-    />
-
-    <View
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:id="@+id/setSchemeSSView3"
-            android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/setSchemeSSView2"
-            android:visibility="gone"
-    />
-
-    <View
-            android:layout_width="20dp"
-            android:layout_height="1dp"
-            android:id="@+id/setSchemeSSView4"
-            android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/setSchemeSSView3"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"
-    />
-
-    <TextView
-            android:text="3x10@90lbs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/setSchemeTextViewSS"
-            android:textSize="15sp"
-            android:textColor="@color/offWhite"
-            app:layout_constraintStart_toEndOf="@+id/setSchemeSSView4"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"

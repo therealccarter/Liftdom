@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/white"
+        android:background="@color/lessDarkGrey"
         android:orientation="vertical"
         tools:context="com.liftdom.workout_assistor.AssistorSavedFrag"
         android:gravity="center_horizontal"
@@ -28,6 +28,7 @@
             android:id="@+id/loadingText"
             android:text="@string/pleaseWait"
             android:gravity="center"
+            android:textColor="@color/grey"
     />
 
     <ScrollView

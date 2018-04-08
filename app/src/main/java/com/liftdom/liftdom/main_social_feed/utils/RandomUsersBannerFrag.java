@@ -114,18 +114,6 @@ public class RandomUsersBannerFrag extends Fragment {
                 .HORIZONTAL, false));
     }
 
-    private void setUpRecyclerViewGrid(){
-        loadingView.setVisibility(View.GONE);
-        fellowLiftersRecyclerView.setVisibility(View.VISIBLE);
-        fellowLiftersRecyclerView.setItemViewCacheSize(10);
-        RandomUsersRecyclerAdapter adapter = new RandomUsersRecyclerAdapter(mUserMap, getContext(), uid);
-        adapter.formatMap();
-        adapter.mActivity = getActivity();
-        fellowLiftersRecyclerView.setAdapter(adapter);
-        fellowLiftersRecyclerView.setHasFixedSize(false);
-        fellowLiftersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-    }
-
     private void initializeRecyclerForLast10(){
         DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList");
         userListRef.limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -192,6 +180,18 @@ public class RandomUsersBannerFrag extends Fragment {
 
             }
         });
+    }
+
+    private void setUpRecyclerViewGrid(){
+        loadingView.setVisibility(View.GONE);
+        fellowLiftersRecyclerView.setVisibility(View.VISIBLE);
+        fellowLiftersRecyclerView.setItemViewCacheSize(10);
+        RandomUsersRecyclerAdapter adapter = new RandomUsersRecyclerAdapter(mUserMap, getContext(), uid);
+        adapter.formatMap();
+        adapter.mActivity = getActivity();
+        fellowLiftersRecyclerView.setAdapter(adapter);
+        fellowLiftersRecyclerView.setHasFixedSize(false);
+        fellowLiftersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
     }
 
 }

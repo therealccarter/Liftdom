@@ -1,5 +1,16 @@
 
+currently on v1.26
+----------------------
+main feed optimization{
+    total visual rehaul
+    use android profiler to find suspect methods{
+        MaterialRipple takes up over 16ms
+        WorkoutInfo takes 47ms to set up (onCreateViewHolder)
+        setCommentRecycler - 10ms
 
+    }
+}
+----------------------
 currently on v1.25
 ----------------------
 fixed up search view in main activity (now autocompletes for followers/following)

@@ -191,9 +191,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 .setQuery(query, CompletedWorkoutModelClass.class)
                 .build();
 
-        firebaseAdapter = new FirebaseRecyclerAdapter
-                <CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
-                (options) {
+        firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>(options) {
+
             @Override
             protected void onBindViewHolder(@NonNull CompletedWorkoutViewHolder holder, int position,
                                             @NonNull CompletedWorkoutModelClass model) {
@@ -232,8 +231,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             @Override
             public CompletedWorkoutViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-                View view = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.completed_workout_list_item2,
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.completed_workout_list_item2,
                         parent, false);
 
                 return new CompletedWorkoutViewHolder(view);

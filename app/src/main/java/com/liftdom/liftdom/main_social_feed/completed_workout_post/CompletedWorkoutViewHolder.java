@@ -712,6 +712,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     }
 
+    public void setViewPool(RecyclerView.RecycledViewPool viewPool){
+        mInfoRecyclerView.setRecycledViewPool(viewPool);
+    }
+
     public void setPosition(int position){
         if((double) position % (double) 5 == 0.0){
             //mBannerView.setVisibility(View.VISIBLE);
