@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/lessDarkGrey"
         tools:context="com.liftdom.misc_activities.SettingsListActivity">
 
     <android.support.v7.widget.Toolbar
@@ -42,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/currentVersion"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
             />
 
             <TextView
@@ -54,6 +55,7 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:textColor="@color/grey"
             />
 
             <Button
@@ -88,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/units"
-                        android:textColor="@color/black"
+                        android:textColor="@color/offWhite"
                         android:textSize="24sp"
                         android:layout_marginStart="10dp"
                 />
@@ -107,6 +109,7 @@
                             android:text="@string/kilos"
                             android:layout_marginEnd="10dp"
                             android:id="@+id/kgsWeight"
+                            android:textColor="@color/grey"
                     />
 
                     <RadioButton
@@ -114,6 +117,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/pounds"
                             android:id="@+id/lbsWeight"
+                            android:textColor="@color/grey"
                     />
 
                 </RadioGroup>

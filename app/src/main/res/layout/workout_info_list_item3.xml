@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@color/lessDarkGrey"
 >
 
     <View
             android:layout_width="1dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:id="@+id/exNameView1"
             android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="40dp"
-            app:layout_constraintVertical_bias="0.0"
             android:visibility="gone"
     />
 
@@ -26,10 +21,7 @@
             android:layout_height="1dp"
             android:id="@+id/exNameView2"
             android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/exNameView1"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
     />
 
@@ -38,8 +30,7 @@
             android:layout_height="11dp"
             android:id="@+id/exNameView3"
             android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/exNameView2"
+            android:layout_gravity="bottom"
             android:visibility="gone"
     />
 
@@ -48,60 +39,48 @@
             android:layout_height="1dp"
             android:id="@+id/exNameView4"
             android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/exNameView3"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
     />
 
     <TextView
-            android:text="Ex Name"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exNameTextView"
             android:textSize="16sp"
             android:textColor="@color/liftrGold1"
-            app:layout_constraintStart_toEndOf="@+id/exNameView4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:layout_marginStart="3dp"
             android:visibility="gone"
     />
 
     <View
             android:layout_width="1dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:id="@+id/setSchemeView1"
             android:background="@color/liftrGold3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/exNameView2"
-            app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone"
-            tools:layout_editor_absoluteX="20dp"/>
+    />
 
     <View
             android:layout_width="20dp"
             android:layout_height="1dp"
             android:id="@+id/setSchemeView2"
             android:background="@color/liftrGold3"
-            app:layout_constraintStart_toEndOf="@id/setSchemeView1"
-            app:layout_editor_absoluteY="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"
+            android:layout_gravity="center_vertical"
     />
 
     <TextView
-            android:text="3x10@90lbs"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/setSchemeTextView"
             android:textSize="15sp"
             android:textColor="@color/offWhite"
-            app:layout_constraintStart_toEndOf="@+id/setSchemeView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"
+            android:layout_marginStart="3dp"
     />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

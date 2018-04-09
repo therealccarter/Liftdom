@@ -159,9 +159,9 @@ public class MainActivity extends BaseActivity implements
                             if(id == 0){
                                 setNavDrawerSelection(1);
                             }else if(id == 1){
-                                setNavDrawerSelection(3);
-                            }else if(id == 2){
                                 setNavDrawerSelection(2);
+                            }else if(id == 2){
+                                setNavDrawerSelection(3);
                             }
                         }
 
@@ -275,7 +275,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (i1 == 1) {
-                        setNavDrawerSelection(3);
+                        setNavDrawerSelection(2);
                         //hideSearchButton();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -284,7 +284,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (i1 == 2) {
-                        setNavDrawerSelection(2);
+                        setNavDrawerSelection(3);
                         //hideSearchButton();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

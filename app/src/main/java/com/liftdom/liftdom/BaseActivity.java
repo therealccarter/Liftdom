@@ -92,7 +92,7 @@ public class BaseActivity extends AppCompatActivity {
                                 intent = new Intent(context, MainActivity.class);
                                 intent.putExtra("fragID", 2);
                                 startActivity(intent);
-                                drawer.setSelection(position);
+                                //drawer.setSelection(position);
                             }
                             if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(context, KnowledgeCenterHolderActivity.class);

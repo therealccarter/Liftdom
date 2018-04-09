@@ -63,7 +63,7 @@ ext {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation('com.mikepenz:materialdrawer:5.6.0@aar') {
+    implementation('com.mikepenz:materialdrawer:6.0.7@aar') {
         transitive = true
     }
 

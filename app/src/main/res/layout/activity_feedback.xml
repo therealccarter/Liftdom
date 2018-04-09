@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context="com.liftdom.liftdom.feedback.FeedbackActivity"
         android:orientation="vertical"
-        android:background="@color/offWhite"
+        android:background="@color/lessDarkGrey"
 >
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/feedbackBugReportsText"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:layout_margin="10dp"
             android:gravity="center"
             android:textSize="16sp"

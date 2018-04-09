@@ -6,6 +6,7 @@
 currently on v1.27
 ----------------------
 Further improved main feed performance. It's a work in progress.
+Fixed bug causing nav drawer selection positions to be incorrect
 ----------------------
 ====================================================
 

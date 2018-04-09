@@ -46,11 +46,20 @@
     <item name="confirmgreenDark" type="color">#27632a</item>
 
     <!-- MaterialDrawer colors -->
+    <color name="material_drawer_background">#303030</color>
+    <color name="material_drawer_selected">#0e0e0e</color>
+    <color name="material_drawer_selected_text">#D1B91D</color>
+    <color name="material_drawer_primary_text">#cccccc</color>
+    <color name="material_drawer_secondary_text">#cccccc</color>
+    <color name="material_drawer_divider">#000000</color>
+
+    <!-- MaterialDrawer colors
     <color name="material_drawer_background">#ececec</color>
     <color name="material_drawer_selected">#454545</color>
     <color name="material_drawer_selected_text">#FFFFFF</color>
     <color name="material_drawer_primary_text">#1d1d1d</color>
     <color name="material_drawer_secondary_text">#cccccc</color>
     <color name="material_drawer_divider">#cccccc</color>
+    -->
 
 </resources>
