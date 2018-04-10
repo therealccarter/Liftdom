@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-              android:background="@color/grey"
+              android:background="@color/backgroundgrey1"
               tools:context="com.liftdom.liftdom.chat.ChatSpecific.ChatSpecificFrag">
 
     <android.support.v7.widget.RecyclerView
@@ -11,10 +11,10 @@
             android:id="@+id/recycler_view"
             android:layout_marginTop="10dp"
             android:paddingBottom="10dp"
-            android:background="@color/grey"
+            android:background="@color/backgroundgrey1"
             android:layout_above="@+id/sendMessageLL"
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:backgroundTint="@color/grey"
+            android:backgroundTint="@color/backgroundgrey1"
     >
 
     </android.support.v7.widget.RecyclerView>
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/offWhite"
+            android:background="@color/backgroundgrey2"
             android:id="@+id/sendMessageLL"
             android:layout_alignParentBottom="true"
     >
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/offWhite"
+                android:background="@color/backgroundgrey2"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
@@ -42,10 +42,10 @@
                     android:id="@+id/newMessageView"
                     android:layout_weight="2"
                     android:hint="@string/sendMessage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="17sp"
                     android:layout_marginEnd="10dp"
-                    android:background="@color/offWhite"
+                    android:background="@color/backgroundgrey2"
                     android:paddingStart="15dp"
                     android:paddingBottom="10dp"
                     android:maxLength="600"

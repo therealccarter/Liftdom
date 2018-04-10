@@ -52,7 +52,7 @@
                     android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@color/white"
+                    android:textColor="@color/offWhite"
             />
 
             <TextView
@@ -61,7 +61,7 @@
                     android:text="@string/workoutFinished"
                     android:textSize="40sp"
                     android:id="@+id/finishedTextView"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:gravity="center_horizontal"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="10dp"
@@ -126,7 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/powerLevel"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="22sp"
                             android:id="@+id/textView14"/>
 
@@ -136,7 +136,7 @@
                             android:id="@+id/powerLevelTextView"
                             android:textSize="30sp"
                             android:text="0"
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                     />
 
                 </LinearLayout>
@@ -152,7 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/powerXp"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="22sp"
                     />
 
@@ -161,6 +161,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="22sp"
                             android:text="("
+                            android:textColor="@color/offerGrey"
                     />
 
                     <TextView
@@ -170,7 +171,7 @@
                             android:id="@+id/currentPowerXpTextView"
                             android:textSize="22sp"
                             android:text=""
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                     />
 
                     <TextView
@@ -178,6 +179,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="22sp"
                             android:text="/"
+                            android:textColor="@color/offerGrey"
                     />
 
                     <TextView
@@ -186,7 +188,7 @@
                             android:id="@+id/goalPowerXpTextView"
                             android:textSize="22sp"
                             android:text="300"
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                     />
 
                     <TextView
@@ -194,6 +196,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="22sp"
                             android:text=")"
+                            android:textColor="@color/offerGrey"
                     />
 
                 </LinearLayout>
@@ -219,7 +222,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="18sp"
                             android:text="@string/xpGained"
                     />
@@ -237,7 +240,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/offerGrey"
                             android:textSize="18sp"
                             android:text="@string/xp"
                             android:layout_marginStart="3dp"
@@ -256,7 +259,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="18sp"
                             android:text="@string/xpFromWorkout"
                     />
@@ -274,7 +277,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/offerGrey"
                             android:textSize="18sp"
                             android:text="@string/xp"
                             android:layout_marginStart="3dp"
@@ -293,7 +296,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="18sp"
                             android:text="@string/completionMultiplier"
                     />
@@ -310,7 +313,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/offerGrey"
                             android:textSize="20sp"
                             android:text="@string/x"
                             android:layout_marginStart="3dp"
@@ -329,7 +332,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/grey"
                             android:textSize="18sp"
                             android:text="@string/completionStreak"
                     />
@@ -349,7 +352,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/daysView"
-                            android:textColor="@color/midGrey"
+                            android:textColor="@color/offerGrey"
                             android:textSize="18sp"
                             android:text="@string/days2"
                             android:layout_marginStart="3dp"

@@ -3,7 +3,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/grey">
+              android:id="@+id/parentLL"
+              android:background="@color/backgroundgrey1">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="5dp"
             android:id="@+id/chatMessageLinearLayout"
-            android:background="@color/grey"
+            android:background="@color/backgroundgrey1"
     >
         <ImageView
                 android:layout_width="40dp"
@@ -33,7 +34,8 @@
                 android:orientation="vertical"
                 android:layout_marginEnd="60dp"
                 android:layout_marginStart="20dp"
-                android:background="@color/grey"
+                android:id="@+id/messageLL"
+                android:background="@color/backgroundgrey1"
         >
             <TextView
                     android:layout_width="wrap_content"
@@ -41,6 +43,7 @@
                     android:id="@+id/userNameView"
                     android:text="Chris Carter"
                     android:padding="3dp"
+                    android:textColor="@color/offerGrey"
             />
 
             <View
@@ -62,7 +65,7 @@
                     android:id="@+id/textMessageView"
                     android:text="@string/shorterLatin"
                     android:textSize="16sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
             />
 
         </LinearLayout>

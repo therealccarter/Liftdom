@@ -351,9 +351,13 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                             fragmentTransaction.replace(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
                             fragmentTransaction.commitAllowingStateLoss();
                         }catch (IllegalStateException e){
-                            Intent intent = new Intent(getContext(), MainActivity.class);
-                            intent.putExtra("fragID",  0);
-                            startActivity(intent);
+                            try{
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.putExtra("fragID",  0);
+                                startActivity(intent);
+                            }catch (NullPointerException e1){
+
+                            }
                         }
                     }
                 }

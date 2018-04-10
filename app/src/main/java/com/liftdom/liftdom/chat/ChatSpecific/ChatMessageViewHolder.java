@@ -32,6 +32,8 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
     private final Button mRepCountView;
     private final LinearLayout mMessageLayout;
     private final ImageView mProfilePicView;
+    private final LinearLayout mParentLL;
+    private final LinearLayout mMessageLL;
     private String userId;
 
     public ChatMessageViewHolder(View itemView){
@@ -44,6 +46,8 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
         mRepCountView = (Button) itemView.findViewById(R.id.repCountView);
         mMessageLayout = (LinearLayout) itemView.findViewById(R.id.chatMessageLinearLayout);
         mProfilePicView = (ImageView) itemView.findViewById(R.id.profilePic);
+        mParentLL = (LinearLayout) itemView.findViewById(R.id.parentLL);
+        mMessageLL = (LinearLayout) itemView.findViewById(R.id.messageLL);
     }
 
     public void setMessage(String message){
@@ -63,8 +67,13 @@ public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setBackground(){
-        mMessageLayout.setBackgroundColor(Color.parseColor("#cccccc"));
-        mUserNameView.setTextColor(Color.parseColor("#000000"));
+        mMessageLayout.setBackgroundColor(Color.parseColor("#393939"));
+        mTextMessageView.setBackgroundColor(Color.parseColor("#393939"));
+        mTimeStampView.setBackgroundColor(Color.parseColor("#393939"));
+        mUserNameView.setBackgroundColor(Color.parseColor("#393939"));
+        mParentLL.setBackgroundColor(Color.parseColor("#393939"));
+        mMessageLL.setBackgroundColor(Color.parseColor("#393939"));
+        mUserNameView.setTextColor(Color.parseColor("#9B9B9B"));
     }
 
     public String getUserId() {
