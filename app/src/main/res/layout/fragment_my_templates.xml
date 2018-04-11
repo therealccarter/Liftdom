@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/grey"
+        android:background="@color/lessDarkGrey"
     >
         <TextView
                 android:layout_width="match_parent"
@@ -15,7 +15,7 @@
                 android:text="@string/selectAProgramToSend"
                 android:background="@color/liftrGold1"
                 android:textSize="24sp"
-                android:textColor="@color/black"
+                android:textColor="@color/grey"
                 android:gravity="center"
                 android:visibility="gone"
         />
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textColor="@color/backgroundgrey1"
             android:text="@string/noSavedTemplates"
             android:layout_margin="10dp"
             android:id="@+id/noSavedTemplates"
@@ -147,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="60dp"
+                android:background="@color/lessDarkGrey"
                 android:id="@+id/recycler_view_saved_templates"
         >
 

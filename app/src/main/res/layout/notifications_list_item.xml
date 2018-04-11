@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:orientation="vertical"
-        android:background="@color/offerGrey"
+        android:background="@color/backgroundgrey1"
 >
 
     <View
@@ -27,13 +27,13 @@
             android:layout_marginTop="5dp"
             app:cardElevation="7dp"
             android:background="@color/grey"
-            android:backgroundTint="@color/grey"
+            android:backgroundTint="@color/backgroundgrey2"
     >
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@color/grey"
+                android:background="@color/backgroundgrey2"
         >
             <LinearLayout
                     android:layout_width="0dp"
@@ -48,7 +48,7 @@
                         android:id="@+id/userNameView"
                         android:text="DudeBro"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/grey"
                         android:textSize="17sp"
                 />
 
@@ -57,10 +57,10 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/hasFollowedYou"
                         android:gravity="center_vertical"
-                        android:textColor="@color/backgroundgrey1"
                         android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/offerGrey"
                 />
 
                 <TextView
@@ -71,6 +71,7 @@
                         android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/offerGrey"
                 />
 
                 <TextView
@@ -81,6 +82,7 @@
                         android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/offerGrey"
                 />
 
                 <TextView
@@ -91,6 +93,7 @@
                         android:textSize="16sp"
                         android:visibility="gone"
                         android:layout_marginStart="5dp"
+                        android:textColor="@color/offerGrey"
                 />
 
 
@@ -102,7 +105,7 @@
                     android:id="@+id/dateTimeView"
                     android:text="3/10/18"
                     android:layout_weight="0.1"
-                    android:textColor="@color/backgroundgrey1"
+                    android:textColor="@color/grey"
                     android:gravity="end"
                     android:layout_gravity="bottom"
                     android:layout_marginEnd="10dp"
