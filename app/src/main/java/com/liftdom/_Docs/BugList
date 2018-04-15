@@ -3,12 +3,9 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.27
+currently on v1.28
 ----------------------
-Further improved main feed performance. It's a work in progress.
-Fixed bug causing nav drawer selection positions to be incorrect.
-Fixed issue allowing illegal ex-names
-layout rehaul to dark style (WIP)
+
 ----------------------
 ====================================================
 
@@ -17,7 +14,7 @@ Have the random users banner scroll upward with the main feed.
 global/community feed
 =====================================================
 
-============ ON DECK FOR v1.28+: ===============================================
+============ ON DECK FOR v1.29+: ===============================================
 true chat functionality
 hamburger needs back functionality
 ads

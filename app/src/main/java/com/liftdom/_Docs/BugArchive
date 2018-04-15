@@ -1,4 +1,11 @@
 
+currently on v1.27
+----------------------
+Further improved main feed performance. It's a work in progress.
+Fixed bug causing nav drawer selection positions to be incorrect.
+Fixed issue allowing illegal ex-names
+layout rehaul to dark style (WIP)
+----------------------
 currently on v1.26
 ----------------------
 main feed optimization{
