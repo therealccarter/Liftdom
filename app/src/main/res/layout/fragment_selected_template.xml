@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         tools:context="com.liftdom.template_housing.SelectedTemplateFrag"
         android:orientation="vertical"
-        android:background="@color/backgroundgrey1"
+        android:background="@color/darkGrey"
         android:paddingBottom="70dp"
     >
         <LinearLayout
@@ -49,7 +49,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/backgroundgrey1"
+                android:background="@color/darkGrey"
         >
 
             <LinearLayout
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@color/backgroundgrey1"
+                    android:background="@color/darkGrey"
                     android:layout_marginBottom="60dp"
             >
 
@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@color/offWhite"
+                        android:background="@color/backgroundgrey1"
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
                 >
@@ -74,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/authorNameView"
                             android:text="Originally authored by: "
-                            android:textColor="@color/darkerGrey"
+                            android:textColor="@color/offerGrey"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                     />
@@ -83,7 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/makeCurrentTemplate"
-                            android:textColor="@color/black"
+                            android:textColor="@color/grey"
                             android:id="@+id/activeTemplateCheckbox"
                             android:textSize="20sp"
                             android:layout_marginTop="10dp"
@@ -96,15 +96,16 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:textColor="@color/grey"
                     />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/descriptionView"
-                            android:background="@color/grey"
+                            android:background="@color/backgroundgrey2"
                             android:text="@string/elipses"
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                             android:textSize="18sp"
                             android:padding="5dp"
                             android:layout_marginStart="10dp"
@@ -181,7 +182,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/publishButton"
                             android:text="@string/publishTemplate"
-                            android:textColor="@color/liftrGold1"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:background="@color/darkerGrey"
                             android:layout_marginStart="10dp"
@@ -190,6 +191,7 @@
                             android:minWidth="0dp"
                             android:textAllCaps="false"
                             android:padding="2dp"
+                            android:layout_marginBottom="10dp"
                     />
 
                     <View
@@ -200,6 +202,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginStart="5dp"
+                            android:visibility="gone"
                     />
 
             </LinearLayout>
@@ -208,7 +211,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@color/grey"
+                        android:background="@color/lessDarkGrey"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginBottom="100dp"
@@ -217,6 +220,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/templateListedView"
+                            android:background="@color/lessDarkGrey"
                             android:orientation="vertical"
                     >
 

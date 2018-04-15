@@ -2,6 +2,7 @@ package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
     private Context mContext;
     private boolean isOriginallyImperial;
     private boolean isImperialPOV;
+    public boolean isLighterShade;
 
     public WorkoutInfoRecyclerAdapter(HashMap<String, List<String>> map, Context context){
         this.mWorkoutInfoMap = map;
@@ -49,12 +51,12 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
                                 mWorkoutInfoList.add(string);
                                 isFirstEx = false;
                             }else if(isExerciseName(string) && !isFirstEx){
-                                mWorkoutInfoList.add(string + "_ss");
+                                mWorkoutInfoList.add(string + "!ss");
                                 isFirstRepsWeight = false;
                             }else if(!isExerciseName(string) && isFirstRepsWeight){
                                 mWorkoutInfoList.add(string);
                             }else if(!isExerciseName(string) && !isFirstRepsWeight){
-                                mWorkoutInfoList.add(string + "_ss");
+                                mWorkoutInfoList.add(string + "!ss");
                             }
                         }
                     }
@@ -101,6 +103,9 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
                 false);
         WorkoutInfoViewHolder holder = new WorkoutInfoViewHolder(view);
         holder.setIsOriginallyImperial(getIsOriginallyImperial());
+        if(isLighterShade){
+            holder.setLighterShade();
+        }
         return holder;
     }
 
@@ -109,9 +114,6 @@ public class WorkoutInfoRecyclerAdapter extends RecyclerView.Adapter<WorkoutInfo
         viewHolder.setInfoString(mWorkoutInfoList.get(position));
         viewHolder.setImperialPOV(getIsImperialPOV());
         viewHolder.setUpView();
-        //if(position == mWorkoutInfoList.size() - 1){
-        //    viewHolder.setIsLastItem();
-        //}
     }
 
     @Override

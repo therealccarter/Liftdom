@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.WorkoutInfoRecyclerAdapter;
 import com.liftdom.template_editor.SetsLevelSSFrag;
 
 import java.util.HashMap;
@@ -41,11 +44,13 @@ public class HousingDoWFrag extends Fragment {
     String otherTitle = "error";
     String otherSub = "error";
     HashMap<String, List<String>> map;
+    HashMap<String, List<String>> map2 = new HashMap<>();
     boolean isTemplateImperial;
     boolean isCurrentUserImperial;
 
     @BindView(R.id.doWName) TextView doWStringView;
     @BindView(R.id.exAndSetLLHolder) LinearLayout exAndSetHolder;
+    @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -64,67 +69,93 @@ public class HousingDoWFrag extends Fragment {
         doWStringView.setTypeface(lobster);
 
         if(map != null){
-            for(int i = 0; i < map.size(); i ++){
-                for(Map.Entry<String, List<String>> entry : map.entrySet()){ // map is null
-                    if(!entry.getKey().equals("0_key")){
-                        String delims = "[_]";
-                        String[] tokens = entry.getKey().split(delims);
-                        if(Integer.parseInt(tokens[0]) == i){
-                            List<String> list = entry.getValue();
-                            boolean isFirstEx = true;
-                            boolean isFirstSetSchemes = true;
-                            for(String string : list){
-                                if(!string.isEmpty()){
-                                    if(isExerciseName(string) && isFirstEx){
-                                        // add exname frag
-                                        isFirstEx = false;
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        HousingExNameFrag exNameFrag = new HousingExNameFrag();
-                                        exNameFrag.exNameString = string;
-                                        fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                                        fragmentTransaction.commit();
-                                    }else if(isExerciseName(string) && !isFirstEx) {
-                                        // add exname frag
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
-                                        exNameFrag.exNameString = string;
-                                        fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
-                                        fragmentTransaction.commit();
-                                        isFirstSetSchemes = false;
-                                    }else if(!isExerciseName(string) && isFirstSetSchemes){
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
-                                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                                        setSchemeFrag.setSchemeString = string;
-                                        fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                                        fragmentTransaction.commit();
-                                    }else if(!isExerciseName(string) && !isFirstSetSchemes){
-                                        FragmentManager fragmentManager = getChildFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager
-                                                .beginTransaction();
-                                        SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
-                                        setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
-                                        setSchemeFrag.isTemplateImperial = isTemplateImperial;
-                                        setSchemeFrag.setSchemeString = string;
-                                        fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
-                                        fragmentTransaction.commit();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
+            formatMap();
+
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map2, getContext());
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            adapter.isLighterShade = true;
+            recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(false);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+            //for(int i = 0; i < map.size(); i ++){
+            //    for(Map.Entry<String, List<String>> entry : map.entrySet()){ // map is null
+            //        if(!entry.getKey().equals("0_key")){
+            //            String delims = "[_]";
+            //            String[] tokens = entry.getKey().split(delims);
+            //            if(Integer.parseInt(tokens[0]) == i){
+            //                List<String> list = entry.getValue();
+            //                boolean isFirstEx = true;
+            //                boolean isFirstSetSchemes = true;
+            //                for(String string : list){
+            //                    if(!string.isEmpty()){
+            //                        if(isExerciseName(string) && isFirstEx){
+            //                            // add exname frag
+            //                            isFirstEx = false;
+            //                            FragmentManager fragmentManager = getChildFragmentManager();
+            //                            FragmentTransaction fragmentTransaction = fragmentManager
+            //                                    .beginTransaction();
+            //                            HousingExNameFrag exNameFrag = new HousingExNameFrag();
+            //                            exNameFrag.exNameString = string;
+            //                            fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+            //                            fragmentTransaction.commit();
+            //                        }else if(isExerciseName(string) && !isFirstEx) {
+            //                            // add exname frag
+            //                            FragmentManager fragmentManager = getChildFragmentManager();
+            //                            FragmentTransaction fragmentTransaction = fragmentManager
+            //                                    .beginTransaction();
+            //                            ExNameSupersetFrag exNameFrag = new ExNameSupersetFrag();
+            //                            exNameFrag.exNameString = string;
+            //                            fragmentTransaction.add(R.id.exAndSetLLHolder, exNameFrag);
+            //                            fragmentTransaction.commit();
+            //                            isFirstSetSchemes = false;
+            //                        }else if(!isExerciseName(string) && isFirstSetSchemes){
+            //                            FragmentManager fragmentManager = getChildFragmentManager();
+            //                            FragmentTransaction fragmentTransaction = fragmentManager
+            //                                    .beginTransaction();
+            //                            HousingSetSchemeFrag setSchemeFrag = new HousingSetSchemeFrag();
+            //                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+            //                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
+            //                            setSchemeFrag.setSchemeString = string;
+            //                            fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+            //                            fragmentTransaction.commit();
+            //                        }else if(!isExerciseName(string) && !isFirstSetSchemes){
+            //                            FragmentManager fragmentManager = getChildFragmentManager();
+            //                            FragmentTransaction fragmentTransaction = fragmentManager
+            //                                    .beginTransaction();
+            //                            SetSchemeSupersetFrag setSchemeFrag = new SetSchemeSupersetFrag();
+            //                            setSchemeFrag.isCurrentUserImperial = isCurrentUserImperial;
+            //                            setSchemeFrag.isTemplateImperial = isTemplateImperial;
+            //                            setSchemeFrag.setSchemeString = string;
+            //                            fragmentTransaction.add(R.id.exAndSetLLHolder, setSchemeFrag);
+            //                            fragmentTransaction.commit();
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         return view;
+    }
+
+    void formatMap(){
+
+        for(Map.Entry<String, List<String>> entry : map.entrySet()){
+            String delims = "[_]";
+            String[] tokens = entry.getKey().split(delims);
+            int index = Integer.parseInt(tokens[0]);
+            if(index != 0){
+                index--;
+                map2.put(String.valueOf(index) + "_key", entry.getValue());
+            }
+        }
+
     }
 
     boolean isExerciseName(String input){

@@ -141,10 +141,6 @@ public class HousingSetSchemeFrag extends Fragment {
         }catch (IndexOutOfBoundsException e){
             Log.i("e", "e");
         }
-
-
-
-
         return percentage;
     }
 

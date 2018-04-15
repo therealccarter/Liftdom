@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/grey"
+        android:background="@color/darkGrey"
         tools:context="com.liftdom.liftdom.ReleaseNotesActivity">
 
     <TextView
@@ -55,7 +55,7 @@
                     android:text="@string/newFeaturesText"
                     android:gravity="center"
                     android:textSize="15sp"
-                    android:textColor="@color/darkGrey"
+                    android:textColor="@color/offWhite"
                     android:layout_marginBottom="20dp"
             />
 
@@ -77,7 +77,7 @@
                     android:text="@string/fixesText"
                     android:gravity="center"
                     android:textSize="15sp"
-                    android:textColor="@color/darkGrey"
+                    android:textColor="@color/offWhite"
                     android:layout_marginBottom="20dp"
             />
 
@@ -99,7 +99,7 @@
                     android:text="@string/workingOnText"
                     android:gravity="center"
                     android:textSize="15sp"
-                    android:textColor="@color/darkGrey"
+                    android:textColor="@color/offWhite"
                     android:layout_marginBottom="20dp"
             />
 

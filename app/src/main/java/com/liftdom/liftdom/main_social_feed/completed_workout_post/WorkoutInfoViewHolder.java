@@ -1,7 +1,9 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     private final TextView mSetSchemeTextView;
     private final View mSetSchemeView1;
     private final View mSetSchemeView2;
+    private final ConstraintLayout mParentLayout;
     private String mInfoString;
     private boolean isImperialPOV;
     private boolean isOriginallyImperial;
@@ -45,6 +48,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         mSetSchemeTextView = (TextView) itemView.findViewById(R.id.setSchemeTextView);
         mSetSchemeView1 = (View) itemView.findViewById(R.id.setSchemeView1);
         mSetSchemeView2 = (View) itemView.findViewById(R.id.setSchemeView2);
+        mParentLayout = (ConstraintLayout) itemView.findViewById(R.id.parentLayout);
     }
 
     public boolean getIsImperialPOV() {
@@ -83,6 +87,10 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         mSetSchemeTextView.setVisibility(View.VISIBLE);
     }
 
+    public void setLighterShade(){
+        mParentLayout.setBackgroundColor(Color.parseColor("#303030"));;
+    }
+
     public void setIsLastItem(){
         // well that didn't work
         //if(mSetSchemeView1.getVisibility() == View.VISIBLE){
@@ -93,7 +101,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setUpView(){
-        String[] tokens = getInfoString().split("_");
+        String[] tokens = getInfoString().split("!");
         ArrayList<String> arrayList = new ArrayList<>();
 
         for(String string : tokens){
@@ -101,7 +109,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         }
 
         if(arrayList.contains("ss")){
-            if(isExerciseName(tokens[0])){
+            if(isExerciseName(tokens[0]) && !isPercentage(tokens[0])){
                 // is superset exname
                 setExNameSSVisible();
                 mExNameTextView.setText(tokens[0]);
@@ -109,30 +117,38 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
                 // is superset set scheme
                 setSetSchemeSSVisible();
 
+                String setSchemeString;
+
+                if(isPercentage(tokens[0])){
+                    setSchemeString = formatPercentToString(tokens[0]);
+                }else{
+                    setSchemeString = tokens[0];
+                }
+
                 if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
-                    String newRepsWeight = metricToImperial(tokens[0]);
+                    String newRepsWeight = metricToImperial(setSchemeString);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
-                    String newRepsWeight = imperialToMetric(tokens[0]);
+                    String newRepsWeight = imperialToMetric(setSchemeString);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
-                    String newRepsWeight = tokens[0];
+                    String newRepsWeight = setSchemeString;
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else{
                     // both kg
-                    String newRepsWeight = tokens[0];
+                    String newRepsWeight = setSchemeString;
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }
             }
         }else{
-            if(isExerciseName(tokens[0])){
+            if(isExerciseName(tokens[0]) && !isPercentage(tokens[0])){
                 // is normal exname
                 setExNameVisible();
 
@@ -141,29 +157,75 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
                 // is normal set scheme
                 setSetSchemeVisible();
 
+                String setSchemeString;
+
+                if(isPercentage(tokens[0])){
+                    setSchemeString = formatPercentToString(tokens[0]);
+                }else{
+                    setSchemeString = tokens[0];
+                }
+
                 if(getIsImperialPOV() && !isOriginallyImperial()){
                     // you are imperial, workout is kg
-                    String newRepsWeight = metricToImperial(tokens[0]);
+                    String newRepsWeight = metricToImperial(setSchemeString);
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else if(!getIsImperialPOV() && isOriginallyImperial()){
                     // you are kg, workout is imperial
-                    String newRepsWeight = imperialToMetric(tokens[0]);
+                    String newRepsWeight = imperialToMetric(setSchemeString);
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
-                    String newRepsWeight = tokens[0];
+                    String newRepsWeight = setSchemeString;
                     newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else{
                     // both kg
-                    String newRepsWeight = tokens[0];
+                    String newRepsWeight = setSchemeString;
                     newRepsWeight = repsTextAdder(newRepsWeight, " kg");
                     mSetSchemeTextView.setText(newRepsWeight);
                 }
             }
         }
+    }
+
+    public String formatPercentToString(String unFormatted){
+        String formatted;
+
+        String delims = "[_]";
+        String[] tokens = unFormatted.split(delims);
+
+        if(tokens[2].equals("a")){
+            formatted = tokens[1] + " % of " + tokens[3];
+        }else{
+            formatted = unFormatted;
+        }
+
+        String delims2 = "[@]";
+        String[] tokens2 = unFormatted.split(delims2);
+
+        formatted = tokens2[0] + "@" + formatted;
+
+        return formatted;
+    }
+
+    public boolean isPercentage(String setScheme){
+        boolean percentage = false;
+
+        String delims1 = "[@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        try{
+            char c = tokens1[1].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("p")){
+                percentage = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+            Log.i("e", "e");
+        }
+        return percentage;
     }
 
     public boolean isOriginallyImperial() {

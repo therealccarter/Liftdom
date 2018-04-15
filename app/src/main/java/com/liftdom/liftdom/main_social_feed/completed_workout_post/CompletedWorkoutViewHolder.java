@@ -322,6 +322,187 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     }
 
+    private void addRepToPost(){
+        // first we need the followers of the OP. Put em in a list.
+        // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
+        // upload it.
+        mRepsIconWhite.setVisibility(View.INVISIBLE);
+        mLoadingReppedView.setVisibility(View.VISIBLE);
+        final int newRepCount = getReppedCount() + 1;
+
+        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    // if the poster has followers
+                    final int childCount = (int) dataSnapshot.getChildrenCount();
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        reppedInc1++;
+                        final String key = dataSnapshot1.getKey();
+                        //if(!key.equals(getCurrentUid())){
+                        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
+                                ("feed").child(key).child(mRefKey);
+                        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    if(!key.equals(getCurrentUid())){
+                                        List<String> hasReppedList;
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            hasReppedList = getHasReppedList();
+                                            if(!hasReppedList.contains(getCurrentUid())){
+                                                hasReppedList.add(getCurrentUid());
+                                            }
+                                        }else{
+                                            hasReppedList = new ArrayList<>();
+                                            if(!hasReppedList.contains(getCurrentUid())){
+                                                hasReppedList.add(getCurrentUid());
+                                            }
+                                        }
+                                        fanoutReppedObject.put("/feed/" + key +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                    }
+                                    if(reppedInc1 == childCount){
+                                        List<String> hasReppedList;
+                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                                            hasReppedList = getHasReppedList();
+                                            if(!hasReppedList.contains(getCurrentUid())){
+                                                hasReppedList.add(getCurrentUid());
+                                            }
+                                        }else{
+                                            hasReppedList = new ArrayList<>();
+                                            if(!hasReppedList.contains(getCurrentUid())){
+                                                hasReppedList.add(getCurrentUid());
+                                            }
+                                        }
+
+                                        if(!getCurrentUid().equals(xUid)){
+                                            fanoutReppedObject.put("/feed/" + xUid +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }
+
+                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                                        //fanoutReppedObject.put("/selfFeed/" + xUid +
+                                        //        "/" + mRefKey + "/repCount/", newRepCount);
+
+                                        fanoutReppedObject.put("/selfFeed/" + xUid +
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                        rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
+
+                                                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
+                                                        ("notificationCount");
+                                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        if(dataSnapshot.exists()){
+                                                            int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
+                                                            currentCount++;
+                                                            userRef.setValue(String.valueOf(currentCount));
+                                                        }else{
+                                                            userRef.setValue("1");
+                                                        }
+
+                                                        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
+                                                                ("notifications").child(xUid);
+                                                        NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
+                                                                DateTime.now(DateTimeZone.UTC).toString(), null);
+                                                        notificationRef.push().setValue(notificationModelClass)
+                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        fanoutReppedObject.clear();
+                                                                        reppedInc1 = 0;
+                                                                        mLoadingReppedView.setVisibility(View.GONE);
+                                                                        mRepsIconGold.setVisibility(View.VISIBLE);
+                                                                    }
+                                                                });
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                                //mRepsCounterView.setText(String.valueOf(reppedCount));
+                                                //mRepsCounterView.setVisibility(View.VISIBLE);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        //}
+                    }
+                }else{
+                    // if the poster has no friends
+                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/repCount/", newRepCount);
+
+                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                    //        "/" + mRefKey + "/hasRepped/", true);
+
+                    //fanoutReppedObject.put("/selfFeed/" + xUid +
+                    //        "/" + mRefKey + "/repCount/", newRepCount);
+
+                    List<String> hasReppedList;
+                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
+                        hasReppedList = getHasReppedList();
+                        if(!hasReppedList.contains(getCurrentUid())){
+                            hasReppedList.add(getCurrentUid());
+                        }
+                    }else{
+                        hasReppedList = new ArrayList<>();
+                        if(!hasReppedList.contains(getCurrentUid())){
+                            hasReppedList.add(getCurrentUid());
+                        }
+                    }
+
+                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                    fanoutReppedObject.put("/selfFeed/" + xUid +
+                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                    rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            mLoadingReppedView.setVisibility(View.GONE);
+                            mRepsIconGold.setVisibility(View.VISIBLE);
+                            fanoutReppedObject.clear();
+                            reppedInc1 = 0;
+                            //mRepsCounterView.setText(String.valueOf(reppedCount));
+                            //mRepsCounterView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // because the isRepped value is local, we only need our id and the reference of the OP.
+
+    }
+
     private void removeRepFromPost(){
         mRepsIconGold.setVisibility(View.INVISIBLE);
         mLoadingReppedView.setVisibility(View.VISIBLE);
@@ -495,183 +676,17 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    private void addRepToPost(){
-        // first we need the followers of the OP. Put em in a list.
-        // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
-        // upload it.
-        mRepsIconWhite.setVisibility(View.INVISIBLE);
-        mLoadingReppedView.setVisibility(View.VISIBLE);
-        final int newRepCount = getReppedCount() + 1;
-
-
-
-        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("followers").child(xUid);
-        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    // if the poster has followers
-                    final int childCount = (int) dataSnapshot.getChildrenCount();
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        reppedInc1++;
-                        final String key = dataSnapshot1.getKey();
-                        //if(!key.equals(getCurrentUid())){
-                        DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child
-                                ("feed").child(key).child(mRefKey);
-                        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    if(!key.equals(getCurrentUid())){
-                                        List<String> hasReppedList;
-                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                                            hasReppedList = getHasReppedList();
-                                            hasReppedList.add(getCurrentUid());
-                                        }else{
-                                            hasReppedList = new ArrayList<>();
-                                            hasReppedList.add(getCurrentUid());
-                                        }
-                                        fanoutReppedObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
-                                    }
-                                    if(reppedInc1 == childCount){
-                                        List<String> hasReppedList;
-                                        if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                                            hasReppedList = getHasReppedList();
-                                            hasReppedList.add(getCurrentUid());
-                                        }else{
-                                            hasReppedList = new ArrayList<>();
-                                            hasReppedList.add(getCurrentUid());
-                                        }
-
-                                        if(!getCurrentUid().equals(xUid)){
-                                            fanoutReppedObject.put("/feed/" + xUid +
-                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
-                                        }
-
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
-
-                                        //fanoutReppedObject.put("/selfFeed/" + xUid +
-                                        //        "/" + mRefKey + "/repCount/", newRepCount);
-
-                                        fanoutReppedObject.put("/selfFeed/" + xUid +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
-
-                                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                                        rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
-                                            @Override
-                                            public void onComplete(@NonNull Task task) {
-
-                                                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
-                                                        ("notificationCount");
-                                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                                        if(dataSnapshot.exists()){
-                                                            int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
-                                                            currentCount++;
-                                                            userRef.setValue(String.valueOf(currentCount));
-                                                        }else{
-                                                            userRef.setValue("1");
-                                                        }
-
-                                                        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
-                                                                ("notifications").child(xUid);
-                                                        NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
-                                                                DateTime.now(DateTimeZone.UTC).toString(), null);
-                                                        notificationRef.push().setValue(notificationModelClass)
-                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        fanoutReppedObject.clear();
-                                                                        reppedInc1 = 0;
-                                                                        mLoadingReppedView.setVisibility(View.GONE);
-                                                                        mRepsIconGold.setVisibility(View.VISIBLE);
-                                                                    }
-                                                                });
-
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-
-                                                    }
-                                                });
-
-                                                //mRepsCounterView.setText(String.valueOf(reppedCount));
-                                                //mRepsCounterView.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        //}
-                    }
-                }else{
-                    // if the poster has no friends
-                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                    //        "/" + mRefKey + "/repCount/", newRepCount);
-
-                    //fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                    //        "/" + mRefKey + "/hasRepped/", true);
-
-                    //fanoutReppedObject.put("/selfFeed/" + xUid +
-                    //        "/" + mRefKey + "/repCount/", newRepCount);
-
-                    List<String> hasReppedList;
-                    if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                        hasReppedList = getHasReppedList();
-                        hasReppedList.add(getCurrentUid());
-                    }else{
-                        hasReppedList = new ArrayList<>();
-                        hasReppedList.add(getCurrentUid());
-                    }
-
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
-
-                    fanoutReppedObject.put("/selfFeed/" + xUid +
-                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
-
-                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                    rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            mLoadingReppedView.setVisibility(View.GONE);
-                            mRepsIconGold.setVisibility(View.VISIBLE);
-                            fanoutReppedObject.clear();
-                            reppedInc1 = 0;
-                            //mRepsCounterView.setText(String.valueOf(reppedCount));
-                            //mRepsCounterView.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // because the isRepped value is local, we only need our id and the reference of the OP.
-
-    }
-
     public void setReppedCount(int repCount){
         reppedCount = repCount;
     }
 
     public int getReppedCount(){
-        return this.reppedCount;
+        try{
+            return this.mHasReppedList.size();
+        }catch (NullPointerException e){
+            return 0;
+        }
+
     }
 
     public void setRepsCounterView(int repsCount){

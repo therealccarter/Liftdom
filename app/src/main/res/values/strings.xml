@@ -15,18 +15,20 @@
 
     <!-- DATE OF UPDATE: 03/12/18 -->
 
-    <string name="currentVersion">Liftdom v1.27</string>
+    <string name="currentVersion">Liftdom v1.28</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.27 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.28 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Main feed rehaul.
+        Tons of work on (dark) layout rehaul.\n
+        More main feed optimizations.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Tons of fixes and layout improvements.
+        Fixed bug causing nav drawer selection positions to be incorrect.\n
+        Fixed issue allowing illegal ex-names.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>

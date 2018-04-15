@@ -6,14 +6,15 @@
 currently on v1.27
 ----------------------
 Further improved main feed performance. It's a work in progress.
-Fixed bug causing nav drawer selection positions to be incorrect
+Fixed bug causing nav drawer selection positions to be incorrect.
+Fixed issue allowing illegal ex-names
+layout rehaul to dark style (WIP)
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
 Have the random users banner scroll upward with the main feed.
 global/community feed
-layout rehaul to dark style
 =====================================================
 
 ============ ON DECK FOR v1.28+: ===============================================

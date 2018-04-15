@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:background="@color/lessDarkGrey"
               tools:context="com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab">
 
     <ScrollView
@@ -21,6 +22,7 @@
                     app:mcv_headerTextAppearance="@style/CustomDayTextAppearance"
                     app:mcv_selectionColor="@color/liftrGold1"
                     app:mcv_weekDayTextAppearance="@style/CustomDayTextAppearance2"
+                    app:mcv_dateTextAppearance="@style/CustomDayTextAppearance3"
                     android:layout_marginBottom="300dp"
             >
 
