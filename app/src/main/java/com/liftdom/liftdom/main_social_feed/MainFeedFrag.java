@@ -126,7 +126,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
             if(savedInstanceState == null){
-                checkForRandomUsersBanner();
+                //checkForRandomUsersBanner();
             }
             final DatabaseReference socialRef = rootRef.child("feed").child(uid);
             socialRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -332,7 +332,7 @@
 
     <string name="saveTemplate">Save Program</string>
 
-    <string name="author">Author: </string>
+    <string name="author">Author:</string>
 
     <string name="publicTemplates">Public Programs</string>
     <string name="myPublicTemplates">My Public Programs</string>
