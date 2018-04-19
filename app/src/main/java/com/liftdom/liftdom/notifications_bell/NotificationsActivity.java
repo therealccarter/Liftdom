@@ -121,7 +121,7 @@ public class NotificationsActivity extends BaseActivity {
             public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.notifications_list_item,
+                        R.layout.notifications_list_item2,
                         parent, false);
 
                 return new NotificationViewHolder(view);
