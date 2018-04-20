@@ -54,25 +54,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         // Required empty public constructor
     }
 
-    headerChangeFromFrag mCallback;
 
-    public interface headerChangeFromFrag{
-        public void changeHeaderTitle(String title);
-    }
-
-    private void headerChanger(String title){
-        mCallback.changeHeaderTitle(title);
-    }
-
-    bottomNavChanger navChangerCallback;
-
-    public interface bottomNavChanger{
-        void setBottomNavIndex(int navIndex);
-    }
-
-    private void navChanger(int navIndex){
-        navChangerCallback.setBottomNavIndex(navIndex);
-    }
 
     private String uid;
     private DatabaseReference rootRef;
@@ -96,10 +78,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
         ButterKnife.bind(this, view);
 
-        HideKey.initialize(getActivity(), view);
-
-        navChanger(0);
-        headerChanger("Home");
+        //HideKey.initialize(getActivity(), view);
 
         goToWorkoutProgramming.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -540,21 +519,6 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         super.onStop();
         if(firebaseAdapter != null){
             firebaseAdapter.stopListening();
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (headerChangeFromFrag) activity;
-            navChangerCallback = (bottomNavChanger) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
         }
     }
 

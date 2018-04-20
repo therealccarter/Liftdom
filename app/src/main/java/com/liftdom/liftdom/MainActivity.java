@@ -25,6 +25,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
+import com.liftdom.liftdom.main_social_feed.feed_slider.FeedHolderFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.template_housing.SavedProgramsHolderFrag;
@@ -49,10 +50,10 @@ public class MainActivity extends BaseActivity implements
         ChatMainFrag.headerChangeFromFrag,
         ForumMainFrag.headerChangeFromFrag,
         WorkoutAssistorFrag.headerChangeFromFrag,
-        MainFeedFrag.headerChangeFromFrag,
+        FeedHolderFrag.headerChangeFromFrag,
         SavedProgramsHolderFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
-        MainFeedFrag.bottomNavChanger,
+        FeedHolderFrag.bottomNavChanger,
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
         SavedProgramsHolderFrag.bottomNavChanger,
@@ -212,7 +213,7 @@ public class MainActivity extends BaseActivity implements
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                    fragmentTransaction.replace(R.id.mainFragHolder, new FeedHolderFrag());
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(0, false);
@@ -252,7 +253,7 @@ public class MainActivity extends BaseActivity implements
             }else{
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                fragmentTransaction.replace(R.id.mainFragHolder, new FeedHolderFrag());
                 fragmentTransaction.commit();
                 bottomNavigation.setSelectedIndex(0, false);
             }
@@ -271,7 +272,7 @@ public class MainActivity extends BaseActivity implements
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                        fragmentTransaction.replace(R.id.mainFragHolder, new MainFeedFrag());
+                        fragmentTransaction.replace(R.id.mainFragHolder, new FeedHolderFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     } else if (i1 == 1) {
