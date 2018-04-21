@@ -687,6 +687,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         inc++;
 
                         if(inc == dataSnapshot.getChildrenCount()){
+                            fanoutObject.put("/globalFeed/" + refKey, completedWorkoutModelClass);
                             fanoutObject.put("/selfFeed/" + uid + "/" + refKey, completedWorkoutModelClass);
                             DatabaseReference rootRef = mRootRef;
                             rootRef.updateChildren(fanoutObject).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -3991,7 +3992,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         return formattedMap;
     }
-
 
     private List<String> expandList(String data){
         List<String> returnList = new ArrayList<>();

@@ -64,6 +64,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     //private final LinearLayout mAllCommentsLL;
 
     // Variables
+    private HashMap<String, List<String>> infoMap = new HashMap<>();
     private String xUid;
     private FragmentActivity mActivity;
     private String mUserName;
@@ -391,6 +392,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
+                                        if(infoMap != null){
+                                            fanoutReppedObject.put("/globalFeed/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }
+
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
@@ -477,6 +482,10 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
                     fanoutReppedObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                    if(infoMap != null){
+                        fanoutReppedObject.put("/globalFeed/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    }
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedObject).addOnCompleteListener(new OnCompleteListener() {
@@ -600,6 +609,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                         fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/hasReppedList/", hasReppedList);
 
+                                        if(infoMap != null){
+                                            fanoutReppedRemoveObject.put("/globalFeed/" + mRefKey +
+                                                    "/hasReppedList/", hasReppedList);
+                                        }
+
                                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                         rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
                                             @Override
@@ -653,6 +667,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
                     fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/hasReppedList/", hasReppedList);
+
+                    if(infoMap != null){
+                        fanoutReppedRemoveObject.put("/globalFeed/" + mRefKey +
+                                "/hasReppedList/", hasReppedList);
+                    }
 
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     rootRef.updateChildren(fanoutReppedRemoveObject).addOnCompleteListener(new OnCompleteListener() {
@@ -717,6 +736,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     public void setPostInfo(HashMap<String, List<String>> workoutInfoMap, FragmentActivity activity, Context context,
                             boolean isImperial){
 
+        infoMap = workoutInfoMap;
         WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutInfoMap, context);
         //adapter.setInfoList(workoutInfoMap);
         adapter.setIsOriginallyImperial(isImperial);
@@ -792,6 +812,11 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
                                             fanoutCommentObject.put("/selfFeed/" + xUid + "/" + mRefKey +
                                                             "/commentMap/" + commentRefKey, commentModelClass);
+
+                                            if(infoMap != null){
+                                                fanoutCommentObject.put("/selfFeed/" + xUid + "/" + mRefKey +
+                                                        "/commentMap/" + commentRefKey, commentModelClass);
+                                            }
 
                                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                                             rootRef.updateChildren(fanoutCommentObject);
@@ -968,7 +993,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void setFullCommentRecycler(String refKey){
+    public void setFullCommentRecycler(String refKey, HashMap<String, List<String>> infoMap){
         mGoToAllCommentsView.setVisibility(View.GONE);
         mCommentEditText.setTextColor(Color.parseColor("#000000"));
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child

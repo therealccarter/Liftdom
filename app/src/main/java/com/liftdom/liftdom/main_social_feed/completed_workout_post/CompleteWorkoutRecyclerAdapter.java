@@ -81,7 +81,8 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
         viewHolder.setActivity(mActivity);
         viewHolder.setRefKey(mCompletedWorkoutList.get(position).getRef());
         if(mIsFullComments){
-            viewHolder.setFullCommentRecycler(mCompletedWorkoutList.get(position).getRef());
+            viewHolder.setFullCommentRecycler(mCompletedWorkoutList.get(position).getRef(), mCompletedWorkoutList.get
+                    (position).getWorkoutInfoMap());
         }else{
             viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());
         }
