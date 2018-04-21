@@ -337,6 +337,38 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     // if the poster has followers
+                    final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
+                            ("notificationCount");
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
+                                currentCount++;
+                                userRef.setValue(String.valueOf(currentCount));
+                            }else{
+                                userRef.setValue("1");
+                            }
+
+                            DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("notifications").child(xUid);
+                            NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
+                                    DateTime.now(DateTimeZone.UTC).toString(), null);
+                            notificationRef.push().setValue(notificationModelClass)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }
+                                    });
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     final int childCount = (int) dataSnapshot.getChildrenCount();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         reppedInc1++;
@@ -401,42 +433,12 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                             @Override
                                             public void onComplete(@NonNull Task task) {
 
-                                                final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
-                                                        ("notificationCount");
-                                                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                fanoutReppedObject.clear();
+                                                reppedInc1 = 0;
+                                                mLoadingReppedView.setVisibility(View.GONE);
+                                                mRepsIconGold.setVisibility(View.VISIBLE);
 
-                                                        if(dataSnapshot.exists()){
-                                                            int currentCount = Integer.parseInt(dataSnapshot.getValue(String.class));
-                                                            currentCount++;
-                                                            userRef.setValue(String.valueOf(currentCount));
-                                                        }else{
-                                                            userRef.setValue("1");
-                                                        }
 
-                                                        DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
-                                                                ("notifications").child(xUid);
-                                                        NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
-                                                                DateTime.now(DateTimeZone.UTC).toString(), null);
-                                                        notificationRef.push().setValue(notificationModelClass)
-                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        fanoutReppedObject.clear();
-                                                                        reppedInc1 = 0;
-                                                                        mLoadingReppedView.setVisibility(View.GONE);
-                                                                        mRepsIconGold.setVisibility(View.VISIBLE);
-                                                                    }
-                                                                });
-
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-
-                                                    }
-                                                });
 
                                                 //mRepsCounterView.setText(String.valueOf(reppedCount));
                                                 //mRepsCounterView.setVisibility(View.VISIBLE);

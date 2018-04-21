@@ -45,6 +45,9 @@ import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
 import org.joda.time.LocalDate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,8 +56,6 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     public MainFeedFrag() {
         // Required empty public constructor
     }
-
-
 
     private String uid;
     private DatabaseReference rootRef;
@@ -225,17 +226,29 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     }
 
     private void kablam(){
-        DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
-                ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("MindPrimary");
-        burkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");
+
+        selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
-                templateModelClass.setUserName2("Brodin");
-                templateModelClass.setUserId2(uid);
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox").child
-                        (uid).child("MindPrimary");
-                myRef.setValue(templateModelClass);
+                Map fanoutObject = new HashMap<>();
+                int index1 = 0;
+                int index2 = 0;
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    index1++;
+                    index2 = 0;
+                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()){
+                        index2++;
+                        fanoutObject.put("/globalFeed/" + dataSnapshot2.getKey(), dataSnapshot2.getValue());
+                        if(index1 == dataSnapshot.getChildrenCount()){
+                            if(index2 == dataSnapshot1.getChildrenCount()){
+                                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                                rootRef.updateChildren(fanoutObject);
+                            }
+                        }
+                    }
+                }
             }
 
             @Override
@@ -243,6 +256,25 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
             }
         });
+
+        //DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
+        //        ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("MindPrimary");
+        //burkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+        //        templateModelClass.setUserName2("Brodin");
+        //        templateModelClass.setUserId2(uid);
+        //        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox").child
+        //                (uid).child("MindPrimary");
+        //        myRef.setValue(templateModelClass);
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
 
         //firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
         //        (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
