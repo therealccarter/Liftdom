@@ -138,7 +138,7 @@ public class SelfFeedFrag extends Fragment {
                 holder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
                         model.isIsImperial());
                 holder.setUpProfilePics(model.getUserId());
-                holder.setCommentRecycler(model.getRef());
+                holder.setCommentRecycler(model.getRef(), model.getWorkoutInfoMap());
                 holder.setUserName(model.getUserName());
                 holder.setUserLevel(model.getUserId(), rootRef);
                 holder.setPublicDescription(model.getPublicDescription());

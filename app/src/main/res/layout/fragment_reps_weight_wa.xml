@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:id="@+id/holderView"
-              android:background="@color/grey"
+              android:background="@color/backgroundgrey1"
               tools:context="com.liftdom.workout_assistor.RepsWeightWAFrag">
     <View
             android:layout_width="match_parent"
@@ -35,6 +35,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:id="@+id/extraOptionsButton"
+                    android:tint="@color/offerGrey"
             />
 
         </LinearLayout>
@@ -53,8 +54,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/reps"
                     android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/offWhite"
+                    android:textColorHint="@color/offWhite"
                     android:textSize="18sp"
                     android:imeOptions="actionDone"
                     android:maxLength="2"
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/at"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="14sp"
             />
 
@@ -76,8 +77,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/weight"
                     android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/offWhite"
+                    android:textColorHint="@color/offWhite"
                     android:textSize="18sp"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
@@ -88,11 +89,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/unit"
                     android:text="@string/pounds"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="14sp"
             />
-
-            <!-- TODO: add loading view here-->
 
             <CheckBox
                     android:layout_width="wrap_content"
@@ -100,6 +99,16 @@
                     android:id="@+id/checkBox"
                     android:layout_marginStart="25dp"
             />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:indicatorName="BallClipRotateMultipleIndicator"
+                    android:id="@+id/loadingView"
+                    app:indicatorColor="@color/liftrGold2"
+                    android:visibility="gone"
+            />
+
 
         </LinearLayout>
 
@@ -120,6 +129,7 @@
                     android:background="@color/transparent"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
+                    android:tint="@color/offerGrey"
             />
         </LinearLayout>
 

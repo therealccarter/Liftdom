@@ -84,7 +84,8 @@ public class CompleteWorkoutRecyclerAdapter extends RecyclerView.Adapter<Complet
             viewHolder.setFullCommentRecycler(mCompletedWorkoutList.get(position).getRef(), mCompletedWorkoutList.get
                     (position).getWorkoutInfoMap());
         }else{
-            viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef());
+            viewHolder.setCommentRecycler(mCompletedWorkoutList.get(position).getRef(), mCompletedWorkoutList.get
+                    (position).getWorkoutInfoMap());
         }
         //if(mCompletedWorkoutList.get(position).getBonusList() != null){
             //if(!mCompletedWorkoutList.get(position).getBonusList().isEmpty()){

@@ -51,6 +51,7 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
     private Context mContext;
     private FragmentActivity mActivity;
     private String mUserName;
+    private HashMap<String, List<String>> mInfoMap;
 
 
     public PostCommentViewHolder(View itemView){
@@ -92,6 +93,14 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    public HashMap<String, List<String>> getInfoMap() {
+        return mInfoMap;
+    }
+
+    public void setInfoMap(HashMap<String, List<String>> mInfoMap) {
+        this.mInfoMap = mInfoMap;
+    }
+
     public FragmentActivity getActivity() {
         return mActivity;
     }
@@ -119,6 +128,10 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
                                             mRefKey, null);
                             fanoutObject.put("/feed/" + getParentUid() + "/" + parentRefKey + "/commentMap/" + mRefKey,
                                     null);
+                            if(getInfoMap() != null){
+                                fanoutObject.put("/globalFeed/" + parentRefKey + "/commentMap/" + mRefKey,
+                                        null);
+                            }
                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                             rootRef.updateChildren(fanoutObject);
                         }
@@ -128,8 +141,13 @@ public class PostCommentViewHolder extends RecyclerView.ViewHolder{
                             (getParentUid()).child(parentRefKey).child("commentMap").child(mRefKey);
                     DatabaseReference commentSelfRef = FirebaseDatabase.getInstance().getReference().child("selfFeed")
                             .child(getParentUid()).child(parentRefKey).child("commentMap").child(mRefKey);
+                    DatabaseReference commentGlobalRef = FirebaseDatabase.getInstance().getReference().child
+                            ("globalFeed").child(parentRefKey).child("commentMap").child(mRefKey);
                     commentRef.setValue(null);
                     commentSelfRef.setValue(null);
+                    if(getInfoMap() != null){
+                        commentGlobalRef.setValue(null);
+                    }
                 }
             }
 

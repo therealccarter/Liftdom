@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:background="@color/offWhite"
+              android:background="@color/backgroundgrey2"
               android:layout_marginStart="20dp"
               android:layout_marginEnd="5dp"
               tools:context="com.liftdom.workout_assistor.ExNameSSWAFrag">

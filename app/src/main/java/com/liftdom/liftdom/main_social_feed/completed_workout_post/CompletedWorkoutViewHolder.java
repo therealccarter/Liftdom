@@ -934,7 +934,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void setCommentRecycler(String refKey){
+    public void setCommentRecycler(String refKey, final HashMap<String, List<String>> infoMap){
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                 (getCurrentUid()).child(refKey).child("commentMap");
 
@@ -969,6 +969,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         holder.setCommentUid(model.getUserId());
                         holder.setContext(mActivity);
                         holder.setActivity(mActivity);
+                        holder.setInfoMap(infoMap);
                     }
 
                     @Override
@@ -995,7 +996,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void setFullCommentRecycler(String refKey, HashMap<String, List<String>> infoMap){
+    public void setFullCommentRecycler(String refKey, final HashMap<String, List<String>> infoMap){
         mGoToAllCommentsView.setVisibility(View.GONE);
         mCommentEditText.setTextColor(Color.parseColor("#000000"));
         mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
@@ -1020,6 +1021,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 holder.setCommentUid(model.getUserId());
                 holder.setContext(mActivity);
                 holder.setActivity(mActivity);
+                holder.setInfoMap(infoMap);
             }
 
             @Override
