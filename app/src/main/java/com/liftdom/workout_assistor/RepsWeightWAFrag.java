@@ -18,6 +18,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExtraOptionsDialog;
 import com.liftdom.template_editor.SetsLevelChildFrag;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +49,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
     private updateStateCallback updateWorkoutState;
 
+    public interface updateStateForResultCallback{
+        void updateWorkoutStateForResult(String tag);
+    }
+
+    private updateStateForResultCallback updateWorkoutStateForResult;
+
+    private void updateWorkoutStateForResult(){
+        updateWorkoutStateForResult.updateWorkoutStateForResult(fragTag1);
+    }
+
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
@@ -55,8 +66,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.holderView) LinearLayout holderView;
-    @BindView(R.id.checkBox) CheckBox checkBox;
-
+    @BindView(R.id.checkedImage) ImageView checkedImage;
+    @BindView(R.id.unCheckedImage) ImageView unCheckedImage;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +80,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         removeFrag = (removeFragCallback) getParentFragment();
         updateWorkoutState = (updateStateCallback) getParentFragment();
+        updateWorkoutStateForResult = (updateStateForResultCallback) getParentFragment();
 
         Log.i("deadInfo", "repsWeightString: " + repsWeightString);
 
@@ -83,6 +96,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             //startActivity(intent);
         }else{
             if(isEdit){
+                //setJustLoadingView();
                 String delims = "[@,_]";
                 String[] tokens = repsWeightString.split(delims);
 
@@ -118,13 +132,17 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 }
 
                 if(tokens[2].equals("checked")){
-                    checkBox.setChecked(true);
-                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+                    setCheckedView();
+                    //loadingView.setVisibility(View.INVISIBLE);
                 }else{
-                    checkBox.setChecked(false);
+                    setUnCheckedView();
+                    //loadingView.setVisibility(View.INVISIBLE);
                 }
 
             }else{
+
+                setUnCheckedView();
+                //loadingView.setVisibility(View.INVISIBLE);
 
                 String[] tokens = repsWeightString.split("@");
 
@@ -175,14 +193,22 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         }
 
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkedImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
-                }else{
-                    holderView.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                }
+            public void onClick(View v) {
+                unCheckedImage.setVisibility(View.INVISIBLE);
+                checkedImage.setVisibility(View.GONE);
+                //setLoadingView();
+                updateWorkoutState.updateWorkoutState();
+            }
+        });
+
+        unCheckedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unCheckedImage.setVisibility(View.GONE);
+                checkedImage.setVisibility(View.INVISIBLE);
+                //setLoadingView();
                 updateWorkoutState.updateWorkoutState();
             }
         });
@@ -206,6 +232,28 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public void setCheckedView(){
+        checkedImage.setVisibility(View.VISIBLE);
+        unCheckedImage.setVisibility(View.GONE);
+        holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
+    }
+
+    public void setUnCheckedView(){
+        checkedImage.setVisibility(View.GONE);
+        unCheckedImage.setVisibility(View.VISIBLE);
+        holderView.setBackgroundColor(Color.parseColor("#454545"));
+    }
+
+    public void setLoadingView(){
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    public void setJustLoadingView(){
+        checkedImage.setVisibility(View.GONE);
+        unCheckedImage.setVisibility(View.GONE);
+        loadingView.setVisibility(View.VISIBLE);
     }
 
     public String formatPercentageWeight(String unFormatted){
@@ -332,9 +380,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         }
 
         String info = repsText + "@" + weightText;
-        if(checkBox.isChecked()){
+        if(checkedImage.getVisibility() == View.VISIBLE || checkedImage.getVisibility() == View.INVISIBLE){
             info = info + "_checked";
-        }else{
+        }else if(unCheckedImage.getVisibility() == View.VISIBLE || unCheckedImage.getVisibility() == View.INVISIBLE){
             info = info + "_unchecked";
         }
 

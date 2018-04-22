@@ -33,7 +33,8 @@ public class ExNameWAFrag extends android.app.Fragment
         implements RepsWeightWAFrag.removeFragCallback,
         ExNameSSWAFrag.removeFragCallback1,
         RepsWeightWAFrag.updateStateCallback,
-        ExNameSSWAFrag.updateStateCallback{
+        ExNameSSWAFrag.updateStateCallback,
+        RepsWeightWAFrag.updateStateForResultCallback{
 
 
     public ExNameWAFrag() {
@@ -68,6 +69,12 @@ public class ExNameWAFrag extends android.app.Fragment
 
     private updateWorkoutStateCallback updateWorkoutState;
 
+    public interface updateWorkoutStateForResultCallback{
+        void updateWorkoutStateForResult(String tag1, String tag2);
+    }
+
+    private updateWorkoutStateForResultCallback updateWorkoutStateForResult;
+
     private removeFragCallback removeFrag;
 
     public interface startFirstTimeShowcase{
@@ -83,6 +90,18 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public void updateWorkoutState(){
         updateWorkoutState.updateWorkoutState();
+    }
+
+    public void updateWorkoutStateForResult(String tag2){
+        updateWorkoutStateForResult.updateWorkoutStateForResult(fragTag, tag2);
+    }
+
+    public void setCheckedSuccess(String repsWeightTag){
+        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+            if(repsWeightWAFrag.fragTag1.equals(repsWeightTag)){
+                repsWeightWAFrag.setCheckedView();
+            }
+        }
     }
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
@@ -101,6 +120,7 @@ public class ExNameWAFrag extends android.app.Fragment
         removeFrag = (removeFragCallback) getParentFragment();
         firstTimeShowcaseCallback = (startFirstTimeShowcase) getParentFragment();
         updateWorkoutState = (updateWorkoutStateCallback) getParentFragment();
+        updateWorkoutStateForResult = (updateWorkoutStateForResultCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 

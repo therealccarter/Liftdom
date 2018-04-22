@@ -24,6 +24,8 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
@@ -52,7 +54,8 @@ import java.util.Map;
 public class AssistorHolderFrag extends android.app.Fragment
                 implements ExNameWAFrag.removeFragCallback,
                 ExNameWAFrag.startFirstTimeShowcase,
-                ExNameWAFrag.updateWorkoutStateCallback{
+                ExNameWAFrag.updateWorkoutStateCallback,
+                ExNameWAFrag.updateWorkoutStateForResultCallback{
 
 
     public AssistorHolderFrag() {
@@ -466,13 +469,13 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
 
         if(savedInstanceState == null){
-            activateStatusBarService.setVisibility(View.GONE);
-            deactivateLL.setVisibility(View.VISIBLE);
-
-            Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
-            startIntent.putExtra("uid", uid);
-            startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
-            getActivity().startService(startIntent);
+            //activateStatusBarService.setVisibility(View.GONE);
+            //deactivateLL.setVisibility(View.VISIBLE);
+//
+            //Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
+            //startIntent.putExtra("uid", uid);
+            //startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
+            //getActivity().startService(startIntent);
         }
 
         activateStatusBarService.setOnClickListener(new View.OnClickListener() {
@@ -659,6 +662,68 @@ public class AssistorHolderFrag extends android.app.Fragment
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
         runningAssistorRef.setValue(progressModelClass);
+
+        //for(ExNameWAFrag exNameWAFrag : exNameFragList){
+        //    removeFrag(exNameWAFrag.fragTag);
+        //}
+
+        /**
+         * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
+         * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
+         */
+
+
+    }
+
+    public void updateWorkoutStateForResult(final String exNameFragTag, final String repsWeightFragTag){
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+        boolean completedBool = false; // obviously this will be set to true in assistor saved
+        String mediaResource = "";
+
+        // might need to make this not clickable without inflated views so it isn't set to null
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            //for(int i = 1; i <= exNameFragList.size(); i++){}
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        WorkoutProgressModelClass progressModelClass;
+
+        if(isRevisedWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, isRevisedWorkout, isFromRestDay);
+        }else{
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    null, isRevisedWorkout, isFromRestDay);
+        }
+
+        //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        runningAssistorRef.setValue(progressModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                for(ExNameWAFrag exNameWAFrag : exNameFragList){
+                    if(exNameWAFrag.fragTag.equals(exNameFragTag)){
+                        exNameWAFrag.setCheckedSuccess(repsWeightFragTag);
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
 
         //for(ExNameWAFrag exNameWAFrag : exNameFragList){
         //    removeFrag(exNameWAFrag.fragTag);

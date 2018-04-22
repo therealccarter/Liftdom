@@ -262,7 +262,7 @@ public class WorkoutAssistorFrag extends Fragment{
                             @Override
                             public void onDataChange(final DataSnapshot dataSnapshot1) {
                                 if(dataSnapshot1.exists()){
-                                    DatabaseReference restDayRef = runningRef.child("isRestDay");
+                                    DatabaseReference restDayRef = runningRef.child("isFromRestDay");
 
                                     DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                                     LocalDate localDate = LocalDate.now();
@@ -272,7 +272,8 @@ public class WorkoutAssistorFrag extends Fragment{
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot2) {
                                             if(dataSnapshot2.exists()){
-                                                initiliazeFrags();
+                                                //initiliazeFrags(true);
+                                                initiliazeFragForHolder();
                                             }else{
                                                 WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
                                                         (WorkoutProgressModelClass.class);
@@ -282,7 +283,7 @@ public class WorkoutAssistorFrag extends Fragment{
                                                         initiliazeFragForHolder();
                                                     }
                                                 }else{
-                                                    initiliazeFrags();
+                                                    initiliazeFrags(false);
                                                 }
                                             }
                                         }
@@ -293,7 +294,7 @@ public class WorkoutAssistorFrag extends Fragment{
                                         }
                                     });
                                 }else{
-                                    initiliazeFrags();
+                                    initiliazeFrags(false);
                                 }
                             }
 
@@ -397,7 +398,7 @@ public class WorkoutAssistorFrag extends Fragment{
                         }
                     });
                 }else{
-                    initiliazeFrags();
+                    initiliazeFrags(false);
                 }
             }
 
@@ -408,7 +409,7 @@ public class WorkoutAssistorFrag extends Fragment{
         });
     }
 
-    private void initiliazeFrags(){
+    private void initiliazeFrags(boolean isFromRestDay){
         DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
