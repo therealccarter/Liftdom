@@ -29,8 +29,8 @@
                 android:layout_weight="1"
         >
             <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/three_dot_menu"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="3dp"
@@ -108,6 +108,7 @@
                     android:src="@drawable/check_square"
                     android:id="@+id/checkedImage"
                     android:visibility="gone"
+                    android:layout_marginStart="3dp"
             />
 
             <com.wang.avi.AVLoadingIndicatorView

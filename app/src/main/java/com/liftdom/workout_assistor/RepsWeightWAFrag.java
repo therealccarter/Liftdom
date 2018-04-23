@@ -238,12 +238,14 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         checkedImage.setVisibility(View.VISIBLE);
         unCheckedImage.setVisibility(View.GONE);
         holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        setTextColors(true);
     }
 
     public void setUnCheckedView(){
         checkedImage.setVisibility(View.GONE);
         unCheckedImage.setVisibility(View.VISIBLE);
         holderView.setBackgroundColor(Color.parseColor("#454545"));
+        setTextColors(false);
     }
 
     public void setLoadingView(){
@@ -254,6 +256,18 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         checkedImage.setVisibility(View.GONE);
         unCheckedImage.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
+    }
+
+    private void setTextColors(boolean isChecked){
+        if(isChecked){
+            repsEditText.setTextColor(Color.parseColor("#595959"));
+            weightEditText.setTextColor(Color.parseColor("#595959"));
+            unitView.setTextColor(Color.parseColor("#595959"));
+        }else{
+            repsEditText.setTextColor(Color.parseColor("#ededed"));
+            weightEditText.setTextColor(Color.parseColor("#ededed"));
+            unitView.setTextColor(Color.parseColor("#ededed"));
+        }
     }
 
     public String formatPercentageWeight(String unFormatted){
@@ -380,6 +394,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         }
 
         String info = repsText + "@" + weightText;
+
         if(checkedImage.getVisibility() == View.VISIBLE || checkedImage.getVisibility() == View.INVISIBLE){
             info = info + "_checked";
         }else if(unCheckedImage.getVisibility() == View.VISIBLE || unCheckedImage.getVisibility() == View.INVISIBLE){

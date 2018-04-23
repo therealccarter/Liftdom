@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:background="@color/offWhite"
+              android:background="@color/midGrey"
               android:id="@+id/holderView"
              tools:context="com.liftdom.workout_assistor.RepsWeightSSWAFrag">
 
@@ -24,8 +24,10 @@
                     android:src="@drawable/three_dot_menu"
                     android:layout_marginTop="10dp"
                     android:id="@+id/extraOptionsButton"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="25dp"
+                    android:tint="@color/offerGrey"
             />
+
         </LinearLayout>
 
 
@@ -42,8 +44,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/reps"
                     android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/offWhite"
+                    android:textColorHint="@color/offWhite"
                     android:textSize="16sp"
                     android:imeOptions="actionDone"
                     android:maxLength="2"
@@ -54,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/at"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="14sp"
             />
 
@@ -64,8 +66,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/weight"
                     android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/offWhite"
+                    android:textColorHint="@color/offWhite"
                     android:textSize="16sp"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
@@ -76,16 +78,28 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/unit"
                     android:text="@string/pounds"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="14sp"
+                    android:layout_marginEnd="5dp"
             />
 
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/checkBox"
-                    android:layout_marginStart="20dp"
+            <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_crop_square_black_24dp2"
+                    android:id="@+id/unCheckedImage"
+                    android:visibility="gone"
             />
+
+            <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/check_square"
+                    android:id="@+id/checkedImage"
+                    android:visibility="gone"
+                    android:layout_marginStart="3dp"
+            />
+
         </LinearLayout>
 
 

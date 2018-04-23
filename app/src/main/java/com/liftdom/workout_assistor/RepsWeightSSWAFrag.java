@@ -53,7 +53,8 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.holderView) LinearLayout holderView;
-    @BindView(R.id.checkBox) CheckBox checkBox;
+    @BindView(R.id.checkedImage) ImageView checkedImage;
+    @BindView(R.id.unCheckedImage) ImageView unCheckedImage;
     @BindView(R.id.bottomView) View bottomView;
 
 
@@ -111,12 +112,16 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 }
 
                 if(tokens[2].equals("checked")){
-                    checkBox.setChecked(true);
-                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
+                    setCheckedView();
+                    //loadingView.setVisibility(View.INVISIBLE);
                 }else{
-                    checkBox.setChecked(false);
+                    setUnCheckedView();
+                    //loadingView.setVisibility(View.INVISIBLE);
                 }
             }else{
+
+                setUnCheckedView();
+
                 String[] tokens = repsWeightString.split("@");
 
                 if(tokens[0].equals("T.F.")){
@@ -162,14 +167,22 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             }
         });
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkedImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    holderView.setBackgroundColor(Color.parseColor("#cccccc"));
-                }else{
-                    holderView.setBackgroundColor(Color.parseColor("#ededed"));
-                }
+            public void onClick(View v) {
+                unCheckedImage.setVisibility(View.INVISIBLE);
+                checkedImage.setVisibility(View.GONE);
+                //setLoadingView();
+                updateWorkoutState.updateWorkoutState();
+            }
+        });
+
+        unCheckedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unCheckedImage.setVisibility(View.GONE);
+                checkedImage.setVisibility(View.INVISIBLE);
+                //setLoadingView();
                 updateWorkoutState.updateWorkoutState();
             }
         });
@@ -187,6 +200,32 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public void setCheckedView(){
+        checkedImage.setVisibility(View.VISIBLE);
+        unCheckedImage.setVisibility(View.GONE);
+        holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
+        setTextColors(true);
+    }
+
+    public void setUnCheckedView(){
+        checkedImage.setVisibility(View.GONE);
+        unCheckedImage.setVisibility(View.VISIBLE);
+        holderView.setBackgroundColor(Color.parseColor("#454545"));
+        setTextColors(false);
+    }
+
+    private void setTextColors(boolean isChecked){
+        if(isChecked){
+            repsEditText.setTextColor(Color.parseColor("#595959"));
+            weightEditText.setTextColor(Color.parseColor("#595959"));
+            unitView.setTextColor(Color.parseColor("#595959"));
+        }else{
+            repsEditText.setTextColor(Color.parseColor("#ededed"));
+            weightEditText.setTextColor(Color.parseColor("#ededed"));
+            unitView.setTextColor(Color.parseColor("#ededed"));
+        }
     }
 
     public String formatPercentageWeight(String unFormatted){
@@ -302,12 +341,10 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         String info = repsText + "@" + weightText;
 
-        if(checkBox != null){
-            if(checkBox.isChecked()){
-                info = info + "_checked";
-            }else{
-                info = info + "_unchecked";
-            }
+        if(checkedImage.getVisibility() == View.VISIBLE || checkedImage.getVisibility() == View.INVISIBLE){
+            info = info + "_checked";
+        }else if(unCheckedImage.getVisibility() == View.VISIBLE || unCheckedImage.getVisibility() == View.INVISIBLE){
+            info = info + "_unchecked";
         }
 
         info = info + "_ss";
