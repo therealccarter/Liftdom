@@ -15,25 +15,24 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.28</string>
+    <string name="currentVersion">Liftdom v1.29</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.28 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.29 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Tons of work on (dark) layout rehaul.\n
-        More main feed optimizations.
+        Added global feed.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed bug causing nav drawer selection positions to be incorrect.\n
-        Fixed issue allowing illegal ex-names.
+        Fixed up more layout stuff.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Community feed.
+        Add chat notifications./n
+        Add workout reminders/notifications.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->
