@@ -64,15 +64,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/publicComment"
-                            android:background="@color/grey"
+                            android:background="@color/backgroundgrey2"
                             android:hint="@string/publicCommentHint"
                             android:paddingTop="5dp"
                             android:paddingStart="5dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="10dp"
                             android:textSize="17sp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                             android:maxLength="300"
+                            android:textColorHint="@color/grey"
                     />
 
                 </LinearLayout>
@@ -110,15 +111,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/privateJournal"
-                            android:background="@color/grey"
+                            android:background="@color/backgroundgrey2"
                             android:hint="@string/privateJournalHint"
                             android:paddingTop="5dp"
                             android:paddingStart="5dp"
                             android:paddingEnd="5dp"
                             android:paddingBottom="10dp"
                             android:textSize="17sp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/offWhite"
                             android:maxLength="600"
+                            android:textColorHint="@color/grey"
                     />
 
                 </LinearLayout>

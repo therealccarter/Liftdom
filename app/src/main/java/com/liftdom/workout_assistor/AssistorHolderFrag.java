@@ -536,11 +536,11 @@ public class AssistorHolderFrag extends android.app.Fragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // set title
-        builder.setTitle("Reset Workout Progress?");
+        builder.setTitle("Cancel Revision");
 
         // set dialog message
         builder
-                .setMessage("Caution!\nThis will cancel your current revision.")
+                .setMessage("Would you like to cancel this workout revision?")
                 .setCancelable(false)
                 .setPositiveButton("Cancel revision",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {

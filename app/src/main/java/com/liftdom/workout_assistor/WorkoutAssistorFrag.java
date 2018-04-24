@@ -272,8 +272,15 @@ public class WorkoutAssistorFrag extends Fragment{
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot2) {
                                             if(dataSnapshot2.exists()){
+                                                RestDayModelClass restDayModelClass = dataSnapshot1.getValue
+                                                        (RestDayModelClass.class);
+                                                if(restDayModelClass.getDate().equals(dateTimeString)){
+                                                    initiliazeFragForHolder();
+                                                }else{
+                                                    initiliazeFrags(false);
+                                                }
                                                 //initiliazeFrags(true);
-                                                initiliazeFragForHolder();
+                                                //initiliazeFragForHolder();
                                             }else{
                                                 WorkoutProgressModelClass progressModelClass = dataSnapshot1.getValue
                                                         (WorkoutProgressModelClass.class);
