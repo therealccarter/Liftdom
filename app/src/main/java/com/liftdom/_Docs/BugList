@@ -3,32 +3,31 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.28
+currently on v1.29
 ----------------------
-global/community feed
-loading view for WA checkboxes (went with imageviews instead)
+
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-
+better max support/editing (* = set manually, not in liftdom workout)(also measurements)
+redo/dark layout for the other pages.
+make sure superset stuff looks good.
+fix those 2 bugs
 =====================================================
 
-============ ON DECK FOR v1.29+: ===============================================
-true chat functionality
+============ ON DECK FOR v1.30+: ===============================================
+true chat functionality/workout reminders
 hamburger needs back functionality
 ads
 check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
 nSuns/tons of other ones
-workout reminders
-better max support/editing (* = set manually, not in liftdom workout)(also measurements)
 total rehaul of exercise history chart
 
 show workout count in profile
 Smolov says "Exercise: null, current 1rm: null"
 follow all users
 
-better max support/editing (* = set manually, not in liftdom workout)(also measurements)
 decimal percentage functionality
 Improve the notification-bar layout.
 Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))

@@ -225,6 +225,33 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         recyclerView.setAdapter(firebaseAdapter);
     }
 
+    private void kablam2(){
+        DatabaseReference userListRef = FirebaseDatabase.getInstance().getReference().child("userList");
+        userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final long size1 = dataSnapshot.getChildrenCount();
+                DatabaseReference userListRef2 = FirebaseDatabase.getInstance().getReference().child("user");
+                userListRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        long size2 = dataSnapshot.getChildrenCount();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void kablam(){
 
         DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");

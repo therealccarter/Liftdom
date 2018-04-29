@@ -64,17 +64,23 @@ public class RandomUsersBannerFrag extends Fragment {
         ButterKnife.bind(this, view);
 
         if(!isShowAllTheTime){
-            removeFrag = (removeFragCallback) getParentFragment();
+            try{
+                removeFrag = (removeFragCallback) getParentFragment();
+            }catch (ClassCastException e){
+                closeButtonLL.setVisibility(View.GONE);
+                isShowAllTheTime = true;
+            }
+
         }else{
             closeButtonLL.setVisibility(View.GONE);
         }
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeFrag.removeRandomUsersBanner();
-            }
-        });
+        //closeButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        removeFrag.removeRandomUsersBanner();
+        //    }
+        //});
 
         String day = LocalDate.now().toString("dd");
         double dayDouble = Double.parseDouble(day);

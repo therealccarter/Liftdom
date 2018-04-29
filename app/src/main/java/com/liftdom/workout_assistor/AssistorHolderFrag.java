@@ -552,16 +552,16 @@ public class AssistorHolderFrag extends android.app.Fragment
                         getActivity().stopService(stopIntent);
                         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
                                 .child("runningAssistor").child(uid).child("assistorModel");
-                        //if(isFromRestDay){
-                        //    runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        //        @Override
-                        //        public void onComplete(@NonNull Task<Void> task) {
-                        //            Intent intent = new Intent(getActivity(), MainActivity.class);
-                        //            intent.putExtra("fragID",  2);
-                        //            startActivity(intent);
-                        //        }
-                        //    });
-                        //}else{
+                        if(isFromRestDay){
+                            runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    intent.putExtra("fragID",  2);
+                                    startActivity(intent);
+                                }
+                            });
+                        }else{
                             runningRef.child("isRevise").setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -570,7 +570,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     startActivity(intent);
                                 }
                             });
-                        //}
+                        }
                     }
                 })
                 .setNegativeButton("Keep editing",new DialogInterface.OnClickListener() {

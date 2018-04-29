@@ -130,6 +130,8 @@ public class WorkoutAssistorFrag extends Fragment{
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
 
+                        // USER HAS COMPLETED A WORKOUT FOR TODAY
+
                         DatabaseReference activeNameRef = FirebaseDatabase.getInstance().getReference()
                                 .child("user").child(uid).child("activeTemplate");
                         activeNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,7 +141,6 @@ public class WorkoutAssistorFrag extends Fragment{
                                     String name = dataSnapshot.getValue(String.class);
                                     currentTemplateView.setText(name);
 
-                                    // USER HAS COMPLETED A WORKOUT FOR TODAY
 
                                     final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
                                             ("runningAssistor").child(uid).child("assistorModel");
@@ -374,6 +375,7 @@ public class WorkoutAssistorFrag extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String templateName = dataSnapshot.getValue(String.class);
+                currentTemplateView.setText(templateName);
                 if(templateName != null){
                     DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateName);
 

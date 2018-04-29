@@ -212,7 +212,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     public void setUnCheckedView(){
         checkedImage.setVisibility(View.GONE);
         unCheckedImage.setVisibility(View.VISIBLE);
-        holderView.setBackgroundColor(Color.parseColor("#454545"));
+        holderView.setBackgroundColor(Color.parseColor("#353535"));
         setTextColors(false);
     }
 

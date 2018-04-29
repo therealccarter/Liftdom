@@ -57,7 +57,7 @@ android {
 }
 
 ext {
-    playLibVersion = "12.0.1"
+    playLibVersion = "15.0.0"
     supportLibVersion = "27.1.0"
 }
 
@@ -84,12 +84,13 @@ dependencies {
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.google.firebase:firebase-core:$playLibVersion"
     implementation "com.google.firebase:firebase-auth:$playLibVersion"
     implementation "com.google.firebase:firebase-database:$playLibVersion"
     implementation "com.google.firebase:firebase-crash:$playLibVersion"
     implementation "com.google.firebase:firebase-storage:$playLibVersion"
+    compile "com.google.firebase:firebase-messaging:$playLibVersion"
     //implementation 'com.firebaseui:firebase-ui-database:1.2.0'
     implementation 'com.firebaseui:firebase-ui-database:3.3.0'
     implementation "com.google.android.gms:play-services-auth:$playLibVersion"

@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -237,6 +238,24 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setUpBottomNav(){
 
+    }
+
+    public void setBackArrow(){
+        try{
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    public void setHamburger(){
+        try{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+        }catch (NullPointerException e){
+
+        }
     }
 
     public String getUsernameBase(){

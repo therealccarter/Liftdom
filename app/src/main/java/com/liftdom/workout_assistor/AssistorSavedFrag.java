@@ -345,6 +345,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 completedExerciseList = getCompletedExercises();
             }
 
+            setMaxes();
             DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateClass.getTemplateName());
             final DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid).child(LocalDate.now()
                     .toString());
@@ -404,9 +405,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                             workoutInfoMapProcessed, commentModelClassMap, null, bonusList);
 
-                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    // myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    feedFanOut(refKey, completedWorkoutModelClass);
+                    // feedFanOut(refKey, completedWorkoutModelClass);
 
                     //runningRef.child("refKey").setValue(refKey);
                     //runningRef.child("isRevise").setValue(false);
@@ -419,32 +420,36 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
                             workoutInfoMapProcessed, isImperial);
                     if (!isFirstTimeFirstTime) {
-                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
-                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service
-                                                .getClassName())) {
-                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                                            getActivity().stopService(stopIntent);
-
-                                            DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
-                                                    ("runningAssistor").child(uid).child("assistorModel");
-
-                                            Map runningMa = new HashMap<>();
-
-                                            runningMa.put("/refKey", REFKEY);
-                                            runningMa.put("/isRevise", false);
-                                            runningMa.put("/completedBool", true);
-
-                                            runningRef.updateChildren(runningMa);
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                        //workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new
+                        //OnCompleteListener<Void>() {
+                        //    @Override
+                        //    public void onComplete(@NonNull Task<Void> task) {
+                        //        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context
+                        //    .ACTIVITY_SERVICE);
+                        //        if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                        //            for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices
+                        //    (Integer.MAX_VALUE)) {
+                        //                if (AssistorServiceClass.class.getName().equals(serviceInfo.service
+                        //                        .getClassName())) {
+                        //                    Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                        //                    getActivity().stopService(stopIntent);
+//
+                        //                    DatabaseReference runningRef = FirebaseDatabase.getInstance()
+                        //        .getReference().child
+                        //                            ("runningAssistor").child(uid).child("assistorModel");
+//
+                        //                    Map runningMa = new HashMap<>();
+//
+                        //                    runningMa.put("/refKey", REFKEY);
+                        //                    runningMa.put("/isRevise", false);
+                        //                    runningMa.put("/completedBool", true);
+//
+                        //                    runningRef.updateChildren(runningMa);
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //});
                     }
                 }
 
@@ -478,11 +483,49 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 }
             });
 
-            templateRef.setValue(templateClass);
+            // templateRef.setValue(templateClass);
 
         }
 
         return view;
+    }
+
+    private void setMaxes(){
+        // we'll first add each exercise to a list.
+        HashMap<String, String> maxMap = new HashMap<>();
+
+        for(Map.Entry<String, HashMap<String, List<String>>> entry : completedMap.entrySet()){
+            for(Map.Entry<String, List<String>> entry2 : entry.getValue().entrySet()){
+                String exName = "";
+                String maxWeight = "";
+                int maxInt = 0;
+                int index = 0;
+                for(String string : entry2.getValue()){
+                    index++;
+                    if(isExerciseName(string)){
+                        exName = string;
+                    }else{
+                        String delims = "[@,_]";
+                        String[] tokens = string.split(delims);
+                        int newInt = Integer.parseInt(tokens[1]);
+                        if(newInt > maxInt){
+                            maxInt = newInt;
+                        }
+                    }
+                    if(index == entry2.getValue().size()){
+                        maxWeight = String.valueOf(maxInt);
+                        if(!exName.equals("") && !maxWeight.equals("")){
+                            maxMap.put(exName, maxWeight);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // do some shit
+
+
     }
 
     HashMap<String, List<String>> processWorkoutInfoMap(HashMap<String, List<String>> infoMap){

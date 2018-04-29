@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
 
@@ -64,6 +65,10 @@ public class SavedProgramsHolderFrag extends Fragment {
         if(savedInstanceState == null){
             setUpSlidingLayout();
         }
+
+        //MainActivity mainActivity = (MainActivity) getActivity();
+        //mainActivity.setBackArrow();
+
 
         return view;
     }
