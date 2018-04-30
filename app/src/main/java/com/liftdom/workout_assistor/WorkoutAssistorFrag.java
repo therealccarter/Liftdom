@@ -61,7 +61,7 @@ public class WorkoutAssistorFrag extends Fragment{
     ArrayList<String> assistorInfoRunningList = new ArrayList<>();
 
     ArrayList<ExerciseNameFrag> exerciseNameFragList = new ArrayList<>();
-    ArrayList<RepsWeightFrag> repsWeightFragList = new ArrayList<>();
+    //ArrayList<RepsWeightFrag> repsWeightFragList = new ArrayList<>();
     //ArrayList<RunningAssistorClass> runningAssistorList = new ArrayList<>();
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();

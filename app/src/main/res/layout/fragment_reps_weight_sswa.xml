@@ -47,7 +47,7 @@
                     android:textColor="@color/offWhite"
                     android:textColorHint="@color/offWhite"
                     android:textSize="16sp"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     android:maxLength="2"
             />
 

@@ -10,9 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,23 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
-import com.liftdom.charts_stats_tools.ChartsStatsToolsActivity;
-import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
-import com.liftdom.liftdom.*;
+import com.liftdom.liftdom.BaseActivity;
 import com.liftdom.liftdom.R;
-import com.liftdom.misc_activities.PremiumFeaturesActivity;
-import com.liftdom.misc_activities.SettingsListActivity;
+import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.user_profile.your_profile.CurrentUserProfile;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -534,6 +519,9 @@ public class TemplateEditorActivity extends BaseActivity
                         UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                         TemplateEditorSingleton.getInstance().isCurrentUserImperial = userModelClass.isIsImperial();
                         TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
+
+                        Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
+                                .LENGTH_LONG).show();
                     }
 
                     @Override

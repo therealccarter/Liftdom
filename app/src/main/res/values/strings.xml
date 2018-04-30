@@ -594,7 +594,8 @@
 
     <string name="bodybuildingPrograms">Bodybuilding Programs</string>
     <string name="powerliftingPrograms">Powerlifting Programs</string>
-    <string name="otherPrograms">Other Programs</string>
+    <string name="strengthPrograms">Strength Programs</string>
+    <string name="otherPrograms">Hybrid Programs/Other</string>
 
     <string name="results">Results:\u0020</string>
 

@@ -3,11 +3,9 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.29
+currently on v1.30
 ----------------------
-better max support
-make sure superset stuff looks good.
-many bug fixes (including crash when scrolling through global feed)
+
 ----------------------
 ====================================================
 
@@ -16,7 +14,7 @@ redo/dark layout for the other pages.
 fix those 2 bugs
 =====================================================
 
-============ ON DECK FOR v1.30+: ===============================================
+============ ON DECK FOR v1.31+: ===============================================
 true chat functionality/workout reminders
 hamburger needs back functionality
 ads

@@ -28,10 +28,7 @@ public class PremadeTemplatesFrag extends Fragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.smolovButton) Button smolovButton;
-    @BindView(R.id.pplButton) Button pplButton;
-    @BindView(R.id.comingSoonView) TextView comingSoonView;
-    @BindView(R.id.comingSoonView1) TextView comingSoonView1;
-    @BindView(R.id.comingSoonView2) TextView comingSoonView2;
+    @BindView(R.id.titleView) TextView titleView;
 
     public PremadeTemplatesFrag() {
         // Required empty public constructor
@@ -48,9 +45,7 @@ public class PremadeTemplatesFrag extends Fragment {
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
-        comingSoonView.setTypeface(lobster);
-        comingSoonView1.setTypeface(lobster);
-        comingSoonView2.setTypeface(lobster);
+        titleView.setTypeface(lobster);
 
         smolovButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -60,13 +55,13 @@ public class PremadeTemplatesFrag extends Fragment {
             }
         });
 
-        pplButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(getContext(), PPLHolderActivity.class);
-                startActivity(intent);
-            }
-        });
+        //pplButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent;
+        //        intent = new Intent(getContext(), PPLHolderActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
 
         return view;
     }
