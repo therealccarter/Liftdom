@@ -5,14 +5,14 @@
 ======== ***Completed*** =======================================================
 currently on v1.29
 ----------------------
-
+better max support
+make sure superset stuff looks good.
+many bug fixes (including crash when scrolling through global feed)
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-better max support/editing (* = set manually, not in liftdom workout)(also measurements)
 redo/dark layout for the other pages.
-make sure superset stuff looks good.
 fix those 2 bugs
 =====================================================
 
@@ -35,6 +35,7 @@ nSuns/tons of other ones{
 show workout count in profile
 Smolov says "Exercise: null, current 1rm: null"
 follow all users
+max editing (* = set manually, not in liftdom workout)(also measurements)
 
 decimal percentage functionality
 Improve the notification-bar layout.

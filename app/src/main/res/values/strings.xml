@@ -15,24 +15,24 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.29</string>
+    <string name="currentVersion">Liftdom v1.30</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.29 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.30 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Added global feed.
+        Nothing front end, back end improvements though.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed up more layout stuff.
+        Critical bug fixes.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Add chat notifications./n
-        Add workout reminders/notifications.
+        Begin adding new pre-made programs.\n
+        Look further into notifications.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->

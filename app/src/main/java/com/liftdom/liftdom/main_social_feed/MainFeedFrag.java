@@ -43,9 +43,13 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.ReadableInstant;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -151,6 +155,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             });
         }
 
+        //kablam();
+
         return view;
     }
 
@@ -254,26 +260,17 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
     private void kablam(){
 
-        DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");
-
-        selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        // removes all the incompatible workouts in global feed based on date
+        final DatabaseReference globalRef = FirebaseDatabase.getInstance().getReference().child("globalFeed");
+        globalRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map fanoutObject = new HashMap<>();
-                int index1 = 0;
-                int index2 = 0;
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    index1++;
-                    index2 = 0;
-                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()){
-                        index2++;
-                        fanoutObject.put("/globalFeed/" + dataSnapshot2.getKey(), dataSnapshot2.getValue());
-                        if(index1 == dataSnapshot.getChildrenCount()){
-                            if(index2 == dataSnapshot1.getChildrenCount()){
-                                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                                rootRef.updateChildren(fanoutObject);
-                            }
-                        }
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    DateTime dateTime1 = DateTime.parse("2017-12-02");
+                    CompletedWorkoutModelClass workoutModelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
+                    DateTime dateTime2 = DateTime.parse(workoutModelClass.getDateTime());
+                    if(dateTime2.isBefore(dateTime1)){
+                        globalRef.child(workoutModelClass.getRef()).setValue(null);
                     }
                 }
             }
@@ -283,6 +280,57 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
             }
         });
+
+        // current issue is that mExInfoHasMap is being set to null after saving a revised workout.
+        //DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor")
+        //        .child(uid).child("assistorModel").child("exInfoHashMap");
+        //HashMap<String, HashMap<String, List<String>>> mExInfoHashMap = new HashMap<>();
+        //List<String> list1 = new ArrayList<>();
+        //List<String> list2 = new ArrayList<>();
+        //list1.add("Deadlift (Barbell - Conventional)");
+        //list1.add("4@25_checked");
+        //list1.add("4@25_checked");
+        //list1.add("4@25_unchecked");
+        //list2.add("Bench Press (Barbell - Flat)");
+        //list2.add("3@58_checked_ss");
+        //list2.add("3@58_checked_ss");
+        //list2.add("3@58_unchecked_ss");
+        //list2.add("3@58_unchecked_ss");
+        //HashMap<String, List<String>> map = new HashMap<>();
+        //map.put("0_key", list1);
+        //map.put("1_key", list2);
+        //mExInfoHashMap.put("1_key", map);
+        //myRef.setValue(mExInfoHashMap);
+
+        // updates <1.29 posts to the global feed
+        //DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");
+        //selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        Map fanoutObject = new HashMap<>();
+        //        int index1 = 0;
+        //        int index2 = 0;
+        //        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+        //            index1++;
+        //            index2 = 0;
+        //            for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()){
+        //                index2++;
+        //                fanoutObject.put("/globalFeed/" + dataSnapshot2.getKey(), dataSnapshot2.getValue());
+        //                if(index1 == dataSnapshot.getChildrenCount()){
+        //                    if(index2 == dataSnapshot1.getChildrenCount()){
+        //                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //                        rootRef.updateChildren(fanoutObject);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
 
         //DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
         //        ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("MindPrimary");
@@ -449,7 +497,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 129;
+                        final int currentVersionInt = 130;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);
@@ -460,10 +508,10 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                     MainActivitySingleton.getInstance().isReleaseCheck = true;
                                     // display release notes for currentVersionString
                                     currentVersionRef.setValue(currentVersionString);
-                                    Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
-                                    isFirstKonfetti = true;
-                                    konfetti();
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                    //isFirstKonfetti = true;
+                                    //konfetti();
+                                    //startActivity(intent);
                                 }else{
                                     MainActivitySingleton.getInstance().isReleaseCheck = true;
                                     String databaseVersion = dataSnapshot.getValue(String.class);

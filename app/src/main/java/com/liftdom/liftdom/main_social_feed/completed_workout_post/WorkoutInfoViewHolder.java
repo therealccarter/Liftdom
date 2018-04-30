@@ -178,7 +178,7 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
                 }else if(getIsImperialPOV() && isOriginallyImperial()){
                     // both imperial
                     String newRepsWeight = setSchemeString;
-                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs");
+                    newRepsWeight = repsTextAdder(newRepsWeight, " lbs"); // crash here
                     mSetSchemeTextView.setText(newRepsWeight);
                 }else{
                     // both kg
@@ -239,7 +239,12 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     private String repsTextAdder(String input, String unit){
         String delims = "[x,@]";
         String[] tokens = input.split(delims);
-        String newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+        String newString = "";
+        try {
+            newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2]; // crash here too
+        }catch (ArrayIndexOutOfBoundsException e){
+            Log.i("ayo", "ayo");
+        }
         if(!tokens[1].equals("B.W.")){
             newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
         }

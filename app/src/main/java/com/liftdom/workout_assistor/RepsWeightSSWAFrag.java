@@ -50,6 +50,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     @BindView(R.id.reps) EditText repsEditText;
     @BindView(R.id.weight) EditText weightEditText;
     @BindView(R.id.unit) TextView unitView;
+    @BindView(R.id.at) TextView atView;
     @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.holderView) LinearLayout holderView;
@@ -221,10 +222,12 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             repsEditText.setTextColor(Color.parseColor("#595959"));
             weightEditText.setTextColor(Color.parseColor("#595959"));
             unitView.setTextColor(Color.parseColor("#595959"));
+            atView.setTextColor(Color.parseColor("#595959"));
         }else{
             repsEditText.setTextColor(Color.parseColor("#ededed"));
             weightEditText.setTextColor(Color.parseColor("#ededed"));
             unitView.setTextColor(Color.parseColor("#ededed"));
+            atView.setTextColor(Color.parseColor("#ededed"));
         }
     }
 
