@@ -10,16 +10,23 @@ currently on v1.31
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-
+ad rehaul (add to the coordinator layout toolbar/have it hide when gone, show otherwise)
+check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
+total rehaul of exercise history chart{
+    radio buttons here      reload button here (auto-reload on ex chose)
+    one button that shows the exercise name/choose exercise
+    one button under that says clear chart
+}
 =====================================================
 
 ============ ON DECK FOR v1.32+: ===============================================
-true chat functionality/workout reminders
+true chat functionality/workout reminders (check that Firebase support email){
+    easy idea for seen/unseen chats. When a user sends a message, for everyone
+    in the chat, their chat group gains the "unseen" tag. Any time a user is in
+    the frag/firebase recycler gets updated, unseen tag is removed.
+}
 hamburger needs back functionality
-ads
-check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
-total rehaul of exercise history chart
-nSuns/tons of other ones{
+Add these workout programs{
     Building the Monolith
     GZCL
     Conjugate
@@ -27,6 +34,7 @@ nSuns/tons of other ones{
     5/3/1 for beginners.
     Westside for Skinny Bastards.
     PHAT and PHUL
+    nSuns
 }
 
 show workout count in profile
