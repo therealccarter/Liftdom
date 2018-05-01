@@ -69,7 +69,7 @@ public class CalorieCalculatorClass {
             bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
         }
 
-        bmr = bmr - 300;
+        bmr = bmr - 250;
 
         if(spinnerPosition == 1){
             bmr = bmr * 1.2;

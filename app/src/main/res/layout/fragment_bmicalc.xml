@@ -4,7 +4,7 @@
              android:layout_height="match_parent"
               android:orientation="vertical"
               android:layout_marginTop="20dp"
-              android:background="@color/white"
+              android:background="@color/backgroundgrey1"
               tools:context="com.liftdom.charts_stats_tools.tools.BMICalcFrag">
 
     <View
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bmiTitle"
-            android:textColor="@color/black"
+            android:textColor="@color/liftrGold1"
             android:textSize="24sp"
             android:padding="5dp"
             android:gravity="center"
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:layout_margin="10dp"
             android:padding="10dp"
-            android:background="@color/grey"
+            android:background="@color/backgroundgrey2"
     >
         <LinearLayout
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hit calculate to view results"
-                android:textColor="@color/black"
+                android:textColor="@color/grey"
                 android:textSize="20sp"
                 android:layout_margin="10dp"
                 android:id="@+id/summaryView"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/age"
-                android:textColor="@color/black"
+                android:textColor="@color/offWhite"
                 android:textSize="20sp"
         />
 
@@ -112,13 +112,14 @@
                 android:inputType="number"
                 android:imeOptions="actionDone"
                 android:maxLength="2"
+                android:textColor="@color/grey"
         />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sex"
-                android:textColor="@color/black"
+                android:textColor="@color/offWhite"
                 android:textSize="20sp"
         />
 
@@ -134,6 +135,7 @@
                     android:text="M"
                     android:layout_marginEnd="10dp"
                     android:id="@+id/maleRadioButton"
+                    android:textColor="@color/grey"
             />
 
             <RadioButton
@@ -141,6 +143,7 @@
                     android:layout_height="30dp"
                     android:text="F"
                     android:id="@+id/femaleRadioButton"
+                    android:textColor="@color/grey"
             />
         </RadioGroup>
 
@@ -163,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/height"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="20sp"
             />
 
@@ -175,13 +178,14 @@
                     android:imeOptions="actionDone"
                     android:visibility="gone"
                     android:maxLength="3"
+                    android:textColor="@color/grey"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cm"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="18sp"
                     android:id="@+id/cmTextView"
                     android:visibility="gone"
@@ -194,13 +198,14 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:maxLength="1"
+                    android:textColor="@color/grey"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/feet"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="18sp"
                     android:id="@+id/feetTextView"
             />
@@ -212,13 +217,14 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:maxLength="2"
+                    android:textColor="@color/grey"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/inches"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="18sp"
                     android:id="@+id/inchesTextView"
             />
@@ -236,7 +242,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weightColon"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="20sp"
 
             />
@@ -248,13 +254,14 @@
                     android:id="@+id/weightEditText"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
+                    android:textColor="@color/grey"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pounds"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="16sp"
                     android:id="@+id/weightUnit"
             />

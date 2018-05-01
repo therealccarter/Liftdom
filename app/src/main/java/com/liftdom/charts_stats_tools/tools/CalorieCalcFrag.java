@@ -85,6 +85,7 @@ public class CalorieCalcFrag extends Fragment {
         // attaching data adapter to spinner
         activityLevelSpinner.setAdapter(dataAdapter);
 
+
         DatabaseReference settingsRef = mRootRef.child("user").child(uid);
 
         if(savedInstanceState == null){
@@ -109,7 +110,7 @@ public class CalorieCalcFrag extends Fragment {
                                     activityLevelSpinner.setSelection(1);
                                 }else if(daysTokens.length == 3 || daysTokens.length == 4){
                                     activityLevelSpinner.setSelection(2);
-                                }else if(daysTokens.length == 5){
+                                }else if(daysTokens.length == 5 || daysTokens.length == 6){
                                     activityLevelSpinner.setSelection(3);
                                 }else{
                                     activityLevelSpinner.setSelection(4);
@@ -215,7 +216,7 @@ public class CalorieCalcFrag extends Fragment {
 
         CalorieCalculatorClass calCalcClass = new CalorieCalculatorClass(
                 age, isMale, heightCm, weightKg, spinnerPosition
-                );
+        );
 
         ArrayList<ValueAndCaloriesObect> dataSets = calCalcClass.getDataSets();
         setUpBarChart(dataSets);
@@ -249,18 +250,22 @@ public class CalorieCalcFrag extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(60);
         xAxis.setAxisMinimum(1);
+        xAxis.setTextColor(Color.parseColor("#FFFFFF"));
 
         // y-axis stuff
         YAxis rightAxis = barChart.getAxisRight();
         rightAxis.setDrawLabels(false);
+        rightAxis.setTextColor(Color.parseColor("#FFFFFF"));
 
         // legend stuff
         Legend legend = barChart.getLegend();
         legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
         legend.setDrawInside(true);
+        legend.setTextColor(Color.parseColor("#FFFFFF"));
 
         BarDataSet dataSet = new BarDataSet(entries, "Calorie Chart");
         dataSet.setColor(Color.parseColor("#D1B91D"));
+        dataSet.setValueTextColor(Color.parseColor("#FFFFFF"));
 
         setBarChart(dataSet);
     }
@@ -269,6 +274,7 @@ public class CalorieCalcFrag extends Fragment {
         BarData data = new BarData(dataSet);
 
         barChart.setData(data);
+
 
         getActivity().runOnUiThread(new Runnable() {
             @Override

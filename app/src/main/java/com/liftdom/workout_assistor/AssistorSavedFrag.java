@@ -511,14 +511,18 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 }else{
                                     String delims = "[@,_]";
                                     String[] tokens = string.split(delims);
-                                    int newInt = Integer.parseInt(tokens[1]);
-                                    if(newInt > maxInt){
-                                        maxInt = newInt;
+                                    try{
+                                        int newInt = Integer.parseInt(tokens[1]);
+                                        if(newInt > maxInt){
+                                            maxInt = newInt;
+                                        }
+                                    } catch (NumberFormatException e){
+
                                     }
                                 }
                                 if(index == entry2.getValue().size()){
                                     maxWeight = String.valueOf(maxInt);
-                                    if(!exName.equals("") && !maxWeight.equals("")){
+                                    if(!exName.equals("") && !maxWeight.equals("") && !maxWeight.equals("0")){
                                         maxMap.put(exName, maxWeight);
                                     }
                                 }

@@ -15,18 +15,18 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.30</string>
+    <string name="currentVersion">Liftdom v1.31</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.30 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.31 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Nothing front end, back end improvements though.
+        Redid layouts for pre-made programs and public programs.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Critical bug fixes.
+        Critical bug fixes (including Workout Saved bug (shoutout flasizzlia))
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
