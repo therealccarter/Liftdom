@@ -254,7 +254,6 @@
                 android:textSize="20sp"
         />
 
-        <!-- TODO: this will be judged by how many days a week they have active-->
         <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

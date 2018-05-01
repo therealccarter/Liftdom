@@ -1,4 +1,4 @@
-package com.liftdom.charts_stats_tools;
+package com.liftdom.charts_stats_tools.tools;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.liftdom.liftdom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExerciseMaxesFrag extends Fragment {
+public class WilksCalcFrag extends Fragment {
 
 
-    public ExerciseMaxesFrag() {
+    public WilksCalcFrag() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class ExerciseMaxesFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_exercise_maxes, container, false);
+        View view = inflater.inflate(R.layout.fragment_wilks_calc, container, false);
 
         return view;
     }

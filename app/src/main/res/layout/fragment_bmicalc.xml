@@ -1,21 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:layout_marginTop="20dp"
               android:background="@color/backgroundgrey1"
               tools:context="com.liftdom.charts_stats_tools.tools.BMICalcFrag">
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/liftrGold1"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-    />
 
     <TextView
             android:layout_width="match_parent"
@@ -25,83 +14,61 @@
             android:textSize="24sp"
             android:padding="5dp"
             android:gravity="center"
+            android:id="@+id/titleView"
     />
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/liftrGold1"
-            android:layout_marginTop="10dp"
+            android:layout_height="0.5dp"
+            android:background="@color/lessDarkGrey"
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
     />
 
-    <LinearLayout
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="        "
+            android:textColor="@color/liftrGold1"
+            android:textSize="28sp"
+            android:id="@+id/resultView"
+            android:background="@color/black"
+            android:layout_gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+    />
+
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:text=""
+            android:textColor="@color/grey"
+            android:textSize="16sp"
             android:layout_margin="10dp"
-            android:padding="10dp"
-            android:background="@color/backgroundgrey2"
-    >
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-
-        >
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="        "
-                    android:textColor="@color/liftrGold1"
-                    android:textSize="28sp"
-                    android:id="@+id/resultView"
-                    android:background="@color/black"
-                    android:padding="7dp"
-            />
-
-        </LinearLayout>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hit calculate to view results"
-                android:textColor="@color/grey"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
-                android:id="@+id/summaryView"
-        />
-
-    </LinearLayout>
-
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/confirmgreen"
-            android:layout_margin="20dp"
-            android:text="@string/calculate"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:id="@+id/calculateButton"
+            android:id="@+id/summaryView"
+            android:gravity="center"
+            android:visibility="gone"
     />
+
+
 
 
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
     >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/age"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="16sp"
         />
 
         <EditText
@@ -120,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sex"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="16sp"
         />
 
         <RadioGroup
@@ -155,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
     >
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -167,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/height"
                     android:textColor="@color/offWhite"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
             />
 
             <EditText
@@ -185,8 +152,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cm"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/cmTextView"
                     android:visibility="gone"
             />
@@ -205,8 +172,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/feet"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/feetTextView"
             />
 
@@ -224,8 +191,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/inches"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/inchesTextView"
             />
 
@@ -243,8 +210,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/weightColon"
                     android:textColor="@color/offWhite"
-                    android:textSize="20sp"
-
+                    android:textSize="16sp"
             />
 
             <EditText
@@ -261,8 +227,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pounds"
-                    android:textColor="@color/grey"
-                    android:textSize="16sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/weightUnit"
             />
 
@@ -270,5 +236,22 @@
 
     </LinearLayout>
 
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/confirmgreen"
+            android:text="@string/calculate"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/calculateButton"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+    />
 
 </LinearLayout>

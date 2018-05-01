@@ -1,6 +1,7 @@
 package com.liftdom.charts_stats_tools.tools;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,7 @@ public class BMICalcFrag extends Fragment {
     @BindView(R.id.feetTextView) TextView feetView;
     @BindView(R.id.inchesTextView) TextView inchesView;
     @BindView(R.id.weightUnit) TextView weightUnit;
+    @BindView(R.id.titleView) TextView titleView;
 
     boolean isImperial;
     double bodyWeight = 0;
@@ -59,6 +63,10 @@ public class BMICalcFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bmicalc, container, false);
 
         ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
 
         DatabaseReference settingsRef = mRootRef.child("user").child(uid);
 
@@ -107,7 +115,7 @@ public class BMICalcFrag extends Fragment {
                         femaleRadioButton.setChecked(true);
                     }
 
-
+                    calculateBMI();
 
                 }
 
@@ -120,64 +128,66 @@ public class BMICalcFrag extends Fragment {
 
         calculateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                boolean isEmptyString = false;
-
-                boolean isMale = false;
-                if(sex.equals("male")){
-                    isMale = true;
-                }
-
-                double heightCm = 0;
-                if(isImperial){
-                    String heightFeet = heightFeetEdit.getText().toString();
-                    String heightInches = heightInchesEdit.getText().toString();
-                    if(!heightFeet.isEmpty() && !heightInches.isEmpty()){
-                        String newHeight = heightFeet + "_" + heightInches;
-                        heightCm = heightConvertToMet(newHeight);
-                    }else{
-                        isEmptyString = true;
-                    }
-                }else{
-                    String heightCmString = heightCmEdit.getText().toString();
-                    if(!heightCmString.isEmpty()){
-                        heightCm = Double.parseDouble(heightCmString);
-                    }else{
-                        isEmptyString = true;
-                    }
-                }
-
-                double weightKg = 0;
-                String weightString = weightEdit.getText().toString();
-                if(!weightString.isEmpty()){
-                    bodyWeight = Double.parseDouble(weightString);
-                    if(isImperial){
-                        weightKg = weightConvertToMet(bodyWeight);
-                    }else{
-                        weightKg = bodyWeight;
-                    }
-                }else{
-                    isEmptyString = true;
-                }
-
-
-                if(!isEmptyString){
-                    BMICalculatorClass calcClass = new BMICalculatorClass(weightKg, heightCm);
-
-                    double BMI = calcClass.getBMI();
-
-                    String bmiString = String.valueOf(BMI);
-
-                    resultsView.setText(bmiString);
-                }
-
-                //TODO: In summary view, tell them what it means concerning their age and sex
-                // call a method here that returns an appropriate string.
-
+                calculateBMI();
             }
         });
 
         return view;
+    }
+
+    private void calculateBMI(){
+        boolean isEmptyString = false;
+
+        boolean isMale = false;
+        if(sex.equals("male")){
+            isMale = true;
+        }
+
+        double heightCm = 0;
+        if(isImperial){
+            String heightFeet = heightFeetEdit.getText().toString();
+            String heightInches = heightInchesEdit.getText().toString();
+            if(!heightFeet.isEmpty() && !heightInches.isEmpty()){
+                String newHeight = heightFeet + "_" + heightInches;
+                heightCm = heightConvertToMet(newHeight);
+            }else{
+                isEmptyString = true;
+            }
+        }else{
+            String heightCmString = heightCmEdit.getText().toString();
+            if(!heightCmString.isEmpty()){
+                heightCm = Double.parseDouble(heightCmString);
+            }else{
+                isEmptyString = true;
+            }
+        }
+
+        double weightKg = 0;
+        String weightString = weightEdit.getText().toString();
+        if(!weightString.isEmpty()){
+            bodyWeight = Double.parseDouble(weightString);
+            if(isImperial){
+                weightKg = weightConvertToMet(bodyWeight);
+            }else{
+                weightKg = bodyWeight;
+            }
+        }else{
+            isEmptyString = true;
+        }
+
+
+        if(!isEmptyString){
+            BMICalculatorClass calcClass = new BMICalculatorClass(weightKg, heightCm);
+
+            double BMI = calcClass.getBMI();
+
+            String bmiString = String.valueOf(BMI);
+
+            resultsView.setText(bmiString);
+        }
+
+        //TODO: In summary view, tell them what it means concerning their age and sex
+        // call a method here that returns an appropriate string.
     }
 
     public double weightConvertToMet(double weight){
