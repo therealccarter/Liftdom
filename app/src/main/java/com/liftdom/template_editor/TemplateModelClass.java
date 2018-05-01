@@ -36,6 +36,7 @@ public class TemplateModelClass {
     private HashMap<String, String> mExtraInfo;
     private String publicTemplateKeyId;
     private boolean mIsImperial;
+    private List<String> mHasReppedList;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -55,7 +56,8 @@ public class TemplateModelClass {
                               boolean isAlgorithm, boolean isAlgoApplyToAll,
                               HashMap<String, List<String>> algorithmInfo,
                               HashMap<String, List<String>> algorithmDateMap,
-                              boolean isImperial){
+                              boolean isImperial,
+                              List<String> hasReppedList){
 
         mTemplateName = templateName;
         mDays = days;
@@ -80,6 +82,11 @@ public class TemplateModelClass {
         mAlgorithmInfo = algorithmInfo;
         mAlgorithmDateMap = algorithmDateMap;
         mIsImperial = isImperial;
+        try{
+            mHasReppedList = hasReppedList;
+        }catch (NullPointerException e){
+
+        }
     }
 
     public HashMap<String, String> getExtraInfo() {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.utils.SlidingTabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,9 +37,12 @@ public class PublicTemplateChooserFrag extends Fragment {
         mCallback.changeHeaderTitle(title);
     }
 
+    PublicProgramsPagerAdapter adapter;
+    CharSequence Titles[]={"All Public Programs", "My Public Programs"};
+    int NumbOfTabs = 2;
 
-    @BindView(R.id.publicTemplatesButton) Button publicTemplatesButton;
-    @BindView(R.id.myPublicTemplatesButton) Button myPublicTemplatesButton;
+    @BindView(R.id.tabs) SlidingTabLayout tabsView;
+    @BindView(R.id.pager) ViewPager pager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,31 +52,27 @@ public class PublicTemplateChooserFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        publicTemplatesButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(final View v){
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.replace(R.id.mainFragHolder, new PublicTemplatesFrag());
+        //fragmentTransaction.replace(R.id.mainFragHolder, new MyPublicTemplatesFrag());
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new PublicTemplatesFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-        myPublicTemplatesButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(final View v){
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.mainFragHolder, new MyPublicTemplatesFrag());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        if(savedInstanceState == null){
+            setUpSlidingLayout();
+        }
 
         return view;
+    }
+
+    private void setUpSlidingLayout(){
+        adapter = new PublicProgramsPagerAdapter(this.getChildFragmentManager(), Titles, NumbOfTabs);
+        pager.setAdapter(adapter);
+        tabsView.setDistributeEvenly(true);
+        tabsView.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+        tabsView.setViewPager(pager);
     }
 
     @Override
@@ -79,8 +80,6 @@ public class PublicTemplateChooserFrag extends Fragment {
         super.onStart();
         headerChanger("Public Programs");
     }
-
-
 
     @Override
     public void onAttach(Activity activity) {

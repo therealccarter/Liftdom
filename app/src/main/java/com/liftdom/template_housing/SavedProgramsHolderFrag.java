@@ -69,7 +69,6 @@ public class SavedProgramsHolderFrag extends Fragment {
         //MainActivity mainActivity = (MainActivity) getActivity();
         //mainActivity.setBackArrow();
 
-
         return view;
     }
 
