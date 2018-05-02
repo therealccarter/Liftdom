@@ -31,7 +31,7 @@ public class CalorieCalculatorClass {
         ValueAndCaloriesObect vACO1 = new ValueAndCaloriesObect();
         //vACO1.setDietType("Lose 2lbs/week");
         vACO1.setDietType(1);
-        vACO1.setCalories(bmrInitial - 1000);
+        vACO1.setCalories(bmrInitial - 800);
         valueAndCaloriesArrayList.add(vACO1);
 
         ValueAndCaloriesObect vACO2 = new ValueAndCaloriesObect();
@@ -55,7 +55,7 @@ public class CalorieCalculatorClass {
         ValueAndCaloriesObect vACO5 = new ValueAndCaloriesObect();
         //vACO5.setDietType("Gain 2lbs/week");
         vACO5.setDietType(5);
-        vACO5.setCalories(bmrInitial + 1000);
+        vACO5.setCalories(bmrInitial + 800);
         valueAndCaloriesArrayList.add(vACO5);
 
     }
@@ -71,15 +71,15 @@ public class CalorieCalculatorClass {
 
         bmr = bmr - 250;
 
-        if(spinnerPosition == 1){
-            bmr = bmr * 1.2;
-        }else if(spinnerPosition == 2){
-            bmr = bmr * 1.5;
-        }else if(spinnerPosition == 3){
-            bmr = bmr * 1.8;
-        }else if(spinnerPosition == 4){
-            bmr = bmr * 2.0;
-        }
+        //if(spinnerPosition == 1){
+        //    bmr = bmr * 1.2;
+        //}else if(spinnerPosition == 2){
+        //    bmr = bmr * 1.5;
+        //}else if(spinnerPosition == 3){
+        //    bmr = bmr * 1.8;
+        //}else if(spinnerPosition == 4){
+        //    bmr = bmr * 2.0;
+        //}
 
         return bmr;
     }

@@ -1,23 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
               android:orientation="vertical"
               android:focusable="true"
               android:focusableInTouchMode="true"
               android:background="@color/backgroundgrey1"
              tools:context="com.liftdom.charts_stats_tools.tools.CalorieCalcFrag">
-
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/liftrGold1"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-    />
 
     <TextView
             android:layout_width="match_parent"
@@ -27,48 +16,40 @@
             android:textSize="24sp"
             android:padding="5dp"
             android:gravity="center"
+            android:id="@+id/titleView"
     />
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/liftrGold1"
-            android:layout_marginTop="10dp"
+            android:layout_height="0.5dp"
+            android:background="@color/lessDarkGrey"
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
     />
 
     <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:id="@+id/calorieCalcChart"
     >
 
     </com.github.mikephil.charting.charts.BarChart>
 
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:background="@color/confirmgreen"
-            android:text="@string/reloadChart"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:id="@+id/calReloadButton"
-    />
-
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
     >
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/age"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="16sp"
         />
 
         <EditText
@@ -80,6 +61,7 @@
                 android:imeOptions="actionDone"
                 android:maxLength="2"
                 android:textColor="@color/white"
+                android:textSize="15sp"
         />
 
         <TextView
@@ -87,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sex"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="16sp"
         />
 
         <RadioGroup
@@ -102,7 +84,7 @@
                     android:text="M"
                     android:layout_marginEnd="10dp"
                     android:id="@+id/maleRadioButton"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/offWhite"
             />
 
             <RadioButton
@@ -110,10 +92,10 @@
                     android:layout_height="30dp"
                     android:text="F"
                     android:id="@+id/femaleRadioButton"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/offWhite"
             />
-        </RadioGroup>
 
+        </RadioGroup>
 
 
     </LinearLayout>
@@ -122,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
     >
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -134,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/height"
                     android:textColor="@color/offWhite"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
             />
 
             <EditText
@@ -145,15 +127,16 @@
                     android:imeOptions="actionDone"
                     android:visibility="gone"
                     android:maxLength="3"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cm"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/cmTextView"
                     android:visibility="gone"
             />
@@ -165,15 +148,16 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:maxLength="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/feet"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/feetTextView"
             />
 
@@ -184,16 +168,17 @@
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:maxLength="2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/inches"
-                    android:textColor="@color/grey"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:id="@+id/inchesTextView"
+                    android:textColor="@color/offWhite"
             />
 
         </LinearLayout>
@@ -210,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/weightColon"
                     android:textColor="@color/offWhite"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
 
             />
 
@@ -221,15 +206,16 @@
                     android:id="@+id/weightEditText"
                     android:imeOptions="actionDone"
                     android:maxLength="3"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
             />
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pounds"
-                    android:textColor="@color/grey"
-                    android:textSize="16sp"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
                     android:id="@+id/weightUnit"
             />
 
@@ -243,15 +229,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_gravity="center"
     >
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/activityLevel"
                 android:textColor="@color/offWhite"
-                android:textSize="20sp"
+                android:textSize="16sp"
         />
 
         <Spinner
@@ -263,6 +248,23 @@
         </Spinner>
 
     </LinearLayout>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/confirmgreen"
+            android:text="@string/reloadChart"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/calReloadButton"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="15dp"
+            android:minHeight="0dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+    />
 
 
 </LinearLayout>

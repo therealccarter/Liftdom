@@ -2,6 +2,7 @@ package com.liftdom.charts_stats_tools.tools;
 
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ public class CalorieCalcFrag extends Fragment {
     @BindView(R.id.calorieCalcChart) BarChart barChart;
     @BindView(R.id.heightCm) EditText heightCmEdit;
     @BindView(R.id.cmTextView) TextView cmTextView;
+    @BindView(R.id.titleView) TextView titleView;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -68,6 +70,10 @@ public class CalorieCalcFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
+
         List<String> activityLevels = new ArrayList<String>();
         activityLevels.add("No Exercise");      //0
         activityLevels.add("Light Exercise");   //1
@@ -85,7 +91,6 @@ public class CalorieCalcFrag extends Fragment {
         // attaching data adapter to spinner
         activityLevelSpinner.setAdapter(dataAdapter);
 
-
         DatabaseReference settingsRef = mRootRef.child("user").child(uid);
 
         if(savedInstanceState == null){
@@ -94,9 +99,10 @@ public class CalorieCalcFrag extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                    final UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                     if(userModelClass.getActiveTemplate() == null){
                         activityLevelSpinner.setSelection(0);
+                        setValuesFromUserModelClass(userModelClass);
                     }else{
                         DatabaseReference activeTemplateRef = mRootRef.child("templates").child(uid).child
                                 (userModelClass.getActiveTemplate());
@@ -106,15 +112,17 @@ public class CalorieCalcFrag extends Fragment {
                                 TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
                                 String delims = "[_]";
                                 String[] daysTokens = templateModelClass.getDays().split(delims);
-                                if(daysTokens.length == 1 || daysTokens.length == 2){
+                                if(daysTokens.length == 1 || daysTokens.length == 2 || daysTokens.length == 3){
                                     activityLevelSpinner.setSelection(1);
-                                }else if(daysTokens.length == 3 || daysTokens.length == 4){
+                                }else if(daysTokens.length == 4 || daysTokens.length == 5){
                                     activityLevelSpinner.setSelection(2);
-                                }else if(daysTokens.length == 5 || daysTokens.length == 6){
+                                }else if(daysTokens.length == 6 || daysTokens.length == 7){
                                     activityLevelSpinner.setSelection(3);
                                 }else{
                                     activityLevelSpinner.setSelection(4);
                                 }
+
+                                setValuesFromUserModelClass(userModelClass);
                             }
 
                             @Override
@@ -122,43 +130,6 @@ public class CalorieCalcFrag extends Fragment {
 
                             }
                         });
-                    }
-                    if(userModelClass.isIsImperial()){
-                        // is imperial
-                        isImperial = true;
-                        String[] heightTokens = userModelClass.getFeetInchesHeight().split("_");
-                        heightFeetEdit.setText(heightTokens[0]);
-                        heightInchesEdit.setText(heightTokens[1]);
-                        weightEdit.setText(userModelClass.getPounds());
-                        heightInchesEdit.setVisibility(View.VISIBLE);
-                        heightFeetEdit.setVisibility(View.VISIBLE);
-                        feetView.setVisibility(View.VISIBLE);
-                        inchesView.setVisibility(View.VISIBLE);
-                    }else{
-                        // is metric
-                        isImperial = false;
-                        heightInchesEdit.setVisibility(View.GONE);
-                        heightFeetEdit.setVisibility(View.GONE);
-                        feetView.setVisibility(View.GONE);
-                        inchesView.setVisibility(View.GONE);
-                        weightUnit.setText("kg");
-
-                        cmTextView.setVisibility(View.VISIBLE);
-                        heightCmEdit.setVisibility(View.VISIBLE);
-                        heightCmEdit.setText(userModelClass.getCmHeight());
-                        weightEdit.setText(userModelClass.getKgs());
-                    }
-
-                    ageEdit.setText(userModelClass.getAge());
-                    age = Integer.parseInt(userModelClass.getAge());
-
-
-                    if(userModelClass.getSex().equals("male")){
-                        maleRadioButton.setChecked(true);
-                        femaleRadioButton.setChecked(false);
-                    }else{
-                        maleRadioButton.setChecked(false);
-                        femaleRadioButton.setChecked(true);
                     }
                 }
 
@@ -171,27 +142,72 @@ public class CalorieCalcFrag extends Fragment {
 
         calReloadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                age = Integer.parseInt(ageEdit.getText().toString());
-                bodyWeight = Double.parseDouble(weightEdit.getText().toString());
-                if(isImperial){
-                    height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
-                }else{
-                    height = heightCmEdit.getText().toString();
-                }
-                if(maleRadioButton.isChecked()){
-                    sex = "male";
-                }else if(femaleRadioButton.isChecked()){
-                    sex = "female";
-                }
-
-                int spinnerPosition = activityLevelSpinner.getSelectedItemPosition();
-
-                setUpCalCalcClass(spinnerPosition);
+                startCalCalcChart();
             }
         });
 
         return view;
+    }
+
+    private void setValuesFromUserModelClass(UserModelClass userModelClass){
+        if(userModelClass.isIsImperial()){
+            // is imperial
+            isImperial = true;
+            String[] heightTokens = userModelClass.getFeetInchesHeight().split("_");
+            heightFeetEdit.setText(heightTokens[0]);
+            heightInchesEdit.setText(heightTokens[1]);
+            weightEdit.setText(userModelClass.getPounds());
+            heightInchesEdit.setVisibility(View.VISIBLE);
+            heightFeetEdit.setVisibility(View.VISIBLE);
+            feetView.setVisibility(View.VISIBLE);
+            inchesView.setVisibility(View.VISIBLE);
+        }else{
+            // is metric
+            isImperial = false;
+            heightInchesEdit.setVisibility(View.GONE);
+            heightFeetEdit.setVisibility(View.GONE);
+            feetView.setVisibility(View.GONE);
+            inchesView.setVisibility(View.GONE);
+            weightUnit.setText("kg");
+
+            cmTextView.setVisibility(View.VISIBLE);
+            heightCmEdit.setVisibility(View.VISIBLE);
+            heightCmEdit.setText(userModelClass.getCmHeight());
+            weightEdit.setText(userModelClass.getKgs());
+        }
+
+        ageEdit.setText(userModelClass.getAge());
+        age = Integer.parseInt(userModelClass.getAge());
+
+
+        if(userModelClass.getSex().equals("male")){
+            maleRadioButton.setChecked(true);
+            femaleRadioButton.setChecked(false);
+        }else{
+            maleRadioButton.setChecked(false);
+            femaleRadioButton.setChecked(true);
+        }
+
+        startCalCalcChart();
+    }
+
+    private void startCalCalcChart(){
+        age = Integer.parseInt(ageEdit.getText().toString());
+        bodyWeight = Double.parseDouble(weightEdit.getText().toString());
+        if(isImperial){
+            height = heightFeetEdit.getText().toString() + "_" + heightInchesEdit.getText().toString();
+        }else{
+            height = heightCmEdit.getText().toString();
+        }
+        if(maleRadioButton.isChecked()){
+            sex = "male";
+        }else if(femaleRadioButton.isChecked()){
+            sex = "female";
+        }
+
+        int spinnerPosition = activityLevelSpinner.getSelectedItemPosition();
+
+        setUpCalCalcClass(spinnerPosition);
     }
 
     public void setUpCalCalcClass(int spinnerPosition){
