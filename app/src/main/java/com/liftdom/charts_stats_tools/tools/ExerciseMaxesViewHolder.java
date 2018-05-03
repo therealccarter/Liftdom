@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 /**
  * Created by Brodin on 5/2/2018.
@@ -32,6 +34,8 @@ public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
 
     public void setExerciseName(String mExerciseName) {
         this.mExerciseName = mExerciseName;
+        String exName = mExerciseName + ":";
+        mExerciseNameView.setText(exName);
     }
 
     public String getMaxValue() {
@@ -40,6 +44,25 @@ public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
 
     public void setMaxValue(String mMaxValue) {
         this.mMaxValue = mMaxValue;
+        if(isIsImperial() == isIsImperialPOV()){
+            if(isIsImperial()){
+                String val = mMaxValue + " lbs";
+                mMaxView.setText(val);
+            }else{
+                String val = mMaxValue + " kgs";
+                mMaxView.setText(val);
+            }
+        }else{
+            if(isIsImperial() && !isIsImperialPOV()){
+                // convert from imperial to metric
+                String val = imperialToMetric(mMaxValue) + " kgs";
+                mMaxView.setText(val);
+            }else if(!isIsImperial() && isIsImperialPOV()){
+                // convert from metric to imperial
+                String val = metricToImperial(mMaxValue) + " lbs";
+                mMaxView.setText(val);
+            }
+        }
     }
 
     public boolean isIsImperial() {
@@ -56,6 +79,10 @@ public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
 
     public void setDate(String mDate) {
         this.mDate = mDate;
+        DateTime dateTimeOriginal = DateTime.parse(mDate);
+        DateTime localDate = dateTimeOriginal.withZone(DateTimeZone.getDefault());
+        String formattedLocalDate = localDate.toString("MM/dd/yyyy");
+        mDateView.setText(formattedLocalDate);
     }
 
     public boolean isIsImperialPOV() {
@@ -64,5 +91,23 @@ public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
 
     public void setIsImperialPOV(boolean mIsImperialPOV) {
         this.mIsImperialPOV = mIsImperialPOV;
+    }
+
+    private String metricToImperial(String input){
+
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        String newString = String.valueOf(lbsInt);
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        String newString = String.valueOf(kgInt);
+
+        return newString;
     }
 }

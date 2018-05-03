@@ -19,7 +19,6 @@ rehaul of exercise history chart{
     one button that shows the exercise name/choose exercise
     one button under that says clear chart
 }
-fix notifications constraint layout
 add title callbacks for public programs/pre-made programs
 check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
 ad rehaul (add to the coordinator layout toolbar/have it hide when gone, show otherwise)

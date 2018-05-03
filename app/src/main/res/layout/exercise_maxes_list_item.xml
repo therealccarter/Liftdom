@@ -4,9 +4,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/darkGrey"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:background="@color/midGrey"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_marginBottom="3dp"
 >
     <View
@@ -24,9 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/exerciseNameView"
-            android:text="DudeBro"
+            android:text="Bench Press"
             android:layout_marginStart="10dp"
-            android:textColor="@color/grey"
+            android:textColor="@color/offWhite"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view1"
@@ -37,11 +37,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/maxView"
             android:textSize="15sp"
-            android:visibility="gone"
-            android:layout_marginStart="3dp"
-            android:textColor="@color/offWhite"
-            app:layout_constraintTop_toBottomOf="view1"
-            app:layout_constraintStart_toEndOf="@id/exerciseNameView"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/exerciseNameView"
+            app:layout_constraintStart_toStartOf="parent"
     />
 
     <TextView
