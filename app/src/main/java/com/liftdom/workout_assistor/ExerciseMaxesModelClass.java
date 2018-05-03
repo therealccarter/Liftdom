@@ -6,10 +6,10 @@ package com.liftdom.workout_assistor;
 public class ExerciseMaxesModelClass {
 
     // we'll have the key be the name of the exercise
-    String mExerciseName;
-    String mMaxValue;
-    boolean mIsImperial;
-    String mDate;
+    private String mExerciseName;
+    private String mMaxValue;
+    private boolean mIsImperial;
+    private String mDate;
 
     public ExerciseMaxesModelClass(){
         // for firebase

@@ -82,6 +82,11 @@
 
     <string name="percentOf">% of</string>
 
+    <string name="exerciseMaxes">Exercise Maxes</string>
+
+    <string name="noMaxesFound">No exercise maxes found.\nThey are automatically recorded when you complete a
+        workout.</string>
+
     <string name="smolov">Smolov</string>
 
     <string name="smolovBeta">Smolov (Beta)</string>

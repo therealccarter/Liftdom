@@ -38,10 +38,11 @@
             android:id="@+id/hasFollowedYou"
             android:textSize="15sp"
             android:visibility="gone"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/offerGrey"
-            app:layout_constraintStart_toEndOf="@id/userNameView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
     />
 
@@ -52,10 +53,11 @@
             android:text="@string/hasCommentedOnYourPost"
             android:textSize="15sp"
             android:visibility="gone"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/offerGrey"
-            app:layout_constraintStart_toEndOf="@id/userNameView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
     />
 
@@ -65,10 +67,11 @@
             android:id="@+id/hasReppedView"
             android:textSize="15sp"
             android:visibility="gone"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/offerGrey"
-            app:layout_constraintStart_toEndOf="@id/userNameView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
     />
 
@@ -78,10 +81,11 @@
             android:id="@+id/hasSentProgram"
             android:textSize="15sp"
             android:visibility="gone"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/offerGrey"
-            app:layout_constraintStart_toEndOf="@id/userNameView"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userNameView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
     />
 
