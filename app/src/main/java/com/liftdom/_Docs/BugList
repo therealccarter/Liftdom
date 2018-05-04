@@ -18,6 +18,7 @@ rehaul of exercise history chart{
     radio buttons here      reload button here (auto-reload on ex chose)
     one button that shows the exercise name/choose exercise
     one button under that says clear chart
+    maybe just show what you did that day in SxRxW format.
 }
 add title callbacks for public programs/pre-made programs
 check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
