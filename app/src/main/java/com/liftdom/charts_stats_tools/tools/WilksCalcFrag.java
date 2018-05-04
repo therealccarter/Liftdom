@@ -13,17 +13,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.user_profile.UserModelClass;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WilksCalcFrag extends Fragment {
 
-
     public WilksCalcFrag() {
         // Required empty public constructor
     }
+
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    boolean isImperialPOV = false;
 
     @BindView(R.id.titleView) TextView titleView;
     @BindView(R.id.squatEditText) EditText squatEditText;
@@ -46,7 +51,41 @@ public class WilksCalcFrag extends Fragment {
 
         titleView.setTypeface(lobster);
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                    if(userModelClass.isIsImperial()){
+                        isImperialPOV = true;
+                        setToLbs();
+                    }else{
+                        isImperialPOV = false;
+                        setToKgs();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void setToLbs(){
+        squatUnit.setText(" lbs");
+        benchPressUnit.setText(" lbs");
+        deadliftUnit.setText(" lbs");
+    }
+
+    private void setToKgs(){
+        squatUnit.setText(" kgs");
+        benchPressUnit.setText(" kgs");
+        deadliftUnit.setText(" kgs");
     }
 
 }
