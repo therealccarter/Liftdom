@@ -82,6 +82,12 @@
 
     <string name="percentOf">% of</string>
 
+    <string name="squat">Squat:</string>
+
+    <string name="benchPress">Bench Press:</string>
+
+    <string name="deadlift">Deadlift:</string>
+
     <string name="exerciseMaxes">Exercise Maxes</string>
 
     <string name="noMaxesFound">No exercise maxes found.\nThey are automatically recorded when you complete a
@@ -583,6 +589,8 @@
     <string name="items">Items:\u0020</string>
     <string name="bmiTitle">Body Mass Index Calculator</string>
     <string name="chartsStatsTools">Charts/Stats/Tools</string>
+
+    <string name="wilksTitle">Wilks Calculator</string>
 
     <string name="premiumFeatures">Premium Features</string>
 

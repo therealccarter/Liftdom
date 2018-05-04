@@ -1,8 +1,227 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.liftdom.charts_stats_tools.tools.WilksCalcFrag">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/backgroundgrey1"
+        tools:context="com.liftdom.charts_stats_tools.tools.WilksCalcFrag"
+>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wilksTitle"
+            android:textColor="@color/liftrGold1"
+            android:textSize="24sp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:id="@+id/titleView"
+    />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lessDarkGrey"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="        "
+            android:textColor="@color/liftrGold1"
+            android:textSize="28sp"
+            android:id="@+id/resultView"
+            android:background="@color/black"
+            android:layout_gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+    />
 
 
-</FrameLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="-10dp"
+            android:layout_marginTop="10dp"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/squat"
+                android:textColor="@color/offWhite"
+                android:textSize="16sp"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/squatEditText"
+                android:imeOptions="actionDone"
+                android:maxLength="3"
+                android:textColor="@color/grey"
+                android:textSize="15sp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pounds"
+                android:textColor="@color/offWhite"
+                android:textSize="14sp"
+                android:id="@+id/squatUnit"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+    >
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/benchPress"
+                    android:textColor="@color/offWhite"
+                    android:textSize="16sp"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/benchPressEditText"
+                    android:imeOptions="actionDone"
+                    android:maxLength="3"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pounds"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
+                    android:id="@+id/benchPressUnit"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="15dp"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deadlift"
+                    android:textColor="@color/offWhite"
+                    android:textSize="16sp"
+            />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/deadliftEditText"
+                    android:imeOptions="actionDone"
+                    android:maxLength="3"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pounds"
+                    android:textColor="@color/offWhite"
+                    android:textSize="14sp"
+                    android:id="@+id/deadliftUnit"
+            />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+    >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textColor="@color/offWhite"
+                android:textSize="16sp"
+        />
+
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+        >
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="M"
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/maleRadioButton"
+                    android:textColor="@color/grey"
+            />
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="F"
+                    android:id="@+id/femaleRadioButton"
+                    android:textColor="@color/grey"
+            />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/confirmgreen"
+            android:text="@string/calculate"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/calculateButton"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+    />
+
+</LinearLayout>
