@@ -8,12 +8,12 @@ currently on v1.31
 layout work on BMI calc/cal calc
 fixed notification layout crowding issue
 fixed calorie calculator values
+add maxes section to stats/charts/tools
+add wilks section to stats/charts/tools
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-add maxes section to stats/charts/tools
-add wilks section to stats/charts/tools
 rehaul of exercise history chart{
     radio buttons here      reload button here (auto-reload on ex chose)
     one button that shows the exercise name/choose exercise
@@ -22,6 +22,7 @@ rehaul of exercise history chart{
 add title callbacks for public programs/pre-made programs
 check to see if user search shows all or if it's also limited to one. (like how the ex selector search was)
 ad rehaul (add to the coordinator layout toolbar/have it hide when gone, show otherwise)
+need to have completion streak check on app open
 =====================================================
 
 ============ ON DECK FOR v1.32+: ===============================================

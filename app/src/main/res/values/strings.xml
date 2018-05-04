@@ -601,6 +601,8 @@
 
     <string name="home">Home</string>
 
+    <string name="workInProgress">(Work in Progress)</string>
+
     <string name="options">Options:</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>

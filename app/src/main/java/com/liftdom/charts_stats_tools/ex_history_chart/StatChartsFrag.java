@@ -3,6 +3,7 @@ package com.liftdom.charts_stats_tools.ex_history_chart;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class StatChartsFrag extends Fragment {
     @BindView(R.id.itemsBeingGraphed) TextView itemsTextView;
     @BindView(R.id.reloadChartButton) Button reloadChart;
     @BindView(R.id.clearChartButton) Button clearChart;
+    @BindView(R.id.titleView) TextView titleView;
 
     List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 
@@ -64,8 +66,11 @@ public class StatChartsFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        maxWeightRadioButton.setChecked(true);
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
+        titleView.setTypeface(lobster);
+
+        maxWeightRadioButton.setChecked(true);
 
         DatabaseReference completedExs = mRootRef.child("completedExercises").child(uid);
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
