@@ -70,6 +70,15 @@
             <fragment
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:name="com.liftdom.charts_stats_tools.tools.WilksCalcFrag"
+                    tools:layout="@layout/fragment_wilks_calc"
+                    android:layout_margin="15dp"
+                    android:id="@+id/wilksFrag"
+            />
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:name="com.liftdom.charts_stats_tools.tools.ExerciseMaxesFrag"
                     tools:layout="@layout/fragment_exercise_maxes"
                     android:layout_margin="15dp"
