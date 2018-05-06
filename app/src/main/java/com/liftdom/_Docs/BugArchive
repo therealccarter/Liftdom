@@ -1,4 +1,13 @@
 
+currently on v1.31
+----------------------
+layout work on BMI calc/cal calc
+fixed notification layout crowding issue
+fixed calorie calculator values
+add maxes section to stats/charts/tools
+add wilks section to stats/charts/tools
+fix that incompatible workouts bug in the self feed (pre 2017-12-02)
+----------------------
 currently on v1.30
 ----------------------
 redo/dark layout for the other pages.

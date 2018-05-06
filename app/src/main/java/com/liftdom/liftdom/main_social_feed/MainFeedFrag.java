@@ -195,9 +195,9 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 holder.setUserName(model.getUserName());
                 holder.setUserLevel(model.getUserId(), rootRef);
                 holder.setPublicDescription(model.getPublicDescription());
-                //holder.setBonusView(model.getBonusList());
                 holder.setTimeStamp(model.getDateTime());
                 holder.setHasReppedList(model.getHasReppedList());
+                //holder.setBonusView(model.getBonusList());
                 //viewHolder.setReppedCount(model.getRepCount());
                 //viewHolder.setRepsCounterView(model.getRepCount());
                 //viewHolder.setIsRepped(model.isHasRepped(), false);
@@ -258,20 +258,43 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         });
     }
 
+    private void checkCompletionStreak(){
+
+    }
+
+    private void setLoginDate(){
+
+    }
+
     private void kablam(){
 
-        // removes all the incompatible workouts in global feed based on date
-        final DatabaseReference globalRef = FirebaseDatabase.getInstance().getReference().child("globalFeed");
-        globalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        // removes all the incompatible workouts in self feed based on date
+        final DatabaseReference selfRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");
+        selfRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    DateTime dateTime1 = DateTime.parse("2017-12-02");
-                    CompletedWorkoutModelClass workoutModelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass.class);
-                    DateTime dateTime2 = DateTime.parse(workoutModelClass.getDateTime());
-                    if(dateTime2.isBefore(dateTime1)){
-                        globalRef.child(workoutModelClass.getRef()).setValue(null);
-                    }
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    String subUid = dataSnapshot1.getKey();
+                    final DatabaseReference subRef = selfRef.child(subUid);
+                    subRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+                            for(DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()){
+                                DateTime dateTime1 = DateTime.parse("2017-12-02");
+                                CompletedWorkoutModelClass workoutModelClass = dataSnapshot3.getValue
+                                        (CompletedWorkoutModelClass.class);
+                                DateTime dateTime2 = DateTime.parse(workoutModelClass.getDateTime());
+                                if(dateTime2.isBefore(dateTime1)){
+                                    subRef.child(workoutModelClass.getRef()).setValue(null);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
@@ -280,6 +303,29 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
 
             }
         });
+
+
+        // removes all the incompatible workouts in global feed based on date
+        //final DatabaseReference globalRef = FirebaseDatabase.getInstance().getReference().child("globalFeed");
+        //globalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+        //            DateTime dateTime1 = DateTime.parse("2017-12-02");
+        //            CompletedWorkoutModelClass workoutModelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass
+        //                    .class);
+        //            DateTime dateTime2 = DateTime.parse(workoutModelClass.getDateTime());
+        //            if(dateTime2.isBefore(dateTime1)){
+        //                globalRef.child(workoutModelClass.getRef()).setValue(null);
+        //            }
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
 
         // current issue is that mExInfoHasMap is being set to null after saving a revised workout.
         //DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor")

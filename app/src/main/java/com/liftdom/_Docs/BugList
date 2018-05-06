@@ -3,13 +3,9 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.31
+currently on v1.32
 ----------------------
-layout work on BMI calc/cal calc
-fixed notification layout crowding issue
-fixed calorie calculator values
-add maxes section to stats/charts/tools
-add wilks section to stats/charts/tools
+
 ----------------------
 ====================================================
 
@@ -26,7 +22,7 @@ ad rehaul (add to the coordinator layout toolbar/have it hide when gone, show ot
 need to have completion streak check on app open
 =====================================================
 
-============ ON DECK FOR v1.32+: ===============================================
+============ ON DECK FOR v1.33+: ===============================================
 true chat functionality/workout reminders (check that Firebase support email){
     easy idea for seen/unseen chats. When a user sends a message, for everyone
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
