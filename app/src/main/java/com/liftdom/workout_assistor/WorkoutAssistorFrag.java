@@ -106,10 +106,10 @@ public class WorkoutAssistorFrag extends Fragment{
         headerChanger("Today's Workout");
 
         if(!MainActivitySingleton.getInstance().isBannerViewInitialized){
-            String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
-            Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
-            Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
-            MainActivitySingleton.getInstance().isBannerViewInitialized = true;
+            //String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+            //Appodeal.initialize(getActivity(), appKey, Appodeal.BANNER);
+            //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+            //MainActivitySingleton.getInstance().isBannerViewInitialized = true;
         }
 
         mAuth = FirebaseAuth.getInstance();

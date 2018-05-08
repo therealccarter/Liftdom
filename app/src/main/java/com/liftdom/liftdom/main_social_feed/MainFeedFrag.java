@@ -259,11 +259,44 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     }
 
     private void checkCompletionStreak(){
+        String date = LocalDate.now().toString();
+        final DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference().child("workoutHistory").child
+                (uid);
+        historyRef.child(date).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    String date2 = LocalDate.now().minusDays(2).toString();
+                    historyRef.child(date2).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.exists()){
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user")
+                                        .child(uid).child("currentStreak");
+                                userRef.setValue("1");
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setLoginDate(){
-
+        String date = LocalDate.now().toString();
+        DatabaseReference loginDateRef = FirebaseDatabase.getInstance().getReference().child("loginDate").child(uid)
+                .child("date");
+        loginDateRef.setValue(date);
     }
 
     private void kablam(){
@@ -558,6 +591,8 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                     isFirstKonfetti = true;
                                     konfetti();
                                     startActivity(intent);
+                                    checkCompletionStreak();
+                                    setLoginDate();
                                 }else{
                                     MainActivitySingleton.getInstance().isReleaseCheck = true;
                                     String databaseVersion = dataSnapshot.getValue(String.class);
@@ -568,8 +603,12 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                         isFirstKonfetti = true;
                                         konfetti();
                                         startActivity(intent);
+                                        checkCompletionStreak();
+                                        setLoginDate();
                                     }else{
                                         MainActivitySingleton.getInstance().isReleaseCheck = true;
+                                        checkCompletionStreak();
+                                        setLoginDate();
                                     }
                                 }
                             }

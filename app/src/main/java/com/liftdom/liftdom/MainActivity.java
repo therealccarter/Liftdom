@@ -79,6 +79,7 @@ public class MainActivity extends BaseActivity implements
 
     // butterknife
     @BindView(R.id.title) TextView title;
+    @BindView(R.id.appBar) AppBarLayout appBarLayout;
 
     public void changeHeaderTitle(String title){
         TextView titleView = (TextView) findViewById(R.id.title);
@@ -110,6 +111,20 @@ public class MainActivity extends BaseActivity implements
         Appodeal.disableLocationPermissionCheck();
         Appodeal.setBannerViewId(R.id.appodealBannerView);
         Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
+        Appodeal.show(this, Appodeal.BANNER_VIEW);
+
+        //appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        //    @Override
+        //    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        //        if(verticalOffset == 0){
+        //            Log.i("appBar", "0");
+        //            Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+        //        }else{
+        //            Log.i("appBar", "not 0");
+        //            Appodeal.hide(MainActivity.this, Appodeal.BANNER_VIEW);
+        //        }
+        //    }
+        //});
 
         //Appodeal.show(this, Appodeal.BANNER_VIEW);
 

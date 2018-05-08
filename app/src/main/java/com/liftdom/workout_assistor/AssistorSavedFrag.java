@@ -110,7 +110,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         ButterKnife.bind(this, view);
 
-        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
 
         finishedTextView.setText("WORKOUT COMPLETED");
 

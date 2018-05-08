@@ -106,7 +106,7 @@ public class RestDaySavedFrag extends Fragment {
 
         finishedTextView.setText("REST DAY COMPLETED");
 
-        Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
+        //Appodeal.show(getActivity(), Appodeal.BANNER_VIEW);
         // it's not showing...
 
         //powerLevelXpView1.setText("0");

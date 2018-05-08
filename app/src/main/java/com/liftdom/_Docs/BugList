@@ -8,6 +8,9 @@ currently on v1.32
 fixed search view issue (not showing more than one item)
 fixed issue where user search icon in toolbar is always shown (now only when on feed frag)
 fixed issue where nav drawer doesn't get initialized
+need to have completion streak check on app open
+setLoginDate to see when users log in
+ad rehaul (add to the coordinator layout toolbar)
 ----------------------
 ====================================================
 
@@ -18,10 +21,9 @@ rehaul of exercise history chart{
     one button under that says clear chart
     maybe just show what you did that day in SxRxW format.
 }
-ad rehaul (add to the coordinator layout toolbar/have it hide when gone, show otherwise)
-need to have completion streak check on app open
 true splash screen
 better layout for premade programs.
+make sure everything is scrolling right (especially templateMenuFrag & WA)
 =====================================================
 
 ============ ON DECK FOR v1.33+: ===============================================
