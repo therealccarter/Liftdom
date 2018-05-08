@@ -49,10 +49,7 @@ public class BaseActivity extends AppCompatActivity {
     public void setUpNavDrawer(final Context context, Toolbar toolbar){
 
         if(drawer == null){
-            Log.i("drawer", "drawer is null");
-        }else{
-            Log.i("drawer", "drawer is not null");
-        }
+
 
         // create the drawer
         drawer = new DrawerBuilder()
@@ -234,6 +231,11 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
+            Log.i("drawer", "drawer is null (setting up) (BaseActivity)");
+        }else{
+            Log.i("drawer", "drawer is not null (BaseActivity)");
+        }
+
     }
 
     public void setUpBottomNav(){
@@ -261,6 +263,14 @@ public class BaseActivity extends AppCompatActivity {
     public String getUsernameBase(){
         TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
         return userNameView.getText().toString();
+    }
+
+    public boolean isDrawerNull(){
+        if(getDrawer() == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public Drawer getDrawer(){

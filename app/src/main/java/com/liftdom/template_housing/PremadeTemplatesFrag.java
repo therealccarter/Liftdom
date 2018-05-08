@@ -1,6 +1,7 @@
 package com.liftdom.template_housing;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -24,15 +25,25 @@ import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
  */
 public class PremadeTemplatesFrag extends Fragment {
 
+    public PremadeTemplatesFrag() {
+        // Required empty public constructor
+    }
+
+    headerChangeFromFrag mCallback;
+
+    public interface headerChangeFromFrag{
+        void changeHeaderTitle(String title);
+    }
+
+    private void headerChanger(String title){
+        mCallback.changeHeaderTitle(title);
+    }
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @BindView(R.id.smolovButton) Button smolovButton;
     @BindView(R.id.titleView) TextView titleView;
-
-    public PremadeTemplatesFrag() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -64,6 +75,27 @@ public class PremadeTemplatesFrag extends Fragment {
         //});
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        headerChanger("Premade Programs");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (headerChangeFromFrag) activity;
+        } catch (ClassCastException e) {
+            //throw new ClassCastException(activity.toString()
+            //        + " must implement OnHeadlineSelectedListener");
+        }
     }
 
 }

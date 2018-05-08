@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/userName"
                     android:text="Username"
-                    android:textColor="@color/black"
+                    android:textColor="@color/offWhite"
                     android:textSize="22sp"
                     android:textAllCaps="false"
                     android:background="@color/transparent"
@@ -58,6 +58,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
                         android:text="@string/powerLevel"
                 />
 
@@ -67,6 +68,7 @@
                         android:id="@+id/userLevel"
                         android:text=""
                         android:textSize="16sp"
+                        android:textColor="@color/offWhite"
                 />
 
             </LinearLayout>
@@ -81,10 +83,10 @@
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="0.7dp"
+            android:layout_height="0.5dp"
             android:background="@color/liftrGold2"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
     />
 
 </LinearLayout>

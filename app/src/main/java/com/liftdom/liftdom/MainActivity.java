@@ -28,11 +28,8 @@ import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.feed_slider.FeedHolderFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
-import com.liftdom.template_housing.SavedProgramsHolderFrag;
+import com.liftdom.template_housing.*;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
-import com.liftdom.template_housing.SavedTemplatesFrag;
-import com.liftdom.template_housing.SelectedTemplateFrag;
-import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.liftdom.workout_programs.Smolov.Smolov;
@@ -53,6 +50,7 @@ public class MainActivity extends BaseActivity implements
         FeedHolderFrag.headerChangeFromFrag,
         SavedProgramsHolderFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
+        PremadeTemplatesFrag.headerChangeFromFrag,
         FeedHolderFrag.bottomNavChanger,
         ForumMainFrag.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
@@ -72,6 +70,8 @@ public class MainActivity extends BaseActivity implements
     private BottomNavigation bottomNavigation;
     private ArrayList<String> typeAheadData;
     private ScrollView scrollView;
+
+    Toolbar toolbar;
 
 
     DatabaseReference mRootRef;
@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         // Handle Toolbar
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // [START auth_state_listener]
@@ -152,7 +152,10 @@ public class MainActivity extends BaseActivity implements
                     //        .child(uid);
                     //firstTimeRef.setValue(firstTimeModelClass);
                     if(savedInstanceState == null){
-                        setUpNavDrawer(MainActivity.this, toolbar);
+                        if(isDrawerNull()){
+                            Log.i("drawer", "drawer is null (MainActivity - onCreate)");
+                            setUpNavDrawer(MainActivity.this, toolbar);
+                        }
                         if(getIntent().getExtras() == null){
                             setNavDrawerSelection(1);
                         }else{
@@ -259,13 +262,12 @@ public class MainActivity extends BaseActivity implements
             }
         }
 
-
-
         bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
             @Override
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
                 Log.i("infoBottom", String.valueOf(i) + ", " + String.valueOf(i1) + ", " + String.valueOf(b));
 
+                try{
                     if (i1 == 0) {
                         setNavDrawerSelection(1);
                         //showSearchButton();
@@ -275,6 +277,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.replace(R.id.mainFragHolder, new FeedHolderFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        invalidateOptionsMenu();
                     } else if (i1 == 1) {
                         setNavDrawerSelection(2);
                         //hideSearchButton();
@@ -284,6 +287,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.replace(R.id.mainFragHolder, new TemplateMenuFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        invalidateOptionsMenu();
                     } else if (i1 == 2) {
                         setNavDrawerSelection(3);
                         //hideSearchButton();
@@ -291,8 +295,9 @@ public class MainActivity extends BaseActivity implements
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
-                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.addToBackStack(null); // some kind of crash (illegal state exception)
                         fragmentTransaction.commit();
+                        invalidateOptionsMenu();
                     } else if (i1 == 3) {
                         setNavDrawerSelection(1);
                         //hideSearchButton();
@@ -302,6 +307,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        invalidateOptionsMenu();
                     } else if (i1 == 4) {
                         setNavDrawerSelection(1);
                         //hideSearchButton();
@@ -311,8 +317,11 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        invalidateOptionsMenu();
                     }
+                }catch (IllegalStateException e){
 
+                }
             }
 
             @Override
@@ -425,6 +434,44 @@ public class MainActivity extends BaseActivity implements
 
     }
 
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+        Log.i("drawer", "MainActivity onStart called");
+
+        if(isDrawerNull() && (FirebaseAuth.getInstance().getCurrentUser() != null)){
+            Log.i("drawer", "drawer is null (MainActivity - onStart)");
+            setUpNavDrawer(MainActivity.this, toolbar);
+        }
+
+        //if(MainActivitySingleton.getInstance().isFeedFirstTime){
+
+        //}
+
+        //TemplateMenuFrag templateMenuFrag = (TemplateMenuFrag) getSupportFragmentManager().findFragmentByTag
+        //        ("templateMenuFrag");
+        //if(templateMenuFrag != null){
+        //    if(templateMenuFrag.isVisible()){
+        //        setNavDrawerSelection(3);
+        //    }
+        //}
+
+    }
+    // [END on_start_add_listener]
+
+    // [START on_stop_remove_listener]
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    // [END on_stop_remove_listener]
+
     private void checkForBadges(){
         // first we'll check for uncompleted workout
         String today = LocalDate.now().toString();
@@ -503,13 +550,15 @@ public class MainActivity extends BaseActivity implements
 
             }
         });
-        
+
+
     }
 
     public void hideSearchButton(){
         //LinearLayout searchViewLL = (LinearLayout) findViewById(R.id.searchViewLL);
         //searchViewLL.setVisibility(View.GONE);
         //searchView.setBackgroundColor(Color.parseColor("#000000"));
+
     }
 
     public void showSearchButton(){
@@ -521,12 +570,21 @@ public class MainActivity extends BaseActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        if(bottomNavigation != null){
+            if(bottomNavigation.getSelectedIndex() == 0){
+                getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+                MenuItem item = menu.findItem(R.id.action_search);
+                searchView.setMenuItem(item);
 
-        return true;
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+
     }
 
     @Override
@@ -632,6 +690,7 @@ public class MainActivity extends BaseActivity implements
             public MyViewHolder(View convertView) {
                 textView = (TextView) convertView.findViewById(android.R.id.text1);
                 textView.setTextColor(Color.parseColor("#D1B91D"));
+                textView.setBackgroundColor(Color.parseColor("#000000"));
             }
         }
 
@@ -676,36 +735,7 @@ public class MainActivity extends BaseActivity implements
         //}
     }
 
-    // [START on_start_add_listener]
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
 
-        if(MainActivitySingleton.getInstance().isFeedFirstTime){
-
-        }
-
-        //TemplateMenuFrag templateMenuFrag = (TemplateMenuFrag) getSupportFragmentManager().findFragmentByTag
-        //        ("templateMenuFrag");
-        //if(templateMenuFrag != null){
-        //    if(templateMenuFrag.isVisible()){
-        //        setNavDrawerSelection(3);
-        //    }
-        //}
-
-    }
-    // [END on_start_add_listener]
-
-    // [START on_stop_remove_listener]
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-    // [END on_stop_remove_listener]
 
 
 }
