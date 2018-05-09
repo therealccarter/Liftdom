@@ -11,19 +11,20 @@ fixed issue where nav drawer doesn't get initialized
 need to have completion streak check on app open
 setLoginDate to see when users log in
 ad rehaul (add to the coordinator layout toolbar)
+true splash screen
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON: ===============================================
-rehaul of exercise history chart{
+rehaul of exercise history chart {
     radio buttons here      reload button here (auto-reload on ex chose)
     one button that shows the exercise name/choose exercise
     one button under that says clear chart
     maybe just show what you did that day in SxRxW format.
 }
-true splash screen
 better layout for premade programs.
 make sure everything is scrolling right (especially templateMenuFrag & WA)
+remove interstitial ads after workout completion for the time being.
 =====================================================
 
 ============ ON DECK FOR v1.33+: ===============================================
