@@ -3,15 +3,9 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.32
+currently on v1.33
 ----------------------
-fixed search view issue (not showing more than one item)
-fixed issue where user search icon in toolbar is always shown (now only when on feed frag)
-fixed issue where nav drawer doesn't get initialized
-need to have completion streak check on app open
-setLoginDate to see when users log in
-ad rehaul (add to the coordinator layout toolbar)
-true splash screen
+
 ----------------------
 ====================================================
 
@@ -23,11 +17,9 @@ rehaul of exercise history chart {
     maybe just show what you did that day in SxRxW format.
 }
 better layout for premade programs.
-make sure everything is scrolling right (especially templateMenuFrag & WA)
-remove interstitial ads after workout completion for the time being.
 =====================================================
 
-============ ON DECK FOR v1.33+: ===============================================
+============ ON DECK FOR v1.34+: ===============================================
 true chat functionality/workout reminders (check that Firebase support email){
     easy idea for seen/unseen chats. When a user sends a message, for everyone
     in the chat, their chat group gains the "unseen" tag. Any time a user is in

@@ -15,21 +15,24 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.32</string>
+    <string name="currentVersion">Liftdom v1.33</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.32 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.33 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Added maxes section to stats/charts/tools page.\n
-        Added wilks section to stats/charts/tools page. \n
-        Redid existing charts/tools layouts.
+        True splash screen.\n
+        Ad rehaul (add to the toolbar).
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed notification layout crowding issue.\n
-        Fixed calorie calculator values.
+        Fixed search view issue (not showing more than one item).\n
+        Fixed issue where user search icon in toolbar is always shown (now only when on feed frag).\n
+        Fixed issue where nav drawer doesn\'t get initialized.\n
+        Now completion streak checks on app open.\n
+        Made sure everything is scrolling right (especially templateMenuFrag and WA).\n
+        Removed interstitial ads after workout completion for the time being.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>

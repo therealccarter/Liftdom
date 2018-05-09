@@ -1,4 +1,16 @@
 
+currently on v1.32
+----------------------
+fixed search view issue (not showing more than one item)
+fixed issue where user search icon in toolbar is always shown (now only when on feed frag)
+fixed issue where nav drawer doesn't get initialized
+need to have completion streak check on app open
+setLoginDate to see when users log in
+ad rehaul (add to the coordinator layout toolbar)
+true splash screen
+make sure everything is scrolling right (especially templateMenuFrag & WA)
+remove interstitial ads after workout completion for the time being.
+----------------------
 currently on v1.31
 ----------------------
 layout work on BMI calc/cal calc
