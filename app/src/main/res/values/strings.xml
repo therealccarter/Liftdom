@@ -15,26 +15,25 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.34</string>
+    <string name="currentVersion">Liftdom v1.35</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.34 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.35 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        None this update.
+        Smolov intro page layout fix (last page).
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Bug fix causing crashes for anyone with Android 8.0.0\n
-        Bug fix causing crashes for first time users who exited out of profile setup.
+        Bug fix causing crashes in Smolov creation page for anyone with Android 8.0.0
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
         Begin adding new pre-made programs.\n
         Look further into notifications.\n
-        Fix some other stuff.
+        Performance increases.
     </string>
 
     <!-- REQUIRED FOR GENERAL APP FUNCTIONALITY - YOU MAY WANT TO KEEP THESE -->

@@ -8,7 +8,6 @@
         android:gravity="center"
         tools:context="com.liftdom.workout_programs.Smolov.SmolovIntroFrag4">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,6 +17,7 @@
             android:textSize="24sp"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"
+            android:visibility="gone"
     />
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -28,6 +28,15 @@
             android:layout_margin="20dp"
             app:indicatorColor="@color/liftrGold2"
             android:layout_gravity="center"
+    />
+
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/makeCurrentTemplate"
+            android:textColor="@color/white"
+            android:id="@+id/activeTemplateCheckbox"
+            android:layout_marginStart="10dp"
     />
 
     <Button

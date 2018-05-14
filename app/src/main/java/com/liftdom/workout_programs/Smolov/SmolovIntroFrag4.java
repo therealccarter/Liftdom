@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +48,7 @@ public class SmolovIntroFrag4 extends SlideFragment {
     @BindView(R.id.finishSmolovButton) Button finishButton;
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
+    @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,11 +100,10 @@ public class SmolovIntroFrag4 extends SlideFragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         HashMap<String, String> extraInfoMap = new HashMap<>();
                         extraInfoMap.putAll(SmolovSetupSingleton.getInstance().assembleSmolovMap());
-                        String programName = SmolovSetupSingleton.getInstance().programName;
+                        final String programName = SmolovSetupSingleton.getInstance().programName;
 
                         DateTime dateTime = new DateTime(DateTimeZone.UTC);
                         String dateTimeString = dateTime.toString();
-
 
                         TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
                         modelClass.setTemplateName(programName);
@@ -118,9 +120,22 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         smolovRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Intent intent = new Intent(getContext(), MainActivity.class);
-                                intent.putExtra("fragID", 1);
-                                startActivity(intent);
+                                if(activeProgramCheckbox.isChecked()){
+                                    DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
+                                            ("user").child(uid).child("activeTemplate");
+                                    activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent intent = new Intent(getContext(), MainActivity.class);
+                                            intent.putExtra("fragID", 1);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }else{
+                                    Intent intent = new Intent(getContext(), MainActivity.class);
+                                    intent.putExtra("fragID", 1);
+                                    startActivity(intent);
+                                }
                             }
                         });
                     }
@@ -141,17 +156,17 @@ public class SmolovIntroFrag4 extends SlideFragment {
     public void onStart(){
         super.onStart();
 
-        if(SmolovSetupSingleton.getInstance().isBeginToday){
-            String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
-                    + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
-                    + "\n \n Program beginning today.";
-            resultsConfirmationView.setText(string);
-        }else{
-            String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
-                    + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
-                    + "\n \n Program beginning on Monday.";
-            resultsConfirmationView.setText(string);
-        }
+        //if(SmolovSetupSingleton.getInstance().isBeginToday){
+        //    String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+        //            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+        //            + "\n \n Program beginning today.";
+        //    resultsConfirmationView.setText(string);
+        //}else{
+        //    String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+        //            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+        //            + "\n \n Program beginning on Monday.";
+        //    resultsConfirmationView.setText(string);
+        //}
     }
 
     @Override

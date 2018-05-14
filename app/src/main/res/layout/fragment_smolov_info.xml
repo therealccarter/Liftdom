@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:background="@color/grey"
+              android:background="@color/midGrey"
               android:gravity="center"
              tools:context="com.liftdom.workout_programs.Smolov.SmolovInfoFrag">
 
@@ -14,9 +14,7 @@
             android:text="@string/workoutType"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
-            android:textSize="22sp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
+            android:textSize="20sp"
             android:layout_marginTop="15dp"
     />
 
@@ -25,9 +23,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/smolov"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:textSize="20sp"
+            android:textColor="@color/offWhite"
+            android:background="@color/midGrey"
+            android:textSize="18sp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
     />
@@ -39,10 +37,10 @@
             android:text="@string/beginDate"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
-            android:textSize="20sp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
+            android:textSize="18sp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
     />
 
     <TextView
@@ -50,9 +48,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/beginDateView"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:textSize="18sp"
+            android:textColor="@color/offWhite"
+            android:background="@color/midGrey"
+            android:textSize="16sp"
             android:layout_marginStart="45dp"
             android:layout_marginEnd="45dp"
     />
@@ -64,10 +62,10 @@
             android:text="@string/exercise"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
-            android:textSize="20sp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
+            android:textSize="18sp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
     />
 
     <TextView
@@ -75,9 +73,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/exerciseNameView"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:textSize="18sp"
+            android:textColor="@color/offWhite"
+            android:background="@color/midGrey"
+            android:textSize="16sp"
             android:layout_marginStart="45dp"
             android:layout_marginEnd="45dp"
     />
@@ -89,10 +87,10 @@
             android:text="@string/initialMax"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
-            android:textSize="20sp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
+            android:textSize="18sp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
     />
 
     <TextView
@@ -100,9 +98,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:id="@+id/maxView"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:textSize="18sp"
+            android:textColor="@color/offWhite"
+            android:background="@color/midGrey"
+            android:textSize="16sp"
             android:layout_marginStart="45dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="10dp"

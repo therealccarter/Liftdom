@@ -19,9 +19,9 @@ public class SmolovSetupSingleton {
     }
 
     boolean isBeginToday;
-    String exName;
-    String maxWeight;
-    String programName;
+    String exName = "";
+    String maxWeight = "";
+    String programName = "";
 
     public HashMap<String, String> assembleSmolovMap(){
         HashMap<String, String> extraInfo = new HashMap<>();
