@@ -15,24 +15,19 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.33</string>
+    <string name="currentVersion">Liftdom v1.34</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.33 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.34 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        True splash screen.\n
-        Ad rehaul (add to the toolbar).
+        None this update.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed search view issue (not showing more than one item).\n
-        Fixed issue where user search icon in toolbar is always shown (now only when on feed frag).\n
-        Fixed issue where nav drawer doesn\'t get initialized.\n
-        Now completion streak checks on app open.\n
-        Made sure everything is scrolling right (especially templateMenuFrag and WA).\n
-        Removed interstitial ads after workout completion for the time being.
+        Bug fix causing crashes for anyone with Android 8.0.0\n
+        Bug fix causing crashes for first time users who exited out of profile setup.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
@@ -339,7 +334,8 @@
     <string name="noResults">No Results</string>
 
     <string name="noPosts">No posts yet&#8230;</string>
-    <string name="clickHereToGoToWorkoutProgramming">Get started by clicking here to go to Workout Programming.</string>
+    <string name="clickHereToGoToWorkoutProgramming">First you need to create or choose a workout program.\n
+        Click here to begin!</string>
 
     <string name="followUser">(+) Follow</string>
     <string name="unfollowUser">(-) Un-follow</string>

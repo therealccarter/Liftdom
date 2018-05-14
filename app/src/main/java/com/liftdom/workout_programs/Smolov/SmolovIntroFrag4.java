@@ -55,21 +55,17 @@ public class SmolovIntroFrag4 extends SlideFragment {
 
         ButterKnife.bind(this, view);
 
-
-
-        if(SmolovSetupSingleton.getInstance().isBeginToday){
-            resultsConfirmationView.setText(
-                    "Exercise: " + SmolovSetupSingleton.getInstance().exName
-                            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
-                            + "\n \n Program beginning today."
-            );
-        }else{
-            resultsConfirmationView.setText(
-                    "Exercise: " + SmolovSetupSingleton.getInstance().exName
-                            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
-                            + "\n \n Program beginning on Monday."
-            );
-        }
+        //if(SmolovSetupSingleton.getInstance().isBeginToday){
+        //    String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+        //            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+        //            + "\n \n Program beginning today.";
+        //    resultsConfirmationView.setText(string);
+        //}else{
+        //    String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+        //            + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+        //            + "\n \n Program beginning on Monday.";
+        //    resultsConfirmationView.setText(string);
+        //}
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,6 +135,23 @@ public class SmolovIntroFrag4 extends SlideFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        if(SmolovSetupSingleton.getInstance().isBeginToday){
+            String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+                    + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+                    + "\n \n Program beginning today.";
+            resultsConfirmationView.setText(string);
+        }else{
+            String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName
+                    + "\n \n Current 1 rep max: " + SmolovSetupSingleton.getInstance().maxWeight
+                    + "\n \n Program beginning on Monday.";
+            resultsConfirmationView.setText(string);
+        }
     }
 
     @Override

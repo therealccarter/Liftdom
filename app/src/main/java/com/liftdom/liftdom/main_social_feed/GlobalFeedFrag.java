@@ -71,13 +71,17 @@ public class GlobalFeedFrag extends Fragment {
                         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                                if(userModelClass.isIsImperial()){
-                                    loadingView.setVisibility(View.GONE);
-                                    setUpFirebaseAdapter(socialRef, true);
+                                if(dataSnapshot.exists()){
+                                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                    if(userModelClass.isIsImperial()){
+                                        loadingView.setVisibility(View.GONE);
+                                        setUpFirebaseAdapter(socialRef, true);
+                                    }else{
+                                        loadingView.setVisibility(View.GONE);
+                                        setUpFirebaseAdapter(socialRef, false);
+                                    }
                                 }else{
-                                    loadingView.setVisibility(View.GONE);
-                                    setUpFirebaseAdapter(socialRef, false);
+                                    startActivity(new Intent(getContext(), SignInActivity.class));
                                 }
                             }
 

@@ -98,7 +98,7 @@ public class SignInActivity extends BaseActivity implements
             } else {
                 // Google Sign In failed, update UI appropriately
                 // [START_EXCLUDE]
-                Toast.makeText(SignInActivity.this, "Authentication failed.",
+                Toast.makeText(SignInActivity.this, "Authentication failed. Trying again at least once may fix this.",
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }
