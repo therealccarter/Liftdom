@@ -179,7 +179,7 @@ grid view of past workouts and achievements in place of, say, insta pics
 
 Be able to create/join groups (1 team leader, you ask for permission. Transfer permissions)
 
-Workout Assitor overhaul:
+Workout Assistor overhaul:
 Reactive stacked panel view: top is current set, bottom is list view of all the sets/exercises
 Algorithm only advances on w/o completion. That way, the algorithm can be locally generated
 

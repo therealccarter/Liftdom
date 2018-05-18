@@ -92,9 +92,15 @@
     <string name="exerciseMaxes">Exercise Maxes</string>
 
     <string name="noMaxesFound">No exercise maxes found.\nThey are automatically recorded when you complete a
-        workout.</string>
+        workout.
+    </string>
 
     <string name="smolov">Smolov</string>
+
+    <string name="wendler531forBeginners">Wendler 5/3/1 For Beginners</string>
+
+    <string name="W531fBTitleText1">Wendler 5/3/1</string>
+    <string name="W531fBTitleText2">(For Beginners)</string>
 
     <string name="smolovBeta">Smolov (Beta)</string>
 
@@ -334,7 +340,8 @@
 
     <string name="noPosts">No posts yet&#8230;</string>
     <string name="clickHereToGoToWorkoutProgramming">First you need to create or choose a workout program.\n
-        Click here to begin!</string>
+        Click here to begin!
+    </string>
 
     <string name="followUser">(+) Follow</string>
     <string name="unfollowUser">(-) Un-follow</string>
@@ -387,10 +394,22 @@
     <string name="confirmSmolov">Finish Smolov Creation</string>
 
     <string name="smolovDescription">
-        Smolov is an advanced 13 week program that can increase your squat\'s
+        Smolov is an advanced 13 week strength program that can increase your squat\'s
         max by 100lbs or more. \n \n
         Make sure to eat, sleep, and stretch as much as possible because this program is extremely
         taxing on the body.
+    </string>
+
+    <string name="W531fBDescription">
+        Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide amazing and consistent
+        strength gains when done correctly.\nThis program has a great reputation for a reason, but as always, make
+        sure you are eating, sleeping, and recovering as much as you need to!
+    </string>
+
+    <string name="W531fBDisclaimer">
+        The title says \"for beginners\" but this is definitely a program for intermediate level lifters.\nIf you
+        want to know more, I recommend Googling \"Wendler\'s 5/3/1 For Beginners\" for further reading and clarification
+        on the background and theory behind the lifts you\'ll be doing.
     </string>
 
     <string name="smolovInBeta">(Smolov support is currently in beta. Metric support will be added as soon as

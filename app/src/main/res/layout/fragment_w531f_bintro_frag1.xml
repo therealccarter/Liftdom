@@ -1,0 +1,57 @@
+<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag1">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/W531fBTitleView1"
+            android:text="@string/W531fBTitleText1"
+            android:textSize="31sp"
+            android:gravity="center"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/black"
+    />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/W531fBTitleView2"
+            android:text="@string/W531fBTitleText2"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/black"
+            android:layout_marginBottom="30dp"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/W531fBDescription"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_parallaxFactor="0.7"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/W531fBDisclaimer"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/darkGrey"
+    />
+
+
+</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>

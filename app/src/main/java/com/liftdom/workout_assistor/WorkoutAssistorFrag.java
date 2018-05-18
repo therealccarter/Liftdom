@@ -442,45 +442,8 @@ public class WorkoutAssistorFrag extends Fragment{
 
                                 TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
 
-                                if(templateModelClass.getWorkoutType().equals("Smolov")){
+                                if(templateModelClass.getWorkoutType().equals("placeholder")){
 
-                                    Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
-                                            templateModelClass.getExtraInfo().get("maxWeight"));
-                                    HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
-                                            (templateModelClass.getExtraInfo().get("beginDate"));
-
-                                    if(smolovMap.get("1_key").get(1).equals("rest")){
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        RestDayFrag restDayFrag = new RestDayFrag();
-                                        if (!getActivity().isFinishing()) {
-                                            try {
-                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                        .exInfoHolder);
-                                                fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }catch (NullPointerException e){
-
-                                            }
-                                        }
-                                    }else{
-                                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
-                                        assistorHolderFrag.mTemplateClass = templateModelClass;
-                                        if (!getActivity().isFinishing()) {
-                                            try {
-                                                LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
-                                                        .exInfoHolder);
-                                                fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
-                                                fragmentTransaction.commitAllowingStateLoss();
-                                            }catch (NullPointerException e){
-
-                                            }
-                                        }
-                                    }
-
-                                }else{
                                     DateTime dateTime = new DateTime();
                                     int currentWeekday = dateTime.getDayOfWeek();
 
@@ -516,8 +479,10 @@ public class WorkoutAssistorFrag extends Fragment{
                                             }
                                         }
                                     }
-                                }
 
+                                }else{
+                                    processPreMadeProgram(templateModelClass);
+                                }
                             }else{
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -563,6 +528,50 @@ public class WorkoutAssistorFrag extends Fragment{
             }
         });
 
+    }
+
+    private void processPreMadeProgram(TemplateModelClass templateModelClass){
+        if(templateModelClass.getWorkoutType().equals("Smolov")){
+            inflateSmolov(templateModelClass);
+        }
+    }
+
+    private void inflateSmolov(TemplateModelClass templateModelClass){
+        Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
+                templateModelClass.getExtraInfo().get("maxWeight"));
+        HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+                (templateModelClass.getExtraInfo().get("beginDate"));
+
+        if(smolovMap.get("1_key").get(1).equals("rest")){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RestDayFrag restDayFrag = new RestDayFrag();
+            if (!getActivity().isFinishing()) {
+                try {
+                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                            .exInfoHolder);
+                    fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }catch (NullPointerException e){
+
+                }
+            }
+        }else{
+            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+            assistorHolderFrag.mTemplateClass = templateModelClass;
+            if (!getActivity().isFinishing()) {
+                try {
+                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                            .exInfoHolder);
+                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }catch (NullPointerException e){
+
+                }
+            }
+        }
     }
 
     // [START on_start_add_listener]

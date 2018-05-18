@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity;
 import com.liftdom.workout_programs.PPL.PPLHolderActivity;
 import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
 
@@ -44,6 +45,7 @@ public class PremadeTemplatesFrag extends Fragment {
 
     @BindView(R.id.smolovButton) Button smolovButton;
     @BindView(R.id.titleView) TextView titleView;
+    @BindView(R.id.W531fBButton) Button W531FBButton;
 
 
     @Override
@@ -63,6 +65,15 @@ public class PremadeTemplatesFrag extends Fragment {
             Intent intent;
             intent = new Intent(getContext(), SmolovHolderActivity.class);
             startActivity(intent);
+            }
+        });
+
+        W531FBButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(getContext(), W531fB_HolderActivity.class);
+                startActivity(intent);
             }
         });
 

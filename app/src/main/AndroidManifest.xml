@@ -143,6 +143,10 @@
                 android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
                 android:theme="@style/Theme.Intro">
         </activity>
+        <activity android:name="com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity"
+                  android:theme="@style/Theme.Intro">
+
+        </activity>
         <activity
                 android:name=".SignInActivity"
                 android:screenOrientation="portrait">
