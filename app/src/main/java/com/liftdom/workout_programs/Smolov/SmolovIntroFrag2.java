@@ -73,8 +73,10 @@ public class SmolovIntroFrag2 extends SlideFragment {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                 if(!userModelClass.isIsImperial()){
                     unitsView.setText("kgs");
+                    SmolovSetupSingleton.getInstance().isImperial = false;
                 }else{
                     unitsView.setText("lbs");
+                    SmolovSetupSingleton.getInstance().isImperial = true;
                 }
             }
 

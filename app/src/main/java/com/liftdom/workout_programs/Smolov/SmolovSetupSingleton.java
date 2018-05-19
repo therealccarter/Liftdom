@@ -19,6 +19,7 @@ public class SmolovSetupSingleton {
     }
 
     boolean isBeginToday;
+    boolean isImperial;
     String exName = "";
     String maxWeight = "";
     String programName = "";

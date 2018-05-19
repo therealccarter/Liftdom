@@ -25,6 +25,7 @@ true chat functionality/workout reminders (check that Firebase support email){
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
+supersetting in WA
 hamburger needs back functionality
 focus dismiss after keyboard dismiss
 Add these workout programs{

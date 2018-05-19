@@ -8,15 +8,6 @@
         android:gravity="center"
              tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag2">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/oneRepMaxForThisEx"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-    />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -24,10 +15,19 @@
             android:orientation="horizontal"
             android:gravity="center"
     >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/squat1rm"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+        />
+
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/maxWeightEditText"
+                android:id="@+id/squatEditText"
                 android:inputType="number"
                 android:maxLength="3"
                 android:textSize="16sp"
@@ -39,7 +39,83 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/unitsView"
+                android:id="@+id/unitsView1"
+                android:text="@string/pounds"
+                android:textSize="16sp"
+                android:textColor="@color/darkGrey"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bench1rm"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/benchPressEditText"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textSize="16sp"
+                android:hint="@string/elipses"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/unitsView2"
+                android:text="@string/pounds"
+                android:textSize="16sp"
+                android:textColor="@color/darkGrey"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deadlift1rm"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deadliftEditText"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textSize="16sp"
+                android:hint="@string/elipses"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/unitsView3"
                 android:text="@string/pounds"
                 android:textSize="16sp"
                 android:textColor="@color/darkGrey"
