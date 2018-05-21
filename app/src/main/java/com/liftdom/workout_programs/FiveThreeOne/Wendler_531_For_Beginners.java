@@ -44,7 +44,6 @@ public class Wendler_531_For_Beginners {
     public HashMap<String, List<String>> generateWorkoutMap() {
         HashMap<String, List<String>> map = new HashMap<>();
 
-
         if(beginDate.isAfter(todaysDate)){
             List<String> workoutList = new ArrayList<>();
             workoutList.add("Bench Press");
@@ -61,8 +60,6 @@ public class Wendler_531_For_Beginners {
 
             map = getWorkout(week);
         }
-
-
 
         return map;
     }
@@ -119,6 +116,62 @@ public class Wendler_531_For_Beginners {
          Assistance Work
          */
 
+        List<String> warmupList = new ArrayList<>();
+        warmupList.add("Box Jumps");
+        warmupList.add("3x4@B.W.");
+
+        // squat
+        List<String> squatList = new ArrayList<>();
+        squatList.add("Squat (Barbell - Back)");
+        squatList.add("1x5@p_40_a_" + squatTM);
+        squatList.add("1x5@p_50_a_" + squatTM);
+        squatList.add("1x3@p_60_a_" + squatTM);
+        // done with warmup
+        if(weekType == 1){
+            squatList.add("1x5@p_65_a_" + squatTM);
+            squatList.add("1x5@p_75_a_" + squatTM);
+            squatList.add("1xT.F.@p_85_a_" + squatTM); // T.F. but goal is 5
+            squatList.add("5x5@p_65_a_" + squatTM);
+        }else if(weekType == 2){
+            squatList.add("1x3@p_70_a_" + squatTM);
+            squatList.add("1x3@p_80_a_" + squatTM);
+            squatList.add("1xT.F.@p_90_a_" + squatTM); // T.F. but goal is 3
+            squatList.add("5x5@p_70_a_" + squatTM);
+        }else if(weekType == 3){
+            squatList.add("1x5@p_75_a_" + squatTM);
+            squatList.add("1x3@p_85_a_" + squatTM);
+            squatList.add("1xT.F.@p_95_a_" + squatTM); // T.F. but goal is 1
+            squatList.add("5x5@p_75_a_" + squatTM);
+        }
+
+        // bench
+        List<String> benchList = new ArrayList<>();
+        benchList.add("Bench Press (Barbell - Flat)");
+        benchList.add("1x5@p_40_a_" + benchTM);
+        benchList.add("1x5@p_50_a_" + benchTM);
+        benchList.add("1x3@p_60_a_" + benchTM);
+        // done with warmup
+        if(weekType == 1){
+            benchList.add("1x5@p_65_a_" + benchTM);
+            benchList.add("1x5@p_75_a_" + benchTM);
+            benchList.add("1xT.F.@p_85_a_" + benchTM); // T.F. but goal is 5
+            benchList.add("5x5@p_65_a_" + benchTM);
+        }else if(weekType == 2){
+            benchList.add("1x3@p_70_a_" + benchTM);
+            benchList.add("1x3@p_80_a_" + benchTM);
+            benchList.add("1xT.F.@p_90_a_" + benchTM); // T.F. but goal is 3
+            benchList.add("5x5@p_70_a_" + benchTM);
+        }else if(weekType == 3){
+            benchList.add("1x5@p_75_a_" + benchTM);
+            benchList.add("1x3@p_85_a_" + benchTM);
+            benchList.add("1xT.F.@p_95_a_" + benchTM); // T.F. but goal is 1
+            benchList.add("5x5@p_75_a_" + benchTM);
+        }
+
+
+
+        // assistance
+
         return map;
     }
 
@@ -131,6 +184,60 @@ public class Wendler_531_For_Beginners {
          Assistance Work
          */
 
+        List<String> warmupList = new ArrayList<>();
+        warmupList.add("Broad Jumps");
+        warmupList.add("3x4@B.W.");
+
+        // deadlift
+        List<String> deadliftList = new ArrayList<>();
+        deadliftList.add("Deadlift (Barbell - Conventional)");
+        deadliftList.add("1x5@p_40_a_" + deadliftTM);
+        deadliftList.add("1x5@p_50_a_" + deadliftTM);
+        deadliftList.add("1x3@p_60_a_" + deadliftTM);
+        // done with warmup
+        if(weekType == 1){
+            deadliftList.add("1x5@p_65_a_" + deadliftTM);
+            deadliftList.add("1x5@p_75_a_" + deadliftTM);
+            deadliftList.add("1xT.F.@p_85_a_" + deadliftTM); // T.F. but goal is 5
+            deadliftList.add("5x5@p_65_a_" + deadliftTM);
+        }else if(weekType == 2){
+            deadliftList.add("1x3@p_70_a_" + deadliftTM);
+            deadliftList.add("1x3@p_80_a_" + deadliftTM);
+            deadliftList.add("1xT.F.@p_90_a_" + deadliftTM); // T.F. but goal is 3
+            deadliftList.add("5x5@p_70_a_" + deadliftTM);
+        }else if(weekType == 3){
+            deadliftList.add("1x5@p_75_a_" + deadliftTM);
+            deadliftList.add("1x3@p_85_a_" + deadliftTM);
+            deadliftList.add("1xT.F.@p_95_a_" + deadliftTM); // T.F. but goal is 1
+            deadliftList.add("5x5@p_75_a_" + deadliftTM);
+        }
+
+        // ohp
+        List<String> ohpList = new ArrayList<>();
+        ohpList.add("Overhead Press (Barbell)");
+        ohpList.add("1x5@p_40_a_" + ohpTM);
+        ohpList.add("1x5@p_50_a_" + ohpTM);
+        ohpList.add("1x3@p_60_a_" + ohpTM);
+        // done with warmup
+        if(weekType == 1){
+            ohpList.add("1x5@p_65_a_" + ohpTM);
+            ohpList.add("1x5@p_75_a_" + ohpTM);
+            ohpList.add("1xT.F.@p_85_a_" + ohpTM); // T.F. but goal is 5
+            ohpList.add("5x5@p_65_a_" + ohpTM);
+        }else if(weekType == 2){
+            ohpList.add("1x3@p_70_a_" + ohpTM);
+            ohpList.add("1x3@p_80_a_" + ohpTM);
+            ohpList.add("1xT.F.@p_90_a_" + ohpTM); // T.F. but goal is 3
+            ohpList.add("5x5@p_70_a_" + ohpTM);
+        }else if(weekType == 3){
+            ohpList.add("1x5@p_75_a_" + ohpTM);
+            ohpList.add("1x3@p_85_a_" + ohpTM);
+            ohpList.add("1xT.F.@p_95_a_" + ohpTM); // T.F. but goal is 1
+            ohpList.add("5x5@p_75_a_" + ohpTM);
+        }
+
+        // assistance
+
         return map;
     }
 
@@ -142,6 +249,58 @@ public class Wendler_531_For_Beginners {
          Squats: 5/3/1 sets/reps, then 5x5 FSL
          Assistance Work
          */
+
+        List<String> warmupList = new ArrayList<>();
+        warmupList.add("Medicine Ball Throws");
+        warmupList.add("3x4@15");
+
+        // bench
+        List<String> benchList = new ArrayList<>();
+        benchList.add("Bench Press (Barbell - Flat)");
+        benchList.add("1x5@p_40_a_" + benchTM);
+        benchList.add("1x5@p_50_a_" + benchTM);
+        benchList.add("1x3@p_60_a_" + benchTM);
+        // done with warmup
+        if(weekType == 1){
+            benchList.add("1x5@p_65_a_" + benchTM);
+            benchList.add("1x5@p_75_a_" + benchTM);
+            benchList.add("1xT.F.@p_85_a_" + benchTM); // T.F. but goal is 5
+            benchList.add("5x5@p_65_a_" + benchTM);
+        }else if(weekType == 2){
+            benchList.add("1x3@p_70_a_" + benchTM);
+            benchList.add("1x3@p_80_a_" + benchTM);
+            benchList.add("1xT.F.@p_90_a_" + benchTM); // T.F. but goal is 3
+            benchList.add("5x5@p_70_a_" + benchTM);
+        }else if(weekType == 3){
+            benchList.add("1x5@p_75_a_" + benchTM);
+            benchList.add("1x3@p_85_a_" + benchTM);
+            benchList.add("1xT.F.@p_95_a_" + benchTM); // T.F. but goal is 1
+            benchList.add("5x5@p_75_a_" + benchTM);
+        }
+
+        // squat
+        List<String> squatList = new ArrayList<>();
+        squatList.add("Squat (Barbell - Back)");
+        squatList.add("1x5@p_40_a_" + squatTM);
+        squatList.add("1x5@p_50_a_" + squatTM);
+        squatList.add("1x3@p_60_a_" + squatTM);
+        // done with warmup
+        if(weekType == 1){
+            squatList.add("1x5@p_65_a_" + squatTM);
+            squatList.add("1x5@p_75_a_" + squatTM);
+            squatList.add("1xT.F.@p_85_a_" + squatTM); // T.F. but goal is 5
+            squatList.add("5x5@p_65_a_" + squatTM);
+        }else if(weekType == 2){
+            squatList.add("1x3@p_70_a_" + squatTM);
+            squatList.add("1x3@p_80_a_" + squatTM);
+            squatList.add("1xT.F.@p_90_a_" + squatTM); // T.F. but goal is 3
+            squatList.add("5x5@p_70_a_" + squatTM);
+        }else if(weekType == 3){
+            squatList.add("1x5@p_75_a_" + squatTM);
+            squatList.add("1x3@p_85_a_" + squatTM);
+            squatList.add("1xT.F.@p_95_a_" + squatTM); // T.F. but goal is 1
+            squatList.add("5x5@p_75_a_" + squatTM);
+        }
 
         return map;
     }
