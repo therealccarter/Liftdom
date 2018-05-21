@@ -572,11 +572,14 @@
     <string name="bench1rm">Bench Press 1-rep Max:</string>
     <string name="squat1rm">Barbell Squat 1-rep Max:</string>
     <string name="deadlift1rm">Deadlift 1-rep Max:</string>
+    <string name="ohp1rm">Overhead Press 1-rep Max:</string>
     <string name="saveButton">Save</string>
     <string name="levelValue">0</string>
     <string name="level">Level:\u0020</string>
     <string name="currentFocus">Focus:\u0020</string>
     <string name="profileInfo">Profile Info</string>
+
+    <string name="trainingMaxes90Percent">(Training maxes will be 90% of the true maxes set here)</string>
 
     <string name="addCustomEx">+ Add Custom Exercise</string>
     <string name="noCustomEx">No custom exercises found...</string>

@@ -26,6 +26,10 @@ true chat functionality/workout reminders (check that Firebase support email){
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
 supersetting in WA
+next workout info on rest day frag
+rest timer
+add non-completed workout view to main feed
+user "flair"
 hamburger needs back functionality
 focus dismiss after keyboard dismiss
 Add these workout programs{

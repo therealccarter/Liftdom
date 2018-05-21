@@ -97,9 +97,9 @@
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/userMadeTemplates"
+                    android:id="@+id/premadeTemplates"
                     android:background="@color/darkGrey"
-                    android:text="@string/userMadeTemplates"
+                    android:text="@string/premade_templates"
                     android:textColor="@color/offWhite"
                     android:textAllCaps="false"
                     android:textSize="24sp"
@@ -121,9 +121,9 @@
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/premadeTemplates"
+                    android:id="@+id/userMadeTemplates"
                     android:background="@color/darkGrey"
-                    android:text="@string/premade_templates"
+                    android:text="@string/userMadeTemplates"
                     android:textColor="@color/offWhite"
                     android:textAllCaps="false"
                     android:textSize="24sp"

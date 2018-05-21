@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/W531fBTitleView2"
             android:text="@string/W531fBTitleText2"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:gravity="center"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"

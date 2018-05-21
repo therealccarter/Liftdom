@@ -60,7 +60,9 @@ public class SmolovIntroFrag3 extends SlideFragment {
 
         getTemplateNames();
 
-        programNameEditText.setText("Smolov");
+        if(savedInstanceState == null){
+            programNameEditText.setText("Smolov");
+        }
 
         programNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,10 +105,12 @@ public class SmolovIntroFrag3 extends SlideFragment {
         templatesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    templateNameList.add(dataSnapshot1.getKey());
-                    if(dataSnapshot1.getKey().equals("Smolov")){
-                        programNameTakenView.setVisibility(View.VISIBLE);
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        templateNameList.add(dataSnapshot1.getKey());
+                        if(dataSnapshot1.getKey().equals("Smolov")){
+                            programNameTakenView.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }

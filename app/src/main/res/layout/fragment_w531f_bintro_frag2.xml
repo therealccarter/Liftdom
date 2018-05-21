@@ -6,8 +6,35 @@
         android:orientation="vertical"
         android:background="@color/transparent"
         android:gravity="center"
-             tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag2">
+        tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag2">
 
+    <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/programNameTakenView"
+           android:text="@string/programNameTaken"
+           android:textColor="@color/backgroundgrey1"
+           android:background="@color/transparent"
+           android:gravity="center"
+           android:padding="3dp"
+           android:textSize="14sp"
+           android:visibility="invisible"
+           android:imeOptions="actionDone"
+    />
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/programNameEditText"
+            android:textColor="@color/black"
+            android:imeOptions="actionDone"
+            android:maxLength="12"
+            android:inputType="text"
+            android:hint="@string/programName"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,-,$,QWERTYUIOPASDFGHJKLZXCVBNM"
+    />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/squat1rm"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
         />
 
@@ -58,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bench1rm"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
         />
 
@@ -96,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/deadlift1rm"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
         />
 
@@ -123,5 +150,52 @@
 
     </LinearLayout>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ohp1rm"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+        />
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ohpEditText"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textSize="16sp"
+                android:hint="@string/elipses"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/unitsView4"
+                android:text="@string/pounds"
+                android:textSize="16sp"
+                android:textColor="@color/darkGrey"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trainingMaxes90Percent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+    />
 
 </agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
