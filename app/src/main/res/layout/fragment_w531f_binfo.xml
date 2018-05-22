@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/exercise"
+            android:text="@string/backSquat"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
             android:textSize="18sp"
@@ -68,16 +68,147 @@
             android:layout_marginEnd="5dp"
     />
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="14sp"
+                android:text="@string/oneRepMax"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/squat1rm"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="16sp"
+        />
+
+    </LinearLayout>
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/exerciseNameView"
-            android:textColor="@color/offWhite"
-            android:background="@color/midGrey"
-            android:textSize="16sp"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="45dp"
+            android:text="Bench Press"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
     />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="14sp"
+                android:text="@string/oneRepMax"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/benchPress1rm"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="16sp"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Deadlift"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="14sp"
+                android:text="@string/oneRepMax"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deadlift1rm"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="16sp"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Overhead Press"
+            android:textColor="@color/liftrGold1"
+            android:background="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+    >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="14sp"
+                android:text="@string/oneRepMax"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ohp1rm"
+                android:textColor="@color/offWhite"
+                android:background="@color/midGrey"
+                android:textSize="16sp"
+        />
+
+    </LinearLayout>
 
 </LinearLayout>

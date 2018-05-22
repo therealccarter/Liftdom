@@ -535,7 +535,7 @@ public class WorkoutAssistorFrag extends Fragment{
         if(templateModelClass.getWorkoutType().equals("Smolov")){
             inflateSmolov(templateModelClass);
         }else if(templateModelClass.getWorkoutType().equals("W531fB")){
-
+            inflateW531fB(templateModelClass);
         }
     }
 
