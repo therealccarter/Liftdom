@@ -28,7 +28,7 @@
             android:id="@+id/programNameEditText"
             android:textColor="@color/black"
             android:imeOptions="actionDone"
-            android:maxLength="12"
+            android:maxLength="20"
             android:inputType="text"
             android:hint="@string/programName"
             android:layout_marginEnd="20dp"
@@ -60,7 +60,7 @@
                 android:textSize="16sp"
                 android:hint="@string/elipses"
                 android:textColor="@color/black"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
         />
 
         <TextView
@@ -98,7 +98,7 @@
                 android:textSize="16sp"
                 android:hint="@string/elipses"
                 android:textColor="@color/black"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
         />
 
         <TextView
@@ -136,7 +136,7 @@
                 android:textSize="16sp"
                 android:hint="@string/elipses"
                 android:textColor="@color/black"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
         />
 
         <TextView

@@ -48,8 +48,8 @@ public class W531fBIntroFrag2 extends SlideFragment {
     @BindView(R.id.unitsView2) TextView unitsView2;
     @BindView(R.id.deadliftEditText) EditText deadliftEditText;
     @BindView(R.id.unitsView3) TextView unitsView3;
-    @BindView(R.id.deadliftEditText) EditText ohpEditText;
-    @BindView(R.id.unitsView3) TextView unitsView4;
+    @BindView(R.id.ohpEditText) EditText ohpEditText;
+    @BindView(R.id.unitsView4) TextView unitsView4;
     @BindView(R.id.programNameEditText) EditText programNameEditText;
     @BindView(R.id.programNameTakenView) TextView programNameTakenView;
 
@@ -147,6 +147,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
             W531fBSingleton.getInstance().benchMax = benchPressEditText.getText().toString();
             W531fBSingleton.getInstance().deadliftMax = deadliftEditText.getText().toString();
             W531fBSingleton.getInstance().ohpMax = ohpEditText.getText().toString();
+            W531fBSingleton.getInstance().programName = programNameEditText.getText().toString();
             valuesEntered = true;
         }
 

@@ -56,6 +56,7 @@ public class W531fBIntroFrag3 extends SlideFragment {
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
+    @BindView(R.id.messageView) TextView messageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,13 +83,15 @@ public class W531fBIntroFrag3 extends SlideFragment {
             }
         });
 
+        messageView.setText(W531fBSingleton.getInstance().getStartDateString());
+
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingView.setVisibility(View.VISIBLE);
                 finishButton.setVisibility(View.GONE);
 
-                assembleHashMaps();
+                //assembleHashMaps();
 
                 DatabaseReference defaultRef = FirebaseDatabase.getInstance().getReference().child
                         ("defaultTemplates").child("FirstTimeProgram");
@@ -114,27 +117,30 @@ public class W531fBIntroFrag3 extends SlideFragment {
 
                         DatabaseReference newProgramRef = FirebaseDatabase.getInstance().getReference().child
                                 ("templates").child(uid).child(programName);
-                        newProgramRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(activeProgramCheckbox.isChecked()){
-                                    DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
-                                            ("user").child(uid).child("activeTemplate");
-                                    activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Intent intent = new Intent(getContext(), MainActivity.class);
-                                            intent.putExtra("fragID", 1);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                }else{
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
-                                    intent.putExtra("fragID", 1);
-                                    startActivity(intent);
+                        if(programName != null){
+                            newProgramRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(activeProgramCheckbox.isChecked()){
+                                        DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
+                                                ("user").child(uid).child("activeTemplate");
+                                        activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                                intent.putExtra("fragID", 1);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }else{
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        intent.putExtra("fragID", 1);
+                                        startActivity(intent);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
                     }
 
                     @Override

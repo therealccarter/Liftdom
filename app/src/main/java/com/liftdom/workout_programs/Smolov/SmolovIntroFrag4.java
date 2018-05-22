@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +78,9 @@ public class SmolovIntroFrag4 extends SlideFragment {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                 userName = userModelClass.getUserName();
                 isImperial = userModelClass.isIsImperial();
+                SmolovSetupSingleton.getInstance().isImperial = isImperial;
+                SmolovSetupSingleton.getInstance().userName = userName;
+                SmolovSetupSingleton.getInstance().uid = uid;
                 loadingView.setVisibility(View.GONE);
                 finishButton.setVisibility(View.VISIBLE);
             }
@@ -84,6 +88,17 @@ public class SmolovIntroFrag4 extends SlideFragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    SmolovSetupSingleton.getInstance().isActiveTemplate = true;
+                }else{
+                    SmolovSetupSingleton.getInstance().isActiveTemplate = true;
+                }
             }
         });
 

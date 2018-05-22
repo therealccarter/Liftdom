@@ -41,6 +41,14 @@ public class Wendler_531_For_Beginners {
         todaysDate = LocalDate.now();
     }
 
+    public boolean isIncreaseDate(){
+        boolean increase = false;
+
+
+
+        return increase;
+    }
+
     public HashMap<String, List<String>> generateWorkoutMap() {
         HashMap<String, List<String>> map = new HashMap<>();
 
@@ -67,7 +75,7 @@ public class Wendler_531_For_Beginners {
     private HashMap<String, List<String>> getWorkout(double week){
         HashMap<String, List<String>> workoutMap = new HashMap<>();
 
-        int weekType = 0;
+        int weekType;
 
         if(week % 3 == 0){
             weekType = 3;
@@ -90,6 +98,10 @@ public class Wendler_531_For_Beginners {
             workoutMap = getFridayWorkout(weekType);
         }else{
             // rest day
+            List<String> workoutList = new ArrayList<>();
+            workoutList.add("Bench Press");
+            workoutList.add("rest");
+            workoutMap.put("1_key", workoutList);
         }
 
         return workoutMap;
@@ -168,9 +180,11 @@ public class Wendler_531_For_Beginners {
             benchList.add("5x5@p_75_a_" + benchTM);
         }
 
-
-
         // assistance
+
+        map.put("1_key", warmupList);
+        map.put("2_key", squatList);
+        map.put("3_key", benchList);
 
         return map;
     }
@@ -238,6 +252,10 @@ public class Wendler_531_For_Beginners {
 
         // assistance
 
+        map.put("1_key", warmupList);
+        map.put("2_key", deadliftList);
+        map.put("3_key", ohpList);
+
         return map;
     }
 
@@ -301,6 +319,12 @@ public class Wendler_531_For_Beginners {
             squatList.add("1xT.F.@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
+
+        // assistance
+
+        map.put("1_key", warmupList);
+        map.put("2_key", benchList);
+        map.put("3_key", squatList);
 
         return map;
     }

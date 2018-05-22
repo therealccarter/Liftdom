@@ -32,6 +32,7 @@ import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_programs.FiveThreeOne.W531fBInfoFrag;
 import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
@@ -510,21 +511,7 @@ public class SelectedTemplateFrag extends Fragment {
 
                         isTemplateImperial = templateClass.isIsImperial();
 
-                        if(templateClass.getWorkoutType().equals("Smolov")){
-                            editTemplate.setVisibility(View.GONE);
-                            publishButton.setVisibility(View.GONE);
-
-                            FragmentManager fragmentManager = getChildFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager
-                                    .beginTransaction();
-                            SmolovInfoFrag smolovInfoFrag = new SmolovInfoFrag();
-                            smolovInfoFrag.infoMap.putAll(templateClass.getExtraInfo());
-                            fragmentTransaction.add(R.id.templateListedView,
-                                    smolovInfoFrag);
-                            if (!getActivity().isFinishing()) {
-                                fragmentTransaction.commitAllowingStateLoss();
-                            }
-                        }else{
+                        if(templateClass.getWorkoutType().equals("placeholder")){
                             descriptionView.setText(templateClass.getDescription());
                             String cat = "Originally authored by: " + templateClass.getUserName();
                             authorNameView.setText(cat);
@@ -592,6 +579,8 @@ public class SelectedTemplateFrag extends Fragment {
                                     }
                                 }
                             }
+                        }else{
+                            processPreMadeProgram(templateClass);
                         }
                     }
 
@@ -607,6 +596,37 @@ public class SelectedTemplateFrag extends Fragment {
 
             }
         });
+    }
+
+    private void processPreMadeProgram(TemplateModelClass templateModelClass){
+        editTemplate.setVisibility(View.GONE);
+        publishButton.setVisibility(View.GONE);
+
+        // TODO: Have these editable...duh!
+
+        if(templateModelClass.getWorkoutType().equals("Smolov")){
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            SmolovInfoFrag smolovInfoFrag = new SmolovInfoFrag();
+            smolovInfoFrag.infoMap.putAll(templateModelClass.getExtraInfo());
+            fragmentTransaction.add(R.id.templateListedView,
+                    smolovInfoFrag);
+            if (!getActivity().isFinishing()) {
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        }else if(templateModelClass.getWorkoutType().equals("W531fB")){
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager
+                    .beginTransaction();
+            W531fBInfoFrag w531fBInfoFrag = new W531fBInfoFrag();
+            w531fBInfoFrag.extraInfoMap.putAll(templateModelClass.getExtraInfo());
+            fragmentTransaction.add(R.id.templateListedView,
+                    w531fBInfoFrag);
+            if (!getActivity().isFinishing()) {
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        }
     }
 
     @Override

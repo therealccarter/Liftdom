@@ -20,9 +20,12 @@ public class SmolovSetupSingleton {
 
     boolean isBeginToday;
     boolean isImperial;
+    String userName = "";
+    String uid = "";
     String exName = "";
     String maxWeight = "";
     String programName = "";
+    boolean isActiveTemplate = false;
 
     public HashMap<String, String> assembleSmolovMap(){
         HashMap<String, String> extraInfo = new HashMap<>();

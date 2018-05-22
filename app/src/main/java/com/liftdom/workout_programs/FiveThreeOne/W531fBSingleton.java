@@ -24,17 +24,40 @@ public class W531fBSingleton {
     String ohpMax = "";
     boolean autoDeload = false;
 
+    public String getStartDateString(){
+        String message;
+
+        LocalDate today = LocalDate.now();
+        int old = today.getDayOfWeek();
+        if(old == 1){
+            message = "This program starts on Monday, so you will be starting today.";
+        }else{
+            int monday = 1;
+            if(monday <= old){
+                monday += 7;
+            }
+            String beginDate = today.plusDays(monday - old).toString();
+            message = "This program starts on Monday, so you will be starting this coming Monday (" + beginDate + ").";
+        }
+
+        return message;
+    }
+
     public HashMap<String, String> assembleExtraInfoMap(){
         HashMap<String, String> extraInfo = new HashMap<>();
 
         String beginDate;
         LocalDate today = LocalDate.now();
         int old = today.getDayOfWeek();
-        int monday = 1;
-        if(monday <= old){
-            monday += 7;
+        if(old == 1){
+            beginDate = today.toString();
+        }else{
+            int monday = 1;
+            if(monday <= old){
+                monday += 7;
+            }
+            beginDate = today.plusDays(monday - old).toString();
         }
-        beginDate = today.plusDays(monday - old).toString();
 
         extraInfo.put("beginDate", beginDate);
         extraInfo.put("squatMax", squatMax);
