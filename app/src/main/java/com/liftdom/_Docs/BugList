@@ -17,6 +17,7 @@ rehaul of exercise history chart {
     maybe just show what you did that day in SxRxW format.
 }
 better layout for premade programs.
+5/3/1 for beginners.
 =====================================================
 
 ============ ON DECK FOR v1.34+: ===============================================
@@ -31,16 +32,26 @@ rest timer
 add non-completed workout view to main feed
 user "flair"
 hamburger needs back functionality
+add description to premade programs
 focus dismiss after keyboard dismiss
+workout types need to be in completedWorkoutViewHolder/ModelClass
 Add these workout programs{
-    Building the Monolith
+    Building the Monolith // no app for this
     GZCL
     Conjugate
     Stronger by Science 28 free bench/squat/dead programs.
-    5/3/1 for beginners.
     Westside for Skinny Bastards.
     PHAT and PHUL
     nSuns
+    nSuns 531 LP
+    StrongLifts 5x5
+    Starting Strength
+    GreySkull LP
+    Push Pull Legs
+    Lvysaurs 4-4-8
+    Practical programming
+    Madcow 5x5 Training Program
+    Texas Method
 }
 
 add title callbacks for public programs/pre-made programs
@@ -48,7 +59,7 @@ show workout count in profile
 Smolov says "Exercise: null, current 1rm: null"
 follow all users
 max editing (* = set manually, not in liftdom workout)(also measurements)
-
+increase edit text max lengths for weight values
 decimal percentage functionality
 Improve the notification-bar layout.
 Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))

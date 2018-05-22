@@ -376,6 +376,8 @@
         program.
     </string>
 
+    <string name="experienceLevel">Experience Level:</string>
+
     <string name="setupFinished">That\'s it, you\'re finished!</string>
     <string name="mayTheGains">May the gains be with you</string>
 

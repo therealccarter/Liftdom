@@ -1,19 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/lessDarkGrey"
               android:orientation="vertical"
+              android:fillViewport="true"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
               tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-    >
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="100dp"
         >
             <TextView
                     android:layout_width="match_parent"
@@ -61,7 +60,7 @@
                         android:text="@string/comingSoon"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:background="@color/black"
+                        android:background="@color/darkGrey"
                         android:textAllCaps="false"
                         android:gravity="start"
                         android:paddingStart="20dp"
@@ -96,59 +95,14 @@
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    app:cardElevation="5dp"
-                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:id="@+id/holder2"
             >
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/smolov"
-                        android:id="@+id/smolovButton"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:background="@color/black"
-                        android:textAllCaps="false"
-                        android:gravity="start"
-                        android:paddingStart="20dp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                />
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    app:cardElevation="5dp"
-                    android:layout_marginTop="10dp"
-            >
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wendler531forBeginners"
-                        android:id="@+id/W531fBButton"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:background="@color/black"
-                        android:textAllCaps="false"
-                        android:gravity="start"
-                        android:paddingStart="20dp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                />
-
-            </android.support.v7.widget.CardView>
-
-
+            </LinearLayout>
 
             <!-- Hybrid/Other Programs -->
             <android.support.v7.widget.CardView
@@ -182,7 +136,7 @@
                         android:text="@string/comingSoon"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:background="@color/black"
+                        android:background="@color/darkGrey"
                         android:textAllCaps="false"
                         android:gravity="start"
                         android:paddingStart="20dp"
@@ -197,6 +151,4 @@
 
         </LinearLayout>
 
-    </ScrollView>
-
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

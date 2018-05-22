@@ -79,8 +79,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/offWhite"
                 android:background="@color/midGrey"
-                android:textSize="14sp"
-                android:text="@string/oneRepMax"
+                android:textSize="15sp"
+                android:text="@string/oneRM"
+                android:layout_marginEnd="3dp"
         />
 
         <TextView
@@ -118,8 +119,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/offWhite"
                 android:background="@color/midGrey"
-                android:textSize="14sp"
-                android:text="@string/oneRepMax"
+                android:textSize="15sp"
+                android:text="@string/oneRM"
+                android:layout_marginEnd="3dp"
         />
 
         <TextView
@@ -157,8 +159,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/offWhite"
                 android:background="@color/midGrey"
-                android:textSize="14sp"
-                android:text="@string/oneRepMax"
+                android:textSize="15sp"
+                android:text="@string/oneRM"
+                android:layout_marginEnd="3dp"
         />
 
         <TextView
@@ -196,8 +199,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/offWhite"
                 android:background="@color/midGrey"
-                android:textSize="14sp"
-                android:text="@string/oneRepMax"
+                android:textSize="15sp"
+                android:text="@string/oneRM"
+                android:layout_marginEnd="3dp"
         />
 
         <TextView

@@ -2,6 +2,7 @@ package com.liftdom.template_housing;
 
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,10 +45,10 @@ public class PremadeTemplatesFrag extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    @BindView(R.id.smolovButton) Button smolovButton;
+    //@BindView(R.id.smolovButton) Button smolovButton;
     @BindView(R.id.titleView) TextView titleView;
-    @BindView(R.id.W531fBButton) Button W531FBButton;
-
+    //@BindView(R.id.W531fBButton) Button W531FBButton;
+    @BindView(R.id.holder2) LinearLayout holder2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,22 +62,26 @@ public class PremadeTemplatesFrag extends Fragment {
 
         titleView.setTypeface(lobster);
 
-        smolovButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            Intent intent;
-            intent = new Intent(getContext(), SmolovHolderActivity.class);
-            startActivity(intent);
-            }
-        });
+        //smolovButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //    Intent intent;
+        //    intent = new Intent(getContext(), SmolovHolderActivity.class);
+        //    startActivity(intent);
+        //    }
+        //});
 
-        W531FBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(getContext(), W531fB_HolderActivity.class);
-                startActivity(intent);
-            }
-        });
+        //W531FBButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        Intent intent;
+        //        intent = new Intent(getContext(), W531fB_HolderActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
+
+        if(savedInstanceState == null){
+            setUpFragsForWorkoutType();
+        }
 
         //pplButton.setOnClickListener(new View.OnClickListener() {
         //    public void onClick(View v) {
@@ -86,6 +92,20 @@ public class PremadeTemplatesFrag extends Fragment {
         //});
 
         return view;
+    }
+
+    private void setUpFragsForWorkoutType(){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+
+        PremadeProgramHolderFrag smolovFrag = new PremadeProgramHolderFrag();
+        smolovFrag.workoutType = "Smolov";
+        PremadeProgramHolderFrag W531fBFrag = new PremadeProgramHolderFrag();
+        W531fBFrag.workoutType = "W531fB";
+
+        fragmentTransaction.add(R.id.holder2, smolovFrag);
+        fragmentTransaction.add(R.id.holder2, W531fBFrag);
+
+        fragmentTransaction.commit();
     }
 
     @Override

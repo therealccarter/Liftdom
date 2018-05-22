@@ -25,6 +25,7 @@ public class W531fBInfoFrag extends Fragment {
     }
 
     public HashMap<String, String> extraInfoMap = new HashMap<>();
+    public boolean isImperial;
 
     @BindView(R.id.beginDateView) TextView beginDateView;
     @BindView(R.id.squat1rm) TextView squat1rm;
@@ -40,11 +41,27 @@ public class W531fBInfoFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        String squatMax;
+        String benchPressMax;
+        String deadliftMax;
+        String ohpMax;
+        if(isImperial){
+            squatMax = extraInfoMap.get("squatMax") + " lbs";
+            benchPressMax = extraInfoMap.get("benchMax") + " lbs";
+            deadliftMax = extraInfoMap.get("deadliftMax") + " lbs";
+            ohpMax = extraInfoMap.get("ohpMax") + " lbs";
+        }else{
+            squatMax = extraInfoMap.get("squatMax") + " kgs";
+            benchPressMax = extraInfoMap.get("benchMax") + " kgs";
+            deadliftMax = extraInfoMap.get("deadliftMax") + " kgs";
+            ohpMax = extraInfoMap.get("ohpMax") + " kgs";
+        }
+
         beginDateView.setText(extraInfoMap.get("beginDate"));
-        squat1rm.setText(extraInfoMap.get("squatMax"));
-        benchPress1rm.setText(extraInfoMap.get("benchMax"));
-        deadlift1rm.setText(extraInfoMap.get("deadliftMax"));
-        ohp1rm.setText(extraInfoMap.get("ohpMax"));
+        squat1rm.setText(squatMax);
+        benchPress1rm.setText(benchPressMax);
+        deadlift1rm.setText(deadliftMax);
+        ohp1rm.setText(ohpMax);
 
         return view;
     }

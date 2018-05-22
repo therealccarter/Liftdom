@@ -620,6 +620,7 @@ public class SelectedTemplateFrag extends Fragment {
             FragmentTransaction fragmentTransaction = fragmentManager
                     .beginTransaction();
             W531fBInfoFrag w531fBInfoFrag = new W531fBInfoFrag();
+            w531fBInfoFrag.isImperial = templateModelClass.isIsImperial();
             w531fBInfoFrag.extraInfoMap.putAll(templateModelClass.getExtraInfo());
             fragmentTransaction.add(R.id.templateListedView,
                     w531fBInfoFrag);
