@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -672,9 +673,59 @@ public class AssistorHolderFrag extends android.app.Fragment
          * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
          * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
          */
+    }
 
+    final Handler handler = new Handler();
+
+    public void updateWorkoutStateWithDelay(){
+
+        /**
+         * Current issue: when checking something off and then minimizing the app, duplicates (9) were added
+         * to the db. first we'll try it without the delay, then possibly an (!getActivity.isFinishing) conditional
+         */
+
+        Log.i("fuckYou", "updateWorkoutStateWithDelay method call");
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("fuckYou", "updateWorkoutStateWithDelay method inner call");
+                DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                        ("assistorModel");
+                HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+                int inc = 0;
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.now();
+                String dateTimeString = fmt.print(localDate);
+                String privateJournal = privateJournalView.getText().toString();
+                String publicComment = publicCommentView.getText().toString();
+                boolean completedBool = false; // obviously this will be set to true in assistor saved
+                String mediaResource = "";
+
+                // might need to make this not clickable without inflated views so it isn't set to null
+                for(ExNameWAFrag exNameFrag : exNameFragList){
+                    inc++;
+                    //for(int i = 1; i <= exNameFragList.size(); i++){}
+                    runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                }
+
+                WorkoutProgressModelClass progressModelClass;
+
+                if(isRevisedWorkout){
+                    progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                            completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                            refKey, isRevisedWorkout, isFromRestDay);
+                }else{
+                    progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                            completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                            null, isRevisedWorkout, isFromRestDay);
+                }
+
+                runningAssistorRef.setValue(progressModelClass);
+            }
+        }, 4500);
 
     }
+
 
     public void updateWorkoutStateForResult(final String exNameFragTag, final String repsWeightFragTag){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child

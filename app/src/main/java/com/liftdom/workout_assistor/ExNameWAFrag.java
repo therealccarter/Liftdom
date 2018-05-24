@@ -64,7 +64,7 @@ public class ExNameWAFrag extends android.app.Fragment
     }
 
     public interface updateWorkoutStateCallback{
-        void updateWorkoutState();
+        void updateWorkoutStateWithDelay();
     }
 
     private updateWorkoutStateCallback updateWorkoutState;
@@ -89,7 +89,7 @@ public class ExNameWAFrag extends android.app.Fragment
     private startFirstTimeShowcase firstTimeShowcaseCallback;
 
     public void updateWorkoutState(){
-        updateWorkoutState.updateWorkoutState();
+        updateWorkoutState.updateWorkoutStateWithDelay();
     }
 
     public void updateWorkoutStateForResult(String tag2){
@@ -583,7 +583,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         repsWeightFragList1.remove(newIndex);
                     }
                     --repsWeightInc;
-                    updateWorkoutState.updateWorkoutState();
+                    updateWorkoutState.updateWorkoutStateWithDelay();
                 }
             }
         }else{
@@ -605,7 +605,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         repsWeightFragList2.remove(newIndex);
                     }
                     --repsWeightInc;
-                    updateWorkoutState.updateWorkoutState();
+                    updateWorkoutState.updateWorkoutStateWithDelay();
                 }
             }
         }
@@ -634,7 +634,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     exNameSupersetFragList.remove(newIndex);
                 }
                 --exNameSupersetInc;
-                updateWorkoutState.updateWorkoutState();
+                updateWorkoutState.updateWorkoutStateWithDelay();
             }
         }
     }

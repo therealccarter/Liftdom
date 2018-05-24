@@ -197,8 +197,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         checkedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unCheckedImage.setVisibility(View.INVISIBLE);
-                checkedImage.setVisibility(View.GONE);
+                //unCheckedImage.setVisibility(View.INVISIBLE);
+                //checkedImage.setVisibility(View.GONE);
+                setUnCheckedView();
                 //setLoadingView();
                 updateWorkoutState.updateWorkoutState();
             }
@@ -207,8 +208,9 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         unCheckedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unCheckedImage.setVisibility(View.GONE);
-                checkedImage.setVisibility(View.INVISIBLE);
+                //unCheckedImage.setVisibility(View.GONE);
+                //checkedImage.setVisibility(View.INVISIBLE);
+                setCheckedView();
                 //setLoadingView();
                 updateWorkoutState.updateWorkoutState();
             }

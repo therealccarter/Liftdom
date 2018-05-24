@@ -5,7 +5,8 @@
 ======== ***Completed*** =======================================================
 currently on v1.33
 ----------------------
-
+better layout for premade programs.
+5/3/1 for beginners.
 ----------------------
 ====================================================
 
@@ -15,9 +16,14 @@ rehaul of exercise history chart {
     one button that shows the exercise name/choose exercise
     one button under that says clear chart
     maybe just show what you did that day in SxRxW format.
+    Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))
 }
-better layout for premade programs.
-5/3/1 for beginners.
+GDPR {
+    Put user name on introFrag3, consent shit on introFrag2
+}
+give WA checks immediate feedback
+supersetting in WA
+WA check-all
 =====================================================
 
 ============ ON DECK FOR v1.34+: ===============================================
@@ -26,10 +32,10 @@ true chat functionality/workout reminders (check that Firebase support email){
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
-supersetting in WA
 next workout info on rest day frag
 rest timer
 add non-completed workout view to main feed
+somehow queue the database setValues for _checked so it is immediate
 user "flair"
 hamburger needs back functionality
 add description to premade programs
@@ -62,7 +68,6 @@ max editing (* = set manually, not in liftdom workout)(also measurements)
 increase edit text max lengths for weight values
 decimal percentage functionality
 Improve the notification-bar layout.
-Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))
 Add past update text to a dedicated page for that
 =====================================================
 
