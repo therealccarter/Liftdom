@@ -78,6 +78,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isRevisedWorkout;
     String refKey;
     boolean isFromRestDay;
+    boolean isInForeground;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -135,6 +136,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         ButterKnife.bind(this, view);
 
         HideKey.initialize(getActivity());
+
+        isInForeground = true;
 
         Log.i("assistorInfo", "onCreateView called (assistor holder)");
 
@@ -675,6 +678,12 @@ public class AssistorHolderFrag extends android.app.Fragment
          */
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        isInForeground = false;
+    }
+
     final Handler handler = new Handler();
 
     public void updateWorkoutStateWithDelay(){
@@ -689,38 +698,40 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void run() {
                 Log.i("fuckYou", "updateWorkoutStateWithDelay method inner call");
-                DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
-                        ("assistorModel");
-                HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
-                int inc = 0;
-                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                LocalDate localDate = LocalDate.now();
-                String dateTimeString = fmt.print(localDate);
-                String privateJournal = privateJournalView.getText().toString();
-                String publicComment = publicCommentView.getText().toString();
-                boolean completedBool = false; // obviously this will be set to true in assistor saved
-                String mediaResource = "";
+                if(isInForeground){
+                    DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                            ("assistorModel");
+                    HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+                    int inc = 0;
+                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                    LocalDate localDate = LocalDate.now();
+                    String dateTimeString = fmt.print(localDate);
+                    String privateJournal = privateJournalView.getText().toString();
+                    String publicComment = publicCommentView.getText().toString();
+                    boolean completedBool = false; // obviously this will be set to true in assistor saved
+                    String mediaResource = "";
 
-                // might need to make this not clickable without inflated views so it isn't set to null
-                for(ExNameWAFrag exNameFrag : exNameFragList){
-                    inc++;
-                    //for(int i = 1; i <= exNameFragList.size(); i++){}
-                    runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                    // might need to make this not clickable without inflated views so it isn't set to null
+                    for(ExNameWAFrag exNameFrag : exNameFragList){
+                        inc++;
+                        //for(int i = 1; i <= exNameFragList.size(); i++){}
+                        runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                    }
+
+                    WorkoutProgressModelClass progressModelClass;
+
+                    if(isRevisedWorkout){
+                        progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                                refKey, isRevisedWorkout, isFromRestDay);
+                    }else{
+                        progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                                null, isRevisedWorkout, isFromRestDay);
+                    }
+
+                    runningAssistorRef.setValue(progressModelClass);
                 }
-
-                WorkoutProgressModelClass progressModelClass;
-
-                if(isRevisedWorkout){
-                    progressModelClass = new WorkoutProgressModelClass(dateTimeString,
-                            completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                            refKey, isRevisedWorkout, isFromRestDay);
-                }else{
-                    progressModelClass = new WorkoutProgressModelClass(dateTimeString,
-                            completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
-                            null, isRevisedWorkout, isFromRestDay);
-                }
-
-                runningAssistorRef.setValue(progressModelClass);
             }
         }, 4500);
 
@@ -902,7 +913,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onStart(){
         super.onStart();
-
+        isInForeground = true;
         setButtonsForService();
     }
 
@@ -993,6 +1004,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onPause(){
         Log.i("lifecycleAssistor", "AssistorHolderFrag onPause called");
         //runningAssistorRef.removeEventListener(runningAssistorListener);
+
         super.onPause();
     }
 
@@ -1002,6 +1014,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(runningAssistorRef != null){
             runningAssistorRef.removeEventListener(runningAssistorListener);
         }
+        isInForeground = false;
 
         super.onStop();
     }
