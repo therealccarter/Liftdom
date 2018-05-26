@@ -3,15 +3,20 @@ package com.liftdom.liftdom.intro;
 
 import agency.tango.materialintroscreen.SlideFragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.*;
+import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +41,15 @@ public class IntroFrag3 extends SlideFragment {
     private EditText ageEditText;
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
+    private EditText displayNameEditText;
+    private TextView usernameTaken;
+    private TextView usernameAvailable;
+    private AVLoadingIndicatorView loadingView;
+    private long delay = 1000;
+    private long lastTextEdit = 0;
+    Handler handler = new Handler();
+    private boolean isAvailable;
+    private String currentText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +59,10 @@ public class IntroFrag3 extends SlideFragment {
 
         HideKey.initialize(getActivity(), view);
 
+        displayNameEditText = (EditText) view.findViewById(R.id.displayNameEditText);
+        usernameAvailable = (TextView) view.findViewById(R.id.usernameAvailableView);
+        usernameTaken = (TextView) view.findViewById(R.id.usernameTakenView);
+        loadingView = (AVLoadingIndicatorView) view.findViewById(R.id.loadingView);
         imperialRadioButton = (RadioButton) view.findViewById(R.id.imperialRadioButton);
         metricRadioButton = (RadioButton) view.findViewById(R.id.metricRadioButton);
         imperialHeightLL = (LinearLayout) view.findViewById(R.id.imperialHeight);
@@ -58,6 +76,35 @@ public class IntroFrag3 extends SlideFragment {
         ageEditText = (EditText) view.findViewById(R.id.ageEditText);
         maleRadioButton = (RadioButton) view.findViewById(R.id.maleRadioButton);
         femaleRadioButton = (RadioButton) view.findViewById(R.id.femaleRadioButton);
+
+        displayNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isAvailable = false;
+                handler.removeCallbacks(inputFinishChecker);
+                loadingView.setVisibility(View.VISIBLE);
+                usernameTaken.setVisibility(View.GONE);
+                usernameAvailable.setVisibility(View.GONE);
+                if(s.length() == 0){
+                    loadingView.setVisibility(View.GONE);
+                    usernameTaken.setVisibility(View.GONE);
+                    usernameAvailable.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0){
+                    lastTextEdit = System.currentTimeMillis();
+                    handler.postDelayed(inputFinishChecker, delay);
+                }
+            }
+        });
 
         if(IntroSingleton.getInstance().isImperial){
             imperialRadioButton.setChecked(true);
@@ -123,6 +170,36 @@ public class IntroFrag3 extends SlideFragment {
         return view;
     }
 
+    private Runnable inputFinishChecker = new Runnable(){
+        public void run(){
+            if(System.currentTimeMillis() > (lastTextEdit + delay - 500)){
+                DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userNames")
+                        .child(displayNameEditText.getText().toString());
+                userNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            loadingView.setVisibility(View.GONE);
+                            usernameTaken.setVisibility(View.VISIBLE);
+                            usernameAvailable.setVisibility(View.GONE);
+                            isAvailable = false;
+                        }else{
+                            loadingView.setVisibility(View.GONE);
+                            usernameTaken.setVisibility(View.GONE);
+                            usernameAvailable.setVisibility(View.VISIBLE);
+                            isAvailable = true;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+    };
+
     @Override
     public int backgroundColor() {
         return R.color.confirmgreen;
@@ -137,25 +214,34 @@ public class IntroFrag3 extends SlideFragment {
     public boolean canMoveFurther() {
         boolean validName = false;
 
-        if(IntroSingleton.getInstance().isImperial){
-            // check imperial values
-            if(!feetEditText.getText().toString().equals("")){
-                if(!inchesEditText.getText().toString().equals("")){
-                    if(!weightEditText.getText().toString().equals("")){
-                        IntroSingleton.getInstance().feet = feetEditText.getText().toString();
-                        IntroSingleton.getInstance().inches = inchesEditText.getText().toString();
-                        IntroSingleton.getInstance().weightImperial = weightEditText.getText().toString();
-                        validName = true;
+        String displayName = displayNameEditText.getText().toString();
+
+        if(displayName != null){
+            if(!displayName.equals("")){
+                if(displayName.length() > 2 && isAvailable){
+                    IntroSingleton.getInstance().displayName = displayName;
+                    if(IntroSingleton.getInstance().isImperial){
+                        // check imperial values
+                        if(!feetEditText.getText().toString().equals("")){
+                            if(!inchesEditText.getText().toString().equals("")){
+                                if(!weightEditText.getText().toString().equals("")){
+                                    IntroSingleton.getInstance().feet = feetEditText.getText().toString();
+                                    IntroSingleton.getInstance().inches = inchesEditText.getText().toString();
+                                    IntroSingleton.getInstance().weightImperial = weightEditText.getText().toString();
+                                    validName = true;
+                                }
+                            }
+                        }
+                    }else{
+                        // check metric values
+                        if(!cmHeightEditText.getText().toString().equals("")){
+                            if(!weightEditText.getText().toString().equals("")){
+                                IntroSingleton.getInstance().cm = cmHeightEditText.getText().toString();
+                                IntroSingleton.getInstance().weightMetric = weightEditText.getText().toString();
+                                validName = true;
+                            }
+                        }
                     }
-                }
-            }
-        }else{
-            // check metric values
-            if(!cmHeightEditText.getText().toString().equals("")){
-                if(!weightEditText.getText().toString().equals("")){
-                    IntroSingleton.getInstance().cm = cmHeightEditText.getText().toString();
-                    IntroSingleton.getInstance().weightMetric = weightEditText.getText().toString();
-                    validName = true;
                 }
             }
         }

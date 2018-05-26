@@ -108,6 +108,8 @@ public class ExNameWAFrag extends android.app.Fragment
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
     @BindView(R.id.addRepsWeightButton) Button addSchemeButton;
+    @BindView(R.id.extraOptionsButton) ImageView extraOptionsButton;
+    @BindView(R.id.checkOffAll) CheckBox checkOffAll;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,12 +134,68 @@ public class ExNameWAFrag extends android.app.Fragment
             }
         });
 
+        checkOffAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if(!repsWeightFragList1.isEmpty()){
+                        try{
+                            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                                repsWeightWAFrag.setCheckedView();
+                            }
+                        }catch (NullPointerException e){
+
+                        }
+
+                    }
+                    if(!repsWeightFragList2.isEmpty()){
+                        try{
+                            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                                repsWeightWAFrag.setCheckedView();
+                            }
+                        }catch (NullPointerException e){
+
+                        }
+                    }
+                }else{
+                    if(!repsWeightFragList1.isEmpty()){
+                        try{
+                            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                                repsWeightWAFrag.setCheckedView();
+                            }
+                        }catch (NullPointerException e){
+
+                        }
+
+                    }
+                    if(!repsWeightFragList2.isEmpty()){
+                        try{
+                            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                                repsWeightWAFrag.setCheckedView();
+                            }
+                        }catch (NullPointerException e){
+
+                        }
+                    }
+                }
+            }
+        });
+
         exerciseNameView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExInfoOrSelectorDialog.class);
                 String exName = getExerciseValueFormatted();
                 intent.putExtra("exName", exName);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        extraOptionsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = exerciseNameView.getId();
+                intent.putExtra("exID", exID);
+                startActivityForResult(intent, 3);
             }
         });
 
@@ -177,9 +235,6 @@ public class ExNameWAFrag extends android.app.Fragment
         }else{
             inflateFrags();
         }
-
-        //TODO: READ THIS YO: Possibly just make the keys be ordered? _key style.
-
 
         return view;
     }
@@ -261,6 +316,15 @@ public class ExNameWAFrag extends android.app.Fragment
                 if(data.getStringExtra("MESSAGE") != null){
                     exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                     updateWorkoutState();
+                }
+            }
+        }else if(resultCode == 3){
+            if(data != null){
+                if(data.getStringArrayExtra("MESSAGE") != null){
+                    /**
+                     * What we'd have to do here is show a pop up for SxR@W and then add it to the key location that
+                     * will be set from parent frag.
+                     */
                 }
             }
         }

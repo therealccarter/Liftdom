@@ -20,11 +20,32 @@
             android:orientation="vertical"
             android:background="@color/backgroundgrey1"
     >
+
+        <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkAll"
+                android:textColor="@color/grey"
+                android:id="@+id/checkOffAll"
+                android:visibility="gone"
+        />
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
         >
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/three_dot_menu"
+                    android:layout_marginStart="1dp"
+                    android:id="@+id/extraOptionsButton"
+                    android:tint="@color/offerGrey"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone"
+            />
+
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
