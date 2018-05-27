@@ -33,6 +33,7 @@ public class UserModelClass {
     private String mLastCompletedDay;
     private String mCurrentXpWithinLevel;
     private String mNotificationCount;
+    private boolean mIsGDPR;
 
     public UserModelClass(){
         // necessary for firebase
@@ -42,7 +43,7 @@ public class UserModelClass {
                           String feetInchesHeight, String cmHeight, String pounds,
                           String kgs, HashMap<String, String> maxList, String sex,
                           String repLevel, String powerLevel, String currentStreak, String currentFocus,
-                          String activeTemplate, String notificationCount){
+                          String activeTemplate, String notificationCount, boolean isGDPR){
         mUserName = userName;
         mUserId = userId;
         mEmail = email;
@@ -61,6 +62,7 @@ public class UserModelClass {
         mActiveTemplate = activeTemplate;
         try{
             mNotificationCount = notificationCount;
+            mIsGDPR = isGDPR;
         }catch (NullPointerException e){
 
         }
@@ -433,6 +435,14 @@ public class UserModelClass {
 
     // =================================== end level up stuff ===================================
 
+
+    public boolean isIsGDPR() {
+        return mIsGDPR;
+    }
+
+    public void setIsGDPR(boolean mIsGDPR) {
+        this.mIsGDPR = mIsGDPR;
+    }
 
     public String getNotificationCount() {
         return mNotificationCount;

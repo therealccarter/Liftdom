@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.liftdom.liftdom">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -10,34 +11,31 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!--
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> optional
-    -->
+    <!--     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> optional -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <!-- optional -->
     <application
+            android:name="android.support.multidex.MultiDexApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:largeHeap="true"
             android:supportsRtl="true"
-            android:name="android.support.multidex.MultiDexApplication"
             android:theme="@style/AppTheme">
         <activity
                 android:name=".SplashActivity"
                 android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
                 android:name=".MainActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
-
         </activity>
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -85,7 +83,7 @@
         <activity
                 android:name="com.facebook.FacebookActivity"
                 android:label="@string/app_name"/>
-                -->
+        -->
         <activity
                 android:name="com.liftdom.misc_activities.SettingsListActivity"
                 android:label="">
@@ -105,8 +103,8 @@
         </activity>
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"
-                android:label="">
+                android:label=""
+                android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
         <activity
                 android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity"
@@ -143,9 +141,9 @@
                 android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
                 android:theme="@style/Theme.Intro">
         </activity>
-        <activity android:name="com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity"
-                  android:theme="@style/Theme.Intro">
-
+        <activity
+                android:name="com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity"
+                android:theme="@style/Theme.Intro">
         </activity>
         <activity
                 android:name=".SignInActivity"
@@ -205,6 +203,9 @@
         <activity android:name="com.appodeal.ads.VideoActivity"
                   android:configChanges="orientation|screenSize"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.appodealx.mraid.MraidActivity"
+                  android:configChanges="orientation|screenSize"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity android:name="com.appodeal.ads.LoaderActivity"
                   android:configChanges="orientation|screenSize"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -222,8 +223,7 @@
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
         <activity android:name="com.google.android.gms.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  tools:replace="android:theme" />
+                  android:theme="@android:style/Theme.Translucent" />
 
         <activity android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true"
                   android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
@@ -234,7 +234,7 @@
 
         <activity android:name="com.mopub.mobileads.MoPubActivity"
                   android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+                  android:theme="@android:style/Theme.Translucent" />
         <activity android:name="com.mopub.common.MoPubBrowser"
                   android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name="com.mopub.mobileads.MraidActivity"
@@ -267,7 +267,7 @@
                   android:theme="@android:style/Theme" />
         <!--suppress AndroidDomInspection -->
         <activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:theme="@android:style/Theme.Translucent"
                   android:configChanges="orientation|keyboardHidden|screenSize" />
         <!--suppress AndroidDomInspection -->
         <activity android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
@@ -277,12 +277,13 @@
         <service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
         <!--suppress AndroidDomInspection -->
         <service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
-        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener" >
+        <!--suppress AndroidDomInspection -->
+        <service android:name="com.startapp.android.publish.common.metaData.PeriodicJobService" android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
 
         <service android:name="com.yandex.metrica.MetricaService" android:enabled="true"
                  android:exported="true" android:process=":Metrica">
@@ -291,7 +292,14 @@
                 <action android:name="com.yandex.metrica.IMetricaService" />
                 <data android:scheme="metrica" />
             </intent-filter>
-            <meta-data android:name="metrica:api:level" android:value="58" />
+            <meta-data android:name="metrica:api:level" android:value="64" />
+        </service>
+        <service android:name="com.yandex.metrica.ConfigurationService" android:enabled="true"
+                 android:exported="true" android:process=":Metrica" tools:ignore="ExportedService">
+            <meta-data android:name="metrica:configuration:api:level" android:value="1"/>
+            <intent-filter>
+                <action android:name="com.yandex.metrica.configuration.ACTION_START"/>
+            </intent-filter>
         </service>
         <receiver android:name="com.yandex.metrica.MetricaEventHandler"
                   android:enabled="true" android:exported="true">
@@ -310,64 +318,94 @@
         <activity android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" />
+        <activity android:name="com.unity3d.ads.adunit.AdUnitTransparentActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+                  android:hardwareAccelerated="true" />
+        <activity android:name="com.unity3d.ads.adunit.AdUnitTransparentSoftwareActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+                  android:hardwareAccelerated="false" />
         <activity android:name="com.unity3d.ads2.adunit.AdUnitActivity"
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true" />
         <activity android:name="com.unity3d.ads2.adunit.AdUnitSoftwareActivity"
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" />
+        <activity android:name="com.unity3d.ads2.adunit.AdUnitTransparentActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+                  android:hardwareAccelerated="true" />
+        <activity android:name="com.unity3d.ads2.adunit.AdUnitTransparentSoftwareActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+                  android:hardwareAccelerated="false" />
 
         <!--suppress AndroidDomInspection -->
-        <activity android:name="com.jirbo.adcolony.AdColonyOverlay"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.jirbo.adcolony.AdColonyBrowser"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+                android:name="com.vungle.warren.ui.VungleActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+                android:launchMode="singleTop"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <service
+                android:name="com.evernote.android.job.v21.PlatformJobService"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+                android:name="com.evernote.android.job.v14.PlatformAlarmService"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+                android:name="com.evernote.android.job.v14.PlatformAlarmServiceExact"
+                android:exported="false" />
+        <receiver
+                android:name="com.evernote.android.job.v14.PlatformAlarmReceiver"
+                android:exported="false" >
+            <intent-filter>
+                <!-- Keep the filter for legacy intents -->
+                <action android:name="com.evernote.android.job.v14.RUN_JOB" />
+                <action android:name="net.vrallev.android.job.v14.RUN_JOB" />
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name="com.evernote.android.job.JobBootReceiver"
+                android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <service
+                android:name="com.evernote.android.job.gcm.PlatformGcmService"
+                android:enabled="false"
+                android:exported="true"
+                android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
+        <service
+                android:name="com.evernote.android.job.JobRescheduleService"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.vungle.publisher.VideoFullScreenAdActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.vungle.publisher.FlexViewAdActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-
-        <!--suppress AndroidDomInspection -->
+        <!--suppress AndroidDomInspection
         <activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.flurry.android.FlurryShareActivity"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.flurry.android.FlurryTileAdActivity"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                  android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--suppress AndroidDomInspection -->
-        <activity android:name="com.flurry.android.FlurryBrowserActivity"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
 
-        <activity android:name="com.mobvista.msdk.offerwall.view.MVOfferWallActivity"
-                  android:configChanges="screenSize|orientation"
-                  android:screenOrientation="portrait" />
-        <activity android:name="com.mobvista.msdk.offerwall.view.MVOfferWallRewardVideoActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="landscape"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+                android:name="com.mobvista.msdk.activity.MVCommonActivity"
+                android:configChanges="keyboard|orientation"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.NoTitleBar" />
+        <service android:name="com.mobvista.msdk.shell.MVService" >
+            <intent-filter>
+                <action android:name="com.mobvista.msdk.download.action" />
+            </intent-filter>
+        </service>
         <activity android:name="com.mobvista.msdk.reward.player.MVRewardVideoActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -379,10 +417,8 @@
                   android:configChanges="orientation|screenSize"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name="com.mobvista.msdk.shell.MVActivity"
-                  android:configChanges="keyboard|orientation"
-                  android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity android:name="com.mobvista.msdk.mvjscommon.authority.activity.MVAuthorityActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <!--suppress AndroidDomInspection -->
         <activity android:name="com.tapjoy.TJAdUnitActivity" android:configChanges="orientation|keyboardHidden|screenSize"
@@ -413,12 +449,7 @@
                   android:hardwareAccelerated="true"/>
 
         <activity android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize|screenLayout"
-                  android:hardwareAccelerated="true" android:resizeableActivity="false" android:theme="@android:style/Theme.NoTitleBar" />
-        <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true">
-            <intent-filter>
-                <action android:name="com.inmobi.share.id"/>
-            </intent-filter>
-        </receiver>
+                  android:hardwareAccelerated="true" android:resizeableActivity="false" android:theme="@android:style/Theme.NoTitleBar" tools:ignore="UnusedAttribute"/>
 
         <meta-data android:name="presage_key" android:value="000000"/>
         <service android:name="io.presage.PresageService" android:enabled="true" android:exported="true" android:process=":remote">
@@ -448,7 +479,6 @@
                 android:exported="true" />
 
 
-
         <!-- END APPODEAL STUFF -->
 
         <activity
@@ -471,7 +501,11 @@
                 android:name=".notifications_bell.NotificationsActivity"
                 android:label="">
         </activity>
-        <activity android:name="com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity"
+        <activity
+                android:name="com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity"
+                android:theme="@style/AppCompatDialogNoTitleBar">
+        </activity>
+        <activity android:name=".ConsentFormDialogActivity"
                   android:theme="@style/AppCompatDialogNoTitleBar">
         </activity>
     </application>

@@ -48,9 +48,9 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         addSlide(new IntroFrag1());
 
-        addSlide(new IntroFrag2());
-
         addSlide(new IntroFrag3());
+
+        addSlide(new IntroFrag2());
 
         addSlide(new IntroFrag4());
 
@@ -90,10 +90,12 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         String email = IntroSingleton.getInstance().email;
 
+        boolean isGDPR = IntroSingleton.getInstance().isGDPR;
+
         final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                 feetInchesHeight, cmHeight, pounds,
                 kgs, maxList, sex, repLevel, powerLevel, currentStreak,
-                currentFocus, activeTemplate, "0");
+                currentFocus, activeTemplate, "0", isGDPR);
 
         FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true, true);
 

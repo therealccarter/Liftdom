@@ -24,6 +24,7 @@ public class IntroSingleton {
 
     boolean isImperial = true;
     boolean isMale = true;
+    boolean isGDPR = true;
 
     String weightImperial;
     String weightMetric;

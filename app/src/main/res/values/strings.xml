@@ -368,6 +368,20 @@
     <string name="setUpProfileValues">Set up your profile:</string>
     <string name="invalidProfileFields">Please enter all values. These can be edited later!</string>
 
+    <string name="yes">Yes</string>
+
+    <string name="no">No</string>
+
+    <string name="userConsentTitle">User Agreement:</string>
+
+    <string name="userConsentText">Liftdom complies with GDPR/ethical data protection guidelines.\nIf you consent to
+        analytics use, we will only use it to help debug any app-related issues you have, improve your user experience,
+        and serve more personalized/relevant ad content.\nNone of your user information is associated with your person
+        or sold to anybody.\nYou can change your choice at any time on the Liftdom settings page.\nIf you have any
+        questions, email me at liftdomapp@gmail.com.
+    </string>
+
+    <string name="userConsentQuestion">Are you alright with these terms?</string>
 
     <string name="userNameTaken">Username taken</string>
     <string name="userNameAvailable">Username available!</string>

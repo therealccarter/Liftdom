@@ -1,6 +1,8 @@
 package com.liftdom.liftdom;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
 import com.liftdom.template_housing.*;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
+import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.liftdom.workout_programs.Smolov.Smolov;
@@ -107,12 +110,6 @@ public class MainActivity extends BaseActivity implements
 
         ButterKnife.bind(this);
 
-        String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
-        Appodeal.disableLocationPermissionCheck();
-        Appodeal.setBannerViewId(R.id.appodealBannerView);
-        Appodeal.initialize(this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER);
-        Appodeal.show(this, Appodeal.BANNER_VIEW);
-
         //appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
         //    @Override
         //    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -185,6 +182,7 @@ public class MainActivity extends BaseActivity implements
                         }
 
                     }
+                    setUpAppodealAndGDPR(uid);
                     checkForBadges();
                 } else {
                     // User is signed out
@@ -486,6 +484,67 @@ public class MainActivity extends BaseActivity implements
         }
     }
     // [END on_stop_remove_listener]
+
+    private void setUpAppodealAndGDPR(String uidl){
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        if(sharedPref.contains("consent")){
+            boolean isGDPR = sharedPref.getBoolean("consent", true);
+            String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+            Appodeal.disableLocationPermissionCheck();
+            Appodeal.setBannerViewId(R.id.appodealBannerView);
+            Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
+            Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+        }else{
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uidl).child
+                    ("isGDPR");
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        boolean isGDPR = dataSnapshot.getValue(Boolean.class);
+                        String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+                        Appodeal.disableLocationPermissionCheck();
+                        Appodeal.setBannerViewId(R.id.appodealBannerView);
+                        Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
+                        Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+                    }else{
+                        showConsentForm();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+    private void showConsentForm(){
+        Intent intent = new Intent(MainActivity.this, ConsentFormDialogActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if(resultCode == 1){
+                boolean isGDPR = data.getBooleanExtra("consentBool", true);
+                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                sharedPref.edit().putBoolean("consent", isGDPR).apply();
+                String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
+                Appodeal.disableLocationPermissionCheck();
+                Appodeal.setBannerViewId(R.id.appodealBannerView);
+                Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
+                Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+                        .child("isGDPR");
+                userRef.setValue(isGDPR);
+            }
+        }
+    }
 
     private void checkForBadges(){
         // first we'll check for uncompleted workout

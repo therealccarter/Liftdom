@@ -92,10 +92,12 @@ public class IntroFrag4 extends SlideFragment {
 
                 String email = IntroSingleton.getInstance().email;
 
+                boolean isGDPR = IntroSingleton.getInstance().isGDPR;
+
                 final UserModelClass userModelClass = new UserModelClass(userName, userId, email, age, isImperial,
                         feetInchesHeight, cmHeight, pounds,
                         kgs, maxList, sex, repLevel, powerLevel, currentStreak,
-                        currentFocus, activeTemplate, "0");
+                        currentFocus, activeTemplate, "0", isGDPR);
 
                 FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true, true,
                         true);
