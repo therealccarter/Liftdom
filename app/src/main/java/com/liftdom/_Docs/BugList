@@ -37,6 +37,7 @@ rest timer
 add non-completed workout view to main feed
 somehow queue the database setValues for _checked so it is immediate
 user "flair"
+comments aren't visible if you're not the OP
 hamburger needs back functionality
 add description to premade programs
 focus dismiss after keyboard dismiss

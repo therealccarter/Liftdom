@@ -15,24 +15,27 @@
 
     <!-- DATE OF UPDATE: 04/15/18 -->
 
-    <string name="currentVersion">Liftdom v1.35</string>
+    <string name="currentVersion">Liftdom v1.36</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.35 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.36 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        Smolov intro page layout fix (last page).
+        GDPR compliance.\n
+        Added Wendler\'s 5/3/1 For Beginners program.\n
+        Added workout reminder to toolbar.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Bug fix causing crashes in Smolov creation page for anyone with Android 8.0.0
+        Too many to list tbh (including crash fixes, notification bugs).\n
+        Lot\'s of layout fixes (including pre-made programs revamp).
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
     <string name="workingOnText">
-        Begin adding new pre-made programs.\n
-        Look further into notifications.\n
+        Add more pre-made programs.\n
+        Look further into push notifications.\n
         Performance increases.
     </string>
 

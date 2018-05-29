@@ -170,25 +170,51 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                            DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
-                                    (getCurrentUid()).child(mRefKey).child("commentMap");
+                            final DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child
+                                    ("feed").child
+                                    (getCurrentUid()).child(mRefKey);
                             DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                                     (getCurrentUid()).child(mRefKey).child("commentCount");
 
-                            final String refKey = commentRef.push().getKey();
+                            final String refKey = commentRef.child("commentMap").push().getKey();
 
-                            PostCommentModelClass commentModelClass = new PostCommentModelClass(
+                            final PostCommentModelClass commentModelClass = new PostCommentModelClass(
                                     userModelClass.getUserId(), userModelClass.getUserName(), mCommentEditText
                                     .getText().toString(), 0, DateTime.now(DateTimeZone.UTC).toString(), refKey);
 
-                            commentRef.child(refKey).setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    mCommentEditText.setText("");
-                                }
-                            });
+                            if(!isFromSelfFeed && !isFromGlobal){
+                                commentRef.child("commentMap").setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        mCommentEditText.setText("");
+                                        fanoutCommentPost(refKey, commentModelClass);
+                                    }
+                                });
+                            }else{
+                                commentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()){
+                                            commentRef.child("commentMap").setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    mCommentEditText.setText("");
+                                                    fanoutCommentPost(refKey, commentModelClass);
+                                                }
+                                            });
+                                        }else{
+                                            mCommentEditText.setText("");
+                                            fanoutCommentPost(refKey, commentModelClass);
+                                        }
+                                    }
 
-                            fanoutCommentPost(refKey, commentModelClass);
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
 
                             final DatabaseReference otherUserRef = FirebaseDatabase.getInstance().getReference().child
                                     ("user").child(xUid).child("notificationCount");
@@ -356,7 +382,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
                             DatabaseReference notificationRef = FirebaseDatabase.getInstance().getReference().child
                                     ("notifications").child(xUid);
-                            NotificationModelClass notificationModelClass = new NotificationModelClass("rep", xUid, mRefKey,
+                            NotificationModelClass notificationModelClass = new NotificationModelClass("rep", getCurrentUid(),
+                                    mRefKey,
                                     DateTime.now(DateTimeZone.UTC).toString(), null);
                             notificationRef.push().setValue(notificationModelClass)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -384,22 +411,23 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()){
-                                    if(!key.equals(getCurrentUid())){
-                                        List<String> hasReppedList;
+                                    //if(!key.equals(getCurrentUid())){//
+                                        List<String> hasReppedList1;
                                         if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
-                                            hasReppedList = getHasReppedList();
-                                            if(!hasReppedList.contains(getCurrentUid())){
-                                                hasReppedList.add(getCurrentUid());
+                                            hasReppedList1 = getHasReppedList();
+                                            if(!hasReppedList1.contains(getCurrentUid())){
+                                                hasReppedList1.add(getCurrentUid());
                                             }
                                         }else{
-                                            hasReppedList = new ArrayList<>();
-                                            if(!hasReppedList.contains(getCurrentUid())){
-                                                hasReppedList.add(getCurrentUid());
+                                            hasReppedList1 = new ArrayList<>();
+                                            if(!hasReppedList1.contains(getCurrentUid())){
+                                                hasReppedList1.add(getCurrentUid());
                                             }
                                         }
+
                                         fanoutReppedObject.put("/feed/" + key +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
-                                    }
+                                                "/" + mRefKey + "/hasReppedList/", hasReppedList1);
+                                    //}
                                     if(reppedInc1 == childCount){
                                         List<String> hasReppedList;
                                         if(getHasReppedList() != null && !getHasReppedList().isEmpty()){
@@ -419,8 +447,29 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                                     "/" + mRefKey + "/hasReppedList/", hasReppedList);
                                         }
 
-                                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        final List<String> hasReppedList2 = new ArrayList<>();
+                                        hasReppedList2.addAll(hasReppedList);
+
+                                        if(!isFromSelfFeed && !isFromGlobal){
+                                            fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }else{
+                                            final DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                                    (getCurrentUid()).child(mRefKey);
+                                            postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if(dataSnapshot.exists()){
+                                                        postRef.child("hasReppedList").setValue(hasReppedList2);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
 
                                         //fanoutReppedObject.put("/selfFeed/" + xUid +
                                         //        "/" + mRefKey + "/repCount/", newRepCount);
@@ -481,8 +530,30 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         }
                     }
 
-                    fanoutReppedObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    final List<String> hasReppedList2 = new ArrayList<>();
+                    hasReppedList2.addAll(hasReppedList);
+
+                    if(!isFromGlobal && !isFromSelfFeed){
+                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    }else{
+                        final DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                (getCurrentUid()).child(mRefKey);
+                        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    postRef.child("hasReppedList").setValue(hasReppedList2);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
 
                     fanoutReppedObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/hasReppedList/", hasReppedList);
@@ -607,8 +678,29 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                                     "/" + mRefKey + "/hasReppedList/", hasReppedList);
                                         }
 
-                                        fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        final List<String> hasReppedList2 = new ArrayList<>();
+                                        hasReppedList2.addAll(hasReppedList);
+
+                                        if(!isFromGlobal && !isFromSelfFeed){
+                                            fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                                    "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                                        }else{
+                                            final DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                                    (getCurrentUid()).child(mRefKey);
+                                            postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if(dataSnapshot.exists()){
+                                                        postRef.child("hasReppedList").setValue(hasReppedList2);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
 
                                         fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                                                 "/" + mRefKey + "/hasReppedList/", hasReppedList);
@@ -666,8 +758,29 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         hasReppedList.remove(getCurrentUid());
                     }
 
-                    fanoutReppedRemoveObject.put("/feed/" + getCurrentUid() +
-                            "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    final List<String> hasReppedList2 = new ArrayList<>();
+                    hasReppedList2.addAll(hasReppedList);
+
+                    if(!isFromGlobal && !isFromSelfFeed){
+                        fanoutReppedObject.put("/feed/" + getCurrentUid() +
+                                "/" + mRefKey + "/hasReppedList/", hasReppedList);
+                    }else{
+                        final DatabaseReference postRef = FirebaseDatabase.getInstance().getReference().child("feed").child
+                                (getCurrentUid()).child(mRefKey);
+                        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    postRef.child("hasReppedList").setValue(hasReppedList2);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
 
                     fanoutReppedRemoveObject.put("/selfFeed/" + xUid +
                             "/" + mRefKey + "/hasReppedList/", hasReppedList);
@@ -802,11 +915,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists()){
                                         if(!key.equals(getCurrentUid())){
+                                            // adding to OP's followers' feeds
                                             fanoutCommentObject.put("/feed/" + key +
                                                     "/" + mRefKey + "/commentMap/" + commentRefKey, commentModelClass);
                                         }
                                         if(commentInc1 == childCount){
                                             if(!getCurrentUid().equals(xUid)){
+                                                // adding to OP's feed
                                                 // if you're commenting on someone else's post, put it in their feed.
                                                 // so if you're commenting on your own post, it doesn't put it in
                                                 //  yours because it already did!
@@ -818,7 +933,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                                             "/commentMap/" + commentRefKey, commentModelClass);
 
                                             if(infoMap != null){
-                                                fanoutCommentObject.put("/selfFeed/" + xUid + "/" + mRefKey +
+                                                fanoutCommentObject.put("/globalFeed/" + mRefKey +
                                                         "/commentMap/" + commentRefKey, commentModelClass);
                                             }
 
@@ -937,7 +1052,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setCommentRecycler(String refKey, final HashMap<String, List<String>> infoMap){
-        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child(getCurrentUid())
+        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child(xUid)
                 .child(refKey).child("commentMap");
 
         recentMessages = mFeedRef.limitToLast(2);
