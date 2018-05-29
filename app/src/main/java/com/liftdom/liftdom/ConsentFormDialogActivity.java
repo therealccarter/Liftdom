@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 
 public class ConsentFormDialogActivity extends AppCompatActivity {
 
-    boolean consentBool = true;
+    boolean consentBool;
 
     @BindView(R.id.yesRadioButton) RadioButton yesButton;
     @BindView(R.id.noRadioButton) RadioButton noButton;
@@ -28,8 +28,13 @@ public class ConsentFormDialogActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         if(savedInstanceState == null){
-            yesButton.setChecked(true);
-            noButton.setChecked(false);
+            if(getIntent().getBooleanExtra("consent", true)){
+                yesButton.setChecked(true);
+                noButton.setChecked(false);
+            }else{
+                noButton.setChecked(true);
+                yesButton.setChecked(false);
+            }
         }
 
         yesButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

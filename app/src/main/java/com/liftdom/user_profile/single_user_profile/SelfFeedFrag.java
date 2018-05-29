@@ -145,6 +145,7 @@ public class SelfFeedFrag extends Fragment {
                 //holder.setBonusView(model.getBonusList());
                 holder.setTimeStamp(model.getDateTime());
                 holder.setHasReppedList(model.getHasReppedList());
+                holder.isFromSelfFeed = true;
                 //viewHolder.setReppedCount(model.getRepCount());
                 //viewHolder.setRepsCounterView(model.getRepCount());
                 //viewHolder.setIsRepped(model.isHasRepped(), false);

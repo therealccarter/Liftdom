@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +67,17 @@ public class W531fBIntroFrag3 extends SlideFragment {
 
         ButterKnife.bind(this, view);
 
+        activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    W531fBSingleton.getInstance().isActiveCheckbox = true;
+                }else{
+                    W531fBSingleton.getInstance().isActiveCheckbox = false;
+                }
+            }
+        });
+
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -73,6 +85,9 @@ public class W531fBIntroFrag3 extends SlideFragment {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                 userName = userModelClass.getUserName();
                 isImperial = userModelClass.isIsImperial();
+                W531fBSingleton.getInstance().isImperial = isImperial;
+                W531fBSingleton.getInstance().userName = userName;
+                W531fBSingleton.getInstance().uid = uid;
                 loadingView.setVisibility(View.GONE);
                 finishButton.setVisibility(View.VISIBLE);
             }
@@ -114,6 +129,8 @@ public class W531fBIntroFrag3 extends SlideFragment {
                         modelClass.setDateCreated(dateTimeString);
                         modelClass.setDateUpdated(dateTimeString);
                         modelClass.setIsImperial(isImperial);
+                        modelClass.setDescription("Wendler\'s 5/3/1 For Beginners is an intermediate strength " +
+                                "program that can provide amazing and consistent strength gains when done correctly.");
 
                         DatabaseReference newProgramRef = FirebaseDatabase.getInstance().getReference().child
                                 ("templates").child(uid).child(programName);

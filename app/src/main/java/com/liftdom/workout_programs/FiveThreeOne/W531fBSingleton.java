@@ -17,12 +17,16 @@ public class W531fBSingleton {
         return controller;
     }
 
+    String uid = "";
+    String userName = "";
     String programName = "";
     String squatMax = "";
     String benchMax = "";
     String deadliftMax = "";
     String ohpMax = "";
     boolean autoDeload = false;
+    boolean isImperial;
+    boolean isActiveCheckbox;
 
     public String getStartDateString(){
         String message;

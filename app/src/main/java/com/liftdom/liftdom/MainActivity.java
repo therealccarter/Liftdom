@@ -83,6 +83,7 @@ public class MainActivity extends BaseActivity implements
     // butterknife
     @BindView(R.id.title) TextView title;
     @BindView(R.id.appBar) AppBarLayout appBarLayout;
+    @BindView(R.id.newWorkoutButton) Button newWorkoutButton;
 
     public void changeHeaderTitle(String title){
         TextView titleView = (TextView) findViewById(R.id.title);
@@ -192,7 +193,17 @@ public class MainActivity extends BaseActivity implements
             }
         };
 
-
+        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.mainFragHolder, new WorkoutAssistorFrag());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                bottomNavigation.setSelectedIndex(2, false);
+            }
+        });
 
         if(savedInstanceState == null){
             //FragmentManager fragmentManager = getSupportFragmentManager();
@@ -486,7 +497,7 @@ public class MainActivity extends BaseActivity implements
     // [END on_stop_remove_listener]
 
     private void setUpAppodealAndGDPR(String uidl){
-        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        final SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
         if(sharedPref.contains("consent")){
             boolean isGDPR = sharedPref.getBoolean("consent", true);
             String appKey = "e05b98bf43240a8687216b4e3106a598ced75a344b6c75f2";
@@ -494,6 +505,7 @@ public class MainActivity extends BaseActivity implements
             Appodeal.setBannerViewId(R.id.appodealBannerView);
             Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
             Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+            Log.i("consent", "Consent bool = " + isGDPR + ", inflating ads");
         }else{
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uidl).child
                     ("isGDPR");
@@ -507,6 +519,8 @@ public class MainActivity extends BaseActivity implements
                         Appodeal.setBannerViewId(R.id.appodealBannerView);
                         Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
                         Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+                        sharedPref.edit().putBoolean("consent", isGDPR).apply();
+                        Log.i("consent", "Consent bool = " + isGDPR + ", inflating ads");
                     }else{
                         showConsentForm();
                     }
@@ -539,6 +553,7 @@ public class MainActivity extends BaseActivity implements
                 Appodeal.setBannerViewId(R.id.appodealBannerView);
                 Appodeal.initialize(MainActivity.this, appKey, Appodeal.INTERSTITIAL | Appodeal.BANNER, isGDPR);
                 Appodeal.show(MainActivity.this, Appodeal.BANNER_VIEW);
+                Log.i("consent", "Consent bool = " + isGDPR + ", inflating ads");
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
                         .child("isGDPR");
                 userRef.setValue(isGDPR);
@@ -548,7 +563,7 @@ public class MainActivity extends BaseActivity implements
 
     private void checkForBadges(){
         // first we'll check for uncompleted workout
-        String today = LocalDate.now().toString();
+        final String today = LocalDate.now().toString();
         DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference().
                 child("workoutHistory").child(uid).child(today);
         historyRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -556,6 +571,9 @@ public class MainActivity extends BaseActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
                     bottomNavigation.getBadgeProvider().show(R.id.bbn_item3);
+                    String newWorkoutString = "New Workout (" + today + ")! >>";
+                    newWorkoutButton.setText(newWorkoutString);
+                    newWorkoutButton.setVisibility(View.VISIBLE);
                 }
             }
 

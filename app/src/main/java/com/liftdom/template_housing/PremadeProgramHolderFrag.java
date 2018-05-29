@@ -78,11 +78,15 @@ public class PremadeProgramHolderFrag extends Fragment {
         templateNameView.setText("Smolov");
         experienceLevelview.setText("Advanced");
         workoutTypeView.setText("Strength");
+        descriptionView.setText("Smolov is an advanced 13 week strength program that can increase " +
+                "your squat\'s max by 100lbs or more.");
     }
 
     private void setUpW531fB(){
         templateNameView.setText("Wendler 5/3/1 For Beginners");
         experienceLevelview.setText("Intermediate");
         workoutTypeView.setText("Strength");
+        descriptionView.setText("Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide" +
+                " consistent strength gains when done correctly.");
     }
 }

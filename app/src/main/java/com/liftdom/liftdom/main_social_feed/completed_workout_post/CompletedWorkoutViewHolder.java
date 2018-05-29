@@ -323,6 +323,9 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     }
 
+    public boolean isFromGlobal;
+    public boolean isFromSelfFeed;
+
     private void addRepToPost(){
         // first we need the followers of the OP. Put em in a list.
         // so we need to get the value of repCount (if repCount > 0), and increment it. Then we put it in a map and
@@ -337,6 +340,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     // if the poster has followers
+                    // notifications stuff
                     final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(xUid).child
                             ("notificationCount");
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -437,8 +441,6 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                                 reppedInc1 = 0;
                                                 mLoadingReppedView.setVisibility(View.GONE);
                                                 mRepsIconGold.setVisibility(View.VISIBLE);
-
-
 
                                                 //mRepsCounterView.setText(String.valueOf(reppedCount));
                                                 //mRepsCounterView.setVisibility(View.VISIBLE);
@@ -935,8 +937,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setCommentRecycler(String refKey, final HashMap<String, List<String>> infoMap){
-        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child
-                (getCurrentUid()).child(refKey).child("commentMap");
+        mFeedRef = FirebaseDatabase.getInstance().getReference().child("feed").child(getCurrentUid())
+                .child(refKey).child("commentMap");
 
         recentMessages = mFeedRef.limitToLast(2);
 

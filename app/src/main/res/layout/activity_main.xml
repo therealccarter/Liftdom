@@ -15,21 +15,47 @@
             <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:background="@color/black"
                     app:layout_scrollFlags="scroll|enterAlways"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home"
-                        android:textSize="24sp"
-                        android:textColor="@color/liftrGold1"
-                        android:id="@+id/title"
-                />
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home"
+                            android:textSize="24sp"
+                            android:textColor="@color/liftrGold1"
+                            android:id="@+id/title"
+                    />
+
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/liftrGold1"
+                            android:id="@+id/newWorkoutButton"
+                            android:visibility="gone"
+                            android:text="New workout (5/27/2018)! >>"
+                            android:textColor="@color/black"
+                            android:minHeight="0dp"
+                            android:paddingBottom="2dp"
+                            android:paddingTop="2dp"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                    />
+
+                </LinearLayout>
 
             </android.support.v7.widget.Toolbar>
+
+
 
         <!--
             <LinearLayout

@@ -374,6 +374,8 @@
 
     <string name="userConsentTitle">User Agreement:</string>
 
+    <string name="userConsentChange">Change your consent settings ></string>
+
     <string name="userConsentText">Liftdom complies with GDPR/ethical data protection guidelines.\nIf you consent to
         analytics use, we will only use it to help debug any app-related issues you have, improve your user experience,
         and serve more personalized/relevant ad content.\nNone of your user information is associated with your person
