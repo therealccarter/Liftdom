@@ -13,11 +13,11 @@
 
     <!-- ============== RELEASE NOTES ================== -->
 
-    <!-- DATE OF UPDATE: 04/15/18 -->
+    <!-- DATE OF UPDATE: 05/29/18 -->
 
-    <string name="currentVersion">Liftdom v1.36</string>
+    <string name="currentVersion">Liftdom v1.37</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.36 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.37 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
@@ -28,6 +28,7 @@
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
+        Hotfix for comment crash.\n
         Too many to list tbh (including crash fixes, notification bugs).\n
         Lot\'s of layout fixes (including pre-made programs revamp).
     </string>
@@ -386,7 +387,7 @@
         questions, email me at liftdomapp@gmail.com.
     </string>
 
-    <string name="userConsentQuestion">Are you alright with these terms?</string>
+    <string name="userConsentQuestion">Do you agree to these terms?</string>
 
     <string name="userNameTaken">Username taken</string>
     <string name="userNameAvailable">Username available!</string>

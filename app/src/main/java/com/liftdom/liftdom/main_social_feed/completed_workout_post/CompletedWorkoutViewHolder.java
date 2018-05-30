@@ -171,8 +171,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                             final DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference().child
-                                    ("feed").child
-                                    (getCurrentUid()).child(mRefKey);
+                                    ("feed").child(getCurrentUid()).child(mRefKey);
                             DatabaseReference parentRef = FirebaseDatabase.getInstance().getReference().child("feed").child
                                     (getCurrentUid()).child(mRefKey).child("commentCount");
 
@@ -183,7 +182,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                     .getText().toString(), 0, DateTime.now(DateTimeZone.UTC).toString(), refKey);
 
                             if(!isFromSelfFeed && !isFromGlobal){
-                                commentRef.child("commentMap").setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                commentRef.child("commentMap").child(refKey).setValue(commentModelClass)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         mCommentEditText.setText("");
@@ -195,7 +195,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if(dataSnapshot.exists()){
-                                            commentRef.child("commentMap").setValue(commentModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            commentRef.child("commentMap").child(refKey).setValue(commentModelClass)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     mCommentEditText.setText("");
