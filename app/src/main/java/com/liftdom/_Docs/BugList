@@ -3,45 +3,30 @@
 ===========================================
 
 ======== ***Completed*** =======================================================
-currently on v1.33
+currently on v1.37
 ----------------------
-better layout for premade programs.
-5/3/1 for beginners.
-give WA checks immediate feedback
+cleaned up ex history chart a bit
 ----------------------
 ====================================================
 
-============ CURRENTLY WORKING ON: ===============================================
-rehaul of exercise history chart {
-    radio buttons here      reload button here (auto-reload on ex chose)
-    one button that shows the exercise name/choose exercise
-    one button under that says clear chart
-    maybe just show what you did that day in SxRxW format.
-    Fix up the Exercise History Chart page. (maybe simply show exercises' full stuff (like 3x5@95lbs))
-}
-GDPR {
-    Put user name on introFrag3, consent shit on introFrag2
-}
+============ CURRENTLY WORKING ON (FOR v1.38) ===================================
 supersetting in WA
 WA check-all
+next workout info on rest day frag
 =====================================================
 
-============ ON DECK FOR v1.34+: ===============================================
+============ ON DECK FOR v1.39+: ===============================================
 true chat functionality/workout reminders (check that Firebase support email){
     easy idea for seen/unseen chats. When a user sends a message, for everyone
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
-next workout info on rest day frag
 rest timer
-add non-completed workout view to main feed
-somehow queue the database setValues for _checked so it is immediate
 user "flair"
-comments aren't visible if you're not the OP
 hamburger needs back functionality
-add description to premade programs
 focus dismiss after keyboard dismiss
-workout types need to be in completedWorkoutViewHolder/ModelClass
+workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
+Fix up the Exercise History Chart page. (simply show exercises' full stuff (like 3x5@95lbs))
 Add these workout programs{
     Building the Monolith // no app for this
     GZCL
@@ -60,11 +45,8 @@ Add these workout programs{
     Madcow 5x5 Training Program
     Texas Method
 }
-
 add title callbacks for public programs/pre-made programs
 show workout count in profile
-Smolov says "Exercise: null, current 1rm: null"
-follow all users
 max editing (* = set manually, not in liftdom workout)(also measurements)
 increase edit text max lengths for weight values
 decimal percentage functionality
@@ -74,10 +56,8 @@ Add past update text to a dedicated page for that
 
 ============ BUG LIST =====================================================
 ==== easier ==========
-bonus view gets misplaced. "Smolov Week 3 Day 2" on gabby's post...
 ============
 ==== harder ==========
-re-check user made programs functionality (full)
 (performance){
     (view holder) see if we need to change from multiple hidden views to one inserted view (use methods?)
     (recycler adapter) maybe do the operations currently in here in the assistor saved frag

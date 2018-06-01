@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -72,6 +74,20 @@ public class StatChartsFrag extends Fragment {
 
         maxWeightRadioButton.setChecked(true);
 
+        overallRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("statsChats", "checkedChanged");
+                if(!graphingSelector.getText().toString().equals("Choose exercise to graph")){
+                    clearChartMethod();
+                    String exercise = graphingSelector.getText().toString();
+                    ExSelectorSingleton.getInstance().upperBodyItems.add(exercise);
+                    graphingSelector.setText(exercise);
+                    startChartLoad();
+                }
+            }
+        });
+
         DatabaseReference completedExs = mRootRef.child("completedExercises").child(uid);
         completedExs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -81,8 +97,12 @@ public class StatChartsFrag extends Fragment {
                 }else{
                     CompletedExercisesModelClass completedExercisesModelClass = dataSnapshot.getValue
                             (CompletedExercisesModelClass.class);
-                    ExSelectorSingleton.getInstance().completedExercises.addAll(completedExercisesModelClass
-                            .getCompletedExercisesList());
+                    try{
+                        ExSelectorSingleton.getInstance().completedExercises.addAll(completedExercisesModelClass
+                                .getCompletedExercisesList());
+                    }catch (NullPointerException e){
+
+                    }
                 }
             }
 
@@ -94,8 +114,11 @@ public class StatChartsFrag extends Fragment {
 
         graphingSelector.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
-                startActivityForResult(intent, 1);
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = graphingSelector.getId();
+                intent.putExtra("exID", exID);
+                intent.putExtra("exclusive", "true");
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -163,6 +186,60 @@ public class StatChartsFrag extends Fragment {
         return view;
     }
 
+    private void clearChartMethod(){
+        ExSelectorSingleton.getInstance().clearArrayLists();
+        lineChart.clear();
+        dataSets.clear();
+        //itemsTextView.setText("");
+        highest = 0;
+        lowest = 0;
+        //itemsTextView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lineChart.invalidate();
+            }
+        });
+    }
+
+    private void startChartLoad(){
+        //clearChartMethod();
+        dataSets.clear();
+
+        boolean isOverall = false;
+
+        if (overallRadioButton.isChecked()) {
+            isOverall = true;
+        }
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.resetAxisMaximum();
+        leftAxis.resetAxisMinimum();
+
+        ArrayList<String> upperBodyItems = ExSelectorSingleton.getInstance().upperBodyItems;
+        ArrayList<String> lowerBodyItems = ExSelectorSingleton.getInstance().lowerBodyItems;
+        ArrayList<String> otherItems = ExSelectorSingleton.getInstance().otherItems;
+
+        for (String itemName : upperBodyItems) {
+            SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+            exerciseChartClass.isOverall = isOverall;
+            exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
+        }
+        for (String itemName : lowerBodyItems) {
+            SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+            exerciseChartClass.isOverall = isOverall;
+            exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
+        }
+        for (String itemName : otherItems) {
+            SpecificExerciseChartClass exerciseChartClass = new SpecificExerciseChartClass();
+            exerciseChartClass.isOverall = isOverall;
+            exerciseChartClass.getValueList(itemName, StatChartsFrag.this);
+        }
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -203,6 +280,16 @@ public class StatChartsFrag extends Fragment {
                 textView.setBackgroundColor(Color.parseColor("#cccccc"));
             } catch (NullPointerException e) {
 
+            }
+        }else if(requestCode == 2){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE") != null){
+                    clearChartMethod();
+                    String exercise = data.getStringExtra("MESSAGE");
+                    ExSelectorSingleton.getInstance().upperBodyItems.add(exercise);
+                    graphingSelector.setText(exercise);
+                    startChartLoad();
+                }
             }
         }
     }

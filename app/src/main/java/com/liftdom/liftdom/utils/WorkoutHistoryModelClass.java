@@ -66,9 +66,17 @@ public class WorkoutHistoryModelClass {
         for(List<String> list : exInfoList){
             for(String string : list){
                 if(!isExerciseName(string)){
-                    String[] tokens = string.split("@");
-                    double pounds = Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]);
-                    poundage = poundage + pounds;
+                    try{
+                        String[] tokens = string.split("@");
+                        double pounds = Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]);
+                        poundage = poundage + pounds;
+                    }catch (NumberFormatException e){
+                        String delims = "[x,@]";
+                        String[] tokens = string.split(delims);
+                        double pounds = Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]) * Double
+                                .parseDouble(tokens[2]);
+                        poundage = poundage + pounds;
+                    }
                 }
             }
         }

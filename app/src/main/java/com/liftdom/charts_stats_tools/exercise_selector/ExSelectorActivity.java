@@ -70,10 +70,15 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
-            // is from template editor
-            // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-            adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
-            confirmButton.setVisibility(View.GONE);
+            if(getIntent().getStringExtra("exclusive") != null){
+                adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, true);
+                confirmButton.setVisibility(View.GONE);
+            }else{
+                // is from template editor
+                // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+                adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
+                confirmButton.setVisibility(View.GONE);
+            }
         }else{
             isFromExChart = true;
             // is from ex-chart frag
