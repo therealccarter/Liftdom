@@ -21,16 +21,11 @@
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
-        GDPR compliance.\n
-        Added Wendler\'s 5/3/1 For Beginners program.\n
-        Added workout reminder to toolbar.
     </string>
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Hotfix for comment crash.\n
-        Too many to list tbh (including crash fixes, notification bugs).\n
-        Lot\'s of layout fixes (including pre-made programs revamp).
+        Fixed crash in the Program Editor!
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>

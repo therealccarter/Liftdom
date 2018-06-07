@@ -61,6 +61,43 @@
                     android:maxLength="2"
             />
 
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="gone"
+            >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="("
+                        android:textColor="@color/offWhite"
+                />
+
+                <EditText
+                        android:id="@+id/amraps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="5"
+                        android:inputType="number"
+                        android:textColor="@color/offWhite"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp"
+                        android:imeOptions="actionNext"
+                        android:maxLength="2"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=")"
+                        android:textColor="@color/offWhite"
+                />
+
+            </LinearLayout>
+
+
 
             <TextView
                     android:id="@+id/at"

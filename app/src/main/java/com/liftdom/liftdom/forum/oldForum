@@ -2,6 +2,7 @@ package com.liftdom.liftdom.forum;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -15,8 +16,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,14 +55,13 @@ public class ForumMainFrag extends Fragment {
         navChangerCallback.setBottomNavIndex(navIndex);
     }
 
-    @BindView(R.id.comingSoonView)
-    TextView comingSoonView;
+    @BindView(R.id.comingSoonView) TextView comingSoonView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_forum_main_frag2, container, false);
+        View view = inflater.inflate(R.layout.fragment_forum_main, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -98,3 +103,44 @@ public class ForumMainFrag extends Fragment {
     }
 
 }
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/lessDarkGrey"
+             tools:context="com.liftdom.liftdom.forum.ForumMainFrag">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/comingSoonView"
+            android:text="@string/forumUnderConstruction"
+            android:gravity="center_horizontal"
+            android:textColor="@color/offWhite"
+            android:textSize="30sp"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/soForNowFollowLifters"
+            android:textSize="18sp"
+            android:textColor="@color/grey"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/randomUsersBannerLL"
+            android:orientation="vertical"
+            android:layout_marginBottom="60dp"
+    >
+
+    </LinearLayout>
+
+</LinearLayout>

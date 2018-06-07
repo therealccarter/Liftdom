@@ -2,6 +2,7 @@ package com.liftdom.liftdom.forum;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -12,19 +13,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ForumMainFrag extends Fragment {
+public class ForumMainFrag3 extends Fragment {
 
 
-    public ForumMainFrag() {
+    public ForumMainFrag3() {
         // Required empty public constructor
     }
 
@@ -49,20 +56,17 @@ public class ForumMainFrag extends Fragment {
         navChangerCallback.setBottomNavIndex(navIndex);
     }
 
-    @BindView(R.id.comingSoonView)
-    TextView comingSoonView;
+    @BindView(R.id.tlr) Button tlrButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_forum_main_frag2, container, false);
+        View view = inflater.inflate(R.layout.fragment_forum_main, container, false);
 
         ButterKnife.bind(this, view);
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
-
-        comingSoonView.setTypeface(lobster);
 
         headerChanger("Forum");
         navChanger(3);
@@ -70,14 +74,17 @@ public class ForumMainFrag extends Fragment {
         AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
         appBarLayout.setExpanded(true, true);
 
-        if(savedInstanceState == null){
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            RandomUsersBannerFrag bannerFrag = new RandomUsersBannerFrag();
-            bannerFrag.isShowAllTheTime = true;
-            fragmentTransaction.add(R.id.randomUsersBannerLL, bannerFrag, "randomUsersBanner");
-            fragmentTransaction.commit();
-        }
+        tlrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new TheLockerRoomFrag(), "theLockerRoom");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return view;
     }

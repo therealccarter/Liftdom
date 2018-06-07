@@ -10,9 +10,8 @@ cleaned up ex history chart a bit
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
-supersetting in WA
-WA check-all
-next workout info on rest day frag
+
+next workout info on rest day/workout finished frag
 =====================================================
 
 ============ ON DECK FOR v1.39+: ===============================================
@@ -21,12 +20,21 @@ true chat functionality/workout reminders (check that Firebase support email){
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
+supersetting in WA
+WA check-all
 rest timer
 user "flair"
 hamburger needs back functionality
 focus dismiss after keyboard dismiss
 workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
 Fix up the Exercise History Chart page. (simply show exercises' full stuff (like 3x5@95lbs))
+add title callbacks for public programs/pre-made programs
+show workout count in profile
+max editing (* = set manually, not in liftdom workout)(also measurements)
+increase edit text max lengths for weight values
+decimal percentage functionality
+Improve the notification-bar layout.
+Add past update text to a dedicated page for that
 Add these workout programs{
     Building the Monolith // no app for this
     GZCL
@@ -45,13 +53,6 @@ Add these workout programs{
     Madcow 5x5 Training Program
     Texas Method
 }
-add title callbacks for public programs/pre-made programs
-show workout count in profile
-max editing (* = set manually, not in liftdom workout)(also measurements)
-increase edit text max lengths for weight values
-decimal percentage functionality
-Improve the notification-bar layout.
-Add past update text to a dedicated page for that
 =====================================================
 
 ============ BUG LIST =====================================================
