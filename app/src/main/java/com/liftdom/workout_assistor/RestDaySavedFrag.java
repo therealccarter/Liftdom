@@ -101,6 +101,7 @@ public class RestDaySavedFrag extends Fragment {
 
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.hideBadge(3);
+        mainActivity.hideToolbarBadge();
 
         // get usermodel class
 

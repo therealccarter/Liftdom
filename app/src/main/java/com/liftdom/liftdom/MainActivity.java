@@ -593,6 +593,10 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public void hideToolbarBadge(){
+        newWorkoutButton.setVisibility(View.GONE);
+    }
+
     private void setUpTypeAheadData(){
         // set typeAheadData
         typeAheadData = new ArrayList<>();

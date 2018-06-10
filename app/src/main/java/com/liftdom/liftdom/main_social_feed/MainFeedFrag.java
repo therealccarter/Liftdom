@@ -266,7 +266,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
-                    String date2 = LocalDate.now().minusDays(2).toString();
+                    String date2 = LocalDate.now().minusDays(1).toString();
                     historyRef.child(date2).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -576,7 +576,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()){
-                        final int currentVersionInt = 138;
+                        final int currentVersionInt = 139;
                         final String currentVersionString = String.valueOf(currentVersionInt);
                         final DatabaseReference currentVersionRef = FirebaseDatabase.getInstance().getReference().child("versionCheck")
                                 .child(uid);
@@ -587,10 +587,10 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                                     MainActivitySingleton.getInstance().isReleaseCheck = true;
                                     // display release notes for currentVersionString
                                     currentVersionRef.setValue(currentVersionString);
-                                    Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
-                                    isFirstKonfetti = true;
-                                    konfetti();
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(getContext(), ReleaseNotesActivity.class);
+                                    //isFirstKonfetti = true;
+                                    //konfetti();
+                                    //startActivity(intent);
                                     checkCompletionStreak();
                                     setLoginDate();
                                 }else{

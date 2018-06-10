@@ -242,12 +242,13 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         String newString = "";
         try {
             newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2]; // crash here too
+            if(!tokens[1].equals("B.W.")){
+                newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
+            }
         }catch (ArrayIndexOutOfBoundsException e){
             Log.i("ayo", "ayo");
         }
-        if(!tokens[1].equals("B.W.")){
-            newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
-        }
+
         return newString;
     }
 

@@ -9,8 +9,8 @@ android {
         applicationId "com.liftdom.liftdom"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 38
-        versionName "1.38"
+        versionCode 39
+        versionName "1.39"
         multiDexEnabled true
         //jackOptions {
         //    enabled true
@@ -87,7 +87,7 @@ dependencies {
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'

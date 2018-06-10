@@ -1312,13 +1312,16 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.infoList = stringList;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.fragTag = tag;
-                        if (!getActivity().isFinishing()) {
-                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                            fragmentTransaction.commitAllowingStateLoss();
-                            getChildFragmentManager().executePendingTransactions();
-                            exNameFragList.add(exNameFrag);
-                            fragTagList.add(tag);
+                        if(getActivity() != null){
+                            if (!getActivity().isFinishing()) {
+                                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                                getChildFragmentManager().executePendingTransactions();
+                                exNameFragList.add(exNameFrag);
+                                fragTagList.add(tag);
+                            }
                         }
+
                     }
                 }
             }

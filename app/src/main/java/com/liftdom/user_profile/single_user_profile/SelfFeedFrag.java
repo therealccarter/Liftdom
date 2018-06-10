@@ -1,6 +1,7 @@
 package com.liftdom.user_profile.single_user_profile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutModelClass;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWorkoutViewHolder;
@@ -64,46 +66,49 @@ public class SelfFeedFrag extends Fragment {
          * If we are in the self feed and we comment, we'll have to do a very
          */
 
-        final DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed").child
-                (uidFromOutside);
-        selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
-                            .child("user").child(uidFromOutside);
-                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                            if(userModelClass.isIsImperial()){
-                                loadingView.setVisibility(View.GONE);
-                                noPostsView.setVisibility(View.GONE);
-                                setUpFirebaseAdapter(selfFeedRef, true);
-                            }else{
-                                loadingView.setVisibility(View.GONE);
-                                noPostsView.setVisibility(View.GONE);
-                                setUpFirebaseAdapter(selfFeedRef, false);
+        try{
+            final DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed").child
+                    (uidFromOutside);
+            selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
+                                .child("user").child(uidFromOutside);
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                if(userModelClass.isIsImperial()){
+                                    loadingView.setVisibility(View.GONE);
+                                    noPostsView.setVisibility(View.GONE);
+                                    setUpFirebaseAdapter(selfFeedRef, true);
+                                }else{
+                                    loadingView.setVisibility(View.GONE);
+                                    noPostsView.setVisibility(View.GONE);
+                                    setUpFirebaseAdapter(selfFeedRef, false);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-                }else{
-                    loadingView.setVisibility(View.GONE);
-                    noPostsView.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }else{
+                        loadingView.setVisibility(View.GONE);
+                        noPostsView.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }catch (NullPointerException e){
+            startActivity(new Intent(getContext(), MainActivity.class));
+        }
 
         return view;
     }

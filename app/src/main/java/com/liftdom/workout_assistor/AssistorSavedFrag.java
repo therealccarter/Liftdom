@@ -116,6 +116,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.hideBadge(3);
+        mainActivity.hideToolbarBadge();
 
         //powerLevelXpView1.setText("0");
 

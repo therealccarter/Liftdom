@@ -15,9 +15,9 @@
 
     <!-- DATE OF UPDATE: 05/29/18 -->
 
-    <string name="currentVersion">Liftdom v1.37</string>
+    <string name="currentVersion">Liftdom v1.39</string>
 
-    <string name="releaseNotesTitle">Liftdom v1.37 Release Notes:</string>
+    <string name="releaseNotesTitle">Liftdom v1.39 Release Notes:</string>
 
     <string name="newFeaturesTitle">New Features:</string>
     <string name="newFeaturesText">
@@ -25,7 +25,7 @@
 
     <string name="fixesTitle">Bug Fixes:</string>
     <string name="fixesText">
-        Fixed crash in the Program Editor!
+        Various bug/crash fixes.
     </string>
 
     <string name="workingOnTitle">What I\'m Working On:</string>
