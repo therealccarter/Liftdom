@@ -521,12 +521,13 @@ public class TemplateEditorActivity extends BaseActivity
                         TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
 
                         try{
-                            Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
-                                    .LENGTH_LONG).show();
+                            if(getCurrentFocus() != null){
+                                Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
+                                        .LENGTH_LONG).show();
+                            }
                         }catch (IllegalStateException e){
 
                         }
-
                     }
 
                     @Override

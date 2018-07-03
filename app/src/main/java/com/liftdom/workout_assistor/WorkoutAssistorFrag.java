@@ -507,18 +507,18 @@ public class WorkoutAssistorFrag extends Fragment{
                         }
                     });
                 }else{
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
-                    if (!getActivity().isFinishing()) {
-                        try {
+                    try {
+                        if (!getActivity().isFinishing()) {
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            NoActiveTemplateFrag noActiveTemplateFrag = new NoActiveTemplateFrag();
                             LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
                                     .exInfoHolder);
                             fragmentTransaction.replace(exInfoHolder.getId(), noActiveTemplateFrag);
                             fragmentTransaction.commitAllowingStateLoss();
-                        }catch (NullPointerException e){
-
                         }
+                    }catch (NullPointerException e){
+
                     }
                 }
             }

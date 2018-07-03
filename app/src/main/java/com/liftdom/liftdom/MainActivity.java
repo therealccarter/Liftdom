@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.chat.ChatMainFrag;
-import com.liftdom.liftdom.forum.ForumMainFrag;
+import com.liftdom.liftdom.forum.ForumMainFrag3;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.feed_slider.FeedHolderFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
@@ -48,14 +48,14 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements
         TemplateMenuFrag.headerChangeFromFrag,
         ChatMainFrag.headerChangeFromFrag,
-        ForumMainFrag.headerChangeFromFrag,
+        ForumMainFrag3.headerChangeFromFrag,
         WorkoutAssistorFrag.headerChangeFromFrag,
         FeedHolderFrag.headerChangeFromFrag,
         SavedProgramsHolderFrag.headerChangeFromFrag,
         PublicTemplateChooserFrag.headerChangeFromFrag,
         PremadeTemplatesFrag.headerChangeFromFrag,
         FeedHolderFrag.bottomNavChanger,
-        ForumMainFrag.bottomNavChanger,
+        ForumMainFrag3.bottomNavChanger,
         TemplateMenuFrag.bottomNavChanger,
         SavedProgramsHolderFrag.bottomNavChanger,
         SelectedTemplateFrag.bottomNavChanger,
@@ -268,7 +268,7 @@ public class MainActivity extends BaseActivity implements
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag3());
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(3, false);
@@ -328,7 +328,7 @@ public class MainActivity extends BaseActivity implements
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                        fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                        fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag3());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         invalidateOptionsMenu();
@@ -378,7 +378,7 @@ public class MainActivity extends BaseActivity implements
                 //    FragmentManager fragmentManager = getSupportFragmentManager();
                 //    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                //    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag());
+                //    fragmentTransaction.replace(R.id.mainFragHolder, new ForumMainFrag3());
                 //    fragmentTransaction.addToBackStack(null);
                 //    fragmentTransaction.commit();
                 //} else if (i1 == 4) {
