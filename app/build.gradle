@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.liftdom.liftdom"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 39
         versionName "1.39"
         multiDexEnabled true
@@ -60,8 +60,8 @@ android {
 }
 
 ext {
-    playLibVersion = "15.0.1"
-    supportLibVersion = "27.1.1"
+    playLibVersion = "17.0.0"
+    supportLibVersion = "28.0.0"
 }
 
 dependencies {
@@ -85,28 +85,28 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
-    implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'com.google.firebase:firebase-auth:16.0.1'
-    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-auth:18.1.0'
+    implementation 'com.google.firebase:firebase-database:18.0.0'
     //implementation 'com.google.firebase:firebase-crash:15.0.2'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
-    implementation 'com.google.firebase:firebase-storage:16.0.1'
-    implementation 'com.google.firebase:firebase-messaging:17.0.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-storage:18.1.0'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
     //implementation 'com.firebaseui:firebase-ui-database:1.2.0'
     implementation 'com.firebaseui:firebase-ui-database:3.3.0'
-    implementation "com.google.android.gms:play-services-auth:$playLibVersion"
-    implementation "com.google.android.gms:play-services-ads:$playLibVersion"
-    implementation "com.google.android.gms:play-services-location:$playLibVersion"
-    implementation "com.google.android.gms:play-services-gcm:$playLibVersion"
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-ads:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
     //implementation 'com.facebook.android:facebook-android-sdk:4.9.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.0.1'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     implementation 'joda-time:joda-time:2.9.7'
@@ -132,7 +132,7 @@ dependencies {
     implementation 'com.github.faruktoptas:FancyShowCaseView:0.1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.irozon.keyhide:keyhide:1.0.0'
-    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:support-v4:28.0.0'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'com.squareup.picasso:picasso:2.5.2' //for Inmobi
