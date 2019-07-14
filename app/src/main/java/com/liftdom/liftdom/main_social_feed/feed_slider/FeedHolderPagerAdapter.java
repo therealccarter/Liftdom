@@ -1,7 +1,7 @@
 package com.liftdom.liftdom.main_social_feed.feed_slider;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import com.liftdom.liftdom.main_social_feed.GlobalFeedFrag;
 import com.liftdom.liftdom.main_social_feed.MainFeedFrag;

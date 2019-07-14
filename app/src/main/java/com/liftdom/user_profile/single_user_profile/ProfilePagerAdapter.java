@@ -1,7 +1,7 @@
 package com.liftdom.user_profile.single_user_profile;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 

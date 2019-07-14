@@ -2,7 +2,7 @@ package com.liftdom.liftdom.notifications_bell;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

@@ -1,7 +1,7 @@
 package com.liftdom.charts_stats_tools.exercise_selector;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
