@@ -2,7 +2,7 @@ package com.liftdom.charts_stats_tools.exercise_selector;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;

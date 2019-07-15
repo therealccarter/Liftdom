@@ -76,7 +76,7 @@
      templateListItem.templateName = template;
 
      FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-     android.support.v4.app.FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+     androidx.fragment.app.FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
      fragmentTransaction1.add(R.id.myTemplatesList, templateListItem);
      fragmentTransaction1.addToBackStack(null);
      fragmentTransaction1.commit();

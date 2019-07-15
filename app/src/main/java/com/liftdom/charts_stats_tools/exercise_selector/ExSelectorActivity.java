@@ -3,12 +3,14 @@ package com.liftdom.charts_stats_tools.exercise_selector;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
+//import android.support.design.widget.AppBarLayout;
+import androidx.appcompat.widget.AppCompatTextView;
+import com.google.android.material.appbar.AppBarLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-import android.support.v7.widget.*;
+//import android.support.v7.widget.*;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
@@ -61,7 +63,7 @@ public class ExSelectorActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Handle Toolbar
-        final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        final androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);

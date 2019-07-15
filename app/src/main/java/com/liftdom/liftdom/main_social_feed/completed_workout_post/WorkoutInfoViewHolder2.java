@@ -1,6 +1,6 @@
 package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.liftdom.liftdom.R;

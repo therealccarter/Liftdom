@@ -4,7 +4,7 @@ package com.liftdom.liftdom.main_social_feed.feed_slider;
 import android.app.Activity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

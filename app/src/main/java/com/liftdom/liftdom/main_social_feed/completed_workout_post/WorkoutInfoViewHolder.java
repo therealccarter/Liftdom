@@ -2,7 +2,7 @@ package com.liftdom.liftdom.main_social_feed.completed_workout_post;
 
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

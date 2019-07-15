@@ -48,7 +48,7 @@ public class UserProfileDialogActivity extends AppCompatActivity {
     }
 
     private void addProfileFrag(String userId){
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        androidx.fragment.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         UserProfileFrag userProfileFrag = new UserProfileFrag();
         userProfileFrag.uidFromOutside = userId;
         fragmentTransaction.replace(profileLinearLayout.getId(), userProfileFrag);

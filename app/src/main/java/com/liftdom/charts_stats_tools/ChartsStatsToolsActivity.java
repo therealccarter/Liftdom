@@ -7,7 +7,7 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;

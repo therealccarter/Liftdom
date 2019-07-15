@@ -1,7 +1,7 @@
 package com.liftdom.charts_stats_tools.exercise_selector;
 
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

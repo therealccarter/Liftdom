@@ -2,7 +2,7 @@ package com.liftdom.knowledge_center.exercise_library;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 /**
  * Created by Brodin on 3/30/2017.

@@ -3,7 +3,7 @@ package com.liftdom.workout_assistor;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;

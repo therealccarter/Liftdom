@@ -3,7 +3,7 @@ package com.liftdom.user_profile.your_profile;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.liftdom.charts_stats_tools.ex_history_chart.StatChartsFrag;
 
 public class ProfilePagerAdapter extends FragmentStatePagerAdapter {

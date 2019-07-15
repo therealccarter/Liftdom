@@ -3,7 +3,7 @@ package com.liftdom.user_profile.single_user_profile;
 import android.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +44,7 @@ public class UserProfileFullActivity extends BaseActivity {
     }
 
     private void addProfileFrag(String userId){
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        androidx.fragment.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         UserProfileFrag userProfileFrag = new UserProfileFrag();
         userProfileFrag.uidFromOutside = userId;
         fragmentTransaction.replace(profileLinearLayout.getId(), userProfileFrag);
