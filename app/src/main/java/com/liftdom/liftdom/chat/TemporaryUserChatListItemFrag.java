@@ -3,7 +3,8 @@ package com.liftdom.liftdom.chat;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import android.support.v7.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

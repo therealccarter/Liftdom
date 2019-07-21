@@ -1,7 +1,7 @@
 package com.liftdom.template_housing.public_programs;
 
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;

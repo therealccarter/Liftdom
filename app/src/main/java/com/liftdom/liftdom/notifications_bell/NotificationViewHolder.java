@@ -1,8 +1,8 @@
 package com.liftdom.liftdom.notifications_bell;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;

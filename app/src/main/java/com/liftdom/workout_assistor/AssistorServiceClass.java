@@ -6,8 +6,8 @@ import android.app.Service;
 import android.content.*;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -327,7 +327,7 @@ public class AssistorServiceClass extends Service {
                     Log.i("serviceInfo", "not isChecked");
                 }
 
-                android.support.v4.app.NotificationCompat.Builder builder
+                NotificationCompat.Builder builder
                         = firstSetBuilder(onClickPendingIntent, exerciseName, setSchemeFormatted,
                         checkedOrUncheckedResource);
 
@@ -352,7 +352,7 @@ public class AssistorServiceClass extends Service {
                     Log.i("serviceInfo", "not isChecked");
                 }
 
-                android.support.v4.app.NotificationCompat.Builder builder
+                NotificationCompat.Builder builder
                         = firstSetBuilderCompat(onClickPendingIntent, exerciseName, setSchemeFormatted,
                         checkedOrUncheckedResource);
 
@@ -370,7 +370,7 @@ public class AssistorServiceClass extends Service {
 
                     Log.i("serviceInfo", "greater than M");
 
-                    android.support.v4.app.NotificationCompat.Builder builder
+                    NotificationCompat.Builder builder
                             = workoutDoneBuilder(onClickPendingIntent);
 
                     Notification n = builder.build();
@@ -380,7 +380,7 @@ public class AssistorServiceClass extends Service {
 
                     // Workout done builder (compat)
 
-                    android.support.v4.app.NotificationCompat.Builder builder
+                    NotificationCompat.Builder builder
                             = workoutDoneBuilderCompat(onClickPendingIntent);
 
                     Notification n = builder.build();
@@ -407,7 +407,7 @@ public class AssistorServiceClass extends Service {
 
                     Log.i("serviceInfo", "greater than M");
 
-                    android.support.v4.app.NotificationCompat.Builder builder =
+                    NotificationCompat.Builder builder =
                             normalSetBuilder(
                                     onClickPendingIntent, exerciseName,
                                     setSchemeFormatted, checkedOrUncheckedResource
@@ -420,7 +420,7 @@ public class AssistorServiceClass extends Service {
 
                     // Normal set builder (compat)
 
-                    android.support.v4.app.NotificationCompat.Builder builder =
+                    NotificationCompat.Builder builder =
                             normalSetBuilderCompat(
                                     onClickPendingIntent, exerciseName,
                                     setSchemeFormatted, checkedOrUncheckedResource
@@ -437,10 +437,10 @@ public class AssistorServiceClass extends Service {
     private NotificationCompat.Builder firstSetBuilder(PendingIntent onClickPendingIntent, String exerciseName,
                                                        String setSchemeFormatted, int checkedOrUncheckedResource){
         Log.i("lastSetAction", "firstSetBuilder called");
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
@@ -463,10 +463,10 @@ public class AssistorServiceClass extends Service {
 
     private NotificationCompat.Builder normalSetBuilder(PendingIntent onClickPendingIntent, String exerciseName,
                                                         String setSchemeFormatted, int checkedOrUncheckedResource){
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
@@ -489,10 +489,10 @@ public class AssistorServiceClass extends Service {
 
     private NotificationCompat.Builder workoutDoneBuilder(PendingIntent onClickPendingIntent){
 
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle("Workout Done!")
@@ -514,10 +514,10 @@ public class AssistorServiceClass extends Service {
 
     private NotificationCompat.Builder firstSetBuilderCompat(PendingIntent onClickPendingIntent, String exerciseName,
                                                              String setSchemeFormatted, int checkedOrUncheckedResource){
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
@@ -541,10 +541,10 @@ public class AssistorServiceClass extends Service {
 
     private NotificationCompat.Builder normalSetBuilderCompat(PendingIntent onClickPendingIntent, String exerciseName,
                                                         String setSchemeFormatted, int checkedOrUncheckedResource){
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle(exerciseName)
@@ -568,10 +568,10 @@ public class AssistorServiceClass extends Service {
 
     private NotificationCompat.Builder workoutDoneBuilderCompat(PendingIntent onClickPendingIntent){
 
-        android.support.v4.app.NotificationCompat.Builder builder = new android.support.v4.app.NotificationCompat
+        NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1))
                 .setContentIntent(onClickPendingIntent)
                 .setContentTitle("Workout Done!")

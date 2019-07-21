@@ -279,7 +279,7 @@
     <string name="applyAlgorithm">Apply algorithm to checked exercises?</string>
     <string name="templateAlgorithm">Set Program Algorithm</string>
     <string name="algoLooper">Loop Your Algorithm\n(Resets Sets/Reps on Weight increase)\n(Make sure that
-        Sets/Reps week values are lower than Weight's week value for this to work!)
+        Sets/Reps week values are lower than Weight\'s week value for this to work!)
     </string>
     <string name="every">Every\u0020</string>
     <string name="weeks">week(s),</string>
