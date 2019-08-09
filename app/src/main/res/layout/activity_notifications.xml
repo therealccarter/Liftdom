@@ -9,7 +9,7 @@
         android:background="@color/lessDarkGrey"
         tools:context="com.liftdom.liftdom.notifications_bell.NotificationsActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -26,7 +26,7 @@
                 android:id="@+id/title"
         />
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"

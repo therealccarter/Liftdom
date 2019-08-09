@@ -9,7 +9,7 @@
         android:background="@color/lessDarkGrey"
         tools:context="com.liftdom.misc_activities.SettingsListActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
                 android:id="@+id/title"
         />
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
             android:layout_width="match_parent"
