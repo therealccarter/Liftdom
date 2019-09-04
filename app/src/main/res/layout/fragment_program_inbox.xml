@@ -7,7 +7,7 @@
               android:background="@color/lessDarkGrey"
               tools:context="com.liftdom.template_housing.ProgramInboxFrag">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
@@ -26,7 +26,7 @@
                 android:paddingEnd="10dp"
         />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -51,7 +51,7 @@
             android:layout_marginBottom="70dp"
     />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerView"
@@ -59,6 +59,6 @@
             android:background="@color/lessDarkGrey"
     >
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

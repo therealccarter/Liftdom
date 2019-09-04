@@ -15,7 +15,55 @@
       },
       "oauth_client": [
         {
-          "client_id": "710482914931-ankr55boenl2q92a63qppvujral0geo4.apps.googleusercontent.com",
+          "client_id": "710482914931-kefk6r9q84lrlb4t5biumji7c2ckc643.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "c5dc7683079d806da0724265e8a9fda709172af3"
+          }
+        },
+        {
+          "client_id": "710482914931-if408l7p6a9nsq4bh3v05bs76a84g2af.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "0f2e7b0cb1bbc5a1f96a302b034de92a32bf1313"
+          }
+        },
+        {
+          "client_id": "710482914931-kq2aak5blct06curif18sv45dib48lv4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "3f8b6eb27bd36454c759a6dde6e950d9bf8c2c3c"
+          }
+        },
+        {
+          "client_id": "710482914931-cmk6n38g9fd9m4rnng9mph4p41f3unoe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "71a508a4770fc620d9fac80a0a7b3a97dc4142d7"
+          }
+        },
+        {
+          "client_id": "710482914931-kbi28bujocdu7t75hmsfn800hvpdl7vs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "a139cda4b0e5696238c9f38f49343d8fa9b5e576"
+          }
+        },
+        {
+          "client_id": "710482914931-sgv37og9kpmddhn9d9ctjbn9bd2ba3ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liftdom.liftdom",
+            "certificate_hash": "803da4f61593faa9ae6d142d335920342e2695b9"
+          }
+        },
+        {
+          "client_id": "710482914931-5chd4g80s3l3ji2tqmrib8vqjtgcrtnq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.liftdom.liftdom",
@@ -41,17 +89,16 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710482914931-fgko8l2u0v5n331p462ofqre303e4trr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-2128186799899574~5262984219"
     }
   ],
   "configuration_version": "1"
