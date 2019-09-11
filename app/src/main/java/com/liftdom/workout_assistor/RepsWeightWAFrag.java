@@ -237,6 +237,10 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         return view;
     }
 
+    public boolean isChecked(){
+        return (checkedImage.getVisibility() == View.VISIBLE);
+    }
+
     public void setCheckedView(){
         checkedImage.setVisibility(View.VISIBLE);
         unCheckedImage.setVisibility(View.GONE);

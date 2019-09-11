@@ -27,7 +27,7 @@
                 android:text="@string/checkAll"
                 android:textColor="@color/grey"
                 android:id="@+id/checkOffAll"
-                android:visibility="gone"
+                android:visibility="visible"
         />
 
         <LinearLayout
@@ -83,6 +83,35 @@
                 />
 
             </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check all sets"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_marginStart="10dp"
+                    />
+
+            <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox"
+                    android:buttonTint="@color/white"
+                    />
+
         </LinearLayout>
 
         <LinearLayout

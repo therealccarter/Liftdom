@@ -10,7 +10,10 @@ cleaned up ex history chart a bit
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
-
+WA: mark all (ex and full workout)
+WA: snackbar with "redo" action like
+WA: notification bar should check for last one you were on when you deactivate it
+WA: rest times in notification bar
 next workout info on rest day/workout finished frag
 =====================================================
 

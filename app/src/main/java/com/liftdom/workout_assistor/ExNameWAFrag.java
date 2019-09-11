@@ -104,6 +104,47 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    public void checkIfAllAreChecked(){
+        // issue right now is that it is null at the time of checking
+        if(!repsWeightFragList1.isEmpty()){
+            try{
+                boolean areAllChecked = true;
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+                if(areAllChecked){
+                        checkOffAll.setChecked(true);
+                    }else{
+                        checkOffAll.setChecked(false);
+                    }
+                updateWorkoutState.updateWorkoutStateWithDelay();
+            }catch (NullPointerException e){
+
+            }
+
+        }
+        if(!repsWeightFragList2.isEmpty()){
+            try{
+                boolean areAllChecked = true;
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+                if(areAllChecked){
+                        checkOffAll.setChecked(true);
+                    }else{
+                        checkOffAll.setChecked(false);
+                    }
+                updateWorkoutState.updateWorkoutStateWithDelay();
+            }catch (NullPointerException e){
+
+            }
+        }
+    }
+
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
     @BindView(R.id.destroyFrag1) ImageButton destroyFrag;
@@ -134,6 +175,8 @@ public class ExNameWAFrag extends android.app.Fragment
             }
         });
 
+
+
         checkOffAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -143,6 +186,7 @@ public class ExNameWAFrag extends android.app.Fragment
                             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
                                 repsWeightWAFrag.setCheckedView();
                             }
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }catch (NullPointerException e){
 
                         }
@@ -153,6 +197,7 @@ public class ExNameWAFrag extends android.app.Fragment
                             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
                                 repsWeightWAFrag.setCheckedView();
                             }
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }catch (NullPointerException e){
 
                         }
@@ -161,8 +206,9 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(!repsWeightFragList1.isEmpty()){
                         try{
                             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                                repsWeightWAFrag.setCheckedView();
+                                repsWeightWAFrag.setUnCheckedView();
                             }
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }catch (NullPointerException e){
 
                         }
@@ -171,8 +217,9 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(!repsWeightFragList2.isEmpty()){
                         try{
                             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                                repsWeightWAFrag.setCheckedView();
+                                repsWeightWAFrag.setUnCheckedView();
                             }
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }catch (NullPointerException e){
 
                         }
@@ -232,8 +279,10 @@ public class ExNameWAFrag extends android.app.Fragment
             }
             int biggestSize = getBiggestSizeList(finalList);
             inflateFragsFromEdit(finalList, biggestSize);
+            checkIfAllAreChecked();
         }else{
             inflateFrags();
+            checkIfAllAreChecked();
         }
 
         return view;
