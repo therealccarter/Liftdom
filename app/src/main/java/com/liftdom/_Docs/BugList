@@ -6,12 +6,13 @@
 currently on v1.37
 ----------------------
 cleaned up ex history chart a bit
+WA: mark all (exercise) (need to check if it works with SS, also it's still buggy)
+WA: confirmation for deleting exercise instead of "snackbar with "redo" action like"
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
-WA: mark all (ex and full workout)
-WA: snackbar with "redo" action like
+
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
 next workout info on rest day/workout finished frag
@@ -24,7 +25,6 @@ true chat functionality/workout reminders (check that Firebase support email){
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
 supersetting in WA
-WA check-all
 rest timer
 user "flair"
 hamburger needs back functionality
