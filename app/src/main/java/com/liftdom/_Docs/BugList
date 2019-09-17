@@ -6,13 +6,13 @@
 currently on v1.37
 ----------------------
 cleaned up ex history chart a bit
-WA: mark all (exercise) (need to check if it works with SS, also it's still buggy)
 WA: confirmation for deleting exercise instead of "snackbar with "redo" action like"
+WA: mark all (exercise) working for non-SS workouts.
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
-
+WA: mark all (exercise) (need to check if it works with SS, also check out that delay method)
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
 next workout info on rest day/workout finished frag

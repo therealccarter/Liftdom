@@ -89,6 +89,8 @@ public class ExNameWAFrag extends android.app.Fragment
     private startFirstTimeShowcase firstTimeShowcaseCallback;
 
     public void updateWorkoutState(){
+        // ISSUE RIGHT NOW IS THAT IF I CHECK ONE OFF AFTER CHECKING ALL, THEY ALL CHECK OFF
+        checkIfAllAreChecked();
         updateWorkoutState.updateWorkoutStateWithDelay();
     }
 
@@ -117,9 +119,12 @@ public class ExNameWAFrag extends android.app.Fragment
                 if(areAllChecked){
                         checkOffAll.setChecked(true);
                     }else{
+                        isComingFromReps = true;
                         checkOffAll.setChecked(false);
                     }
                 updateWorkoutState.updateWorkoutStateWithDelay();
+            }else{
+                checkOffAll.setChecked(false);
             }
         }catch (NullPointerException e){
             checkOffAll.setChecked(false);
@@ -136,6 +141,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(areAllChecked){
                             checkOffAll.setChecked(true);
                         }else{
+                            isComingFromReps = true;
                             checkOffAll.setChecked(false);
                         }
                     updateWorkoutState.updateWorkoutStateWithDelay();
@@ -144,6 +150,8 @@ public class ExNameWAFrag extends android.app.Fragment
             checkOffAll.setChecked(false);
         }
     }
+
+    boolean isComingFromReps;
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
     @BindView(R.id.repsWeightContainer) LinearLayout repsWeightContainer;
@@ -191,6 +199,8 @@ public class ExNameWAFrag extends android.app.Fragment
                             }catch (NullPointerException e){
 
                             }
+                        }else{
+                            checkOffAll.setChecked(false);
                         }
                     }else{
                         checkOffAll.setChecked(false);
@@ -211,7 +221,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     }
                 }else{
                     if(repsWeightFragList1 != null){
-                        if(!repsWeightFragList1.isEmpty()){
+                        if(!repsWeightFragList1.isEmpty() && !isComingFromReps){
                             try{
                                 for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
                                     repsWeightWAFrag.setUnCheckedView();
@@ -221,10 +231,12 @@ public class ExNameWAFrag extends android.app.Fragment
 
                             }
 
+                        }else{
+                            isComingFromReps = false;
                         }
                     }
                     if(repsWeightFragList2 != null){
-                        if(!repsWeightFragList2.isEmpty()){
+                        if(!repsWeightFragList2.isEmpty() && !isComingFromReps){
                             try{
                                 for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
                                     repsWeightWAFrag.setUnCheckedView();
@@ -290,10 +302,10 @@ public class ExNameWAFrag extends android.app.Fragment
             }
             int biggestSize = getBiggestSizeList(finalList);
             inflateFragsFromEdit(finalList, biggestSize);
-            checkIfAllAreChecked();
+            //checkIfAllAreChecked();
         }else{
             inflateFrags();
-            checkIfAllAreChecked();
+            //checkIfAllAreChecked();
         }
 
         return view;
