@@ -136,6 +136,48 @@ public class ExNameSSWAFrag extends android.app.Fragment
         return view;
     }
 
+    public boolean isChecked(){
+        boolean checked = true;
+        if(repsWeightFragList != null){
+            if(!repsWeightFragList.isEmpty()){
+                for(RepsWeightSSWAFrag repsWeightSSWAFrag : repsWeightFragList){
+                    if(!repsWeightSSWAFrag.isChecked()){
+                        checked = false;
+                    }
+                }
+                //updateWorkoutState.updateWorkoutState();
+            }else{
+                checked = false;
+            }
+        }else{
+            checked = false;
+        }
+        return checked;
+    }
+
+    public void checkAllRepsWeight(){
+        if(repsWeightFragList != null){
+            if(!repsWeightFragList.isEmpty()){
+                for(RepsWeightSSWAFrag repsWeightSSWAFrag : repsWeightFragList){
+                    repsWeightSSWAFrag.setCheckedView();
+                }
+                //updateWorkoutState.updateWorkoutState();
+            }
+        }
+    }
+
+    public void unCheckAllRepsWeight(){
+        if(repsWeightFragList != null){
+            if(!repsWeightFragList.isEmpty()){
+                for(RepsWeightSSWAFrag repsWeightSSWAFrag : repsWeightFragList){
+                    repsWeightSSWAFrag.setUnCheckedView();
+                }
+                //updateWorkoutState.updateWorkoutState();
+            }
+        }
+    }
+
+
     public List<String> getInfoForMap(){
         List<String> exInfo = new ArrayList<>();
 

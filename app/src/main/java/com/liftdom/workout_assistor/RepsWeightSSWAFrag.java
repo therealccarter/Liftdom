@@ -113,7 +113,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 }
 
                 if(tokens[2].equals("checked")){
-                    setCheckedView();
+                     setCheckedView();
                     //loadingView.setVisibility(View.INVISIBLE);
                 }else{
                     setUnCheckedView();
@@ -205,11 +205,20 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         return view;
     }
 
+    public boolean isChecked(){
+        try{
+            return (checkedImage.getVisibility() == View.VISIBLE);
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+
     public void setCheckedView(){
         checkedImage.setVisibility(View.VISIBLE);
         unCheckedImage.setVisibility(View.GONE);
         holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
         setTextColors(true);
+        //updateWorkoutState.updateWorkoutState();
     }
 
     public void setUnCheckedView(){
@@ -217,6 +226,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         unCheckedImage.setVisibility(View.VISIBLE);
         holderView.setBackgroundColor(Color.parseColor("#353535"));
         setTextColors(false);
+        //updateWorkoutState.updateWorkoutState();
     }
 
     private void setTextColors(boolean isChecked){
