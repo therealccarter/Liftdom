@@ -735,7 +735,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     runningAssistorRef.setValue(progressModelClass);
                 }
             }
-        }, 4500);
+        }, 1500);
 
     }
 

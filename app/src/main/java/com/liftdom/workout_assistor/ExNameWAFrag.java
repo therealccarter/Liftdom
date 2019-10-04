@@ -4,6 +4,7 @@ package com.liftdom.workout_assistor;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -68,6 +69,7 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public interface updateWorkoutStateCallback{
         void updateWorkoutStateWithDelay();
+        //void updateWorkoutState();
     }
 
     private updateWorkoutStateCallback updateWorkoutState;
@@ -141,6 +143,10 @@ public class ExNameWAFrag extends android.app.Fragment
         for(ExNameSSWAFrag exNameFrag : exNameSupersetFragList){
             if(!exNameFrag.isChecked()){
                 areAllChecked = false;
+                /**
+                 * This is getting null/false the first time it's checked. Maybe do a boolean
+                 * instead? idk.
+                 */
             }
         }
         if(areAllChecked){
@@ -188,6 +194,28 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    public void checkIfAllAreCheckedWithDelay(){
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(exNameSupersetFragList != null){
+                    if(!exNameSupersetFragList.isEmpty()){
+                        checkForSS();
+                        //updateWorkoutState.updateWorkoutState();
+                    }else{
+                        checkForNonSS();
+                    }
+                }else{
+                    checkForNonSS();
+                }
+            }
+        }, 1000);
+
+
+    }
+
     public void checkIfAllAreChecked(){
 
         // This is where the issue is. Clicking once checks them all off, but the main checkmark
@@ -199,6 +227,7 @@ public class ExNameWAFrag extends android.app.Fragment
         if(exNameSupersetFragList != null){
             if(!exNameSupersetFragList.isEmpty()){
                 checkForSS();
+                //updateWorkoutState.updateWorkoutState();
             }else{
                 checkForNonSS();
             }
@@ -425,21 +454,27 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(exNameSupersetFragList != null){
                         if(!exNameSupersetFragList.isEmpty()){
                             checkOffSS();
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }else{
                             checkOffNonSS();
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }
                     }else{
                         checkOffNonSS();
+                        updateWorkoutState.updateWorkoutStateWithDelay();
                     }
                 }else{
                     if(exNameSupersetFragList != null){
                         if(!exNameSupersetFragList.isEmpty()){
                             unCheckOffSS();
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }else{
                             unCheckOffNonSS();
+                            updateWorkoutState.updateWorkoutStateWithDelay();
                         }
                     }else{
                         unCheckOffNonSS();
+                        updateWorkoutState.updateWorkoutStateWithDelay();
                     }
                 }
             }
@@ -596,6 +631,9 @@ public class ExNameWAFrag extends android.app.Fragment
             int biggestSize = getBiggestSizeList(finalList);
             inflateFragsFromEdit(finalList, biggestSize);
             //checkIfAllAreChecked();
+            /**
+             * ISSUE RIGHT NOW IS THAT THE FRAGS ARE NOT YET ALIVE WHEN THIS GETS RUN.
+             */
         }else{
             inflateFrags();
             //checkIfAllAreChecked();
@@ -609,8 +647,6 @@ public class ExNameWAFrag extends android.app.Fragment
     @Override
     public void onStart(){
         super.onStart();
-
-        checkIfAllAreChecked();
 
         //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
         //        (FirebaseAuth.getInstance().getCurrentUser().getxUid()).child("isAssistorFirstTime");
@@ -790,6 +826,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         }
                         count++;
                     }
+                    checkIfAllAreCheckedWithDelay();
                 }
             }else{
                 // no supersets
@@ -810,6 +847,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     fragmentManager.executePendingTransactions();
                     tagListWA.add(tag);
                 }
+                checkIfAllAreCheckedWithDelay();
             }
         }
     }
@@ -872,6 +910,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 }
                 count++;
             }
+            checkIfAllAreCheckedWithDelay();
         }
     }
 
