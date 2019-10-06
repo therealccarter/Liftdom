@@ -96,7 +96,7 @@ public class ExNameWAFrag extends android.app.Fragment
     public void updateWorkoutState(){
         // ISSUE RIGHT NOW IS THAT IF I CHECK ONE OFF AFTER CHECKING ALL, THEY ALL CHECK OFF
         checkIfAllAreChecked();
-        ////updateWorkoutState.updateWorkoutStateWithDelay();
+        updateWorkoutState.updateWorkoutStateWithDelay();
     }
 
     public void updateWorkoutStateForResult(String tag2){
