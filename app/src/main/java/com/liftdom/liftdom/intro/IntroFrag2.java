@@ -1,7 +1,7 @@
 package com.liftdom.liftdom.intro;
 
 
-import agency.tango.materialintroscreen.SlideFragment;
+import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;

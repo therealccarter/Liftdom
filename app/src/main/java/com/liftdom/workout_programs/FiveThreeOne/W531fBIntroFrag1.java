@@ -1,7 +1,7 @@
 package com.liftdom.workout_programs.FiveThreeOne;
 
 
-import agency.tango.materialintroscreen.SlideFragment;
+import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;

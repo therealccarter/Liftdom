@@ -1,9 +1,9 @@
 package com.liftdom.liftdom.intro;
 
-import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.MessageButtonBehaviour;
-import agency.tango.materialintroscreen.SlideFragment;
-import agency.tango.materialintroscreen.SlideFragmentBuilder;
+import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
+import io.github.dreierf.materialintroscreen.MessageButtonBehaviour;
+import io.github.dreierf.materialintroscreen.SlideFragment;
+import io.github.dreierf.materialintroscreen.SlideFragmentBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +24,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 

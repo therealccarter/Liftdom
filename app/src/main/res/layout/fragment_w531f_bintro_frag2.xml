@@ -1,4 +1,4 @@
-<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+<io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -198,4 +198,4 @@
             android:layout_marginTop="10dp"
     />
 
-</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
+</io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

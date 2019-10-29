@@ -1,7 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
 
-import agency.tango.materialintroscreen.SlideFragment;
+import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Intent;
 import android.content.pm.FeatureInfo;
 import android.os.Bundle;

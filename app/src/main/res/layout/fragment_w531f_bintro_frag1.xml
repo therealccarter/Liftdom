@@ -1,4 +1,4 @@
-<agency.tango.materialintroscreen.parallax.ParallaxLinearLayout
+<io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -8,6 +8,7 @@
         android:orientation="vertical"
         android:gravity="center"
         tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag1">
+
 
     <TextView
             android:layout_width="match_parent"
@@ -54,4 +55,4 @@
     />
 
 
-</agency.tango.materialintroscreen.parallax.ParallaxLinearLayout>
+</io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

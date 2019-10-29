@@ -9,18 +9,18 @@ cleaned up ex history chart a bit
 WA: confirmation for deleting exercise instead of "snackbar with "redo" action like"
 WA: mark all (exercise) working for non-SS workouts.
 WA: mark all (exercise) (need to check if it works with SS, also check out that delay method)
+Reframe template page to put more emphasis on pre-made programs
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
-Reframe template page to put more emphasis on pre-made programs
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
-next workout info on rest day/workout finished frag
 =====================================================
 
 ============ ON DECK FOR v1.39+: ===============================================
+next workout info on rest day/workout finished frag
 true chat functionality/workout reminders (check that Firebase support email){
     easy idea for seen/unseen chats. When a user sends a message, for everyone
     in the chat, their chat group gains the "unseen" tag. Any time a user is in

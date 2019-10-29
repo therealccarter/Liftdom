@@ -1,15 +1,13 @@
 package com.liftdom.liftdom.intro;
 
-
-import agency.tango.materialintroscreen.SlideFragment;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
+import io.github.dreierf.materialintroscreen.SlideFragment;
 
 /**
  * A simple {@link Fragment} subclass.

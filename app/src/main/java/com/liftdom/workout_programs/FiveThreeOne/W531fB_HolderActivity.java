@@ -1,6 +1,6 @@
 package com.liftdom.workout_programs.FiveThreeOne;
 
-import agency.tango.materialintroscreen.MaterialIntroActivity;
+import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;

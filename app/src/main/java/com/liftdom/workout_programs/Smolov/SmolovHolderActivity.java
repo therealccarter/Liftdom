@@ -1,6 +1,6 @@
 package com.liftdom.workout_programs.Smolov;
 
-import agency.tango.materialintroscreen.MaterialIntroActivity;
+import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
