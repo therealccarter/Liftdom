@@ -1,9 +1,11 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.Fragment;
 import android.text.InputFilter;
 import android.util.Log;
@@ -192,6 +194,42 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 }
             }
         }
+
+        repsEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    try{
+                        if(repsEditText.getText().toString().equals("0")){
+                            repsEditText.setText("");
+                            InputMethodManager imm =
+                                    (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        }
+                    }catch (NullPointerException e){
+
+                    }
+                }
+            }
+        });
+
+        weightEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    try{
+                        if(repsEditText.getText().toString().equals("0")){
+                            repsEditText.setText("");
+                            InputMethodManager imm =
+                                    (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        }
+                    }catch (NullPointerException e){
+
+                    }
+                }
+            }
+        });
 
 
         checkedImage.setOnClickListener(new View.OnClickListener() {

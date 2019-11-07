@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity;
+import com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity;
 import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
 
 /**
@@ -58,6 +59,10 @@ public class PremadeProgramHolderFrag extends Fragment {
                         Intent intent;
                         intent = new Intent(getContext(), W531fB_HolderActivity.class);
                         startActivity(intent);
+                    }else if(workoutType.equals("PPLReddit")){
+                        Intent intent;
+                        intent = new Intent(getContext(), PPLReddit_HolderActivity.class);
+                        startActivity(intent);
                     }
                 }
             }
@@ -71,7 +76,16 @@ public class PremadeProgramHolderFrag extends Fragment {
             setUpSmolov();
         }else if(workoutType.equals("W531fB")){
             setUpW531fB();
+        }else if(workoutType.equals("PPLReddit")){
+            setUpPPLReddit();
         }
+    }
+
+    private void setUpPPLReddit(){
+        templateNameView.setText("Push/Pull/Legs Reddit Variant");
+        experienceLevelview.setText("Beginner");
+        workoutTypeView.setText("Bodybuilding");
+        descriptionView.setText("A popular Push/Pull/Legs variant from Reddit. The recommended beginner program.");
     }
 
     private void setUpSmolov(){

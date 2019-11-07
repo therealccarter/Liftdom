@@ -519,6 +519,9 @@ public class TemplateEditorActivity extends BaseActivity
                         UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                         TemplateEditorSingleton.getInstance().isCurrentUserImperial = userModelClass.isIsImperial();
                         TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
+                        if(userModelClass.getActiveTemplate() == null){
+                            activeTemplateCheckbox.setChecked(true);
+                        }
 
                         try{
                             if(getCurrentFocus() != null){
@@ -597,7 +600,7 @@ public class TemplateEditorActivity extends BaseActivity
 
 
                 CharSequence toastText = "Day-set Added";
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Snackbar.LENGTH_SHORT;
 
                 try{
                     Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
@@ -623,7 +626,7 @@ public class TemplateEditorActivity extends BaseActivity
 
                 if(fragIdCount != 1) {
                     CharSequence toastText = "Day-set Removed";
-                    int duration = Toast.LENGTH_SHORT;
+                    int duration = Snackbar.LENGTH_SHORT;
                     try{
                         Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
                         snackbar.show();

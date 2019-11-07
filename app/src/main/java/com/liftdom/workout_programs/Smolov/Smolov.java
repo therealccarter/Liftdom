@@ -363,6 +363,7 @@ public class Smolov {
             workout.add(one);
             setOneRepMaxDay(true);
         }else{
+            //need to alert that it's the end.
             String one = "rest";
             workout.add(one);
         }

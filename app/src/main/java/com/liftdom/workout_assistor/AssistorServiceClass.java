@@ -447,7 +447,7 @@ public class AssistorServiceClass extends Service {
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
                         "Previous",
                         retrieveMapAction(LASTSET_ACTION))
@@ -473,7 +473,7 @@ public class AssistorServiceClass extends Service {
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
                         "Previous",
                         retrieveMapAction(PREVIOUS_ACTION))
@@ -499,7 +499,7 @@ public class AssistorServiceClass extends Service {
                 .setContentText("Click this notification to finalize.")
                 .setWhen(System.currentTimeMillis())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 //.setPublicVersion()
                 .addAction(R.drawable.ic_previous,
                         "Previous",
@@ -525,7 +525,7 @@ public class AssistorServiceClass extends Service {
                 //.setWhen(System.currentTimeMillis())
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
                         "Previous",
                         retrieveMapAction(LASTSET_ACTION))
@@ -552,7 +552,7 @@ public class AssistorServiceClass extends Service {
                 //.setWhen(System.currentTimeMillis())
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
                         "Previous",
                         retrieveMapAction(PREVIOUS_ACTION))
@@ -579,7 +579,7 @@ public class AssistorServiceClass extends Service {
                 //.setWhen(System.currentTimeMillis())
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 //.setPublicVersion()
                 .addAction(R.drawable.ic_previous,
                         "Previous",

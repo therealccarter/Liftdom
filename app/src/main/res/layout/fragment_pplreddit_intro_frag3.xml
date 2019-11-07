@@ -1,0 +1,81 @@
+<io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.workout_programs.PPL_Reddit.PPLRedditIntroFrag3">
+
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                android:text="@string/PPLRedditWarning"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                />
+
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/messageView"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center"
+                    android:textColor="@color/grey"
+                    />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/confirmationTextView"
+                    android:gravity="center"
+                    android:text="@string/confirmColon"
+                    android:textSize="24sp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:indicatorName="BallClipRotateMultipleIndicator"
+                    android:id="@+id/loadingView"
+                    android:layout_margin="20dp"
+                    app:indicatorColor="@color/liftrGold2"
+                    android:layout_gravity="center"
+                    />
+
+            <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/makeCurrentTemplate"
+                    android:textColor="@color/white"
+                    android:id="@+id/activeTemplateCheckbox"
+                    android:layout_marginStart="10dp"
+                    />
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/finishButton"
+                    style="@style/borderlessButton"
+                    android:text="@string/confirmProgram"
+                    android:textSize="22sp"
+                    android:background="@color/confirmgreen"
+                    android:textColor="@color/white"
+                    android:layout_margin="20dp"
+                    android:padding="20dp"
+                    android:visibility="visible"
+                    />
+
+</io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

@@ -361,11 +361,16 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         String info = repsText + "@" + weightText;
 
-        if(checkedImage.getVisibility() == View.VISIBLE || checkedImage.getVisibility() == View.INVISIBLE){
+        try{
+            if(checkedImage.getVisibility() == View.VISIBLE || checkedImage.getVisibility() == View.INVISIBLE){
+                info = info + "_checked";
+            }else if(unCheckedImage.getVisibility() == View.VISIBLE || unCheckedImage.getVisibility() == View.INVISIBLE){
+                info = info + "_unchecked";
+            }
+        }catch (NullPointerException e){
             info = info + "_checked";
-        }else if(unCheckedImage.getVisibility() == View.VISIBLE || unCheckedImage.getVisibility() == View.INVISIBLE){
-            info = info + "_unchecked";
         }
+
 
         info = info + "_ss";
 

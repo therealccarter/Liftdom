@@ -20,6 +20,10 @@ import com.liftdom.knowledge_center.KnowledgeCenterHolderActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,13 +49,40 @@ public class WorkoutFinishedFrag extends Fragment {
         reviseWorkout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                final DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
+                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
                         .child("runningAssistor").child(uid).child("assistorModel");
 
-                runningRef.child("isRevise").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+                /**
+                 * Why did this not work? And this seems to be the shit that's being put in.
+                 */
+
+                //HashMap<String, HashMap<String, ArrayList<String>>> map = new HashMap<>();
+                //HashMap<String, ArrayList<String>> map2 = new HashMap<>();
+                //ArrayList<String> list = new ArrayList<>();
+                //list.add(0, "Bench Press (My ass)");
+                //map2.put("0_key", list);
+                //map.put("1_key", map2);
+
+                //Map runningMa = new HashMap<>();
+                //runningMa.put("/isRevise", false);
+                //runningMa.put("/completedBool", true);
+                //runningRef.updateChildren(runningMa).addOnCompleteListener(new
+                // OnCompleteListener() {
+                //    @Override
+                //    public void onComplete(@NonNull Task task) {
+                //        Intent intent = new Intent(getActivity(), MainActivity.class);
+                //        intent.putExtra("fragID",  2);
+                //        startActivity(intent);
+                //    }
+                //});
+
+
+                runningRef.child("isRevise").setValue(true).addOnCompleteListener(new
+                 OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        runningRef.child("completedBool").setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        runningRef.child("completedBool").setValue(false).addOnCompleteListener
+                        (new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Intent intent = new Intent(getActivity(), MainActivity.class);

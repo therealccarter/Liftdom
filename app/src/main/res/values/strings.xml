@@ -76,7 +76,9 @@
 
     <string name="pleaseWait">Please wait or results may not be saved&#8230;</string>
 
-    <string name="notificationBarBeta">(Notification bar functionality in beta)</string>
+    <string name="waDisclaimer">Check off each set as you go, or simply use this
+        page as a reference during your workout and use the \"Check off all&#8230;\" option when
+        you\'re done.</string>
 
     <string name="percent">%</string>
 
@@ -96,12 +98,15 @@
 
     <string name="smolov">Smolov</string>
 
+    <!-- Wendler531fB -->
+
     <string name="wendler531forBeginners">Wendler 5/3/1 For Beginners</string>
 
     <string name="W531fBTitleText1">Wendler 5/3/1</string>
     <string name="W531fBTitleText2">(For Beginners)</string>
 
     <string name="smolovBeta">Smolov (Beta)</string>
+
 
     <string name="noNotifications">No Notifications Found</string>
 
@@ -198,7 +203,8 @@
 
     <string name="saveState">Save Current Workout State</string>
 
-    <string name="activateStatusBarWA">Activate in Notification Bar\n(Highly recommended!)</string>
+    <string name="activateStatusBarWA">Activate in Notification Bar\n(Check off sets from
+        your phone\'s lock screen)</string>
 
     <string name="deactivateStatusBarWA">De-activate in Notification Bar</string>
 
@@ -258,7 +264,7 @@
 
     <string name="percentToUse">Percentage To Use</string>
     <string name="chooseFromMaxes">Or, choose from one of your maxes:</string>
-    <string name="setAnArbitraryWeight">Set an arbitrary weight:</string>
+    <string name="setAnArbitraryWeight">Set a max weight for these sets:</string>
     <string name="maxBasedSoonAndReminder">
         Don\'t forget that you can set a percentage weight for all set schemes via the Extra Options button on the
         left of an exercise.\n
@@ -412,6 +418,8 @@
 
     <string name="confirmW531fB">Finish\nWendler 5/3/1\n(For Beginners)\nCreation</string>
 
+    <string name="confirmProgram">Finish Program Creation</string>
+
     <string name="mainExercises">Main Exercises:</string>
 
     <string name="oneRM">1RM:</string>
@@ -435,6 +443,85 @@
         The title says \"for beginners\" but this is definitely a program for intermediate level lifters.\nIf you
         want to know more, I recommend Googling \"Wendler\'s 5/3/1 For Beginners\" for further reading and clarification
         on the background and theory behind the lifts you\'ll be doing.
+    </string>
+
+    <!-- PPL Reddit -->
+
+    <string name="PPLRedditTitleText1">Push/Pull/Legs</string>
+    <string name="PPLRedditTitleText2">(Reddit)</string>
+    <string name="inclineDb">Incline Dumbbell Press</string>
+    <string name="landminePress">Landmine Press</string>
+    <string name="tricepsPushdowns">Triceps Pushdowns</string>
+    <string name="skullcrushers">Skullcrushers</string>
+    <string name="jmPress">JM Press</string>
+    <string name="dbTricepsExtensions">Dumbbell Triceps Extensions</string>
+    <string name="overheadTricepsExtensions">Overhead Triceps Extensions</string>
+    <string name="seatedCableRows">Seated Cable Rows</string>
+    <string name="dbRows">Dumbbell Rows</string>
+    <string name="tBarRows">T-Bar Rows</string>
+    <string name="facePulls">Face Pulls</string>
+    <string name="rearDeltFlyesBandPulls">Rear Delt Flyes and Band Pulls</string>
+    <string name="dumbbellCurls">Dumbbell Curls</string>
+    <string name="barbellCurls">Barbell Curls</string>
+    <string name="machineCurls">Machine Curls</string>
+    <string name="hammerCurls">Hammer Curls</string>
+    <string name="legPress">Leg Press</string>
+    <string name="frontSquat">Front Squat</string>
+    <string name="legCurls">Leg Curls</string>
+    <string name="ghr">Glute Ham Raise</string>
+    <string name="barbellCalfRaises">Barbell Calf Raises</string>
+    <string name="dumbbellCalfRaises">Dumbbell Calf Raises</string>
+
+    <string name="enterProgramName">Please enter a program name.</string>
+
+    <string name="PPLRedditDescription">
+        A popular PPL variant as described by user Metallicadpa. This program will have you doing a heavy barbell exercise first each day, then following
+        up with higher rep accessory work.
+    </string>
+
+    <string name="PPLRedditDescription2">
+        \"My goal is to provide an accessible program for beginners with enough volume to
+        stimulate growth
+        in the bro muscles, while also giving enough intensity in the main movements to elicit
+        strength adaptations.\"
+    </string>
+
+    <string name="PPLRedditDescription3">
+        This program will have you doing a heavy barbell exercise first each day, then following
+        up with higher rep accessory work.
+    </string>
+
+    <string name="PPLRedditWarning">
+        Some important notes: \n The first time you do each exercise, the weights will be 0. You
+        must enter in the initial weights that you can do, and the program will then use those
+        weights to linearly progress the weight in subsequent workouts. Also, the reps for
+        accessory exercises will start at 8. If you can do one more with good form for all sets of that
+        exercise that day, enter that in (so change the 8 to a 9). Once you can do 12 reps, the weight will increase and the reps will go back to 8.
+        \n This is to stay in line with the creator of this program\'s recommendation for choosing
+        your starting weights. Which is to start each exercise with an empty bar/0 weight,
+        do a set of 5, add weight, do another set of 5, etc, until the bar speed slows down. Then
+        subtract 5 pounds and that is your starting weight (the weight you should enter in.) This
+        message will be shown in the Workout Assistor as you do your first workouts to remind you.
+    </string>
+
+    <string name="PPLRedditDateWarning">If today is Monday, the program will start today.
+        If today is not Monday, the program will start this coming Monday.</string>
+
+    <string name="PPLReddit1">
+        Choose the format for the days you\'ll be working out \n(M/Tu/W/Th/F/Sa/Su)
+    </string>
+
+    <string name="pplpplr">PPLPPLR</string>
+    <string name="pplrppl">PPLRPPL</string>
+
+    <string name="PPLReddit2">
+        The main lifts (squat, bench, deadlift, bent over row, overhead press) are required. The
+        intended accessories are chosen by default, but if you don\'t
+        have access to the necessary equipment, choose one of the alternates.
+    </string>
+
+    <string name="metallicadpa">
+        - Metallicadpa
     </string>
 
     <string name="smolovInBeta">(Smolov support is currently in beta. Metric support will be added as soon as
@@ -509,9 +596,12 @@
         Notification Bar Workout Assistor.
     </string>
 
-    <string name="oneRepMaxDay">Today you should build up to a 1-rep max. Enter that number as the weight once
+    <string name="oneRepMaxDay">Today you should build up to a 1-rep max. Log that number as the
+        weight once
         you complete your 1rm.
     </string>
+
+    <string name="lastDayOfWorkout">It\'s your last day of this workout. Great job!</string>
 
     <!-- TEMPLATE HOLDER SHIT -->
     <string name="makeCurrentTemplate">Set As Active Program</string>

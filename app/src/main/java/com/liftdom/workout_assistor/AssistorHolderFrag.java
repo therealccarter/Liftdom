@@ -81,6 +81,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     String refKey;
     boolean isFromRestDay;
     boolean isInForeground;
+    boolean isLastDay;
+    boolean isListening;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -89,6 +91,12 @@ public class AssistorHolderFrag extends android.app.Fragment
     public interface scrollToBottomInterface{
         void scrollToBottom();
     }
+
+    public interface killAssistorListener{
+        void killAssistor();
+    }
+
+    private killAssistorListener killAssistorListener;
 
     private scrollToBottomInterface scrollToBottomCallback;
 
@@ -100,6 +108,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
     @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
+    @BindView(R.id.endView) TextView endView;
     @BindView(R.id.activateStatusBarWA) Button activateStatusBarService;
     @BindView(R.id.deactivateStatusBarWA) Button deactivateStatusBarService;
     @BindView(R.id.deactivateStatusBarImageView) ImageView deactiveStatusBarImage;
@@ -110,6 +119,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.resetWorkoutButton) Button resetWorkoutProgressButton;
     @BindView(R.id.cancelRevision) Button cancelRevisionButton;
     @BindView(R.id.cancelRevisionHolder) CardView cancelRevisionHolder;
+    @BindView(R.id.extraText) TextView extraText;
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
@@ -145,9 +155,13 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         Log.i("assistorInfo", "onCreateView");
 
+        isListening = true;
+
         checkIfUserIsImperial();
 
         checkForOldData();
+
+        //killAssistorListener = (killAssistorListener) getParentFragment();
 
         if(isRevisedWorkout){
             cancelRevisionHolder.setVisibility(View.VISIBLE);
@@ -291,42 +305,44 @@ public class AssistorHolderFrag extends android.app.Fragment
                             double dayDouble = Double.parseDouble(day);
 
                             // possibly have rando number generate
+                            alertDialog.dismiss();
+                            finishWorkoutFromAd();
 
-                            if(dayDouble % (double) 3 == 0.01 && !isTutorialFirstTime){
-                                alertDialog.dismiss();
-                                finishWorkoutFromAd();
-
-                                Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
-                                Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
-                                    @Override
-                                    public void onInterstitialLoaded(boolean b) {
-                                        Log.i("appodeal", "loaded");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialFailedToLoad() {
-                                        Log.i("appodeal", "failed");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialShown() {
-                                        Log.i("appodeal", "shown");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialClicked() {
-                                        Log.i("appodeal", "clicked");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialClosed() {
-                                        Log.i("appodeal", "closed");
-                                    }
-                                });
-                            }else{
-                                alertDialog.dismiss();
-                                finishWorkout();
-                            }
+                            //if(dayDouble % (double) 3 == 0.01 && !isTutorialFirstTime){
+                            //    alertDialog.dismiss();
+                            //    finishWorkoutFromAd();
+//
+                            //    Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                            //    Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                            //        @Override
+                            //        public void onInterstitialLoaded(boolean b) {
+                            //            Log.i("appodeal", "loaded");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialFailedToLoad() {
+                            //            Log.i("appodeal", "failed");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialShown() {
+                            //            Log.i("appodeal", "shown");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialClicked() {
+                            //            Log.i("appodeal", "clicked");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialClosed() {
+                            //            Log.i("appodeal", "closed");
+                            //        }
+                            //    });
+                            //}else{
+                            //    alertDialog.dismiss();
+                            //    finishWorkout();
+                            //}
 
 
 
@@ -412,42 +428,44 @@ public class AssistorHolderFrag extends android.app.Fragment
                             double dayDouble = Double.parseDouble(day);
 
                             // possibly have rando number generate
+                            alertDialog.dismiss();
+                            finishWorkoutFromAd();
 
-                            if(dayDouble % (double) 3 == 0.01 && !isTutorialFirstTime){
-                                alertDialog.dismiss();
-                                finishWorkoutFromAd();
-
-                                Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
-                                Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
-                                    @Override
-                                    public void onInterstitialLoaded(boolean b) {
-                                        Log.i("appodeal", "loaded");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialFailedToLoad() {
-                                        Log.i("appodeal", "failed");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialShown() {
-                                        Log.i("appodeal", "shown");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialClicked() {
-                                        Log.i("appodeal", "clicked");
-                                    }
-
-                                    @Override
-                                    public void onInterstitialClosed() {
-                                        Log.i("appodeal", "closed");
-                                    }
-                                });
-                            }else{
-                                alertDialog.dismiss();
-                                finishWorkout();
-                            }
+                            //if(dayDouble % (double) 3 == 0.01 && !isTutorialFirstTime){
+                            //    alertDialog.dismiss();
+                            //    finishWorkoutFromAd();
+//
+                            //    Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                            //    Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                            //        @Override
+                            //        public void onInterstitialLoaded(boolean b) {
+                            //            Log.i("appodeal", "loaded");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialFailedToLoad() {
+                            //            Log.i("appodeal", "failed");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialShown() {
+                            //            Log.i("appodeal", "shown");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialClicked() {
+                            //            Log.i("appodeal", "clicked");
+                            //        }
+//
+                            //        @Override
+                            //        public void onInterstitialClosed() {
+                            //            Log.i("appodeal", "closed");
+                            //        }
+                            //    });
+                            //}else{
+                            //    alertDialog.dismiss();
+                            //    finishWorkout();
+                            //}
 
                         }
                     });
@@ -678,12 +696,6 @@ public class AssistorHolderFrag extends android.app.Fragment
          * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
          * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
          */
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        isInForeground = false;
     }
 
     final Handler handler = new Handler();
@@ -1021,21 +1033,32 @@ public class AssistorHolderFrag extends android.app.Fragment
         super.onStop();
     }
 
+    @Override
+    public void onDestroy(){
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
+        isInForeground = false;
+        super.onDestroy();
+    }
+
     private void checkIfUserIsImperial(){
         DatabaseReference userImperialRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
                 .child("isImperial");
-        userImperialRef.addValueEventListener(new ValueEventListener() {
+        userImperialRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 isUserImperial = dataSnapshot.getValue(Boolean.class);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
+
+
 
     private void initializeViews(){
         /**
@@ -1050,35 +1073,38 @@ public class AssistorHolderFrag extends android.app.Fragment
         runningAssistorListener = runningAssistorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Log.i("assistorInfo", "runningAssistor triggered/exists");
-                    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-                    LocalDate localDate = LocalDate.now();
-                    String dateTimeString = fmt.print(localDate);
-                    workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
-                    if(dateTimeString.equals(workoutProgressModelClass.getDate())){
-                        if(!workoutProgressModelClass.isCompletedBool()){
-                            Log.i("assistorInfo", "runningAssistor confirmed");
-                            cleanUpState();
-                            isTemplateImperial = workoutProgressModelClass.isIsTemplateImperial();
-                            isFromRestDay = workoutProgressModelClass.isIsFromRestDay();
-                            if(isFromRestDay){
-                                cancelRevisionHolder.setVisibility(View.VISIBLE);
+                if(isListening){
+                    if(dataSnapshot.exists()){
+                        Log.i("assistorInfo", "runningAssistor triggered/exists");
+                        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                        LocalDate localDate = LocalDate.now();
+                        String dateTimeString = fmt.print(localDate);
+                        workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                        if(dateTimeString.equals(workoutProgressModelClass.getDate())){
+                            if(!workoutProgressModelClass.isCompletedBool()){
+                                Log.i("assistorInfo", "runningAssistor confirmed");
+                                cleanUpState();
+                                isTemplateImperial = workoutProgressModelClass.isIsTemplateImperial();
+                                isFromRestDay = workoutProgressModelClass.isIsFromRestDay();
+                                if(isFromRestDay){
+                                    cancelRevisionHolder.setVisibility(View.VISIBLE);
+                                }
+                                savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
+                                        workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
+                            }else{
+                                noProgressInflateViews();
                             }
-                            savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
-                                    workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                         }else{
                             noProgressInflateViews();
                         }
                     }else{
-                        noProgressInflateViews();
-                    }
-                }else{
-                    if(exNameFragList.isEmpty()){
-                        cleanUpState();
-                        noProgressInflateViews();
+                        if(exNameFragList.isEmpty()){
+                            cleanUpState();
+                            noProgressInflateViews();
+                        }
                     }
                 }
+
             }
 
             @Override
@@ -1167,6 +1193,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
         assistorSavedFrag.isFromRestDay = isFromRestDay;
+        assistorSavedFrag.isLastDay = isLastDay;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
@@ -1220,6 +1247,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(runningAssistorRef != null){
             runningAssistorRef.removeEventListener(runningAssistorListener);
         }
+        isListening = false;
         assistorSavedFrag.isFromAd = true;
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
         fragmentTransaction.commit();
@@ -1341,6 +1369,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 (mTemplateClass.getExtraInfo().get("beginDate"));
         if(smolov.getIsOneRepMaxDay()){
             maxDayView.setVisibility(View.VISIBLE);
+            endView.setVisibility(View.VISIBLE);
+            isLastDay = true;
         }
 
         smolovWeekDayString = smolov.getWeekDayString();

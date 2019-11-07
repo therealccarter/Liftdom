@@ -49,6 +49,7 @@ public class PremadeTemplatesFrag extends Fragment {
     @BindView(R.id.titleView) TextView titleView;
     //@BindView(R.id.W531fBButton) Button W531FBButton;
     @BindView(R.id.holder2) LinearLayout holder2;
+    @BindView(R.id.holder1) LinearLayout holder1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,9 +102,12 @@ public class PremadeTemplatesFrag extends Fragment {
         smolovFrag.workoutType = "Smolov";
         PremadeProgramHolderFrag W531fBFrag = new PremadeProgramHolderFrag();
         W531fBFrag.workoutType = "W531fB";
+        PremadeProgramHolderFrag PPLReddit = new PremadeProgramHolderFrag();
+        PPLReddit.workoutType = "PPLReddit";
 
         fragmentTransaction.add(R.id.holder2, smolovFrag);
         fragmentTransaction.add(R.id.holder2, W531fBFrag);
+        fragmentTransaction.add(R.id.holder1, PPLReddit);
 
         fragmentTransaction.commit();
     }

@@ -10,29 +10,60 @@ WA: confirmation for deleting exercise instead of "snackbar with "redo" action l
 WA: mark all (exercise) working for non-SS workouts.
 WA: mark all (exercise) (need to check if it works with SS, also check out that delay method)
 Reframe template page to put more emphasis on pre-made programs
-
+Reps/Weight edit texts now empty on focus if 0
+Added end day boolean which shows a TextView and deletes the active template ref
+if you don't have an active template, make active template default to checked.
+Fixed bug causing assistorHolderFrag listener to continue listening.
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
+Be able to edit the maxes of a premade
+future constructor for premades
+freestyle option for WA with no template (maybe we already have this for rest day?)
+Hide button for exercises to reduce clutter in WA
+need to be able to set maxes
+Auto populate maxes for w531fb
+Add P/P/L Reddit
+Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
+Talk to Firebase about the privacy rules
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
+Need to have some kind of end condition for premade programs.
+Come up with a plan for missing weight in a workout.
+delete liftdom flair
+Future workouts need to be visible in the calendar somehow.
+When you post text via send button (chat, comment, etc) push the keyboard down automatically
+if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
+you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
+decimal support for these percentages.
+rear delt flye add to exercises
+saved programs list of sets/exercises is tiny and fucked.
 =====================================================
 
 ============ ON DECK FOR v1.39+: ===============================================
+for offline, we could even save the current template to disk anytime you save a template, so it can
+    - be inflated offline. and then save the WA to disk anytime you would update fb. have a warning
+    text box flashing at them to hit the finish button when they are in service/wifi range.
+save page/state of app for kill in background
+make WA the default opener, make feed
+hamburger needs back functionality
+when a workout saves, save the name and show that when looking back at past workouts.
+    - workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
+cheat prevention, have a cap for xp gain. maybe report system if numbers are too high
+not logged in can be random node, just rewrite node to become user.
 next workout info on rest day/workout finished frag
 true chat functionality/workout reminders (check that Firebase support email){
     easy idea for seen/unseen chats. When a user sends a message, for everyone
     in the chat, their chat group gains the "unseen" tag. Any time a user is in
     the frag/firebase recycler gets updated, unseen tag is removed.
 }
-For premades, you should show a full calendar of the shit.
+For premades, you should show a full calendar of the shit. maybe under the page you can just view it
 supersetting in WA
 rest timer
+search for users? bring back discover page
 user "flair"
-hamburger needs back functionality
 focus dismiss after keyboard dismiss
-workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
 Fix up the Exercise History Chart page. (simply show exercises' full stuff (like 3x5@95lbs))
 add title callbacks for public programs/pre-made programs
 show workout count in profile
@@ -53,7 +84,7 @@ Add these workout programs{
     StrongLifts 5x5
     Starting Strength
     GreySkull LP
-    Push Pull Legs
+    Push Pull Legs (Reddit)
     Lvysaurs 4-4-8
     Practical programming
     Madcow 5x5 Training Program

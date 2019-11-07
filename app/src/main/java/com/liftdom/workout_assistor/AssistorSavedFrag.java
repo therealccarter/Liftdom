@@ -81,8 +81,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
     String redoRefKey;
     boolean isRevisedWorkout;
     boolean isFromRestDay;
+    boolean isLastDay;
 
     boolean isFirstTimeFirstTime;
+
+    ValueEventListener runningAssistorListener;
 
     @BindView(R.id.goBackHome) Button goHomeButton;
     @BindView(R.id.finishedTextView) TextView finishedTextView;
@@ -353,6 +356,22 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     .toString());
             final DatabaseReference completedExercisesRef = mRootRef.child("completedExercises").child(uid);
             final DatabaseReference userRef = mRootRef.child("user").child(uid);
+            DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
+
+            if(isLastDay){
+                activeTemplateRef.setValue(null);
+            }
+
+            //DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+//
+            //String refKey;
+            //if(redoRefKey != null){
+            //    refKey = redoRefKey;
+            //}else{
+            //    refKey = myFeedRef.push().getKey();
+            //}
+
+            //final String REFKEY = refKey;
 
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -376,7 +395,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                     // posting to main feed
                     DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
-                    //DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
+                    DatabaseReference selfFeedRef = mRootRef.child("selfFeed").child(uid);
 
                     String refKey;
                     if(redoRefKey != null){
@@ -438,16 +457,49 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
                                         ("runningAssistor").child(uid).child("assistorModel");
 
-                                Map runningMa = new HashMap<>();
+                                runningRef.addListenerForSingleValueEvent(new
+                                ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        WorkoutProgressModelClass workoutProgressModelClass =
+                                                dataSnapshot.getValue(WorkoutProgressModelClass
+                                                        .class);
+                                        workoutProgressModelClass.setRefKey(REFKEY);
+                                        workoutProgressModelClass.setIsRevise(false);
+                                        workoutProgressModelClass.setCompletedBool(true);
+                                        workoutProgressModelClass.setExInfoHashMap(completedMap);
+//
+                                        runningRef.setValue(workoutProgressModelClass);
+                                    }
+                                    //
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError
+                                                                    databaseError) {
+//
+                                    }
+                                });
 
-                                runningMa.put("/refKey", REFKEY);
-                                runningMa.put("/isRevise", false);
-                                runningMa.put("/completedBool", true);
+                                //Handler handler = new Handler();
+                                //handler.postDelayed(new Runnable() {
+                                //    @Override
+                                //    public void run() {
+                                //
+                                //    }
+                                //}, 15000);
 
-                                runningRef.updateChildren(runningMa);
+
+
+                                //Map runningMa = new HashMap<>();
+//
+                                //runningMa.put("/refKey", REFKEY);
+                                //runningMa.put("/isRevise", false);
+                                //runningMa.put("/completedBool", true);
+//
+                                //runningRef.updateChildren(runningMa);
                             }
                         });
                     //}
+
                 }
 
                 @Override
@@ -455,6 +507,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 }
             });
+
+
 
             completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -482,6 +536,56 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             templateRef.setValue(templateClass);
 
+            //DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+            //        ("runningAssistor").child(uid).child("assistorModel");
+            //runningRef.child("refKey").setValue(REFKEY).addOnCompleteListener(new
+            // OnCompleteListener<Void>() {
+            //    @Override
+            //    public void onComplete(@NonNull Task<Void> task) {
+            //        runningRef.child("isRevise").setValue(false).addOnCompleteListener(new
+            //        OnCompleteListener<Void>() {
+            //            @Override
+            //            public void onComplete(@NonNull Task<Void> task) {
+            //                runningRef.child("completedBool").setValue(true)
+            //                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            //                    @Override
+            //                    public void onComplete(@NonNull Task<Void> task) {
+            //                        runningRef.child("exInfoHashMap").setValue(completedMap)
+            //                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            //                            @Override
+            //                            public void onComplete(@NonNull Task<Void> task) {
+            //                                runningRef.child("privateJournal").setValue("you
+            //                                are" +
+            //                                        " " +
+            //                                        "a shitter you fucking fuck"); //ok so this
+            //                                // is being set which means it's not here.
+            //                            }
+            //                        });
+            //                    }
+            //                });
+            //            }
+            //        });
+            //    }
+            //});
+
+            //runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //        WorkoutProgressModelClass workoutProgressModelClass =
+            //                dataSnapshot.getValue(WorkoutProgressModelClass.class);
+            //        workoutProgressModelClass.setRefKey(REFKEY);
+            //        workoutProgressModelClass.setIsRevise(false);
+            //        workoutProgressModelClass.setCompletedBool(true);
+            //        workoutProgressModelClass.setExInfoHashMap(completedMap);
+//
+            //        runningRef.setValue(workoutProgressModelClass);
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+            //    }
+            //});
         }
 
         return view;
@@ -863,13 +967,14 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             public void run() {
                                 fadeInViews();
                             }
-                        }, 5000);
+                        }, 1000);
                     }else{
                         fadeInViews();
                     }
                 }
             });
         }
+        isRevisedWorkout = false;
     }
 
     private void fadeInViews(){

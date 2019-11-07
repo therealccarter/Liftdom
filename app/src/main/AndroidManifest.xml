@@ -20,8 +20,11 @@
             android:largeHeap="true"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.liftdom.workout_assistor.ExDeleteConfirmation"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+        <activity android:name="com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity"
+                android:theme="@style/Theme.Intro"></activity>
+        <activity
+                android:name="com.liftdom.workout_assistor.ExDeleteConfirmation"
+                android:theme="@style/AppCompatDialogNoTitleBar" />
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -39,37 +42,37 @@
         <activity
                 android:name=".MainActivity"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan"></activity>
+                android:windowSoftInputMode="adjustPan" />
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:theme="@style/Base.Theme.AppCompat" />
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
                 android:label=""
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.workout_assistor.SaveAssistorDialog"
                 android:noHistory="true"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.TemplateSavedActivity"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.user_profile.your_profile.CurrentUserProfile"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.user_profile.your_profile.ProfileInfoActivity"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.template_editor.ExtraOptionsDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_housing.RenameTemplateDialog"
                 android:noHistory="true"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
@@ -81,88 +84,88 @@
         -->
         <activity
                 android:name="com.liftdom.misc_activities.SettingsListActivity"
-                android:label=""></activity>
+                android:label="" />
         <activity
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.user_profile.calendar_stuff.SelectedFutureDateDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.charts_stats_tools.ChartsStatsToolsActivity"
                 android:label=""
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity"
                 android:label=""
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.knowledge_center.KnowledgeCenterHolderActivity"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.knowledge_center.exercise_library.ExerciseLibraryActivity"
-                android:label=""></activity>
+                android:label="" />
         <activity
                 android:name="com.liftdom.knowledge_center.exercise_library.ExerciseDetailActivity"
-                android:theme="@style/Theme.AppCompat.Dialog.NoBar"></activity>
+                android:theme="@style/Theme.AppCompat.Dialog.NoBar" />
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameActivity"
                 android:label=""
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.knowledge_center.hall_of_fame.HallOfFameDetailActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat.Dialog.NoBar"></activity>
+                android:theme="@style/Theme.AppCompat.Dialog.NoBar" />
         <activity
                 android:name="com.liftdom.misc_activities.PremiumFeaturesActivity"
                 android:label=""
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.workout_programs.PPL.PPLHolderActivity"
-                android:noHistory="true"></activity>
+                android:noHistory="true" />
         <activity
                 android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
-                android:theme="@style/Theme.Intro"></activity>
+                android:theme="@style/Theme.Intro" />
         <activity
                 android:name="com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity"
-                android:theme="@style/Theme.Intro"></activity>
+                android:theme="@style/Theme.Intro" />
         <activity
                 android:name=".SignInActivity"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".chat.ChatGroup.NewChatGroupDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.AlgorithmOrSuperSetDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.workout_assistor.ExInfoOrSelectorDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".intro.FirstTimeSetupActivity"
-                android:theme="@style/Theme.Intro"></activity>
+                android:theme="@style/Theme.Intro" />
         <activity
                 android:name="com.liftdom.charts_stats_tools.exercise_selector.CustomExCreatorDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".WorkoutPostSingleActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
-        <activity android:name="com.liftdom.misc_activities.BugReportingActivity"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
+        <activity android:name="com.liftdom.misc_activities.BugReportingActivity" />
         <activity
                 android:name="com.liftdom.misc_activities.followers_following.FollowersFollowingDialogActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".ReleaseNotesActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
 
         <service android:name="com.liftdom.workout_assistor.AssistorServiceClass" />
 
         <activity
                 android:name="com.liftdom.template_editor.PercentageOptionsDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity> <!-- BEGIN APPODEAL STUFF =============================================================================== -->
+                android:theme="@style/AppCompatDialogNoTitleBar" /> <!-- BEGIN APPODEAL STUFF =============================================================================== -->
         <activity
                 android:name="com.appodeal.ads.InterstitialActivity"
                 android:configChanges="orientation|screenSize"
@@ -535,25 +538,25 @@ suppress AndroidDomInspection
                 android:exported="true" /> <!-- END APPODEAL STUFF -->
         <activity
                 android:name=".utils.DirectMessageDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".feedback.FeedbackActivity"
-                android:label=""></activity>
+                android:label="" />
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.UserProfileFullActivity"
-                android:label=""></activity>
+                android:label="" />
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.ProfileActionsDialogActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".notifications_bell.NotificationsActivity"
-                android:label=""></activity>
+                android:label="" />
         <activity
                 android:name="com.liftdom.user_profile.single_user_profile.UserProfileDialogActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name=".ConsentFormDialogActivity"
-                android:theme="@style/AppCompatDialogNoTitleBar"></activity>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
     </application>
 
 </manifest>

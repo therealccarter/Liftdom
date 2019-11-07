@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_housing.NewTemplateMenuFrag;
 import com.liftdom.template_housing.TemplateMenuFrag;
 
 /**
@@ -50,10 +51,16 @@ public class NoActiveTemplateFrag extends Fragment {
         fromScratch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                String isEdit = "no";
-                Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
-                intent.putExtra("isEdit", isEdit );
-                startActivity(intent);
+                //String isEdit = "no";
+                //Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
+                //intent.putExtra("isEdit", isEdit );
+                //startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new NewTemplateMenuFrag(), "myTemplatesTag");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

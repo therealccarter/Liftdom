@@ -95,6 +95,11 @@ public class WorkoutAssistorFrag extends Fragment{
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.exInfoHolder) LinearLayout exInfoHolderLL;
 
+    public void killAssistor(){
+
+    }
+
+    private ValueEventListener runningAssistorListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -538,6 +543,8 @@ public class WorkoutAssistorFrag extends Fragment{
             inflateW531fB(templateModelClass);
         }
     }
+
+    //TODO consolidate these into one method with ifs for each premade
 
     private void inflateW531fB(TemplateModelClass templateModelClass){
         Wendler_531_For_Beginners W531fBClass = new Wendler_531_For_Beginners(templateModelClass.getExtraInfo());

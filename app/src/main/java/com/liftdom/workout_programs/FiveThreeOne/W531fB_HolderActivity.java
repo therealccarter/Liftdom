@@ -55,7 +55,7 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
                 modelClass.setDateUpdated(dateTimeString);
                 modelClass.setIsImperial(W531fBSingleton.getInstance().isImperial);
                 modelClass.setDescription("Wendler\'s 5/3/1 For Beginners is an intermediate strength " +
-                        "program that can provide amazing and consistent strength gains when done correctly.");
+                        "program that can provide consistent strength gains when done correctly.");
 
                 DatabaseReference newProgramRef = FirebaseDatabase.getInstance().getReference().child
                         ("templates").child(W531fBSingleton.getInstance().uid).child(programName);

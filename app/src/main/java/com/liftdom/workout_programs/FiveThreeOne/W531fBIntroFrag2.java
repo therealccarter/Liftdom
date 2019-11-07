@@ -72,6 +72,8 @@ public class W531fBIntroFrag2 extends SlideFragment {
         /**
          * I'd feel best about this program if it is in normal formatting.
          * So the user can edit to their heart's content.
+         * Orrr for each premade we can have a bespoke editor that allows modification of
+         * exercises. Won't be viable for every program though.
          */
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);

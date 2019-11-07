@@ -127,7 +127,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         widget.setSelectedDate(currentDate.toDate());
 
         DateTime minDate = new DateTime("2017-01-01");
-        DateTime maxDate = new DateTime("2018-12-31");
+        DateTime maxDate = new DateTime("2020-12-31");
 
         widget.state().edit()
                 .setMinimumDate(minDate.toDate())
