@@ -18,6 +18,12 @@ Fixed bug causing assistorHolderFrag listener to continue listening.
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.38) ===================================
+Go to next set on check for notification
+Switching apps back and forth fucks up the template editor.
+notifications won't go to a B.W. exercise or 0lbs exercise.
+update WA when closing keyboard (to handle changing s/r/w info and saving it)
+percentages need decimals.
+shouldn't lose place in notification when WA detects changes.
 Be able to edit the maxes of a premade
 future constructor for premades
 freestyle option for WA with no template (maybe we already have this for rest day?)
@@ -42,6 +48,7 @@ saved programs list of sets/exercises is tiny and fucked.
 =====================================================
 
 ============ ON DECK FOR v1.39+: ===============================================
+expand notification to see full ex name and possibly see set information (ie, 1/3)
 for offline, we could even save the current template to disk anytime you save a template, so it can
     - be inflated offline. and then save the WA to disk anytime you would update fb. have a warning
     text box flashing at them to hit the finish button when they are in service/wifi range.

@@ -492,12 +492,12 @@
     </string>
 
     <string name="PPLRedditWarning">
-        Some important notes: \n The first time you do each exercise, the weights will be 0. You
+        Some important notes: \n\n The first time you do each exercise, the weights will be 0. You
         must enter in the initial weights that you can do, and the program will then use those
         weights to linearly progress the weight in subsequent workouts. Also, the reps for
         accessory exercises will start at 8. If you can do one more with good form for all sets of that
         exercise that day, enter that in (so change the 8 to a 9). Once you can do 12 reps, the weight will increase and the reps will go back to 8.
-        \n This is to stay in line with the creator of this program\'s recommendation for choosing
+        \n\n This is to stay in line with the creator of this program\'s recommendation for choosing
         your starting weights. Which is to start each exercise with an empty bar/0 weight,
         do a set of 5, add weight, do another set of 5, etc, until the bar speed slows down. Then
         subtract 5 pounds and that is your starting weight (the weight you should enter in.) This

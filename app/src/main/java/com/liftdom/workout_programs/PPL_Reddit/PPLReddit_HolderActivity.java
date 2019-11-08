@@ -2,13 +2,11 @@ package com.liftdom.workout_programs.PPL_Reddit;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
-import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import org.joda.time.DateTime;
@@ -27,6 +25,8 @@ public class PPLReddit_HolderActivity extends MaterialIntroActivity {
         addSlide(new PPLRedditIntroFrag2());
 
         addSlide(new PPLRedditIntroFrag3());
+
+        addSlide(new PPLRedditIntroFrag4());
 
     }
 

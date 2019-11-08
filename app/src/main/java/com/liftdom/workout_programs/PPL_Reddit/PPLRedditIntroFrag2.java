@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -136,6 +137,116 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         legPressRB.setChecked(true);
         legCurlsRB.setChecked(true);
         barbellCalfRaisesRB.setChecked(true);
+
+        skullcrushersRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    skullcrushersRB2.setVisibility(View.GONE);
+                }else{
+                    skullcrushersRB2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        skullcrushersRB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    skullcrushersRB1.setVisibility(View.GONE);
+                }else{
+                    skullcrushersRB1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        jmPressRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    jmPressRB2.setVisibility(View.GONE);
+                }else{
+                    jmPressRB2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        jmPressRB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    jmPressRB1.setVisibility(View.GONE);
+                }else{
+                    jmPressRB1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        dbTricepsExtensionsRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    dbTricepsExtensionsRB2.setVisibility(View.GONE);
+                }else{
+                    dbTricepsExtensionsRB2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        dbTricepsExtensionsRB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    dbTricepsExtensionsRB1.setVisibility(View.GONE);
+                }else{
+                    dbTricepsExtensionsRB1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        barbellCurlsRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    barbellCurlsRB2.setVisibility(View.GONE);
+                }else{
+                    barbellCurlsRB2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        barbellCurlsRB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    barbellCurlsRB1.setVisibility(View.GONE);
+                }else{
+                    barbellCurlsRB1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        machineCurlsRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    machineCurlsRB2.setVisibility(View.GONE);
+                }else{
+                    machineCurlsRB2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        machineCurlsRB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    machineCurlsRB1.setVisibility(View.GONE);
+                }else{
+                    machineCurlsRB1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
         return view;
