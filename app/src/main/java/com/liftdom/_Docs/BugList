@@ -29,7 +29,7 @@ future constructor for premades
 freestyle option for WA with no template (maybe we already have this for rest day?)
 Hide button for exercises to reduce clutter in WA
 need to be able to set maxes
-Auto populate maxes for w531fb
+Auto populate maxes for w531fb (tm's, so 90% of maxes)
 Add P/P/L Reddit
 Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Talk to Firebase about the privacy rules
@@ -45,6 +45,7 @@ you did the full set percentage option for the whole exercise. also maybe make 1
 decimal support for these percentages.
 rear delt flye add to exercises
 saved programs list of sets/exercises is tiny and fucked.
+we need to check w531fb and smolov, that shit is fucked.
 =====================================================
 
 ============ ON DECK FOR v1.39+: ===============================================
