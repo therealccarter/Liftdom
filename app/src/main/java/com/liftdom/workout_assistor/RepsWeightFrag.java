@@ -55,6 +55,24 @@ public class RepsWeightFrag extends Fragment {
 
         mSaved = savedInstanceState;
 
+        repsEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(repsEditText.getText().toString().equals("0")){
+                    repsEditText.setText("");
+                }
+            }
+        });
+
+        weightEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(weightEditText.getText().toString().equals("0")){
+                    weightEditText.setText("");
+                }
+            }
+        });
+
         repsEditText.setText(reps);
         if(weight.equals("B.W.")){
             weightEditText.setText(weight);

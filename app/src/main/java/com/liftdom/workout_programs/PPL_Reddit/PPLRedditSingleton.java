@@ -22,6 +22,7 @@ public class PPLRedditSingleton {
     String inclineDB;
     String tricepsPushdowns;
     String overheadTricepsExtensions;
+    String pulldowns;
     String seatedCableRows;
     String facePulls;
     String dumbbellCurls;
@@ -74,6 +75,7 @@ public class PPLRedditSingleton {
         extraInfo.put("inclineDB", inclineDB);
         extraInfo.put("tricepsPushdowns", tricepsPushdowns);
         extraInfo.put("overheadTricepsExtensions", overheadTricepsExtensions);
+        extraInfo.put("pulldowns", pulldowns);
         extraInfo.put("seatedCableRows", seatedCableRows);
         extraInfo.put("facePulls", facePulls);
         extraInfo.put("dumbbellCurls", dumbbellCurls);

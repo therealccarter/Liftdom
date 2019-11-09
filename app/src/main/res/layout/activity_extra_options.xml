@@ -47,13 +47,24 @@
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/amrap"
+                        android:text="@string/plusReps"
+                        android:textColor="@color/black"
+                        android:layout_margin="5dp"
+                        android:buttonTint="@color/black"
+
+                />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:id="@+id/toFailureRadioButton"
                         android:text="@string/toFailureOptionText"
                         android:textColor="@color/black"
                         android:layout_margin="5dp"
                         android:buttonTint="@color/black"
 
-                />
+                        />
 
             </RadioGroup>
 

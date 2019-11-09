@@ -21,6 +21,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
     @BindView(R.id.percentageRadioButton) RadioButton percentageRadioButton;
     @BindView(R.id.numericalRepsRadioButton) RadioButton numericalRepsRadioButton;
     @BindView(R.id.toFailureRadioButton) RadioButton toFailureRadioButton;
+    @BindView(R.id.amrap) RadioButton amrapRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
         String repsText = getIntent().getExtras().getString("repsText");
         String weightText = getIntent().getExtras().getString("weightText");
         String isPercentageString = getIntent().getExtras().getString("isPercentageString");
+        String isAmrapString = getIntent().getExtras().getString("isAmrapString");
 
         if(isPercentageString.equals("true")){
             percentageRadioButton.setChecked(true);
@@ -51,11 +53,16 @@ public class ExtraOptionsDialog extends AppCompatActivity {
             }
         }
 
-        if(!isNumber(repsText)){ // if reps are text
-            toFailureRadioButton.setChecked(true);
+        if(isAmrapString.equals("true")){
+            amrapRadioButton.setChecked(true);
         }else{
-            numericalRepsRadioButton.setChecked(true);
+            if(!isNumber(repsText)){ // if reps are text
+                toFailureRadioButton.setChecked(true);
+            }else{
+                numericalRepsRadioButton.setChecked(true);
+            }
         }
+
 
         /**
          * But how can we ensure that using someone else's percentage-based template works if

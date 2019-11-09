@@ -327,12 +327,17 @@
         </b>
         to failure (as many reps as possible)
     </string>
+    <string name="plusReps">Plus Reps: adds a \"+\" to rep numbers, which denotes doing at
+        least that number of reps, but going above that if you can. A more precise
+        alternative to the To Failure setting. Aka AMRAP.</string>
     <string name="defaultRepsOptionText">Numerical:
         <b>
             <i>Reps</i>
         </b>
         in number form (default)
     </string>
+
+    <string name="plus">+</string>
 
     <!-- CUSTOM NAV DRAWER ITEM SHIT -->
 
@@ -456,6 +461,9 @@
     <string name="jmPress">JM Press</string>
     <string name="dbTricepsExtensions">Dumbbell Triceps Extensions</string>
     <string name="overheadTricepsExtensions">Overhead Triceps Extensions</string>
+    <string name="pulldowns">Lat Pulldowns</string>
+    <string name="pullups">Pullups</string>
+    <string name="chinups">Chinups</string>
     <string name="seatedCableRows">Seated Cable Rows</string>
     <string name="dbRows">Dumbbell Rows</string>
     <string name="tBarRows">T-Bar Rows</string>

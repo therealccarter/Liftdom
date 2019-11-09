@@ -54,6 +54,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     @BindView(R.id.percentageLL) LinearLayout percentageLL;
     @BindView(R.id.percentageEditText) EditText percentageEditText;
     @BindView(R.id.percentageWeightButton) Button percentageWeightButton;
+    @BindView(R.id.amrap) TextView amrap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

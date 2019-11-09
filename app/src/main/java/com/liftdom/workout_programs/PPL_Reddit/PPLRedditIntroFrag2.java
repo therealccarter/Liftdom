@@ -51,6 +51,10 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
     @BindView(R.id.jmPressRB2) RadioButton jmPressRB2;
     @BindView(R.id.dbTricepsExtensionsRB2) RadioButton dbTricepsExtensionsRB2;
 
+    @BindView(R.id.pulldownsRB) RadioButton pulldownsRB;
+    @BindView(R.id.pullupsRB) RadioButton pullupsRB;
+    @BindView(R.id.chinupsRB) RadioButton chinupsRB;
+
     @BindView(R.id.seatedCableRowsRB) RadioButton seatedCableRowsRB;
     @BindView(R.id.dbRowsRB) RadioButton dbRowsRB;
     @BindView(R.id.tBarRowsRB) RadioButton tBarRowsRB;
@@ -130,6 +134,7 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         inclineDbRB.setChecked(true);
         tricepsPushdownsRB.setChecked(true);
         overheadTricepsExtensionsRB.setChecked(true);
+        pulldownsRB.setChecked(true);
         seatedCableRowsRB.setChecked(true);
         facePullsRB.setChecked(true);
         dumbbellCurlsRB.setChecked(true);
@@ -303,6 +308,17 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         }else if(dbTricepsExtensionsRB2.isChecked()){
             PPLRedditSingleton.getInstance().overheadTricepsExtensions =
                     dbTricepsExtensionsRB2.getText().toString();
+        }
+
+        if(pulldownsRB.isChecked()){
+            PPLRedditSingleton.getInstance().pulldowns =
+                    pulldownsRB.getText().toString();
+        }else if(pullupsRB.isChecked()){
+            PPLRedditSingleton.getInstance().pulldowns =
+                    pullupsRB.getText().toString();
+        }else if(chinupsRB.isChecked()){
+            PPLRedditSingleton.getInstance().pulldowns =
+                    chinupsRB.getText().toString();
         }
 
         if(seatedCableRowsRB.isChecked()){

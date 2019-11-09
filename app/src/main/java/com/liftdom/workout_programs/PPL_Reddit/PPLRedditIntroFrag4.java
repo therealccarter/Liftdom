@@ -28,7 +28,9 @@ import io.github.dreierf.materialintroscreen.SlideFragment;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,12 @@ public class PPLRedditIntroFrag4 extends SlideFragment {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String userName = "";
     boolean isImperial;
+    private HashMap<String, List<String>> mMapOne;
+    private HashMap<String, List<String>> mMapTwo;
+    private HashMap<String, List<String>> mMapThree;
+    private HashMap<String, List<String>> mMapFour;
+    private HashMap<String, List<String>> mMapFive;
+    private HashMap<String, List<String>> mMapSix;
 
 
     public PPLRedditIntroFrag4() {
@@ -100,6 +108,7 @@ public class PPLRedditIntroFrag4 extends SlideFragment {
             public void onClick(View view) {
                 loadingView.setVisibility(View.VISIBLE);
                 finishButton.setVisibility(View.GONE);
+                assembleMaps(PPLRedditSingleton.getInstance().pplpplrBool);
 
                 DatabaseReference defaultRef =
                         FirebaseDatabase.getInstance().getReference().child("defaultTemplates").child("FirstTimeProgram");
@@ -168,6 +177,48 @@ public class PPLRedditIntroFrag4 extends SlideFragment {
         return view;
     }
 
+    private void assembleMaps(boolean pplpplr){
+        ArrayList<String> monday = new ArrayList<>();
+        monday.add("Monday_");
+        mMapOne.put("0_key", monday);
+        ArrayList<String> dl = new ArrayList<>();
+
+
+
+        ArrayList<String> tuesday = new ArrayList<>();
+        tuesday.add("Tuesday_");
+        mMapTwo.put("0_key", tuesday);
+
+        ArrayList<String> wednesday = new ArrayList<>();
+        wednesday.add("Wednesday_");
+        mMapThree.put("0_key", wednesday);
+
+        if(pplpplr){
+            ArrayList<String> thursday = new ArrayList<>();
+            thursday.add("Thursday");
+            mMapFour.put("0_key", thursday);
+
+            ArrayList<String> friday = new ArrayList<>();
+            friday.add("Friday_");
+            mMapFive.put("0_key", friday);
+
+            ArrayList<String> saturday = new ArrayList<>();
+            saturday.add("Saturday_");
+            mMapSix.put("0_key", saturday);
+        }else{
+            ArrayList<String> friday = new ArrayList<>();
+            friday.add("Friday_");
+            mMapFour.put("0_key", friday);
+
+            ArrayList<String> saturday = new ArrayList<>();
+            saturday.add("Saturday_");
+            mMapFive.put("0_key", saturday);
+
+            ArrayList<String> sunday = new ArrayList<>();
+            sunday.add("Sunday_");
+            mMapSix.put("0_key", sunday);
+        }
+    }
 
     @Override
     public int backgroundColor() {
