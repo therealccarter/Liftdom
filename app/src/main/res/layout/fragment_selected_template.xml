@@ -1,14 +1,13 @@
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/myChosenTemplateMainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.liftdom.template_housing.SelectedTemplateFrag"
         android:orientation="vertical"
         android:background="@color/darkGrey"
-        android:paddingBottom="70dp"
-    >
+        android:paddingBottom="70dp">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,11 +43,13 @@
         </LinearLayout>
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:descendantFocusability="blocksDescendants"
                 android:background="@color/darkGrey"
         >
 
@@ -209,7 +210,7 @@
 
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:background="@color/lessDarkGrey"
                         android:layout_marginEnd="5dp"
@@ -218,7 +219,7 @@
                 >
                     <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/templateListedView"
                             android:background="@color/lessDarkGrey"
                             android:orientation="vertical"
@@ -231,6 +232,6 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

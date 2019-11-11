@@ -16,6 +16,9 @@ if you don't have an active template, make active template default to checked.
 Fixed bug causing assistorHolderFrag listener to continue listening.
 WA reps and weight auto clear on click if value is "0"
 delete liftdom flair
+fixed bug that caused weight to have a limit of 2 after editing set scheme settings
+fixed bug - selected templates list of sets/exercises is tiny and fucked.
+fixed bug - selected templates slow scroll up
 ----------------------
 ====================================================
 
@@ -46,7 +49,6 @@ if percentage, actionNext for weight edit text, remember max/format for each new
 you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
 decimal support for these percentages.
 rear delt flye add to exercises
-saved programs list of sets/exercises is tiny and fucked.
 we need to check w531fb and smolov, that shit is fucked.
 =====================================================
 

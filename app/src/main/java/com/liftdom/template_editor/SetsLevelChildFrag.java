@@ -89,17 +89,22 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 setsEditText.setText(setsWithoutSpaces);
 
                 // reps
-                String repsWithSpaces = setSchemesEachArray[1];
-                String repsWithout = repsWithSpaces.replaceAll("\\s+","");
-                if(repsWithout.equals("T.F.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    repsEditText.setFilters(filterArray);
-                    repsEditText.setText("T.F.");
-                    repsEditText.setEnabled(false);
+                if(isAmrap(setSchemeEdited)){
+                    setAmrap(setSchemeEdited);
                 }else{
-                    repsEditText.setText(repsWithout);
+                    String repsWithSpaces = setSchemesEachArray[1];
+                    String repsWithout = repsWithSpaces.replaceAll("\\s+","");
+                    if(repsWithout.equals("T.F.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        repsEditText.setFilters(filterArray);
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    }else{
+                        repsEditText.setText(repsWithout);
+                    }
                 }
+
 
                 // weight
                 if(isPercentage(setSchemeEdited)){
@@ -142,6 +147,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 }else{
                     intent.putExtra("isPercentageString", "false");
                 }
+                if(amrap.getVisibility() == View.VISIBLE){
+                    intent.putExtra("isAmrap", "true");
+                }else{
+                    intent.putExtra("isAmrap", "false");
+                }
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
                 intent.putExtra("repsText", repsText);
@@ -163,6 +173,33 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public void setAmrap(String setSchemeEdited){
+        String delims = "[x,@,_]";
+        String[] setSchemesEachArray = setSchemeEdited.split(delims);
+        String repsWithSpaces = setSchemesEachArray[1];
+        String repsWithout = repsWithSpaces.replaceAll("\\s+","");
+
+        repsEditText.setText(repsWithout);
+        amrap.setVisibility(View.VISIBLE);
+    }
+
+    public boolean isAmrap(String setScheme){
+        boolean amrap = false;
+
+        String delims1 = "[x,_]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        if(tokens1.length > 2){
+            char c = tokens1[2].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("a")){
+                amrap = true;
+            }
+        }
+
+        return amrap;
     }
 
     public String formatPercentageWeight(String unFormatted){
@@ -280,7 +317,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             percentageLL.setVisibility(View.GONE);
             weightLL.setVisibility(View.VISIBLE);
             InputFilter[] filterArray = new InputFilter[1];
-            filterArray[0] = new InputFilter.LengthFilter(2);
+            filterArray[0] = new InputFilter.LengthFilter(3);
             weightEditText.setFilters(filterArray);
             weightEditText.setText("");
             weightEditText.setEnabled(true);
@@ -323,6 +360,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         setRepsToFailure();
                     }else if(message.equals("defaultReps")){
                         setRepsToDefault();
+                    }else if(message.equals("amrap")){
+                        amrap.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -363,6 +402,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         }
         if(weightString.isEmpty()){
             weightString = "0";
+        }
+
+        if(amrap.getVisibility() == View.VISIBLE){
+            repsString = repsString.toString() + "_a";
         }
 
         setSchemeString = setsString + "x" + repsString + "@" + weightString;

@@ -34,7 +34,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
         String repsText = getIntent().getExtras().getString("repsText");
         String weightText = getIntent().getExtras().getString("weightText");
         String isPercentageString = getIntent().getExtras().getString("isPercentageString");
-        String isAmrapString = getIntent().getExtras().getString("isAmrapString");
+        String isAmrapString = getIntent().getExtras().getString("isAmrap");
 
         if(isPercentageString.equals("true")){
             percentageRadioButton.setChecked(true);
@@ -112,6 +112,9 @@ public class ExtraOptionsDialog extends AppCompatActivity {
 
             if(repsRadioGroup.getCheckedRadioButtonId() == numericalRepsRadioButton.getId()){
                 String message = "defaultReps";
+                intent.putExtra("MESSAGE2", message);
+            }else if(repsRadioGroup.getCheckedRadioButtonId() == amrapRadioButton.getId()){
+                String message = "amrap";
                 intent.putExtra("MESSAGE2", message);
             }else{
                 String message = "to failure";

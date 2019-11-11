@@ -75,6 +75,7 @@
             android:textSize="17sp"
             android:textColor="@color/black"
             android:layout_marginEnd="3dp"
+                android:visibility="gone"
             />
 
         <TextView
