@@ -28,7 +28,8 @@ import java.util.List;
  */
 public class ExNameSSWAFrag extends android.app.Fragment
             implements RepsWeightSSWAFrag.removeFragCallback,
-            RepsWeightSSWAFrag.updateStateCallback{
+            RepsWeightSSWAFrag.updateStateCallback,
+            RepsWeightSSWAFrag.updateWorkoutStateFastCallback{
 
 
     public ExNameSSWAFrag() {
@@ -55,10 +56,20 @@ public class ExNameSSWAFrag extends android.app.Fragment
         void updateWorkoutState();
     }
 
+    public interface updateWorkoutStateFastCallback{
+        void updateWorkoutStateFast();
+        //void updateWorkoutState();
+    }
+
     private updateStateCallback updateWorkoutState;
+    private updateWorkoutStateFastCallback updateWorkoutStateFast;
 
     public void updateWorkoutState(){
         updateWorkoutState.updateWorkoutState();
+    }
+
+    public void updateWorkoutStateFast(){
+        updateWorkoutStateFast.updateWorkoutStateFast();
     }
 
     @BindView(R.id.exerciseName) TextView exNameView;
@@ -99,6 +110,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
 
         removeFrag1 = (removeFragCallback1) getParentFragment();
         updateWorkoutState = (updateStateCallback) getParentFragment();
+        updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

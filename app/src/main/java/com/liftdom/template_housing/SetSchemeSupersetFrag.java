@@ -68,13 +68,43 @@ public class SetSchemeSupersetFrag extends Fragment {
         return view;
     }
 
+    public boolean isAmrap(String setScheme){
+        boolean amrap = false;
+
+        String delims1 = "[x,_,@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        try{
+            char c = tokens1[2].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("a")){
+                amrap = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+
+        return amrap;
+    }
+
+    public String processAmrap(String reps){
+        String delims = "[_]";
+        String[] tokens = reps.split(delims);
+
+        return tokens[0] + " + ";
+    }
+
     public String addSpacesToSetScheme(String unFormatted){
         String formatted;
 
         String delims = "[x,@]";
         String[] tokens = unFormatted.split(delims);
 
-        formatted = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+        if(isAmrap(unFormatted)){
+            formatted = tokens[0] + " x " + processAmrap(tokens[1]) + " @ " + tokens[2];
+        }else{
+            formatted = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+        }
 
         return formatted;
     }

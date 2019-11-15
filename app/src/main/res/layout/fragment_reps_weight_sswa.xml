@@ -52,6 +52,17 @@
             />
 
             <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/amrap"
+                    android:text="@string/plus"
+                    android:textSize="17sp"
+                    android:textColor="@color/offWhite"
+                    android:layout_marginEnd="3dp"
+                    android:visibility="gone"
+                    />
+
+            <TextView
                     android:id="@+id/at"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

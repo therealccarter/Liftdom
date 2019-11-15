@@ -36,7 +36,9 @@ public class ExNameWAFrag extends android.app.Fragment
         ExNameSSWAFrag.removeFragCallback1,
         RepsWeightWAFrag.updateStateCallback,
         ExNameSSWAFrag.updateStateCallback,
-        RepsWeightWAFrag.updateStateForResultCallback{
+        RepsWeightWAFrag.updateStateForResultCallback,
+        RepsWeightWAFrag.updateWorkoutStateFastCallback,
+        ExNameSSWAFrag.updateWorkoutStateFastCallback{
 
 
     public ExNameWAFrag() {
@@ -72,7 +74,13 @@ public class ExNameWAFrag extends android.app.Fragment
         //void updateWorkoutState();
     }
 
+    public interface updateWorkoutStateFastCallback{
+        void updateWorkoutState();
+        //void updateWorkoutState();
+    }
+
     private updateWorkoutStateCallback updateWorkoutState;
+    private updateWorkoutStateFastCallback updateWorkoutStateFast;
 
     public interface updateWorkoutStateForResultCallback{
         void updateWorkoutStateForResult(String tag1, String tag2);
@@ -97,6 +105,10 @@ public class ExNameWAFrag extends android.app.Fragment
         // ISSUE RIGHT NOW IS THAT IF I CHECK ONE OFF AFTER CHECKING ALL, THEY ALL CHECK OFF
         checkIfAllAreChecked();
         updateWorkoutState.updateWorkoutStateWithDelay();
+    }
+
+    public void updateWorkoutStateFast(){
+        updateWorkoutStateFast.updateWorkoutState();
     }
 
     public void updateWorkoutStateForResult(String tag2){
@@ -434,6 +446,7 @@ public class ExNameWAFrag extends android.app.Fragment
         firstTimeShowcaseCallback = (startFirstTimeShowcase) getParentFragment();
         updateWorkoutState = (updateWorkoutStateCallback) getParentFragment();
         updateWorkoutStateForResult = (updateWorkoutStateForResultCallback) getParentFragment();
+        updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -718,7 +731,7 @@ public class ExNameWAFrag extends android.app.Fragment
             if(data != null){
                 if(data.getStringExtra("MESSAGE") != null){
                     exerciseNameView.setText(data.getStringExtra("MESSAGE"));
-                    updateWorkoutState();
+                    updateWorkoutStateFast();
                 }
             }
         }else if(resultCode == 3){

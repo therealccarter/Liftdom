@@ -59,7 +59,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 implements ExNameWAFrag.removeFragCallback,
                 ExNameWAFrag.startFirstTimeShowcase,
                 ExNameWAFrag.updateWorkoutStateCallback,
-                ExNameWAFrag.updateWorkoutStateForResultCallback{
+                ExNameWAFrag.updateWorkoutStateForResultCallback,
+                ExNameWAFrag.updateWorkoutStateFastCallback{
 
 
     public AssistorHolderFrag() {

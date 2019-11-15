@@ -61,6 +61,7 @@ public class HousingSetSchemeFrag extends Fragment {
              pounds.setText(" kgs");
          }
 
+
         if(isPercentage(setSchemeString)){
             String delims = "[@]";
             String[] tokens = setSchemeString.split(delims);
@@ -76,13 +77,47 @@ public class HousingSetSchemeFrag extends Fragment {
         return view;
     }
 
+    //3x10_a@225
+
+    public boolean isAmrap(String setScheme){
+        boolean amrap = false;
+
+        String delims1 = "[x,_,@]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        try{
+            char c = tokens1[2].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("a")){
+                amrap = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+
+        return amrap;
+    }
+
+    public String processAmrap(String reps){
+        String delims = "[_]";
+        String[] tokens = reps.split(delims);
+
+        return tokens[0] + " + ";
+    }
+
     public String addSpacesToSetScheme(String unFormatted){
         String formatted;
 
         String delims = "[x,@]";
         String[] tokens = unFormatted.split(delims);
 
-        formatted = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+        // 5, 5_a, 225/15 at 225
+
+        if(isAmrap(unFormatted)){
+            formatted = tokens[0] + " x " + processAmrap(tokens[1]) + " @ " + tokens[2];
+        }else{
+            formatted = tokens[0] + " x " + tokens[1] + " @ " + tokens[2];
+        }
 
         return formatted;
     }

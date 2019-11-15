@@ -44,7 +44,13 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         void updateWorkoutState();
     }
 
+    public interface updateWorkoutStateFastCallback{
+        void updateWorkoutStateFast();
+        //void updateWorkoutState();
+    }
+
     private updateStateCallback updateWorkoutState;
+    private updateWorkoutStateFastCallback updateWorkoutStateFast;
 
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
@@ -57,7 +63,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
     @BindView(R.id.checkedImage) ImageView checkedImage;
     @BindView(R.id.unCheckedImage) ImageView unCheckedImage;
     @BindView(R.id.bottomView) View bottomView;
-
+    @BindView(R.id.amrap) TextView amrap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +75,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
         removeFrag = (removeFragCallback) getParentFragment();
         updateWorkoutState = (updateStateCallback) getParentFragment();
+        updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
 
         if(isUserImperial){
             unitView.setText("lbs");
@@ -83,65 +90,110 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 String delims = "[@,_]";
                 String[] tokens = repsWeightString.split(delims);
 
-                if(tokens[0].equals("T.F.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    repsEditText.setFilters(filterArray);
-                    repsEditText.setText("T.F.");
-                    repsEditText.setEnabled(false);
+                boolean amrapBool = false;
+
+                if(isAmrap(repsWeightString)){
+                    setAmrap(repsWeightString);
+                    amrapBool = true;
                 }else{
-                    repsEditText.setText(tokens[0]);
-                    repsEditText.setEnabled(true);
+                    if(tokens[0].equals("T.F.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        repsEditText.setFilters(filterArray);
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    }else{
+                        repsEditText.setText(tokens[0]);
+                        repsEditText.setEnabled(true);
+                    }
                 }
+
+
                 if(isPercentage(repsWeightString)){
-                    String converted = convertUnitsToUser(tokens[1]);
-                    String formatted = formatPercentageWeight(converted);
-                    weightEditText.setText(formatted);
-                    weightEditText.setEnabled(true);
+                    if(amrapBool){
+                        // weightEditText.setText(tokens[2]);
+                        String converted = convertUnitsToUser(tokens[2]);
+                        String formatted = formatPercentageWeight(converted);
+                        weightEditText.setText(formatted);
+                        weightEditText.setEnabled(true);
+                    }else{
+                        //weightEditText.setText(tokens[1]);
+                        String converted = convertUnitsToUser(tokens[1]);
+                        String formatted = formatPercentageWeight(converted);
+                        weightEditText.setText(formatted);
+                        weightEditText.setEnabled(true);
+                    }
                 }else {
                     if (tokens[1].equals("B.W.")) {
                         InputFilter[] filterArray = new InputFilter[1];
                         filterArray[0] = new InputFilter.LengthFilter(4);
                         weightEditText.setFilters(filterArray);
                         unitView.setVisibility(View.GONE);
-                        weightEditText.setText(tokens[1]);
+                        if(amrapBool){
+                            weightEditText.setText(tokens[2]);
+                        }else{
+                            weightEditText.setText(tokens[1]);
+                        }
                         weightEditText.setEnabled(false);
                     } else {
-                        weightEditText.setText(convertUnitsToUser(tokens[1]));
+                        if(amrapBool){
+                            weightEditText.setText(convertUnitsToUser(tokens[2]));
+                        }else{
+                            weightEditText.setText(convertUnitsToUser(tokens[1]));
+                        }
                         weightEditText.setEnabled(true);
                     }
                 }
 
-                if(tokens[2].equals("checked")){
-                     setCheckedView();
-                    //loadingView.setVisibility(View.INVISIBLE);
+                if(amrapBool){
+                    if(tokens[3].equals("checked")){
+                        setCheckedView();
+                        //loadingView.setVisibility(View.INVISIBLE);
+                    }else{
+                        setUnCheckedView();
+                        //loadingView.setVisibility(View.INVISIBLE);
+                    }
                 }else{
-                    setUnCheckedView();
-                    //loadingView.setVisibility(View.INVISIBLE);
+                    if(tokens[2].equals("checked")){
+                        setCheckedView();
+                        //loadingView.setVisibility(View.INVISIBLE);
+                    }else{
+                        setUnCheckedView();
+                        //loadingView.setVisibility(View.INVISIBLE);
+                    }
                 }
+
             }else{
 
                 setUnCheckedView();
 
                 String[] tokens = repsWeightString.split("@");
 
-                if(tokens[0].equals("T.F.")){
-                    InputFilter[] filterArray = new InputFilter[1];
-                    filterArray[0] = new InputFilter.LengthFilter(4);
-                    repsEditText.setFilters(filterArray);
-                    repsEditText.setText("T.F.");
-                    repsEditText.setEnabled(false);
+                boolean amrapBool = false;
+
+                if(isAmrap(repsWeightString)){
+                    setAmrap(repsWeightString);
+                    amrapBool = true;
                 }else{
-                    repsEditText.setText(tokens[0]);
-                    repsEditText.setEnabled(true);
+                    if(tokens[0].equals("T.F.")){
+                        InputFilter[] filterArray = new InputFilter[1];
+                        filterArray[0] = new InputFilter.LengthFilter(4);
+                        repsEditText.setFilters(filterArray);
+                        repsEditText.setText("T.F.");
+                        repsEditText.setEnabled(false);
+                    }else{
+                        repsEditText.setText(tokens[0]);
+                        repsEditText.setEnabled(true);
+                    }
                 }
+
 
                 if(isPercentage(repsWeightString)){
                     String converted = convertUnitsToUser(tokens[1]);
                     String formatted = formatPercentageWeight(converted);
                     weightEditText.setText(formatted);
                     weightEditText.setEnabled(true);
-                }else {
+                }else{
                     if (tokens[1].equals("B.W.")) {
                         InputFilter[] filterArray = new InputFilter[1];
                         filterArray[0] = new InputFilter.LengthFilter(4);
@@ -195,6 +247,11 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
                 String weightText = weightEditText.getText().toString();
                 String repsText = repsEditText.getText().toString();
+                if(amrap.getVisibility() == View.VISIBLE){
+                    intent.putExtra("isAmrap", "true");
+                }else{
+                    intent.putExtra("isAmrap", "false");
+                }
                 intent.putExtra("repsText", repsText);
                 intent.putExtra("weightText", weightText);
                 intent.putExtra("isPercentageString", "dontShow");
@@ -203,6 +260,33 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    public void setAmrap(String setSchemeEdited){
+        String delims = "[x,@,_]";
+        String[] setSchemesEachArray = setSchemeEdited.split(delims);
+        String repsWithSpaces = setSchemesEachArray[0];
+        String repsWithout = repsWithSpaces.replaceAll("\\s+","");
+
+        repsEditText.setText(repsWithout);
+        amrap.setVisibility(View.VISIBLE);
+    }
+
+    public boolean isAmrap(String setScheme){
+        boolean amrap = false;
+
+        String delims1 = "[x,_]";
+        String[] tokens1 = setScheme.split(delims1);
+
+        if(tokens1.length > 1){
+            char c = tokens1[1].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("a")){
+                amrap = true;
+            }
+        }
+
+        return amrap;
     }
 
     boolean isCheckedBool;
@@ -240,11 +324,13 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             weightEditText.setTextColor(Color.parseColor("#595959"));
             unitView.setTextColor(Color.parseColor("#595959"));
             atView.setTextColor(Color.parseColor("#595959"));
+            amrap.setTextColor(Color.parseColor("#595959"));
         }else{
             repsEditText.setTextColor(Color.parseColor("#ededed"));
             weightEditText.setTextColor(Color.parseColor("#ededed"));
             unitView.setTextColor(Color.parseColor("#ededed"));
             atView.setTextColor(Color.parseColor("#ededed"));
+            amrap.setTextColor(Color.parseColor("#ededed"));
         }
     }
 
@@ -359,6 +445,10 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             }
         }
 
+        if(amrap.getVisibility() == View.VISIBLE){
+            repsText = repsText.toString() + "_a";
+        }
+
         String info = repsText + "@" + weightText;
 
         try{
@@ -405,7 +495,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                         weightEditText.setText("B.W.");
                         unitView.setVisibility(View.GONE);
                         weightEditText.setEnabled(false);
-                        updateWorkoutState.updateWorkoutState();
+                        updateWorkoutStateFast.updateWorkoutStateFast();
                     }else if(message.equals("defaultWeight")){
                         if(!isNumber(weightEditText.getText().toString())){
                             InputFilter[] filterArray = new InputFilter[1];
@@ -416,7 +506,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                             weightEditText.setHint("W");
                             unitView.setVisibility(View.VISIBLE);
                             weightEditText.setEnabled(true);
-                            updateWorkoutState.updateWorkoutState();
+                            updateWorkoutStateFast.updateWorkoutStateFast();
                         }
                     }
                 }
@@ -428,8 +518,9 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                         repsEditText.setFilters(filterArray);
                         repsEditText.setText("T.F.");
                         repsEditText.setEnabled(false);
-                        updateWorkoutState.updateWorkoutState();
+                        updateWorkoutStateFast.updateWorkoutStateFast();
                     }else if(message.equals("defaultReps")){
+                        amrap.setVisibility(View.GONE);
                         if(!isNumber(repsEditText.getText().toString())){
                             InputFilter[] filterArray = new InputFilter[1];
                             filterArray[0] = new InputFilter.LengthFilter(2);
@@ -437,7 +528,21 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                             repsEditText.setText("");
                             repsEditText.setEnabled(true);
                             repsEditText.setHint("R");
-                            updateWorkoutState.updateWorkoutState();
+                            updateWorkoutStateFast.updateWorkoutStateFast();
+                        }else{
+                            updateWorkoutStateFast.updateWorkoutStateFast();
+                        }
+                    }else if(message.equals("amrap")){
+                        amrap.setVisibility(View.VISIBLE);
+                        if(!isNumber(repsEditText.getText().toString())){
+                            InputFilter[] filterArray = new InputFilter[1];
+                            filterArray[0] = new InputFilter.LengthFilter(2);
+                            repsEditText.setFilters(filterArray);
+                            repsEditText.setText("");
+                            repsEditText.setEnabled(true);
+                            repsEditText.setHint("R");
+                        }else{
+                            updateWorkoutStateFast.updateWorkoutStateFast();
                         }
                     }
                 }

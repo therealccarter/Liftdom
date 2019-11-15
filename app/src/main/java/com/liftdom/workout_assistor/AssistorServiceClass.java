@@ -259,6 +259,7 @@ public class AssistorServiceClass extends Service {
         }
 
         formatted = tokens2[0] + " reps @ " + checkForUnits(tokens2[1]) + " " + unit;
+        // array index out of bounds exception
 
         return formatted;
     }

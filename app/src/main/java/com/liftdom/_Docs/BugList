@@ -19,10 +19,20 @@ delete liftdom flair
 fixed bug that caused weight to have a limit of 2 after editing set scheme settings
 fixed bug - selected templates list of sets/exercises is tiny and fucked.
 fixed bug - selected templates slow scroll up
+selected template amrap compatibility
+WA amrap compat
+WA bug fixed - rep/weight settings and ex name changes not being saved to running assistor
+WA bug fix - amraps not being stored to workout history/feeds, supersets are defaulting to amrap nani
+Workout Assistor amrap compatibility
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+workout history is always kg
+assistor service class arrayindexoutofboundsexception after changing stuff (weights) and assistor
+    resetting
+user profile got null (profileHeaderFrag 84)
+amraps not saving to workout history (and it somehow switched to amrap on its own?)
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
 Go to next set on check for notification
 Switching apps back and forth fucks up the template editor.

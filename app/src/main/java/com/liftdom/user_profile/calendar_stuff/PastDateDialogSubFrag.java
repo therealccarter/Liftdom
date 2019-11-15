@@ -55,7 +55,7 @@ public class PastDateDialogSubFrag extends Fragment {
             WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, getContext());
             adapter.setIsOriginallyImperial(workoutHistoryModelClass.isIsImperial());
             //adapter.setInfoList(workoutInfoMap);
-            infoRecyclerView.setAdapter(adapter);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
             infoRecyclerView.setHasFixedSize(false);
             infoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 

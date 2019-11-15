@@ -1217,7 +1217,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         exerciseList.add(string);
                                     }else{
                                         if(isChecked(string)){
-                                            exerciseList.add(exTokens[0]);
+                                            if(isAmrap(string)){
+                                                exerciseList.add(exTokens[0] + "_" + exTokens[1]);
+                                            }else{
+                                                exerciseList.add(exTokens[0]);
+                                            }
                                             // TODO: unit here. Units everywhere that we see "@"
                                         }
                                     }
@@ -1238,11 +1242,35 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         String[] tokens = string.split("_");
 
-        if(tokens[1].equals("checked")){
-            bool = true;
+        if(isAmrap(string)){
+            if(tokens[2].equals("checked")){
+                bool = true;
+            }
+        }else{
+            if(tokens[1].equals("checked")){
+                bool = true;
+            }
         }
 
-        return bool;
+
+        return bool; // 10 a@225 checked
+    }
+
+    private boolean isAmrap(String string){
+        boolean isAmrap = false;
+
+        String delims = "[_,@]";
+        String[] tokens = string.split(delims);
+
+        try{
+            if(tokens[1].equals("a")){
+                isAmrap = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+
+        return isAmrap;
     }
 
     private int getPoundageForModelSuperset(String exName, String tag, HashMap<String, List<String>> map){

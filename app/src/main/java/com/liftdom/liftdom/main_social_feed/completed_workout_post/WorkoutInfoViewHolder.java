@@ -238,13 +238,20 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
     }
 
     private String repsTextAdder(String input, String unit){
-        String delims = "[x,@]";
+        String delims = "[x,@,_]";
         String[] tokens = input.split(delims);
         String newString = "";
         try {
-            newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2]; // crash here too
-            if(!tokens[1].equals("B.W.")){
-                newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
+            if(tokens[2].equals("a")){
+                newString = tokens[0] + " x " + tokens[1] + " + @ " + tokens[3]; // crash here too
+                if(!tokens[1].equals("B.W.")){
+                    newString = tokens[0] + " x " + tokens[1] + " + @ " + tokens[3] + unit;
+                }
+            }else{
+                newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2]; // crash here too
+                if(!tokens[1].equals("B.W.")){
+                    newString = tokens[0] + " x " + tokens[1] + " @ " + tokens[2] + unit;
+                }
             }
         }catch (ArrayIndexOutOfBoundsException e){
             Log.i("ayo", "ayo");
