@@ -2,6 +2,7 @@ package com.liftdom.user_profile.calendar_stuff;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,11 +95,26 @@ public class SelectedPastDateDialog extends AppCompatActivity {
                 }
             }
         }
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        PastDateDialogSubFrag pastDateDialogSubFrag = new PastDateDialogSubFrag();
-        pastDateDialogSubFrag.workoutHistoryModelClass = modelClass;
-        fragmentTransaction.replace(R.id.eachExerciseFragHolder, pastDateDialogSubFrag);
-        fragmentTransaction.commit();
+        DatabaseReference imperialRef = mRootRef.child("user").child(uid).child("isImperial");
+        imperialRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null){
+                    Boolean isUserImperial = dataSnapshot.getValue(Boolean.class);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    PastDateDialogSubFrag pastDateDialogSubFrag = new PastDateDialogSubFrag();
+                    pastDateDialogSubFrag.workoutHistoryModelClass = modelClass;
+                    pastDateDialogSubFrag.isImperialPOV = isUserImperial;
+                    fragmentTransaction.replace(R.id.eachExerciseFragHolder, pastDateDialogSubFrag);
+                    fragmentTransaction.commit();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     boolean isExerciseName(String input){

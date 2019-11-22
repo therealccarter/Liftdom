@@ -197,10 +197,26 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         String delims = "[_]";
         String[] tokens = unFormatted.split(delims);
 
-        if(tokens[2].equals("a")){
-            formatted = tokens[1] + " % of " + tokens[3];
+        if(isAmrap(unFormatted)){
+            try{
+                if(tokens[3].equals("a")){
+                    String weight = processPercentage(tokens[2], tokens[4]);
+                    formatted =
+                            tokens[2] + " % of " + tokens[4] + " (" + processPercentage(tokens[2]
+                                    , tokens[4]) + ")";
+                }else{
+                    formatted = unFormatted;
+                }
+            }catch (IndexOutOfBoundsException e){
+                formatted = unFormatted;
+            }
         }else{
-            formatted = unFormatted;
+            if(tokens[2].equals("a")){
+                formatted = tokens[1] + " % of " + tokens[3]+ " (" + processPercentage(tokens[1]
+                        , tokens[3]) + ")";
+            }else{
+                formatted = unFormatted;
+            }
         }
 
         String delims2 = "[@]";
@@ -209,6 +225,37 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         formatted = tokens2[0] + "@" + formatted;
 
         return formatted;
+    }
+
+    private String processPercentage(String percent, String weight){
+        String processed;
+
+        double percentage = Double.parseDouble(percent)/(double)100;
+        double weightDouble = Double.valueOf(Integer.parseInt(weight)) * percentage;
+
+
+        int endWeight = (int) Math.round(weightDouble);
+
+        processed = String.valueOf(endWeight);
+
+        return processed;
+    }
+
+    public boolean isAmrap(String string){
+        boolean amrap = false;
+
+        String delims = "[x,_,@]";
+        String[] tokens = string.split(delims);
+
+        try{
+            if(tokens[2].equals("a")){
+                amrap = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+
+        return amrap;
     }
 
     public boolean isPercentage(String setScheme){

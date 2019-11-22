@@ -386,7 +386,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         FutureDateHelperClass.getInstance().DataCollectionMap.put(FutureDateHelperClass.getInstance()
                 .DataCollectionMap.size() + "_key", map);
 
-        for(int i = 1; i < 90; i++){
+        for(int i = 0; i < 90; i++){
             LocalDate dateTime = LocalDate.now();
             dateTime = dateTime.plusDays(i);
 

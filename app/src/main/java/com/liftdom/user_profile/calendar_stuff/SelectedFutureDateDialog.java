@@ -10,9 +10,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.completed_workout_post.WorkoutInfoRecyclerAdapter;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
 import com.liftdom.workout_programs.Smolov.Smolov;
 
@@ -33,6 +36,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
     @BindView(R.id.selectedDateView) TextView selectedDateView;
     @BindView(R.id.closeButton) Button closeButton;
+    @BindView(R.id.infoRecyclerView) RecyclerView infoRecyclerView;
 
     //TODO: Add buttons to go forward or backwards in time. Get current position in collection and add or subtract
 
@@ -59,6 +63,7 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             String beginDate = getIntent().getStringExtra("beginDate");
             generateLayoutSmolov(maxWeight, exName, beginDate);
         }else{
+
             generateLayout();
         }
 
@@ -89,73 +94,90 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         if(collectionNumber == 1){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("0_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
+
+            //FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+            //subFrag.isCurrentUserImperial = isCurrentUserImperial;
+            //subFrag.isTemplateImperial = isTemplateImperial;
+            //subFrag.map = map;
+            //FragmentTransaction fragmentTransaction =
+            //        getSupportFragmentManager().beginTransaction();
+            //fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+            //fragmentTransaction.commit();
+
         }else if(collectionNumber == 2){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("1_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }else if(collectionNumber == 3){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("2_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }else if(collectionNumber == 4){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("3_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }else if(collectionNumber == 5){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("4_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }else if(collectionNumber == 6){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("5_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }else if(collectionNumber == 7){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("6_key"));
-            FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            subFrag.isTemplateImperial = isTemplateImperial;
-            subFrag.map = map;
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            fragmentTransaction.commit();
+            WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+            adapter.setIsOriginallyImperial(isTemplateImperial);
+            //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isCurrentUserImperial);
+            infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+            infoRecyclerView.setHasFixedSize(false);
+            infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
         }
     }
 }

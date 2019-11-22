@@ -33,6 +33,7 @@ public class PastDateDialogSubFrag extends Fragment {
     }
 
     public WorkoutHistoryModelClass workoutHistoryModelClass;
+    public Boolean isImperialPOV;
 
     @BindView(R.id.infoRecyclerView) RecyclerView infoRecyclerView;
 
@@ -55,6 +56,7 @@ public class PastDateDialogSubFrag extends Fragment {
             WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, getContext());
             adapter.setIsOriginallyImperial(workoutHistoryModelClass.isIsImperial());
             //adapter.setInfoList(workoutInfoMap);
+            adapter.setImperialPOV(isImperialPOV);
             infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
             infoRecyclerView.setHasFixedSize(false);
             infoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
