@@ -1,6 +1,7 @@
 package com.liftdom.workout_assistor;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +31,8 @@ public class ExInfoOrSelectorDialog extends AppCompatActivity {
 
         if(!exerciseName.equals("Click to select exercise")){
             exNameView.setText(exerciseName);
+            Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+            exNameView.setTypeface(lobster);
         }
 
         selectExButton.setOnClickListener(new View.OnClickListener() {

@@ -299,6 +299,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             repsEditText.setEnabled(true);
             repsEditText.setHint("R");
         }
+        amrap.setVisibility(View.GONE);
     }
 
     public void setWeightToBW(){

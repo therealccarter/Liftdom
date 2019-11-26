@@ -300,7 +300,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                 if(b){
                     try{
                         if(repsEditText.getText().toString().equals("0")){
-                            repsEditText.setText("");
+                            weightEditText.setText("");
                             InputMethodManager imm =
                                     (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);

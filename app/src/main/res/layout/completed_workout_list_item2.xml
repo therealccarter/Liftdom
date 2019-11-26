@@ -189,6 +189,7 @@
             android:imeOptions="actionDone"
             android:maxLength="400"
             android:textColor="@color/white"
+            android:inputType="textCapSentences"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toStartOf="@+id/sendCommentButton" android:layout_marginEnd="8dp"

@@ -97,33 +97,41 @@ public class CustomExListFrag extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data != null){
+        //if(data != null){
             if(requestCode == 1){
+                mRecyclerView.smoothScrollToPosition(firebaseAdapter.getItemCount());
                 if(resultCode == 2){
                     Snackbar.make(getView(), "Custom exercise upload failed...", Snackbar.LENGTH_SHORT);
                 }
             }
-        }
+        //}
     }
 
     private void setUpFirebaseAdapter(){
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        Query query = customExRef.orderByChild("dateCreated");
+
         FirebaseRecyclerOptions<CustomExModelClass> options = new FirebaseRecyclerOptions
                 .Builder<CustomExModelClass>()
-                .setQuery(customExRef, CustomExModelClass.class)
+                .setQuery(query, CustomExModelClass.class)
                 .build();
 
         firebaseAdapter = new FirebaseRecyclerAdapter<CustomExModelClass, CustomExViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CustomExViewHolder holder, int position, @NonNull CustomExModelClass model) {
-                if(position == 0){
-                    loadingView.setVisibility(View.GONE);
-                    noChatsFoundView.setVisibility(View.GONE);
-                }
+                //if(position == 0){
+                //    loadingView.setVisibility(View.GONE);
+                //    noChatsFoundView.setVisibility(View.GONE);
+                //}
+                loadingView.setVisibility(View.GONE);
+                noChatsFoundView.setVisibility(View.GONE);
                 holder.setFragActivity(getActivity());
                 holder.setExName(model.getExerciseName());
                 holder.setRefKey(model.getRefKey());

@@ -29,6 +29,12 @@ Future workouts current day is not visible,
 Future workouts looks like shit. (made to be workoutInfoViewHolder compatible)
 Made workoutInfoViewHolder amrap compatible
 Show processed percentage in workoutInfoViewHolder
+Fixed changing from amrap to numerical not working in template editor
+Longer custom ex names
+Newest creates custom ex listed first (and used?)
+Custom ex names should have uppercase first.
+amraps not saving to workout history (and it somehow switched to amrap on its own?)
+
 ----------------------
 ====================================================
 
@@ -38,14 +44,16 @@ Wa new sets should be sets dialog first
 freestyle option for WA with no template (maybe we already have this for rest day?)
 Hide button for exercises to reduce clutter in WA
 Hide DoW frag in template editor.
+if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
+you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
+decimal support for these percentages.
 
-Need to handle changing template mid workout (maybe check running assistor against new template save
- status of checked ones.)
 Rounding option for percentages (nearest 5 or nearest to up)
-Longer custom ex names
 Changing exercises should save/bug where one ex change was going to nearest superset parent and vice
  versa
-Newest creates custom ex listed first (or used?)
+
+Many edit texts should be uppercase first (main feed, comments, chats)
+
 Sets not defaulting zero to blank
 Revise workout looping, not working.
 
@@ -54,7 +62,6 @@ Premades need future workout calendar compat
 Various dialogs should be grey not white
 
 user profile got null (profileHeaderFrag 84)
-amraps not saving to workout history (and it somehow switched to amrap on its own?)
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
 Switching apps back and forth fucks up the template editor.
 
@@ -74,10 +81,9 @@ Need to have some kind of end condition for premade programs.
 Come up with a plan for missing weight in a workout.
 
 When you post text via send button (chat, comment, etc) push the keyboard down automatically
-if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
-you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
-decimal support for these percentages.
-rear delt flye add to exercises
+
+Need to handle changing template mid workout (maybe check running assistor against new template save
+ status of checked ones.)
 
 Service notification should go to next set on check.
 Notification should have set numbers (1/3) etc
@@ -90,6 +96,8 @@ WA/service need to somehow be asynced. It's too laggy.
 Service gets fucked up when WA/running assistor changes (
 assistor service class arrayindexoutofboundsexception after changing stuff (weights) and assistor
     resetting
+
+Rework Appodeal (+ better asking permission) or drop it
 =====================================================
 
 ============ ON DECK FOR v1.41+: ===============================================

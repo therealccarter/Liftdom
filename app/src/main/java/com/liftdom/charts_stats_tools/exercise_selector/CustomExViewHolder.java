@@ -1,15 +1,20 @@
 package com.liftdom.charts_stats_tools.exercise_selector;
 
 import android.content.Intent;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 /**
  * Created by Brodin on 8/9/2017.
@@ -72,10 +77,19 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
     @Override
     public void onClick(View view){
         if(isNoCheckbox()){
-            Intent intent = new Intent();
-            intent.putExtra("MESSAGE", getExName());
-            fragActivity.setResult(2, intent);
-            fragActivity.finish();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference exRef = FirebaseDatabase.getInstance().getReference().child("customExercises")
+                    .child(uid).child(getRefKey());
+            String dateTimeString = new DateTime(DateTime.now(), DateTimeZone.UTC).toString();
+            exRef.child("dateCreated").setValue(dateTimeString).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent();
+                    intent.putExtra("MESSAGE", getExName());
+                    fragActivity.setResult(2, intent);
+                    fragActivity.finish();
+                }
+            });
         }
     }
 

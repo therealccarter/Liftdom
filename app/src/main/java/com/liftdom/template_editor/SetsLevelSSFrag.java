@@ -240,6 +240,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
             repsEditText.setEnabled(true);
             repsEditText.setHint("R");
         }
+        amrap.setVisibility(View.GONE);
     }
 
     public void setWeightToBW(){

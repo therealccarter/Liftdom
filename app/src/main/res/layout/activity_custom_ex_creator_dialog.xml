@@ -39,8 +39,9 @@
             android:hint="@string/elipses"
             android:textSize="18sp"
             android:textColor="@color/white"
-            android:maxLength="20"
+            android:maxLength="30"
             android:foregroundTint="@color/liftrGold1"
+            android:inputType="textCapSentences"
     />
 
     <TextView
