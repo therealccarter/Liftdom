@@ -34,14 +34,19 @@ Longer custom ex names
 Newest creates custom ex listed first (and used?)
 Custom ex names should have uppercase first.
 amraps not saving to workout history (and it somehow switched to amrap on its own?)
+Changing exercises should save/bug where one ex change was going to nearest superset parent and vice
+ versa
+freestyle option for WA with no template
+freestyle option revised bugs fixed
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+freestyle option, revise workout, rest day do workout instead all have a problem being recognized
+
 update WA when closing keyboard (to handle changing s/r/w info and saving it)
 Wa new sets should be sets dialog first
-freestyle option for WA with no template (maybe we already have this for rest day?)
 Hide button for exercises to reduce clutter in WA
 Hide DoW frag in template editor.
 if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
@@ -49,8 +54,6 @@ you did the full set percentage option for the whole exercise. also maybe make 1
 decimal support for these percentages.
 
 Rounding option for percentages (nearest 5 or nearest to up)
-Changing exercises should save/bug where one ex change was going to nearest superset parent and vice
- versa
 
 Many edit texts should be uppercase first (main feed, comments, chats)
 

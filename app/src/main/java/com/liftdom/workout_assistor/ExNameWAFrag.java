@@ -81,6 +81,11 @@ public class ExNameWAFrag extends android.app.Fragment
 
     private updateWorkoutStateCallback updateWorkoutState;
     private updateWorkoutStateFastCallback updateWorkoutStateFast;
+    private updateExNameCallback updateExName;
+
+    public interface updateExNameCallback{
+        void updateExName(String frag, String exName);
+    }
 
     public interface updateWorkoutStateForResultCallback{
         void updateWorkoutStateForResult(String tag1, String tag2);
@@ -447,6 +452,7 @@ public class ExNameWAFrag extends android.app.Fragment
         updateWorkoutState = (updateWorkoutStateCallback) getParentFragment();
         updateWorkoutStateForResult = (updateWorkoutStateForResultCallback) getParentFragment();
         updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
+        updateExName = (updateExNameCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -720,6 +726,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     if(data.getStringExtra("choice").equals("selectEx")){
                         Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
                         int exID = exerciseNameView.getId();
+                        intent.putExtra("fragTag", fragTag);
                         intent.putExtra("exID", exID);
                         startActivityForResult(intent, 2);
                     }else if(data.getStringExtra("choice").equals("infoEx")){
@@ -730,7 +737,12 @@ public class ExNameWAFrag extends android.app.Fragment
         }else if(resultCode == 2){
             if(data != null){
                 if(data.getStringExtra("MESSAGE") != null){
-                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                    String fragTag1 = data.getStringExtra("fragTag");
+                    if(fragTag1.equals(fragTag)){
+                        exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                    }else{
+                        updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
+                    }
                     updateWorkoutStateFast();
                 }
             }
@@ -750,6 +762,10 @@ public class ExNameWAFrag extends android.app.Fragment
                 }
             }
         }
+    }
+
+    public void setExName(String exName){
+        exerciseNameView.setText(exName);
     }
 
     private void inflateFrags(){

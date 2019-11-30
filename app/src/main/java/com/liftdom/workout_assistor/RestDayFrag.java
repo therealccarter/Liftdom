@@ -136,9 +136,9 @@ public class RestDayFrag extends Fragment {
 
                 double dayDouble = Double.parseDouble(day);
 
-                if(dayDouble % (double) 3 == 0.01){
-                    Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
-                }
+                //if(dayDouble % (double) 3 == 0.01){
+                //    Appodeal.show(getActivity(), Appodeal.INTERSTITIAL);
+                //}
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 RestDaySavedFrag restDaySavedFrag = new RestDaySavedFrag();

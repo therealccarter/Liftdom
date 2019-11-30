@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.ExercisePickerController;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 import java.util.ArrayList;
@@ -140,6 +141,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                     //String message = ExercisePickerController.getInstance().exName;
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", exercises[position]);
+                    intent.putExtra("fragTag", ExercisePickerController.getInstance().fragTag);
                     fragActivity.setResult(2, intent);
                     //ExercisePickerController.getInstance().exName = null;
                     fragActivity.finish();

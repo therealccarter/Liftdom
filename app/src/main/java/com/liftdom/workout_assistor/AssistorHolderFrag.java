@@ -60,7 +60,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 ExNameWAFrag.startFirstTimeShowcase,
                 ExNameWAFrag.updateWorkoutStateCallback,
                 ExNameWAFrag.updateWorkoutStateForResultCallback,
-                ExNameWAFrag.updateWorkoutStateFastCallback{
+                ExNameWAFrag.updateWorkoutStateFastCallback,
+                ExNameWAFrag.updateExNameCallback{
 
 
     public AssistorHolderFrag() {
@@ -79,11 +80,13 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isTemplateImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
     boolean isRevisedWorkout;
+    boolean isFreestyleWorkout;
     String refKey;
     boolean isFromRestDay;
     boolean isInForeground;
     boolean isLastDay;
     boolean isListening;
+
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -164,8 +167,13 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         //killAssistorListener = (killAssistorListener) getParentFragment();
 
-        if(isRevisedWorkout){
+        if(isRevisedWorkout || isFreestyleWorkout){
             cancelRevisionHolder.setVisibility(View.VISIBLE);
+        }
+
+        if(isFreestyleWorkout){
+            resetWorkoutProgressButton.setVisibility(View.GONE);
+            setPlaceHolderTemplate();
         }
 
         // ========================= ONLY LISTENERS BEYOND THIS POINT ===============================
@@ -614,6 +622,18 @@ public class AssistorHolderFrag extends android.app.Fragment
         alertDialog.show();
     }
 
+    public void updateExName(String frag, String exName){
+        getChildFragmentManager().executePendingTransactions();
+        if(frag != null){
+            for(ExNameWAFrag exNameWAFrag : exNameFragList){
+                if(exNameWAFrag.fragTag.equals(frag)){
+                    exNameWAFrag.setExName(exName);
+                    updateWorkoutState();
+                }
+            }
+        }
+    }
+
     public void updateWorkoutStateNoProgress(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -640,6 +660,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
                     refKey, isRevisedWorkout, isFromRestDay);
+        }else if(isFreestyleWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, true, isFromRestDay);
         }else{
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
@@ -679,6 +703,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
                     refKey, isRevisedWorkout, isFromRestDay);
+        }else if(isFreestyleWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, true, isFromRestDay);
         }else{
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
@@ -739,6 +767,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                         progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                                 completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
                                 refKey, isRevisedWorkout, isFromRestDay);
+                    }else if(isFreestyleWorkout){
+                        progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                                completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                                refKey, true, isFromRestDay);
                     }else{
                         progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                                 completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
@@ -819,7 +851,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     public void onResume(){
         Log.i("lifecycleAssistor", "AssistorHolderFrag onResume called");
         if(mTemplateClass == null){
-            if(isRevisedWorkout){
+            if(isRevisedWorkout || isFreestyleWorkout){
                 //initializeViews();
                 checkForOldData();
                 super.onResume();
@@ -839,6 +871,22 @@ public class AssistorHolderFrag extends android.app.Fragment
         }else{
             runningAssistorRef.addValueEventListener(runningAssistorListener);
         }
+    }
+
+    private void setPlaceHolderTemplate(){
+        DatabaseReference placeholderRef = mRootRef.child("defaultTemplates").child("FirstTimeProgram");
+        placeholderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TemplateModelClass placeholder = dataSnapshot.getValue(TemplateModelClass.class);
+                mTemplateClass = placeholder;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void checkForOldData(){
@@ -871,6 +919,38 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                                 }
                             });
+                        }else{
+                            // is freestyle revised
+                            DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                            LocalDate localDate = LocalDate.now();
+                            final String dateTimeString = fmt.print(localDate);
+                            DatabaseReference runningRef =
+                                    mRootRef.child("runningAssistor").child(uid).child("assistorModel");
+                            runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    WorkoutProgressModelClass progressModelClass = dataSnapshot.getValue
+                                            (WorkoutProgressModelClass.class);
+
+                                    if(progressModelClass.getDate().equals(dateTimeString)){
+                                        isFreestyleWorkout = true;
+                                        if(mTemplateClass == null){
+                                            setPlaceHolderTemplate();
+                                        }
+                                        initializeViews();
+                                    }else{
+                                        Log.i("assistorInfo", "templateClass is null");
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        intent.putExtra("fragID",  0);
+                                        startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
 
@@ -880,10 +960,44 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
                 });
             }else{
-                Log.i("assistorInfo", "templateClass is null");
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("fragID",  0);
-                startActivity(intent);
+                /**
+                 * Where we are now: we have the freestyle set up in running assistor. may need
+                 * to make it no have is from rest day/revise, not sure.
+                 * But right now the issue is that there is no associated template with it.
+                 * Look at initializeViews and mTemplateClass and how we can make it see this as
+                 * a freestyle.
+                 */
+                DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.now();
+                final String dateTimeString = fmt.print(localDate);
+                DatabaseReference runningRef =
+                        mRootRef.child("runningAssistor").child(uid).child("assistorModel");
+                runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        WorkoutProgressModelClass progressModelClass = dataSnapshot.getValue
+                                (WorkoutProgressModelClass.class);
+
+                        if(progressModelClass.getDate().equals(dateTimeString)){
+                            isFreestyleWorkout = true;
+                            initializeViews();
+                        }else{
+                            Log.i("assistorInfo", "templateClass is null");
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.putExtra("fragID",  0);
+                                startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                //Log.i("assistorInfo", "templateClass is null");
+                //Intent intent = new Intent(getActivity(), MainActivity.class);
+                //intent.putExtra("fragID",  0);
+                //startActivity(intent);
                 //cleanUpState();
                 //DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
                 //activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1244,6 +1358,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
+        }
+        if(isFreestyleWorkout){
+            assistorSavedFrag.isFreestyle = true;
         }
         if(runningAssistorRef != null){
             runningAssistorRef.removeEventListener(runningAssistorListener);

@@ -45,6 +45,7 @@ public class ExSelectorActivity extends AppCompatActivity {
     private ArrayList<String> typeAheadData;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     boolean isFromExChart;
+    String fragTag;
 
     @BindView(R.id.confirmButton) Button confirmButton;
     //@BindView(R.id.search_view) MaterialSearchView searchView;
@@ -72,6 +73,8 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
+            ExercisePickerController.getInstance().fragTag = getIntent().getExtras().getString(
+                    "fragTag");
             if(getIntent().getStringExtra("exclusive") != null){
                 adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, true);
                 confirmButton.setVisibility(View.GONE);
@@ -170,6 +173,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                     }else{
                         Intent intent = new Intent();
                         intent.putExtra("MESSAGE", ((AppCompatTextView) view).getText().toString());
+                        intent.putExtra("fragTag", ExercisePickerController.getInstance().fragTag);
                         setResult(2, intent);
                         finish();
                     }

@@ -19,5 +19,7 @@ public class ExercisePickerController {
 
     public int exID = 0;
 
+    public String fragTag;
+
     public String exName;
 }

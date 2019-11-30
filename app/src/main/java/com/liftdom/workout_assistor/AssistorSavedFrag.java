@@ -82,6 +82,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     boolean isRevisedWorkout;
     boolean isFromRestDay;
     boolean isLastDay;
+    boolean isFreestyle;
 
     boolean isFirstTimeFirstTime;
 
@@ -534,7 +535,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 }
             });
 
-            templateRef.setValue(templateClass);
+            if(!isFreestyle){
+                templateRef.setValue(templateClass);
+            }
 
             //DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
             //        ("runningAssistor").child(uid).child("assistorModel");

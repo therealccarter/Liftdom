@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.ExercisePickerController;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -86,6 +87,7 @@ public class CustomExViewHolder extends RecyclerView.ViewHolder implements View.
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", getExName());
+                    intent.putExtra("fragTag", ExercisePickerController.getInstance().fragTag);
                     fragActivity.setResult(2, intent);
                     fragActivity.finish();
                 }

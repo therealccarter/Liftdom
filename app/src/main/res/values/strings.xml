@@ -584,6 +584,8 @@
 
     <string name="doAWorkoutOnRestDay">Want to work out instead of rest? Click here.</string>
 
+    <string name="freestyleWorkout">Freestyle a workout.</string>
+
     <string name="pleaseWaitReal">Please wait&#8230;</string>
 
     <string name="viewExInfo">View Exercise Info</string>

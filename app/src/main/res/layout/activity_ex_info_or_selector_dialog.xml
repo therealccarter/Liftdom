@@ -13,10 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/exerciseName"
-            android:background="@color/liftrGold1"
-            android:textColor="@color/black"
+            android:background="@color/black"
+            android:textColor="@color/liftrGold1"
             android:text="@string/noSelectedEx"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:gravity="center"
             android:padding="10dp"
     />

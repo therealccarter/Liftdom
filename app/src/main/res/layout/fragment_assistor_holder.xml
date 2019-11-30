@@ -300,6 +300,8 @@
                     android:textColor="@color/offWhite"
                     android:maxLength="300"
                     android:textColorHint="@color/grey"
+                    android:inputType="textCapSentences"
+                    android:imeOptions="actionDone"
             />
 
         </LinearLayout>
@@ -347,6 +349,7 @@
                     android:textColor="@color/offWhite"
                     android:maxLength="600"
                     android:textColorHint="@color/grey"
+                    android:inputType="textCapSentences"
 
             />
 
