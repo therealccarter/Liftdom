@@ -38,17 +38,24 @@ Changing exercises should save/bug where one ex change was going to nearest supe
  versa
 freestyle option for WA with no template
 freestyle option revised bugs fixed
+template editor cap sentences
+Various dialogs should be grey not white
+Added reminder to select days in each day set
+Changed template editor day sets from local variables to instance variables
+Added dialog to confirm removal of Day Set from template editor
+Hide DoW frag in template editor.
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
-freestyle option, revise workout, rest day do workout instead all have a problem being recognized
+possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
+Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress
+possibly add added exercises to workout (from WA to template)
 
 update WA when closing keyboard (to handle changing s/r/w info and saving it)
 Wa new sets should be sets dialog first
 Hide button for exercises to reduce clutter in WA
-Hide DoW frag in template editor.
 if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
 you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
 decimal support for these percentages.
@@ -57,12 +64,7 @@ Rounding option for percentages (nearest 5 or nearest to up)
 
 Many edit texts should be uppercase first (main feed, comments, chats)
 
-Sets not defaulting zero to blank
-Revise workout looping, not working.
-
-Premades need future workout calendar compat
-
-Various dialogs should be grey not white
+Weight edit text WA not defaulting zero to blank
 
 user profile got null (profileHeaderFrag 84)
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
@@ -72,11 +74,11 @@ percentages need decimals.
 
 Be able to edit the maxes of a premade
 future constructor for premades
-
 need to be able to set maxes
 Auto populate maxes for w531fb (tm's, so 90% of maxes)
 Add P/P/L Reddit
 we need to check w531fb and smolov, that shit is fucked.
+Premades need future workout calendar compat
 
 Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Talk to Firebase about the privacy rules
@@ -88,6 +90,7 @@ When you post text via send button (chat, comment, etc) push the keyboard down a
 Need to handle changing template mid workout (maybe check running assistor against new template save
  status of checked ones.)
 
+Service can't do amrap
 Service notification should go to next set on check.
 Notification should have set numbers (1/3) etc
 Go to next set on check for notification
@@ -101,6 +104,8 @@ assistor service class arrayindexoutofboundsexception after changing stuff (weig
     resetting
 
 Rework Appodeal (+ better asking permission) or drop it
+
+Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)
 =====================================================
 
 ============ ON DECK FOR v1.41+: ===============================================

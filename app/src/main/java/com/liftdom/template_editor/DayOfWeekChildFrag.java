@@ -115,7 +115,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         return selectedDays;
     }
 
-
+    boolean hideShowBool = true;
 
     // Butterknife
     @BindView(R.id.M) ToggleButton monToggle;
@@ -127,6 +127,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     @BindView(R.id.Su) ToggleButton sunToggle;
     @BindView(R.id.addExercise) Button addExercise;
     @BindView(R.id.buttonBar) LinearLayout buttonbar;
+    @BindView(R.id.hideShow) LinearLayout hideShow;
+    @BindView(R.id.daySetLL) LinearLayout daySetLL;
+    @BindView(R.id.hideShowText) TextView hideShowText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -135,6 +138,21 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         View view = inflater.inflate(R.layout.fragment_day_of_week_child, container, false);
 
         ButterKnife.bind(this, view);
+
+        hideShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(hideShowBool){
+                    hideShowText.setText("(+) Show Day Set");
+                    daySetLL.setVisibility(View.GONE);
+                    hideShowBool = false;
+                }else{
+                    hideShowText.setText("(-) Hide Day Set");
+                    daySetLL.setVisibility(View.VISIBLE);
+                    hideShowBool = true;
+                }
+            }
+        });
 
         monToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
@@ -263,7 +281,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                 fragmentTransaction.commit();
 
                 CharSequence toastText = "Exercise Added";
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Snackbar.LENGTH_SHORT;
 
                 try{
                     Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
@@ -475,7 +493,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         }
 
         CharSequence toastText = "Exercise Removed";
-        int duration = Toast.LENGTH_SHORT;
+        int duration = Snackbar.LENGTH_SHORT;
 
         try{
             Snackbar snackbar = Snackbar.make(getView(), toastText, duration);

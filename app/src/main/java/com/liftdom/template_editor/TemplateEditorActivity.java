@@ -61,6 +61,22 @@ public class TemplateEditorActivity extends BaseActivity
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
+
+    DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW2 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW3 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW4 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW5 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW6 = new DayOfWeekChildFrag();
+
+    DayOfWeekChildFrag doW7 = new DayOfWeekChildFrag();
+
     // butterknife
     @BindView(R.id.addDay) Button addDay;
     @BindView(R.id.removeDay) Button removeDay;
@@ -69,8 +85,6 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
     @BindView(R.id.title) TextView title;
-
-    ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
     private String handleUnitConversion(String oldValue){
         String newValue;
@@ -97,25 +111,18 @@ public class TemplateEditorActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template_editor);
 
-        final DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW1);
 
-        final DayOfWeekChildFrag doW2 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW2);
 
-        final DayOfWeekChildFrag doW3 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW3);
 
-        final DayOfWeekChildFrag doW4 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW4);
 
-        final DayOfWeekChildFrag doW5 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW5);
 
-        final DayOfWeekChildFrag doW6 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW6);
 
-        final DayOfWeekChildFrag doW7 = new DayOfWeekChildFrag();
         dayOfWeekChildFragArrayList.add(doW7);
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
@@ -616,97 +623,8 @@ public class TemplateEditorActivity extends BaseActivity
         removeDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // only thing now is to remove all greyed out instances if the removed frag
-                // has that selected day
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                String fragString = Integer.toString(fragIdCount);
-
-                if(fragIdCount != 1) {
-                    CharSequence toastText = "Day-set Removed";
-                    int duration = Snackbar.LENGTH_SHORT;
-                    try{
-                        Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
-                        snackbar.show();
-                    } catch (NullPointerException e){
-
-                    }
-                }
-
-                if (fragIdCount != 0) {
-                    if(fragIdCount == 2){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW2.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW2.dayUnselectedToFrag(days);
-                            doW2.setToNull();
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW2.removeExercises();
-                        --fragIdCount;
-                    }else if(fragIdCount == 3){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW3.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW3.dayUnselectedToFrag(days);
-                            doW3.setToNull();
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW3.removeExercises();
-                        --fragIdCount;
-                    }else if(fragIdCount == 4){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW4.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW4.dayUnselectedToFrag(days);
-                            doW4.setToNull();
-
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW4.removeExercises();
-                        --fragIdCount;
-                    }else if(fragIdCount == 5){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW5.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW5.dayUnselectedToFrag(days);
-                            doW5.setToNull();
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW5.removeExercises();
-                        --fragIdCount;
-                    }else if(fragIdCount == 6){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW6.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW6.dayUnselectedToFrag(days);
-                            doW6.setToNull();
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW6.removeExercises();
-                        --fragIdCount;
-                    }else if(fragIdCount == 7){
-                        ArrayList<String> removeList = new ArrayList<>();
-                        removeList = doW7.getSelectedDays();
-                        for(String days : removeList){
-                            dayUnselectedFromFrag(days, fragString);
-                            doW7.dayUnselectedToFrag(days);
-                            doW7.setToNull();
-                        }
-                        fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
-                        doW7.removeExercises();
-                        --fragIdCount;
-                    }
-                }
-
-
+                Intent intent = new Intent(v.getContext(), DaySetDeleteConfirmation.class);
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -863,6 +781,98 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
+    private void removeDaySet(){
+        // only thing now is to remove all greyed out instances if the removed frag
+        // has that selected day
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String fragString = Integer.toString(fragIdCount);
+
+        if(fragIdCount != 1) {
+            CharSequence toastText = "Day-set Removed";
+            int duration = Snackbar.LENGTH_SHORT;
+            try{
+                Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
+                snackbar.show();
+            } catch (NullPointerException e){
+
+            }
+        }
+
+        if (fragIdCount != 0) {
+            if(fragIdCount == 2){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW2.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW2.dayUnselectedToFrag(days);
+                    doW2.setToNull();
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW2.removeExercises();
+                --fragIdCount;
+            }else if(fragIdCount == 3){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW3.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW3.dayUnselectedToFrag(days);
+                    doW3.setToNull();
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW3.removeExercises();
+                --fragIdCount;
+            }else if(fragIdCount == 4){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW4.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW4.dayUnselectedToFrag(days);
+                    doW4.setToNull();
+
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW4.removeExercises();
+                --fragIdCount;
+            }else if(fragIdCount == 5){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW5.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW5.dayUnselectedToFrag(days);
+                    doW5.setToNull();
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW5.removeExercises();
+                --fragIdCount;
+            }else if(fragIdCount == 6){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW6.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW6.dayUnselectedToFrag(days);
+                    doW6.setToNull();
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW6.removeExercises();
+                --fragIdCount;
+            }else if(fragIdCount == 7){
+                ArrayList<String> removeList = new ArrayList<>();
+                removeList = doW7.getSelectedDays();
+                for(String days : removeList){
+                    dayUnselectedFromFrag(days, fragString);
+                    doW7.dayUnselectedToFrag(days);
+                    doW7.setToNull();
+                }
+                fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+                doW7.removeExercises();
+                --fragIdCount;
+            }
+        }
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -899,6 +909,14 @@ public class TemplateEditorActivity extends BaseActivity
                     TemplateEditorSingleton.getInstance().mTemplateName = data.getStringExtra("templateName");
 
                     startActivity(intent);
+                }
+            }
+        }else if(requestCode == 2){
+            if(resultCode == 2){
+                if(data != null){
+                    if(data.getBooleanExtra("remove", false)){
+                        removeDaySet();
+                    }
                 }
             }
         }

@@ -282,3 +282,143 @@ DatabaseReference feedRef = mRootRef.child("feed").child(xUid);
                                                 });
                                             }
                                         });
+
+// removes all the incompatible workouts in global feed based on date
+        //final DatabaseReference globalRef = FirebaseDatabase.getInstance().getReference().child("globalFeed");
+        //globalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+        //            DateTime dateTime1 = DateTime.parse("2017-12-02");
+        //            CompletedWorkoutModelClass workoutModelClass = dataSnapshot1.getValue(CompletedWorkoutModelClass
+        //                    .class);
+        //            DateTime dateTime2 = DateTime.parse(workoutModelClass.getDateTime());
+        //            if(dateTime2.isBefore(dateTime1)){
+        //                globalRef.child(workoutModelClass.getRef()).setValue(null);
+        //            }
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
+
+        // current issue is that mExInfoHasMap is being set to null after saving a revised workout.
+        //DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor")
+        //        .child(uid).child("assistorModel").child("exInfoHashMap");
+        //HashMap<String, HashMap<String, List<String>>> mExInfoHashMap = new HashMap<>();
+        //List<String> list1 = new ArrayList<>();
+        //List<String> list2 = new ArrayList<>();
+        //list1.add("Deadlift (Barbell - Conventional)");
+        //list1.add("4@25_checked");
+        //list1.add("4@25_checked");
+        //list1.add("4@25_unchecked");
+        //list2.add("Bench Press (Barbell - Flat)");
+        //list2.add("3@58_checked_ss");
+        //list2.add("3@58_checked_ss");
+        //list2.add("3@58_unchecked_ss");
+        //list2.add("3@58_unchecked_ss");
+        //HashMap<String, List<String>> map = new HashMap<>();
+        //map.put("0_key", list1);
+        //map.put("1_key", list2);
+        //mExInfoHashMap.put("1_key", map);
+        //myRef.setValue(mExInfoHashMap);
+
+        // updates <1.29 posts to the global feed
+        //DatabaseReference selfFeedRef = FirebaseDatabase.getInstance().getReference().child("selfFeed");
+        //selfFeedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        Map fanoutObject = new HashMap<>();
+        //        int index1 = 0;
+        //        int index2 = 0;
+        //        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+        //            index1++;
+        //            index2 = 0;
+        //            for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()){
+        //                index2++;
+        //                fanoutObject.put("/globalFeed/" + dataSnapshot2.getKey(), dataSnapshot2.getValue());
+        //                if(index1 == dataSnapshot.getChildrenCount()){
+        //                    if(index2 == dataSnapshot1.getChildrenCount()){
+        //                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        //                        rootRef.updateChildren(fanoutObject);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
+
+        //DatabaseReference burkRef = FirebaseDatabase.getInstance().getReference().child("templates").child
+        //        ("EcCB9ayXcegCctEaT1Y7n98NC5G2").child("MindPrimary");
+        //burkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //    @Override
+        //    public void onDataChange(DataSnapshot dataSnapshot) {
+        //        TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+        //        templateModelClass.setUserName2("Brodin");
+        //        templateModelClass.setUserId2(uid);
+        //        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("templatesInbox").child
+        //                (uid).child("MindPrimary");
+        //        myRef.setValue(templateModelClass);
+        //    }
+//
+        //    @Override
+        //    public void onCancelled(DatabaseError databaseError) {
+//
+        //    }
+        //});
+
+        //firebaseAdapter = new FirebaseRecyclerAdapter<CompletedWorkoutModelClass, CompletedWorkoutViewHolder>
+        //        (CompletedWorkoutModelClass.class, R.layout.completed_workout_list_item2,
+        //                CompletedWorkoutViewHolder.class, databaseReference) {
+        //    @Override
+        //    protected void populateViewHolder(CompletedWorkoutViewHolder viewHolder,
+        //                                      CompletedWorkoutModelClass model, int position) {
+        //        //if(model.getUserId().equals(uid)){
+        //        //viewHolder.setPosition(position);
+//
+        //        /**
+        //         * Going to try the new FirebaseUI version. Or at least see if we're on the old version.
+        //         */
+//
+        //        viewHolder.setCurrentUserId(uid);
+        //        viewHolder.setImperialPOV(isImperial);
+        //        viewHolder.setActivity(getActivity());
+        //        viewHolder.setRefKey(model.getRef());
+        //        viewHolder.setUserId(model.getUserId());
+        //        viewHolder.setPostInfo(model.getWorkoutInfoMap(), getActivity(), getContext(),
+        //                model.isIsImperial());
+        //        viewHolder.setUpProfilePics(model.getUserId());
+        //        viewHolder.setCommentRecycler(model.getRef());
+        //        viewHolder.setUserName(model.getUserName());
+        //        viewHolder.setUserLevel(model.getUserId(), rootRef);
+        //        viewHolder.setPublicDescription(model.getPublicDescription());
+        //        viewHolder.setTimeStamp(model.getDateTime());
+        //        //viewHolder.setReppedCount(model.getRepCount());
+        //        viewHolder.setHasReppedList(model.getHasReppedList());
+        //        //viewHolder.setRepsCounterView(model.getRepCount());
+        //        //viewHolder.setIsRepped(model.isHasRepped(), false);
+        //        //viewHolder.setActivity(getActivity());
+        //        //if(model.getBonusList() != null){
+        //        try{
+        //            viewHolder.mBonusView.setText(model.getBonusList().get(0));
+        //        }catch (NullPointerException e){
+//
+        //        }
+//
+        //        //viewHolder.setBonusView(model.getBonusList());
+        //        //}
+        //        //}else{
+        //        //    viewHolder.hideLayout();
+        //        //}
+//
+//
+        //    }
+        //};

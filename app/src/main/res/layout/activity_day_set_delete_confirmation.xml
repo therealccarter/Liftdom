@@ -6,12 +6,12 @@
         android:layout_height="wrap_content"
         android:background="@color/lessDarkGrey"
         android:orientation="vertical"
-        tools:context="com.liftdom.workout_assistor.ExDeleteConfirmation">
+        tools:context="com.liftdom.template_editor.DaySetDeleteConfirmation">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remove this exercise?"
+            android:text="Remove the last Day Set?"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:gravity="center"
