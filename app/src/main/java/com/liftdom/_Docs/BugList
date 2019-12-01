@@ -44,25 +44,26 @@ Added reminder to select days in each day set
 Changed template editor day sets from local variables to instance variables
 Added dialog to confirm removal of Day Set from template editor
 Hide DoW frag in template editor.
+When you post text via send button (chat, comment, etc) push the keyboard down automatically
+Many edit texts should be uppercase first (main feed, comments, chats)
+Kept default ex from being saved to max list
+exercise maxes list should sort by date
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
-possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
 Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress
-possibly add added exercises to workout (from WA to template)
+Ex specific chart is essentially useless.
+exercise maxes list should have search
+exercise maxes list should have option to change sort order
+exercise maxes list should have option to set max manually (and say it was manual in each item)
 
-update WA when closing keyboard (to handle changing s/r/w info and saving it)
-Wa new sets should be sets dialog first
-Hide button for exercises to reduce clutter in WA
 if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
 you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
 decimal support for these percentages.
 
 Rounding option for percentages (nearest 5 or nearest to up)
-
-Many edit texts should be uppercase first (main feed, comments, chats)
 
 Weight edit text WA not defaulting zero to blank
 
@@ -80,16 +81,14 @@ Add P/P/L Reddit
 we need to check w531fb and smolov, that shit is fucked.
 Premades need future workout calendar compat
 
-Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
-Talk to Firebase about the privacy rules
 Need to have some kind of end condition for premade programs.
 Come up with a plan for missing weight in a workout.
-
-When you post text via send button (chat, comment, etc) push the keyboard down automatically
 
 Need to handle changing template mid workout (maybe check running assistor against new template save
  status of checked ones.)
 
+possibly add added exercises to workout (from WA to template)
+possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
 Service can't do amrap
 Service notification should go to next set on check.
 Notification should have set numbers (1/3) etc
@@ -102,7 +101,12 @@ WA/service need to somehow be asynced. It's too laggy.
 Service gets fucked up when WA/running assistor changes (
 assistor service class arrayindexoutofboundsexception after changing stuff (weights) and assistor
     resetting
+update WA when closing keyboard (to handle changing s/r/w info and saving it)
+Wa new sets should be sets dialog first
+Hide button for exercises to reduce clutter in WA
 
+Talk to Firebase about the privacy rules
+Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Rework Appodeal (+ better asking permission) or drop it
 
 Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)

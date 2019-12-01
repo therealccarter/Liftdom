@@ -104,7 +104,7 @@ public class ExerciseMaxesFrag extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Query query = databaseReference.orderByChild("maxValue");
+        Query query = databaseReference.orderByChild("date");
 
         FirebaseRecyclerOptions<ExerciseMaxesModelClass> options = new FirebaseRecyclerOptions
                 .Builder<ExerciseMaxesModelClass>()

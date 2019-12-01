@@ -630,7 +630,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 }
                                 if(index == entry2.getValue().size()){
                                     maxWeight = String.valueOf(maxInt);
-                                    if(!exName.equals("") && !maxWeight.equals("") && !maxWeight.equals("0")){
+                                    if(!exName.equals("") && !maxWeight.equals("") && !maxWeight.equals("0")
+                                        && !exName.equals("CLICK TO CHOOSE EXERCISE")){
                                         maxMap.put(exName, maxWeight);
                                     }
                                 }

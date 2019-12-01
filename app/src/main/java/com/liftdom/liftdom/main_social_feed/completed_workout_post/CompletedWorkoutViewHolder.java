@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.cardview.widget.CardView;
@@ -113,6 +114,8 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         //mBannerView = (BannerView) itemView.findViewById(R.id.appodealBannerView);
         //mPostInfoHolderLL = (LinearLayout) itemView.findViewById(R.id.postInfoHolderLL);
 
+        mCommentEditText.setTextColor(Color.parseColor("#FFFFFF"));
+
         params = new CardView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         final DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -164,6 +167,7 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
         mSendCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 if(!mCommentEditText.getText().toString().equals("")){
                     DatabaseReference userRef = mRootRef.child("user").child(getCurrentUid());
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -285,6 +289,12 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
                 removeRepFromPost();
             }
         });
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager imm =
+                (InputMethodManager) mActivity.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     public void addMarginTop(){
