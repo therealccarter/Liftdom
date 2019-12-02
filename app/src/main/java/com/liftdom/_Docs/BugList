@@ -25,7 +25,7 @@ WA bug fixed - rep/weight settings and ex name changes not being saved to runnin
 WA bug fix - amraps not being stored to workout history/feeds, supersets are defaulting to amrap nani
 Workout Assistor amrap compatibility
 fixed - workout history is always kg
-Future workouts current day is not visible,
+Future workouts current day is not visible
 Future workouts looks like shit. (made to be workoutInfoViewHolder compatible)
 Made workoutInfoViewHolder amrap compatible
 Show processed percentage in workoutInfoViewHolder
@@ -53,63 +53,69 @@ exercise maxes list should sort by date
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
-Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress
-Ex specific chart is essentially useless.
-exercise maxes list should have search
-exercise maxes list should have option to change sort order
-exercise maxes list should have option to set max manually (and say it was manual in each item)
-
-if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
-you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
-decimal support for these percentages.
-
-Rounding option for percentages (nearest 5 or nearest to up)
-
-Weight edit text WA not defaulting zero to blank
-
-user profile got null (profileHeaderFrag 84)
-allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
-Switching apps back and forth fucks up the template editor.
-
-percentages need decimals.
-
-Be able to edit the maxes of a premade
-future constructor for premades
-need to be able to set maxes
-Auto populate maxes for w531fb (tm's, so 90% of maxes)
-Add P/P/L Reddit
-we need to check w531fb and smolov, that shit is fucked.
-Premades need future workout calendar compat
-
-Need to have some kind of end condition for premade programs.
-Come up with a plan for missing weight in a workout.
-
-Need to handle changing template mid workout (maybe check running assistor against new template save
- status of checked ones.)
-
-possibly add added exercises to workout (from WA to template)
-possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
+----- Service -----
 Service can't do amrap
 Service notification should go to next set on check.
 Notification should have set numbers (1/3) etc
-Go to next set on check for notification
 notifications won't go to a B.W. exercise or 0lbs exercise.
-shouldn't lose place in notification when WA detects changes.
+Go to next set on check for notification
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
+Service gets fucked up when WA/running assistor changes
+
+----- WA -----
+possibly add added exercises to workout (from WA to template)
+possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
+shouldn't lose place in notification when WA detects changes.
 WA/service need to somehow be asynced. It's too laggy.
-Service gets fucked up when WA/running assistor changes (
 assistor service class arrayindexoutofboundsexception after changing stuff (weights) and assistor
     resetting
 update WA when closing keyboard (to handle changing s/r/w info and saving it)
 Wa new sets should be sets dialog first
 Hide button for exercises to reduce clutter in WA
+Weight edit text WA not defaulting zero to blank
+Need to handle changing template mid workout (maybe check running assistor against new template save
+ status of checked ones.)
+Rounding option for percentages (nearest 5 or nearest to up)
 
+----- Template Editor -----
+allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
+Switching apps back and forth fucks up the template editor.
+if percentage, actionNext for weight edit text, remember max/format for each new set? especially if
+    you did the full set percentage option for the whole exercise. also maybe make 1 the default sets?
+decimal support for these percentages.
+percentages need decimals.
+
+----- Charts/Stats/Tools -----
+Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress
+Ex specific chart is essentially useless
+exercise maxes list should have search
+exercise maxes list should have option to change sort order
+exercise maxes list should have option to set max manually (and say it was manual in each item)
+need to be able to set maxes
+Put workout chart/maxes first, then calculators
+when a workout saves, save the name and show that when looking back at past workouts.
+    - workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
+    - also integrate into charts
+
+----- Premades -----
+Be able to edit the maxes of a premade
+future constructor for premades
+Auto populate maxes for w531fb (tm's, so 90% of maxes)
+Add P/P/L Reddit
+we need to check w531fb and smolov, that shit is fucked.
+Premades need future workout calendar compat
+Need to have some kind of end condition for premade programs.
+Come up with a plan for missing weight in a workout.
+
+----- Non-code Necessities -----
 Talk to Firebase about the privacy rules
 Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Rework Appodeal (+ better asking permission) or drop it
 
+----- Difficult to Replicate -----
 Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)
+user profile got null (profileHeaderFrag 84)
 =====================================================
 
 ============ ON DECK FOR v1.41+: ===============================================
@@ -120,8 +126,6 @@ for offline, we could even save the current template to disk anytime you save a 
 save page/state of app for kill in background
 make WA the default opener, make feed
 hamburger needs back functionality
-when a workout saves, save the name and show that when looking back at past workouts.
-    - workout types need to be in completedWorkoutViewHolder/ModelClass (could add a string + \n)
 cheat prevention, have a cap for xp gain. maybe report system if numbers are too high
 not logged in can be random node, just rewrite node to become user.
 next workout info on rest day/workout finished frag
