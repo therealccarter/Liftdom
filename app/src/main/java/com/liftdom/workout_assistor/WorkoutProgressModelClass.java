@@ -412,6 +412,12 @@ public class WorkoutProgressModelClass {
                     // move forward
                     Log.i("progressModel", "142, cursor = " + cursor);
                     Log.i("progressModel", "move forward (superset - else end 2)");
+                    int newCursor = Integer.parseInt(tokens[0]) + 1;
+                    if(getExInfoHashMap().get(newCursor + key) != null){
+                        setViewCursor(newCursor + "_0_1");
+                    }else{
+                        setViewCursor("workoutDone");
+                    }
                 }
             }
         }
@@ -684,6 +690,9 @@ public class WorkoutProgressModelClass {
         String cursor = getViewCursor();
         String key = "_key";
 
+        // needs to go to 2_1_3, is
+        // on 3_0_1, tries to go to 2_2_4
+
         Log.i("progressModel", "jumpToPreviousMap");
 
         if(!tokens[0].equals("1")){
@@ -704,9 +713,10 @@ public class WorkoutProgressModelClass {
                             1));
                 }else{
                     // has no overflow
-                    int numberOfLists = getExInfoHashMap().get(String.valueOf(decremented0) + key).size();
+                    int numberOfLists =
+                            getExInfoHashMap().get(String.valueOf(decremented0) + key).size() - 1;
                     int numberOfItems = getExInfoHashMap().get(String.valueOf(decremented0) + key)
-                            .get("0_key").size();
+                            .get("0_key").size() - 1;
                     setViewCursor(String.valueOf(decremented0) + "_" + String.valueOf(numberOfLists)
                             + "_" + String.valueOf(numberOfItems));
                 }
@@ -715,6 +725,7 @@ public class WorkoutProgressModelClass {
     }
 
     public void toggleCheck(){
+        boolean isChecking = false;
         String delims = "[_]";
         String[] tokens = getViewCursor().split(delims);
 
@@ -727,6 +738,7 @@ public class WorkoutProgressModelClass {
             tokens2[1] = "unchecked";
         }else{
             tokens2[1] = "checked";
+            isChecking = true;
         }
 
         String newString = "";
@@ -744,7 +756,9 @@ public class WorkoutProgressModelClass {
                 (tokens[2]));
         Log.i("serviceInfo", "currentSet = " + currentSet2);
 
-
+        if(isChecking){
+            next();
+        }
     }
 
     public String getViewCursor() {

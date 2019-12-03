@@ -243,23 +243,44 @@ public class AssistorServiceClass extends Service {
     }
 
     private String formatSetScheme(String unformatted){
-        String formatted;
+        String formatted; // tokens: 4, a@214, unchecked. tokens2: 4
+        // tokens: 4@B.W., unchecked. tokens2:4, B.W.
 
-        String delims = "[_]";
-        String[] tokens = unformatted.split(delims);
+        String delimsCheck = "[_,@]";
+        String[] tokensCheck = unformatted.split(delimsCheck);
 
-        String delims2 = "[@]";
-        String[] tokens2 = tokens[0].split(delims2);
+        if(tokensCheck[1].equals("a")){
+            String delims = "[_]";
+            String[] tokens = unformatted.split(delims);
 
-        String unit;
-        if(isUserImperial){
-            unit = "lbs";
+            String delims2 = "[@]";
+            String[] tokens2 = tokens[0].split(delims2);
+
+            String unit;
+            if(isUserImperial){
+                unit = "lbs";
+            }else{
+                unit = "kgs";
+            }
+
+            formatted = tokensCheck[0] + "+ reps @ " + checkForUnits(tokensCheck[2]) + " " + unit;
         }else{
-            unit = "kgs";
-        }
+            String delims = "[_]";
+            String[] tokens = unformatted.split(delims);
 
-        formatted = tokens2[0] + " reps @ " + checkForUnits(tokens2[1]) + " " + unit;
-        // array index out of bounds exception
+            String delims2 = "[@]";
+            String[] tokens2 = tokens[0].split(delims2);
+
+            String unit;
+            if(isUserImperial){
+                unit = "lbs";
+            }else{
+                unit = "kgs";
+            }
+
+            formatted = tokens2[0] + " reps @ " + checkForUnits(tokens2[1]) + " " + unit;
+            // array index out of bounds exception
+        }
 
         return formatted;
     }

@@ -299,7 +299,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             public void onFocusChange(View view, boolean b) {
                 if(b){
                     try{
-                        if(repsEditText.getText().toString().equals("0")){
+                        if(weightEditText.getText().toString().equals("0")){
                             weightEditText.setText("");
                             InputMethodManager imm =
                                     (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);

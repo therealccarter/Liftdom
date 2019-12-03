@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/hideShow"
-            android:background="@color/black"
+            android:background="@color/backgroundgrey1"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:gravity="center_vertical"
@@ -23,7 +23,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="(-) Hide Day Set"
                 android:id="@+id/hideShowText"
@@ -38,6 +38,12 @@
             />
 
     </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/liftrGold4"
+            />
 
     <LinearLayout
             android:layout_width="match_parent"

@@ -829,26 +829,32 @@ public class ExNameWAFrag extends android.app.Fragment
                         }else{
                             // superset ex
                             try{
-                                exNameSupersetInc++;
-                                String tag = String.valueOf(exNameSupersetInc) + "exSS";
-                                android.app.FragmentManager fragmentManager = getChildFragmentManager();
-                                android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
-                                exNameFrag.isUserImperial = isUserImperial;
-                                exNameFrag.isTemplateImperial = isTemplateImperial;
-                                ArrayList<String> newSubList = new ArrayList<>();
-                                newSubList.add(arrayList.get(0));
-                                newSubList.add(arrayList.get(i + 1));
-                                exNameFrag.infoList.addAll(newSubList);
-                                exNameFrag.fragTag2 = tag;
-                                if(count + 1 == finalList.size()){
-                                    exNameFrag.inflateBottomView = true;
+                                // we should be good here because this should only be triggered
+                                // the first time and if you later add empty supersets it'll go
+                                // elsewhere
+                                if(!arrayList.get(i + 1).equals("0@0")){
+                                    exNameSupersetInc++;
+                                    String tag = String.valueOf(exNameSupersetInc) + "exSS";
+                                    android.app.FragmentManager fragmentManager = getChildFragmentManager();
+                                    android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    ExNameSSWAFrag exNameFrag = new ExNameSSWAFrag();
+                                    exNameFrag.isUserImperial = isUserImperial;
+                                    exNameFrag.isTemplateImperial = isTemplateImperial;
+                                    ArrayList<String> newSubList = new ArrayList<>();
+                                    newSubList.add(arrayList.get(0));
+                                    newSubList.add(arrayList.get(i + 1));
+                                    exNameFrag.infoList.addAll(newSubList);
+                                    exNameFrag.fragTag2 = tag;
+                                    if(count + 1 == finalList.size()){
+                                        exNameFrag.inflateBottomView = true;
+                                    }
+                                    fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
+                                    fragmentTransaction.commitAllowingStateLoss();
+                                    fragmentManager.executePendingTransactions();
+                                    exNameSupersetFragList.add(exNameFrag);
+                                    tagListSSEx.add(tag);
                                 }
-                                fragmentTransaction.add(R.id.repsWeightContainer, exNameFrag, tag);
-                                fragmentTransaction.commitAllowingStateLoss();
-                                fragmentManager.executePendingTransactions();
-                                exNameSupersetFragList.add(exNameFrag);
-                                tagListSSEx.add(tag);
+
                             } catch(IndexOutOfBoundsException e){
 
                             }

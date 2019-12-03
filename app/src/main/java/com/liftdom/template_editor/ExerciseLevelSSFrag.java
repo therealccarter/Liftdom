@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.snapshot.Index;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
@@ -178,7 +179,9 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
             infoList.add(getExerciseValueFormatted());
 
             for(SetsLevelSSFrag setsLevelSSFrag : setSchemeList){
-                infoList.add(setsLevelSSFrag.getInfoList());
+                //if(!setsLevelSSFrag.getInfoList().equals("0x0@0")){
+                    infoList.add(setsLevelSSFrag.getInfoList());
+                //}
             }
         }
 
@@ -221,12 +224,16 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
     }
 
     public void removeSetScheme(String tag){
-        String fragString = "sss" + tag;
-        int tagInt = Integer.parseInt(tag);
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString));
-        fragmentTransaction.commitAllowingStateLoss();
-        setSchemeList.remove(tagInt - 1);
+        try{
+            String fragString = "sss" + tag;
+            int tagInt = Integer.parseInt(tag);
+            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+            fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(fragString));
+            fragmentTransaction.commitAllowingStateLoss();
+            setSchemeList.remove(tagInt - 1);
+        }catch (IndexOutOfBoundsException e){
+
+        }
     }
 
     public List<String> getExInfo(){

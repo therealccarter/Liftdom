@@ -32,6 +32,7 @@ import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_assistor.AssistorServiceClass;
 import com.liftdom.workout_programs.FiveThreeOne.W531fBInfoFrag;
 import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
@@ -379,6 +380,12 @@ public class SelectedTemplateFrag extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    try {
+                        Intent stopIntent = new Intent(getContext(), AssistorServiceClass.class);
+                        getContext().stopService(stopIntent);
+                    }catch (NullPointerException e){
+
+                    }
                     activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -448,6 +455,12 @@ public class SelectedTemplateFrag extends Fragment {
                     });
 
                 } else if(!isChecked){
+                    try {
+                        Intent stopIntent = new Intent(getContext(), AssistorServiceClass.class);
+                        getContext().stopService(stopIntent);
+                    }catch (NullPointerException e){
+
+                    }
                     activeTemplateRef.child("activeTemplate").setValue(null);
                     DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
                             ("runningAssistor").child(uid);
@@ -764,7 +777,7 @@ public class SelectedTemplateFrag extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         CharSequence toastText = "Program Saved";
-                                        int duration = Toast.LENGTH_SHORT;
+                                        int duration = Snackbar.LENGTH_SHORT;
                                         try{
                                             Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
                                             snackbar.show();
@@ -817,7 +830,7 @@ public class SelectedTemplateFrag extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         CharSequence toastText = "Template Saved";
-                                        int duration = Toast.LENGTH_SHORT;
+                                        int duration = Snackbar.LENGTH_SHORT;
                                         try{
                                             Snackbar snackbar = Snackbar.make(getView(), toastText, duration);
                                             snackbar.show();

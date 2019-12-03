@@ -92,11 +92,31 @@
                     android:layout_marginTop="10dp"
             />
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                android:orientation="vertical">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        app:indicatorName="BallClipRotateMultipleIndicator"
+                        android:id="@+id/loadingView"
+                        app:indicatorColor="@color/liftrGold2"
+                        android:visibility="visible"
+                        />
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/templateFragmentLayout"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="7dp"
                     android:orientation="vertical"
             >
 

@@ -26,6 +26,8 @@ import com.liftdom.liftdom.BaseActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_assistor.AssistorServiceClass;
+import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -85,6 +87,7 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.makePublicCheckbox) CheckBox makePublicCheckbox;
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
     @BindView(R.id.title) TextView title;
+    @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     private String handleUnitConversion(String oldValue){
         String newValue;
@@ -337,6 +340,8 @@ public class TemplateEditorActivity extends BaseActivity
                                         }
                                     }
                                 }
+
+                                loadingView.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -344,6 +349,7 @@ public class TemplateEditorActivity extends BaseActivity
 
                             }
                         });
+
                     }
                 }else{
                     // isEdit, not from public
@@ -418,6 +424,7 @@ public class TemplateEditorActivity extends BaseActivity
                                 doW1.map = templateClass.getMapOne();
                                 doW1.templateName = templateClass.getTemplateName();
                                 fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                                loadingView.setVisibility(View.GONE);
                             }
                             if(templateClass.getMapTwo() != null){
                                 ++fragIdCount;
@@ -503,6 +510,8 @@ public class TemplateEditorActivity extends BaseActivity
                                     }
                                 }
                             }
+
+
                         }
 
                         @Override
@@ -545,6 +554,8 @@ public class TemplateEditorActivity extends BaseActivity
 
                     }
                 });
+
+                loadingView.setVisibility(View.GONE);
             }
         }
 
@@ -907,6 +918,10 @@ public class TemplateEditorActivity extends BaseActivity
                     TemplateEditorSingleton.getInstance().mIsPublic = isFromPublic;
                     //TemplateEditorSingleton.getInstance().mDescription = descriptionString;
                     TemplateEditorSingleton.getInstance().mTemplateName = data.getStringExtra("templateName");
+
+                    Intent stopIntent = new Intent(TemplateEditorActivity.this,
+                            AssistorServiceClass.class);
+                    TemplateEditorActivity.this.stopService(stopIntent);
 
                     startActivity(intent);
                 }
