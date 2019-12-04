@@ -58,7 +58,7 @@ Stop service on making template selected template/removing selected template
 Service won't go forward into a superset
 Service won't go backwards out of a superset
 Service won't go to workout done if last set is a superset
-Notification should have set numbers (1/3) etc (+ superset support)
+Notification should have set numbers (1/3) etc (+ superset support)(removed "reps" in notification to make space)
 
 ----------------------
 ====================================================
