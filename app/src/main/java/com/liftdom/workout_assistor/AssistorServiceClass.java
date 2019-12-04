@@ -278,7 +278,7 @@ public class AssistorServiceClass extends Service {
                 unit = "kgs";
             }
 
-            formatted = tokens2[0] + " reps @ " + checkForUnits(tokens2[1]) + " " + unit;
+            formatted = tokens2[0] + " @ " + checkForUnits(tokens2[1]) + unit;
             // array index out of bounds exception
         }
 
@@ -307,6 +307,10 @@ public class AssistorServiceClass extends Service {
 
     private Notification buildNotification(){
         Log.i("serviceInfo", "Building notification...");
+
+        /**
+         * Here is probably where we could check for most advanced set check off.
+         */
 
         int checkOrUncheckedId = getCheckedForCurrentPosition(); // not using this
 

@@ -58,16 +58,18 @@ Stop service on making template selected template/removing selected template
 Service won't go forward into a superset
 Service won't go backwards out of a superset
 Service won't go to workout done if last set is a superset
+Notification should have set numbers (1/3) etc (+ superset support)
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
-Notification should have set numbers (1/3) etc
 WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
 Service gets fucked up when WA/running assistor changes
+possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
+    - workout progress model since we won't be drawing from the new updated one?)
 
 ----- WA -----
 possibly add added exercises to workout (from WA to template)
@@ -83,6 +85,7 @@ Weight edit text WA not defaulting zero to blank
 Need to handle changing template mid workout (maybe check running assistor against new template save
  status of checked ones.)
 Rounding option for percentages (nearest 5 or nearest to up)
+work offline. this would be a massive thing affecting many files and systems.
 
 ----- Template Editor -----
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.

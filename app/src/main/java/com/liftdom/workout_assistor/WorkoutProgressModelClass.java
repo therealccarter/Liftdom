@@ -107,6 +107,8 @@ public class WorkoutProgressModelClass {
 
         int x = 0;
         int y = 0;
+        int x2 = 0;
+        int y2 = 0;
 
         String delims = "[_]";
         String[] tokens = getViewCursor().split(delims);
@@ -139,6 +141,9 @@ public class WorkoutProgressModelClass {
                 if(getExInfoHashMap().get(String.valueOf(i) + key).size() == 1){
                     // non superset map
                     x = x + tokensInt2;
+                    // view cursor: 1_0_2
+                    y2 = getExInfoHashMap().get(tokensInt0 + key).get(tokensInt1 + key).size() - 1;
+                    x2 = tokensInt2;
                 }else{
                     // superset map
                     /**
@@ -153,8 +158,59 @@ public class WorkoutProgressModelClass {
                      * now we need to account for overflow
                      */
 
+                    /**
+                     * YOO so maybe here we can have the (1/3) type place within exercise
+                     * 2_0_1 = 1
+                     * 2_1_1 = 2
+                     * 2_0_2 = 3
+                     * 2_1_2 = 4
+                     * 2_0_3 = 5
+                     * 2_1_3 = 6
+                     * 2_0_4 = 7
+                     * 2_1_4 = 8
+                     * 2_0_5 = 9
+                     * 2_1_5 = 10
+                     * 2_0_6 = 11
+                     * 2_1_6 = 12
+                     *
+                     * 2_0_1 = 1
+                     * 2_1_1 = 2
+                     * 2_2_1 = 3
+                     * 2_0_2 = 4
+                     * 2_1_2 = 5
+                     * 2_2_2 = 6
+                     * 2_0_3 = 7
+                     * 2_1_3 = 8
+                     * 2_2_3 = 9
+                     * 2_0_4 = 10
+                     * 2_1_4 = 11
+                     * 2_2_4 = 12
+                     * 2_0_5 = 13
+                     * 2_1_5 = 14
+                     * 2_2_5 = 15
+                     * 2_0_6 = 16
+                     * 2_1_6 = 17
+                     * 2_2_6 = 18
+                     *
+                     * if tokens1 = 0, it's tokens2 - 1 * getExInfoHashMap().get(String.valueOf(i) + key).size()
+                     * it's tokens2 - 1 * getExInfoHashMap().get(String.valueOf(i) + key).size()
+                     * + 1 + tokens1
+                     *
+                     * lmaoooo it actually works
+                     */
+
                     int size = getExInfoHashMap().get(String.valueOf(i) + key).size();
                     int size1 = getExInfoHashMap().get(String.valueOf(i) + key).get("1_key").size() - 1;
+                    for(Map.Entry<String, List<String>> entry :
+                            getExInfoHashMap().get(String.valueOf(i) + key).entrySet()){
+                        y2 = y2 + (entry.getValue().size() - 1);
+                    }
+
+                    if(tokensInt2 != 1){
+                        x2 = ((tokensInt2 - 1) * getExInfoHashMap().get(String.valueOf(i) + key).size()) + 1 + tokensInt1;
+                    }else{
+                        x2 = tokensInt1 + 1;
+                    }
 
                     if(tokensInt2 == 1){
                         // we're in a first pass through the superset map
@@ -180,7 +236,7 @@ public class WorkoutProgressModelClass {
             }
         }
 
-        setIndex = "(" + x + "/" + y + ")";
+        setIndex = "(" + x + "/" + y + ")(" + x2 + "/" + y2 + ")";
 
         return setIndex;
     }
