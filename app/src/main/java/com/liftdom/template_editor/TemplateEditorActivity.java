@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
@@ -58,6 +59,8 @@ public class TemplateEditorActivity extends BaseActivity
     boolean isTemplateEdit;
     boolean isFromPublic;
 
+    boolean restTimerBool = false;
+
     String templateNameEdit;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -88,26 +91,11 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.descriptionEditText) EditText templateDescriptionEdit;
     @BindView(R.id.title) TextView title;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
-
-    private String handleUnitConversion(String oldValue){
-        String newValue;
-        if(TemplateEditorSingleton.getInstance().isTemplateImperial
-                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
-            // the template is imperial, but the user is metric
-            double valueDouble = Double.parseDouble(oldValue);
-            int valueInt = (int) Math.round(valueDouble * 0.45359237);
-            newValue = String.valueOf(valueInt);
-        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
-                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
-            // the template is metric, but the user is imperial
-            double valueDouble = Double.parseDouble(oldValue);
-            int valueInt = (int) Math.round(valueDouble / 0.45359237);
-            newValue = String.valueOf(valueInt);
-        }else{
-            newValue = oldValue;
-        }
-        return newValue;
-    }
+    @BindView(R.id.restTimerLL) LinearLayout restTimerLL;
+    @BindView(R.id.restTimerSwitch) Switch restTimerSwitch;
+    @BindView(R.id.restTimerInfoLL) LinearLayout restTimerInfoLL;
+    @BindView(R.id.minutes) EditText minutesEditText;
+    @BindView(R.id.seconds) EditText secondsEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +123,32 @@ public class TemplateEditorActivity extends BaseActivity
         HideKey.initialize(TemplateEditorActivity.this);
 
         title.setTypeface(lobster);
+
+        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 60)});
+
+        restTimerLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(restTimerBool){
+                    restTimerSwitch.setChecked(false);
+                }else{
+                    restTimerSwitch.setChecked(true);
+                }
+            }
+        });
+
+        restTimerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    restTimerBool = true;
+                    restTimerInfoLL.setVisibility(View.VISIBLE);
+                }else{
+                    restTimerBool = false;
+                    restTimerInfoLL.setVisibility(View.GONE);
+                }
+            }
+        });
 
         // [START AUTH AND NAV-DRAWER BOILERPLATE]
 
@@ -226,6 +240,15 @@ public class TemplateEditorActivity extends BaseActivity
                                 }else{
                                     TemplateEditorSingleton.getInstance().isTemplateImperial = false;
                                 }
+
+                                if(templateClass.getRestTime() != null){
+                                    String delims = "[:]";
+                                    String[] tokens = templateClass.getRestTime().split(delims);
+                                    minutesEditText.setText(tokens[0]);
+                                    secondsEditText.setText(tokens[1]);
+                                }
+
+                                restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
 
                                 TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
@@ -396,6 +419,15 @@ public class TemplateEditorActivity extends BaseActivity
                                 TemplateEditorSingleton.getInstance().isTemplateImperial = false;
                             }
 
+                            if(templateClass.getRestTime() != null){
+                                String delims = "[:]";
+                                String[] tokens = templateClass.getRestTime().split(delims);
+                                minutesEditText.setText(tokens[0]);
+                                secondsEditText.setText(tokens[1]);
+                            }
+
+                            restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
+
                             TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
                             SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
@@ -527,6 +559,9 @@ public class TemplateEditorActivity extends BaseActivity
                 //    if (getIntent().getExtras().getString("isEdit").equals("no")) {
                 //    }
                 //}
+
+                restTimerSwitch.setChecked(true);
+
                 DatabaseReference userRef = mRootRef.child("user").child(uid);
 
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -792,6 +827,26 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
+    private String handleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
+    }
+
     private void removeDaySet(){
         // only thing now is to remove all greyed out instances if the removed frag
         // has that selected day
@@ -908,6 +963,9 @@ public class TemplateEditorActivity extends BaseActivity
                     intent.putExtra("isFromEditor", true);
                     intent.putExtra("isEdit", isEdit);
                     //intent.putExtra("isAlgorithm", algBool);
+
+                    TemplateEditorSingleton.getInstance().mIsActiveRestTimer = restTimerBool;
+                    TemplateEditorSingleton.getInstance().mRestTime = minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString();
 
                     if(!isTemplateEdit){
                         DateTime dateTime = new DateTime(DateTimeZone.UTC);

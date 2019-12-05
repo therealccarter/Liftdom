@@ -59,13 +59,14 @@ Service won't go forward into a superset
 Service won't go backwards out of a superset
 Service won't go to workout done if last set is a superset
 Notification should have set numbers (1/3) etc (+ superset support)(removed "reps" in notification to make space)
-
+WA: notification bar should check for last one you were on when you deactivate it (checks last checked)
+Added rest time layouts to assistorHolder and TemplateEditor, wired them up, and added rest time
+    - variables to the associated model classes.
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
-WA: notification bar should check for last one you were on when you deactivate it
 WA: rest times in notification bar
 Service gets fucked up when WA/running assistor changes
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
@@ -85,7 +86,7 @@ Weight edit text WA not defaulting zero to blank
 Need to handle changing template mid workout (maybe check running assistor against new template save
  status of checked ones.)
 Rounding option for percentages (nearest 5 or nearest to up)
-work offline. this would be a massive thing affecting many files and systems.
+work offline. this would be a massive undertaking affecting many files and systems.
 
 ----- Template Editor -----
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
@@ -122,6 +123,7 @@ Come up with a plan for missing weight in a workout.
 Talk to Firebase about the privacy rules
 Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Rework Appodeal (+ better asking permission) or drop it
+Look into size of app (says it's 50mb and it has 20mb of cached info?)
 
 ----- Difficult to Replicate -----
 Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)

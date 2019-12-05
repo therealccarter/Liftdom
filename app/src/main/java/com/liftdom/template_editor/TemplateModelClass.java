@@ -37,6 +37,8 @@ public class TemplateModelClass {
     private String publicTemplateKeyId;
     private boolean mIsImperial;
     private List<String> mHasReppedList;
+    private String mRestTime;
+    private boolean mIsActiveRestTimer;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -57,7 +59,9 @@ public class TemplateModelClass {
                               HashMap<String, List<String>> algorithmInfo,
                               HashMap<String, List<String>> algorithmDateMap,
                               boolean isImperial,
-                              List<String> hasReppedList){
+                              List<String> hasReppedList,
+                              String restTime,
+                              boolean isActiveRestTimer){
 
         mTemplateName = templateName;
         mDays = days;
@@ -82,11 +86,29 @@ public class TemplateModelClass {
         mAlgorithmInfo = algorithmInfo;
         mAlgorithmDateMap = algorithmDateMap;
         mIsImperial = isImperial;
+        mRestTime = restTime;
+        mIsActiveRestTimer = isActiveRestTimer;
         try{
             mHasReppedList = hasReppedList;
         }catch (NullPointerException e){
 
         }
+    }
+
+    public String getRestTime() {
+        return mRestTime;
+    }
+
+    public void setRestTime(String mRestTime) {
+        this.mRestTime = mRestTime;
+    }
+
+    public boolean isIsActiveRestTimer() {
+        return mIsActiveRestTimer;
+    }
+
+    public void setIsActiveRestTimer(boolean mIsActiveRestTimer) {
+        this.mIsActiveRestTimer = mIsActiveRestTimer;
     }
 
     public HashMap<String, String> getExtraInfo() {

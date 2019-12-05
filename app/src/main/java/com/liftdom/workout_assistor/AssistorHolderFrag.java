@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,6 +37,7 @@ import com.irozon.library.HideKey;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.workout_programs.FiveThreeOne.Wendler_531_For_Beginners;
 import com.liftdom.workout_programs.Smolov.Smolov;
@@ -124,11 +126,20 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.cancelRevision) Button cancelRevisionButton;
     @BindView(R.id.cancelRevisionHolder) CardView cancelRevisionHolder;
     @BindView(R.id.extraText) TextView extraText;
+    @BindView(R.id.restTimerLL) LinearLayout restTimerLL;
+    @BindView(R.id.restTimerSwitch) Switch restTimerSwitch;
+    @BindView(R.id.restTimerInfoLL) LinearLayout restTimerInfoLL;
+    @BindView(R.id.minutes) EditText minutesEditText;
+    @BindView(R.id.seconds) EditText secondsEditText;
+    @BindView(R.id.confirmRestTimerButton) Button confirmRestTimer;
+
 
     boolean isFirstTimeFirstTime = true;
     boolean isTutorialFirstTime = false;
 
     boolean isUserImperial = true;
+
+    boolean restTimerBool = false;
 
     private ValueEventListener runningAssistorListener;
 
@@ -189,6 +200,39 @@ public class AssistorHolderFrag extends android.app.Fragment
             @Override
             public void onClick(View v) {
                 cancelRevision();
+            }
+        });
+
+        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 60)});
+
+        restTimerLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(restTimerBool){
+                    restTimerSwitch.setChecked(false);
+                }else{
+                    restTimerSwitch.setChecked(true);
+                }
+            }
+        });
+
+        restTimerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    restTimerBool = true;
+                    restTimerInfoLL.setVisibility(View.VISIBLE);
+                }else{
+                    restTimerBool = false;
+                    restTimerInfoLL.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        confirmRestTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateWorkoutState();
             }
         });
 
@@ -670,6 +714,12 @@ public class AssistorHolderFrag extends android.app.Fragment
                     null, isRevisedWorkout, isFromRestDay);
         }
 
+        if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
+        }else{
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
+        }
+        progressModelClass.setIsActiveRestTimer(restTimerBool);
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
@@ -714,6 +764,13 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
+        }else{
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
+        }
+        progressModelClass.setIsActiveRestTimer(restTimerBool);
 
         runningAssistorRef.setValue(progressModelClass);
 
@@ -777,6 +834,13 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 null, isRevisedWorkout, isFromRestDay);
                     }
 
+                    if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
+                        progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
+                    }else{
+                        progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
+                    }
+                    progressModelClass.setIsActiveRestTimer(restTimerBool);
+
                     runningAssistorRef.setValue(progressModelClass);
                 }
             }
@@ -818,6 +882,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
+        progressModelClass.setIsActiveRestTimer(restTimerBool);
 
         runningAssistorRef.setValue(progressModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -1376,10 +1443,20 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         Log.i("assistorInfo", "savedProgressInflateViews");
 
+        if(workoutProgressModelClass.getRestTime() != null){
+            String delims = "[:]";
+            String[] tokens = workoutProgressModelClass.getRestTime().split(delims);
+            minutesEditText.setText(tokens[0]);
+            secondsEditText.setText(tokens[1]);
+        }
+
+        restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
+
         if(runningMap != null){
             for(int i = 0; i < runningMap.size(); i++){
                 if(i == 0){
                     loadingView.setVisibility(View.GONE);
+                    restTimerLL.setVisibility(View.VISIBLE);
                     serviceCardView.setVisibility(View.VISIBLE);
                 }
                 for(Map.Entry<String, HashMap<String, List<String>>> entry : runningMap.entrySet()) {
@@ -1447,6 +1524,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         for(int i = 0; i < map.size(); i++){
             if(i == 0){
                 loadingView.setVisibility(View.GONE);
+                restTimerLL.setVisibility(View.VISIBLE);
             }
             for(Map.Entry<String, List<String>> entry : map.entrySet()) {
                 if(!entry.getKey().equals("0_key")){
@@ -1496,6 +1574,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         for(int i = 0; i < smolovMap.size(); i++){
             if(i == 0){
                 loadingView.setVisibility(View.GONE);
+                restTimerLL.setVisibility(View.VISIBLE);
             }
             for(Map.Entry<String, List<String>> entry : smolovMap.entrySet()) {
                 if(!entry.getKey().equals("0_key")){
@@ -1551,6 +1630,15 @@ public class AssistorHolderFrag extends android.app.Fragment
                             if(dataSnapshot.exists()){
                                 mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
 
+                                if(mTemplateClass.getRestTime() != null){
+                                    String delims = "[:]";
+                                    String[] tokens = mTemplateClass.getRestTime().split(delims);
+                                    minutesEditText.setText(tokens[0]);
+                                    secondsEditText.setText(tokens[1]);
+                                }
+
+                                restTimerSwitch.setChecked(mTemplateClass.isIsActiveRestTimer());
+
                                 // without having saved any progress
                                 DateTime dateTime = new DateTime();
                                 int currentWeekday = dateTime.getDayOfWeek();
@@ -1561,6 +1649,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                             for(int i = 0; i < map.size(); i++){
                                                 if(i == 0){
                                                     loadingView.setVisibility(View.GONE);
+                                                    restTimerLL.setVisibility(View.VISIBLE);
                                                     serviceCardView.setVisibility(View.VISIBLE);
                                                 }
                                                 for(Map.Entry<String, List<String>> entry : map.entrySet()) {

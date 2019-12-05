@@ -191,6 +191,108 @@
                     android:layout_marginBottom="10dp"
             />
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start"
+                    android:id="@+id/restTimerLL"
+                    android:layout_marginStart="10dp"
+                    >
+
+                <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/restTimerSwitch"
+                        android:textAlignment="textEnd"
+                        android:theme="@style/SwitchTheme"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/restTimer"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="10dp"
+                        android:textSize="17sp"
+                        />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/restTimerInfoLL"
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        >
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/minutes"
+                            android:maxLength="1"
+                            android:text="1"
+                            android:textColor="@color/white"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/colon"
+                            android:textColor="@color/grey"
+                            />
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/seconds"
+                            android:maxLength="2"
+                            android:text="30"
+                            android:textColor="@color/white"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/minutesSeconds"
+                            android:textColor="@color/grey"
+                            android:layout_marginStart="10dp"
+                            />
+
+                </LinearLayout>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/restTimerInfo2"
+                        android:textColor="@color/grey"
+                        />
+
+            </LinearLayout>
+
+            <View
+                    android:background="@color/liftrGold1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    />
+
 
             <CheckBox
                     android:layout_width="match_parent"
@@ -199,6 +301,7 @@
                     android:textColor="@color/white"
                     android:id="@+id/activeTemplateCheckbox"
                     android:layout_marginStart="10dp"
+                    android:textSize="17sp"
             />
 
             <CheckBox

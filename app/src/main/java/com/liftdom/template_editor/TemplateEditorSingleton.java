@@ -29,6 +29,7 @@ public class TemplateEditorSingleton {
     String mDateCreated;
     String mDescription;
     boolean isAlgoApplyToAll = false;
+
     HashMap<String, List<String>> mapOne = new HashMap<>();
     HashMap<String, List<String>> mapTwo = new HashMap<>();
     HashMap<String, List<String>> mapThree = new HashMap<>();
@@ -44,6 +45,8 @@ public class TemplateEditorSingleton {
     boolean isCurrentUserImperial;
     boolean isTemplateImperial;
     boolean isFirstTimeTut = false;
+    String mRestTime;
+    boolean mIsActiveRestTimer;
 
 
 
@@ -259,6 +262,8 @@ public class TemplateEditorSingleton {
         mIsAlgorithm = false; // so right now the problem is that when adding a superset, for some reason algorithm
         // gets set to false
         mAlgorithmInfo.clear();
+        mRestTime = null;
+        mIsActiveRestTimer = false;
     }
 }
 

@@ -207,6 +207,8 @@ public class TemplateSavedActivity extends BaseActivity {
             final boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
             String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
             String xDescription = TemplateEditorSingleton.getInstance().mDescription;
+            String xRestTimer = TemplateEditorSingleton.getInstance().mRestTime;
+            boolean xIsActiveRestTimer = TemplateEditorSingleton.getInstance().mIsActiveRestTimer;
             HashMap<String, List<String>> xMapOne = new HashMap<>();
             xMapOne.putAll(TemplateEditorSingleton.getInstance().mapOne);
             HashMap<String, List<String>> xMapTwo = new HashMap<>();
@@ -258,7 +260,7 @@ public class TemplateSavedActivity extends BaseActivity {
                                                 xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
                                                 xMapThree, xMapFour, xMapFive, xMapSix,
                                                 xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo,
-                    xAlgorithmDateMap, unitsIsImperial, null);
+                    xAlgorithmDateMap, unitsIsImperial, null, xRestTimer, xIsActiveRestTimer);
 
             if(TemplateEditorSingleton.getInstance().isFromPublic){
                 modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);

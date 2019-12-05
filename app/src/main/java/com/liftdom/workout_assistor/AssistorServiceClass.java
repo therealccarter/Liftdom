@@ -331,7 +331,11 @@ public class AssistorServiceClass extends Service {
 
         if(workoutProgressModelClass.getViewCursor() == null){
             // if first time
-            workoutProgressModelClass.setViewCursor("1_0_1");
+            if(workoutProgressModelClass != null){
+                workoutProgressModelClass.setViewCursor(workoutProgressModelClass.checkForAdvancedViewCursor());
+            }else{
+                workoutProgressModelClass.setViewCursor("1_0_1");
+            }
         }
 
         if(workoutProgressModelClass.getViewCursor().equals("1_0_1")){

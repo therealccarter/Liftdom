@@ -22,6 +22,8 @@ public class WorkoutProgressModelClass {
     private boolean mIsTemplateImperial;
     private String mViewCursor; // the current set we're on
     private String mRefKey;
+    private String mRestTime;
+    private boolean mIsActiveRestTimer;
     private boolean mIsRevise;
     private boolean mIsFromRestDay;
 
@@ -45,6 +47,22 @@ public class WorkoutProgressModelClass {
         }
         mIsRevise = isRevise;
         mIsFromRestDay = isFromRestDay;
+    }
+
+    public boolean isIsActiveRestTimer() {
+        return mIsActiveRestTimer;
+    }
+
+    public void setIsActiveRestTimer(boolean mIsActiveRestTimer) {
+        this.mIsActiveRestTimer = mIsActiveRestTimer;
+    }
+
+    public String getRestTime() {
+        return mRestTime;
+    }
+
+    public void setRestTime(String mRestTime) {
+        this.mRestTime = mRestTime;
     }
 
     public boolean isIsFromRestDay() {
@@ -85,6 +103,8 @@ public class WorkoutProgressModelClass {
          * x/y
          * so for the x value we need to go through each [0] and add the amount of [1]'s to an incrementer. Then we
          * stop once the values [0]_[1] = the one we're in.
+         *
+         * LOL NO JUST DO MATH 5HEAD
          */
         for(Map.Entry<String, HashMap<String, List<String>>> entry1 : mExInfoHashMap.entrySet()){
             String entry1Key = entry1.getKey();
@@ -100,6 +120,38 @@ public class WorkoutProgressModelClass {
         exIndex = "(" + x + "/" + y + ")";
 
         return exIndex;
+    }
+
+    public String checkForAdvancedViewCursor(){
+        String viewCursor = "1_0_1";
+
+        for(int i = 1; i <= getExInfoHashMap().size(); i++){
+            for(Map.Entry<String, HashMap<String, List<String>>> entry : getExInfoHashMap().entrySet()){
+                String delims = "[_]";
+                String[] tokens = entry.getKey().split(delims);
+                if(Integer.parseInt(tokens[0]) == i){
+                    for(int j = 0; j < entry.getValue().size(); j++){
+                        for(Map.Entry<String, List<String>> entry2 : entry.getValue().entrySet()){
+                            String[] tokens2 = entry2.getKey().split(delims);
+                            if(Integer.parseInt(tokens2[0]) == j){
+                                for(int k = 0; k < entry2.getValue().size(); k++){
+                                    String value = entry2.getValue().get(k);
+                                    String[] tokens3 = value.split(delims);
+                                    if(tokens3[tokens3.length - 1].equals("checked")){
+                                        String one = tokens[0];
+                                        String two = tokens2[0];
+                                        String three = String.valueOf(k);
+                                        viewCursor = one + "_" + two + "_" + three;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return viewCursor;
     }
 
     public String setIndex(){
