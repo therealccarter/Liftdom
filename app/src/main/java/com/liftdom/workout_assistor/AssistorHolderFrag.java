@@ -141,6 +141,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     boolean restTimerBool = false;
 
+    boolean restTimerNoUpdate = false;
+
     private ValueEventListener runningAssistorListener;
 
     DatabaseReference runningAssistorRef;
@@ -203,11 +205,12 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
-        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 60)});
+        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
 
         restTimerLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                restTimerNoUpdate = false;
                 if(restTimerBool){
                     restTimerSwitch.setChecked(false);
                 }else{
@@ -222,9 +225,19 @@ public class AssistorHolderFrag extends android.app.Fragment
                 if(b){
                     restTimerBool = true;
                     restTimerInfoLL.setVisibility(View.VISIBLE);
+                    if(!restTimerNoUpdate){
+                        updateWorkoutState();
+                    }else{
+                        restTimerNoUpdate = false;
+                    }
                 }else{
                     restTimerBool = false;
                     restTimerInfoLL.setVisibility(View.GONE);
+                    if(!restTimerNoUpdate){
+                        updateWorkoutState();
+                    }else{
+                        restTimerNoUpdate = false;
+                    }
                 }
             }
         });
@@ -686,6 +699,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         String dateTimeString = fmt.print(localDate);
+        //dateTimeString = "2019-12-05";
         String privateJournal = privateJournalView.getText().toString();
         String publicComment = publicCommentView.getText().toString();
         boolean completedBool = false; // obviously this will be set to true in assistor saved
@@ -735,6 +749,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         String dateTimeString = fmt.print(localDate);
+        //dateTimeString = "2019-12-05";
         String privateJournal = privateJournalView.getText().toString();
         String publicComment = publicCommentView.getText().toString();
         boolean completedBool = false; // obviously this will be set to true in assistor saved
@@ -1261,6 +1276,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
                         LocalDate localDate = LocalDate.now();
                         String dateTimeString = fmt.print(localDate);
+                        //dateTimeString = "2019-12-05";
                         workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
                         if(dateTimeString.equals(workoutProgressModelClass.getDate())){
                             if(!workoutProgressModelClass.isCompletedBool()){
@@ -1274,14 +1290,26 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
                                         workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                             }else{
-                                noProgressInflateViews();
+                                if(exNameFragList.isEmpty()){
+                                    cleanUpState();
+                                    noProgressInflateViews();
+                                }else{
+                                    noProgressInflateViews();
+                                }
                             }
                         }else{
-                            noProgressInflateViews();
+                            if(exNameFragList.isEmpty()){
+                                cleanUpState();
+                                noProgressInflateViews();
+                            }else{
+                                noProgressInflateViews();
+                            }
                         }
                     }else{
                         if(exNameFragList.isEmpty()){
                             cleanUpState();
+                            noProgressInflateViews();
+                        }else{
                             noProgressInflateViews();
                         }
                     }
@@ -1450,6 +1478,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             secondsEditText.setText(tokens[1]);
         }
 
+        restTimerNoUpdate = true;
         restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
 
         if(runningMap != null){
@@ -1613,6 +1642,8 @@ public class AssistorHolderFrag extends android.app.Fragment
          * add the new info in place of the old info.
          */
 
+
+
         DatabaseReference activeTemplateRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
                 .child("activeTemplate");
         activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1637,6 +1668,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     secondsEditText.setText(tokens[1]);
                                 }
 
+                                restTimerNoUpdate = true;
                                 restTimerSwitch.setChecked(mTemplateClass.isIsActiveRestTimer());
 
                                 // without having saved any progress

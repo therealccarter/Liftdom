@@ -470,13 +470,17 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     public boolean isPercentage(String setScheme){
         boolean percentage = false;
 
-        String delims1 = "[@]";
-        String[] tokens1 = setScheme.split(delims1);
+        try{
+            String delims1 = "[@]";
+            String[] tokens1 = setScheme.split(delims1);
 
-        char c = tokens1[1].charAt(0);
-        String cString = String.valueOf(c);
-        if(cString.equals("p")){
-            percentage = true;
+            char c = tokens1[1].charAt(0);
+            String cString = String.valueOf(c);
+            if(cString.equals("p")){
+                percentage = true;
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            Log.i("error", "out of bounds repsWA");
         }
 
 

@@ -212,10 +212,20 @@ public class AssistorServiceClass extends Service {
     }
 
     private void processToggleCheckAction(){
-        workoutProgressModelClass.toggleCheck();
+        boolean isChecking = workoutProgressModelClass.toggleCheck();
         updateFirebaseProgressModel();
         //mNotificationManager.notify(101, buildNotification());
         startForeground(101, buildNotification());
+        if(isChecking){
+            if(workoutProgressModelClass.isIsActiveRestTimer()){
+                // start rest service
+                if(workoutProgressModelClass.getRestTime() != null){
+                    Intent startIntent = new Intent(this, RestTimerServiceClass.class);
+                    startIntent.putExtra("time", workoutProgressModelClass.getRestTime());
+                    this.startService(startIntent);
+                }
+            }
+        }
     }
 
     private void updateFirebaseProgressModel(){
@@ -263,7 +273,7 @@ public class AssistorServiceClass extends Service {
                 unit = "kgs";
             }
 
-            formatted = tokensCheck[0] + "+ reps @ " + checkForUnits(tokensCheck[2]) + " " + unit;
+            formatted = tokensCheck[0] + "+ @ " + checkForUnits(tokensCheck[2]) + " " + unit;
         }else{
             String delims = "[_]";
             String[] tokens = unformatted.split(delims);
@@ -653,6 +663,8 @@ public class AssistorServiceClass extends Service {
         super.onDestroy();
         //stopForeground(true); may do an if/else in onStartCommand?
         unregisterReceiver(mIntentReceiver);
+        Intent stopIntent = new Intent(this, RestTimerServiceClass.class);
+        this.stopService(stopIntent);
     }
 
     @Override

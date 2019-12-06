@@ -166,6 +166,8 @@
 
         <service android:name="com.liftdom.workout_assistor.AssistorServiceClass" />
 
+        <service android:name="com.liftdom.workout_assistor.RestTimerServiceClass"/>
+
         <activity
                 android:name="com.liftdom.template_editor.PercentageOptionsDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar" /> <!-- BEGIN APPODEAL STUFF =============================================================================== -->

@@ -62,15 +62,29 @@ Notification should have set numbers (1/3) etc (+ superset support)(removed "rep
 WA: notification bar should check for last one you were on when you deactivate it (checks last checked)
 Added rest time layouts to assistorHolder and TemplateEditor, wired them up, and added rest time
     - variables to the associated model classes.
+Switch not remembering position
+Had a WA up from thursday, it turned friday, and friday's workout was added onto the WA but kept
+    - thursday's information. (tentative, need to test more)
+WA is clearing maps when checking rest timer to on
+Switch not updating when clicked first time.
+Changed input filter to 59 instead of 60 max seconds
+Checking off amrap corrupts string
+Amrap needs to remove "reps" in notification
+Closing main service also closes timer now
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
 WA: rest times in notification bar
+    - needs to reset on check
+    - gets all jacked up and glitchy if quickly checking off items
 Service gets fucked up when WA/running assistor changes
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
+Check if we need to handle the event listener in service
+Need to somehow check if this is really a problem (android 8+)
+    - https://developer.android.com/training/notify-user/build-notification#Priority
 
 ----- WA -----
 possibly add added exercises to workout (from WA to template)
@@ -87,6 +101,7 @@ Need to handle changing template mid workout (maybe check running assistor again
  status of checked ones.)
 Rounding option for percentages (nearest 5 or nearest to up)
 work offline. this would be a massive undertaking affecting many files and systems.
+    - might put the offline update in updateWorkoutState()
 
 ----- Template Editor -----
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
@@ -124,10 +139,13 @@ Talk to Firebase about the privacy rules
 Revamp the intro to better take care of GDPR and clear up the email privacy stuff.
 Rework Appodeal (+ better asking permission) or drop it
 Look into size of app (says it's 50mb and it has 20mb of cached info?)
+The warning in Android Manifest for indexing
 
 ----- Difficult to Replicate -----
 Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)
 user profile got null (profileHeaderFrag 84)
+Had a WA up from thursday, it turned friday, and friday's workout was added onto the WA but kept
+    - thursday's information. (tentative, need to test more)
 =====================================================
 
 ============ ON DECK FOR v1.41+: ===============================================

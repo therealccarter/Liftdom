@@ -1,5 +1,6 @@
 package com.liftdom.workout_assistor;
 
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -832,7 +833,25 @@ public class WorkoutProgressModelClass {
         }
     }
 
-    public void toggleCheck(){
+    public boolean isAmrap(String string){
+        // 8_a@230_unchecked
+        boolean amrap = false;
+
+        String delims = "[_,@]";
+        String[] tokens = string.split(delims);
+
+        try{
+            if(tokens[1].equals("a")){
+                amrap = true;
+            }
+        }catch (IndexOutOfBoundsException e){
+
+        }
+
+        return amrap;
+    }
+
+    public boolean toggleCheck(){
         boolean isChecking = false;
         String delims = "[_]";
         String[] tokens = getViewCursor().split(delims);
@@ -840,22 +859,41 @@ public class WorkoutProgressModelClass {
         String currentSet = getExInfoHashMap().get(tokens[0] + "_key").get(tokens[1] + "_key").get(Integer.parseInt(tokens[2]));
         Log.i("serviceInfo", "currentSet = " + currentSet);
 
-        String[] tokens2 = currentSet.split(delims);
-
-        if(tokens2[1].equals("checked")){
-            tokens2[1] = "unchecked";
-        }else{
-            tokens2[1] = "checked";
-            isChecking = true;
-        }
-
         String newString = "";
 
-        for(int i = 0; i < tokens2.length; i++){
-            if(i == 0){
-                newString = tokens2[i];
+        if(isAmrap(currentSet)){
+            String[] tokens2 = currentSet.split(delims);
+
+            if(tokens2[2].equals("checked")){
+                tokens2[2] = "unchecked";
             }else{
-                newString = newString + "_" + tokens2[i];
+                tokens2[2] = "checked";
+                isChecking = true;
+            }
+
+            for(int i = 0; i < tokens2.length; i++){
+                if(i == 0){
+                    newString = tokens2[i];
+                }else{
+                    newString = newString + "_" + tokens2[i];
+                }
+            }
+        }else{
+            String[] tokens2 = currentSet.split(delims);
+
+            if(tokens2[1].equals("checked")){
+                tokens2[1] = "unchecked";
+            }else{
+                tokens2[1] = "checked";
+                isChecking = true;
+            }
+
+            for(int i = 0; i < tokens2.length; i++){
+                if(i == 0){
+                    newString = tokens2[i];
+                }else{
+                    newString = newString + "_" + tokens2[i];
+                }
             }
         }
 
@@ -867,6 +905,8 @@ public class WorkoutProgressModelClass {
         if(isChecking){
             next();
         }
+
+        return isChecking;
     }
 
     public String getViewCursor() {

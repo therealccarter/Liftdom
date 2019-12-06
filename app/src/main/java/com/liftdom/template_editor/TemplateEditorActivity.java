@@ -124,7 +124,7 @@ public class TemplateEditorActivity extends BaseActivity
 
         title.setTypeface(lobster);
 
-        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 60)});
+        secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
 
         restTimerLL.setOnClickListener(new View.OnClickListener() {
             @Override
