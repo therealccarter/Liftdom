@@ -20,8 +20,10 @@
             android:largeHeap="true"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.liftdom.template_editor.DaySetDeleteConfirmation"
-                android:theme="@style/AppCompatDialogNoTitleBar"/>
+        <activity android:name="com.liftdom.workout_assistor.RestTimerSplashscreenActivity"></activity>
+        <activity
+                android:name="com.liftdom.template_editor.DaySetDeleteConfirmation"
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity"
                 android:theme="@style/Theme.Intro" />
@@ -165,8 +167,7 @@
                 android:theme="@style/AppCompatDialogNoTitleBar" />
 
         <service android:name="com.liftdom.workout_assistor.AssistorServiceClass" />
-
-        <service android:name="com.liftdom.workout_assistor.RestTimerServiceClass"/>
+        <service android:name="com.liftdom.workout_assistor.RestTimerServiceClass" />
 
         <activity
                 android:name="com.liftdom.template_editor.PercentageOptionsDialog"

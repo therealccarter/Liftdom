@@ -71,6 +71,9 @@ Changed input filter to 59 instead of 60 max seconds
 Checking off amrap corrupts string
 Amrap needs to remove "reps" in notification
 Closing main service also closes timer now
+Timer needs to reset on check
+Timer gets all jacked up and glitchy if quickly checking off items
+Timer needs pause and play buttons
 ----------------------
 ====================================================
 

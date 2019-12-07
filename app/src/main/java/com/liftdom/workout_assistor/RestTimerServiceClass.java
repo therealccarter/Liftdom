@@ -3,9 +3,10 @@ package com.liftdom.workout_assistor;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Intent;
+import android.content.*;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
@@ -15,13 +16,40 @@ import com.liftdom.liftdom.R;
  */
 public class RestTimerServiceClass extends Service {
 
+    public static final String TOGGLEPAUSE_ACTION = "com.liftdom.workout_assistor.pause";
+
+
     public static final String CHANNEL_ID = "assistor_channel_02";
     String title = "Rest Timer";
-    //String time = "1:30";
+    Long mTime;
+    boolean isPaused = false;
+
+    private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //final String command = intent.getStringExtra(CMDNAME);
+
+            Log.i("serviceInfo", "mIntentReceiver");
+
+            handleCommandIntent(intent);
+        }
+    };
+
+    private void handleCommandIntent(Intent intent){
+        final String action = intent.getAction();
+
+        if(action != null){
+            if(action.equals(TOGGLEPAUSE_ACTION)){
+                processTogglePauseAction();
+            }
+        }
+    }
 
     @Override
     public void onCreate(){
-
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(TOGGLEPAUSE_ACTION);
+        registerReceiver(mIntentReceiver, filter);
     }
 
     private String millisToString(long millis){
@@ -52,7 +80,46 @@ public class RestTimerServiceClass extends Service {
         return seconds * 1000;
     }
 
-    private Notification buildNotification(String time){
+    private final PendingIntent retrieveAction(final String action){
+        Log.i("serviceInfo", "retrieveMapAction");
+        final ComponentName serviceName = new ComponentName(this, RestTimerServiceClass.class);
+        Intent intent = new Intent(action);
+        intent.setComponent(serviceName);
+
+        return PendingIntent.getService(this, 0, intent, 0);
+    }
+
+    private void processTogglePauseAction(){
+        if(isPaused){
+            isPaused = false;
+            if(timer != null){
+                timer.cancel();
+            }
+            final long time = mTime;
+            timer = new CountDownTimer(stringTimeToMillis(millisToString(time)), 1000){
+                public void onTick(long millisUntilFinished){
+                    startForeground(102, buildNotification(millisToString(millisUntilFinished),
+                            R.drawable.pause));
+                    mTime = millisUntilFinished;
+                }
+
+                public void onFinish(){
+                    startForeground(102, buildNotification("0:00", R.drawable.pause));
+                    Intent finishedIntent = new Intent(RestTimerServiceClass.this,
+                            MainActivity.class);
+                    startActivity(finishedIntent);
+                }
+            }.start();
+        }else{
+            isPaused = true;
+            if(timer != null){
+                timer.cancel();
+            }
+            startForeground(102, buildNotification(millisToString(mTime), R.drawable.play));
+        }
+    }
+
+    private Notification buildNotification(String time, int pauseOrPlay){
         Intent onClickIntent = new Intent(this, MainActivity.class);
         onClickIntent.putExtra("fragID",  2);
 
@@ -63,7 +130,15 @@ public class RestTimerServiceClass extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        NotificationCompat.Builder builder = timerBuilder(onClickPendingIntent, time);
+        //int pauseOrPlay;
+//
+        //if(isPaused){
+        //    pauseOrPlay = R.drawable.ic_play_white_36dp;
+        //}else{
+        //    pauseOrPlay = R.drawable.pause;
+        //}
+
+        NotificationCompat.Builder builder = timerBuilder(onClickPendingIntent, time, pauseOrPlay);
 
         //Notification n = builder.build();
 
@@ -71,41 +146,109 @@ public class RestTimerServiceClass extends Service {
     }
 
     private NotificationCompat.Builder timerBuilder(PendingIntent onClickPendingIntent,
-                                                    String time){
+                                                    String time, int pauseOrPlay){
         NotificationCompat.Builder builder = new NotificationCompat.
                 Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                    .setShowActionsInCompactView(0))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(time)
                 .setContentIntent(onClickPendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .addAction(pauseOrPlay,
+                        "Pause",
+                        retrieveAction(TOGGLEPAUSE_ACTION));
 
         return builder;
 
     }
 
+    CountDownTimer timer;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
         if(intent != null){
-            String time;
-            if(intent.getStringExtra("time") == null){
-                time = "1:30";
-            }else{
-                time = intent.getStringExtra("time");
-            }
-            new CountDownTimer(stringTimeToMillis(time), 1000){
-                public void onTick(long millisUntilFinished){
-                    startForeground(102, buildNotification(millisToString(millisUntilFinished)));
+            if(intent.getAction() == null){
+                String time;
+                if(intent.getStringExtra("time") == null){
+                    time = "1:30";
+                    mTime = stringTimeToMillis(time);
+                }else{
+                    time = intent.getStringExtra("time");
+                    mTime = stringTimeToMillis(time);
                 }
+                if(timer != null){
+                    timer.cancel();
+                }
+                timer = new CountDownTimer(stringTimeToMillis(time), 1000){
+                    public void onTick(long millisUntilFinished){
+                        startForeground(102, buildNotification(millisToString(millisUntilFinished),
+                                R.drawable.pause));
+                        mTime = millisUntilFinished;
+                    }
 
-                public void onFinish(){
-                    startForeground(102, buildNotification("0:00"));
-                }
-            }.start();
+                    public void onFinish(){
+                        startForeground(102, buildNotification("0:00", R.drawable.pause));
+                        Intent finishedIntent = new Intent(RestTimerServiceClass.this,
+                                MainActivity.class);
+                        startActivity(finishedIntent);
+                    }
+                }.start();
+            }else{
+                handleCommandIntent(intent);
+            }
+
+            //if(intent.getAction().equals(TOGGLEPAUSE_ACTION)){
+            //    if(isPaused){
+            //        startForeground(102, buildNotification(millisToString(mTime)));
+            //    }else{
+            //        if(timer != null){
+            //            timer.cancel();
+            //        }
+            //        final long time = mTime;
+            //        timer = new CountDownTimer(stringTimeToMillis(millisToString(time)), 1000){
+            //            public void onTick(long millisUntilFinished){
+            //                startForeground(102,
+            //                        buildNotification(millisToString(millisUntilFinished)));
+            //                mTime = millisUntilFinished;
+            //            }
+//
+            //            public void onFinish(){
+            //                startForeground(102, buildNotification("0:00"));
+            //            }
+            //        }.start();
+            //    }
+            //}else{
+            //    String time;
+            //    if(intent.getStringExtra("time") == null){
+            //        time = "1:30";
+            //        mTime = stringTimeToMillis(time);
+            //    }else{
+            //        time = intent.getStringExtra("time");
+            //        mTime = stringTimeToMillis(time);
+            //    }
+            //    if(timer != null){
+            //        timer.cancel();
+            //    }
+            //    timer = new CountDownTimer(stringTimeToMillis(time), 1000){
+            //        public void onTick(long millisUntilFinished){
+            //            startForeground(102,
+            //                    buildNotification(millisToString(millisUntilFinished)));
+            //            mTime = millisUntilFinished;
+            //        }
+//
+            //        public void onFinish(){
+            //            startForeground(102, buildNotification("0:00"));
+            //        }
+            //    }.start();
+            //}
         }
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
