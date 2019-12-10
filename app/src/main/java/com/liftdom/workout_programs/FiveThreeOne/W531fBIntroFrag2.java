@@ -185,7 +185,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
 
     @Override
     public int backgroundColor() {
-        return R.color.confirmgreen;
+        return R.color.confirmGreen;
     }
 
     @Override

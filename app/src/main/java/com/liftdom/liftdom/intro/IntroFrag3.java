@@ -4,7 +4,6 @@ package com.liftdom.liftdom.intro;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -202,7 +201,7 @@ public class IntroFrag3 extends SlideFragment {
 
     @Override
     public int backgroundColor() {
-        return R.color.confirmgreen;
+        return R.color.confirmGreen;
     }
 
     @Override

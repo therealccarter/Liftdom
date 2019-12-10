@@ -501,7 +501,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/saveButtonProfileSettings"
-                    android:background="@color/confirmgreen"
+                    android:background="@color/confirmGreen"
                     android:textColor="@color/black"
                     android:text="@string/saveButton"
                     android:textSize="30sp"

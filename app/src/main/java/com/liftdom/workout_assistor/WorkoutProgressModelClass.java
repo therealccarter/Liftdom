@@ -738,54 +738,6 @@ public class WorkoutProgressModelClass {
                                 //        (decremented2));
                             }
                         }
-
-                        //if(getExInfoHashMap().get(tokens[0] + key).size() > (Integer.parseInt(tokens[1]) + 1)){
-                        //    // if room to increase ([1])
-                        //    //Log.i("progressModel", "107, cursor = " + cursor);
-                        //    int addedKey = Integer.parseInt(tokens[1]) + 1;
-                        //    if(getExInfoHashMap().get(tokens[0] + key).get(String.valueOf(addedKey) + key).size() > Integer
-                        //            .parseInt(tokens[2])){
-                        //        // if room to increase ([2]) of next list
-                        //        //int newValue = Integer.parseInt(tokens[1]) + 1;
-                        //        //Log.i("progressModel", "111, cursor = " + cursor);
-                        //        setViewCursor(tokens[0] + "_" + String.valueOf(addedKey) + "_" + tokens[2]);
-                        //    }else{
-                        //        //Log.i("progressModel", "116, cursor = " + cursor);
-                        //        // keep increasing in original?
-                        //        if(getExInfoHashMap().get(tokens[0] + key).get(tokens[1] + key).size() > (Integer.parseInt
-                        //                (tokens[2]) + 1)){
-                        //            // increase
-                        //            //Log.i("progressModel", "121, cursor = " + cursor);
-                        //            int newValue = Integer.parseInt(tokens[2]) + 1;
-                        //            setViewCursor(tokens[0] + "_" + tokens[1] + "_" + String.valueOf(newValue));
-                        //        }else{
-                        //            // move forward
-                        //            int newValue = Integer.parseInt(tokens[0]) + 1;
-                        //            if(getExInfoHashMap().size() >= newValue){
-                        //                // next map
-                        //                setViewCursor(String.valueOf(newValue) + "_0_1");
-                        //                //Log.i("progressModel", "126, cursor = " + cursor);
-                        //                //Log.i("progressModel", "move forward (superset - else end 1)");
-                        //            }else{
-                        //                // done with workout
-                        //                //setViewCursor("workoutDone");
-                        //            }
-                        //        }
-                        //    }
-                        //}else{
-                        //    // if need to loop back
-                        //    int newValue = Integer.parseInt(tokens[2]) + 1;
-//
-                        //    if(getExInfoHashMap().get(tokens[0] + key).get("0_key").size() > newValue){
-                        //        // increase
-                        //        //Log.i("progressModel", "138, cursor = " + cursor);
-                        //        setViewCursor(tokens[0] + "_0_" + String.valueOf(newValue));
-                        //    }else{
-                        //        // move forward
-                        //        //Log.i("progressModel", "142, cursor = " + cursor);
-                        //        //Log.i("progressModel", "move forward (superset - else end 2)");
-                        //    }
-                        //}
                     }
                 }
             }

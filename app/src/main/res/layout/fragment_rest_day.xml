@@ -138,7 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/restDayComplete"
-                        android:background="@color/confirmgreen"
+                        android:background="@color/confirmGreen"
                         android:layout_gravity="bottom"
                         android:text="@string/completeRestDay"
                         android:textColor="@color/white"

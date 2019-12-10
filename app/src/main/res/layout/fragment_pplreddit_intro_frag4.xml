@@ -82,7 +82,7 @@
                         style="@style/borderlessButton"
                         android:text="@string/confirmProgram"
                         android:textSize="22sp"
-                        android:background="@color/confirmgreen"
+                        android:background="@color/confirmGreen"
                         android:textColor="@color/white"
                         android:layout_margin="20dp"
                         android:padding="20dp"

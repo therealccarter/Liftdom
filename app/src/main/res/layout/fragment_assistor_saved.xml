@@ -233,7 +233,7 @@
                             android:id="@+id/xpGainedOverallView"
                             android:text="100"
                             android:textSize="22sp"
-                            android:textColor="@color/confirmgreen"
+                            android:textColor="@color/confirmGreen"
 
                     />
 
@@ -270,7 +270,7 @@
                             android:id="@+id/xpFromWorkoutView"
                             android:text="55"
                             android:textSize="22sp"
-                            android:textColor="@color/confirmgreen"
+                            android:textColor="@color/confirmGreen"
 
                     />
 
@@ -307,7 +307,7 @@
                             android:id="@+id/completionMultiplierView"
                             android:text="1.4"
                             android:textSize="22sp"
-                            android:textColor="@color/confirmgreen"
+                            android:textColor="@color/confirmGreen"
                     />
 
                     <TextView
@@ -343,7 +343,7 @@
                             android:id="@+id/completionStreakView"
                             android:text="12"
                             android:textSize="22sp"
-                            android:textColor="@color/confirmgreen"
+                            android:textColor="@color/confirmGreen"
                     />
 
                     <!-- Green if above 0 -->

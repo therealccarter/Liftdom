@@ -58,7 +58,7 @@
                     android:id="@+id/followUserButton"
                     android:text="@string/followUser"
                     android:padding="3dp"
-                    android:background="@color/confirmgreen"
+                    android:background="@color/confirmGreen"
                     android:textColor="@color/white"
                     android:minHeight="0dp"
                     android:minWidth="0dp"

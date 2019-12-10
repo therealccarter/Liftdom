@@ -23,6 +23,8 @@ public class RestTimerServiceClass extends Service {
     String title = "Rest Timer";
     Long mTime;
     boolean isPaused = false;
+    String exNameCursor = "";
+    String setInfoCursor = "";
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -106,7 +108,9 @@ public class RestTimerServiceClass extends Service {
                 public void onFinish(){
                     startForeground(102, buildNotification("0:00", R.drawable.pause));
                     Intent finishedIntent = new Intent(RestTimerServiceClass.this,
-                            MainActivity.class);
+                            RestTimerSplashscreenActivity.class);
+                    finishedIntent.putExtra("exName", exNameCursor);
+                    finishedIntent.putExtra("setInfo", setInfoCursor);
                     startActivity(finishedIntent);
                 }
             }.start();
@@ -194,10 +198,18 @@ public class RestTimerServiceClass extends Service {
                     public void onFinish(){
                         startForeground(102, buildNotification("0:00", R.drawable.pause));
                         Intent finishedIntent = new Intent(RestTimerServiceClass.this,
-                                MainActivity.class);
+                                RestTimerSplashscreenActivity.class);
+                        finishedIntent.putExtra("exName", exNameCursor);
+                        finishedIntent.putExtra("setInfo", setInfoCursor);
                         startActivity(finishedIntent);
                     }
                 }.start();
+                try{
+                    exNameCursor = intent.getStringExtra("exName");
+                    setInfoCursor = intent.getStringExtra("setInfo");
+                }catch (NullPointerException e){
+
+                }
             }else{
                 handleCommandIntent(intent);
             }

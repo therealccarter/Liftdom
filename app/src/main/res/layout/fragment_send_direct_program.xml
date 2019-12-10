@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sendTemplateButton"
                 android:text="@string/sendProgram"
-                android:background="@color/confirmgreen"
+                android:background="@color/confirmGreen"
                 android:minHeight="0dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"

@@ -124,6 +124,12 @@
 
     <string name="searchExercises">Search exercises&#8230;</string>
 
+    <string name="nextSet">Time for your next set!</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="dismissNow">Dismiss Now</string>
+    <string name="autoDismissing">Auto dismissing in&#8230;</string>
+    <string name="goToWorkout">Go to Workout</string>
+
     <string name="title">Liftdom</string>
     <string name="action_settings">Settings</string>
     <string name="chooseFromTemplate">Choose From Programs</string>

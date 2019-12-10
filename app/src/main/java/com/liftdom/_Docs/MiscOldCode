@@ -1,118 +1,52 @@
 
-/**
-* So what're the cases where this would
-* fuck up?
-* 1. If sets/reps are not set to increase.
-* 2. If sets - wSL < 1 || reps - wSL < 1
-*
-* idk
-*
-* Let's write out some cases.
-*
-* ---------------------------------------
-* 1 x 2 @ 30 (OG set scheme)
-* ---------------------------------------
-* s = 1_1 (every 1 weeks, increase s by 1)
-* r = 2_1 (every 2 weeks, increase r by 1)
-* w = 3_1 (every 3 weeks, increase w by 1)
-* ----------------------------------------
-*
-* wSL = 1
-* 2 x 2 @ 30
-*
-* wSL = 2
-* 3 x 3 @ 30
-*
-* wSL = 3
-* 4 x 3 @ 31
-*
-* wSL = 4 (now it's above w so we loop
-* (wSL - 1) times)
-* (loop 1){
-*      s = 4 - 1 // s == 3
-*      r = 3 - 1 // r == 2
-* }
-* (loop 2){
-*      s = 3 - 1 // s == 2
-* }
-* (loop 3){
-*      s = 2 - 1 // s == 1
-* }
-* 1 x 2 @ 31 | what we actually got: 2 x 2 @ 31
-*
-* this is bc we're increasing s/r
-* before checking for the loop
-*
-* we're going to have to apply the %
-* method to the weight thing
-*/
 
-/**
-     ArrayList<String> templateListWithNum = new ArrayList<>();
-     ArrayList<String> templateNamesListSansNum = new ArrayList<>();
-
-     File myDir = getContext().getFilesDir();
-     File[] templateFiles = myDir.listFiles();
-
-     int length = templateFiles.length;
-
-
-     for(int i = 0; i < length; i++){
-     templateListWithNum.add(templateFiles[i].getName());
-     }
-
-     for(String withNum : templateListWithNum){
-     String sansNum = lastCharRemover(withNum);
-     if(!templateNamesListSansNum.contains(sansNum) && !sansNum.equals("instant-ru") && !s3Check(sansNum)){
-     templateNamesListSansNum.add(sansNum);
-     }
-
-     }
-
-     for(String template : templateNamesListSansNum){
-
-     TemplateListItemFrag templateListItem = new TemplateListItemFrag();
-
-     templateListItem.templateName = template;
-
-     FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-     androidx.fragment.app.FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-     fragmentTransaction1.add(R.id.myTemplatesList, templateListItem);
-     fragmentTransaction1.addToBackStack(null);
-     fragmentTransaction1.commit();
-
-     }**/
-
-
-    /**
-     mTemplateRef.addValueEventListener(new ValueEventListener() {
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-    String text = dataSnapshot.getValue(String.class);
-    // text view var mConditionTextView.setText(text);
-    }
-
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-
-    }
-    });
-
-     view.setOnClickListener(new View.OnClickListener() {
-     public void onClick(View v) {
-     mConditionRef.setValue("Sunny");
-     }
-     });
-
-     view.setOnClickListener(new View.OnClickListener() {
-     public void onClick(View v) {
-     mConditionRef.setValue("Foggy");
-     }
-     });
-     **/
-
-
-}
+//if(getExInfoHashMap().get(tokens[0] + key).size() > (Integer.parseInt(tokens[1]) + 1)){
+                        //    // if room to increase ([1])
+                        //    //Log.i("progressModel", "107, cursor = " + cursor);
+                        //    int addedKey = Integer.parseInt(tokens[1]) + 1;
+                        //    if(getExInfoHashMap().get(tokens[0] + key).get(String.valueOf(addedKey) + key).size() > Integer
+                        //            .parseInt(tokens[2])){
+                        //        // if room to increase ([2]) of next list
+                        //        //int newValue = Integer.parseInt(tokens[1]) + 1;
+                        //        //Log.i("progressModel", "111, cursor = " + cursor);
+                        //        setViewCursor(tokens[0] + "_" + String.valueOf(addedKey) + "_" + tokens[2]);
+                        //    }else{
+                        //        //Log.i("progressModel", "116, cursor = " + cursor);
+                        //        // keep increasing in original?
+                        //        if(getExInfoHashMap().get(tokens[0] + key).get(tokens[1] + key).size() > (Integer.parseInt
+                        //                (tokens[2]) + 1)){
+                        //            // increase
+                        //            //Log.i("progressModel", "121, cursor = " + cursor);
+                        //            int newValue = Integer.parseInt(tokens[2]) + 1;
+                        //            setViewCursor(tokens[0] + "_" + tokens[1] + "_" + String.valueOf(newValue));
+                        //        }else{
+                        //            // move forward
+                        //            int newValue = Integer.parseInt(tokens[0]) + 1;
+                        //            if(getExInfoHashMap().size() >= newValue){
+                        //                // next map
+                        //                setViewCursor(String.valueOf(newValue) + "_0_1");
+                        //                //Log.i("progressModel", "126, cursor = " + cursor);
+                        //                //Log.i("progressModel", "move forward (superset - else end 1)");
+                        //            }else{
+                        //                // done with workout
+                        //                //setViewCursor("workoutDone");
+                        //            }
+                        //        }
+                        //    }
+                        //}else{
+                        //    // if need to loop back
+                        //    int newValue = Integer.parseInt(tokens[2]) + 1;
+//
+                        //    if(getExInfoHashMap().get(tokens[0] + key).get("0_key").size() > newValue){
+                        //        // increase
+                        //        //Log.i("progressModel", "138, cursor = " + cursor);
+                        //        setViewCursor(tokens[0] + "_0_" + String.valueOf(newValue));
+                        //    }else{
+                        //        // move forward
+                        //        //Log.i("progressModel", "142, cursor = " + cursor);
+                        //        //Log.i("progressModel", "move forward (superset - else end 2)");
+                        //    }
+                        //}
 
 DatabaseReference feedRef = mRootRef.child("feed").child(xUid);
         Query feedQuery = feedRef.limitToLast(10);
@@ -422,3 +356,119 @@ DatabaseReference feedRef = mRootRef.child("feed").child(xUid);
 //
         //    }
         //};
+
+
+/**
+* So what're the cases where this would
+* fuck up?
+* 1. If sets/reps are not set to increase.
+* 2. If sets - wSL < 1 || reps - wSL < 1
+*
+* idk
+*
+* Let's write out some cases.
+*
+* ---------------------------------------
+* 1 x 2 @ 30 (OG set scheme)
+* ---------------------------------------
+* s = 1_1 (every 1 weeks, increase s by 1)
+* r = 2_1 (every 2 weeks, increase r by 1)
+* w = 3_1 (every 3 weeks, increase w by 1)
+* ----------------------------------------
+*
+* wSL = 1
+* 2 x 2 @ 30
+*
+* wSL = 2
+* 3 x 3 @ 30
+*
+* wSL = 3
+* 4 x 3 @ 31
+*
+* wSL = 4 (now it's above w so we loop
+* (wSL - 1) times)
+* (loop 1){
+*      s = 4 - 1 // s == 3
+*      r = 3 - 1 // r == 2
+* }
+* (loop 2){
+*      s = 3 - 1 // s == 2
+* }
+* (loop 3){
+*      s = 2 - 1 // s == 1
+* }
+* 1 x 2 @ 31 | what we actually got: 2 x 2 @ 31
+*
+* this is bc we're increasing s/r
+* before checking for the loop
+*
+* we're going to have to apply the %
+* method to the weight thing
+*/
+
+/**
+     ArrayList<String> templateListWithNum = new ArrayList<>();
+     ArrayList<String> templateNamesListSansNum = new ArrayList<>();
+
+     File myDir = getContext().getFilesDir();
+     File[] templateFiles = myDir.listFiles();
+
+     int length = templateFiles.length;
+
+
+     for(int i = 0; i < length; i++){
+     templateListWithNum.add(templateFiles[i].getName());
+     }
+
+     for(String withNum : templateListWithNum){
+     String sansNum = lastCharRemover(withNum);
+     if(!templateNamesListSansNum.contains(sansNum) && !sansNum.equals("instant-ru") && !s3Check(sansNum)){
+     templateNamesListSansNum.add(sansNum);
+     }
+
+     }
+
+     for(String template : templateNamesListSansNum){
+
+     TemplateListItemFrag templateListItem = new TemplateListItemFrag();
+
+     templateListItem.templateName = template;
+
+     FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
+     androidx.fragment.app.FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+     fragmentTransaction1.add(R.id.myTemplatesList, templateListItem);
+     fragmentTransaction1.addToBackStack(null);
+     fragmentTransaction1.commit();
+
+     }**/
+
+
+    /**
+     mTemplateRef.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+    String text = dataSnapshot.getValue(String.class);
+    // text view var mConditionTextView.setText(text);
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
+    });
+
+     view.setOnClickListener(new View.OnClickListener() {
+     public void onClick(View v) {
+     mConditionRef.setValue("Sunny");
+     }
+     });
+
+     view.setOnClickListener(new View.OnClickListener() {
+     public void onClick(View v) {
+     mConditionRef.setValue("Foggy");
+     }
+     });
+     **/
+
+
+}

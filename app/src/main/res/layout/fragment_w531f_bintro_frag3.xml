@@ -59,7 +59,7 @@
             style="@style/borderlessButton"
             android:text="@string/confirmW531fB"
             android:textSize="22sp"
-            android:background="@color/confirmgreen"
+            android:background="@color/confirmGreen"
             android:textColor="@color/white"
             android:layout_margin="20dp"
             android:padding="2dp"

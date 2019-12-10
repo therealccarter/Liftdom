@@ -1,9 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/backgroundgrey1"
+        android:gravity="center_horizontal"
         tools:context="com.liftdom.workout_assistor.RestTimerSplashscreenActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/justknight1grey"
+            app:layout_parallaxFactor="0.8"
+
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nextSet"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
+
+    <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exName"
+            android:textSize="35sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setInfo"
+            android:textSize="35sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+    <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/autoDismissing"
+                android:textSize="18sp"
+                android:textColor="@color/darkerGrey"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/autoDismiss"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                />
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="4dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dismissNowButton"
+                android:text="@string/dismissNow"
+                android:padding="30dp"
+                android:background="@color/darkerGrey"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="4dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/goToWorkout"
+                android:text="@string/goToWorkout"
+                android:padding="20dp"
+                android:background="@color/darkGrey"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                />
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

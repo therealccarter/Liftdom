@@ -340,7 +340,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/saveButton"
-                        android:background="@color/confirmgreen"
+                        android:background="@color/confirmGreen"
                         android:text="@string/save"
                         android:textSize="20sp"
                         android:textColor="@color/black"

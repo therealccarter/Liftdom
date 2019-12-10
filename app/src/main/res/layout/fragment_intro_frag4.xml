@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/finishButton"
-            android:background="@color/confirmgreen"
+            android:background="@color/confirmGreen"
             android:text="@string/finishSetup"
             android:textColor="@color/white"
             android:minHeight="0dp"

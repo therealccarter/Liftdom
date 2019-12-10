@@ -46,7 +46,7 @@
             style="@style/borderlessButton"
             android:text="@string/confirmSmolov"
             android:textSize="26sp"
-            android:background="@color/confirmgreen"
+            android:background="@color/confirmGreen"
             android:textColor="@color/white"
             android:layout_margin="20dp"
             android:padding="5dp"

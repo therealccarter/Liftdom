@@ -43,8 +43,9 @@
     <item name="backgroundgrey1" type="color">#454545</item>
     <item name="backgroundgrey2" type="color">#595959</item>
 
-    <item name="confirmgreen" type="color">#388e3c</item>
-    <item name="confirmgreenDark" type="color">#27632a</item>
+    <item name="confirmGreen" type="color">#388e3c</item>
+    <item name="confirmGreenDark" type="color">#27632a</item>
+    <item name="confirmGreenDarker" type="color">#0D4110</item>
 
     <!-- MaterialDrawer colors -->
     <color name="material_drawer_background">#303030</color>

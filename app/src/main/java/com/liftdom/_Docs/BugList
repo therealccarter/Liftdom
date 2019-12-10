@@ -74,19 +74,25 @@ Closing main service also closes timer now
 Timer needs to reset on check
 Timer gets all jacked up and glitchy if quickly checking off items
 Timer needs pause and play buttons
+Check if we need to handle the event listener in service (seems fine)
+Service gets fucked up when WA/running assistor changes (now reads to last checked set)
+RTSS take in ex name and set info
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
+Make both main service and rest timer dismissible with a swipe
+Should briefly show checked set then go to next
 WA: rest times in notification bar
-    - needs to reset on check
-    - gets all jacked up and glitchy if quickly checking off items
-Service gets fucked up when WA/running assistor changes
+    - dismiss timer on 0
+Create Rest Timer splash screen
+    - make it turn on the phone
+    - make it vibrate for the duration of time
+    - "dismiss" it if is above lock screen
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
-Check if we need to handle the event listener in service
-Need to somehow check if this is really a problem (android 8+)
+Need to somehow check if this is really a problem (android 8+) (narrator: "it is")
     - https://developer.android.com/training/notify-user/build-notification#Priority
 
 ----- WA -----

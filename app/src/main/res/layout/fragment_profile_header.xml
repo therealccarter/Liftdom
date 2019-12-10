@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:text="@string/followUser"
-                    android:background="@color/confirmgreen"
+                    android:background="@color/confirmGreen"
                     android:id="@+id/followUserButton"
                     android:minHeight="0dp"
                     android:minWidth="0dp"

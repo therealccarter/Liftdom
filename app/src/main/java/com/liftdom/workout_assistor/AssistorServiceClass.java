@@ -222,6 +222,9 @@ public class AssistorServiceClass extends Service {
                 if(workoutProgressModelClass.getRestTime() != null){
                     Intent startIntent = new Intent(this, RestTimerServiceClass.class);
                     startIntent.putExtra("time", workoutProgressModelClass.getRestTime());
+                    startIntent.putExtra("exName", workoutProgressModelClass.exNameForCursor());
+                    startIntent.putExtra("setInfo",
+                            formatSetScheme(workoutProgressModelClass.setForCursor()));
                     this.startService(startIntent);
                 }
             }

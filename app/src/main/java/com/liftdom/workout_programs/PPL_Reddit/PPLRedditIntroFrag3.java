@@ -2,7 +2,6 @@ package com.liftdom.workout_programs.PPL_Reddit;
 
 
 import android.os.Bundle;
-import android.transition.Slide;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,7 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
 
     @Override
     public int backgroundColor() {
-        return R.color.confirmgreen;
+        return R.color.confirmGreen;
     }
 
     @Override
