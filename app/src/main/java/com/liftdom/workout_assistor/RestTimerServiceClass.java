@@ -1,9 +1,8 @@
 package com.liftdom.workout_assistor;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
+import android.app.*;
 import android.content.*;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
@@ -111,6 +110,7 @@ public class RestTimerServiceClass extends Service {
                             RestTimerSplashscreenActivity.class);
                     finishedIntent.putExtra("exName", exNameCursor);
                     finishedIntent.putExtra("setInfo", setInfoCursor);
+                    finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(finishedIntent);
                 }
             }.start();
@@ -124,6 +124,19 @@ public class RestTimerServiceClass extends Service {
     }
 
     private Notification buildNotification(String time, int pauseOrPlay){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name2);
+            String description = getString(R.string.channel_description2);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
         Intent onClickIntent = new Intent(this, MainActivity.class);
         onClickIntent.putExtra("fragID",  2);
 
@@ -201,6 +214,7 @@ public class RestTimerServiceClass extends Service {
                                 RestTimerSplashscreenActivity.class);
                         finishedIntent.putExtra("exName", exNameCursor);
                         finishedIntent.putExtra("setInfo", setInfoCursor);
+                        finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(finishedIntent);
                     }
                 }.start();

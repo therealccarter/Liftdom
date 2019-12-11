@@ -536,27 +536,32 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
     }
 
     private void firstTimeTutorial(){
-        final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isFeedFirstTime");
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    new FancyShowCaseView.Builder(getActivity())
-                            .title("This is the Social Feed. It's where you and your friends' completed workouts will " +
-                                    "be posted.")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build()
-                            .show();
-                    firstTimeRef.setValue(null);
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        }else{
+            final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isFeedFirstTime");
+            firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        new FancyShowCaseView.Builder(getActivity())
+                                .title("This is the Social Feed. It's where you and your friends' completed workouts will " +
+                                        "be posted.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                .build()
+                                .show();
+                        firstTimeRef.setValue(null);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+
     }
 
     @Override

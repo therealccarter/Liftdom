@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
@@ -245,7 +246,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         confirmRestTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateWorkoutState();
+                updateWorkoutStateSnackbar();
             }
         });
 
@@ -739,6 +740,69 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         cleanUpState();
         runningAssistorRef.setValue(progressModelClass);
+    }
+
+    public void updateWorkoutStateSnackbar(){
+        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+                ("assistorModel");
+        HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
+        int inc = 0;
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String dateTimeString = fmt.print(localDate);
+        //dateTimeString = "2019-12-05";
+        String privateJournal = privateJournalView.getText().toString();
+        String publicComment = publicCommentView.getText().toString();
+        boolean completedBool = false; // obviously this will be set to true in assistor saved
+        String mediaResource = "";
+
+        // might need to make this not clickable without inflated views so it isn't set to null
+        for(ExNameWAFrag exNameFrag : exNameFragList){
+            inc++;
+            //for(int i = 1; i <= exNameFragList.size(); i++){}
+            runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+        }
+
+        WorkoutProgressModelClass progressModelClass;
+
+        if(isRevisedWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, isRevisedWorkout, isFromRestDay);
+        }else if(isFreestyleWorkout){
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    refKey, true, isFromRestDay);
+        }else{
+            progressModelClass = new WorkoutProgressModelClass(dateTimeString,
+                    completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
+                    null, isRevisedWorkout, isFromRestDay);
+        }
+
+        //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
+        }else{
+            progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
+        }
+        progressModelClass.setIsActiveRestTimer(restTimerBool);
+
+        runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Snackbar.make(getView(), "Timer updated", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        //for(ExNameWAFrag exNameWAFrag : exNameFragList){
+        //    removeFrag(exNameWAFrag.fragTag);
+        //}
+
+        /**
+         * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
+         * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
+         */
     }
 
     public void updateWorkoutState(){

@@ -77,19 +77,24 @@ Timer needs pause and play buttons
 Check if we need to handle the event listener in service (seems fine)
 Service gets fucked up when WA/running assistor changes (now reads to last checked set)
 RTSS take in ex name and set info
+FirstTimeTutorial in main feed getCurrentUser was null
+Added foreground service permission to manifest
+Added compatibility for notifications and for starting a new activity for android 8 and above
+RTSS make it turn on the phone
+RTSS "dismiss" it if is above lock screen
+RTSS make it vibrate for the duration of time
+Show snackbar on update timer
+Should briefly show checked set then go to next
+
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
 Make both main service and rest timer dismissible with a swipe
-Should briefly show checked set then go to next
+Rest Timer extra options for vibration, also gotta add lots of piping in fb, wa, template editor
 WA: rest times in notification bar
     - dismiss timer on 0
-Create Rest Timer splash screen
-    - make it turn on the phone
-    - make it vibrate for the duration of time
-    - "dismiss" it if is above lock screen
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
 Need to somehow check if this is really a problem (android 8+) (narrator: "it is")
@@ -111,6 +116,8 @@ Need to handle changing template mid workout (maybe check running assistor again
 Rounding option for percentages (nearest 5 or nearest to up)
 work offline. this would be a massive undertaking affecting many files and systems.
     - might put the offline update in updateWorkoutState()
+Be able to write in ex/set info and it read and populate it. (needs limitations for abuse, look into
+ other place that need this too).
 
 ----- Template Editor -----
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
@@ -120,6 +127,8 @@ if percentage, actionNext for weight edit text, remember max/format for each new
 decimal support for these percentages.
 percentages need decimals.
 duplicate template (template name dialog, save, go back to saved programs)
+Be able to write in ex/set info and it read and populate it. (needs limitations for abuse, look into
+ other place that need this too).
 
 ----- Charts/Stats/Tools -----
 Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress

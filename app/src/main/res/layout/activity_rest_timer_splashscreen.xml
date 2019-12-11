@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/autoDismiss"
                 android:textSize="18sp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
 
 

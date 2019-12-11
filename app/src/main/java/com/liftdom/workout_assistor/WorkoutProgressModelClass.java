@@ -1,12 +1,14 @@
 package com.liftdom.workout_assistor;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.LogRecord;
 
 /**
  * Created by Brodin on 5/31/2017.
@@ -855,11 +857,12 @@ public class WorkoutProgressModelClass {
         Log.i("serviceInfo", "currentSet = " + currentSet2);
 
         if(isChecking){
-            next();
+            //nextDelay();
         }
 
         return isChecking;
     }
+
 
     public String getViewCursor() {
         return mViewCursor;
