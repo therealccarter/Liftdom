@@ -19,6 +19,7 @@ public class RestTimerSplashscreenActivity extends AppCompatActivity {
 
     CountDownTimer timer;
     Vibrator vibrator;
+    String time = "10";
 
     @BindView(R.id.exName) TextView exName;
     @BindView(R.id.setInfo) TextView setInfo;
@@ -49,11 +50,12 @@ public class RestTimerSplashscreenActivity extends AppCompatActivity {
             exName.setText(getIntent().getStringExtra("exName"));
             String setInfoString = getIntent().getStringExtra("setInfo");
             setInfo.setText(setInfoString);
+            time = getIntent().getStringExtra("vibrationTime");
         }catch (NullPointerException e){
 
         }
 
-        timer = new CountDownTimer(10000, 1000) {
+        timer = new CountDownTimer(stringTimeToMillis(time), 1000) {
             @Override
             public void onTick(long l) {
                 String time = String.valueOf(l / 1000);
@@ -98,6 +100,14 @@ public class RestTimerSplashscreenActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private long stringTimeToMillis(String vibrationTime){
+        long seconds = 0;
+
+        seconds = Long.parseLong(vibrationTime);
+
+        return seconds * 1000;
     }
 
     private void vibrateFor(long millis) {

@@ -36,6 +36,8 @@ import com.liftdom.template_housing.*;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
+import com.liftdom.workout_assistor.AssistorServiceClass;
+import com.liftdom.workout_assistor.RestTimerServiceClass;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.search.material.library.MaterialSearchView;
@@ -494,6 +496,16 @@ public class MainActivity extends BaseActivity implements
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+        }
+        try{
+            //Intent stopIntent = new Intent(MainActivity.this,
+            //        AssistorServiceClass.class);
+            //Intent stopIntent2 = new Intent(MainActivity.this,
+            //        RestTimerServiceClass.class);
+            //MainActivity.this.stopService(stopIntent);
+            //MainActivity.this.stopService(stopIntent2);
+        }catch (NullPointerException e){
+
         }
     }
     // [END on_stop_remove_listener]

@@ -39,6 +39,8 @@ public class TemplateModelClass {
     private List<String> mHasReppedList;
     private String mRestTime;
     private boolean mIsActiveRestTimer;
+    private String mVibrationTime;
+    private boolean mIsRestTimerAlert;
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -61,7 +63,9 @@ public class TemplateModelClass {
                               boolean isImperial,
                               List<String> hasReppedList,
                               String restTime,
-                              boolean isActiveRestTimer){
+                              boolean isActiveRestTimer,
+                              String vibrationTime,
+                              boolean isRestTimerAlert){
 
         mTemplateName = templateName;
         mDays = days;
@@ -88,11 +92,29 @@ public class TemplateModelClass {
         mIsImperial = isImperial;
         mRestTime = restTime;
         mIsActiveRestTimer = isActiveRestTimer;
+        mVibrationTime = vibrationTime;
+        mIsRestTimerAlert = isRestTimerAlert;
         try{
             mHasReppedList = hasReppedList;
         }catch (NullPointerException e){
 
         }
+    }
+
+    public String getVibrationTime() {
+        return mVibrationTime;
+    }
+
+    public void setVibrationTime(String mVibrationTime) {
+        this.mVibrationTime = mVibrationTime;
+    }
+
+    public boolean isIsRestTimerAlert() {
+        return mIsRestTimerAlert;
+    }
+
+    public void setIsRestTimerAlert(boolean mIsRestTimerAlert) {
+        this.mIsRestTimerAlert = mIsRestTimerAlert;
     }
 
     public String getRestTime() {

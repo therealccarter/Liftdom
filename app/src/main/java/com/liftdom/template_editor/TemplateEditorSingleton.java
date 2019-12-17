@@ -47,8 +47,8 @@ public class TemplateEditorSingleton {
     boolean isFirstTimeTut = false;
     String mRestTime;
     boolean mIsActiveRestTimer;
-
-
+    String mVibrationTime;
+    boolean mIsRestTimerAlert;
 
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();

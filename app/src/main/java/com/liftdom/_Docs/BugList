@@ -85,20 +85,25 @@ RTSS "dismiss" it if is above lock screen
 RTSS make it vibrate for the duration of time
 Show snackbar on update timer
 Should briefly show checked set then go to next
+RTSS needs to show unlock screen on click (not possible, does bring up app after unlock though)
+dismiss timer on 0
+Need to somehow check if starting notification is really a problem on android 8+ (narrator: "it is")
+Rest Timer extra options for vibration, also gotta add lots of piping in fb, wa, template editor
+WA: rest times in notification bar
 
 ----------------------
 ====================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
-Make both main service and rest timer dismissible with a swipe
-Rest Timer extra options for vibration, also gotta add lots of piping in fb, wa, template editor
-WA: rest times in notification bar
-    - dismiss timer on 0
+Make both main service and rest timer dismissible with a swipe (impossible as foreground, may need
+    to totally convert it to background service. or add close button.)
+add close button to both services.
+Vibration options need to be updating and have bool like whole rest timer switch
+Notification needs to be expandable
+Hitting pause on rest notification while it's vibrating closes the services and the app (?)
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
-Need to somehow check if this is really a problem (android 8+) (narrator: "it is")
-    - https://developer.android.com/training/notify-user/build-notification#Priority
 
 ----- WA -----
 possibly add added exercises to workout (from WA to template)
@@ -158,6 +163,8 @@ Revamp the intro to better take care of GDPR and clear up the email privacy stuf
 Rework Appodeal (+ better asking permission) or drop it
 Look into size of app (says it's 50mb and it has 20mb of cached info?)
 The warning in Android Manifest for indexing
+Possible switch to MoPub?
+Leak Canary
 
 ----- Difficult to Replicate -----
 Revise workout looping, not working rest day do workout instead all have a problem being recognized (cannot replicate)

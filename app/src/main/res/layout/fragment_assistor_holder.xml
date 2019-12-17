@@ -208,7 +208,7 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:inputType="number"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
                     />
 
             <TextView
@@ -271,6 +271,61 @@
                 android:text="@string/restTimerInfo"
                 android:textColor="@color/grey"
                 />
+
+        <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="7dp"
+                >
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/showRestTimerAlertRadioButton"
+                    android:text="@string/showRestTimerAlert"
+                    android:textSize="15sp"
+                    android:textColor="@color/grey"
+                    android:buttonTint="@color/liftrGold1"
+                    android:layout_marginEnd="10dp"
+                    />
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/justVibrateRadioButton"
+                    android:text="@string/justVibrate"
+                    android:textSize="15sp"
+                    android:textColor="@color/grey"
+                    android:buttonTint="@color/liftrGold1"
+                    />
+
+        </RadioGroup>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondsVibrate"
+                    android:maxLength="2"
+                    android:text="5"
+                    android:textColor="@color/white"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secondsOfVibration"
+                    android:textColor="@color/grey"
+                    />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -352,29 +407,47 @@
 
     />
 
-    <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="2.5dp"
-            android:layout_marginStart="10dp"
-    >
-        <Button
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+        <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/resetWorkoutButton"
-                android:background="@color/darkGrey"
-                android:textSize="16sp"
-                android:text="@string/resetWorkout"
-                android:textColor="@color/offWhite"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:textAllCaps="false"
-        />
-    </androidx.cardview.widget.CardView>
+                app:cardElevation="2.5dp"
+                android:layout_marginStart="10dp"
+                >
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/resetWorkoutButton"
+                    android:background="@color/darkGrey"
+                    android:textSize="16sp"
+                    android:text="@string/resetWorkout"
+                    android:textColor="@color/offWhite"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:textAllCaps="false"
+                    />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resetAdvice"
+                android:layout_marginStart="5dp"
+                android:textSize="13sp"
+                android:textColor="@color/darkGrey"
+                />
+    </LinearLayout>
+
+
 
     <View
             android:layout_width="match_parent"

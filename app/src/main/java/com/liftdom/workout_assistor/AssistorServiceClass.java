@@ -33,6 +33,7 @@ public class AssistorServiceClass extends Service {
     public static final String TOGGLECHECK_ACTION = "com.liftdom.workout_assistor.togglecheck";
     public static final String FIRSTSET_ACTION = "com.liftdom.workout_assistor.reset";
     public static final String LASTSET_ACTION = "com.liftdom.workout_assistor.lastsetaction";
+    public static final String DELETE_ACTION = "com.liftdom.workout_assistor.delete";
     public static final String CHANNEL_ID = "assistor_channel_01";
     private NotificationManagerCompat mNotificationManager;
 
@@ -57,6 +58,36 @@ public class AssistorServiceClass extends Service {
         }
     };
 
+
+
+    private PendingIntent createOnDismissedIntent(Context context, int notificationId) {
+        Intent intent = new Intent(context.getApplicationContext(), NotificationDismissedReceiver.class);
+        intent.putExtra("notificationId", notificationId);
+
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(context.getApplicationContext(),
+                        notificationId, intent, 0);
+        return pendingIntent;
+    }
+
+    private final PendingIntent deleteAction(final String action){
+        Log.i("serviceInfo", "retrieveMapAction");
+        final ComponentName serviceName = new ComponentName(this, AssistorServiceClass.class);
+        Intent intent = new Intent(action);
+        intent.setComponent(serviceName);
+
+        return PendingIntent.getBroadcast(this, 0, intent, 0);
+    }
+
+    private final PendingIntent retrieveMapAction(final String action){
+        Log.i("serviceInfo", "retrieveMapAction");
+        final ComponentName serviceName = new ComponentName(this, AssistorServiceClass.class);
+        Intent intent = new Intent(action);
+        intent.setComponent(serviceName);
+
+        return PendingIntent.getService(this, 0, intent, 0);
+    }
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -64,6 +95,8 @@ public class AssistorServiceClass extends Service {
         Log.i("serviceInfo", "Service Started (onCreate)");
 
         mNotificationManager = NotificationManagerCompat.from(this);
+
+        //stopForeground(false);
 
         final IntentFilter filter = new IntentFilter();
         filter.addAction(NEXT_ACTION);
@@ -73,6 +106,7 @@ public class AssistorServiceClass extends Service {
         filter.addAction(TOGGLECHECK_ACTION);
         filter.addAction(FIRSTSET_ACTION);
         filter.addAction(LASTSET_ACTION);
+        filter.addAction(DELETE_ACTION);
         registerReceiver(mIntentReceiver, filter);
         //has leaked IntentReceiver com.liftdom.workout_assistor.AssistorServiceClass$1@2ff3b64 that was originally registered here.
         // Are you missing a call to unregisterReceiver()?
@@ -183,6 +217,8 @@ public class AssistorServiceClass extends Service {
             }else if(action.equals(LASTSET_ACTION)){
                 Log.i("serviceInfo", "LASTSET_ACTION");
                 processLastSetAction();
+            }else if(action.equals(DELETE_ACTION)){
+                stopSelf();
             }
         }
     }
@@ -225,6 +261,9 @@ public class AssistorServiceClass extends Service {
                     startIntent.putExtra("exName", workoutProgressModelClass.exNameForCursor());
                     startIntent.putExtra("setInfo",
                             formatSetScheme(workoutProgressModelClass.setForCursor()));
+                    startIntent.putExtra("alert", workoutProgressModelClass.isIsRestTimerAlert());
+                    startIntent.putExtra("vibrationTime",
+                            workoutProgressModelClass.getVibrationTime());
                     this.startService(startIntent);
                 }
             }
@@ -242,7 +281,7 @@ public class AssistorServiceClass extends Service {
                 workoutProgressModelClass.next();
                 updateFirebaseProgressModel();
             }
-        }, 200);
+        }, 100);
     }
 
     private void updateFirebaseProgressModel(){
@@ -341,6 +380,8 @@ public class AssistorServiceClass extends Service {
 
         int checkOrUncheckedId = getCheckedForCurrentPosition(); // not using this
 
+        //stopForeground(false);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
@@ -362,6 +403,11 @@ public class AssistorServiceClass extends Service {
                 onClickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
+
+        //Intent deleteIntent = new Intent(this, AssistorServiceClass.class);
+        //deleteIntent.putExtra("action", "delete");
+        //PendingIntent deletePendingIntent = PendingIntent.getService(this,
+        //        1, deleteIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         final String exerciseName;
         final String setSchemeUnformatted;
@@ -512,6 +558,7 @@ public class AssistorServiceClass extends Service {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
+                //.setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
@@ -537,7 +584,8 @@ public class AssistorServiceClass extends Service {
                 .setSmallIcon(R.drawable.just_knight_white_small)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
-                .setContentIntent(onClickPendingIntent)
+                //.setContentIntent(onClickPendingIntent)
+                .setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
@@ -564,6 +612,7 @@ public class AssistorServiceClass extends Service {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1))
                 .setContentIntent(onClickPendingIntent)
+                //.setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle("Workout Done!")
                 .setContentText("Click this notification to finalize.")
                 .setWhen(System.currentTimeMillis())
@@ -589,6 +638,7 @@ public class AssistorServiceClass extends Service {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
+                //.setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 //.setWhen(System.currentTimeMillis())
@@ -616,6 +666,7 @@ public class AssistorServiceClass extends Service {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2))
                 .setContentIntent(onClickPendingIntent)
+                //.setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 //.setWhen(System.currentTimeMillis())
@@ -643,6 +694,7 @@ public class AssistorServiceClass extends Service {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1))
                 .setContentIntent(onClickPendingIntent)
+                //.setDeleteIntent(createOnDismissedIntent(this, 101))
                 .setContentTitle("Workout Done!")
                 .setContentText("Click this notification to finalize.")
                 //.setWhen(System.currentTimeMillis())
@@ -676,15 +728,6 @@ public class AssistorServiceClass extends Service {
 
     private int getCheckedForCurrentPosition(){
         return R.drawable.ic_check_box_white_24dp;
-    }
-
-    private final PendingIntent retrieveMapAction(final String action){
-        Log.i("serviceInfo", "retrieveMapAction");
-        final ComponentName serviceName = new ComponentName(this, AssistorServiceClass.class);
-        Intent intent = new Intent(action);
-        intent.setComponent(serviceName);
-
-        return PendingIntent.getService(this, 0, intent, 0);
     }
 
     @Override

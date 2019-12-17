@@ -222,6 +222,7 @@
     <string name="publicComment">Public Description:</string>
 
     <string name="resetWorkout">Reset Workout</string>
+    <string name="resetAdvice">(Try if sets won\'t load in.)</string>
 
     <string name="addExercise">(+) Add Exercise</string>
     <string name="removeExercise">(-) Remove Exercise</string>
@@ -823,6 +824,11 @@
     <string name="restTimerInfo2">Rest Timer activates each time you check off a set in the workout
         notification, not when checking off sets on the main workout page.</string>
     <string name="confirmRestTimer">Confirm Time</string>
+    <string name="justVibrate">Just vibrate</string>
+    <string name="showRestTimerAlert">Show Rest Timer alert screen and vibrate</string>
+    <string name="vibrateFor">Vibrate for&#8230;</string>
+    <string name="seconds">seconds</string>
+    <string name="secondsOfVibration">seconds of vibration</string>
 
     <!-- save dialog <string name=""></string> -->
     <string name="saveTemplateAs">SAVE PROGRAM AS...</string>

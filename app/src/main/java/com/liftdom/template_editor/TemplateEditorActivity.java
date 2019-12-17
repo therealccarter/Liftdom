@@ -96,6 +96,9 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.restTimerInfoLL) LinearLayout restTimerInfoLL;
     @BindView(R.id.minutes) EditText minutesEditText;
     @BindView(R.id.seconds) EditText secondsEditText;
+    @BindView(R.id.secondsVibrate) EditText secondsVibrateEditText;
+    @BindView(R.id.showRestTimerAlertRadioButton) RadioButton showRestTimerAlertRB;
+    @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +127,13 @@ public class TemplateEditorActivity extends BaseActivity
 
         title.setTypeface(lobster);
 
+        //if(savedInstanceState == null){
+            showRestTimerAlertRB.setChecked(true);
+        //}
+
         secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
+        minutesEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 15)});
+        secondsVibrateEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
 
         restTimerLL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,6 +255,17 @@ public class TemplateEditorActivity extends BaseActivity
                                     String[] tokens = templateClass.getRestTime().split(delims);
                                     minutesEditText.setText(tokens[0]);
                                     secondsEditText.setText(tokens[1]);
+                                }
+
+                                if(templateClass.getVibrationTime() != null){
+                                    secondsVibrateEditText.setText(templateClass.getVibrationTime());
+                                    if(templateClass.isIsRestTimerAlert()){
+                                        justVibrateRB.setChecked(false);
+                                        showRestTimerAlertRB.setChecked(true);
+                                    }else{
+                                        justVibrateRB.setChecked(true);
+                                        showRestTimerAlertRB.setChecked(false);
+                                    }
                                 }
 
                                 restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
@@ -424,6 +444,17 @@ public class TemplateEditorActivity extends BaseActivity
                                 String[] tokens = templateClass.getRestTime().split(delims);
                                 minutesEditText.setText(tokens[0]);
                                 secondsEditText.setText(tokens[1]);
+                            }
+
+                            if(templateClass.getVibrationTime() != null){
+                                secondsVibrateEditText.setText(templateClass.getVibrationTime());
+                                if(templateClass.isIsRestTimerAlert()){
+                                    justVibrateRB.setChecked(false);
+                                    showRestTimerAlertRB.setChecked(true);
+                                }else{
+                                    justVibrateRB.setChecked(true);
+                                    showRestTimerAlertRB.setChecked(false);
+                                }
                             }
 
                             restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
@@ -966,6 +997,11 @@ public class TemplateEditorActivity extends BaseActivity
 
                     TemplateEditorSingleton.getInstance().mIsActiveRestTimer = restTimerBool;
                     TemplateEditorSingleton.getInstance().mRestTime = minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString();
+                    TemplateEditorSingleton.getInstance().mVibrationTime =
+                            secondsVibrateEditText.getText().toString();
+                    TemplateEditorSingleton.getInstance().mIsRestTimerAlert =
+                            showRestTimerAlertRB.isChecked();
+
 
                     if(!isTemplateEdit){
                         DateTime dateTime = new DateTime(DateTimeZone.UTC);

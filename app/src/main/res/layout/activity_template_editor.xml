@@ -225,7 +225,7 @@
                     android:orientation="vertical"
                     android:id="@+id/restTimerInfoLL"
                     android:layout_marginStart="10dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     >
 
                 <LinearLayout
@@ -243,7 +243,7 @@
                             android:text="1"
                             android:textColor="@color/white"
                             android:inputType="number"
-                            android:imeOptions="actionDone"
+                            android:imeOptions="actionNext"
                             />
 
                     <TextView
@@ -280,6 +280,63 @@
                         android:text="@string/restTimerInfo2"
                         android:textColor="@color/grey"
                         />
+
+                <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="7dp"
+                        >
+
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/showRestTimerAlertRadioButton"
+                            android:text="@string/showRestTimerAlert"
+                            android:textSize="15sp"
+                            android:textColor="@color/grey"
+                            android:buttonTint="@color/grey"
+                            android:layout_marginEnd="10dp"
+                            />
+
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/justVibrateRadioButton"
+                            android:text="@string/justVibrate"
+                            android:textSize="15sp"
+                            android:textColor="@color/grey"
+                            android:buttonTint="@color/grey"
+                            />
+
+                </RadioGroup>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/secondsVibrate"
+                            android:maxLength="2"
+                            android:text="5"
+                            android:textColor="@color/white"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/secondsOfVibration"
+                            android:textColor="@color/grey"
+                            />
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
 

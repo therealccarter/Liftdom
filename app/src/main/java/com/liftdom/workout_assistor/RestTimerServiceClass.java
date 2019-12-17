@@ -2,13 +2,13 @@ package com.liftdom.workout_assistor;
 
 import android.app.*;
 import android.content.*;
-import android.os.Build;
-import android.os.CountDownTimer;
-import android.os.IBinder;
+import android.os.*;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by Brodin on 12/6/2019.
@@ -24,6 +24,10 @@ public class RestTimerServiceClass extends Service {
     boolean isPaused = false;
     String exNameCursor = "";
     String setInfoCursor = "";
+    boolean showAlert = true;
+    String vibrationTime = "10";
+
+    Vibrator vibrator;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -106,12 +110,18 @@ public class RestTimerServiceClass extends Service {
 
                 public void onFinish(){
                     startForeground(102, buildNotification("0:00", R.drawable.pause));
-                    Intent finishedIntent = new Intent(RestTimerServiceClass.this,
+                    if(!showAlert){
+                        handleVibration(vibrationTime);
+                    }else{
+                        Intent finishedIntent = new Intent(RestTimerServiceClass.this,
                             RestTimerSplashscreenActivity.class);
-                    finishedIntent.putExtra("exName", exNameCursor);
-                    finishedIntent.putExtra("setInfo", setInfoCursor);
-                    finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(finishedIntent);
+                        finishedIntent.putExtra("exName", exNameCursor);
+                        finishedIntent.putExtra("setInfo", setInfoCursor);
+                        finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finishedIntent.putExtra("vibrationTime", vibrationTime);
+                        startActivity(finishedIntent);
+                        stopSelf();
+                    }
                 }
             }.start();
         }else{
@@ -188,6 +198,10 @@ public class RestTimerServiceClass extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
+        /**
+         * Got a crash on finish and no alert activity just vibrate.
+         */
+
         if(intent != null){
             if(intent.getAction() == null){
                 String time;
@@ -198,8 +212,17 @@ public class RestTimerServiceClass extends Service {
                     time = intent.getStringExtra("time");
                     mTime = stringTimeToMillis(time);
                 }
+                try{
+                    vibrationTime = intent.getStringExtra("vibrationTime");
+                    showAlert = intent.getBooleanExtra("alert", true);
+                }catch (NullPointerException e){
+
+                }
                 if(timer != null){
                     timer.cancel();
+                }
+                if(vibrator != null){
+                    vibrator.cancel();
                 }
                 timer = new CountDownTimer(stringTimeToMillis(time), 1000){
                     public void onTick(long millisUntilFinished){
@@ -210,12 +233,18 @@ public class RestTimerServiceClass extends Service {
 
                     public void onFinish(){
                         startForeground(102, buildNotification("0:00", R.drawable.pause));
-                        Intent finishedIntent = new Intent(RestTimerServiceClass.this,
+                        if(!showAlert){
+                            handleVibration(vibrationTime);
+                        }else{
+                            Intent finishedIntent = new Intent(RestTimerServiceClass.this,
                                 RestTimerSplashscreenActivity.class);
-                        finishedIntent.putExtra("exName", exNameCursor);
-                        finishedIntent.putExtra("setInfo", setInfoCursor);
-                        finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(finishedIntent);
+                            finishedIntent.putExtra("exName", exNameCursor);
+                            finishedIntent.putExtra("setInfo", setInfoCursor);
+                            finishedIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            finishedIntent.putExtra("vibrationTime", vibrationTime);
+                            startActivity(finishedIntent);
+                            stopSelf();
+                        }
                     }
                 }.start();
                 try{
@@ -225,6 +254,9 @@ public class RestTimerServiceClass extends Service {
 
                 }
             }else{
+                if(vibrator != null){
+                    vibrator.cancel();
+                }
                 handleCommandIntent(intent);
             }
 
@@ -275,6 +307,71 @@ public class RestTimerServiceClass extends Service {
         }
 
         return START_NOT_STICKY;
+    }
+
+    private void handleVibration(String vibrationTime){
+
+        long[] mVibratePattern = new long[]{0, 300, 300, 300};
+
+        if(vibrator == null){
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(mVibratePattern, 0);
+        }else{
+            vibrator.vibrate(mVibratePattern, 0);
+        }
+
+        int timeInt = Integer.parseInt(vibrationTime);
+        long time = (long) timeInt * 1000;
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vibrator.cancel();
+                stopSelf();
+            }
+        }, time);
+    }
+
+    private void customVibratePatternRepeat(String vibrationTime) {
+
+        //ArrayList<Long> arrayList = new ArrayList<>();
+//
+        //int vTime = Integer.parseInt(vibrationTime);
+//
+        //arrayList.add((long) 0);
+//
+        //for(int i = 0; i < vTime; i++){
+        //    arrayList.add((long) 300);
+        //    arrayList.add((long) 300);
+        //    arrayList.add((long) 300);
+        //}
+//
+        //long [] list = new long[arrayList.size()];
+//
+        //int index = 0;
+//
+        //for(Long value : arrayList){
+        //    list[index] = value;
+        //    index++;
+        //}
+
+        // 0 : Start without a delay
+        // 400 : Vibrate for 400 milliseconds
+        // 200 : Pause for 200 milliseconds
+        // 400 : Vibrate for 400 milliseconds
+        long[] mVibratePattern = new long[]{0, 300, 300, 300};
+
+        // -1 : Do not repeat this pattern
+        // pass 0 if you want to repeat this pattern from 0th index
+        if(vibrator == null){
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(mVibratePattern, 0);
+        }else{
+            vibrator.vibrate(mVibratePattern, 0);
+        }
+
+
     }
 
     @Override

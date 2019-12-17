@@ -29,6 +29,8 @@ public class WorkoutProgressModelClass {
     private boolean mIsActiveRestTimer;
     private boolean mIsRevise;
     private boolean mIsFromRestDay;
+    private String mVibrationTime;
+    private boolean mIsRestTimerAlert;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -50,6 +52,22 @@ public class WorkoutProgressModelClass {
         }
         mIsRevise = isRevise;
         mIsFromRestDay = isFromRestDay;
+    }
+
+    public String getVibrationTime() {
+        return mVibrationTime;
+    }
+
+    public void setVibrationTime(String mVibrationTime) {
+        this.mVibrationTime = mVibrationTime;
+    }
+
+    public boolean isIsRestTimerAlert() {
+        return mIsRestTimerAlert;
+    }
+
+    public void setIsRestTimerAlert(boolean mIsRestTimerAlert) {
+        this.mIsRestTimerAlert = mIsRestTimerAlert;
     }
 
     public boolean isIsActiveRestTimer() {

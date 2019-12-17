@@ -133,6 +133,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.minutes) EditText minutesEditText;
     @BindView(R.id.seconds) EditText secondsEditText;
     @BindView(R.id.confirmRestTimerButton) Button confirmRestTimer;
+    @BindView(R.id.secondsVibrate) EditText secondsVibrateEditText;
+    @BindView(R.id.showRestTimerAlertRadioButton) RadioButton showRestTimerAlertRB;
+    @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
 
 
     boolean isFirstTimeFirstTime = true;
@@ -207,6 +210,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
 
         secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
+        minutesEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 15)});
+        secondsVibrateEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
 
         restTimerLL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -736,6 +741,14 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
         progressModelClass.setIsActiveRestTimer(restTimerBool);
 
+        if(secondsVibrateEditText.getText().toString().isEmpty()){
+            progressModelClass.setVibrationTime("0");
+        }else{
+            progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
+        }
+
+        progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
         cleanUpState();
@@ -787,6 +800,14 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
         }
         progressModelClass.setIsActiveRestTimer(restTimerBool);
+
+        if(secondsVibrateEditText.getText().toString().isEmpty()){
+            progressModelClass.setVibrationTime("0");
+        }else{
+            progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
+        }
+
+        progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
 
         runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -850,6 +871,14 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
         }
         progressModelClass.setIsActiveRestTimer(restTimerBool);
+
+        if(secondsVibrateEditText.getText().toString().isEmpty()){
+            progressModelClass.setVibrationTime("0");
+        }else{
+            progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
+        }
+
+        progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
 
         runningAssistorRef.setValue(progressModelClass);
 
@@ -920,6 +949,14 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
                     progressModelClass.setIsActiveRestTimer(restTimerBool);
 
+                    if(secondsVibrateEditText.getText().toString().isEmpty()){
+                        progressModelClass.setVibrationTime("0");
+                    }else{
+                        progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
+                    }
+
+                    progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+
                     runningAssistorRef.setValue(progressModelClass);
                 }
             }
@@ -964,6 +1001,14 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
         progressModelClass.setIsActiveRestTimer(restTimerBool);
+
+        if(secondsVibrateEditText.getText().toString().isEmpty()){
+            progressModelClass.setVibrationTime("0");
+        }else{
+            progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
+        }
+
+        progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
 
         runningAssistorRef.setValue(progressModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -1542,6 +1587,17 @@ public class AssistorHolderFrag extends android.app.Fragment
             secondsEditText.setText(tokens[1]);
         }
 
+        if(workoutProgressModelClass.getVibrationTime() != null){
+            secondsVibrateEditText.setText(workoutProgressModelClass.getVibrationTime());
+            if(workoutProgressModelClass.isIsRestTimerAlert()){
+                justVibrateRB.setChecked(false);
+                showRestTimerAlertRB.setChecked(true);
+            }else{
+                justVibrateRB.setChecked(true);
+                showRestTimerAlertRB.setChecked(false);
+            }
+        }
+
         restTimerNoUpdate = true;
         restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
 
@@ -1730,6 +1786,17 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     String[] tokens = mTemplateClass.getRestTime().split(delims);
                                     minutesEditText.setText(tokens[0]);
                                     secondsEditText.setText(tokens[1]);
+                                }
+
+                                if(mTemplateClass.getVibrationTime() != null){
+                                    secondsVibrateEditText.setText(mTemplateClass.getVibrationTime());
+                                    if(mTemplateClass.isIsRestTimerAlert()){
+                                        justVibrateRB.setChecked(false);
+                                        showRestTimerAlertRB.setChecked(true);
+                                    }else{
+                                        justVibrateRB.setChecked(true);
+                                        showRestTimerAlertRB.setChecked(false);
+                                    }
                                 }
 
                                 restTimerNoUpdate = true;
