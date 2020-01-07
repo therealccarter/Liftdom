@@ -90,6 +90,10 @@ dismiss timer on 0
 Need to somehow check if starting notification is really a problem on android 8+ (narrator: "it is")
 Rest Timer extra options for vibration, also gotta add lots of piping in fb, wa, template editor
 WA: rest times in notification bar
+Vibration options need to be updating and have bool like whole rest timer switch
+    - changed this to flashing update button because of issues
+Added close button to rest timer
+Resized rest timer buttons
 
 ----------------------
 ====================================================
@@ -98,14 +102,15 @@ WA: rest times in notification bar
 ----- Service -----
 Make both main service and rest timer dismissible with a swipe (impossible as foreground, may need
     to totally convert it to background service. or add close button.)
-add close button to both services.
-Vibration options need to be updating and have bool like whole rest timer switch
-Notification needs to be expandable
+add close button to main service. (add close action to main notification)
+Notification needs to be expandable (possible with large icon but that's a no-go. could be possible
+    with an "action")
 Hitting pause on rest notification while it's vibrating closes the services and the app (?)
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
 
 ----- WA -----
+add an onCompleteListener to the damn thing
 possibly add added exercises to workout (from WA to template)
 possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
 shouldn't lose place in notification when WA detects changes.
@@ -122,7 +127,8 @@ Rounding option for percentages (nearest 5 or nearest to up)
 work offline. this would be a massive undertaking affecting many files and systems.
     - might put the offline update in updateWorkoutState()
 Be able to write in ex/set info and it read and populate it. (needs limitations for abuse, look into
- other place that need this too).
+ other place that need this too). Option to add to custom exercises. Possibly auto complete
+ exercises ala @'ing in groupme.
 
 ----- Template Editor -----
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.

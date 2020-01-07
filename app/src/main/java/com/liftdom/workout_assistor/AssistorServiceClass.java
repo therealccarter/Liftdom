@@ -2,6 +2,7 @@ package com.liftdom.workout_assistor;
 
 import android.app.*;
 import android.content.*;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -562,6 +563,7 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.trans_small))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
@@ -589,6 +591,7 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 .setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.trans_small))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(R.drawable.ic_previous,
@@ -616,6 +619,7 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle("Workout Done!")
                 .setContentText("Click this notification to finalize.")
                 .setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.trans_small))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 //.setPublicVersion()
@@ -642,6 +646,7 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 //.setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.trans_small))
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -670,6 +675,8 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle(exerciseName)
                 .setContentText(setSchemeFormatted)
                 //.setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable
+                // .trans_small))
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -698,6 +705,8 @@ public class AssistorServiceClass extends Service {
                 .setContentTitle("Workout Done!")
                 .setContentText("Click this notification to finalize.")
                 //.setWhen(System.currentTimeMillis())
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable
+                // .trans_small))
                 .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)

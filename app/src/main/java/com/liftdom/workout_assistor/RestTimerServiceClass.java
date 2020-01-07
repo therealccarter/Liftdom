@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class RestTimerServiceClass extends Service {
 
     public static final String TOGGLEPAUSE_ACTION = "com.liftdom.workout_assistor.pause";
+    public static final String CLOSE_ACTION = "com.liftdom.workout_assistor.close";
 
 
     public static final String CHANNEL_ID = "assistor_channel_02";
@@ -46,6 +47,14 @@ public class RestTimerServiceClass extends Service {
         if(action != null){
             if(action.equals(TOGGLEPAUSE_ACTION)){
                 processTogglePauseAction();
+            }else if(action.equals(CLOSE_ACTION)){
+                if(timer != null){
+                    timer.cancel();
+                }
+                if(vibrator != null){
+                    vibrator.cancel();
+                }
+                stopSelf();
             }
         }
     }
@@ -178,7 +187,7 @@ public class RestTimerServiceClass extends Service {
                 Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.just_knight_white_small)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(0))
+                    .setShowActionsInCompactView(0, 1))
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(time)
@@ -187,7 +196,8 @@ public class RestTimerServiceClass extends Service {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(pauseOrPlay,
                         "Pause",
-                        retrieveAction(TOGGLEPAUSE_ACTION));
+                        retrieveAction(TOGGLEPAUSE_ACTION))
+                .addAction(R.drawable.close_button_small, "Close", retrieveAction(CLOSE_ACTION));
 
         return builder;
 

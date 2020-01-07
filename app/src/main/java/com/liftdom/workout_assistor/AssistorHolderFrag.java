@@ -5,7 +5,9 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputFilter;
 import androidx.annotation.NonNull;
@@ -146,6 +148,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean restTimerBool = false;
 
     boolean restTimerNoUpdate = false;
+    boolean justVibrateNoUpdate = false;
 
     private ValueEventListener runningAssistorListener;
 
@@ -158,6 +161,33 @@ public class AssistorHolderFrag extends android.app.Fragment
 
             }
         });
+    }
+
+    boolean isGreen = false;
+
+    CountDownTimer timer;
+
+    private void flashUpdateButton(){
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(3000, 200) {
+            @Override
+            public void onTick(long l) {
+                if(isGreen){
+                    confirmRestTimer.setBackgroundColor(Color.parseColor("#27632a"));
+                    isGreen = false;
+                }else{
+                    confirmRestTimer.setBackgroundColor(Color.parseColor("#388e3c"));
+                    isGreen = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
     }
 
     @Override
@@ -248,9 +278,52 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
+        showRestTimerAlertRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                /**
+                 * Problem now is that it's "true" twice. Takes one manual turn to turn it false.
+                 * Should be "true" until it's populated and then turn false automatically.
+                 */
+                if(!justVibrateNoUpdate){
+                    //DatabaseReference activeRef =
+                    //        FirebaseDatabase.getInstance().getReference().child
+                    //        ("runningAssistor").
+                    //                child(uid).child("assistorModel").child("isRestTimerAlert");
+                    //activeRef.setValue(b);
+                    if(b){
+                        flashUpdateButton();
+                    }
+                }else{
+                    justVibrateNoUpdate = false;
+                }
+            }
+        });
+
+        justVibrateRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!justVibrateNoUpdate){
+                    //DatabaseReference activeRef =
+                    //        FirebaseDatabase.getInstance().getReference().child
+                    //        ("runningAssistor").
+                    //                child(uid).child("assistorModel").child("isRestTimerAlert");
+                    //activeRef.setValue(b);
+                    if(b){
+                        flashUpdateButton();
+                    }
+                }else{
+                    justVibrateNoUpdate = false;
+                }
+            }
+        });
+
         confirmRestTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(timer != null){
+                    timer.cancel();
+                }
                 updateWorkoutStateSnackbar();
             }
         });
@@ -1587,16 +1660,19 @@ public class AssistorHolderFrag extends android.app.Fragment
             secondsEditText.setText(tokens[1]);
         }
 
+        justVibrateNoUpdate = true;
         if(workoutProgressModelClass.getVibrationTime() != null){
             secondsVibrateEditText.setText(workoutProgressModelClass.getVibrationTime());
             if(workoutProgressModelClass.isIsRestTimerAlert()){
-                justVibrateRB.setChecked(false);
+                //justVibrateRB.setChecked(false);
                 showRestTimerAlertRB.setChecked(true);
             }else{
                 justVibrateRB.setChecked(true);
-                showRestTimerAlertRB.setChecked(false);
+                //showRestTimerAlertRB.setChecked(false);
             }
+            justVibrateNoUpdate = false;
         }
+
 
         restTimerNoUpdate = true;
         restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
@@ -1788,15 +1864,17 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     secondsEditText.setText(tokens[1]);
                                 }
 
+                                justVibrateNoUpdate = true;
                                 if(mTemplateClass.getVibrationTime() != null){
                                     secondsVibrateEditText.setText(mTemplateClass.getVibrationTime());
                                     if(mTemplateClass.isIsRestTimerAlert()){
-                                        justVibrateRB.setChecked(false);
+                                        //justVibrateRB.setChecked(false);
                                         showRestTimerAlertRB.setChecked(true);
                                     }else{
                                         justVibrateRB.setChecked(true);
-                                        showRestTimerAlertRB.setChecked(false);
+                                        //showRestTimerAlertRB.setChecked(false);
                                     }
+                                    justVibrateNoUpdate = false;
                                 }
 
                                 restTimerNoUpdate = true;
