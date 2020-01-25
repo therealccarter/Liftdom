@@ -190,8 +190,16 @@
             android:layout_marginStart="25dp"
             android:orientation="vertical"
             android:id="@+id/restTimerInfoLL"
-            android:visibility="gone"
+            android:visibility="visible"
             >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clickConfirmTime"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/offerGrey"
+                />
 
         <LinearLayout
                 android:layout_width="match_parent"

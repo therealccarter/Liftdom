@@ -2,7 +2,9 @@ package com.liftdom.workout_assistor;
 
 
 import android.app.ActivityManager;
-import android.content.*;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.appodeal.ads.Appodeal;
@@ -59,16 +60,16 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AssistorHolderFrag extends android.app.Fragment
-                implements ExNameWAFrag.removeFragCallback,
-                ExNameWAFrag.startFirstTimeShowcase,
-                ExNameWAFrag.updateWorkoutStateCallback,
-                ExNameWAFrag.updateWorkoutStateForResultCallback,
-                ExNameWAFrag.updateWorkoutStateFastCallback,
-                ExNameWAFrag.updateExNameCallback{
+public class AssistorHolderFrag1 extends android.app.Fragment
+        implements ExNameWAFrag.removeFragCallback,
+        ExNameWAFrag.startFirstTimeShowcase,
+        ExNameWAFrag.updateWorkoutStateCallback,
+        ExNameWAFrag.updateWorkoutStateForResultCallback,
+        ExNameWAFrag.updateWorkoutStateFastCallback,
+        ExNameWAFrag.updateExNameCallback{
 
 
-    public AssistorHolderFrag() {
+    public AssistorHolderFrag1() {
         // Required empty public constructor
     }
 
@@ -151,7 +152,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private ValueEventListener runningAssistorListener;
 
-    //DatabaseReference runningAssistorRef;
+    DatabaseReference runningAssistorRef;
 
     public void firstTimeShowcase(CheckBox checkBox){
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -342,7 +343,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         .setPositiveButton("Reset",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 cleanUpState();
-                                //runningAssistorRef.setValue(null);
+                                runningAssistorRef.setValue(null);
                                 //noProgressInflateViews();
                                 //runningAssistorRef.removeEventListener(runningAssistorListener);
                                 //runningAssistorRef.setValue(null);
@@ -825,7 +826,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         cleanUpState();
         runningAssistorRef.setValue(progressModelClass);
-        initializeViews();
     }
 
     public void updateWorkoutStateSnackbar(){
@@ -1114,8 +1114,6 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onResume(){
         Log.i("lifecycleAssistor", "AssistorHolderFrag onResume called");
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(serviceReceiver,
-                new IntentFilter("serviceMessage"));
         if(mTemplateClass == null){
             if(isRevisedWorkout || isFreestyleWorkout){
                 //initializeViews();
@@ -1135,22 +1133,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(runningAssistorListener == null){
             checkForOldData();
         }else{
-            //runningAssistorRef.addValueEventListener(runningAssistorListener);
+            runningAssistorRef.addValueEventListener(runningAssistorListener);
         }
     }
-
-    private BroadcastReceiver serviceReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
-            String message = intent.getStringExtra("message");
-            if(message != null){
-                if(message.equals("message")){
-                    initializeViews();
-                }
-            }
-        }
-    };
 
     private void setPlaceHolderTemplate(){
         DatabaseReference placeholderRef = mRootRef.child("defaultTemplates").child("FirstTimeProgram");
@@ -1262,9 +1247,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                             initializeViews();
                         }else{
                             Log.i("assistorInfo", "templateClass is null");
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                intent.putExtra("fragID",  0);
-                                startActivity(intent);
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            intent.putExtra("fragID",  0);
+                            startActivity(intent);
                         }
                     }
 
@@ -1419,21 +1404,20 @@ public class AssistorHolderFrag extends android.app.Fragment
     @Override
     public void onStop(){
         Log.i("lifecycleAssistor", "AssistorHolderFrag onStop called");
-        //if(runningAssistorRef != null){
-        //    runningAssistorRef.removeEventListener(runningAssistorListener);
-        //}
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
         isInForeground = false;
 
         super.onStop();
     }
-//
+
     @Override
     public void onDestroy(){
-        //if(runningAssistorRef != null){
-        //    runningAssistorRef.removeEventListener(runningAssistorListener);
-        //}
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
         isInForeground = false;
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(serviceReceiver);
         super.onDestroy();
     }
 
@@ -1471,12 +1455,12 @@ public class AssistorHolderFrag extends android.app.Fragment
          *
          */
 
-        DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
+        runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
-        runningAssistorRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        runningAssistorListener = runningAssistorRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //if(isListening){
+                if(isListening){
                     if(dataSnapshot.exists()){
                         Log.i("assistorInfo", "runningAssistor triggered/exists");
                         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -1493,13 +1477,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 if(isFromRestDay){
                                     cancelRevisionHolder.setVisibility(View.VISIBLE);
                                 }
-                                if(workoutProgressModelClass.getExInfoHashMap() == null){
-                                    cleanUpState();
-                                    noProgressInflateViews();
-                                }else{
-                                    savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
-                                            workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
-                                }
+                                savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
+                                        workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
                             }else{
                                 if(exNameFragList.isEmpty()){
                                     cleanUpState();
@@ -1524,7 +1503,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                             noProgressInflateViews();
                         }
                     }
-                //}
+                }
 
             }
 
@@ -1619,9 +1598,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
         }
-        //if(runningAssistorRef != null){
-        //    runningAssistorRef.removeEventListener(runningAssistorListener);
-        //}
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
         fragmentTransaction.commit();
     }
@@ -1668,9 +1647,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isFreestyleWorkout){
             assistorSavedFrag.isFreestyle = true;
         }
-        //if(runningAssistorRef != null){
-        //    runningAssistorRef.removeEventListener(runningAssistorListener);
-        //}
+        if(runningAssistorRef != null){
+            runningAssistorRef.removeEventListener(runningAssistorListener);
+        }
         isListening = false;
         assistorSavedFrag.isFromAd = true;
         fragmentTransaction.replace(R.id.exInfoHolder, assistorSavedFrag);
@@ -2083,8 +2062,6 @@ public class AssistorHolderFrag extends android.app.Fragment
 
 
                     workoutProgressModelClass.addExercise(data.getStringExtra("MESSAGE"));
-                    DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
-                            ("assistorModel");
                     runningAssistorRef.setValue(workoutProgressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.MainActivity;
@@ -59,7 +60,11 @@ public class AssistorServiceClass extends Service {
         }
     };
 
-
+    private void sendMessage() {
+        Intent intent = new Intent("serviceMessage");
+        intent.putExtra("message", "message");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
 
     private PendingIntent createOnDismissedIntent(Context context, int notificationId) {
         Intent intent = new Intent(context.getApplicationContext(), NotificationDismissedReceiver.class);
@@ -228,24 +233,28 @@ public class AssistorServiceClass extends Service {
         workoutProgressModelClass.setViewCursorToLast();
         updateFirebaseProgressModel();
         startForeground(101, buildNotification());
+
     }
 
     private void processFirstSetAction(){
         workoutProgressModelClass.setViewCursor("1_0_1");
         updateFirebaseProgressModel();
         startForeground(101, buildNotification());
+
     }
 
     private void processNextAction(){
         workoutProgressModelClass.next();
         updateFirebaseProgressModel();
         startForeground(101, buildNotification());
+
     }
 
     private void processPreviousAction(){
         workoutProgressModelClass.previous();
         updateFirebaseProgressModel();
         startForeground(101, buildNotification());
+
     }
 
     private void processToggleCheckAction(){
@@ -271,6 +280,7 @@ public class AssistorServiceClass extends Service {
         }else{
             updateFirebaseProgressModel();
         }
+
     }
 
     android.os.Handler handler = new Handler();
@@ -289,6 +299,7 @@ public class AssistorServiceClass extends Service {
         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
                 ("assistorModel");
         runningRef.setValue(workoutProgressModelClass);
+        sendMessage();
     }
 
     private String metricToImperial(String input){

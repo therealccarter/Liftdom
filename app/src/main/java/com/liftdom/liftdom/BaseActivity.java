@@ -178,6 +178,8 @@ public class BaseActivity extends AppCompatActivity {
                                     && !userModelClass.getNotificationCount().equals("")){
                                 if(!userModelClass.getNotificationCount().equals("0")){
                                     notificationCountView.setText(userModelClass.getNotificationCount());
+                                }else{
+                                    notificationCountView.setText("");
                                 }
                             }
 

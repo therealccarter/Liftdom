@@ -7,12 +7,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,25 +26,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.chat.ChatMainFrag;
 import com.liftdom.liftdom.forum.ForumMainFrag3;
-import com.liftdom.liftdom.main_social_feed.MainFeedFrag;
 import com.liftdom.liftdom.main_social_feed.feed_slider.FeedHolderFrag;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.UserNameIdModelClass;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.template_housing.*;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
-import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
-import com.liftdom.workout_assistor.AssistorServiceClass;
-import com.liftdom.workout_assistor.RestTimerServiceClass;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
-import com.liftdom.workout_programs.Smolov.Smolov;
 import com.search.material.library.MaterialSearchView;
+import io.paperdb.Paper;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements
@@ -105,6 +98,25 @@ public class MainActivity extends BaseActivity implements
         scrollView.scrollTo(0, scrollView.getBottom());
     }
 
+    private void paperTest(){
+        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child(
+                "templates").child(uid).child("pro");
+        templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TemplateModelClass pro = dataSnapshot.getValue(TemplateModelClass.class);
+                Paper.book().write("pro", pro);
+                TemplateModelClass proOffline = Paper.book().read("pro");
+                Log.i("asd", proOffline.getDateCreated());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +126,8 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        //Paper.init(getApplicationContext());
 
         //appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
         //    @Override
@@ -162,6 +176,7 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    //paperTest();
                     setUpTypeAheadData();
                     //FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true,
                     //        true);
@@ -548,6 +563,7 @@ public class MainActivity extends BaseActivity implements
         }
 
     }
+
 
     private void showConsentForm(){
         Intent intent = new Intent(MainActivity.this, ConsentFormDialogActivity.class);

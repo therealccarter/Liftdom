@@ -1,5 +1,26 @@
 
 
+
+    - Now, how do we do that?
+        - Disconnect UI from being updated automatically from FB.
+            - problem now is it doesn't get updates from service
+        - Need a check if exInfoHashMap is null, if it is, remake the original.
+
+
+    - best option might be to just work on detaching ui from live updates
+        then somehow use the firebase offline to enable offline. or manually use Paper.
+        will need to have template ref for offline as well as running assistor
+    - this was still assuming that we have connection for the initial read of
+        the workout history/template/running assistor. Once we have the relevant data
+        we simply detach the modifications from updating, and the listener from updating things.
+
+    - first we need our templates saved to disk
+    - then we need to do the whole checking process of WA/AH in disk
+    - which means we need to have RunningAssistor in disk
+    - Maybe can help stop some of the finnicky ness of the WA and it's relation to states
+WA/main service/template creation and saving/ whole process needs to be self contained offline
+    - going to have to use Room or equivalent. Massive undertaking.
+
 //if(getExInfoHashMap().get(tokens[0] + key).size() > (Integer.parseInt(tokens[1]) + 1)){
                         //    // if room to increase ([1])
                         //    //Log.i("progressModel", "107, cursor = " + cursor);

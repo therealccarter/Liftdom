@@ -819,6 +819,7 @@
     <string name="restTimer">Rest Timer</string>
     <string name="colon">:</string>
     <string name="minutesSeconds">(Minutes:Seconds)</string>
+    <string name="clickConfirmTime">Please click \"Confirm Time\" after any changes.</string>
     <string name="restTimerInfo">Rest Timer activates each time you check off a set in the Workout
         Notification.</string>
     <string name="restTimerInfo2">Rest Timer activates each time you check off a set in the workout

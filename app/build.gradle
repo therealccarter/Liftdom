@@ -161,6 +161,7 @@ dependencies {
     implementation name: 'mobvista-8.11.0-videocommon', ext: 'aar'
     implementation name: 'mobvista-8.11.0-videofeeds', ext: 'aar'
     implementation name: 'mobvista-8.11.0-videojs', ext: 'aar'
+    implementation 'io.paperdb:paperdb:2.6'
     //implementation "android.arch.lifecycle:extensions:1.0.0"
     //implementation "android.arch.persistence.room:runtime:1.0.0"
     //annotationProcessor "android.arch.persistence.room:compiler:1.0.0"

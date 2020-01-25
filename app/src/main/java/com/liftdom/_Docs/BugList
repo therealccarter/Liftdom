@@ -94,9 +94,21 @@ Vibration options need to be updating and have bool like whole rest timer switch
     - changed this to flashing update button because of issues
 Added close button to rest timer
 Resized rest timer buttons
+Fixed notification bell number not updating if 0
+Now resets workout if exInfoHashMap is null instead of just sitting there
+Disconnected AssistorHolderFrag from live updating UI
+Used localBroadcastManager to send actions from Service to AHF (runs initializeViews())
 
 ----------------------
 ====================================================
+
+============ THE ABSOLUTE MOST IMPORTANT ===================================
+AssistorHolder, main Service, need to be detached from firebase (front end)
+    - Let's just look at what we want the user to experience.
+    - They should be able to check off sets with no lag, and have it work offline.
+            - Enable firebase offline for templates, user, running assistor, workout history.
+
+============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 ----- Service -----
@@ -104,12 +116,19 @@ Make both main service and rest timer dismissible with a swipe (impossible as fo
     to totally convert it to background service. or add close button.)
 add close button to main service. (add close action to main notification)
 Notification needs to be expandable (possible with large icon but that's a no-go. could be possible
-    with an "action")
+    with an "action". "actions" are not possible with media style)
 Hitting pause on rest notification while it's vibrating closes the services and the app (?)
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
 
 ----- WA -----
+VERY IMPORTANT potential big problems with percentages and metric/imperial conversion
+    - it's across the whole app monkaS
+    - related big problem: split screen fuckage led to template being read as metric (imperial
+    false)
+Why is split screen killing where I am in app and deleting runningAssistor info?
+    - it looks like an old bug where the s/r/w frags are killed and it saves after that point
+    - having a hard time going from malformed running assistor to reset workout
 add an onCompleteListener to the damn thing
 possibly add added exercises to workout (from WA to template)
 possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
