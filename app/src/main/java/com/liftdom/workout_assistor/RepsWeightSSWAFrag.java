@@ -446,18 +446,50 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
 
     private String metricToImperial(String input){
 
-        double lbsDouble = Double.parseDouble(input) * 2.2046;
-        int lbsInt = (int) Math.round(lbsDouble);
-        String newString = String.valueOf(lbsInt);
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(lbsInt);
+        }else{
+            weight = input;
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString = String.valueOf(lbsInt);
+        }
 
         return newString;
     }
 
     private String imperialToMetric(String input){
 
-        double kgDouble = Double.parseDouble(input) / 2.2046;
-        int kgInt = (int) Math.round(kgDouble);
-        String newString = String.valueOf(kgInt);
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(kgInt);
+        }else{
+            weight = input;
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString = String.valueOf(kgInt);
+        }
 
         return newString;
     }

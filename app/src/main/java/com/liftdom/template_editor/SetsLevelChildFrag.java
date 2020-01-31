@@ -335,7 +335,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     public void setWeightToPercentAndSetWeightText(String weight){
         weightLL.setVisibility(View.GONE);
         percentageLL.setVisibility(View.VISIBLE);
-        percentageWeightButton.setText(weight);
+        percentageWeightButton.setText(handleUnitConversion(weight));
     }
 
     @Override

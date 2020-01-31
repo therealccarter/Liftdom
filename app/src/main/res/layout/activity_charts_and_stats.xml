@@ -42,6 +42,24 @@
             <fragment
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:name="com.liftdom.charts_stats_tools.ex_history_chart.StatChartsFrag"
+                    tools:layout="@layout/fragment_stat_charts_tab"
+                    android:layout_margin="15dp"
+                    android:id="@+id/statsChartsFrag"
+                    />
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.liftdom.charts_stats_tools.tools.ExerciseMaxesFrag"
+                    tools:layout="@layout/fragment_exercise_maxes"
+                    android:layout_margin="15dp"
+                    android:id="@+id/maxFrag"
+                    />
+
+            <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:name="com.liftdom.charts_stats_tools.tools.BMICalcFrag"
                     tools:layout="@layout/fragment_bmicalc"
                     android:layout_marginBottom="50dp"
@@ -65,24 +83,6 @@
                     tools:layout="@layout/fragment_wilks_calc"
                     android:layout_margin="15dp"
                     android:id="@+id/wilksFrag"
-            />
-
-            <fragment
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:name="com.liftdom.charts_stats_tools.ex_history_chart.StatChartsFrag"
-                    tools:layout="@layout/fragment_stat_charts_tab"
-                    android:layout_margin="15dp"
-                    android:id="@+id/statsChartsFrag"
-            />
-
-            <fragment
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:name="com.liftdom.charts_stats_tools.tools.ExerciseMaxesFrag"
-                    tools:layout="@layout/fragment_exercise_maxes"
-                    android:layout_margin="15dp"
-                    android:id="@+id/maxFrag"
             />
 
         </LinearLayout>

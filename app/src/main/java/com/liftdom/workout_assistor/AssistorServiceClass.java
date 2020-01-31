@@ -94,6 +94,28 @@ public class AssistorServiceClass extends Service {
         return PendingIntent.getService(this, 0, intent, 0);
     }
 
+    private void unitListener(){
+        DatabaseReference unitRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
+                .child("isImperial");
+        unitRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null){
+                    if(isUserImperial != dataSnapshot.getValue(Boolean.class)){
+                        isUserImperial = dataSnapshot.getValue(Boolean.class);
+                        startForeground(101, buildNotification());
+                    }
+                    isUserImperial = dataSnapshot.getValue(Boolean.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -127,6 +149,7 @@ public class AssistorServiceClass extends Service {
                 }else{
                     Log.i("serviceInfo", "FIREBASE workoutProgressModelClass updated");
                     workoutProgressModelClass = dataSnapshot.getValue(WorkoutProgressModelClass.class);
+                    unitListener();
                     if(workoutProgressModelClass != null){
                         if(workoutProgressModelClass.getExInfoHashMap() == null){
                             stopSelf(101);
@@ -144,21 +167,7 @@ public class AssistorServiceClass extends Service {
             }
         });
 
-        DatabaseReference unitRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid)
-                .child("isImperial");
-        unitRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
-                    isUserImperial = dataSnapshot.getValue(Boolean.class);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         //mediaSession = new MediaSessionCompat(this, "debug tag for media session");
 
@@ -231,28 +240,28 @@ public class AssistorServiceClass extends Service {
 
     private void processLastSetAction(){
         workoutProgressModelClass.setViewCursorToLast();
-        updateFirebaseProgressModel();
+        updateFirebaseProgressModel(false);
         startForeground(101, buildNotification());
 
     }
 
     private void processFirstSetAction(){
         workoutProgressModelClass.setViewCursor("1_0_1");
-        updateFirebaseProgressModel();
+        updateFirebaseProgressModel(false);
         startForeground(101, buildNotification());
 
     }
 
     private void processNextAction(){
         workoutProgressModelClass.next();
-        updateFirebaseProgressModel();
+        updateFirebaseProgressModel(false);
         startForeground(101, buildNotification());
 
     }
 
     private void processPreviousAction(){
         workoutProgressModelClass.previous();
-        updateFirebaseProgressModel();
+        updateFirebaseProgressModel(false);
         startForeground(101, buildNotification());
 
     }
@@ -278,7 +287,7 @@ public class AssistorServiceClass extends Service {
                 }
             }
         }else{
-            updateFirebaseProgressModel();
+            updateFirebaseProgressModel(true);
         }
 
     }
@@ -290,16 +299,18 @@ public class AssistorServiceClass extends Service {
             @Override
             public void run() {
                 workoutProgressModelClass.next();
-                updateFirebaseProgressModel();
+                updateFirebaseProgressModel(true);
             }
         }, 100);
     }
 
-    private void updateFirebaseProgressModel(){
+    private void updateFirebaseProgressModel(boolean fromCheck){
         DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child("runningAssistor").child(uid).child
                 ("assistorModel");
         runningRef.setValue(workoutProgressModelClass);
-        sendMessage();
+        if(fromCheck){
+            sendMessage();
+        }
     }
 
     private String metricToImperial(String input){

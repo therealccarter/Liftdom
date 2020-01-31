@@ -212,7 +212,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
 
                 CharSequence toastText = "Set-scheme Added";
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Snackbar.LENGTH_SHORT;
 
                 try{
                     Snackbar snackbar = Snackbar.make(getView(), toastText, duration);

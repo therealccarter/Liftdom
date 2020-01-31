@@ -314,9 +314,37 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
             return input;
         }else{
-            double lbsDouble = Double.parseDouble(tokens[1]) * 2.2046;
-            int lbsInt = (int) Math.round(lbsDouble);
-            String newString = tokens[0] + "@" + String.valueOf(lbsInt);
+            String weight;
+            String newString;
+
+            char c = tokens[1].charAt(0);
+            String cString = String.valueOf(c);
+            String[] tokens3 = tokens[1].split("\\s+");
+            // 6x3@85 % of 345 (293)
+            try{
+                if(tokens3[1].equals("%")){
+                    String delims2 = "[(, )]";
+                    String[] tokens4 = tokens3[4].split(delims2);
+                    //String[] tokens2 = input.split(delims2);
+                    //weight = tokens2[tokens2.length - 1];
+                    double kgDouble1 = Double.parseDouble(tokens3[3]) * 2.2046;
+                    double kgDouble2 = Double.parseDouble(tokens4[1]) * 2.2046;
+                    int kgInt1 = (int) Math.round(kgDouble1);
+                    int kgInt2 = (int) Math.round(kgDouble2);
+                    newString = tokens[0] + "@" + tokens3[0] + " " + tokens3[1] + " " + tokens3[2] +
+                            " " + String.valueOf(kgInt1) + " (" + String.valueOf(kgInt2) + ")";
+                }else{
+                    double kgDouble = Double.parseDouble(tokens[1]) * 2.2046;
+                    int kgInt = (int) Math.round(kgDouble);
+                    newString = tokens[0] + "@" + String.valueOf(kgInt);
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                double kgDouble = Double.parseDouble(tokens[1]) * 2.2046;
+                int kgInt = (int) Math.round(kgDouble);
+                newString = tokens[0] + "@" + String.valueOf(kgInt);
+            }
+
+
             return newString;
         }
     }
@@ -328,9 +356,37 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
 
             return input;
         }else{
-            double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
-            int kgInt = (int) Math.round(kgDouble);
-            String newString = tokens[0] + "@" + String.valueOf(kgInt);
+            String weight;
+            String newString;
+
+            char c = tokens[1].charAt(0);
+            String cString = String.valueOf(c);
+            String[] tokens3 = tokens[1].split("\\s+");
+            // 6x3@85 % of 345 (293)
+            try{
+                if(tokens3[1].equals("%")){
+                    String delims2 = "[(, )]";
+                    String[] tokens4 = tokens3[4].split(delims2);
+                    //String[] tokens2 = input.split(delims2);
+                    //weight = tokens2[tokens2.length - 1];
+                    double kgDouble1 = Double.parseDouble(tokens3[3]) / 2.2046;
+                    double kgDouble2 = Double.parseDouble(tokens4[1]) / 2.2046;
+                    int kgInt1 = (int) Math.round(kgDouble1);
+                    int kgInt2 = (int) Math.round(kgDouble2);
+                    newString = tokens[0] + "@" + tokens3[0] + " " + tokens3[1] + " " + tokens3[2] +
+                            " " + String.valueOf(kgInt1) + " (" + String.valueOf(kgInt2) + ")";
+                }else{
+                    double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
+                    int kgInt = (int) Math.round(kgDouble);
+                    newString = tokens[0] + "@" + String.valueOf(kgInt);
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                double kgDouble = Double.parseDouble(tokens[1]) / 2.2046;
+                int kgInt = (int) Math.round(kgDouble);
+                newString = tokens[0] + "@" + String.valueOf(kgInt);
+            }
+
+
             return newString;
         }
     }

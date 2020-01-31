@@ -176,6 +176,7 @@ public class MainActivity extends BaseActivity implements
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    keepSynced();
                     //paperTest();
                     setUpTypeAheadData();
                     //FirstTimeModelClass firstTimeModelClass = new FirstTimeModelClass(true, true, true, true, true,
@@ -474,6 +475,26 @@ public class MainActivity extends BaseActivity implements
 
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
+
+    }
+
+    private void keepSynced(){
+
+        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child(
+                "templates").child(uid);
+        DatabaseReference userRef =
+                FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child(
+                "runningAssistor").child(uid).child("assistorModel");
+        DatabaseReference workoutHistoryRef =
+                FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(uid);
+        DatabaseReference defaultRef = FirebaseDatabase.getInstance().getReference().child(
+                "defaultTemplates");
+        templateRef.keepSynced(true);
+        userRef.keepSynced(true);
+        runningRef.keepSynced(true);
+        workoutHistoryRef.keepSynced(true);
+        defaultRef.keepSynced(true);
 
     }
 
