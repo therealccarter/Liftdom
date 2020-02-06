@@ -103,6 +103,7 @@ shouldn't lose place in notification when WA detects changes. (goes to last chec
 Service should listen to units
 percentages in template editor edit is not converting.
 WorkoutAssistor works offline!
+Enabled firebase offline for templates, user, running assistor, workout history.
 
 ----------------------
 ====================================================
@@ -111,7 +112,7 @@ WorkoutAssistor works offline!
 AssistorHolder, main Service, need to be detached from firebase (front end)
     - Let's just look at what we want the user to experience.
     - They should be able to check off sets with no lag, and have it work offline.
-            - Enable firebase offline for templates, user, running assistor, workout history.
+            - Enabled firebase offline for templates, user, running assistor, workout history.
 
 ============================================================================
 
