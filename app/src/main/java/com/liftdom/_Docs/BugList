@@ -104,15 +104,21 @@ Service should listen to units
 percentages in template editor edit is not converting.
 WorkoutAssistor works offline!
 Enabled firebase offline for templates, user, running assistor, workout history.
+Fixed bug causing notification onClickPendingIntent to not work.
+related big problem: split screen fuckage led to template being read as metric (imperial
+    false)
+Why is split screen killing where I am in app and deleting runningAssistor info?
+    - it looks like an old bug where the s/r/w frags are killed and it saves after that point
+    - having a hard time going from malformed running assistor to reset workout
+    - it's setting templateImperial to false (guessing AHF gets killed and it goes back to default
+        values)
+    - noProgressInflate gets called for some reason, and because it's dead or out of view,
+    visibility returns null.
 
 ----------------------
 ====================================================
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
-AssistorHolder, main Service, need to be detached from firebase (front end)
-    - Let's just look at what we want the user to experience.
-    - They should be able to check off sets with no lag, and have it work offline.
-            - Enabled firebase offline for templates, user, running assistor, workout history.
 
 ============================================================================
 
@@ -126,16 +132,11 @@ Notification needs to be expandable (possible with large icon but that's a no-go
 Hitting pause on rest notification while it's vibrating closes the services and the app (?)
 possibly just update db, don't keep running ref affecting layout (will have to keep updating our own
     - workout progress model since we won't be drawing from the new updated one?)
+Probably not going to be disconnecting service, as it would mean sending a massive amount of stuff
+    to the service from WA and the only pro is faster clicking which isn't a problem right now.
 
 ----- WA -----
-VERY IMPORTANT potential big problems with percentages and metric/imperial conversion
-    - it's across the whole app monkaS
-    - related big problem: split screen fuckage led to template being read as metric (imperial
-    false)
-Why is split screen killing where I am in app and deleting runningAssistor info?
-    - it looks like an old bug where the s/r/w frags are killed and it saves after that point
-    - having a hard time going from malformed running assistor to reset workout
-add an onCompleteListener to the damn thing
+add an onCompleteListener to the damn thing (?)
 possibly add added exercises to workout (from WA to template)
 possibly only update LAYOUT on screen changes (onResume), keep updating DATABASE as it is.
 WA/service need to somehow be asynced. It's too laggy.

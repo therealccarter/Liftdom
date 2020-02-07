@@ -209,6 +209,9 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         checkIfUserIsImperial();
 
+        /**
+         * This is being called on the split screen shit.
+         */
         checkForOldData();
 
         //killAssistorListener = (killAssistorListener) getParentFragment();
@@ -277,6 +280,8 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         });
 
+        showRestTimerAlertRB.setChecked(true);
+
         showRestTimerAlertRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -342,6 +347,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         .setPositiveButton("Reset",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 cleanUpState();
+                                noProgressInflateViews();
                                 //runningAssistorRef.setValue(null);
                                 //noProgressInflateViews();
                                 //runningAssistorRef.removeEventListener(runningAssistorListener);
@@ -1132,11 +1138,11 @@ public class AssistorHolderFrag extends android.app.Fragment
             Log.i("assistorInfo", "AssistorHolderFrag (onResume)");
             super.onResume();
         }
-        if(runningAssistorListener == null){
-            checkForOldData();
-        }else{
-            //runningAssistorRef.addValueEventListener(runningAssistorListener);
-        }
+        //if(runningAssistorListener == null){
+        //    checkForOldData();
+        //}else{
+        //    //runningAssistorRef.addValueEventListener(runningAssistorListener);
+        //}
     }
 
     private BroadcastReceiver serviceReceiver = new BroadcastReceiver() {
@@ -1256,15 +1262,14 @@ public class AssistorHolderFrag extends android.app.Fragment
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         WorkoutProgressModelClass progressModelClass = dataSnapshot.getValue
                                 (WorkoutProgressModelClass.class);
-
-                        if(progressModelClass.getDate().equals(dateTimeString)){
+                        if(isFreestyleWorkout){
                             isFreestyleWorkout = true;
                             initializeViews();
                         }else{
                             Log.i("assistorInfo", "templateClass is null");
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                intent.putExtra("fragID",  0);
-                                startActivity(intent);
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            intent.putExtra("fragID",  0);
+                            startActivity(intent);
                         }
                     }
 
@@ -1885,6 +1890,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
                                 mTemplateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                                isTemplateImperial = mTemplateClass.isIsImperial();
 
                                 if(mTemplateClass.getRestTime() != null){
                                     String delims = "[:]";
