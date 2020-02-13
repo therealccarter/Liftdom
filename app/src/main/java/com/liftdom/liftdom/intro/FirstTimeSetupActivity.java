@@ -49,9 +49,9 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         addSlide(new IntroFrag1());
 
-        addSlide(new IntroFrag3());
-
         addSlide(new IntroFrag2());
+
+        addSlide(new IntroFrag3());
 
         addSlide(new IntroFrag4());
 

@@ -44,17 +44,22 @@ public class SaveAssistorDialog extends AppCompatActivity {
                 Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
                     @Override
                     public void onInterstitialLoaded(boolean b) {
-                        Log.i("appodeal", "loaded");
+
                     }
 
                     @Override
                     public void onInterstitialFailedToLoad() {
-                        Log.i("appodeal", "failed");
+
                     }
 
                     @Override
                     public void onInterstitialShown() {
-                        Log.i("appodeal", "shown");
+
+                    }
+
+                    @Override
+                    public void onInterstitialShowFailed() {
+
                     }
 
                     @Override
@@ -70,7 +75,42 @@ public class SaveAssistorDialog extends AppCompatActivity {
                         setResult(1);
                         finish();
                     }
+
+                    @Override
+                    public void onInterstitialExpired() {
+
+                    }
                 });
+                //Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+                //    @Override
+                //    public void onInterstitialLoaded(boolean b) {
+                //        Log.i("appodeal", "loaded");
+                //    }
+//
+                //    @Override
+                //    public void onInterstitialFailedToLoad() {
+                //        Log.i("appodeal", "failed");
+                //    }
+//
+                //    @Override
+                //    public void onInterstitialShown() {
+                //        Log.i("appodeal", "shown");
+                //    }
+//
+                //    @Override
+                //    public void onInterstitialClicked() {
+                //        Log.i("appodeal", "clicked");
+                //        setResult(1);
+                //        finish();
+                //    }
+//
+                //    @Override
+                //    public void onInterstitialClosed() {
+                //        Log.i("appodeal", "closed");
+                //        setResult(1);
+                //        finish();
+                //    }
+                //});
 
             }
         });

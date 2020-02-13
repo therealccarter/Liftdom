@@ -35,7 +35,7 @@ import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
 import com.search.material.library.MaterialSearchView;
-import io.paperdb.Paper;
+//import io.paperdb.Paper;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.LocalDate;
 
@@ -105,9 +105,9 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TemplateModelClass pro = dataSnapshot.getValue(TemplateModelClass.class);
-                Paper.book().write("pro", pro);
-                TemplateModelClass proOffline = Paper.book().read("pro");
-                Log.i("asd", proOffline.getDateCreated());
+                //Paper.book().write("pro", pro);
+                //TemplateModelClass proOffline = Paper.book().read("pro");
+                //Log.i("asd", proOffline.getDateCreated());
             }
 
             @Override

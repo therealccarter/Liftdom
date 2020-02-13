@@ -114,11 +114,22 @@ Why is split screen killing where I am in app and deleting runningAssistor info?
         values)
     - noProgressInflate gets called for some reason, and because it's dead or out of view,
     visibility returns null.
+Removed old Appodeal (2.4.2) (lib files, android manifest) and added new Appodeal 2.6.
 
 ----------------------
 ====================================================
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
+What are the next most important things for beta release?
+
+Get the 3 pre-mades working correctly.
+
+Get the ex history chart page attractive and good looking
+
+Get GDPR airtight, "Prominent disclosure for Appodeal/user information usage", possibly switch to MoPub?
+    - this could be most important, getting the app actually up. Nothing matters if you can't.
+    - Create 64 bit version?
+    - Something in the manifest about not being indexable.
 
 ============================================================================
 
@@ -149,8 +160,6 @@ Weight edit text WA not defaulting zero to blank
 Need to handle changing template mid workout (maybe check running assistor against new template save
  status of checked ones.)
 Rounding option for percentages (nearest 5 or nearest to up)
-work offline. this would be a massive undertaking affecting many files and systems.
-    - might put the offline update in updateWorkoutState()
 Be able to write in ex/set info and it read and populate it. (needs limitations for abuse, look into
  other place that need this too). Option to add to custom exercises. Possibly auto complete
  exercises ala @'ing in groupme.
@@ -170,6 +179,7 @@ Be able to write in ex/set info and it read and populate it. (needs limitations 
 Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress
     - what does this mean? the total weight lifted?
 Ex specific chart is essentially useless
+Pie graph of exercises?
 exercise maxes list should have search
 exercise maxes list should have option to change sort order
 exercise maxes list should have option to set max manually (and say it was manual in each item)
