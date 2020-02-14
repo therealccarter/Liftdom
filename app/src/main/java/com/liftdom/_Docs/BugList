@@ -115,11 +115,19 @@ Why is split screen killing where I am in app and deleting runningAssistor info?
     - noProgressInflate gets called for some reason, and because it's dead or out of view,
     visibility returns null.
 Removed old Appodeal (2.4.2) (lib files, android manifest) and added new Appodeal 2.6.
-
+Fixed bug: adding exercises in WA not working.
+    - deleting exercises works, but if i delete exercises and then add an exercises, all the old
+    exercises are added back.
+    - it's because instead of doing a normal update I'm directly editing the workoutProgressModel
+    variable which isn't being updated really.
+    - had to manually add ex name frag and then update fb + initialize.
+Added checkForOldData and checkForImperial into onResume instead of onCreate
 ----------------------
 ====================================================
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
+
+
 What are the next most important things for beta release?
 
 Get the 3 pre-mades working correctly.
@@ -131,9 +139,14 @@ Get GDPR airtight, "Prominent disclosure for Appodeal/user information usage", p
     - Create 64 bit version?
     - Something in the manifest about not being indexable.
 
+Your security rules are not secure. Any authenticated user can steal, modify, or delete data in your database.
+
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+
+Check dialog buttons, it should be cancel/ok positive right neg left. They all look like shit.
+
 ----- Service -----
 Make both main service and rest timer dismissible with a swipe (impossible as foreground, may need
     to totally convert it to background service. or add close button.)

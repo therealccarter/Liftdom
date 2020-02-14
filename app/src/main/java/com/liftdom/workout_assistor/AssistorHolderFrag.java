@@ -10,11 +10,7 @@ import android.os.Handler;
 import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.cardview.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,8 +21,6 @@ import android.widget.*;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.appodeal.ads.Appodeal;
-import com.appodeal.ads.InterstitialCallbacks;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -207,12 +201,12 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         isListening = true;
 
-        checkIfUserIsImperial();
+        //checkIfUserIsImperial();
 
         /**
          * This is being called on the split screen shit.
          */
-        checkForOldData();
+        //checkForOldData();
 
         //killAssistorListener = (killAssistorListener) getParentFragment();
 
@@ -328,7 +322,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                 if(timer != null){
                     timer.cancel();
                 }
-                updateWorkoutStateSnackbar();
+                updateWorkoutStateSnackbarAndInitialize(false);
             }
         });
 
@@ -829,12 +823,13 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
+        workoutProgressModelClass = progressModelClass;
         cleanUpState();
         runningAssistorRef.setValue(progressModelClass);
         initializeViews();
     }
 
-    public void updateWorkoutStateSnackbar(){
+    public void updateWorkoutStateSnackbarAndInitialize(boolean initialize){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
         HashMap<String, HashMap<String, List<String>>> runningMap = new HashMap<>();
@@ -887,11 +882,17 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+        workoutProgressModelClass = progressModelClass;
 
         runningAssistorRef.setValue(progressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Snackbar.make(getView(), "Timer updated", Snackbar.LENGTH_SHORT).show();
+                if(initialize){
+                    initializeViews();
+                }else{
+                    Snackbar.make(getView(), "Timer updated", Snackbar.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -958,6 +959,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+
+        workoutProgressModelClass = progressModelClass;
 
         runningAssistorRef.setValue(progressModelClass);
 
@@ -1035,6 +1038,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
 
                     progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+                    workoutProgressModelClass = progressModelClass;
 
                     runningAssistorRef.setValue(progressModelClass);
                 }
@@ -1088,6 +1092,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
+        workoutProgressModelClass = progressModelClass;
 
         runningAssistorRef.setValue(progressModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -1130,12 +1135,14 @@ public class AssistorHolderFrag extends android.app.Fragment
             }else{
                 Log.i("assistorInfo", "templateClass is null (onResume)");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("fragID",  0);
+                intent.putExtra("fragID",  2);
                 startActivity(intent);
                 super.onResume();
             }
         }else{
             Log.i("assistorInfo", "AssistorHolderFrag (onResume)");
+            checkIfUserIsImperial();
+            checkForOldData();
             super.onResume();
         }
         //if(runningAssistorListener == null){
@@ -2087,41 +2094,74 @@ public class AssistorHolderFrag extends android.app.Fragment
                      * What if we write directly to fb?
                      */
 
+                    updateWorkoutStateSnackbarAndInitialize(true);
 
-                    workoutProgressModelClass.addExercise(data.getStringExtra("MESSAGE"));
-                    DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
-                            ("assistorModel");
-                    runningAssistorRef.setValue(workoutProgressModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            if(isServiceUp()){
-                                setButtonsForService();
-                            }else{
-                                Intent startIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                                startIntent.putExtra("uid", uid);
-                                startIntent.putExtra("userImperial", String.valueOf(isUserImperial));
-                                getActivity().startService(startIntent);
-                                setButtonsForService();
-                            }
-                        }
-                    });
+                    //workoutProgressModelClass.addExercise(data.getStringExtra("MESSAGE"));
+                    //DatabaseReference runningAssistorRef =
+                    //        mRootRef.child("runningAssistor").child(uid).child
+                    //        ("assistorModel");
+                    //runningAssistorRef.setValue(workoutProgressModelClass)
+                                    // .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //    @Override
+                    //    public void onComplete(@NonNull Task<Void> task) {
+                    //        initializeViews();
+//
+                    //        //if(isServiceUp()){
+                    //        //    setButtonsForService();
+                    //        //}else{
+                    //        //    Intent startIntent = new Intent(getActivity(),
+                    //        //            AssistorServiceClass.class);
+                    //        //    startIntent.putExtra("uid", uid);
+                    //        //    startIntent.putExtra("userImperial",
+                    //        //            String.valueOf(isUserImperial));
+                    //        //    getActivity().startService(startIntent);
+                    //        //    setButtonsForService();
+                    //        //}
+                    //    }
+                    //});
 
                     //exNameInc++;
                     //String tag = String.valueOf(exNameInc) + "ex";
-                    //android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager()
-                    // .beginTransaction();
+                    //android.app.FragmentTransaction fragmentTransaction =
+                    //        getChildFragmentManager().beginTransaction();
                     //ExNameWAFrag exNameFrag = new ExNameWAFrag();
                     //exNameFrag.isTemplateImperial = isTemplateImperial;
-                    //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
+                    ////exNameFrag.infoList = stringList;
+                    //exNameFrag.isUserImperial = isUserImperial;
                     //exNameFrag.fragTag = tag;
-                    //if (!getActivity().isFinishing()) {
-                    //    fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
-                    //    fragmentTransaction.commitAllowingStateLoss();
-                    //    getChildFragmentManager().executePendingTransactions();
-                    //    exNameFragList.add(exNameFrag);
-                    //    fragTagList.add(tag);
+                    //if(getActivity() != null){
+                    //    if(!getActivity().isFinishing()) {
+                    //        fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                    //        fragmentTransaction.commitAllowingStateLoss();
+                    //        getChildFragmentManager().executePendingTransactions();
+                    //        exNameFragList.add(exNameFrag);
+                    //        fragTagList.add(tag);
+                    //    }
                     //}
+
+                    exNameInc++;
+                    String tag = String.valueOf(exNameInc) + "ex";
+                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager()
+                     .beginTransaction();
+                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                    exNameFrag.isTemplateImperial = isTemplateImperial;
+                    //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
+                    ArrayList<String> info = new ArrayList<>();
+                    info.add(data.getStringExtra("MESSAGE"));
+                    info.add("0x0@0");
+                    exNameFrag.infoList = info;
+                    exNameFrag.fragTag = tag;
+                    if(getActivity() != null) {
+                        if (!getActivity().isFinishing()) {
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                            fragmentTransaction.commitAllowingStateLoss();
+                            getChildFragmentManager().executePendingTransactions();
+                            exNameFragList.add(exNameFrag);
+                            fragTagList.add(tag);
+                        }
+                    }
+
+                    updateWorkoutStateSnackbarAndInitialize(true);
                 }
             }
         }
