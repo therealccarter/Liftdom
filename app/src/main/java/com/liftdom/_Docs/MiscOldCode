@@ -1,6 +1,142 @@
 
 
 
+
+
+{
+  "rules": {
+    "user": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "chatGroups": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "completedExercises": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "customExercises": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "chats": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "defaultTemplates": {
+      ".read": "auth != null",
+    },
+    "feed": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "feedbackChat": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "feedbackChatMaster": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "firstTime": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "followers": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "following": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "globalFeed": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "loginDate": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "mainFeedBanner": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "maxes": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "notifications": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "publicTemplates": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "runningAssistor": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "selfFeed": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "templates": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "templatesInbox": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "userList": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "userNames": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+    },
+    "versionCheck": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "workoutHistory": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    }
+  }
+}
+
     - Now, how do we do that?
         - Disconnect UI from being updated automatically from FB.
             - problem now is it doesn't get updates from service

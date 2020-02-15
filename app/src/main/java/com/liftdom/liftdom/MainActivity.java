@@ -199,6 +199,10 @@ public class MainActivity extends BaseActivity implements
                                 setNavDrawerSelection(2);
                             }else if(id == 2){
                                 setNavDrawerSelection(3);
+                            }else if(id == 3){
+                                setNavDrawerSelection(4);
+                            }else if(id == 4){
+                                setNavDrawerSelection(5);
                             }
                         }
 
@@ -292,6 +296,15 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(3, false);
+                } else if(id == 4){
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.mainFragHolder, new ChatMainFrag());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    bottomNavigation.setSelectedIndex(4, false);
                 }
             }
         } else{
@@ -343,7 +356,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.commit();
                         invalidateOptionsMenu();
                     } else if (i1 == 3) {
-                        setNavDrawerSelection(1);
+                        setNavDrawerSelection(4);
                         //hideSearchButton();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -353,7 +366,7 @@ public class MainActivity extends BaseActivity implements
                         fragmentTransaction.commit();
                         invalidateOptionsMenu();
                     } else if (i1 == 4) {
-                        setNavDrawerSelection(1);
+                        setNavDrawerSelection(5);
                         //hideSearchButton();
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

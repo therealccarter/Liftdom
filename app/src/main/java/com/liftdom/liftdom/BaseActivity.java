@@ -60,15 +60,17 @@ public class BaseActivity extends AppCompatActivity {
                 //.withAccountHeader(header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1),
-                        new DividerDrawerItem(),
+                        //new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Workout Programming").withIdentifier(2),
                         new PrimaryDrawerItem().withName("Today's Workout").withIdentifier(3),
+                        new PrimaryDrawerItem().withName("Forum").withIdentifier(4),
+                        new PrimaryDrawerItem().withName("Chat").withIdentifier(5),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(4),
-                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(5),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName("Feedback/Bug Reports").withIdentifier(6),
-                        new PrimaryDrawerItem().withName("App Settings").withIdentifier(7)
+                        new PrimaryDrawerItem().withName("Knowledge Center").withIdentifier(6),
+                        new PrimaryDrawerItem().withName("Charts/Stats/Tools").withIdentifier(7),
+                        //new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName("Feedback/Bug Reports").withIdentifier(8),
+                        new PrimaryDrawerItem().withName("App Settings").withIdentifier(9)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -94,15 +96,25 @@ public class BaseActivity extends AppCompatActivity {
                                 //drawer.setSelection(position);
                             }
                             if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(context, KnowledgeCenterHolderActivity.class);
+                                intent = new Intent(context, MainActivity.class);
+                                intent.putExtra("fragID", 3);
+                                startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(context, ChartsStatsToolsActivity.class);
+                                intent = new Intent(context, MainActivity.class);
+                                intent.putExtra("fragID", 4);
+                                startActivity(intent);
                             }
                             if (drawerItem.getIdentifier() == 6) {
-                                intent = new Intent(context, FeedbackActivity.class);
+                                intent = new Intent(context, KnowledgeCenterHolderActivity.class);
                             }
                             if (drawerItem.getIdentifier() == 7) {
+                                intent = new Intent(context, ChartsStatsToolsActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 8) {
+                                intent = new Intent(context, FeedbackActivity.class);
+                            }
+                            if (drawerItem.getIdentifier() == 9) {
                                 intent = new Intent(context, SettingsListActivity.class);
                             }
                             if (intent != null) {

@@ -66,7 +66,7 @@ public class ChartsStatsToolsActivity extends BaseActivity {
         title.setTypeface(lobster);
 
         setUpNavDrawer(ChartsStatsToolsActivity.this, toolbar);
-        setNavDrawerSelection(5);
+        setNavDrawerSelection(7);
 
         Appodeal.show(this, Appodeal.BANNER_BOTTOM);
     }

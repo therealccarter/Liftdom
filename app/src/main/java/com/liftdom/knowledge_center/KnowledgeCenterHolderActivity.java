@@ -90,7 +90,7 @@ public class KnowledgeCenterHolderActivity extends BaseActivity
         comingSoonView.setTypeface(lobster);
 
         setUpNavDrawer(KnowledgeCenterHolderActivity.this, toolbar);
-        setNavDrawerSelection(4);
+        setNavDrawerSelection(6);
 
         Appodeal.show(this, Appodeal.BANNER_BOTTOM);
 

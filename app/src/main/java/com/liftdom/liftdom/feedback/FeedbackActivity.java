@@ -47,7 +47,7 @@ public class FeedbackActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         setUpNavDrawer(FeedbackActivity.this, toolbar);
-        setNavDrawerSelection(6);
+        setNavDrawerSelection(8);
 
         if(uid.equals(masterId)){
             addFeedbackMasterFrag();

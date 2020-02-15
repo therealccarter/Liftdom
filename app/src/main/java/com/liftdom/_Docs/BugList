@@ -122,12 +122,13 @@ Fixed bug: adding exercises in WA not working.
     variable which isn't being updated really.
     - had to manually add ex name frag and then update fb + initialize.
 Added checkForOldData and checkForImperial into onResume instead of onCreate
+Added chat/forum to nav drawer.
+Made send private message dialog dark.
 ----------------------
 ====================================================
 
+
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
-
-
 What are the next most important things for beta release?
 
 Get the 3 pre-mades working correctly.
