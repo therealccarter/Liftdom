@@ -124,6 +124,9 @@ Fixed bug: adding exercises in WA not working.
 Added checkForOldData and checkForImperial into onResume instead of onCreate
 Added chat/forum to nav drawer.
 Made send private message dialog dark.
+Made various dialogs consistent (green positive button, on the right).
+Migrated auth from googleApiClient to GoogleSignInClient
+Added new privacy policy/new GDPR policy text. Appodeal link. Re-ordered intro slides for this.
 ----------------------
 ====================================================
 
@@ -137,10 +140,25 @@ Get the ex history chart page attractive and good looking
 
 Get GDPR airtight, "Prominent disclosure for Appodeal/user information usage", possibly switch to MoPub?
     - this could be most important, getting the app actually up. Nothing matters if you can't.
-    - Create 64 bit version?
-    - Something in the manifest about not being indexable.
+    - Create 64 bit version? (it's fine)
+    - Something in the manifest about not being indexable. (this is for a browser redirect. maybe later).
+
+GDPR:
+
+    Need to make sure that the intro slides are added in the new order.
+    Make sure gdpr is being shown in eu and not elsewhere.
+    Make sure gdpr is being set true for no eu.
+    Make sure the intro slides work correctly.
+
+    - if no, pass to appodeal.
+    - if no, don't show any info in profile to other users.
+    - if no, add delete account in settings. Maybe do this for anyone.
 
 Your security rules are not secure. Any authenticated user can steal, modify, or delete data in your database.
+
+YUGE bug, seems for some people their workouts are going into feed but not selfFeed and not into
+ globalFeed. Then if they rep that post, it sends the has repped to the nonexistent post in
+ selfFeed. Malformed.
 
 ============================================================================
 

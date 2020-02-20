@@ -3,60 +3,46 @@ package com.liftdom.liftdom.intro;
 
 import android.content.Intent;
 import android.net.Uri;
-import io.github.dreierf.materialintroscreen.SlideFragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.*;
-import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
-import com.wang.avi.AVLoadingIndicatorView;
+import io.github.dreierf.materialintroscreen.SlideFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IntroFrag2 extends SlideFragment {
+public class IntroFrag2GDPR extends SlideFragment {
 
 
-    public IntroFrag2() {
+    public IntroFrag2GDPR() {
         // Required empty public constructor
     }
 
-    private RadioButton yesButton;
-    private RadioButton noButton;
+    private Button yesButton;
+    private Button noButton;
+    private RadioButton noRB;
+    private RadioButton yesRB;
     private TextView appodealLink;
-    private boolean isConsent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_intro_frag2, container, false);
+        View view = inflater.inflate(R.layout.fragment_intro_frag2_gdpr, container, false);
 
-        yesButton = (RadioButton) view.findViewById(R.id.yesRadioButton);
-        noButton = (RadioButton) view.findViewById(R.id.noRadioButton);
+        yesButton = (Button) view.findViewById(R.id.yesButton);
+        noButton = (Button) view.findViewById(R.id.noButton);
+        noRB = (RadioButton) view.findViewById(R.id.noRadioButton);
+        yesRB = (RadioButton) view.findViewById(R.id.yesRadioButton);
         appodealLink = (TextView) view.findViewById(R.id.appodealLink);
-
-        if(savedInstanceState == null){
-            yesButton.setChecked(true);
-            noButton.setChecked(false);
-        }
 
         appodealLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,28 +53,46 @@ public class IntroFrag2 extends SlideFragment {
             }
         });
 
-        yesButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if(savedInstanceState == null){
+            yesRB.setChecked(false);
+            noRB.setChecked(false);
+        }
+
+        yesRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    //IntroSingleton.getInstance().isGDPR = true;
-                    isConsent = true;
+                    IntroSingleton.getInstance().isGDPR = true;
+                    //isConsent = true;
                 }
             }
         });
 
-        noButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        noRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    //IntroSingleton.getInstance().isGDPR = false;
-                    isConsent = false;
+                    IntroSingleton.getInstance().isGDPR = false;
+                    //isConsent = false;
                 }
             }
         });
-
 
         return view;
+    }
+
+    private boolean isOneButtonSelected(){
+        boolean selected = false;
+
+        if(yesRB.isChecked()){
+            selected = true;
+            IntroSingleton.getInstance().isGDPR = true;
+        }else if(noRB.isChecked()){
+            selected = true;
+            IntroSingleton.getInstance().isGDPR = false;
+        }
+
+        return selected;
     }
 
     @Override
@@ -103,11 +107,12 @@ public class IntroFrag2 extends SlideFragment {
 
     @Override
     public boolean canMoveFurther() {
-        return isConsent;
+        return isOneButtonSelected();
     }
 
     @Override
     public String cantMoveFurtherErrorMessage() {
-        return getString(R.string.consentOrElse);
+        return getString(R.string.gdprOrElse);
     }
+
 }

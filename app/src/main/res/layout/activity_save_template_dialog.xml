@@ -59,7 +59,7 @@
                     style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
                     android:text="@string/cancel"
                     android:id="@+id/saveButtonCancel"
-                    android:textColor="@color/liftrGold1"
+                    android:textColor="@color/white"
                     android:background="@color/black"
 
             />
@@ -71,8 +71,8 @@
                     style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
                     android:text="@string/save"
                     android:id="@+id/saveButtonSave"
-                    android:textColor="@color/liftrGold1"
-                    android:background="@color/black"
+                    android:textColor="@color/white"
+                    android:background="@color/confirmGreen"
 
             />
 

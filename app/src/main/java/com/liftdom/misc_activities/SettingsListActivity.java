@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
@@ -33,15 +35,15 @@ import com.liftdom.user_profile.UserModelClass;
 
 import java.util.ArrayList;
 
-public class SettingsListActivity extends BaseActivity implements
-        GoogleApiClient.OnConnectionFailedListener {
+public class SettingsListActivity extends BaseActivity {
 
     private static final String TAG = "EmailPassword";
 
     // declare_auth
     private FirebaseUser mFirebaseUser;
     private FirebaseAuth mAuth;
-    private GoogleApiClient mGoogleApiClient;
+    //private GoogleApiClient mGoogleApiClient;
+    private GoogleSignInClient mGoogleSignInClient;
 
     boolean initialIsImperial = false;
 
@@ -142,38 +144,31 @@ public class SettingsListActivity extends BaseActivity implements
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        //GoogleSignInOptions gso =
+        //        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        //        .requestEmail()
+        //        .build();
         // [END configure_signin]
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         // [START build_client]
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        // [END build_client]
+        //mGoogleApiClient = new GoogleApiClient.Builder(this)
+        //        .enableAutoManage(this /* FragmentActivity */, this /*
+        //OnConnectionFailedListener */)
+        //        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+        //        .build();
+        //// [END build_client]
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(MainActivitySingleton.getInstance().isWorkoutFinished){
-                    MainActivitySingleton.getInstance().isWorkoutFinished = false;
-                }
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        mAuth.signOut();
-                    }
-                });
-                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.clear();
-                editor.commit();
-
-                Intent intent = new Intent(v.getContext(), SignInActivity.class);
-                startActivity(intent);
+                signOut();
             }
         });
 
@@ -225,12 +220,12 @@ public class SettingsListActivity extends BaseActivity implements
         });
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
-        // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
-    }
+    //@Override
+    //public void onConnectionFailed(ConnectionResult connectionResult) {
+    //    // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+    //    // be available.
+    //    Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    //}
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -254,6 +249,37 @@ public class SettingsListActivity extends BaseActivity implements
                 });
             }
         }
+    }
+
+    private void signOut(){
+        // Firebase sign out
+        if(MainActivitySingleton.getInstance().isWorkoutFinished){
+            MainActivitySingleton.getInstance().isWorkoutFinished = false;
+        }
+        //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new
+        // ResultCallback<Status>() {
+        //    @Override
+        //    public void onResult(@NonNull Status status) {
+        //        mAuth.signOut();
+        //    }
+        //});
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
+
+        mAuth.signOut();
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent intent = new Intent(SettingsListActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
     }
 
     @Override

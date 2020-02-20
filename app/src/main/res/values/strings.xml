@@ -394,15 +394,71 @@
 
     <string name="no">No</string>
 
-    <string name="userConsentTitle">User Agreement:</string>
+    <string name="userConsentTitle">Privacy Policy:</string>
+
+    <string name="gdprConsentTitle">GDPR Agreement:</string>
 
     <string name="userConsentChange">Change your consent settings ></string>
 
-    <string name="userConsentText">Liftdom complies with GDPR/ethical data protection guidelines.\nIf you consent to
-        analytics use, we will only use it to help debug any app-related issues you have, improve your user experience,
-        and serve more personalized/relevant ad content.\nNone of your user information is associated with your person
-        or sold to anybody.\nYou can change your choice at any time on the Liftdom settings page.\nIf you have any
-        questions, email me at liftdomapp@gmail.com.
+    <!-- Liftdom complies with GDPR/ethical data protection guidelines.
+        \nIf you consent to analytics use, we will only use it to help debug any app-related
+        issues you have, improve your user experience,
+        and serve more personalized/relevant ad content.
+        \nNone of your user information is associated with your person or sold to anybody.
+        \nYou can change your choice at any time on the Liftdom settings page.
+        \nIf you have any questions, email me at liftdomapp@gmail.com. -->
+
+    <string name="yesAgree">Yes, I agree.</string>
+
+    <string name="noThanks">No, thank you.</string>
+    
+    <string name="consentOrElse">Please consent to the privacy policy before continuing</string>
+    <string name="gdprOrElse">Please select an option</string>
+
+    <string name="userConsentText1">
+        This privacy policy governs your use of the software application Liftdom
+        for mobile devices. \nLiftdom is a workout manager and social media platform. \nYour Google
+        account/email is used for login/authentication and never shared with outside parties.
+        \nGoogle Firebase Analytics collects device data such as, but not limited to, phone model
+        and current state within the app. This data is used by Liftdom in the event of a bug/crash
+        to help resolve that bug.
+    </string>
+
+    <string name="userConsentText2">
+        By continuing with the app, you
+        consent to being shown Appodeal ads. If you in the EU,
+        ad anonymization consent can be found on the next page. \nLiftdom requires Android
+        permission READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE to store app-related data between
+        sessions. \nLiftdom requires Android permission ACCESS_NETWORK_STATE, INTERNET, and
+        ACCESS_WIFI_STATE to connect to the Firebase database for your workout and profile
+        information, as well as determine whether you are online or offline in order to enable
+         offline or online features in the app. ACCESS_NETWORK_STATE is also required by Appodeal.
+        \nLiftdom requires Android permission
+        WAKE_LOCK and VIBRATE to wake up and vibrate your phone if you are using the Rest Timer
+        feature. \nLiftdom requires Android permission FOREGROUND_SERVICE to provide notification
+        bar workout functionality. \nWe do not use the Application to knowingly solicit data from or market to
+        children under the age of 13. If a parent or guardian becomes aware that his or her child
+        has provided us with information without their consent, he or she should contact us
+        at liftdomapp@gmail.com. We will delete such information from our files within a reasonable
+        time. \n By using the app, you are consenting to these rules.
+    </string>
+
+    <string name="appodealLink">
+        Liftdom uses Appodeal for ads, and their privacy
+        policy can be found at appodeal.com/home/privacy-policy/.
+    </string>
+
+    <string name="GDPRConsentText1">
+        Liftdom complies with GDPR guidelines.\nIf you consent to
+        cookies/analytics use, we use it to help debug any app-related issues you have,
+        enable full app functionality,
+        and serve personalized ad content.
+    </string>
+
+    <string name="GDPRConsentText2">
+        You can change
+        your choice at any time on the Liftdom settings page, as well as delete your account and
+        data if desired.\n
     </string>
 
     <string name="userConsentQuestion">Do you agree to these terms?</string>

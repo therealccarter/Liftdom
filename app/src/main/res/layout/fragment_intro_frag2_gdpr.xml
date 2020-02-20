@@ -7,13 +7,13 @@
         android:background="@color/transparent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context="com.liftdom.liftdom.intro.IntroFrag2">
+        tools:context="com.liftdom.liftdom.intro.IntroFrag2GDPR">
 
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/userConsentTitle"
+            android:text="@string/gdprConsentTitle"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:gravity="center"
@@ -21,7 +21,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="130dp"
-    />
+            />
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/darkGrey"
                     android:gravity="center"
-                    android:text="@string/userConsentText1"
+                    android:text="@string/GDPRConsentText1"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="5dp"
@@ -63,7 +63,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/darkGrey"
                     android:gravity="center"
-                    android:text="@string/userConsentText2"
+                    android:text="@string/GDPRConsentText2"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="15dp"
@@ -79,33 +79,88 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     />
 
-            <RadioGroup
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center"
                     >
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/yesRadioButton"
-                        android:text="@string/yes"
-                        android:textSize="16sp"
-                        android:textColor="@color/darkerGrey"
-                        />
 
-                <RadioButton
+                <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/noRadioButton"
-                        android:text="@string/no"
-                        android:textSize="16sp"
-                        android:textColor="@color/darkerGrey"
-                        />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
 
-            </RadioGroup>
+                    <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginStart="10dp"
+                            >
+
+                        <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:id="@+id/yesRadioButton"
+                                android:textSize="15sp"
+                                android:textColor="@color/grey"
+                                android:buttonTint="@color/liftrGold1"
+                                android:layout_weight=".50"
+                                />
+
+                        <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:id="@+id/justVibrateRadioButton"
+                                android:textSize="15sp"
+                                android:textColor="@color/grey"
+                                android:buttonTint="@color/liftrGold1"
+                                android:layout_weight=".50"
+                                />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/yesButton"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:layout_marginEnd="50dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/yesAgree"
+                            android:background="@color/confirmGreen"
+                            android:textAllCaps="false"
+                            />
+
+                    <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/noButton"
+                            android:textSize="13sp"
+                            android:layout_marginEnd="100dp"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/noThanks"
+                            android:background="@color/transparent"
+                            android:textAllCaps="false"
+                            />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

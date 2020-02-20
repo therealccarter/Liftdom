@@ -1,5 +1,6 @@
 package com.liftdom.liftdom.intro;
 
+import android.telephony.TelephonyManager;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import io.github.dreierf.materialintroscreen.MessageButtonBehaviour;
 import io.github.dreierf.materialintroscreen.SlideFragment;
@@ -28,7 +29,9 @@ import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
@@ -49,12 +52,28 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         addSlide(new IntroFrag1());
 
+        addSlide(new IntroFrag3());
+
         addSlide(new IntroFrag2());
 
-        addSlide(new IntroFrag3());
+        if(isEuUser(getApplicationContext())){
+            addSlide(new IntroFrag2GDPR());
+        }
 
         addSlide(new IntroFrag4());
 
+    }
+
+    public static boolean isEuUser(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String country = tm != null ? tm.getSimCountryIso() : null;
+        country = country != null ? country : Locale.getDefault().getCountry();
+        String[] euCountries = {
+                "BE", "EL", "LT", "PT", "BG", "ES", "LU", "RO", "CZ", "FR", "HU", "SI", "DK", "HR",
+                "MT", "SK", "DE", "IT", "NL", "FI", "EE", "CY", "AT", "SE", "IE", "LV", "PL", "UK",
+                "CH", "NO", "IS", "LI"
+        };
+        return Arrays.asList(euCountries).contains(country.toUpperCase());
     }
 
 

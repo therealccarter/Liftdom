@@ -122,16 +122,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
     >
-        <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/confirmButton"
-                android:background="@color/confirmGreen"
-                android:src="@drawable/ic_check_white_24dp"
-                android:scaleType="centerInside"
-                android:padding="6dp"
-                android:layout_weight="1"
-        />
 
         <ImageButton
                 android:layout_width="match_parent"
@@ -143,6 +133,17 @@
                 android:padding="10dp"
                 android:layout_weight="1"
         />
+
+        <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/confirmButton"
+                android:background="@color/confirmGreen"
+                android:src="@drawable/ic_check_white_24dp"
+                android:scaleType="centerInside"
+                android:padding="6dp"
+                android:layout_weight="1"
+                />
     </LinearLayout>
 
 </LinearLayout>
