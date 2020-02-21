@@ -1,10 +1,12 @@
 package com.liftdom.misc_activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import androidx.annotation.NonNull;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,6 +36,8 @@ import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class SettingsListActivity extends BaseActivity {
 
@@ -59,6 +63,7 @@ public class SettingsListActivity extends BaseActivity {
     @BindView(R.id.saveButton) Button saveButton;
     @BindView(R.id.title) TextView title;
     @BindView(R.id.userConsentButton) Button userConsentButton;
+    @BindView(R.id.deleteAccountButton) Button deleteAccountButton;
 
     ArrayList<String> settingsArrayList = new ArrayList<>();
 
@@ -86,6 +91,10 @@ public class SettingsListActivity extends BaseActivity {
         setUpNavDrawer(SettingsListActivity.this, toolbar);
         setNavDrawerSelection(9);
 
+        if(isEuUser(getApplicationContext())){
+            userConsentButton.setVisibility(View.VISIBLE);
+        }
+
         DatabaseReference userRef = mRootRef.child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -104,6 +113,13 @@ public class SettingsListActivity extends BaseActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DeleteAccountDialog.class));
             }
         });
 
@@ -218,6 +234,18 @@ public class SettingsListActivity extends BaseActivity {
             });
             }
         });
+    }
+
+    public static boolean isEuUser(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String country = tm != null ? tm.getSimCountryIso() : null;
+        country = country != null ? country : Locale.getDefault().getCountry();
+        String[] euCountries = {
+                "BE", "EL", "LT", "PT", "BG", "ES", "LU", "RO", "CZ", "FR", "HU", "SI", "DK", "HR",
+                "MT", "SK", "DE", "IT", "NL", "FI", "EE", "CY", "AT", "SE", "IE", "LV", "PL", "UK",
+                "CH", "NO", "IS", "LI"
+        };
+        return Arrays.asList(euCountries).contains(country.toUpperCase());
     }
 
     //@Override

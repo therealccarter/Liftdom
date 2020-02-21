@@ -234,7 +234,7 @@
     <string name="cm">cm</string>
 
     <string name="newChat">New Chat</string>
-    <string name="sendMessage">Send Message...</string>
+    <string name="sendMessage"> Send Message...</string>
     <string name="sendMessagePlain">Send\nMessage</string>
     <string name="userProfile">User Profile</string>
 
@@ -411,7 +411,7 @@
     <string name="yesAgree">Yes, I agree.</string>
 
     <string name="noThanks">No, thank you.</string>
-    
+
     <string name="consentOrElse">Please consent to the privacy policy before continuing</string>
     <string name="gdprOrElse">Please select an option</string>
 
@@ -441,6 +441,19 @@
         has provided us with information without their consent, he or she should contact us
         at liftdomapp@gmail.com. We will delete such information from our files within a reasonable
         time. \n By using the app, you are consenting to these rules.
+    </string>
+
+    <string name="deleteAccount">
+        Delete your account >
+    </string>
+
+    <string name="deleteAccountTitle">
+        Delete your account?
+    </string>
+
+    <string name="deleteAccountText">
+        Deleting your account will remove all user data. \nAre you sure you
+        want to do this?
     </string>
 
     <string name="appodealLink">

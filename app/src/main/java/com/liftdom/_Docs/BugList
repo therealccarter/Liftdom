@@ -127,6 +127,8 @@ Made send private message dialog dark.
 Made various dialogs consistent (green positive button, on the right).
 Migrated auth from googleApiClient to GoogleSignInClient
 Added new privacy policy/new GDPR policy text. Appodeal link. Re-ordered intro slides for this.
+Fixed rule mistake causing new chat group to not get usernames. (UserList was wrong read rule).
+Chat just keeps writing horizontally instead of going to next line.
 ----------------------
 ====================================================
 
@@ -160,11 +162,20 @@ YUGE bug, seems for some people their workouts are going into feed but not selfF
  globalFeed. Then if they rep that post, it sends the has repped to the nonexistent post in
  selfFeed. Malformed.
 
+look into 10mb download?
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 
-Check dialog buttons, it should be cancel/ok positive right neg left. They all look like shit.
+---- MISC ----
+Clicking on profile image or name in chat specific should bring up their profile like in feed.
+Check if things like saveTemplateDialog should be noHistory:true
+New chat dialog for Brodin just shows "Chris Carter" over and over again
+Chat send looks like shit.
+Chat just keeps writing horizontally instead of going to next line. This could also be a problem
+    anywhere there is a text box.
+Now the edit text needs to resize itself.
+Shouldn't be able to send premades.
 
 ----- Service -----
 Make both main service and rest timer dismissible with a swipe (impossible as foreground, may need
