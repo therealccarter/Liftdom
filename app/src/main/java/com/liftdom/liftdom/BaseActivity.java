@@ -177,57 +177,61 @@ public class BaseActivity extends AppCompatActivity {
                     userRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                            if(dataSnapshot.exists()){
+                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
-                            TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
-                            TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
-                            TextView streakTextView = (TextView) drawer.getHeader().findViewById(R.id.currentStreakTextView);
-                            TextView notificationCountView = (TextView) drawer.getHeader().findViewById(R.id
-                                    .notificationsTextView);
-                            LinearLayout notificationLL = (LinearLayout) drawer.getHeader().findViewById(R.id
-                                    .notificationsLL);
+                                TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
+                                TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
+                                TextView streakTextView = (TextView) drawer.getHeader().findViewById(R.id.currentStreakTextView);
+                                TextView notificationCountView = (TextView) drawer.getHeader().findViewById(R.id
+                                        .notificationsTextView);
+                                LinearLayout notificationLL = (LinearLayout) drawer.getHeader().findViewById(R.id
+                                        .notificationsLL);
 
-                            if(userModelClass.getNotificationCount() != null
-                                    && !userModelClass.getNotificationCount().isEmpty()
-                                    && !userModelClass.getNotificationCount().equals("")){
-                                if(!userModelClass.getNotificationCount().equals("0")){
-                                    notificationCountView.setText(userModelClass.getNotificationCount());
-                                }else{
-                                    notificationCountView.setText("");
+                                if(userModelClass.getNotificationCount() != null
+                                        && !userModelClass.getNotificationCount().isEmpty()
+                                        && !userModelClass.getNotificationCount().equals("")){
+                                    if(!userModelClass.getNotificationCount().equals("0")){
+                                        notificationCountView.setText(userModelClass.getNotificationCount());
+                                    }else{
+                                        notificationCountView.setText("");
+                                    }
                                 }
+
+                                notificationLL.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                userNameView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                userNameView.setText(userModelClass.getUserName());
+                                powerLevelView.setText(userModelClass.getPowerLevel());
+                                streakTextView.setText(userModelClass.getCurrentStreak());
+
+
+                                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("userName", userModelClass.getUserName());
+                                editor.commit();
+
+
+                                String userName = sharedPref.getString("userName", "loading...");
+
+                                Log.i("prefs", userName);
+                            }else{
+                                startActivity(new Intent(getApplicationContext(),
+                                        SignInActivity.class));
                             }
-
-                            notificationLL.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-
-                            userNameView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-
-                            userNameView.setText(userModelClass.getUserName());
-                            powerLevelView.setText(userModelClass.getPowerLevel());
-                            streakTextView.setText(userModelClass.getCurrentStreak());
-
-
-                            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("userName", userModelClass.getUserName());
-                            editor.commit();
-
-
-                            String userName = sharedPref.getString("userName", "loading...");
-
-                            Log.i("prefs", userName);
-
                         }
 
                         @Override
@@ -318,6 +322,10 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         mProgressDialog.show();
+    }
+
+    public void removeUserListener(){
+
     }
 
     public void hideProgressDialog() {

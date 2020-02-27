@@ -16,6 +16,7 @@
             android:padding="10dp"
             android:textColor="@color/black"
             android:background="@color/liftrGold1"
+            android:gravity="center"
             />
 
     <TextView

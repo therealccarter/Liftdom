@@ -1,7 +1,11 @@
 
 
-
-
+uid3 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+userRef1 = FirebaseDatabase.getInstance().getReference().child("user").child(uid3);
+userRefListener = userRef1.addValueEventListener(new ValueEventListener() {
+private ValueEventListener userRefListener;
+String uid3;
+DatabaseReference userRef1;
 
 {
   "rules": {

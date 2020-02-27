@@ -41,7 +41,7 @@ public class IntroFrag2 extends SlideFragment {
     private RadioButton yesButton;
     private RadioButton noButton;
     private TextView appodealLink;
-    private boolean isConsent;
+    private boolean isConsent = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +54,7 @@ public class IntroFrag2 extends SlideFragment {
         appodealLink = (TextView) view.findViewById(R.id.appodealLink);
 
         if(savedInstanceState == null){
+            isConsent = true;
             yesButton.setChecked(true);
             noButton.setChecked(false);
         }

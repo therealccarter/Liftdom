@@ -129,6 +129,8 @@ Migrated auth from googleApiClient to GoogleSignInClient
 Added new privacy policy/new GDPR policy text. Appodeal link. Re-ordered intro slides for this.
 Fixed rule mistake causing new chat group to not get usernames. (UserList was wrong read rule).
 Chat just keeps writing horizontally instead of going to next line.
+Added location check for intro and for gdpr consent change in settings. Adding delete stuff.
+Added number range checks to intro frag
 ----------------------
 ====================================================
 
@@ -158,6 +160,9 @@ GDPR:
 
 Your security rules are not secure. Any authenticated user can steal, modify, or delete data in your database.
 
+After delete, it brought me back to the old home node. So it didn't delete the uid. Everything's
+still there. Only thing that changed was the user name/user list/user node.
+
 YUGE bug, seems for some people their workouts are going into feed but not selfFeed and not into
  globalFeed. Then if they rep that post, it sends the has repped to the nonexistent post in
  selfFeed. Malformed.
@@ -170,7 +175,6 @@ look into 10mb download?
 ---- MISC ----
 Clicking on profile image or name in chat specific should bring up their profile like in feed.
 Check if things like saveTemplateDialog should be noHistory:true
-New chat dialog for Brodin just shows "Chris Carter" over and over again
 Chat send looks like shit.
 Chat just keeps writing horizontally instead of going to next line. This could also be a problem
     anywhere there is a text box.

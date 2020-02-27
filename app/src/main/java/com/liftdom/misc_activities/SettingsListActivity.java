@@ -119,6 +119,7 @@ public class SettingsListActivity extends BaseActivity {
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(), DeleteAccountDialog.class));
             }
         });

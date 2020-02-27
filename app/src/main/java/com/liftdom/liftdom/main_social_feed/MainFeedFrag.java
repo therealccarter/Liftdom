@@ -4,6 +4,7 @@ package com.liftdom.liftdom.main_social_feed;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -27,6 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
@@ -124,15 +130,20 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                                if(userModelClass.isIsImperial()){
-                                    loadingView.setVisibility(View.GONE);
-                                    noPostsView.setVisibility(View.GONE);
-                                    setUpFirebaseAdapter(socialRef, true);
+                                if(userModelClass == null){
+                                    signOut();
                                 }else{
-                                    loadingView.setVisibility(View.GONE);
-                                    noPostsView.setVisibility(View.GONE);
-                                    setUpFirebaseAdapter(socialRef, false);
+                                    if(userModelClass.isIsImperial()){
+                                        loadingView.setVisibility(View.GONE);
+                                        noPostsView.setVisibility(View.GONE);
+                                        setUpFirebaseAdapter(socialRef, true);
+                                    }else{
+                                        loadingView.setVisibility(View.GONE);
+                                        noPostsView.setVisibility(View.GONE);
+                                        setUpFirebaseAdapter(socialRef, false);
+                                    }
                                 }
+
                                 //kablam();
                             }
 
@@ -158,6 +169,44 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         //kablam();
 
         return view;
+    }
+
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
+    private void signOut(){
+        // Firebase sign out
+        //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new
+        // ResultCallback<Status>() {
+        //    @Override
+        //    public void onResult(@NonNull Status status) {
+        //        mAuth.signOut();
+        //    }
+        //});
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("prefs",
+                Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signOut();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startActivity(new Intent(getActivity(), SignInActivity.class));
+            }
+        });
     }
 
     private void setUpFirebaseAdapter(DatabaseReference databaseReference, final boolean isImperial){

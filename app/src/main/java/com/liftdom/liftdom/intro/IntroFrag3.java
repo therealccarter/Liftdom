@@ -1,6 +1,8 @@
 package com.liftdom.liftdom.intro;
 
 
+import android.text.InputFilter;
+import com.liftdom.template_editor.InputFilterMinMax;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,6 +78,12 @@ public class IntroFrag3 extends SlideFragment {
         maleRadioButton = (RadioButton) view.findViewById(R.id.maleRadioButton);
         femaleRadioButton = (RadioButton) view.findViewById(R.id.femaleRadioButton);
 
+        feetEditText.setFilters(new InputFilter[]{new InputFilterMinMax(3, 7)});
+        inchesEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 11)});
+        ageEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 100)});
+
+
+
         displayNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -108,9 +116,13 @@ public class IntroFrag3 extends SlideFragment {
         if(IntroSingleton.getInstance().isImperial){
             imperialRadioButton.setChecked(true);
             metricRadioButton.setChecked(false);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 500)});
+            //weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(70, 500)});
         }else{
             imperialRadioButton.setChecked(false);
             metricRadioButton.setChecked(true);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 230)});
+            //weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(30, 230)});
         }
 
         if(IntroSingleton.getInstance().isMale){
@@ -127,6 +139,8 @@ public class IntroFrag3 extends SlideFragment {
                 if(b){
                     IntroSingleton.getInstance().isImperial = true;
 
+
+
                     metricHeightLL.setVisibility(View.GONE);
                     kgTextView.setVisibility(View.GONE);
                     imperialHeightLL.setVisibility(View.VISIBLE);
@@ -136,8 +150,12 @@ public class IntroFrag3 extends SlideFragment {
                     inchesEditText.setText("");
                     cmHeightEditText.setText("");
                     weightEditText.setText("");
+                    weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 500)});
+                    //weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(70, 500)});
                 }else{
                     IntroSingleton.getInstance().isImperial = false;
+
+                    //weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(30, 230)});
 
                     metricHeightLL.setVisibility(View.VISIBLE);
                     kgTextView.setVisibility(View.VISIBLE);
@@ -148,6 +166,7 @@ public class IntroFrag3 extends SlideFragment {
                     inchesEditText.setText("");
                     cmHeightEditText.setText("");
                     weightEditText.setText("");
+                    weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 230)});
                 }
             }
         });

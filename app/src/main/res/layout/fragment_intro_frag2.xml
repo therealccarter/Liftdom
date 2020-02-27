@@ -13,15 +13,14 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
             android:text="@string/userConsentTitle"
             android:textColor="@color/black"
-            android:textSize="24sp"
-            android:gravity="center"
-            app:layout_parallaxFactor="0.7"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="130dp"
-    />
+            android:textSize="26sp"
+            app:layout_parallaxFactor="0.7" />
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -85,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginBottom="100dp"
                     android:gravity="center"
                     >
                 <RadioButton
