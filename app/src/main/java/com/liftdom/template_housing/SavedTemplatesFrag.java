@@ -99,7 +99,8 @@ public class SavedTemplatesFrag extends Fragment {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.getValue() == null) {
                                     noSavedTemplates.setVisibility(View.VISIBLE);
-                                    linearLayout_new_template.setVisibility(View.VISIBLE);
+                                    //linearLayout_new_template.setVisibility(View.VISIBLE);
+                                    button_from_scratch.setVisibility(View.VISIBLE);
                                     loadingView.setVisibility(View.GONE);
                                 }else{
                                     loadingView.setVisibility(View.GONE);
@@ -150,10 +151,16 @@ public class SavedTemplatesFrag extends Fragment {
         button_from_scratch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
-                String isEdit = "no";
-                Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
-                intent.putExtra("key1", isEdit );
-                startActivity(intent);
+                //String isEdit = "no";
+                //Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
+                //intent.putExtra("key1", isEdit );
+                //startActivity(intent);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.mainFragHolder, new NewTemplateMenuFrag(), "myTemplatesTag");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

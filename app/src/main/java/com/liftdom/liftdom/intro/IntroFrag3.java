@@ -84,6 +84,7 @@ public class IntroFrag3 extends SlideFragment {
 
 
 
+
         displayNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -122,6 +123,7 @@ public class IntroFrag3 extends SlideFragment {
             imperialRadioButton.setChecked(false);
             metricRadioButton.setChecked(true);
             weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 230)});
+            cmHeightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 240)});
             //weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(30, 230)});
         }
 
@@ -138,8 +140,6 @@ public class IntroFrag3 extends SlideFragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
                     IntroSingleton.getInstance().isImperial = true;
-
-
 
                     metricHeightLL.setVisibility(View.GONE);
                     kgTextView.setVisibility(View.GONE);
@@ -167,6 +167,7 @@ public class IntroFrag3 extends SlideFragment {
                     cmHeightEditText.setText("");
                     weightEditText.setText("");
                     weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 230)});
+                    cmHeightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 240)});
                 }
             }
         });

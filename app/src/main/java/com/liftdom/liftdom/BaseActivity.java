@@ -22,8 +22,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
@@ -180,6 +185,10 @@ public class BaseActivity extends AppCompatActivity {
                             if(dataSnapshot.exists()){
                                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
+                                if(userModelClass.getUserName() == null){
+                                    signOut();
+                                }
+
                                 TextView userNameView = (TextView) drawer.getHeader().findViewById(R.id.usernameTextView);
                                 TextView powerLevelView = (TextView) drawer.getHeader().findViewById(R.id.powerLevelTextView);
                                 TextView streakTextView = (TextView) drawer.getHeader().findViewById(R.id.currentStreakTextView);
@@ -257,6 +266,44 @@ public class BaseActivity extends AppCompatActivity {
             Log.i("drawer", "drawer is not null (BaseActivity)");
         }
 
+    }
+
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
+    private void signOut(){
+        // Firebase sign out
+        //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new
+        // ResultCallback<Status>() {
+        //    @Override
+        //    public void onResult(@NonNull Status status) {
+        //        mAuth.signOut();
+        //    }
+        //});
+        SharedPreferences sharedPref = this.getSharedPreferences("prefs",
+                Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.commit();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signOut();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startActivity(new Intent(BaseActivity.this, SignInActivity.class));
+            }
+        });
     }
 
     public void setUpBottomNav(){

@@ -50,7 +50,7 @@ public class DeleteAccountDialog extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setVisibility(View.GONE);
+                textView.setText(R.string.stayForDelete);
                 progressBar.setVisibility(View.VISIBLE);
                 // need to delete user node and then throughout app add contingencies for a dead xUid.
                 DatabaseReference userListRef =
@@ -63,17 +63,55 @@ public class DeleteAccountDialog extends AppCompatActivity {
                                 FirebaseDatabase.getInstance().getReference().child("userNames").child(username);
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(
                                 "user").child(uid);
+                        DatabaseReference templateRef =
+                                FirebaseDatabase.getInstance().getReference().child("templates").child(uid);
+                        DatabaseReference runningRef =
+                                FirebaseDatabase.getInstance().getReference().child(
+                                        "runningAssistor").child(uid);
+                        DatabaseReference workoutHistory =
+                                FirebaseDatabase.getInstance().getReference().child(
+                                        "workoutHistory").child(uid);
+                        DatabaseReference completedExRef =
+                                FirebaseDatabase.getInstance().getReference().child(
+                                        "completedExercises").child(uid);
+                        DatabaseReference maxesRef =
+                                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid);
                         userNameRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 userListRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        userRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        templateRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                progressBar.setVisibility(View.GONE);
-                                                signOut();
+                                                runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        workoutHistory.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                completedExRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        maxesRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                userRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                        progressBar.setVisibility(View.GONE);
+                                                                                        signOut();
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
                                             }
                                         });
                                     }
@@ -102,6 +140,8 @@ public class DeleteAccountDialog extends AppCompatActivity {
         // ResultCallback<Status>() {
         //    @Override
         //    public void onResult(@NonNull Status status) {
+        //progressBar.setVisibility(View.GONE);
+        //signOut();
         //        mAuth.signOut();
         //    }
         //});

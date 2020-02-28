@@ -452,7 +452,8 @@
     </string>
 
     <string name="deleteAccountText">
-        Deleting your account will remove all user data. \nAre you sure you
+        Deleting your account will remove your profile information, templates, exercise
+        information. \nAre you sure you
         want to do this?
     </string>
 
@@ -813,6 +814,9 @@
     <string name="beta">(Beta)</string>
 
     <string name="dontLeavePage">(Please allow text to load in to ensure results are saved!)</string>
+
+    <string name="stayForDelete">(Please don\'t minimize the app or navigate away until the delete
+        is completed)</string>
 
     <string name="calorieChart">Calorie Calculation Chart</string>
     <string name="historyChart">Exercise History Chart</string>

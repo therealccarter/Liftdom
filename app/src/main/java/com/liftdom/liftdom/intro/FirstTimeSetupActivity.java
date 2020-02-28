@@ -58,6 +58,8 @@ public class FirstTimeSetupActivity extends MaterialIntroActivity {
 
         if(isEuUser(getApplicationContext())){
             addSlide(new IntroFrag2GDPR());
+        }else{
+            IntroSingleton.getInstance().isGDPR = true;
         }
 
         addSlide(new IntroFrag4());

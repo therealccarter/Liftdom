@@ -158,15 +158,23 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
                                         UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
-                                        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPref.edit();
-                                        editor.putString("uid", userId);
-                                        editor.putString("userName", userModelClass.getUserName());
-                                        editor.putString("email", user.getEmail());
-                                        editor.apply();
+                                        if(userModelClass.getUserName() == null){
+                                            Intent intent = new Intent(SignInActivity.this, FirstTimeSetupActivity.class);
+                                            intent.putExtra("uid", userId);
+                                            intent.putExtra("defaultDisplayName", userName);
+                                            intent.putExtra("email", user.getEmail());
+                                            startActivity(intent);
+                                        }else{
+                                            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPref.edit();
+                                            editor.putString("uid", userId);
+                                            editor.putString("userName", userModelClass.getUserName());
+                                            editor.putString("email", user.getEmail());
+                                            editor.apply();
 
-                                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }else{
                                         Intent intent = new Intent(SignInActivity.this, FirstTimeSetupActivity.class);
                                         intent.putExtra("uid", userId);
@@ -187,8 +195,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 
                             try{
-                                Snackbar.make(getCurrentFocus(), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            }catch (NullPointerException e){
+                                Snackbar.make(getCurrentFocus(), "Authentication Failed.",
+                                        Snackbar.LENGTH_SHORT).show();
+                            }catch (IllegalArgumentException e){
                                 Toast.makeText(SignInActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
