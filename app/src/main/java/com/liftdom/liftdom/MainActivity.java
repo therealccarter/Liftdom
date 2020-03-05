@@ -34,8 +34,9 @@ import com.liftdom.template_housing.*;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
 import com.liftdom.workout_assistor.AssistorHolderFrag;
 import com.liftdom.workout_assistor.WorkoutAssistorFrag;
-import com.search.material.library.MaterialSearchView;
+//import com.search.material.library.MaterialSearchView;
 //import io.paperdb.Paper;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.LocalDate;
 
@@ -425,6 +426,11 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
+
+
+    }
+
+    private void setUpSearch(){
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -488,7 +494,6 @@ public class MainActivity extends BaseActivity implements
 
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
-
     }
 
     private void keepSynced(){
@@ -731,11 +736,11 @@ public class MainActivity extends BaseActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         if(bottomNavigation != null){
-            if(bottomNavigation.getSelectedIndex() == 0){
-                getMenuInflater().inflate(R.menu.menu_main, menu);
-
-                MenuItem item = menu.findItem(R.id.action_search);
-                searchView.setMenuItem(item);
+            if(bottomNavigation.getSelectedIndex() == 3){
+                //getMenuInflater().inflate(R.menu.menu_main, menu);
+//
+                //MenuItem item = menu.findItem(R.id.action_search);
+                //searchView.setMenuItem(item);
 
                 return true;
             }else{
@@ -749,11 +754,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onBackPressed() {
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+        //if (searchView.isSearchOpen()) {
+        //    searchView.closeSearch();
+        //} else {
+        //    super.onBackPressed();
+        //}
     }
 
     public void setBottomNavIndex(int navIndex){

@@ -55,23 +55,32 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-
-
         <!--
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/searchViewLL"
-            >
-                <com.search.material.library.MaterialSearchView
-                        android:id="@+id/search_view"
-                        style="@style/MaterialSearchViewStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/liftrGold1"
-                />
-            </LinearLayout>
+         <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+          />
             -->
+
+
+
+    <!--
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchViewLL"
+        >
+            <com.search.material.library.MaterialSearchView
+                    android:id="@+id/search_view"
+                    style="@style/MaterialSearchViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/liftrGold1"
+            />
+        </LinearLayout>
+        -->
         <com.appodeal.ads.BannerView
                 android:id="@+id/appodealBannerView"
                 android:layout_width="match_parent"
@@ -122,11 +131,4 @@
 
     </LinearLayout>
 
-    <com.search.material.library.MaterialSearchView
-            android:id="@+id/search_view"
-            style="@style/MaterialSearchViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/liftrGold1"
-    />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

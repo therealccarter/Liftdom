@@ -25,7 +25,8 @@ import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.utils.SlidingTabLayout;
 import com.liftdom.template_editor.ExercisePickerController;
-import com.search.material.library.MaterialSearchView;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+//import com.search.material.library.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

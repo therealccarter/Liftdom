@@ -51,13 +51,11 @@
             android:id="@+id/confirmButton"
     />
 
-    <com.search.material.library.MaterialSearchView
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
             android:id="@+id/search_view"
             style="@style/MaterialSearchViewStyle2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/liftrGold1"
-    />
+            android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

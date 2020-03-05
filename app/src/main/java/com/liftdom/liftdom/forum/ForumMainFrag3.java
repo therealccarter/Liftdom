@@ -5,13 +5,11 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.*;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +18,9 @@ import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
+import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -56,7 +56,7 @@ public class ForumMainFrag3 extends Fragment {
         navChangerCallback.setBottomNavIndex(navIndex);
     }
 
-    @BindView(R.id.tlr) Button tlrButton;
+    //@BindView(R.id.tlr) Button tlrButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,20 +74,45 @@ public class ForumMainFrag3 extends Fragment {
         AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
         appBarLayout.setExpanded(true, true);
 
-        tlrButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //tlrButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+        //        fragmentTransaction.replace(R.id.mainFragHolder, new TheLockerRoomFrag(),
+        //                "theLockerRoom");
+        //        fragmentTransaction.addToBackStack(null);
+        //        fragmentTransaction.commit();
+        //    }
+        //});
 
-                fragmentTransaction.replace(R.id.mainFragHolder, new TheLockerRoomFrag(), "theLockerRoom");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        //MaterialSearchView searchView = (MaterialSearchView) view.findViewById(R.id.search_view);
+        //searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+        //    @Override
+        //    public boolean onQueryTextSubmit(String query) {
+        //        //Do some magic
+        //        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //        UserSearchFrag userSearchFrag = new UserSearchFrag();
+        //        userSearchFrag.searchString = query;
+        //        fragmentTransaction.replace(R.id.mainFragHolder, userSearchFrag);
+        //        //fragmentTransaction.addToBackStack(null);
+        //        fragmentTransaction.commit();
+        //        return false;
+        //    }
+//
+        //    @Override
+        //    public boolean onQueryTextChange(String newText) {
+        //        //Do some magic
+        //        return false;
+        //    }
+        //});
+
 
         return view;
     }
+
 
     @Override
     public void onAttach(Activity activity) {

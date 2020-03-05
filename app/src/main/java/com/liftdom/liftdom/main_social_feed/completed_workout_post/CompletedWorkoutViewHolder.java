@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.InputType;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -1204,8 +1205,13 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass otherUserModelClass = dataSnapshot.getValue(UserModelClass.class);
                 //String repsLevel = otherUserModelClass.getRepLevel();
-                String powerLevel = otherUserModelClass.getPowerLevel();
-                mUserLevelView.setText(powerLevel);
+                try{
+                    String powerLevel = otherUserModelClass.getPowerLevel();
+                    mUserLevelView.setText(powerLevel);
+                }catch (NullPointerException e){
+                    mUserLevelView.setText("0");
+                }
+
             }
 
             @Override

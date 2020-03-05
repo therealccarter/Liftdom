@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.notifications_bell.NotificationModelClass;
 import com.liftdom.liftdom.notifications_bell.NotificationsActivity;
@@ -81,6 +82,9 @@ public class ProfileHeaderFrag extends Fragment {
             infoButton.setVisibility(View.GONE);
         }
 
+        if(uidFromOutside == null){
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        }
         DatabaseReference profileRef = mRootRef.child("user").child(uidFromOutside);
         profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,16 +109,30 @@ public class ProfileHeaderFrag extends Fragment {
                     });
                 }
 
+                if(userModelClass.isIsGDPR()){
+                    if(userModelClass.isIsImperial()){
+                        String bw = userModelClass.getPounds() + " lbs";
+                        bodyWeight.setText(bw);
+                    }else{
+                        String bw = userModelClass.getKgs() + " kgs";
+                        bodyWeight.setText(bw);
+                    }
+                }else{
+                    if(uidFromOutside.equals(uidPov)){
+                        if(userModelClass.isIsImperial()){
+                            String bw = userModelClass.getPounds() + " lbs";
+                            bodyWeight.setText(bw);
+                        }else{
+                            String bw = userModelClass.getKgs() + " kgs";
+                            bodyWeight.setText(bw);
+                        }
+                    }
+                }
+
                 userName.setText(userModelClass.getUserName());
                 mUserName = userModelClass.getUserName();
                 currentLevel.setText(userModelClass.getPowerLevel());
-                if(userModelClass.isIsImperial()){
-                    String bw = userModelClass.getPounds() + " lbs";
-                    bodyWeight.setText(bw);
-                }else{
-                    String bw = userModelClass.getKgs() + " kgs";
-                    bodyWeight.setText(bw);
-                }
+
                 currentStreak.setText(userModelClass.getCurrentStreak());
 
                 if(uidPov.equals(uidFromOutside)){
@@ -191,6 +209,7 @@ public class ProfileHeaderFrag extends Fragment {
 
         return view;
     }
+
 
     private void followUser(){
         followUserButton.setVisibility(View.GONE);
