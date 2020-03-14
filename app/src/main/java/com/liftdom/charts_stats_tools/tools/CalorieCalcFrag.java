@@ -275,7 +275,9 @@ public class CalorieCalcFrag extends Fragment {
 
         // legend stuff
         Legend legend = barChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+        //legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         legend.setDrawInside(true);
         legend.setTextColor(Color.parseColor("#FFFFFF"));
 

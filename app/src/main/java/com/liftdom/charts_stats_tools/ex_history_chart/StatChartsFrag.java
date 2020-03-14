@@ -17,6 +17,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.LineChart;
+
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -383,12 +384,14 @@ public class StatChartsFrag extends Fragment {
 
         // legend stuff
         Legend legend = lineChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
-        legend.setDrawInside(true);
+        legend.setEnabled(true);
+        legend.setTextColor(Color.WHITE);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
 
         LineDataSet dataSet = new LineDataSet(entries, exName);
         //dataSet.setColor(Color.BLACK);
-        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setCircleColor(Color.parseColor("#D1B91D"));
 
         //LineData lineData = new LineData(dataSet);

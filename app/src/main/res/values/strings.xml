@@ -357,7 +357,7 @@
 
     <string name="addJustSet">(+) Add set</string>
 
-    <string name="searchUsers">Search users...</string>
+    <string name="searchUsers">Search&#8230;</string>
     <string name="noResults">No Results</string>
 
     <string name="noPosts">No posts yet&#8230;</string>

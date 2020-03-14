@@ -37,7 +37,7 @@ public class WorkoutHistoryModelClass {
         mUserName = userName;
     }
 
-    public double getExPoundage(String exName){
+    public double getExPoundage(String exName, boolean isImperialPOV, String lbs, String kgs){
         double poundage = 0.0;
 
         int listInc = 0;
@@ -73,6 +73,25 @@ public class WorkoutHistoryModelClass {
                     }catch (NumberFormatException e){
                         String delims = "[x,@]";
                         String[] tokens = string.split(delims);
+                        for(int i = 0; i < tokens.length; i++){
+                            String delims2 = "[_]";
+                            String[] tokens2 = tokens[i].split(delims2);
+                            if(tokens2.length > 1){
+                                if(tokens2[1].equals("a")){
+                                    tokens[i] = tokens2[0];
+                                }
+                            }else{
+                                if(tokens[i].equals("T.F.")){
+                                    tokens[i] = "1";
+                                }else if(tokens[i].equals("B.W.")){
+                                    if(mIsImperial){
+                                        tokens[i] = lbs;
+                                    }else{
+                                        tokens[i] = kgs;
+                                    }
+                                }
+                            }
+                        }
                         double pounds = Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]) * Double
                                 .parseDouble(tokens[2]);
                         poundage = poundage + pounds;
@@ -81,10 +100,31 @@ public class WorkoutHistoryModelClass {
             }
         }
 
-        return poundage;
+        return converter(poundage, isImperialPOV);
     }
 
-    public double getExMaxWeightLifted(String exName){
+    private double converter(double poundage, boolean isImperialPOV){
+        double converted = 0.0;
+
+        if(isImperialPOV && mIsImperial){
+            converted = poundage;
+        }else if(!isImperialPOV && mIsImperial){
+            // user is currently kg, workout is in pounds. imperial to metric.
+            double lbsDouble = poundage / 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            converted = lbsInt;
+        }else if(isImperialPOV && !mIsImperial){
+            // user is currently in pounds, workout is in kg. metric to imperial.
+            double lbsDouble = poundage * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            converted = lbsInt;
+        }
+
+
+        return converted;
+    }
+
+    public double getExMaxWeightLifted(String exName, boolean isImperialPOV, String lbs, String kgs){
         double maxWeight = 0.0;
 
         int listInc = 0;
@@ -116,7 +156,11 @@ public class WorkoutHistoryModelClass {
                     String[] tokens = string.split("@");
                     double weight;
                     if(tokens[1].equals("B.W.")){
-                        weight = 0;
+                        if(mIsImperial){
+                            weight = Integer.parseInt(lbs);
+                        }else{
+                            weight = Integer.parseInt(kgs);
+                        }
                     }else{
                         weight = Double.parseDouble(tokens[1]);
                     }
@@ -127,7 +171,7 @@ public class WorkoutHistoryModelClass {
             }
         }
 
-        return maxWeight;
+        return converter(maxWeight, isImperialPOV);
     }
 
     boolean isExerciseName(String input) {

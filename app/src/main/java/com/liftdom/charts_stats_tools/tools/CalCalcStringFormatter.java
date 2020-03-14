@@ -2,12 +2,13 @@ package com.liftdom.charts_stats_tools.tools;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 /**
  * Created by Brodin on 4/7/2017.
  */
 
-public class CalCalcStringFormatter implements IAxisValueFormatter {
+public class CalCalcStringFormatter extends ValueFormatter {
 
     @Override
     public String getFormattedValue(float value, AxisBase axis){

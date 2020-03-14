@@ -51,7 +51,9 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                 ArrayList<String> newList = new ArrayList<>();
                 for(String string : completedUpperList){
                     if(upperList.contains(string)){
-                        newList.add(string);
+                        if(!newList.contains(string)){
+                            newList.add(string);
+                        }
                     }
                 }
 
@@ -65,7 +67,9 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                 ArrayList<String> newList = new ArrayList<>();
                 for(String string : completedUpperList){
                     if(lowerList.contains(string)){
-                        newList.add(string);
+                        if(!newList.contains(string)){
+                            newList.add(string);
+                        }
                     }
                 }
 
@@ -79,7 +83,9 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                 ArrayList<String> newList = new ArrayList<>();
                 for(String string : completedUpperList){
                     if(otherList.contains(string)){
-                        newList.add(string);
+                        if(!newList.contains(string)){
+                            newList.add(string);
+                        }
                     }
                 }
 

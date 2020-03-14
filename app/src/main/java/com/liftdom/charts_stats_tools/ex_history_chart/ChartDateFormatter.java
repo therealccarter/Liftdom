@@ -2,6 +2,7 @@ package com.liftdom.charts_stats_tools.ex_history_chart;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by Brodin on 3/20/2017.
  */
 
-public class ChartDateFormatter implements IAxisValueFormatter {
+public class ChartDateFormatter extends ValueFormatter {
 
     private long referenceTimestamp; // minimum timestamp in your data set
     private DateTime dateTimeFormat;
