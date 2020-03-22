@@ -68,7 +68,16 @@ public class SelectedPastDateDialog extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 WorkoutHistoryModelClass modelClass = dataSnapshot.getValue(WorkoutHistoryModelClass.class);
-                generateLayout(modelClass);
+                try{
+                    if(modelClass.getUserId() == null){
+                        finish();
+                    }else{
+                        generateLayout(modelClass);
+                    }
+                }catch (NullPointerException e){
+                    finish();
+                }
+
             }
 
             @Override

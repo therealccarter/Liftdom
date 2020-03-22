@@ -160,18 +160,18 @@ OK where we're at: we need to check out the userProfileDialogActivity.
 ====================================================
 
 Get the ex history chart page attractive and good looking
-    - IT LOOKS TERRIBLE
-    - it doesn't show low numbers
+    done - IT LOOKS TERRIBLE
+    done - it doesn't show low numbers
     - calorie calc is useless, what does the x axis even mean?
     - remove calorie calc legend. Look into where it's getting that text.
     - BMI??? Says at 180 I'd be 25% bf lol. Ok that's standard. Still retarded. Maybe add text saying that?
-    - total weight lifted crashes app
-    - total weight lifted shows multiple entries for each item
+    done - total weight lifted crashes app
+    done - total weight lifted shows multiple entries for each item
     - need workout option and have chart by highest weight lifted and total weight lifted
-    - total weight probably shouldn't even be there for exercise specific
-    - the time frame is too large, makes it useless
-    - the items are small and black, unreadable.
+    done - the time frame is too large, makes it useless
+    done - the items are small and black, unreadable.
     - clicking on an item should bring up that workout (like workout history page)
+    done - x axis showing weird long/float values not dates
     done - needs unit change functionality
     - make a pie chart for exercise frequency data
     done - it shows just one ex (Bench Press - Barbell Flat) or it shows them with a bunch of duplicates.
@@ -188,7 +188,8 @@ YUGE bug, seems for some people their workouts are going into feed but not selfF
  globalFeed. Then if they rep that post, it sends the has repped to the nonexistent post in
  selfFeed. Malformed.
 
-look into 10mb download?
+look into 10mb download? (look into pagination for feeds)(https://www.reddit
+.com/r/androiddev/comments/fjnvn6/so_the_instagram_feed_is_just_an_infinite/)
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================

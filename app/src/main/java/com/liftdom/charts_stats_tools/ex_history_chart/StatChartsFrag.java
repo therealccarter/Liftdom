@@ -24,14 +24,20 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
+import com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog;
 import com.liftdom.workout_assistor.CompletedExercisesModelClass;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -304,6 +310,7 @@ public class StatChartsFrag extends Fragment {
         dataSets.clear();
     }
 
+    long mTimestamp = 0;
 
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
             isOverall) {
@@ -325,6 +332,7 @@ public class StatChartsFrag extends Fragment {
 
                 if (inc == 0) {
                     reference_timestamp = mills;
+                    mTimestamp = mills;
                 }
 
                 float newStamp = mills - reference_timestamp;
@@ -356,6 +364,7 @@ public class StatChartsFrag extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(75);
         xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
+        xAxis.setTextColor(getResources().getColor(R.color.grey));
         DateTime now = DateTime.now();
         DateTime plusMonth = now.plusMonths(3);
         long millies = plusMonth.getMillis();
@@ -365,15 +374,19 @@ public class StatChartsFrag extends Fragment {
         YAxis rightAxis = lineChart.getAxisRight();
         rightAxis.setDrawLabels(false);
 
+
         YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setTextColor(getResources().getColor(R.color.grey));
         if (!isOverall) {
+            boolean firstTime = false;
             for (Entry entry : entries) {
                 float yValue = entry.getY();
                 if (yValue > highest) {
                     highest = yValue;
                 }
-                if (lowest == 0) {
+                if (lowest == 0 && !firstTime) {
                     lowest = yValue;
+                    firstTime = true;
                 } else {
                     if (yValue < lowest) {
                         lowest = yValue;
@@ -392,6 +405,7 @@ public class StatChartsFrag extends Fragment {
         LineDataSet dataSet = new LineDataSet(entries, exName);
         //dataSet.setColor(Color.BLACK);
         dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setColor(getResources().getColor(R.color.liftrGold1));
         dataSet.setCircleColor(Color.parseColor("#D1B91D"));
 
         //LineData lineData = new LineData(dataSet);
@@ -407,22 +421,55 @@ public class StatChartsFrag extends Fragment {
             if (!isOverall) {
                 if (dataSets.size() == 1) {
                     leftAxis.setAxisMaximum(highest + 25);
-                    leftAxis.setAxisMinimum(lowest - 20);
+                    if(lowest <= 25){
+                        leftAxis.setAxisMinimum(0);
+                    }else{
+                        leftAxis.setAxisMinimum(lowest - 25);
+                    }
+
                 } else {
                     leftAxis.setAxisMaximum(highest + 75);
-                    leftAxis.setAxisMinimum(lowest - 50);
+                    if(lowest <= 50){
+                        leftAxis.setAxisMinimum(0);
+                    }else{
+                        leftAxis.setAxisMinimum(lowest - 50);
+                    }
                 }
             }
         }
 
     }
 
+    /**
+     * Where we are now: we need to somehow set the zoom (x axis zoom) to a good amount.
+     * Lowest is not being set to the lowest. It sets to 230? It should be anything other than 0.
+     * Or 0.
+     */
 
     private void setLineChart() {
 
         LineData data = new LineData(dataSets);
 
+        lineChart.setBackgroundColor(getResources().getColor(R.color.backgroundgrey1));
+
         lineChart.setData(data);
+
+        lineChart.setOnChartValueSelectedListener(new com.github.mikephil.charting.listener.OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                showWorkoutForSelection(e.getX());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+        lineChart.getDescription().setEnabled(false);
+
+        //lineChart.moveViewToX(getNewestDateMinusThree());
+        lineChart.zoom(4.2f, 1f, getNewestX(), getNewestY(), YAxis.AxisDependency.LEFT);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -431,6 +478,72 @@ public class StatChartsFrag extends Fragment {
             }
         });
 
+    }
+
+    private void showWorkoutForSelection(float x){
+
+        //long mills = date.getTime();
+
+        long timestamp = ((long) x);
+
+        DateTime dateTime = new DateTime(timestamp + mTimestamp);
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+
+        String formatted = fmt.print(dateTime);
+
+        Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
+
+        pastIntent.putExtra("date", formatted);
+        startActivity(pastIntent);
+    }
+
+    private float getNewestX(){
+        float value;
+
+        int size = dataSets.get(dataSets.size() - 1).getEntryCount();
+
+        value = dataSets.get(dataSets.size() - 1).getEntryForIndex(size - 1).getX();
+
+        return value;
+    }
+
+    private float getNewestY(){
+        float value;
+
+        int size = dataSets.get(dataSets.size() - 1).getEntryCount();
+
+        value = dataSets.get(dataSets.size() - 1).getEntryForIndex(size - 1).getY();
+
+        return value;
+    }
+
+    private float getNewestDateMinusThree(){
+        float dateMinusThreeMonths = 0;
+
+        int size = dataSets.get(dataSets.size() - 1).getEntryCount();
+
+        float newestDate = dataSets.get(dataSets.size() - 1).getEntryForIndex(size - 1).getX();
+
+        long converted = ((long) newestDate);
+
+        dateMinusThreeMonths = ((float) getDate(converted));
+
+        return dateMinusThreeMonths;
+    }
+
+    private long getDate(long timestamp){
+        long dateString = 0;
+
+        DateTime dateTime = new DateTime(timestamp);
+
+        dateTime = dateTime.minusMonths(3);
+
+        //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM-dd-yyyy");
+
+        dateString = dateTime.getMillis();
+
+        return dateString;
     }
 
     private int getItemCount() {

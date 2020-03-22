@@ -1,5 +1,16 @@
 
 
+//@Override
+    //public String getFormattedValue(float value, AxisBase axis) {
+    //    // from float to long
+    //    long convertedTimestamp = ((long) value);
+//
+    //    // Retrieve original timestamp
+    //    long originalTimestamp = referenceTimestamp + convertedTimestamp;
+//
+    //    return getDate(originalTimestamp);
+    //}
+
 uid3 = FirebaseAuth.getInstance().getCurrentUser().getUid();
 userRef1 = FirebaseDatabase.getInstance().getReference().child("user").child(uid3);
 userRefListener = userRef1.addValueEventListener(new ValueEventListener() {

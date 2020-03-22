@@ -25,7 +25,7 @@ public class ChartDateFormatter extends ValueFormatter {
     }
 
     @Override
-    public String getFormattedValue(float value, AxisBase axis) {
+    public String getFormattedValue(float value){
         // from float to long
         long convertedTimestamp = ((long) value);
 
@@ -34,6 +34,7 @@ public class ChartDateFormatter extends ValueFormatter {
 
         return getDate(originalTimestamp);
     }
+
 
     private String getDate(long timestamp){
         String dateString = "null";
