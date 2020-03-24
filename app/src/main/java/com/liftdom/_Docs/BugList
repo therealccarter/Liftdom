@@ -170,10 +170,13 @@ Get the ex history chart page attractive and good looking
     - need workout option and have chart by highest weight lifted and total weight lifted
     done - the time frame is too large, makes it useless
     done - the items are small and black, unreadable.
-    - clicking on an item should bring up that workout (like workout history page)
+    done - clicking on an item should bring up that workout (like workout history page)
+    done - x values are inaccurate, which causes problems trying to bring up that days workout
     done - x axis showing weird long/float values not dates
     done - needs unit change functionality
     - make a pie chart for exercise frequency data
+    - maxes have 3 sorting options: weight, date, alphabetical
+    - maxes should be editable
     done - it shows just one ex (Bench Press - Barbell Flat) or it shows them with a bunch of duplicates.
 
 updating user model class in ProfileInfoActivity needs to update opposite unit too.
@@ -190,6 +193,7 @@ YUGE bug, seems for some people their workouts are going into feed but not selfF
 
 look into 10mb download? (look into pagination for feeds)(https://www.reddit
 .com/r/androiddev/comments/fjnvn6/so_the_instagram_feed_is_just_an_infinite/)
+go through your TO-DOs
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================

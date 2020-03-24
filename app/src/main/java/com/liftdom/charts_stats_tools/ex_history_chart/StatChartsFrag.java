@@ -36,11 +36,13 @@ import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
 import com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog;
 import com.liftdom.workout_assistor.CompletedExercisesModelClass;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -64,6 +66,9 @@ public class StatChartsFrag extends Fragment {
     @BindView(R.id.reloadChartButton) Button reloadChart;
     @BindView(R.id.clearChartButton) Button clearChart;
     @BindView(R.id.titleView) TextView titleView;
+    @BindView(R.id.exercisesRB) RadioButton exercisesRadioButton;
+    @BindView(R.id.workoutsRB) RadioButton workoutsRadioButton;
+    @BindView(R.id.chartWorkoutsButton) Button chartWorkoutsButton;
 
     List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
 
@@ -80,6 +85,7 @@ public class StatChartsFrag extends Fragment {
         titleView.setTypeface(lobster);
 
         maxWeightRadioButton.setChecked(true);
+        exercisesRadioButton.setChecked(true);
 
         overallRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -92,6 +98,29 @@ public class StatChartsFrag extends Fragment {
                     graphingSelector.setText(exercise);
                     startChartLoad();
                 }
+            }
+        });
+
+        workoutsRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    clearChartMethod();
+                    graphingSelector.setVisibility(View.GONE);
+                    chartWorkoutsButton.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
+        chartWorkoutsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * Where we are now: this will mimic the whole process for specific exercises,
+                 * the only thing different is we'll be calculating for every exercise in the
+                 * workout.
+                 */
             }
         });
 
@@ -200,6 +229,7 @@ public class StatChartsFrag extends Fragment {
         //itemsTextView.setText("");
         highest = 0;
         lowest = 0;
+        dateMap.clear();
         //itemsTextView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
 
@@ -312,6 +342,13 @@ public class StatChartsFrag extends Fragment {
 
     long mTimestamp = 0;
 
+    /**
+     * Where we are: we're considering changing the x values to the straight dates sans the dashes
+     * instead of long/float millis versions due to an issue with converting and re-converting
+     * giving the wrong value.
+     *
+     */
+
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
             isOverall) {
         List<Entry> entries = new ArrayList<Entry>();
@@ -325,19 +362,28 @@ public class StatChartsFrag extends Fragment {
         for (ValueAndDateObject data : valueAndDateArrayList) {
 
             if (!data.getValueX().equals("private_journal") && !data.getValueX().equals("restDay")) {
-                DateTime dateTime = new DateTime(data.getValueX());
-                Date date = dateTime.toDate();
+                //DateTime dateTime = new DateTime(data.getValueX());
+                //Date date = dateTime.toDate();
+//
+                //long mills = date.getTime();
+//
+                //if (inc == 0) {
+                //    reference_timestamp = mills;
+                //    mTimestamp = mills;
+                //}
+//
+                //float newStamp = mills - reference_timestamp;
 
-                long mills = date.getTime();
+                // 2017-10-05
 
-                if (inc == 0) {
-                    reference_timestamp = mills;
-                    mTimestamp = mills;
-                }
+                //String delims = "[-]";
+                //String[] tokens = data.getValueX().split(delims);
+                //String newString = tokens[0] + tokens[1] + tokens[2];
+                //float newStamp = Float.parseFloat(newString);
 
-                float newStamp = mills - reference_timestamp;
-
-                entries.add(new Entry(newStamp, ((float) data.getValueY())));
+                //entries.add(new Entry(getFloatFromStringDate(data.getValueX()),((float) data.getValueY())));
+                entries.add(new Entry((float) inc, ((float) data.getValueY())));
+                dateMap.put((float) inc, data.getValueX());
 
                 ++inc;
 
@@ -350,25 +396,48 @@ public class StatChartsFrag extends Fragment {
 
     }
 
+    HashMap<Float, String> dateMap = new HashMap<>();
+
     float highest = 0;
     float lowest = 0;
+
+    private float getFloatFromStringDate(String oldString){
+        //String[] tokens = String.valueOf(oldValue).split("");
+
+        DateTime start = new DateTime("2017-08-29");
+        DateTime end = new DateTime(oldString);
+        int daysBetween = Days.daysBetween(start, end).getDays();
+
+        //String delims = "[-]";
+        //String[] tokens = oldString.split(delims);
+        //String[] tokens2 = tokens[0].split("");
+        //String shortYear = tokens2[tokens2.length - 2] + tokens2[tokens2.length - 1];
+        //String newString = shortYear + tokens[1] + tokens[2];
+        //int yearInt = Integer.parseInt(newString);
+        //yearInt = yearInt - 170805;
+        return (float) daysBetween;
+    }
 
 
     public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall) {
 
-        ChartDateFormatter chartDateFormatter = new ChartDateFormatter(reference_timestamp);
+        ChartDateFormatter chartDateFormatter = new ChartDateFormatter(dateMap);
 
         // x-axis stuff
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setValueFormatter(chartDateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(75);
-        xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
+        //xAxis.setAxisMinimum(1483228860000f - (float) reference_timestamp); // january 2017
+        xAxis.setAxisMinimum(0);
         xAxis.setTextColor(getResources().getColor(R.color.grey));
         DateTime now = DateTime.now();
         DateTime plusMonth = now.plusMonths(3);
-        long millies = plusMonth.getMillis();
-        xAxis.setAxisMaximum((float) millies - (float) reference_timestamp);
+        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("yyyy-MM-dd");
+        String dateString = dtfOut.print(plusMonth);
+        //long millies = plusMonth.getMillis();
+        //xAxis.setAxisMaximum(getFloatFromStringDate(dateString));
+        xAxis.setAxisMaximum(35);
 
         // y-axis stuff
         YAxis rightAxis = lineChart.getAxisRight();
@@ -440,12 +509,6 @@ public class StatChartsFrag extends Fragment {
 
     }
 
-    /**
-     * Where we are now: we need to somehow set the zoom (x axis zoom) to a good amount.
-     * Lowest is not being set to the lowest. It sets to 230? It should be anything other than 0.
-     * Or 0.
-     */
-
     private void setLineChart() {
 
         LineData data = new LineData(dataSets);
@@ -480,17 +543,29 @@ public class StatChartsFrag extends Fragment {
 
     }
 
+    private String getStringFromFloat(float timestamp){
+        //String[] tokens = String.valueOf(timestamp).split("");
+//
+        //String newString = tokens[0] + tokens[1] + "-" + tokens[2] + tokens[3] +
+        //                "-" + tokens[4] + tokens[5];
+//
+        //return newString;
+        return dateMap.get(timestamp);
+    }
+
     private void showWorkoutForSelection(float x){
 
         //long mills = date.getTime();
 
-        long timestamp = ((long) x);
+        //long timestamp = ((long) x);
+//
+        //DateTime dateTime = new DateTime(timestamp + mTimestamp);
+//
+        //DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 
-        DateTime dateTime = new DateTime(timestamp + mTimestamp);
+        String formatted = getStringFromFloat(x);
 
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-        String formatted = fmt.print(dateTime);
+        //formatted = "20" + formatted;
 
         Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
 

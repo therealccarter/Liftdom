@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Brodin on 3/20/2017.
@@ -18,34 +19,49 @@ public class ChartDateFormatter extends ValueFormatter {
     private long referenceTimestamp; // minimum timestamp in your data set
     private DateTime dateTimeFormat;
     private Date date;
+    private HashMap<Float, String> dateMap = new HashMap<>();
 
-    public ChartDateFormatter(long referenceTimestamp){
-        this.referenceTimestamp = referenceTimestamp;
-
+    public ChartDateFormatter(HashMap<Float, String> map){
+        this.dateMap = map;
     }
 
     @Override
     public String getFormattedValue(float value){
         // from float to long
-        long convertedTimestamp = ((long) value);
+        //long convertedTimestamp = ((long) value);
+//
+        //// Retrieve original timestamp
+        //long originalTimestamp = referenceTimestamp + convertedTimestamp;
 
-        // Retrieve original timestamp
-        long originalTimestamp = referenceTimestamp + convertedTimestamp;
+        String date = dateMap.get(value);
+        if(date == null){
+            return "";
+        }else{
+            return date;
+        }
 
-        return getDate(originalTimestamp);
+        //return dateMap.get(value);
     }
 
 
-    private String getDate(long timestamp){
-        String dateString = "null";
+    private String getDate(float timestamp){
+        // timestamp == 20190903
+        //String dateString = "null";
 
-        DateTime dateTime = new DateTime(timestamp);
+        //String[] tokens = String.valueOf(timestamp).split("");
+//
+        //String newString = tokens[0] + tokens[1] + "-" + tokens[2] + tokens[3] +
+        //        "-" + tokens[4] + tokens[5];
 
-        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM-dd-yyyy");
+        //DateTime dateTime = new DateTime(newString);
+//
+        //DateTimeFormatter dtfOut = DateTimeFormat.forPattern("MM-dd-yyyy");
+//
+        //dateString = dtfOut.print(dateTime);
 
-        dateString = dtfOut.print(dateTime);
-
-        return dateString;
+        //return "20" + newString;
+        //int intVersion = (int) timestamp;
+        return dateMap.get(timestamp);
     }
 
 }
