@@ -10,8 +10,12 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 
 public class CalCalcStringFormatter extends ValueFormatter {
 
+    //@Override
+    //public String getFormattedValue(float value, AxisBase axis){
+    //    return getTitle(value);
+    //}
     @Override
-    public String getFormattedValue(float value, AxisBase axis){
+    public String getFormattedValue(float value){
         return getTitle(value);
     }
 

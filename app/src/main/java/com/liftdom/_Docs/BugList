@@ -162,9 +162,9 @@ OK where we're at: we need to check out the userProfileDialogActivity.
 Get the ex history chart page attractive and good looking
     done - IT LOOKS TERRIBLE
     done - it doesn't show low numbers
-    - calorie calc is useless, what does the x axis even mean?
-    - remove calorie calc legend. Look into where it's getting that text.
-    - BMI??? Says at 180 I'd be 25% bf lol. Ok that's standard. Still retarded. Maybe add text saying that?
+    done - calorie calc is useless, what does the x axis even mean?
+    done - remove calorie calc legend. Look into where it's getting that text.
+    done - BMI??? Says at 180 I'd be 25% bf lol. Ok that's standard. Still retarded. Maybe add text saying that?
     done - total weight lifted crashes app
     done - total weight lifted shows multiple entries for each item
     done - need workout option and have chart by highest weight lifted and total weight lifted

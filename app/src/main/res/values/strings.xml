@@ -841,6 +841,9 @@
 
     <string name="pinchToZoom">(Pinch to Zoom)</string>
 
+    <string name="bmiDisclaimer">(If you have enough muscle, BMI calculator will show a higher
+        value than really you are)</string>
+
     <string name="options">Options:</string>
 
     <string name="premadePrograms">Premade Workout Programs</string>

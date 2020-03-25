@@ -53,14 +53,14 @@ public class CalorieCalcFrag extends Fragment {
     @BindView(R.id.cmTextView) TextView cmTextView;
     @BindView(R.id.titleView) TextView titleView;
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    boolean isImperial;
-    double bodyWeight = 0;
-    String height;
-    int age = 0;
-    String sex = "null";
+    private boolean isImperial;
+    private double bodyWeight = 0;
+    private String height;
+    private int age = 0;
+    private String sex = "null";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -273,6 +273,10 @@ public class CalorieCalcFrag extends Fragment {
         rightAxis.setDrawLabels(false);
         rightAxis.setTextColor(Color.parseColor("#FFFFFF"));
 
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setDrawLabels(false);
+
+
         // legend stuff
         Legend legend = barChart.getLegend();
         //legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
@@ -280,6 +284,7 @@ public class CalorieCalcFrag extends Fragment {
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         legend.setDrawInside(true);
         legend.setTextColor(Color.parseColor("#FFFFFF"));
+        legend.setEnabled(false);
 
         BarDataSet dataSet = new BarDataSet(entries, "Calorie Chart");
         dataSet.setColor(Color.parseColor("#D1B91D"));
@@ -293,6 +298,7 @@ public class CalorieCalcFrag extends Fragment {
 
         barChart.setData(data);
 
+        barChart.getDescription().setEnabled(false);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
