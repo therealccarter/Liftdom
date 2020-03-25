@@ -57,7 +57,7 @@ public class CustomExCreatorDialog extends AppCompatActivity {
                 isValid = false;
                 handler.removeCallbacks(inputFinishChecker);
                 invalidExNameView.setVisibility(View.GONE);
-                if(s.length() == 0){
+                if(s.length() == 0 || s.equals("Workouts")){
                     invalidExNameView.setVisibility(View.GONE);
                 }
             }

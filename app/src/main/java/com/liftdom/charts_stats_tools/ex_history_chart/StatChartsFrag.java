@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -92,11 +94,15 @@ public class StatChartsFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.i("statsChats", "checkedChanged");
                 if(!graphingSelector.getText().toString().equals("Choose exercise to graph")){
-                    clearChartMethod();
-                    String exercise = graphingSelector.getText().toString();
-                    ExSelectorSingleton.getInstance().upperBodyItems.add(exercise);
-                    graphingSelector.setText(exercise);
-                    startChartLoad();
+                    if(exercisesRadioButton.isChecked()){
+                        clearChartMethod();
+                        String exercise = graphingSelector.getText().toString();
+                        ExSelectorSingleton.getInstance().upperBodyItems.add(exercise);
+                        graphingSelector.setText(exercise);
+                        startChartLoad();
+                    }else{
+                        loadFullWorkout();
+                    }
                 }
             }
         });
@@ -105,10 +111,13 @@ public class StatChartsFrag extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    clearChartMethod();
                     graphingSelector.setVisibility(View.GONE);
                     chartWorkoutsButton.setVisibility(View.VISIBLE);
-
+                    loadFullWorkout();
+                }else{
+                    graphingSelector.setVisibility(View.VISIBLE);
+                    chartWorkoutsButton.setVisibility(View.GONE);
+                    clearChartMethod();
                 }
             }
         });
@@ -116,11 +125,7 @@ public class StatChartsFrag extends Fragment {
         chartWorkoutsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Where we are now: this will mimic the whole process for specific exercises,
-                 * the only thing different is we'll be calculating for every exercise in the
-                 * workout.
-                 */
+                loadFullWorkout();
             }
         });
 
@@ -222,6 +227,12 @@ public class StatChartsFrag extends Fragment {
         return view;
     }
 
+    private void loadFullWorkout(){
+        clearChartMethod();
+        graphingSelector.setText(getResources().getString(R.string.workouts));
+        startChartLoadForWorkouts();
+    }
+
     private void clearChartMethod(){
         ExSelectorSingleton.getInstance().clearArrayLists();
         lineChart.clear();
@@ -239,6 +250,25 @@ public class StatChartsFrag extends Fragment {
                 lineChart.invalidate();
             }
         });
+    }
+
+    private void startChartLoadForWorkouts(){
+        dataSets.clear();
+
+        boolean isOverall = false;
+
+        if (overallRadioButton.isChecked()) {
+            isOverall = true;
+        }
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.resetAxisMaximum();
+        leftAxis.resetAxisMinimum();
+
+        FullWorkoutsChartClass exerciseChartClass = new FullWorkoutsChartClass();
+        exerciseChartClass.isOverall = isOverall;
+        exerciseChartClass.getValueList(StatChartsFrag.this);
+
     }
 
     private void startChartLoad(){
@@ -349,6 +379,11 @@ public class StatChartsFrag extends Fragment {
      *
      */
 
+    public void valueConverterFull(final ArrayList<ValueAndDateObject> valueAndDateArrayList,
+                                   boolean isOverall){
+
+    }
+
     public void valueConverter(final ArrayList<ValueAndDateObject> valueAndDateArrayList, String exName, boolean
             isOverall) {
         List<Entry> entries = new ArrayList<Entry>();
@@ -418,8 +453,36 @@ public class StatChartsFrag extends Fragment {
         return (float) daysBetween;
     }
 
+    //boolean isGrey = false;
+    //CountDownTimer timer;
+//
+    //private void flashUpdateButton(){
+    //    if(timer != null){
+    //        timer.cancel();
+    //    }
+    //    timer = new CountDownTimer(3000, 200) {
+    //        @Override
+    //        public void onTick(long l) {
+    //            if(isGrey){
+    //                confirmRestTimer.setBackgroundColor(Color.parseColor("#000000"));
+    //                isGrey = false;
+    //            }else{
+    //                confirmRestTimer.setBackgroundColor(Color.parseColor("#388e3c"));
+    //                isGrey = true;
+    //            }
+    //        }
+//
+    //        @Override
+    //        public void onFinish() {
+//
+    //        }
+    //    }.start();
+    //}
+
 
     public void lineDataCreator(List<Entry> entries, long reference_timestamp, String exName, boolean isOverall) {
+
+        lineChart.clear();
 
         ChartDateFormatter chartDateFormatter = new ChartDateFormatter(dateMap);
 
@@ -437,7 +500,7 @@ public class StatChartsFrag extends Fragment {
         String dateString = dtfOut.print(plusMonth);
         //long millies = plusMonth.getMillis();
         //xAxis.setAxisMaximum(getFloatFromStringDate(dateString));
-        xAxis.setAxisMaximum(35);
+        xAxis.setAxisMaximum(dateMap.size() + 3);// datemap + 3
 
         // y-axis stuff
         YAxis rightAxis = lineChart.getAxisRight();
@@ -445,6 +508,9 @@ public class StatChartsFrag extends Fragment {
 
 
         YAxis leftAxis = lineChart.getAxisLeft();
+        if(isOverall){
+            leftAxis.setValueFormatter(new LargeValueFormatter());
+        }
         leftAxis.setTextColor(getResources().getColor(R.color.grey));
         if (!isOverall) {
             boolean firstTime = false;
@@ -485,7 +551,7 @@ public class StatChartsFrag extends Fragment {
             setLineChart();
         }
 
-        if (dataSets.size() == getItemCount()) {
+        if(exName.equals("Workouts")){
             setLineChart();
             if (!isOverall) {
                 if (dataSets.size() == 1) {
@@ -505,7 +571,30 @@ public class StatChartsFrag extends Fragment {
                     }
                 }
             }
+        }else{
+            if (dataSets.size() == getItemCount()) {
+                setLineChart();
+                if (!isOverall) {
+                    if (dataSets.size() == 1) {
+                        leftAxis.setAxisMaximum(highest + 25);
+                        if(lowest <= 25){
+                            leftAxis.setAxisMinimum(0);
+                        }else{
+                            leftAxis.setAxisMinimum(lowest - 25);
+                        }
+
+                    } else {
+                        leftAxis.setAxisMaximum(highest + 75);
+                        if(lowest <= 50){
+                            leftAxis.setAxisMinimum(0);
+                        }else{
+                            leftAxis.setAxisMinimum(lowest - 50);
+                        }
+                    }
+                }
+            }
         }
+
 
     }
 

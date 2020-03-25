@@ -37,6 +37,68 @@ public class WorkoutHistoryModelClass {
         mUserName = userName;
     }
 
+    public double getPoundage(boolean isImperialPOV, String lbs, String kgs){
+        double poundage = 0.0;
+
+        int listInc = 0;
+        ArrayList<List<String>> exInfoList = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        exInfoList.add(list1);
+        for(Map.Entry<String, List<String>> mapEntry : getWorkoutInfoMap().entrySet()){
+            boolean isExBool = false;
+            for(String string : mapEntry.getValue()){
+                if(!isExerciseName(string)){
+                    exInfoList.get(0).add(string);
+                }
+            }
+        }
+
+        for(List<String> list : exInfoList){
+            for(String string : list){
+                if(!isExerciseName(string)){
+                    try{
+                        String[] tokens = string.split("@");
+                        double pounds = Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]);
+                        poundage = poundage + pounds;
+                    }catch (NumberFormatException e){
+                        String delims = "[x,@]";
+                        String[] tokens = string.split(delims);
+                        for(int i = 0; i < tokens.length; i++){
+                            String delims2 = "[_]";
+                            String[] tokens2 = tokens[i].split(delims2);
+                            if(tokens2.length > 1){
+                                if(tokens2[1].equals("a")){
+                                    tokens[i] = tokens2[0];
+                                }
+                            }else{
+                                if(tokens[i].equals("T.F.")){
+                                    tokens[i] = "1";
+                                }else if(tokens[i].equals("B.W.")){
+                                    if(mIsImperial){
+                                        tokens[i] = String.valueOf(Integer.parseInt(lbs) / 2 );
+                                    }else{
+                                        tokens[i] = String.valueOf(Integer.parseInt(kgs) / 2 );
+                                    }
+                                }
+                            }
+                        }
+                        double pounds = 1;
+                        for(int i = 0; i < tokens.length; i++){
+                            pounds = pounds * Double.parseDouble(tokens[i]);
+                        }
+                        //double pounds2 =
+                        //        Double.parseDouble(tokens[0]) * Double.parseDouble(tokens[1]) *
+                        //        Double
+                        //        .parseDouble(tokens[2]);
+                        poundage = poundage + pounds;
+                    }
+                }
+            }
+        }
+
+        return converter(poundage, isImperialPOV);
+    }
+
     public double getExPoundage(String exName, boolean isImperialPOV, String lbs, String kgs){
         double poundage = 0.0;
 
@@ -124,6 +186,47 @@ public class WorkoutHistoryModelClass {
         return converted;
     }
 
+    public double getMaxWeightLifted(boolean isImperialPOV, String lbs, String kgs){
+        double maxWeight = 0.0;
+
+
+        int listInc = 0;
+        ArrayList<List<String>> exInfoList = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        exInfoList.add(list1);
+        for(Map.Entry<String, List<String>> mapEntry : getWorkoutInfoMap().entrySet()){
+            boolean isExBool = false;
+            for(String string : mapEntry.getValue()){
+                if(!isExerciseName(string)){
+                    exInfoList.get(0).add(string);
+                }
+            }
+        }
+
+        for(List<String> list : exInfoList){
+            for(String string : list){
+                if(!isExerciseName(string)){
+                    String[] tokens = string.split("@");
+                    double weight;
+                    if(tokens[1].equals("B.W.")){
+                        if(mIsImperial){
+                            weight = Integer.parseInt(lbs);
+                        }else{
+                            weight = Integer.parseInt(kgs);
+                        }
+                    }else{
+                        weight = Double.parseDouble(tokens[1]);
+                    }
+                    if(weight > maxWeight){
+                        maxWeight = weight;
+                    }
+                }
+            }
+        }
+
+        return converter(maxWeight, isImperialPOV);
+    }
+
     public double getExMaxWeightLifted(String exName, boolean isImperialPOV, String lbs, String kgs){
         double maxWeight = 0.0;
 
@@ -198,6 +301,18 @@ public class WorkoutHistoryModelClass {
                         contains = true;
                     }
                 }
+            }
+        }
+
+        return contains;
+    }
+
+    public boolean containsWorkoutInfoMap(){
+        boolean contains = false;
+
+        if(getWorkoutInfoMap() != null){
+            if(!getWorkoutInfoMap().isEmpty()){
+                contains = true;
             }
         }
 
