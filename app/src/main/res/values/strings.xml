@@ -846,6 +846,10 @@
 
     <string name="options">Options:</string>
 
+    <string name="date">Date</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="weightWord">Weight</string>
+
     <string name="premadePrograms">Premade Workout Programs</string>
 
     <string name="bodybuildingPrograms">Bodybuilding Programs</string>

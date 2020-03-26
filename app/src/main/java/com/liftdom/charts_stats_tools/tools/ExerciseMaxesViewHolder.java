@@ -1,5 +1,7 @@
 package com.liftdom.charts_stats_tools.tools;
 
+import android.content.Intent;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -10,22 +12,46 @@ import org.joda.time.DateTimeZone;
 /**
  * Created by Brodin on 5/2/2018.
  */
-public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
+public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+    private View mView;
     private final TextView mExerciseNameView;
     private final TextView mMaxView;
     private final TextView mDateView;
     private String mExerciseName;
     private String mMaxValue;
+    private String mOriginalMax;
     private boolean mIsImperial;
     private String mDate;
     private boolean mIsImperialPOV;
+    private FragmentActivity fragmentActivity;
 
     public ExerciseMaxesViewHolder(View itemView){
         super(itemView);
+        mView = itemView;
+        mView.setOnClickListener(this);
         mExerciseNameView = (TextView) itemView.findViewById(R.id.exerciseNameView);
         mMaxView = (TextView) itemView.findViewById(R.id.maxView);
         mDateView = (TextView) itemView.findViewById(R.id.dateTimeView);
+    }
+
+    @Override
+    public void onClick(View view){
+        Intent intent = new Intent(view.getContext(), MaxesEditExistingDialog.class);
+        intent.putExtra("exercise", getExerciseName());
+        intent.putExtra("date", getDate());
+        intent.putExtra("oldMax", mMaxValue);
+        intent.putExtra("isImperial", mIsImperial);
+        intent.putExtra("isImperialPOV", mIsImperialPOV);
+        view.getContext().startActivity(intent);
+    }
+
+    public FragmentActivity getFragmentActivity() {
+        return fragmentActivity;
+    }
+
+    public void setFragmentActivity(FragmentActivity fragmentActivity) {
+        this.fragmentActivity = fragmentActivity;
     }
 
     public String getExerciseName() {
@@ -44,6 +70,7 @@ public class ExerciseMaxesViewHolder extends RecyclerView.ViewHolder {
 
     public void setMaxValue(String mMaxValue) {
         this.mMaxValue = mMaxValue;
+        this.mOriginalMax = mMaxValue;
         if(isIsImperial() == isIsImperialPOV()){
             if(isIsImperial()){
                 String val = mMaxValue + " lbs";

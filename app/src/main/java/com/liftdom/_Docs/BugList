@@ -175,11 +175,12 @@ Get the ex history chart page attractive and good looking
     done - x axis showing weird long/float values not dates
     done - needs unit change functionality
     - make a pie chart for exercise frequency data
-    - maxes have 3 sorting options: weight, date, alphabetical
+    done - maxes have 3 sorting options: weight, date, alphabetical
     - maxes should be editable
     done - it shows just one ex (Bench Press - Barbell Flat) or it shows them with a bunch of duplicates.
 
 updating user model class in ProfileInfoActivity needs to update opposite unit too.
+check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 What are the next most important things for beta release?
 

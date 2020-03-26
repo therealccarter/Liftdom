@@ -24,8 +24,44 @@
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="-5dp"
-            android:layout_marginBottom="20dp"
     />
+
+    <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            >
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:textSize="14sp"
+                android:id="@+id/dateRB"
+                android:textColor="@color/liftrGold2"
+                />
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weightWord"
+                android:textSize="14sp"
+                android:id="@+id/weightRB"
+                android:textColor="@color/liftrGold2"
+                />
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alphabetical"
+                android:textSize="14sp"
+                android:id="@+id/alphabeticalRB"
+                android:textColor="@color/liftrGold2"
+                />
+
+    </RadioGroup>
 
     <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="70dp"
