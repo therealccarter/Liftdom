@@ -2,7 +2,6 @@ package com.liftdom.charts_stats_tools.tools;
 
 import android.graphics.Typeface;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,37 +15,32 @@ import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.LocalDate;
 
-public class MaxesEditExistingDialog extends AppCompatActivity {
+public class MaxesCreateNewDialog extends AppCompatActivity {
 
     private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     private String exName;
-    private String date;
-    private String oldMax;
-    private boolean isImperial;
     private boolean isImperialPOV;
 
     @BindView(R.id.exName) TextView exNameTextView;
-    @BindView(R.id.date) TextView dateTextView;
-    @BindView(R.id.oldMax) TextView oldMaxTextView;
     @BindView(R.id.maxEditText) EditText maxEditText;
     @BindView(R.id.cancelButton) Button cancelButton;
     @BindView(R.id.confirmButton) Button confirmButton;
     @BindView(R.id.units) TextView unitsTextView;
+    @BindView(R.id.maxExistsTextView) TextView maxExistsTextView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_maxes_edit_existing_dialog);
+        setContentView(R.layout.activity_maxes_create_new_dialog);
 
         ButterKnife.bind(this);
 
@@ -57,9 +51,7 @@ public class MaxesEditExistingDialog extends AppCompatActivity {
             exNameTextView.setTypeface(null, Typeface.BOLD);
             hideLoadingView();
             exNameTextView.setText(exName);
-            date = getIntent().getStringExtra("date");
-            oldMax = getIntent().getStringExtra("oldMax");
-            isImperial = getIntent().getBooleanExtra("isImperial", true);
+            checkForExisting();
             isImperialPOV = getIntent().getBooleanExtra("isImperialPOV", true);
             if(isImperialPOV){
                 unitsTextView.setText("lbs");
@@ -67,10 +59,6 @@ public class MaxesEditExistingDialog extends AppCompatActivity {
                 unitsTextView.setText("kgs");
             }
         }
-
-        String date2 = "(" + date + ")";
-        dateTextView.setText(date2);
-        setMaxViews();
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +87,6 @@ public class MaxesEditExistingDialog extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void showLoadingView(){
@@ -114,59 +101,31 @@ public class MaxesEditExistingDialog extends AppCompatActivity {
         unitsTextView.setVisibility(View.VISIBLE);
     }
 
+    private void checkForExisting(){
+        DatabaseReference maxRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(exName);
+        maxRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    maxExistsTextView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public void onResume(){
         super.onResume();
-        if(exName == null || date == null || uid == null){
+        if(exName == null || uid == null){
             finish();
         }
     }
 
-    private void setMaxViews(){
 
-        if(isImperial == isImperialPOV){
-            if(isImperial){
-                String val = oldMax + " lbs";
-                String valSans = oldMax;
-                oldMaxTextView.setText(val);
-                maxEditText.setHint(valSans);
-            }else{
-                String val = oldMax + " kgs";
-                String valSans = oldMax;
-                oldMaxTextView.setText(val);
-                maxEditText.setHint(valSans);
-            }
-        }else{
-            if(isImperial && !isImperialPOV){
-                // convert from imperial to metric
-                String val = imperialToMetric() + " kgs";
-                oldMaxTextView.setText(val);
-                maxEditText.setHint(imperialToMetric());
-            }else if(!isImperial && isImperialPOV){
-                // convert from metric to imperial
-                String val = metricToImperial() + " lbs";
-                oldMaxTextView.setText(val);
-                maxEditText.setHint(metricToImperial());
-            }
-        }
-
-    }
-
-    private String metricToImperial(){
-
-        double lbsDouble = Double.parseDouble(oldMax) * 2.2046;
-        int lbsInt = (int) Math.round(lbsDouble);
-        String newString = String.valueOf(lbsInt);
-
-        return newString;
-    }
-
-    private String imperialToMetric(){
-
-        double kgDouble = Double.parseDouble(oldMax) / 2.2046;
-        int kgInt = (int) Math.round(kgDouble);
-        String newString = String.valueOf(kgInt);
-
-        return newString;
-    }
 }

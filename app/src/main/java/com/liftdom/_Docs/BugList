@@ -177,10 +177,14 @@ Get the ex history chart page attractive and good looking
     - make a pie chart for exercise frequency data
     done - maxes have 3 sorting options: weight, date, alphabetical
     - maxes should be editable
+    - be able to add maxes (not bw)
     done - it shows just one ex (Bench Press - Barbell Flat) or it shows them with a bunch of duplicates.
+    - add top close buttons to past date dialog and max edit dialogs (bc of ads)
 
 updating user model class in ProfileInfoActivity needs to update opposite unit too.
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
+check through app for what happens when it dies
+    - (https://www.reddit.com/r/androiddev/comments/fni20d/weekly_questions_thread_march_23_2020/fljg33r/)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 What are the next most important things for beta release?
 

@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/transparent"
-        tools:context="com.liftdom.charts_stats_tools.tools.MaxesEditExistingDialog">
+        tools:context="com.liftdom.charts_stats_tools.tools.MaxesCreateNewDialog">
 
     <TextView
             android:id="@+id/exName"
@@ -22,39 +22,20 @@
             android:paddingStart="15dp"
             android:textSize="22sp" />
 
-    <LinearLayout
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="@string/maxExists"
+            android:id="@+id/maxExistsTextView"
             android:background="@color/lessDarkGrey"
+            android:textColor="@color/darkred"
             android:gravity="center"
-            >
+            android:textSize="13sp"
+            android:padding="3dp"
+            android:visibility="gone"
+            />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/maxWeightLifted"
-                android:id="@+id/oldMax"
-                android:background="@color/lessDarkGrey"
-                android:textColor="@color/liftrGold1"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:padding="3dp"
-                />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:id="@+id/date"
-                android:background="@color/lessDarkGrey"
-                android:textColor="@color/liftrGold1"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:padding="3dp"
-                />
-
-    </LinearLayout>
 
     <LinearLayout
             android:layout_width="match_parent"

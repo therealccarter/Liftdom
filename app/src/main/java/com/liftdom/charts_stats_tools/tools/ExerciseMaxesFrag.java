@@ -1,8 +1,10 @@
 package com.liftdom.charts_stats_tools.tools;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
@@ -18,8 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
+import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorSingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
@@ -43,6 +48,7 @@ public class ExerciseMaxesFrag extends Fragment {
     private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private LinearLayoutManager linearLayoutManager;
     private FirebaseRecyclerAdapter firebaseAdapter;
+    private boolean mIsImperialPOV;
 
     @BindView(R.id.titleView) TextView titleView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
@@ -51,6 +57,7 @@ public class ExerciseMaxesFrag extends Fragment {
     @BindView(R.id.dateRB) RadioButton dateRB;
     @BindView(R.id.weightRB) RadioButton weightRB;
     @BindView(R.id.alphabeticalRB) RadioButton alphabeticalRB;
+    @BindView(R.id.newMaxButton) Button newMaxButton;
 
 
     @Override
@@ -93,6 +100,16 @@ public class ExerciseMaxesFrag extends Fragment {
             }
         });
 
+        newMaxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = newMaxButton.getId();
+                intent.putExtra("exID", exID);
+                startActivityForResult(intent, 2);
+            }
+        });
+
         setUpDataReferences();
 
         return view;
@@ -107,6 +124,7 @@ public class ExerciseMaxesFrag extends Fragment {
 
                     UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                     final boolean imperialPOV = userModelClass.isIsImperial();
+                    mIsImperialPOV = imperialPOV;
 
                     final DatabaseReference maxesRef = FirebaseDatabase.getInstance().getReference().child("maxes")
                             .child(uid);
@@ -236,6 +254,34 @@ public class ExerciseMaxesFrag extends Fragment {
             loadingView.setVisibility(View.GONE);
             firebaseAdapter.startListening();
             recyclerView.setAdapter(firebaseAdapter);
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1){
+            try{
+                if(weightRB.isChecked()){
+                    setUpDataReferences();
+                }else{
+                    recyclerView.getLayoutManager().scrollToPosition(recyclerView.getLayoutManager().getItemCount() - 1);
+                }
+
+            }catch (NullPointerException e){
+                Snackbar.make(getView(), "null", Snackbar.LENGTH_SHORT).show();
+            }
+        }else if(requestCode == 2){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE") != null){
+                    String exercise = data.getStringExtra("MESSAGE");
+                    Intent intent = new Intent(getContext(), MaxesCreateNewDialog.class);
+                    intent.putExtra("exercise", exercise);
+                    intent.putExtra("isImperialPOV", mIsImperialPOV);
+                    getContext().startActivity(intent);
+                }
+            }
         }
 
     }
