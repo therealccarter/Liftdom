@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/backgroundgrey1"
+        tools:context="com.liftdom.charts_stats_tools.tools.PieChartFrag">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exerciseFrequency"
+            android:textColor="@color/liftrGold1"
+            android:textSize="24sp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:id="@+id/titleView"
+            />
+
+    <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/allTime"
+                android:textSize="15sp"
+                android:id="@+id/allTimeRB"
+                android:textColor="@color/liftrGold2"
+                />
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last6Months"
+                android:textSize="15sp"
+                android:id="@+id/last6RB"
+                android:textColor="@color/liftrGold2"
+                />
+
+    </RadioGroup>
+
+    <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/pieChart"
+            >
+
+    </com.github.mikephil.charting.charts.PieChart>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/loadChartButton"
+            android:text="@string/loadChart"
+            android:textColor="@color/white"
+            android:background="@color/confirmGreen"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+
+</LinearLayout>

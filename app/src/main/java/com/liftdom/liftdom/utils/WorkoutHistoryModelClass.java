@@ -37,6 +37,16 @@ public class WorkoutHistoryModelClass {
         mUserName = userName;
     }
 
+    public ArrayList<String> getExerciseList(){
+        ArrayList<String> exList = new ArrayList<>();
+
+        for(Map.Entry<String, List<String>> entry : getWorkoutInfoMap().entrySet()){
+            exList.add(entry.getValue().get(0));
+        }
+
+        return exList;
+    }
+
     public double getPoundage(boolean isImperialPOV, String lbs, String kgs){
         double poundage = 0.0;
 

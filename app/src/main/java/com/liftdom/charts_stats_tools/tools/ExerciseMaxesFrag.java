@@ -276,14 +276,32 @@ public class ExerciseMaxesFrag extends Fragment {
             if(data != null){
                 if(data.getStringExtra("MESSAGE") != null){
                     String exercise = data.getStringExtra("MESSAGE");
-                    Intent intent = new Intent(getContext(), MaxesCreateNewDialog.class);
-                    intent.putExtra("exercise", exercise);
-                    intent.putExtra("isImperialPOV", mIsImperialPOV);
-                    getContext().startActivity(intent);
+                    if(isBodyweight(exercise)){
+                        Snackbar.make(getView(), "Bodyweight exercises don't have max weights.",
+                                Snackbar.LENGTH_SHORT).show();
+                    }else{
+                        Intent intent = new Intent(getContext(), MaxesCreateNewDialog.class);
+                        intent.putExtra("exercise", exercise);
+                        intent.putExtra("isImperialPOV", mIsImperialPOV);
+                        getContext().startActivity(intent);
+                    }
                 }
             }
         }
+    }
 
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
     }
 
     @Override

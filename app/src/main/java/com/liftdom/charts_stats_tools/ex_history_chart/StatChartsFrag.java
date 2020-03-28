@@ -229,7 +229,7 @@ public class StatChartsFrag extends Fragment {
 
     private void loadFullWorkout(){
         clearChartMethod();
-        graphingSelector.setText(getResources().getString(R.string.workouts));
+        //graphingSelector.setText(getResources().getString(R.string.workouts));
         startChartLoadForWorkouts();
     }
 

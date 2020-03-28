@@ -9,20 +9,41 @@
         android:background="@color/lessDarkGrey"
         tools:context="com.liftdom.user_profile.calendar_stuff.SelectedPastDateDialog">
 
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/elipses"
-            android:textSize="35sp"
-            android:layout_gravity="end"
-            android:background="@color/liftrGold1"
-            android:textColor="@color/black"
-            android:paddingEnd="30dp"
-            android:paddingStart="15dp"
-            android:layout_marginStart="70dp"
-            android:id="@+id/selectedDateView"
+            android:orientation="horizontal"
             android:layout_marginBottom="10dp"
-    />
+            >
+
+        <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:id="@+id/cancelButton"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:background="@color/darkGrey"
+                android:text="@string/x"
+                android:textSize="20sp"
+                android:textColor="@color/grey"
+                />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/elipses"
+                android:textSize="35sp"
+                android:layout_gravity="end"
+                android:background="@color/liftrGold1"
+                android:textColor="@color/black"
+                android:paddingEnd="30dp"
+                android:paddingStart="15dp"
+                android:id="@+id/selectedDateView"
+                />
+
+    </LinearLayout>
+
 
     <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"

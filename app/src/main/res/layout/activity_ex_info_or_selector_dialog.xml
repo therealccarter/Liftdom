@@ -37,10 +37,10 @@
                 android:minHeight="0dp"
                 android:background="@color/black"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:text="@string/selectOtherEx"
                 android:textAllCaps="false"
-                android:padding="3dp"
+                android:padding="6dp"
         />
 
     </androidx.cardview.widget.CardView>
@@ -71,10 +71,10 @@
                 android:minHeight="0dp"
                 android:background="@color/black"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:text="@string/viewExInfo"
                 android:textAllCaps="false"
-                android:padding="3dp"
+                android:padding="6dp"
         />
 
     </androidx.cardview.widget.CardView>

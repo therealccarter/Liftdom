@@ -59,6 +59,15 @@
 
             <fragment
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.liftdom.charts_stats_tools.tools.PieChartFrag"
+                    tools:layout="@layout/fragment_pie_chart"
+                    android:layout_margin="15dp"
+                    android:id="@+id/pieChartFrag"
+                    />
+
+            <fragment
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:name="com.liftdom.charts_stats_tools.tools.BMICalcFrag"
                     tools:layout="@layout/fragment_bmicalc"

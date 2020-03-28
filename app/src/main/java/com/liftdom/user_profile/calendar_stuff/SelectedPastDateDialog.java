@@ -37,6 +37,7 @@ public class SelectedPastDateDialog extends AppCompatActivity {
     @BindView(R.id.closeButton) Button closeButton;
     @BindView(R.id.privateJournalTextView) TextView privateJournal;
     @BindView(R.id.privateJournalTitle) TextView privateJournalTitle;
+    @BindView(R.id.cancelButton) Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,13 @@ public class SelectedPastDateDialog extends AppCompatActivity {
         });
 
         closeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 finish();
             }

@@ -804,6 +804,8 @@
     <string name="chat">Chat</string>
     <string name="templating">Programming</string>
 
+    <string name="loadChart">Load Chart</string>
+
     <string name="graphing">Choose exercise to graph</string>
     <string name="mode">Choose data mode:\u0020</string>
     <string name="totalPoundage">Total weight lifted</string>
@@ -824,10 +826,14 @@
 
     <string name="calorieChart">Calorie Calculation Chart</string>
     <string name="historyChart">History Chart</string>
+    <string name="exerciseFrequency">Exercise Frequency</string>
     <string name="workouts">Workouts</string>
     <string name="items">Items:\u0020</string>
     <string name="bmiTitle">Body Mass Index Calculator</string>
     <string name="chartsStatsTools">Charts/Stats/Tools</string>
+
+    <string name="allTime">All Time</string>
+    <string name="last6Months">Last 6 Months</string>
 
     <string name="wilksTitle">Wilks Calculator</string>
 
