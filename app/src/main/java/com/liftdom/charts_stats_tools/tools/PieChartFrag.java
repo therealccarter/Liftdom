@@ -3,6 +3,7 @@ package com.liftdom.charts_stats_tools.tools;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,14 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
+import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +49,9 @@ public class PieChartFrag extends Fragment {
     @BindView(R.id.last6RB) RadioButton last6MonthRB;
     @BindView(R.id.pieChart) PieChart pieChart;
     @BindView(R.id.loadChartButton) Button loadChartButton;
+    @BindView(R.id.previousFive) Button previousFive;
+    @BindView(R.id.nextFive) Button nextFive;
+    @BindView(R.id.buttonsLL) LinearLayout buttonsLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,8 +84,28 @@ public class PieChartFrag extends Fragment {
             }
         });
 
+        previousFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(entries.size() != 0){
+                    previous5();
+                }
+            }
+        });
+
+        nextFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(entries.size() != 0){
+                    next5();
+                }
+            }
+        });
+
         return view;
     }
+
+    List<PieEntry> entries = new ArrayList<>();
 
     private void retrieveExerciseData(){
 
@@ -100,7 +122,7 @@ public class PieChartFrag extends Fragment {
          * adding PieEntries as we go.
          */
 
-        List<PieEntry> entries = new ArrayList<>();
+        entries.clear();
 
         DatabaseReference workoutHistoryRef =
                 FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(uid);
@@ -179,9 +201,101 @@ public class PieChartFrag extends Fragment {
         //pieChart.animateXY(5000, 5000);
     }
 
+    int index = 0;
+
+    private void previous5(){
+
+    }
+
+    private void next5(){
+        int size = entries.size();
+        /**
+         * What do we need to do?
+         * We need to know the current last index.
+         * Then we for loop through the main entries, and if i is > current last index and <
+         * index + 5.
+         * Then pass that new list to setUpPieChartNew.
+         */
+
+        List<PieEntry> newEntries = new ArrayList<>();
+
+        int secondInc = 0;
+        int thirdInc = index;
+
+        for(int i = 0; i < entries.size();i++){
+            if(i > index && i <= index + 5){
+                newEntries.add(secondInc, entries.get(i));
+                secondInc++;
+                thirdInc++;
+            }
+        }
+
+        index = thirdInc;
+
+        previousFive.setBackgroundColor(getResources().getColor(R.color.black));
+
+        setUpPieChartNew(newEntries);
+
+    }
+
+    private void setUpPieChartNew(List<PieEntry> entries){
+        PieDataSet dataSet = new PieDataSet(entries, "Exercises");
+        dataSet.setColors(getColors(), getContext());
+        PieData data = new PieData(dataSet);
+        data.setValueTextColor(getResources().getColor(R.color.black));
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                pieChart.getDescription().setText(((PieEntry) e).getLabel());
+            }
+//
+            @Override
+            public void onNothingSelected() {
+//
+            }
+        });
+        Legend legend = pieChart.getLegend();
+        legend.setEnabled(false);
+        pieChart.setHoleColor(getResources().getColor(R.color.backgroundgrey1));
+        pieChart.setEntryLabelColor(getResources().getColor(R.color.white));
+        pieChart.setData(data);
+        pieChart.getDescription().setTextColor(getResources().getColor(R.color.white));
+        pieChart.getDescription().setText("");
+        pieChart.invalidate();
+
+        /**
+         * Where we at: need to make it stop when no more entries, then need to do next. Also
+         * grey out when no more left.
+         */
+    }
+
     private void setUpPieChart(List<PieEntry> entries){
 
-        PieDataSet dataSet = new PieDataSet(entries, "Exercises");
+        index = 0;
+
+        Collections.sort(entries, new Comparator<PieEntry>() {
+            @Override
+            public int compare(PieEntry o1, PieEntry o2) {
+                return Double.compare(o1.getY(), o2.getY());
+            }
+        });
+
+        Collections.reverse(entries);
+
+        List<PieEntry> newEntries = new ArrayList<>();
+
+        for(int i = 0; i < entries.size();i++){
+            if(i < 5){
+                newEntries.add(i, entries.get(i));
+                index = i;
+            }
+        }
+
+        if(entries.size() <= 5){
+            nextFive.setBackgroundColor(getResources().getColor(R.color.lessDarkGrey));
+        }
+
+        PieDataSet dataSet = new PieDataSet(newEntries, "Exercises");
         dataSet.setColors(getColors(), getContext());
         PieData data = new PieData(dataSet);
         data.setValueTextColor(getResources().getColor(R.color.black));
@@ -201,8 +315,10 @@ public class PieChartFrag extends Fragment {
         pieChart.setHoleColor(getResources().getColor(R.color.backgroundgrey1));
         pieChart.setEntryLabelColor(getResources().getColor(R.color.white));
         pieChart.setData(data);
+        pieChart.getDescription().setTextColor(getResources().getColor(R.color.white));
         pieChart.getDescription().setText("");
         pieChart.invalidate();
+        buttonsLL.setVisibility(View.VISIBLE);
 
         /**
          * Where we at: need to add some sort of button system to tab between datasets 5

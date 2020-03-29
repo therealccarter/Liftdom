@@ -46,9 +46,45 @@
 
     </RadioGroup>
 
+    <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonsLL"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            >
+
+        <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/previousFive"
+                android:layout_weight="1"
+                android:background="@color/lessDarkGrey"
+                android:text="@string/previousFive"
+                android:textColor="@color/white"
+                android:layout_marginEnd="5dp"
+                />
+
+        <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/nextFive"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:text="@string/nextFive"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                />
+
+    </LinearLayout>
+
     <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:id="@+id/pieChart"
             >
 
