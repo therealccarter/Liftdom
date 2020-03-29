@@ -155,6 +155,7 @@ still there. Only thing that changed was the user name/user list/user node.
 Search is fucked. Took it out of mainFeedFrag for now. Upgraded for exSelector.
 OK where we're at: we need to check out the userProfileDialogActivity.
     - it needs to not show shit when gdpr false
+Fixed the keyboard problem - goes up the right way on each main activity frag.
 
 ----------------------
 ====================================================

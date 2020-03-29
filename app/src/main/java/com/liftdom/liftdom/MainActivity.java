@@ -262,6 +262,8 @@ public class MainActivity extends BaseActivity implements
                 int id = getIntent().getExtras().getInt("fragID");
 
                 if(id == 0){
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -271,6 +273,8 @@ public class MainActivity extends BaseActivity implements
                     bottomNavigation.setSelectedIndex(0, false);
 
                 }else if(id == 1){
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
@@ -280,6 +284,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(1, false);
                 } else if(id == 2){
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -289,6 +294,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(2, false);
                 } else if(id == 3){
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -298,6 +304,7 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(3, false);
                 } else if(id == 4){
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -329,16 +336,19 @@ public class MainActivity extends BaseActivity implements
                     if (i1 == 0) {
                         setNavDrawerSelection(1);
                         //showSearchButton();
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         fragmentTransaction.replace(R.id.mainFragHolder, new FeedHolderFrag());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+
                         invalidateOptionsMenu();
                     } else if (i1 == 1) {
                         setNavDrawerSelection(2);
                         //hideSearchButton();
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -349,6 +359,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 2) {
                         setNavDrawerSelection(3);
                         //hideSearchButton();
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -359,6 +370,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 3) {
                         setNavDrawerSelection(4);
                         //hideSearchButton();
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -369,6 +381,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 4) {
                         setNavDrawerSelection(5);
                         //hideSearchButton();
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
