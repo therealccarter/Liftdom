@@ -1,5 +1,7 @@
 package com.liftdom.charts_stats_tools.tools;
 
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
@@ -88,7 +91,14 @@ public class PieChartFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 if(entries.size() != 0){
-                    previous5();
+                    //Drawable background = nextFive.getBackground();
+                    //int color = 0;
+                    ////if (background instanceof ColorDrawable) {
+                    //color = ((ColorDrawable)background).getColor();
+                    ////}
+                    if(previousIsBlack){
+                        previous5();
+                    }
                 }
             }
         });
@@ -97,7 +107,14 @@ public class PieChartFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 if(entries.size() != 0){
-                    next5();
+                    //Drawable background = nextFive.getBackground();
+                    //int color = 0;
+                    ////if (background instanceof ColorDrawable) {
+                    //    color = ((ColorDrawable)background).getColor();
+                    ////}
+                    if(nextIsBlack){
+                        next5();
+                    }
                 }
             }
         });
@@ -105,7 +122,10 @@ public class PieChartFrag extends Fragment {
         return view;
     }
 
-    List<PieEntry> entries = new ArrayList<>();
+    private boolean nextIsBlack = true;
+    private boolean previousIsBlack = false;
+
+    private List<PieEntry> entries = new ArrayList<>();
 
     private void retrieveExerciseData(){
 
@@ -123,6 +143,9 @@ public class PieChartFrag extends Fragment {
          */
 
         entries.clear();
+        index = 0;
+        previousFive.setBackgroundColor(getResources().getColor(R.color.lessDarkGrey));
+        previousIsBlack = false;
 
         DatabaseReference workoutHistoryRef =
                 FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(uid);
@@ -184,6 +207,10 @@ public class PieChartFrag extends Fragment {
                         for(Map.Entry<String, Integer> entry : exerciseHashMap.entrySet()){
                             entries.add(new PieEntry((float) entry.getValue(), entry.getKey()));
                         }
+                        if(entries.size() < 6){
+                            nextFive.setBackgroundColor(getResources().getColor(R.color.lessDarkGrey));
+                            nextIsBlack = false;
+                        }
                         setUpPieChart(entries);
                     }
                 }
@@ -201,14 +228,75 @@ public class PieChartFrag extends Fragment {
         //pieChart.animateXY(5000, 5000);
     }
 
-    int index = 0;
+    private int index = 0;
 
     private void previous5(){
+        List<PieEntry> newEntries = new ArrayList<>();
 
+        int secondInc = 0;
+        int thirdInc = index;
+        int fourthInc = index;
+
+        /**
+         * Ok, so let's say we're at 20.
+         * 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+         * 0,1,2,3,4,5, 6,7,8,9,10, 11,12,13,14,15, 16,17,18,19,20, 21,22,23
+         */
+
+        if((index + 1) % 5 == 0){
+            //for(int i = index; i > index - 5;i--){
+            //    if(i < index && i >= index - 5){
+            //        newEntries.add(secondInc, entries.get(i));
+            //        secondInc++;
+            //        thirdInc--;
+            //    }
+            //}
+            index = index - 5;
+            for(int i = 0; i < entries.size();i++){
+                if(i > index - 5 && i <= index){
+                    newEntries.add(secondInc, entries.get(i));
+                    secondInc++;
+                    thirdInc--;
+                }
+            }
+        }else{
+            /**
+             * It's showing 24-28. And we want it showing 19-24.
+             *
+             */
+
+            int leftOver = index % 5; // leftover = 3
+            leftOver++; // leftover = 4
+            index = index - leftOver; // index (28) - (4) = 24
+            thirdInc = index; // thirdInc = 24
+            for(int i = 0; i < entries.size();i++){
+                if(i > index - 5 && i <= index){
+                    newEntries.add(secondInc, entries.get(i));
+                    secondInc++;
+
+                }
+            }
+        }
+
+
+        index = thirdInc;
+
+        //String infoString = String.valueOf(fourthInc) + ", " + String.valueOf(index);//
+        //Snackbar.make(getView(),infoString, Snackbar.LENGTH_SHORT).show();
+
+        nextFive.setBackgroundColor(getResources().getColor(R.color.black));
+        nextIsBlack = true;
+        if(index == 4){
+            previousFive.setBackgroundColor(getResources().getColor(R.color.lessDarkGrey));
+            previousIsBlack = false;
+        }
+
+        setUpPieChartNew(newEntries);
     }
 
     private void next5(){
         int size = entries.size();
+
         /**
          * What do we need to do?
          * We need to know the current last index.
@@ -221,6 +309,7 @@ public class PieChartFrag extends Fragment {
 
         int secondInc = 0;
         int thirdInc = index;
+        int fourthInc = index;
 
         for(int i = 0; i < entries.size();i++){
             if(i > index && i <= index + 5){
@@ -232,7 +321,15 @@ public class PieChartFrag extends Fragment {
 
         index = thirdInc;
 
+        //String infoString = String.valueOf(fourthInc) + ", " + String.valueOf(index);//
+        //Snackbar.make(getView(),infoString, Snackbar.LENGTH_SHORT).show();
+
         previousFive.setBackgroundColor(getResources().getColor(R.color.black));
+        previousIsBlack = true;
+        if(index == entries.size() - 1){
+            nextFive.setBackgroundColor(getResources().getColor(R.color.lessDarkGrey));
+            nextIsBlack = false;
+        }
 
         setUpPieChartNew(newEntries);
 

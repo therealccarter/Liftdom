@@ -156,10 +156,6 @@ Search is fucked. Took it out of mainFeedFrag for now. Upgraded for exSelector.
 OK where we're at: we need to check out the userProfileDialogActivity.
     - it needs to not show shit when gdpr false
 Fixed the keyboard problem - goes up the right way on each main activity frag.
-
-----------------------
-====================================================
-
 Get the ex history chart page attractive and good looking
     done - IT LOOKS TERRIBLE
     done - it doesn't show low numbers
@@ -175,7 +171,7 @@ Get the ex history chart page attractive and good looking
     done - x values are inaccurate, which causes problems trying to bring up that days workout
     done - x axis showing weird long/float values not dates
     done - needs unit change functionality
-    - make a pie chart for exercise frequency data
+    done - make a pie chart for exercise frequency data
     done - maxes have 3 sorting options: weight, date, alphabetical
     done - maxes should be editable
     done - be able to add maxes (not bw)
@@ -183,6 +179,8 @@ Get the ex history chart page attractive and good looking
     done - add top close buttons to past date dialog and max edit dialogs (bc of ads)
     done - added transparent bottom to max edit dialog bc of ads.
 
+----------------------
+====================================================
 updating user model class in ProfileInfoActivity needs to update opposite unit too.
 
 WA: adding BW exercises doesn't change to BW instead of weight.
@@ -213,6 +211,7 @@ check through app for what happens when it dies
 look into 10mb download? (look into pagination for feeds)(https://www.reddit
 .com/r/androiddev/comments/fjnvn6/so_the_instagram_feed_is_just_an_infinite/)
 go through your TO-DOs
+Look into obfuscation/doing something with those hardcoded ad/cloud strings
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
