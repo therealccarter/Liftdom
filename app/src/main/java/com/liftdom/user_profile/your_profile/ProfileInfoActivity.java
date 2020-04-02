@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.SignInActivity;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.single_user_profile.UserProfileFullActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -45,6 +47,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileInfoActivity extends AppCompatActivity {
+
+    // declare_auth
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    private String selectedProfilePicPath;
+    private static final int IMAGE_VARIABLE = 11;
+    private Context mContext;
+
+    String email = "error";
+    private static final String TAG = "EmailPassword";
+
+    UserModelClass userModelClass;
+    InputStream inputStream;
+    Uri resultUri;
 
 
     @BindView(R.id.usernameTextView) TextView usernameTextView;
@@ -67,25 +89,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
     @BindView(R.id.profilePicLoadingView) AVLoadingIndicatorView profilePicLoadingView;
     @BindView(R.id.saveLoadingView) AVLoadingIndicatorView saveLoadingView;
 
-    // declare_auth
-    private FirebaseUser mFirebaseUser;
-    private FirebaseAuth mAuth;
-
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-    private String selectedProfilePicPath;
-    private static final int IMAGE_VARIABLE = 11;
-    private Context mContext;
-
-    String email = "error";
-    private static final String TAG = "EmailPassword";
-
-    UserModelClass userModelClass;
-    InputStream inputStream;
-    Uri resultUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,12 @@ public class ProfileInfoActivity extends AppCompatActivity {
         HideKey.initialize(ProfileInfoActivity.this);
 
         //TODO: Make sure this is using identical units as set in Settings
+
+        heightFeet.setFilters(new InputFilter[]{new InputFilterMinMax(3, 7)});
+        heightInches.setFilters(new InputFilter[]{new InputFilterMinMax(1, 11)});
+        ageEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 100)});
+        heightCmEdit.setFilters(new InputFilter[]{new InputFilterMinMax(1, 240)});
+
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
@@ -176,6 +185,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     heightInches.setVisibility(View.VISIBLE);
                     heightFeet.setVisibility(View.VISIBLE);
                     weightUnitView.setText("lbs");
+                    bodyWeightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 500)});
                     bodyWeightEditText.setText(userModelClass.getPounds());
                     heightCmEdit.setVisibility(View.GONE);
                     heightCmText.setVisibility(View.GONE);
@@ -189,13 +199,13 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     heightInches.setVisibility(View.GONE);
                     heightFeet.setVisibility(View.GONE);
                     weightUnitView.setText("kgs");
+                    bodyWeightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 230)});
                     bodyWeightEditText.setText(userModelClass.getKgs());
                     heightCmEdit.setVisibility(View.VISIBLE);
                     heightCmText.setVisibility(View.VISIBLE);
                     heightCmEdit.setText(userModelClass.getCmHeight());
                 }
 
-                //TODO: get maxes
             }
 
             @Override
@@ -287,7 +297,20 @@ public class ProfileInfoActivity extends AppCompatActivity {
                         }
                     });
                 }else{
-                    finish();
+                    if(userModelClass.getUserName() != null){
+                        userRef.setValue(userModelClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                saveLoadingView.setVisibility(View.GONE);
+                                Intent intent = new Intent(getApplicationContext(), UserProfileFullActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }else{
+                        finish();
+                    }
                 }
             }
         });
@@ -312,6 +335,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){

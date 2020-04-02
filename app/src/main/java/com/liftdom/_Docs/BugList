@@ -178,11 +178,11 @@ Get the ex history chart page attractive and good looking
     done - it shows just one ex (Bench Press - Barbell Flat) or it shows them with a bunch of duplicates.
     done - add top close buttons to past date dialog and max edit dialogs (bc of ads)
     done - added transparent bottom to max edit dialog bc of ads.
+updating user model class in ProfileInfoActivity needs to update opposite unit too.
+added limits to profile info settings
 
 ----------------------
 ====================================================
-updating user model class in ProfileInfoActivity needs to update opposite unit too.
-
 WA: adding BW exercises doesn't change to BW instead of weight.
 Template Editor: if bodyweight ex, change reps ime action to finish instead of next.
 

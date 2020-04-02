@@ -189,6 +189,8 @@ public class IntroFrag3 extends SlideFragment {
         return view;
     }
 
+
+
     private Runnable inputFinishChecker = new Runnable(){
         public void run(){
             if(System.currentTimeMillis() > (lastTextEdit + delay - 500)){
