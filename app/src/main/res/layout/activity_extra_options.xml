@@ -126,17 +126,37 @@
 
     </ScrollView>
 
-    <Button
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/confirmButton"
-            android:text="@string/confirm"
-            android:background="@color/confirmGreen"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="30dp"
-            android:layout_gravity="end"
-    />
+            >
+
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:text="@string/cancel"
+                android:id="@+id/noButton"
+                android:textColor="@color/white"
+                android:background="@color/black"
+
+                />
+
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:text="@string/delete"
+                android:id="@+id/confirmButton"
+                android:textColor="@color/white"
+                android:background="@color/confirmGreen"
+                android:textAllCaps="true"
+                />
+
+    </LinearLayout>
 
 </LinearLayout>

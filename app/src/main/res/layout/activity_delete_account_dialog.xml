@@ -67,7 +67,7 @@
                 android:text="@string/delete"
                 android:id="@+id/deleteButton"
                 android:textColor="@color/white"
-                android:background="@color/confirmGreen"
+                android:background="@color/darkerRed"
                 android:textAllCaps="true"
                 />
 

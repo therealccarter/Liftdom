@@ -180,25 +180,31 @@ Get the ex history chart page attractive and good looking
     done - added transparent bottom to max edit dialog bc of ads.
 updating user model class in ProfileInfoActivity needs to update opposite unit too.
 added limits to profile info settings
+WA: adding BW exercises doesn't change to BW instead of weight.
+WA: go straight to ex selector since we don't have ex info.
+WA: adding BW ex from new ex doesn't go to BW.WA: if bw ex, change reps ime action to finish
+Updated some layouts, use that new nice looking button style
 
 ----------------------
 ====================================================
-WA: adding BW exercises doesn't change to BW instead of weight.
 Template Editor: if bodyweight ex, change reps ime action to finish instead of next.
+TE: change rep settings for all set schemes from ex level.
+TE: imitate first set scheme's settings when adding new set scheme.
 
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
-What are the next most important things for beta release?
+============ What are the next most important things for beta release? =====
 
-update launcher icon, maybe take L off knight, maybe go yellow background black knight.
+Get the 3 pre-mades working correctly. Smolov, PPL, PPL_Reddit.
+
+update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
+guidelines.
 
 nav back arrow
 
 decide what should be the default: WA, feed, or global feed. (possibly switch to RB for feed?)
     - could possibly do a check (fb/sharedpref) on if they've completed today's workout.
     - if yes, it goes to feed, if no it goes to WA.
-
-Get the 3 pre-mades working correctly.
 
 Your security rules are not secure. Any authenticated user can steal, modify, or delete data in your database.
 

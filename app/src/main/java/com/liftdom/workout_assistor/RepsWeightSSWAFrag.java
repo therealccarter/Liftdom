@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.Fragment;
 import android.text.InputFilter;
@@ -137,6 +138,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                             weightEditText.setText(tokens[1]);
                         }
                         weightEditText.setEnabled(false);
+                        changeRepsIMEtoFinish();
                     } else {
                         if(amrapBool){
                             weightEditText.setText(convertUnitsToUser(tokens[2]));
@@ -203,6 +205,7 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                         unitView.setVisibility(View.GONE);
                         weightEditText.setText(tokens[1]);
                         weightEditText.setEnabled(false);
+                        changeRepsIMEtoFinish();
                     } else {
                         weightEditText.setText(convertUnitsToUser(tokens[1]));
                         weightEditText.setEnabled(true);
@@ -298,6 +301,44 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    private void changeRepsIMEtoFinish(){
+        repsEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+    }
+
+    public void updateExName(String exName){
+        if(isBodyweight(exName)){
+            InputFilter[] filterArray = new InputFilter[1];
+            filterArray[0] = new InputFilter.LengthFilter(4);
+            weightEditText.setFilters(filterArray);
+            weightEditText.setText("B.W.");
+            unitView.setVisibility(View.GONE);
+            weightEditText.setEnabled(false);
+        }else{
+            InputFilter[] filterArray = new InputFilter[1];
+            filterArray[0] = new InputFilter.LengthFilter(3);
+            weightEditText.setFilters(filterArray);
+            weightEditText.setText("");
+            weightEditText.setEnabled(true);
+            weightEditText.setHint("W");
+            unitView.setVisibility(View.VISIBLE);
+            weightEditText.setEnabled(true);
+        }
+    }
+
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
     }
 
     public void setAmrap(String setSchemeEdited){

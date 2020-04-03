@@ -22,6 +22,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
     @BindView(R.id.numericalRepsRadioButton) RadioButton numericalRepsRadioButton;
     @BindView(R.id.toFailureRadioButton) RadioButton toFailureRadioButton;
     @BindView(R.id.amrap) RadioButton amrapRadioButton;
+    @BindView(R.id.noButton) Button noButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,13 @@ public class ExtraOptionsDialog extends AppCompatActivity {
                 numericalRepsRadioButton.setChecked(true);
             }
         }
+
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         /**

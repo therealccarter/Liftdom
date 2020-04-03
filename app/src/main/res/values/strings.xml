@@ -827,6 +827,9 @@
     <string name="previousFive">&lt; Previous 5</string>
     <string name="nextFive">Next 5 &gt;</string>
 
+    <string name="removeEx">Remove Exercise?</string>
+
+
     <string name="calorieChart">Calorie Calculation Chart</string>
     <string name="historyChart">History Chart</string>
     <string name="exerciseFrequency">Exercise Frequency</string>

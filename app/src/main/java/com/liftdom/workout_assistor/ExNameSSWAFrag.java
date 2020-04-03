@@ -46,6 +46,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
     public boolean isUserImperial;
     boolean isEdit = false;
 
+
     public interface removeFragCallback1{
         void removeFrag2(String fragTag);
     }
@@ -85,6 +86,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
         ButterKnife.bind(this, view);
 
         if(infoList.size() != 0){
+            updateChildExNames(infoList.get(0));
             exNameView.setText(infoList.get(0));
 
             for(int i = 1; i < infoList.size(); i++){
@@ -105,6 +107,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
                 repsWeightFragList.add(repsWeightFrag);
                 fragmentTransaction.add(R.id.repsWeightContainerSS, repsWeightFrag, countString);
                 fragmentTransaction.commitAllowingStateLoss();
+
             }
         }
 
@@ -146,6 +149,17 @@ public class ExNameSSWAFrag extends android.app.Fragment
         });
 
         return view;
+    }
+
+    private void updateChildExNames(String exerciseName){
+        if(!repsWeightFragList.isEmpty()){
+            for(RepsWeightSSWAFrag repsWeightWAFrag : repsWeightFragList){
+                /**
+                 * We need reps frags to switch to bw if the ex is bw.
+                 */
+                repsWeightWAFrag.updateExName(exerciseName);
+            }
+        }
     }
 
     public boolean isChecked(){

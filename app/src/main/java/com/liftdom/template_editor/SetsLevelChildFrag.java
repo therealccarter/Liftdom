@@ -3,6 +3,7 @@ package com.liftdom.template_editor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import androidx.fragment.app.Fragment;
 import android.text.InputFilter;
 import android.util.Log;
@@ -123,6 +124,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
                         weightEditText.setEnabled(false);
+                        changeRepsIMEtoFinish();
                     }else{
                         weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
                     }
@@ -173,6 +175,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    private void changeRepsIMEtoFinish(){
+        repsEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
     }
 
     public void setAmrap(String setSchemeEdited){
@@ -348,6 +354,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
                         setWeightToBW();
+                        changeRepsIMEtoFinish();
                     }else if(message.equals("defaultWeight")){
                         setWeightToDefault();
                     }else if(message.equals("percentage")){

@@ -1,10 +1,12 @@
 package com.liftdom.workout_assistor;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -600,10 +602,26 @@ public class ExNameWAFrag extends android.app.Fragment
 
         exerciseNameView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExInfoOrSelectorDialog.class);
-                String exName = getExerciseValueFormatted();
-                intent.putExtra("exName", exName);
-                startActivityForResult(intent, 1);
+                //Intent intent = new Intent(v.getContext(), ExInfoOrSelectorDialog.class);
+                //String exName = getExerciseValueFormatted();
+                //intent.putExtra("exName", exName);
+                //startActivityForResult(intent, 1);
+                if(getActivity() != null){
+                    if(getActivity().getCurrentFocus() != null){
+                        try {
+                            InputMethodManager inputMethodManager =
+                                    (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                        }catch (NullPointerException e){
+
+                        }
+                    }
+                }
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = exerciseNameView.getId();
+                intent.putExtra("fragTag", fragTag);
+                intent.putExtra("exID", exID);
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -739,7 +757,9 @@ public class ExNameWAFrag extends android.app.Fragment
                 if(data.getStringExtra("MESSAGE") != null){
                     String fragTag1 = data.getStringExtra("fragTag");
                     if(fragTag1.equals(fragTag)){
+                        updateChildExNames(data.getStringExtra("MESSAGE"));
                         exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+
                     }else{
                         updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
                     }
@@ -764,7 +784,27 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    private void updateChildExNames(String exerciseName){
+        if(!repsWeightFragList1.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                /**
+                 * We need reps frags to switch to bw if the ex is bw.
+                 */
+                repsWeightWAFrag.updateExName(exerciseName);
+            }
+        }
+        if(!repsWeightFragList2.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                /**
+                 * We need reps frags to switch to bw if the ex is bw.
+                 */
+                repsWeightWAFrag.updateExName(exerciseName);
+            }
+        }
+    }
+
     public void setExName(String exName){
+        updateChildExNames(exName);
         exerciseNameView.setText(exName);
     }
 
@@ -860,6 +900,9 @@ public class ExNameWAFrag extends android.app.Fragment
                             }
                         }
                         count++;
+                        if(count == biggestSize){
+                            //updateChildExNames(infoList.get(0));
+                        }
                     }
                     checkIfAllAreCheckedWithDelay();
                 }
@@ -875,6 +918,7 @@ public class ExNameWAFrag extends android.app.Fragment
                     repsWeightFrag.isTemplateImperial = isTemplateImperial;
                     repsWeightFrag.repsWeightString = finalList.get(0).get(i);
                     repsWeightFrag.isUserImperial = isUserImperial;
+                    repsWeightFrag.exName = finalList.get(0).get(0);
                     repsWeightFrag.fragTag1 = tag;
                     fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
                     fragmentTransaction.commitAllowingStateLoss();
@@ -890,6 +934,7 @@ public class ExNameWAFrag extends android.app.Fragment
     private void inflateFragsFromEdit(ArrayList<List<String>> finalList, int biggestSize){
 
         exerciseNameView.setText(finalList.get(0).get(0));
+
 
         for(int i = 0; i < biggestSize; i++){
             int count = 0;
@@ -907,9 +952,11 @@ public class ExNameWAFrag extends android.app.Fragment
                         repsWeightFrag.repsWeightString = arrayList.get(i + 1);
                         repsWeightFrag.fragTag1 = tag;
                         repsWeightFrag.isEdit = true;
+                        repsWeightFrag.exName = arrayList.get(0);
                         fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
                         fragmentTransaction.commitAllowingStateLoss();
                         fragmentManager.executePendingTransactions();
+                        //repsWeightFrag.updateExName(arrayList.get(0));
                         repsWeightFragList1.add(repsWeightFrag);
                         tagListWA.add(tag);
                     } catch(IndexOutOfBoundsException e){
@@ -931,6 +978,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         exNameFrag.infoList.addAll(newSubList);
                         exNameFrag.fragTag2 = tag;
                         exNameFrag.isEdit = true;
+                        exNameFrag.exName = arrayList.get(0);
                         if(count + 1 == finalList.size()){
                             exNameFrag.inflateBottomView = true;
                         }
@@ -944,6 +992,9 @@ public class ExNameWAFrag extends android.app.Fragment
                     }
                 }
                 count++;
+                if(count == biggestSize){
+                    //updateChildExNames(finalList.get(0).get(0));
+                }
             }
             checkIfAllAreCheckedWithDelay();
         }
