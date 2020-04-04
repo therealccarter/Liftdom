@@ -23,6 +23,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
     @BindView(R.id.toFailureRadioButton) RadioButton toFailureRadioButton;
     @BindView(R.id.amrap) RadioButton amrapRadioButton;
     @BindView(R.id.noButton) Button noButton;
+    @BindView(R.id.warning) TextView warningView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,33 +37,66 @@ public class ExtraOptionsDialog extends AppCompatActivity {
         String weightText = getIntent().getExtras().getString("weightText");
         String isPercentageString = getIntent().getExtras().getString("isPercentageString");
         String isAmrapString = getIntent().getExtras().getString("isAmrap");
+        boolean isOverall = false;
+        try{
+            isOverall = Boolean.parseBoolean(getIntent().getExtras().getString("isOverall"));
+        }catch (NullPointerException e){
 
-        if(isPercentageString.equals("true")){
-            percentageRadioButton.setChecked(true);
-        }else if(isPercentageString.equals("dontShow")){
-            percentageRadioButton.setVisibility(View.GONE);
-            if(!isNumber(weightText)){ // if weight is text
-                bodyWeightRadioButton.setChecked(true);
+        }
+
+        if(isOverall){
+            String isToFailure = getIntent().getExtras().getString("isToFailure");
+            String isBW = getIntent().getExtras().getString("isBW");
+
+            warningView.setVisibility(View.VISIBLE);
+            if(isPercentageString.equals("true")){
+                percentageRadioButton.setChecked(true);
             }else{
-                numericalWeightRadioButton.setChecked(true);
+                if(isBW.equals("true")){ // if weight is text
+                    bodyWeightRadioButton.setChecked(true);
+                }else{
+                    numericalWeightRadioButton.setChecked(true);
+                }
+            }
+
+            if(isAmrapString.equals("true")){
+                amrapRadioButton.setChecked(true);
+            }else{
+                if(isToFailure.equals("true")){ // if reps are text
+                    toFailureRadioButton.setChecked(true);
+                }else{
+                    numericalRepsRadioButton.setChecked(true);
+                }
             }
         }else{
-            if(!isNumber(weightText)){ // if weight is text
-                bodyWeightRadioButton.setChecked(true);
+            if(isPercentageString.equals("true")){
+                percentageRadioButton.setChecked(true);
+            }else if(isPercentageString.equals("dontShow")){
+                percentageRadioButton.setVisibility(View.GONE);
+                if(!isNumber(weightText)){ // if weight is text
+                    bodyWeightRadioButton.setChecked(true);
+                }else{
+                    numericalWeightRadioButton.setChecked(true);
+                }
             }else{
-                numericalWeightRadioButton.setChecked(true);
+                if(!isNumber(weightText)){ // if weight is text
+                    bodyWeightRadioButton.setChecked(true);
+                }else{
+                    numericalWeightRadioButton.setChecked(true);
+                }
+            }
+
+            if(isAmrapString.equals("true")){
+                amrapRadioButton.setChecked(true);
+            }else{
+                if(!isNumber(repsText)){ // if reps are text
+                    toFailureRadioButton.setChecked(true);
+                }else{
+                    numericalRepsRadioButton.setChecked(true);
+                }
             }
         }
 
-        if(isAmrapString.equals("true")){
-            amrapRadioButton.setChecked(true);
-        }else{
-            if(!isNumber(repsText)){ // if reps are text
-                toFailureRadioButton.setChecked(true);
-            }else{
-                numericalRepsRadioButton.setChecked(true);
-            }
-        }
 
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override

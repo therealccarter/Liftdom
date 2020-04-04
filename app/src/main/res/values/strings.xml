@@ -339,9 +339,9 @@
         </b>
         to failure (as many reps as possible)
     </string>
-    <string name="plusReps">Plus Reps: adds a \"+\" to rep numbers, which denotes doing at
-        least that number of reps, but going above that if you can. A more precise
-        alternative to the To Failure setting. Aka AMRAP.</string>
+    <string name="plusReps">AMRAP: adds a \"+\" to rep numbers, which denotes doing at
+        least that number of reps, but going above that if you can. If you do more than
+        that number during the workout put in that new number.</string>
     <string name="defaultRepsOptionText">Numerical:
         <b>
             <i>Reps</i>
@@ -798,6 +798,9 @@
     <string name="addSuperset">Add Superset Exercise</string>
     <string name="exLevelPercentageSetting">Set-Schemes Percentage Settings</string>
     <string name="setSchemeSettings">Edit Child Set-Scheme Settings\n(T.F. - B.W. - %)</string>
+    <string name="extraOptionsForAllSets">Extra Options For All Set Schemes</string>
+    <string name="extraOptionsWarning">Warning: this will override the settings for all
+        child set schemes (super sets excluded)!</string>
 
     <string name="activityFeed">Feed</string>
     <string name="forum">Forum</string>

@@ -80,6 +80,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 setsEditText.setText("");
                 repsEditText.setText("");
                 weightEditText.setText("");
+                setToDefaultRepsBoolean();
+                setToDefaultWeightBoolean();
             }else{
                 String[] setSchemesEachArray = setSchemeEdited.split(delims);
 
@@ -92,6 +94,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 // reps
                 if(isAmrap(setSchemeEdited)){
                     setAmrap(setSchemeEdited);
+                    setToAmrapBoolean();
                 }else{
                     String repsWithSpaces = setSchemesEachArray[1];
                     String repsWithout = repsWithSpaces.replaceAll("\\s+","");
@@ -101,8 +104,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         repsEditText.setFilters(filterArray);
                         repsEditText.setText("T.F.");
                         repsEditText.setEnabled(false);
+                        setToFailureBoolean();
                     }else{
                         repsEditText.setText(repsWithout);
+                        setToDefaultRepsBoolean();
                     }
                 }
 
@@ -115,6 +120,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                     String[] tokensP = tokens2[1].split(delimsP);
                     setWeightToPercentAndSetWeightText(tokensP[3]);
                     percentageEditText.setText(tokensP[1]);
+                    setToPercentageBoolean();
                 }else{
                     String weightWithSpaces = setSchemesEachArray[2];
                     String weightWithoutSpaces = weightWithSpaces.replaceAll("\\s+","");
@@ -124,13 +130,26 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         weightEditText.setFilters(filterArray);
                         weightEditText.setText("B.W.");
                         weightEditText.setEnabled(false);
-                        changeRepsIMEtoFinish();
+                        setToBWBoolean();
                     }else{
                         weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                        setToDefaultWeightBoolean();
                     }
                 }
             }
 
+        }else{
+            if(isBW){
+                setWeightToBW();
+            }else if(isPercentage){
+                setWeightToPercentAndSetWeightText(percentageWeight);
+            }
+
+            if(isToFailure){
+                setRepsToFailure();
+            }else if(isAmrap){
+                setAmrapEmpty();
+            }
         }
 
         fragCallback = (removeFragCallback) getParentFragment();
@@ -177,8 +196,98 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         return view;
     }
 
-    private void changeRepsIMEtoFinish(){
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(requestCode == 3){
+            if(data != null){
+                if(data.getStringExtra("MESSAGE1") != null) {
+                    String message = data.getStringExtra("MESSAGE1");
+                    if(message.equals("bodyweight")){
+                        setWeightToBW();
+                        changeRepsIMEtoFinish();
+                        setToBWBoolean();
+                    }else if(message.equals("defaultWeight")){
+                        setWeightToDefault();
+                        setToDefaultWeightBoolean();
+                    }else if(message.equals("percentage")){
+                        weightLL.setVisibility(View.GONE);
+                        percentageLL.setVisibility(View.VISIBLE);
+                        setToPercentageBoolean();
+                    }
+                }
+                if(data.getStringExtra("MESSAGE2") != null) {
+                    String message = data.getStringExtra("MESSAGE2");
+                    if(message.equals("to failure")){
+                        setRepsToFailure();
+                        setToFailureBoolean();
+                    }else if(message.equals("defaultReps")){
+                        setRepsToDefault();
+                        setToDefaultRepsBoolean();
+                    }else if(message.equals("amrap")){
+                        amrap.setVisibility(View.VISIBLE);
+                        setToAmrapBoolean();
+                    }
+                }
+            }
+        }else if(requestCode == 4){
+            if(data != null){
+                setPercentageWeight(data.getStringExtra("weightResult"));
+                percentageWeight = data.getStringExtra("weightResult");
+            }
+        }
+    }
+
+
+    void setToDefaultRepsBoolean(){
+        isAmrap = false;
+        isToFailure = false;
+    }
+
+    void setToFailureBoolean(){
+        isToFailure = true;
+        isAmrap = false;
+    }
+
+    void setToAmrapBoolean(){
+        isAmrap = true;
+        isToFailure = false;
+    }
+
+    void setToPercentageBoolean(){
+        isBW = false;
+        isPercentage = true;
+        changeRepsIMEtoNext();
+    }
+
+    void setToBWBoolean(){
+        isBW = true;
+        isPercentage = false;
+        percentageWeight = "";
+        changeRepsIMEtoFinish();
+    }
+
+    void setToDefaultWeightBoolean(){
+        isBW = false;
+        isPercentage = false;
+        percentageWeight = "";
+        changeRepsIMEtoNext();
+    }
+
+
+    public boolean isBW = false; // weight
+    public boolean isToFailure = false; // reps
+    public boolean isAmrap = false; // reps
+    public boolean isPercentage = false; // weight
+    public String percentageWeight = ""; // weight
+
+    public void changeRepsIMEtoFinish(){
         repsEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+    }
+
+    public void changeRepsIMEtoNext(){
+        repsEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
     }
 
     public void setAmrap(String setSchemeEdited){
@@ -188,6 +297,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         String repsWithout = repsWithSpaces.replaceAll("\\s+","");
 
         repsEditText.setText(repsWithout);
+        amrap.setVisibility(View.VISIBLE);
+        setToAmrapBoolean();
+    }
+
+    public void setAmrapEmpty(){
         amrap.setVisibility(View.VISIBLE);
     }
 
@@ -294,6 +408,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         repsEditText.setFilters(filterArray);
         repsEditText.setText("T.F.");
         repsEditText.setEnabled(false);
+        setToFailureBoolean();
     }
 
     public void setRepsToDefault(){
@@ -306,6 +421,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             repsEditText.setHint("R");
         }
         amrap.setVisibility(View.GONE);
+        setToDefaultRepsBoolean();
     }
 
     public void setWeightToBW(){
@@ -317,6 +433,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         weightEditText.setText("B.W.");
         units.setVisibility(View.GONE);
         weightEditText.setEnabled(false);
+        changeRepsIMEtoFinish();
+        setToBWBoolean();
     }
 
     public void setWeightToDefault(){
@@ -331,53 +449,20 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             weightEditText.setHint("W");
             units.setVisibility(View.VISIBLE);
             weightEditText.setEnabled(true);
+            setToDefaultWeightBoolean();
         }
     }
 
     public void setPercentageWeight(String weight){
         percentageWeightButton.setText(weight);
+        setToPercentageBoolean();
     }
 
     public void setWeightToPercentAndSetWeightText(String weight){
         weightLL.setVisibility(View.GONE);
         percentageLL.setVisibility(View.VISIBLE);
         percentageWeightButton.setText(handleUnitConversion(weight));
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 3
-        if(requestCode == 3){
-            if(data != null){
-                if(data.getStringExtra("MESSAGE1") != null) {
-                    String message = data.getStringExtra("MESSAGE1");
-                    if(message.equals("bodyweight")){
-                        setWeightToBW();
-                        changeRepsIMEtoFinish();
-                    }else if(message.equals("defaultWeight")){
-                        setWeightToDefault();
-                    }else if(message.equals("percentage")){
-                        weightLL.setVisibility(View.GONE);
-                        percentageLL.setVisibility(View.VISIBLE);
-                    }
-                }
-                if(data.getStringExtra("MESSAGE2") != null) {
-                    String message = data.getStringExtra("MESSAGE2");
-                    if(message.equals("to failure")){
-                        setRepsToFailure();
-                    }else if(message.equals("defaultReps")){
-                        setRepsToDefault();
-                    }else if(message.equals("amrap")){
-                        amrap.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        }else if(requestCode == 4){
-            if(data != null){
-                setPercentageWeight(data.getStringExtra("weightResult"));
-            }
-        }
+        setToPercentageBoolean();
     }
 
     public String getSetSchemeString(){

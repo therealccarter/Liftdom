@@ -199,6 +199,35 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 SetsLevelChildFrag frag1 = new SetsLevelChildFrag();
                 setsLevelChildFragAL.add(frag1);
                 frag1.fragTag = fragString2;
+                if(!setsLevelChildFragAL.isEmpty()){
+                    boolean isBW = false;
+                    boolean isToFailure = false;
+                    boolean isAmrap = false;
+                    boolean isPercentage = false;
+                    String percentageWeight = "";
+                    for(int i = 0; i < setsLevelChildFragAL.size(); i++){
+                        if(setsLevelChildFragAL.get(i).amrap != null){
+                            isBW = setsLevelChildFragAL.get(i).isBW;
+                            isToFailure =
+                                    setsLevelChildFragAL.get(i).isToFailure;
+                            isAmrap =
+                                    setsLevelChildFragAL.get(i).isAmrap;
+                            isPercentage =
+                                    setsLevelChildFragAL.get(i).isPercentage;
+                            if(isPercentage){
+                                percentageWeight =
+                                        setsLevelChildFragAL.get(i).percentageWeightButton.getText().toString();
+                            }
+                        }
+                    }
+                    frag1.isBW = isBW;
+                    frag1.isToFailure = isToFailure;
+                    frag1.isAmrap = isAmrap;
+                    frag1.isPercentage = isPercentage;
+                    if(isPercentage){
+                        frag1.percentageWeight = percentageWeight;
+                    }
+                }
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
                 fragmentTransaction.commit();
@@ -295,12 +324,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     if(isBodyweight(message)) {
                         if (!setsLevelChildFragAL.isEmpty()) {
                             for(int i = 0; i < setsLevelChildFragAL.size(); i++){
-                                InputFilter[] filterArray = new InputFilter[1];
-                                filterArray[0] = new InputFilter.LengthFilter(4);
-                                setsLevelChildFragAL.get(i).weightEditText.setFilters(filterArray);
-                                setsLevelChildFragAL.get(i).weightEditText.setText("B.W.");
-                                setsLevelChildFragAL.get(i).units.setVisibility(View.GONE);
-                                setsLevelChildFragAL.get(i).weightEditText.setEnabled(false);
+                                //InputFilter[] filterArray = new InputFilter[1];
+                                //filterArray[0] = new InputFilter.LengthFilter(4);
+                                //setsLevelChildFragAL.get(i).weightEditText.setFilters
+                                // (filterArray);
+                                //setsLevelChildFragAL.get(i).weightEditText.setText("B.W.");
+                                //setsLevelChildFragAL.get(i).units.setVisibility(View.GONE);
+                                //setsLevelChildFragAL.get(i).weightEditText.setEnabled(false);
+                                //setsLevelChildFragAL.get(i).changeRepsIMEtoFinish();
+                                //setsLevelChildFragAL.get(i).setToBWBoolean();
+                                setsLevelChildFragAL.get(i).setWeightToBW();
                             }
                         }
                     }else{
@@ -312,6 +345,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                                 //setsLevelChildFragAL.get(i).weightEditText.setText("");
                                 if(setsLevelChildFragAL.get(i).weightEditText.getText().toString().equals("B.W.")){
                                     setsLevelChildFragAL.get(i).weightEditText.setText("");
+                                    setsLevelChildFragAL.get(i).setToDefaultWeightBoolean();
                                 }
                                 setsLevelChildFragAL.get(i).units.setVisibility(View.VISIBLE);
                                 setsLevelChildFragAL.get(i).weightEditText.setEnabled(true);
@@ -331,9 +365,31 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     if(!setsLevelChildFragAL.isEmpty()){
                         for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
                             setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
+                            setsLevelChildFrag.setToPercentageBoolean();
                         }
                     }
-                }else{
+                }else if(resultCode == 9){
+                    Intent intent = new Intent(getActivity(), ExtraOptionsDialog.class);
+
+                    String isPercentage = "false";
+                    String isAmrap = "false";
+                    String isToFailure = "false";
+                    String isBW = "false";
+                    if(!setsLevelChildFragAL.isEmpty()){
+                        isPercentage = String.valueOf(setsLevelChildFragAL.get(0).isPercentage);
+                        isAmrap = String.valueOf(setsLevelChildFragAL.get(0).isAmrap);
+                        isToFailure = String.valueOf(setsLevelChildFragAL.get(0).isToFailure);
+                        isBW = String.valueOf(setsLevelChildFragAL.get(0).isBW);
+                    }
+
+                    intent.putExtra("isPercentageString", isPercentage);
+                    intent.putExtra("isAmrap", isAmrap);
+                    intent.putExtra("isToFailure", isToFailure);
+                    intent.putExtra("isBW", isBW);
+
+                    intent.putExtra("isOverall", "true");
+                    startActivityForResult(intent, 7);
+                }else {
                     if(data.getStringExtra("choice") != null){
                         String message = data.getStringExtra("choice");
                         if(message.equals("algo")){
@@ -395,6 +451,75 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
                     String exerciseName = data.getStringExtra("exercise");
+                }
+            }else if(requestCode == 7){
+                if(resultCode == 3){
+                    if(data != null){
+                        if(data.getStringExtra("MESSAGE1") != null) {
+                            String message = data.getStringExtra("MESSAGE1");
+                            if(message.equals("bodyweight")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setWeightToBW();
+                                            setsLevelChildFrag.changeRepsIMEtoFinish();
+                                            setsLevelChildFrag.setToBWBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("defaultWeight")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setWeightToDefault();
+                                            setsLevelChildFrag.setToDefaultWeightBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("percentage")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.weightLL.setVisibility(View.GONE);
+                                            setsLevelChildFrag.percentageLL.setVisibility(View.VISIBLE);
+                                            setsLevelChildFrag.setToPercentageBoolean();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(data.getStringExtra("MESSAGE2") != null) {
+                            String message = data.getStringExtra("MESSAGE2");
+                            if(message.equals("to failure")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setRepsToFailure();
+                                            setsLevelChildFrag.setToFailureBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("defaultReps")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setRepsToDefault();
+                                            setsLevelChildFrag.setToDefaultRepsBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("amrap")){
+                                if(!setsLevelChildFragAL.isEmpty()){
+                                    for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.amrap.setVisibility(View.VISIBLE);
+                                            setsLevelChildFrag.setToAmrapBoolean();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

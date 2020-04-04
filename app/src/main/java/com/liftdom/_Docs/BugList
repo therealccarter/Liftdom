@@ -187,9 +187,17 @@ Updated some layouts, use that new nice looking button style
 
 ----------------------
 ====================================================
-Template Editor: if bodyweight ex, change reps ime action to finish instead of next.
-TE: change rep settings for all set schemes from ex level.
-TE: imitate first set scheme's settings when adding new set scheme.
+Template Editor:
+    done - if bodyweight ex, change reps ime action to finish instead of next.
+    - change rep settings for all set schemes from ex level.
+
+    WHERE WE AT: This is done for normal, just need to get it going for SS.
+
+    done - imitate first set scheme's settings when adding new set scheme.
+    - flash add day set in beginning
+    - flash day picker on add day set, turn off when a day is selected
+    - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
+        switching around and any of it dies.
 
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================

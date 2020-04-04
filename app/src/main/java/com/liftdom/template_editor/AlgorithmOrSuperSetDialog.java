@@ -16,6 +16,7 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
     @BindView(R.id.addAlgorithmButton) Button addAlgoButton;
     @BindView(R.id.addSupersetButton) Button addSupersetButton;
     @BindView(R.id.setSchemeSettings) Button setSchemesPercentageSettingsButton;
+    @BindView(R.id.extraOptionsButton) Button extraOptionsButton;
     @BindView(R.id.view) View view;
 
     @Override
@@ -62,6 +63,15 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 setResult(7, intent);
+                finish();
+            }
+        });
+
+        extraOptionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(9, intent);
                 finish();
             }
         });

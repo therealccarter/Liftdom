@@ -140,12 +140,13 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                     if(isBodyweight(message)) {
                         if (!setSchemeList.isEmpty()) {
                             for(int i = 0; i < setSchemeList.size(); i++){
-                                InputFilter[] filterArray = new InputFilter[1];
-                                filterArray[0] = new InputFilter.LengthFilter(4);
-                                setSchemeList.get(i).weightEditText.setFilters(filterArray);
-                                setSchemeList.get(i).weightEditText.setText("B.W.");
-                                setSchemeList.get(i).units.setVisibility(View.GONE);
-                                setSchemeList.get(i).weightEditText.setEnabled(false);
+                                //InputFilter[] filterArray = new InputFilter[1];
+                                //filterArray[0] = new InputFilter.LengthFilter(4);
+                                //setSchemeList.get(i).weightEditText.setFilters(filterArray);
+                                //setSchemeList.get(i).weightEditText.setText("B.W.");
+                                //setSchemeList.get(i).units.setVisibility(View.GONE);
+                                //setSchemeList.get(i).weightEditText.setEnabled(false);
+                                setSchemeList.get(i).setWeightToBW();
                             }
                         }
                     }else{
@@ -156,6 +157,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 setSchemeList.get(i).weightEditText.setFilters(filterArray);
                                 if(setSchemeList.get(i).weightEditText.getText().toString().equals("B.W.")){
                                     setSchemeList.get(i).weightEditText.setText("");
+                                    setSchemeList.get(i).setToDefaultWeightBoolean();
                                 }
                                 setSchemeList.get(i).units.setVisibility(View.VISIBLE);
                                 setSchemeList.get(i).weightEditText.setEnabled(true);
@@ -218,6 +220,35 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
         String fragString = "sss" + tag;
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
+        if(!setSchemeList.isEmpty()){
+            boolean isBW = false;
+            boolean isToFailure = false;
+            boolean isAmrap = false;
+            boolean isPercentage = false;
+            String percentageWeight = "";
+            for(int i = 0; i < setSchemeList.size(); i++){
+                if(setSchemeList.get(i).amrap != null){
+                    isBW = setSchemeList.get(i).isBW;
+                    isToFailure =
+                            setSchemeList.get(i).isToFailure;
+                    isAmrap =
+                            setSchemeList.get(i).isAmrap;
+                    isPercentage =
+                            setSchemeList.get(i).isPercentage;
+                    if(isPercentage){
+                        percentageWeight =
+                                setSchemeList.get(i).percentageWeightButton.getText().toString();
+                    }
+                }
+            }
+            superSetSetFrag.isBW = isBW;
+            superSetSetFrag.isToFailure = isToFailure;
+            superSetSetFrag.isAmrap = isAmrap;
+            superSetSetFrag.isPercentage = isPercentage;
+            if(isPercentage){
+                superSetSetFrag.percentageWeight = percentageWeight;
+            }
+        }
         fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
         fragmentTransaction.commitAllowingStateLoss();
         setSchemeList.add(superSetSetFrag);
