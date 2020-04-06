@@ -189,10 +189,7 @@ Updated some layouts, use that new nice looking button style
 ====================================================
 Template Editor:
     done - if bodyweight ex, change reps ime action to finish instead of next.
-    - change rep settings for all set schemes from ex level.
-
-    WHERE WE AT: This is done for normal, just need to get it going for SS.
-
+    done - change rep settings for all set schemes from ex level.
     done - imitate first set scheme's settings when adding new set scheme.
     - flash add day set in beginning
     - flash day picker on add day set, turn off when a day is selected

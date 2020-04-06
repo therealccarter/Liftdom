@@ -117,10 +117,14 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
-                intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
-                        .isCurrentUserImperial));
-                intent.putExtra("isFrom", "exLevel");
+                //Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
+                //intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                //        .isCurrentUserImperial));
+                //intent.putExtra("isFrom", "exLevel");
+                //startActivityForResult(intent, 3);
+                Intent intent = new Intent(v.getContext(), ExSSLevelOptionsDialog.class);
+                String exName = getExerciseValueFormatted();
+                intent.putExtra("exName", exName);
                 startActivityForResult(intent, 3);
             }
         });
@@ -165,10 +169,108 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                         }
                     }
                 }
-            }else if(requestCode == 3 && resultCode == 8){
-                if(!setSchemeList.isEmpty()){
-                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
-                        setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
+            }else if(requestCode == 3){
+                if(resultCode == 1){
+                    Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
+                    intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
+                            .isCurrentUserImperial));
+                    intent.putExtra("isFrom", "exLevel");
+                    startActivityForResult(intent, 3);
+                }else if(resultCode == 2){
+                    Intent intent = new Intent(getActivity(), ExtraOptionsDialog.class);
+
+                    String isPercentage = "false";
+                    String isAmrap = "false";
+                    String isToFailure = "false";
+                    String isBW = "false";
+                    if(!setSchemeList.isEmpty()){
+                        isPercentage = String.valueOf(setSchemeList.get(0).isPercentage);
+                        isAmrap = String.valueOf(setSchemeList.get(0).isAmrap);
+                        isToFailure = String.valueOf(setSchemeList.get(0).isToFailure);
+                        isBW = String.valueOf(setSchemeList.get(0).isBW);
+                    }
+
+                    intent.putExtra("isPercentageString", isPercentage);
+                    intent.putExtra("isAmrap", isAmrap);
+                    intent.putExtra("isToFailure", isToFailure);
+                    intent.putExtra("isBW", isBW);
+
+                    intent.putExtra("isOverall", "true");
+                    startActivityForResult(intent, 7);
+                }else if(resultCode == 8){
+                    if(!setSchemeList.isEmpty()){ // if result is 8?
+                        for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                            setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
+                        }
+                    }
+                }
+            }else if(requestCode == 7){
+                if(resultCode == 3){
+                    if(data != null){
+                        if(data.getStringExtra("MESSAGE1") != null) {
+                            String message = data.getStringExtra("MESSAGE1");
+                            if(message.equals("bodyweight")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setWeightToBW();
+                                            setsLevelChildFrag.changeRepsIMEtoFinish();
+                                            setsLevelChildFrag.setToBWBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("defaultWeight")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setWeightToDefault();
+                                            setsLevelChildFrag.setToDefaultWeightBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("percentage")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.weightLL.setVisibility(View.GONE);
+                                            setsLevelChildFrag.percentageLL.setVisibility(View.VISIBLE);
+                                            setsLevelChildFrag.setToPercentageBoolean();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(data.getStringExtra("MESSAGE2") != null) {
+                            String message = data.getStringExtra("MESSAGE2");
+                            if(message.equals("to failure")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setRepsToFailure();
+                                            setsLevelChildFrag.setToFailureBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("defaultReps")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.setRepsToDefault();
+                                            setsLevelChildFrag.setToDefaultRepsBoolean();
+                                        }
+                                    }
+                                }
+                            }else if(message.equals("amrap")){
+                                if(!setSchemeList.isEmpty()){
+                                    for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
+                                        if(setsLevelChildFrag.amrap != null){
+                                            setsLevelChildFrag.amrap.setVisibility(View.VISIBLE);
+                                            setsLevelChildFrag.setToAmrapBoolean();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -26,7 +26,11 @@
             android:networkSecurityConfig="@xml/network_security_config"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.liftdom.charts_stats_tools.tools.MaxesCreateNewDialog"
+        <activity
+                android:name="com.liftdom.template_editor.ExSSLevelOptionsDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar"/>
+        <activity
+                android:name="com.liftdom.charts_stats_tools.tools.MaxesCreateNewDialog"
                 android:theme="@style/AppCompatDialogNoTitleBarTransparent" />
         <activity
                 android:name="com.liftdom.charts_stats_tools.tools.MaxesEditExistingDialog"
@@ -61,7 +65,7 @@
         </activity>
         <activity
                 android:name=".MainActivity"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait" />
 
         <receiver
                 android:name="com.liftdom.workout_assistor.NotificationDismissedReceiver"
@@ -161,7 +165,7 @@
                 android:name=".chat.ChatGroup.NewChatGroupDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
-                android:name="com.liftdom.template_editor.AlgorithmOrSuperSetDialog"
+                android:name="com.liftdom.template_editor.ExLevelOptionsDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.AlgorithmSelectorActivity"

@@ -10,7 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 
-public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
+public class ExLevelOptionsDialog extends AppCompatActivity {
 
     @BindView(R.id.exerciseName) TextView exNameView;
     @BindView(R.id.addAlgorithmButton) Button addAlgoButton;
@@ -36,6 +36,7 @@ public class AlgorithmOrSuperSetDialog extends AppCompatActivity {
             view.setVisibility(View.GONE);
             String dummy = "First choose an exercise";
             exNameView.setText(dummy);
+            //TODO: maybe show close button
         }else{
             exNameView.setText(exName);
         }

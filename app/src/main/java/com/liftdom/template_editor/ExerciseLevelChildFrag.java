@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -274,7 +273,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AlgorithmOrSuperSetDialog.class);
+                Intent intent = new Intent(v.getContext(), ExLevelOptionsDialog.class);
                 String exName = getExerciseValueFormatted();
                 intent.putExtra("exName", exName);
                 startActivityForResult(intent, 3);
