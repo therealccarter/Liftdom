@@ -6,8 +6,10 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
@@ -631,6 +633,10 @@ public class TemplateEditorActivity extends BaseActivity
             @Override
             public void onClick(View v) {
 
+                if(timer != null){
+                    timer.cancel();
+                }
+
                 ++fragIdCount;
 
                 FragmentManager fragmentManager = getFragmentManager();
@@ -856,6 +862,37 @@ public class TemplateEditorActivity extends BaseActivity
             }
         });
 
+        if(dayOfWeekChildFragArrayList.get(0).buttonbar == null){
+            flashAddDay();
+        }
+
+    }
+
+    boolean isBlack = false;
+
+    CountDownTimer timer;
+
+    private void flashAddDay(){
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(2000, 150) {
+            @Override
+            public void onTick(long l) {
+                if(isBlack){
+                    addDay.setBackgroundColor(Color.parseColor("#000000"));
+                    isBlack = false;
+                }else{
+                    addDay.setBackgroundColor(Color.parseColor("#303030"));
+                    isBlack = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                addDay.setBackgroundColor(Color.parseColor("#000000"));
+            }
+        }.start();
     }
 
     private String handleUnitConversion(String oldValue){

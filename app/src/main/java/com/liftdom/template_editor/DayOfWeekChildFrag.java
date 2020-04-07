@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import com.google.android.material.snackbar.Snackbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -156,6 +157,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         monToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     monToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     monToggle.setTextColor(Color.parseColor("#000000"));
@@ -172,6 +176,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         tuesToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     tuesToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     tuesToggle.setTextColor(Color.parseColor("#000000"));
@@ -188,6 +195,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         wedToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     wedToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     wedToggle.setTextColor(Color.parseColor("#000000"));
@@ -204,6 +214,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         thurToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     thurToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     thurToggle.setTextColor(Color.parseColor("#000000"));
@@ -220,6 +233,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         friToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     friToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     friToggle.setTextColor(Color.parseColor("#000000"));
@@ -236,6 +252,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         satToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     satToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     satToggle.setTextColor(Color.parseColor("#000000"));
@@ -252,6 +271,9 @@ public class DayOfWeekChildFrag extends android.app.Fragment
 
         sunToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(timer != null){
+                    timer.cancel();
+                }
                 if(isChecked){
                     sunToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
                     sunToggle.setTextColor(Color.parseColor("#000000"));
@@ -332,7 +354,44 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         }
 
 
+        if(getSelectedDays().size() == 0){
+            try{
+                Snackbar.make(getActivity().getCurrentFocus(), "Click on the days you want from the button bar.",
+                        Snackbar.LENGTH_SHORT).show();
+            }catch (NullPointerException e){
+
+            }
+            flashAddDay();
+        }
+
         return view;
+    }
+
+    boolean isBlack = false;
+
+    CountDownTimer timer;
+
+    private void flashAddDay(){
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(2000, 150) {
+            @Override
+            public void onTick(long l) {
+                if(isBlack){
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
+                    isBlack = false;
+                }else{
+                    buttonbar.setBackgroundColor(Color.parseColor("#303030"));
+                    isBlack = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                buttonbar.setBackgroundColor(Color.parseColor("#000000"));
+            }
+        }.start();
     }
 
     @Override

@@ -191,8 +191,8 @@ Template Editor:
     done - if bodyweight ex, change reps ime action to finish instead of next.
     done - change rep settings for all set schemes from ex level.
     done - imitate first set scheme's settings when adding new set scheme.
-    - flash add day set in beginning
-    - flash day picker on add day set, turn off when a day is selected
+    done - flash add day set in beginning, end when selected.
+    done - flash day picker on add day set, end when selected.
     - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
         switching around and any of it dies.
 
