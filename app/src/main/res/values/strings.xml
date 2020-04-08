@@ -231,6 +231,8 @@
     <string name="saveAs">SAVE AS</string>
     <string name="save">SAVE</string>
 
+    <string name="removeDaySet"><b>Remove last day set?</b></string>
+
     <string name="cm">cm</string>
 
     <string name="newChat">New Chat</string>
@@ -705,6 +707,7 @@
     <string name="delete">Delete</string>
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete Program</string>
+    <string name="resetProgramEditor">Reset to blank state</string>
 
     <string name="restDay">Rest Day</string>
 
@@ -935,6 +938,8 @@
     <string name="seconds">seconds</string>
     <string name="secondsOfVibration">seconds of vibration</string>
 
+    <string name="useRunningTemplate">Use the last detected Program Editor state?</string>
+
     <!-- save dialog <string name=""></string> -->
     <string name="saveTemplateAs">SAVE PROGRAM AS...</string>
     <string name="templateNameHint">PROGRAM NAME</string>
@@ -948,6 +953,10 @@
         exercise algorithms)
     </string>
     <string name="algoWeightCheck">Only apply algorithm if you reach that exercise\'s daily poundage goal?</string>
+    <string name="templateUpdates">(Progress of the program you\'re making is saved in the
+        background. So if you navigate away from this page, you can come back and continue
+        editing. That background version is deleted after you save the program with the save button
+        .)</string>
 
     <string name="clear">Clear</string>
 

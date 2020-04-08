@@ -26,9 +26,11 @@
             android:networkSecurityConfig="@xml/network_security_config"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name="com.liftdom.template_editor.UseRunningTemplateDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.ExSSLevelOptionsDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"/>
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.charts_stats_tools.tools.MaxesCreateNewDialog"
                 android:theme="@style/AppCompatDialogNoTitleBarTransparent" />

@@ -34,8 +34,6 @@
     >
 
         <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -64,6 +62,19 @@
                         android:gravity="center"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/templateUpdates"
+                        android:textColor="@color/offWhite"
+                        android:textSize="13sp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
                         />
 
@@ -78,6 +89,9 @@
                         android:paddingEnd="5dp"
                         />
 
+
+
+
             </LinearLayout>
 
 
@@ -86,11 +100,37 @@
                     android:background="@color/liftrGold1"
                     android:layout_width="fill_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
             />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+
+                    >
+
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                        android:text="@string/resetProgramEditor"
+                        android:id="@+id/resetButton"
+                        android:textColor="@color/white"
+                        android:background="@color/lessDarkGrey"
+                        android:textAllCaps="false"
+                        android:minHeight="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="end"
+                        />
+
+            </LinearLayout>
+
 
             <LinearLayout
                     android:layout_width="match_parent"

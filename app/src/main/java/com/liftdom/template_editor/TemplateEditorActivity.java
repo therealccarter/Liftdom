@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputFilter;
 import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +40,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,35 +56,24 @@ public class TemplateEditorActivity extends BaseActivity
     private FirebaseUser mFirebaseUser;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-    int fragIdCount = 0;
-
-    boolean isFirstTimeTut = false;
-
-    boolean isTemplateEdit;
-    boolean isFromPublic;
-
-    boolean restTimerBool = false;
-
-    String templateNameEdit;
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    int fragIdCount = 0;
+    boolean isFirstTimeTut = false;
+    boolean isTemplateEdit;
+    boolean isFromPublic;
+    boolean restTimerBool = false;
+    String templateNameEdit;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
     DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW2 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW3 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW4 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW5 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW6 = new DayOfWeekChildFrag();
-
     DayOfWeekChildFrag doW7 = new DayOfWeekChildFrag();
 
     // butterknife
@@ -195,519 +187,36 @@ public class TemplateEditorActivity extends BaseActivity
 
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
-        if (getIntent().getExtras().getString("isEdit") != null) {
-            if (getIntent().getExtras().getString("isEdit").equals("yes")){
-                isTemplateEdit = true;
-                if (getIntent().getExtras().getString("isFromPublic") != null) {
-                    if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
-                        // if template isEdit, isFromPublic
-                        isFromPublic = true;
-
-                        TemplateEditorSingleton.getInstance().isFromPublic = true;
-
-                        templateNameEdit = getIntent().getExtras().getString("templateName");
-
-                        // Check for active template
-                        DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
-
-                        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                                if(userModelClass.getActiveTemplate() != null){
-                                    if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
-                                        activeTemplateCheckbox.setChecked(true);
-                                    }
-                                }
-                                if(userModelClass.isIsImperial()){
-                                    //TemplateEditorSingleton.getInstance().isImperial = true;
-                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
-                                }else{
-                                    //TemplateEditorSingleton.getInstance().isImperial = false;
-                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                        DatabaseReference templateRef = mRootRef.child("publicTemplates").child("myPublic").child(uid).child(templateNameEdit);
-
-                        templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
-
-
-                                TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
-                                TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
-                                        .getPublicTemplateKeyId();
-
-                                if(templateClass.isIsImperial()){
-                                    TemplateEditorSingleton.getInstance().isTemplateImperial = true;
-                                }else{
-                                    TemplateEditorSingleton.getInstance().isTemplateImperial = false;
-                                }
-
-                                if(templateClass.getRestTime() != null){
-                                    String delims = "[:]";
-                                    String[] tokens = templateClass.getRestTime().split(delims);
-                                    minutesEditText.setText(tokens[0]);
-                                    secondsEditText.setText(tokens[1]);
-                                }
-
-                                if(templateClass.getVibrationTime() != null){
-                                    secondsVibrateEditText.setText(templateClass.getVibrationTime());
-                                    if(templateClass.isIsRestTimerAlert()){
-                                        justVibrateRB.setChecked(false);
-                                        showRestTimerAlertRB.setChecked(true);
-                                    }else{
-                                        justVibrateRB.setChecked(true);
-                                        showRestTimerAlertRB.setChecked(false);
-                                    }
-                                }
-
-                                restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
-
-                                TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
-
-                                SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                                String userName = sharedPref.getString("userName", "loading...");
-
-                                if(!templateClass.getUserId().equals(uid)){
-                                    // if editing someone else's template
-                                    TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
-                                    TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
-                                    TemplateEditorSingleton.getInstance().mUserId2 = uid;
-                                    TemplateEditorSingleton.getInstance().mUserName2 = userName;
-                                }else{
-                                    TemplateEditorSingleton.getInstance().mUserId = uid;
-                                    TemplateEditorSingleton.getInstance().mUserName = userName;
-                                }
-
-                                FragmentManager fragmentManager = getFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                                if(templateClass.getMapOne() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW1.isEdit = true;
-                                    doW1.isFirstTime = true;
-                                    doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
-                                    doW1.map = templateClass.getMapOne();
-                                    doW1.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
-                                }
-                                if(templateClass.getMapTwo() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW2.isEdit = true;
-                                    doW2.isFirstTime = true;
-                                    doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
-                                    doW2.map = templateClass.getMapTwo();
-                                    doW2.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-                                }
-                                if(templateClass.getMapThree() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW3.isEdit = true;
-                                    doW3.isFirstTime = true;
-                                    doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
-                                    doW3.map = templateClass.getMapThree();
-                                    doW3.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-                                }
-                                if(templateClass.getMapFour() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW4.isEdit = true;
-                                    doW4.isFirstTime = true;
-                                    doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
-                                    doW4.map = templateClass.getMapFour();
-                                    doW4.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-                                }
-                                if(templateClass.getMapFive() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW5.isEdit = true;
-                                    doW5.isFirstTime = true;
-                                    doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
-                                    doW5.map = templateClass.getMapFive();
-                                    doW5.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-                                }
-                                if(templateClass.getMapSix() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW6.isEdit = true;
-                                    doW6.isFirstTime = true;
-                                    doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
-                                    doW6.map = templateClass.getMapSix();
-                                    doW6.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-                                }
-                                if(templateClass.getMapSeven() != null){
-                                    ++fragIdCount;
-                                    String fragString = Integer.toString(fragIdCount);
-                                    doW7.isEdit = true;
-                                    doW7.isFirstTime = true;
-                                    doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
-                                    doW7.map = templateClass.getMapSeven();
-                                    doW7.templateName = templateClass.getTemplateName();
-                                    fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-                                }
-
-                                fragmentTransaction.commitAllowingStateLoss();
-
-                                if(templateClass.getIsAlgorithm()){
-                                    TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-                                    if(templateClass.getIsAlgoApplyToAll()){
-                                        TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                                        List<String> tempAlgoInfoList2 = new ArrayList<>();
-                                        tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                        String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
-                                        tempAlgoInfoList2.set(6, weightValue);
-                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
-                                    }else{
-                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
-                                        for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
-                                            String key = entry.getKey();
-                                            List<String> listValue = entry.getValue();
-                                            String newValue = handleUnitConversion(listValue.get(6));
-                                            EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
-                                                    newValue);
-                                            //listValue.set(6, newValue);
-                                        }
-                                    }
-                                }
-
-                                loadingView.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                    }
-                }else{
-                    // isEdit, not from public
-                    templateNameEdit = getIntent().getExtras().getString("templateName");
-
-
-
-                    // Check for active template
-                    DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
-
-                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                            if(userModelClass.getActiveTemplate() != null){
-                                if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
-                                    activeTemplateCheckbox.setChecked(true);
-                                }
-                            }
-                            if(userModelClass.isIsImperial()){
-                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
-                            }else{
-                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateNameEdit);
-                    templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
-
-                            TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
-
-                            if(templateClass.isIsImperial()){
-                                TemplateEditorSingleton.getInstance().isTemplateImperial = true;
-                            }else{
-                                TemplateEditorSingleton.getInstance().isTemplateImperial = false;
-                            }
-
-                            if(templateClass.getRestTime() != null){
-                                String delims = "[:]";
-                                String[] tokens = templateClass.getRestTime().split(delims);
-                                minutesEditText.setText(tokens[0]);
-                                secondsEditText.setText(tokens[1]);
-                            }
-
-                            if(templateClass.getVibrationTime() != null){
-                                secondsVibrateEditText.setText(templateClass.getVibrationTime());
-                                if(templateClass.isIsRestTimerAlert()){
-                                    justVibrateRB.setChecked(false);
-                                    showRestTimerAlertRB.setChecked(true);
-                                }else{
-                                    justVibrateRB.setChecked(true);
-                                    showRestTimerAlertRB.setChecked(false);
-                                }
-                            }
-
-                            restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
-
-                            TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
-
-                            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-                            String userName = sharedPref.getString("userName", "loading...");
-
-                            if(!templateClass.getUserId().equals(uid)){
-                                // if editing someone else's template
-                                TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
-                                TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
-                                TemplateEditorSingleton.getInstance().mUserId2 = uid;
-                                TemplateEditorSingleton.getInstance().mUserName2 = userName;
-                            }else{
-                                TemplateEditorSingleton.getInstance().mUserId = uid;
-                                TemplateEditorSingleton.getInstance().mUserName = userName;
-                            }
-
-                            FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                            if(templateClass.getMapOne() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW1.isEdit = true;
-                                doW1.isFirstTime = true;
-                                doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
-                                doW1.map = templateClass.getMapOne();
-                                doW1.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
-                                loadingView.setVisibility(View.GONE);
-                            }
-                            if(templateClass.getMapTwo() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW2.isEdit = true;
-                                doW2.isFirstTime = true;
-                                doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
-                                doW2.map = templateClass.getMapTwo();
-                                doW2.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-                            }
-                            if(templateClass.getMapThree() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW3.isEdit = true;
-                                doW3.isFirstTime = true;
-                                doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
-                                doW3.map = templateClass.getMapThree();
-                                doW3.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-                            }
-                            if(templateClass.getMapFour() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW4.isEdit = true;
-                                doW4.isFirstTime = true;
-                                doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
-                                doW4.map = templateClass.getMapFour();
-                                doW4.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-                            }
-                            if(templateClass.getMapFive() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW5.isEdit = true;
-                                doW5.isFirstTime = true;
-                                doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
-                                doW5.map = templateClass.getMapFive();
-                                doW5.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-                            }
-                            if(templateClass.getMapSix() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW6.isEdit = true;
-                                doW6.isFirstTime = true;
-                                doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
-                                doW6.map = templateClass.getMapSix();
-                                doW6.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-                            }
-                            if(templateClass.getMapSeven() != null){
-                                ++fragIdCount;
-                                String fragString = Integer.toString(fragIdCount);
-                                doW7.isEdit = true;
-                                doW7.isFirstTime = true;
-                                doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
-                                doW7.map = templateClass.getMapSeven();
-                                doW7.templateName = templateClass.getTemplateName();
-                                fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-                            }
-
-                            fragmentTransaction.commitAllowingStateLoss();
-
-                            if(templateClass.getIsAlgorithm()){
-                                TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-                                if(templateClass.getIsAlgoApplyToAll()){
-                                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                                    List<String> tempAlgoInfoList2 = new ArrayList<>();
-                                    tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                                    String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
-                                    tempAlgoInfoList2.set(6, weightValue);
-                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
-                                }else{
-                                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
-                                    for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
-                                        String key = entry.getKey();
-                                        List<String> listValue = entry.getValue();
-                                        String newValue = handleUnitConversion(listValue.get(6));
-                                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
-                                                newValue);
-                                        //listValue.set(6, newValue);
-                                    }
-                                }
-                            }
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }else if(getIntent().getExtras().getString("isEdit").equals("no")){
-                //DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child
-                //        ("isFromScratchFirstTime");
-                //if (getIntent().getExtras().getString("isEdit") != null) {
-                //    if (getIntent().getExtras().getString("isEdit").equals("no")) {
-                //    }
-                //}
-
-                restTimerSwitch.setChecked(true);
-
-                DatabaseReference userRef = mRootRef.child("user").child(uid);
-
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
-                        TemplateEditorSingleton.getInstance().isCurrentUserImperial = userModelClass.isIsImperial();
-                        TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
-                        if(userModelClass.getActiveTemplate() == null){
-                            activeTemplateCheckbox.setChecked(true);
-                        }
-
-                        try{
-                            if(getCurrentFocus() != null){
-                                Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
-                                        .LENGTH_LONG).show();
-                            }
-                        }catch (IllegalStateException e){
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                loadingView.setVisibility(View.GONE);
-            }
-        }
-
         // use increment to keep track of what the current doW frag is
 
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(timer != null){
-                    timer.cancel();
-                }
-
-                ++fragIdCount;
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                String fragString = Integer.toString(fragIdCount);
-
-                if(isFirstTimeTut){
-                    doW1.firstTimeTut = true;
-                }
-
-                if(fragIdCount == 1){
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 2){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW2.daysArray = stringArray.clone();
-                    doW2.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 3){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW3.daysArray = stringArray.clone();
-                    doW3.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 4){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW4.daysArray = stringArray.clone();
-                    doW4.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 5){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW5.daysArray = stringArray.clone();
-                    doW5.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 6){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW6.daysArray = stringArray.clone();
-                    doW6.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-                    fragmentTransaction.commit();
-                }else if(fragIdCount == 7){
-                    String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
-                    doW7.daysArray = stringArray.clone();
-                    doW7.isAdded = true;
-                    fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-                    fragmentTransaction.commit();
-                }
-
-
-                CharSequence toastText = "Day-set Added";
-                int duration = Snackbar.LENGTH_SHORT;
-
-                try{
-                    Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
-                    snackbar.show();
-                } catch (NullPointerException e){
-
-                }
-
-
+                addDaySet();
             }
         });
 
         removeDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), DaySetDeleteConfirmation.class);
-                startActivityForResult(intent, 2);
+                if(fragIdCount != 0 && fragIdCount != 1){
+                    Intent intent = new Intent(v.getContext(), DaySetDeleteConfirmation.class);
+                    startActivityForResult(intent, 2);
+                }else if(fragIdCount == 0){
+                    try{
+                        Snackbar.make(getCurrentFocus(), "No day sets have been added",
+                                Snackbar.LENGTH_SHORT).show();
+                    }catch (NullPointerException e){
+
+                    }
+                }else{
+                    try{
+                        Snackbar.make(getCurrentFocus(), "One day set is the minimum amount",
+                                Snackbar.LENGTH_SHORT).show();
+                    }catch (NullPointerException e){
+
+                    }
+                }
             }
         });
 
@@ -868,51 +377,672 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
-    boolean isBlack = false;
 
-    CountDownTimer timer;
+    @Override
+    public void onResume(){
+        super.onResume();
 
-    private void flashAddDay(){
-        if(timer != null){
-            timer.cancel();
-        }
-        timer = new CountDownTimer(2000, 150) {
+
+    }
+
+    // [START on_start_add_listener]
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+        checkForEditState();
+
+        DatabaseReference isFirstTemplate = mRootRef.child("templates").child(uid);
+        isFirstTemplate.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onTick(long l) {
-                if(isBlack){
-                    addDay.setBackgroundColor(Color.parseColor("#000000"));
-                    isBlack = false;
-                }else{
-                    addDay.setBackgroundColor(Color.parseColor("#303030"));
-                    isBlack = true;
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    activeTemplateCheckbox.setChecked(true);
                 }
             }
 
             @Override
-            public void onFinish() {
-                addDay.setBackgroundColor(Color.parseColor("#000000"));
+            public void onCancelled(DatabaseError databaseError) {
+
             }
-        }.start();
+        });
+
+        if(isTemplateEdit){
+
+        }else{
+            final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
+            firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        TemplateEditorSingleton.getInstance().isFirstTimeTut = true;
+                        FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
+                                (TemplateEditorActivity.this)
+                                .title("Welcome to the Program Editor. This is where you can create " +
+                                        "complex custom workout programs.")
+                                .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+                                .build();
+                        FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder
+                                (TemplateEditorActivity.this)
+                                .focusOn(addDay)
+                                .title("Let's begin by adding a day set.")
+                                .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
+                                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                                .fitSystemWindows(true)
+                                .build();
+
+                        new FancyShowCaseQueue()
+                                .add(fancyShowCaseView1)
+                                .add(fancyShowCaseView2)
+                                .show();
+
+                        isFirstTimeTut = true;
+
+                        firstTimeRef.setValue(null);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 
-    private String handleUnitConversion(String oldValue){
-        String newValue;
-        if(TemplateEditorSingleton.getInstance().isTemplateImperial
-                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
-            // the template is imperial, but the user is metric
-            double valueDouble = Double.parseDouble(oldValue);
-            int valueInt = (int) Math.round(valueDouble * 0.45359237);
-            newValue = String.valueOf(valueInt);
-        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
-                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
-            // the template is metric, but the user is imperial
-            double valueDouble = Double.parseDouble(oldValue);
-            int valueInt = (int) Math.round(valueDouble / 0.45359237);
-            newValue = String.valueOf(valueInt);
+    /**
+     *
+     * So first let's get the first case down pat. Then second, then third, then try it
+     *    eventually with first time tutorial. Also need to get first time tut squared away
+     *    everywhere.
+     *
+     *
+     * First case: No edit, no public.
+     *  - we load in the default state and update. then update from there.
+     *  - if we navigate away and come back it's just the same, is edit and template name edit
+     *      stay false/null.
+     *  - it needs to be in the exact state as it would be if we saved it there.
+     *  - isEdit will be false, but runningAssistor will be "true"
+     *  - two sub cases here: coming in fresh, and coming in with something in the
+     *      templatesRunning node.
+     *
+     *  Second case: Is edit, not from public.
+     *      - First we load in all the stuff like it's from edit. then we need to update the
+     *      state and REMEMBER that it's edit, what the name is, etc.
+     *      - Each time it comes in FROM saved templates it should run over the current
+     *      templateRunning node and start fresh.
+     *  Third case: is edit, from public
+     *
+     *      - same as with second case, we just need to remember that it's edit, and all the
+     *      information that it gets and holds within its state.
+     *
+     *
+     *
+     */
+
+    private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
+
+        TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+
+        if(templateClass.isIsImperial()){
+            TemplateEditorSingleton.getInstance().isTemplateImperial = true;
         }else{
-            newValue = oldValue;
+            TemplateEditorSingleton.getInstance().isTemplateImperial = false;
         }
-        return newValue;
+
+        if(templateClass.getRestTime() != null){
+            String delims = "[:]";
+            String[] tokens = templateClass.getRestTime().split(delims);
+            minutesEditText.setText(tokens[0]);
+            secondsEditText.setText(tokens[1]);
+        }
+
+        if(templateClass.getVibrationTime() != null){
+            secondsVibrateEditText.setText(templateClass.getVibrationTime());
+            if(templateClass.isIsRestTimerAlert()){
+                justVibrateRB.setChecked(false);
+                showRestTimerAlertRB.setChecked(true);
+            }else{
+                justVibrateRB.setChecked(true);
+                showRestTimerAlertRB.setChecked(false);
+            }
+        }
+
+        restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
+
+        TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+
+        if(!templateClass.getUserId().equals(uid)){
+            // if editing someone else's template
+            TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
+            TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
+            TemplateEditorSingleton.getInstance().mUserId2 = uid;
+            TemplateEditorSingleton.getInstance().mUserName2 = userName;
+        }else{
+            TemplateEditorSingleton.getInstance().mUserId = uid;
+            TemplateEditorSingleton.getInstance().mUserName = userName;
+        }
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(templateClass.getMapOne() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW1.isEdit = true;
+            doW1.isFirstTime = true;
+            doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
+            doW1.map = templateClass.getMapOne();
+            doW1.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+            loadingView.setVisibility(View.GONE);
+        }
+        if(templateClass.getMapTwo() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW2.isEdit = true;
+            doW2.isFirstTime = true;
+            doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
+            doW2.map = templateClass.getMapTwo();
+            doW2.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+        }
+        if(templateClass.getMapThree() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW3.isEdit = true;
+            doW3.isFirstTime = true;
+            doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
+            doW3.map = templateClass.getMapThree();
+            doW3.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+        }
+        if(templateClass.getMapFour() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW4.isEdit = true;
+            doW4.isFirstTime = true;
+            doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
+            doW4.map = templateClass.getMapFour();
+            doW4.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+        }
+        if(templateClass.getMapFive() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW5.isEdit = true;
+            doW5.isFirstTime = true;
+            doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
+            doW5.map = templateClass.getMapFive();
+            doW5.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+        }
+        if(templateClass.getMapSix() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW6.isEdit = true;
+            doW6.isFirstTime = true;
+            doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
+            doW6.map = templateClass.getMapSix();
+            doW6.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+        }
+        if(templateClass.getMapSeven() != null){
+            ++fragIdCount;
+            String fragString = Integer.toString(fragIdCount);
+            doW7.isEdit = true;
+            doW7.isFirstTime = true;
+            doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
+            doW7.map = templateClass.getMapSeven();
+            doW7.templateName = templateClass.getTemplateName();
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+        }
+
+        if(templateClass.getMapOne() == null && templateClass.getMapTwo() == null &&
+                templateClass.getMapThree() == null && templateClass.getMapFour() == null &&
+                templateClass.getMapFive() == null && templateClass.getMapSix() == null &&
+                templateClass.getMapSeven() == null){
+            loadingView.setVisibility(View.GONE);
+            addDaySet();
+        }
+
+        fragmentTransaction.commitAllowingStateLoss();
+
+        if(templateClass.getIsAlgorithm()){
+            TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
+            if(templateClass.getIsAlgoApplyToAll()){
+                TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                List<String> tempAlgoInfoList2 = new ArrayList<>();
+                tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
+                tempAlgoInfoList2.set(6, weightValue);
+                EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+            }else{
+                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
+                    String key = entry.getKey();
+                    List<String> listValue = entry.getValue();
+                    String newValue = handleUnitConversion(listValue.get(6));
+                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
+                            newValue);
+                    //listValue.set(6, newValue);
+                }
+            }
+        }
+
+
+    }
+
+    private void checkForEditState(){
+        if (getIntent().getExtras().getString("isEdit") != null) {
+            if (getIntent().getExtras().getString("isEdit").equals("yes")){
+                isTemplateEdit = true;
+                if (getIntent().getExtras().getString("isFromPublic") != null) {
+                    if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
+                        // if template isEdit, isFromPublic
+                        isFromPublic = true;
+
+                        TemplateEditorSingleton.getInstance().isFromPublic = true;
+
+                        templateNameEdit = getIntent().getExtras().getString("templateName");
+
+                        // Check for active template
+                        DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
+
+                        activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                                if(userModelClass.getActiveTemplate() != null){
+                                    if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
+                                        activeTemplateCheckbox.setChecked(true);
+                                    }
+                                }
+                                if(userModelClass.isIsImperial()){
+                                    //TemplateEditorSingleton.getInstance().isImperial = true;
+                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
+                                }else{
+                                    //TemplateEditorSingleton.getInstance().isImperial = false;
+                                    TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        DatabaseReference templateRef = mRootRef.child("publicTemplates").child("myPublic").child(uid).child(templateNameEdit);
+
+                        templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                                TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+                                TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
+                                        .getPublicTemplateKeyId();
+
+                                inflateFromTemplateModelClass(templateClass);
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                }else{
+                    // isEdit, not from public, coming from saved workouts.
+                    templateNameEdit = getIntent().getExtras().getString("templateName");
+
+
+
+                    // Check for active template
+                    DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
+
+                    activeTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                            if(userModelClass.getActiveTemplate() != null){
+                                if(userModelClass.getActiveTemplate().equals(templateNameEdit)){
+                                    activeTemplateCheckbox.setChecked(true);
+                                }
+                            }
+                            if(userModelClass.isIsImperial()){
+                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = true;
+                            }else{
+                                TemplateEditorSingleton.getInstance().isCurrentUserImperial = false;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    DatabaseReference templateRef = mRootRef.child("templates").child(uid).child(templateNameEdit);
+                    templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                            inflateFromTemplateModelClass(templateClass);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }else if(getIntent().getExtras().getString("isEdit").equals("no")){
+                //DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child
+                //        ("isFromScratchFirstTime");
+                //if (getIntent().getExtras().getString("isEdit") != null) {
+                //    if (getIntent().getExtras().getString("isEdit").equals("no")) {
+                //    }
+                //}
+
+                // totally from scratch
+
+                /**
+                 * First we check if there's a runningTemplate.
+                 * It's probably safest if we clear everything and run this whole thing every time.
+                 * We could just have it twice. And in onStart we show the dialog and in onResume
+                 * we don't. We also need a way of reading day sets without any days selected.
+                 * So we should clear lists every time and rebuild.
+                 */
+
+                restTimerSwitch.setChecked(true);
+
+                DatabaseReference userRef = mRootRef.child("user").child(uid);
+
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                        TemplateEditorSingleton.getInstance().isCurrentUserImperial = userModelClass.isIsImperial();
+                        TemplateEditorSingleton.getInstance().isTemplateImperial = userModelClass.isIsImperial();
+                        if(userModelClass.getActiveTemplate() == null){
+                            activeTemplateCheckbox.setChecked(true);
+                        }
+
+                        try{
+                            if(getCurrentFocus() != null){
+                                Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
+                                        .LENGTH_LONG).show();
+                            }
+                        }catch (IllegalStateException e){
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                DatabaseReference runningRef = mRootRef.child("templatesRunning").child(uid);
+
+                runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            // we ask first
+                            Intent intent = new Intent(TemplateEditorActivity.this,
+                                    UseRunningTemplateDialog.class);
+                            startActivityForResult(intent, 3);
+                        }else{
+                            // do nothing?
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                loadingView.setVisibility(View.GONE);
+            }
+        }
+    }
+
+
+    private void cleanUpState(){
+        if(!dayOfWeekChildFragArrayList.isEmpty()){
+            removeAllDaySets();
+        }
+    }
+
+    public void updateTemplateNode(){
+
+        String dateUpdated = null;
+
+        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+        dateUpdated = dateTime.toString();
+
+        DatabaseReference selectedTemplateDataRef;
+        selectedTemplateDataRef = mRootRef.child("templatesRunning").child(uid);
+
+        String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
+        String xUserId = TemplateEditorSingleton.getInstance().mUserId;
+        String xUserName= TemplateEditorSingleton.getInstance().mUserName;
+        String xUserId2 = TemplateEditorSingleton.getInstance().mUserId2;
+        String xUserName2 = TemplateEditorSingleton.getInstance().mUserName2;
+        final boolean xIsPublic = TemplateEditorSingleton.getInstance().mIsPublic;
+        String xDateCreated = TemplateEditorSingleton.getInstance().mDateCreated;
+        String xDescription = TemplateEditorSingleton.getInstance().mDescription;
+        String xRestTimer = TemplateEditorSingleton.getInstance().mRestTime;
+        boolean xIsActiveRestTimer = TemplateEditorSingleton.getInstance().mIsActiveRestTimer;
+        String xVibrationTimer = TemplateEditorSingleton.getInstance().mVibrationTime;
+        boolean xIsShowAlert = TemplateEditorSingleton.getInstance().mIsRestTimerAlert;
+        HashMap<String, List<String>> xMapOne = new HashMap<>();
+        xMapOne.putAll(TemplateEditorSingleton.getInstance().mapOne);
+        HashMap<String, List<String>> xMapTwo = new HashMap<>();
+        xMapTwo.putAll(TemplateEditorSingleton.getInstance().mapTwo);
+        HashMap<String, List<String>> xMapThree = new HashMap<>();
+        xMapThree.putAll(TemplateEditorSingleton.getInstance().mapThree);
+        HashMap<String, List<String>> xMapFour = new HashMap<>();
+        xMapFour.putAll(TemplateEditorSingleton.getInstance().mapFour);
+        HashMap<String, List<String>> xMapFive = new HashMap<>();
+        xMapFive.putAll(TemplateEditorSingleton.getInstance().mapFive);
+        HashMap<String, List<String>> xMapSix = new HashMap<>();
+        xMapSix.putAll(TemplateEditorSingleton.getInstance().mapSix);
+        HashMap<String, List<String>> xMapSeven = new HashMap<>();
+        xMapSeven.putAll(TemplateEditorSingleton.getInstance().mapSeven);
+        boolean xIsAlgorithm = TemplateEditorSingleton.getInstance().mIsAlgorithm;
+        boolean xIsAlgoApplyToAll = TemplateEditorSingleton.getInstance().isAlgoApplyToAll;
+        HashMap<String, List<String>> xAlgorithmInfo;
+        if(xIsAlgoApplyToAll){
+            xAlgorithmInfo = EditTemplateAssemblerClass.getInstance().tempAlgoInfo2;
+        }else{
+            xAlgorithmInfo = TemplateEditorSingleton.getInstance().mAlgorithmInfo;
+        }
+        HashMap<String, List<String>> xAlgorithmDateMap = TemplateEditorSingleton.getInstance().mAlgorithmDateMap;
+
+        String xDays = getDays(xMapOne, xMapTwo, xMapThree, xMapFour, xMapFive, xMapSix, xMapSeven);
+
+        String workoutType = "placeholder";
+
+        boolean unitsIsImperial;
+
+        unitsIsImperial = TemplateEditorSingleton.getInstance().isCurrentUserImperial;
+
+        final TemplateModelClass modelClass = new TemplateModelClass(xTemplateName, xDays, xUserId, xUserName,
+                xUserId2, xUserName2, xIsPublic,
+                xDateCreated, dateUpdated, workoutType, xDescription, xMapOne, xMapTwo,
+                xMapThree, xMapFour, xMapFive, xMapSix,
+                xMapSeven, xIsAlgorithm, xIsAlgoApplyToAll, xAlgorithmInfo,
+                xAlgorithmDateMap, unitsIsImperial, null, xRestTimer, xIsActiveRestTimer,
+                xVibrationTimer, xIsShowAlert);
+
+        if(TemplateEditorSingleton.getInstance().isFromPublic){
+            modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);
+        }
+
+        selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                boolean myAss = TemplateEditorSingleton.getInstance().isCurrentUserImperial;
+            }
+        });
+    }
+
+    // END UPLOAD OF TEMPLATE
+
+    private void addDaySet(){
+        if(timer != null){
+            timer.cancel();
+            addDay.setBackgroundColor(Color.parseColor("#000000"));
+        }
+
+        ++fragIdCount;
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String fragString = Integer.toString(fragIdCount);
+
+        if(isFirstTimeTut){
+            doW1.firstTimeTut = true;
+        }
+
+        if(fragIdCount == 1){
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 2){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW2.daysArray = stringArray.clone();
+            doW2.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 3){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW3.daysArray = stringArray.clone();
+            doW3.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 4){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW4.daysArray = stringArray.clone();
+            doW4.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 5){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW5.daysArray = stringArray.clone();
+            doW5.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 6){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW6.daysArray = stringArray.clone();
+            doW6.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+            fragmentTransaction.commit();
+        }else if(fragIdCount == 7){
+            String[] stringArray = getCurrentSelectedDays().toArray(new String[getCurrentSelectedDays().size()]);
+            doW7.daysArray = stringArray.clone();
+            doW7.isAdded = true;
+            fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+            fragmentTransaction.commit();
+        }
+
+
+        CharSequence toastText = "Day-set Added";
+        int duration = Snackbar.LENGTH_SHORT;
+
+        try{
+            Snackbar snackbar = Snackbar.make(getCurrentFocus(), toastText, duration);
+            snackbar.show();
+        } catch (NullPointerException e){
+
+        }
+    }
+
+    private void removeAllDaySets(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //String fragString = Integer.toString(fragIdCount);
+
+        for(int i = fragIdCount; i > 0 ; i--){
+            String fragString = Integer.toString(i);
+            handleDoWRemoval(i, fragString);
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+        }
+        fragIdCount = 0;
+    }
+
+    private void handleDoWRemoval(int index, String fragString){
+        ArrayList<String> removeList = new ArrayList<>();
+        if(index == 1){
+            removeList = doW1.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW1.dayUnselectedToFrag(days);
+                doW1.setToNull();
+            }
+            doW1.removeExercises();
+        }else if(index == 2){
+            removeList = doW2.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW2.dayUnselectedToFrag(days);
+                doW2.setToNull();
+            }
+            doW2.removeExercises();
+        }else if(index == 3){
+            removeList = doW3.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW3.dayUnselectedToFrag(days);
+                doW3.setToNull();
+            }
+            doW3.removeExercises();
+        }else if(index == 4){
+            removeList = doW4.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW4.dayUnselectedToFrag(days);
+                doW4.setToNull();
+            }
+            doW4.removeExercises();
+        }else if(index == 5){
+            removeList = doW5.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW5.dayUnselectedToFrag(days);
+                doW5.setToNull();
+            }
+            doW5.removeExercises();
+        }else if(index == 6){
+            removeList = doW6.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW6.dayUnselectedToFrag(days);
+                doW6.setToNull();
+            }
+            doW6.removeExercises();
+        }else if(index == 7){
+            removeList = doW7.getSelectedDays();
+            for(String days : removeList){
+                dayUnselectedFromFrag(days, fragString);
+                doW7.dayUnselectedToFrag(days);
+                doW7.setToNull();
+            }
+            doW7.removeExercises();
+        }
     }
 
     private void removeDaySet(){
@@ -932,6 +1062,7 @@ public class TemplateEditorActivity extends BaseActivity
             } catch (NullPointerException e){
 
             }
+            //updateTemplateNode();
         }
 
         if (fragIdCount != 0) {
@@ -1065,69 +1196,120 @@ public class TemplateEditorActivity extends BaseActivity
                     }
                 }
             }
+        }else if(requestCode == 3){
+            if(resultCode == 1){
+                // inflate from running template
+                /**
+                 * Where we at: made cleanUp method. So now we need to clean up state, then get
+                 * the templateModelClass and inflate from that (remember we have a method for
+                 * that now). Then we need to work on getting the save state exactly like it
+                 * would be for full template saving, remembering to save day sets that don't
+                 * have selected days. Maybe force selections? idk.
+                 */
+            }else if(resultCode == 2){
+                // normal inflate
+            }
         }
     }
 
-    // [START on_start_add_listener]
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+    String getDays(HashMap<String, List<String>> mMapOne,
+                   HashMap<String, List<String>> mMapTwo,
+                   HashMap<String, List<String>> mMapThree,
+                   HashMap<String, List<String>> mMapFour,
+                   HashMap<String, List<String>> mMapFive,
+                   HashMap<String, List<String>> mMapSix,
+                   HashMap<String, List<String>> mMapSeven){
+        String days = "";
+        if(mMapOne != null && !mMapOne.isEmpty()){
+            String daysOne = mMapOne.get("0_key").get(0);
+            days = days + daysOne;
+        }
+        if(mMapTwo != null && !mMapTwo.isEmpty()){
+            if(mMapTwo.get("0_key") != null){
+                String daysOne = mMapTwo.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapThree != null && !mMapThree.isEmpty()){
+            if(mMapThree.get("0_key") != null){
+                String daysOne = mMapThree.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapFour != null && !mMapFour.isEmpty()){
+            if(mMapFour.get("0_key") != null){
+                String daysOne = mMapFour.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapFive != null && !mMapFive.isEmpty()){
+            if(mMapFive.get("0_key") != null){
+                String daysOne = mMapFive.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapSix != null && !mMapSix.isEmpty()){
+            if(mMapSix.get("0_key") != null){
+                String daysOne = mMapSix.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
+        if(mMapSeven != null && !mMapSeven.isEmpty()){
+            if(mMapSeven.get("0_key") != null){
+                String daysOne = mMapSeven.get("0_key").get(0);
+                days = days + daysOne;
+            }
+        }
 
-        DatabaseReference isFirstTemplate = mRootRef.child("templates").child(uid);
-        isFirstTemplate.addListenerForSingleValueEvent(new ValueEventListener() {
+        return days;
+    }
+
+
+    boolean isBlack = false;
+
+    CountDownTimer timer;
+
+    private void flashAddDay(){
+        if(timer != null){
+            timer.cancel();
+        }
+        timer = new CountDownTimer(2000, 150) {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
-                    activeTemplateCheckbox.setChecked(true);
+            public void onTick(long l) {
+                if(isBlack){
+                    addDay.setBackgroundColor(Color.parseColor("#000000"));
+                    isBlack = false;
+                }else{
+                    addDay.setBackgroundColor(Color.parseColor("#303030"));
+                    isBlack = true;
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onFinish() {
+                addDay.setBackgroundColor(Color.parseColor("#000000"));
             }
-        });
+        }.start();
+    }
 
-
-        final DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child("isFromScratchFirstTime");
-        firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    TemplateEditorSingleton.getInstance().isFirstTimeTut = true;
-                    FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder
-                            (TemplateEditorActivity.this)
-                            .title("Welcome to the Program Editor. This is where you can create " +
-                                    "complex, custom workout programs.")
-                            .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-                            .build();
-                    FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder
-                            (TemplateEditorActivity.this)
-                            .focusOn(addDay)
-                            .title("Let's begin by adding a day set.")
-                            .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER)
-                            .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                            .fitSystemWindows(true)
-                            .build();
-
-                    new FancyShowCaseQueue()
-                            .add(fancyShowCaseView1)
-                            .add(fancyShowCaseView2)
-                            .show();
-
-                    isFirstTimeTut = true;
-
-                    firstTimeRef.setValue(null);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+    private String handleUnitConversion(String oldValue){
+        String newValue;
+        if(TemplateEditorSingleton.getInstance().isTemplateImperial
+                && !TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is imperial, but the user is metric
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble * 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else if(!TemplateEditorSingleton.getInstance().isTemplateImperial
+                && TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+            // the template is metric, but the user is imperial
+            double valueDouble = Double.parseDouble(oldValue);
+            int valueInt = (int) Math.round(valueDouble / 0.45359237);
+            newValue = String.valueOf(valueInt);
+        }else{
+            newValue = oldValue;
+        }
+        return newValue;
     }
     // [END on_start_add_listener]
 

@@ -159,6 +159,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     monToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -178,6 +179,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     tuesToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -197,6 +199,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     wedToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -216,6 +219,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     thurToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -235,6 +239,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     friToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -254,6 +259,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     satToggle.setBackgroundColor(Color.parseColor("#BDA71A"));
@@ -273,6 +279,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(timer != null){
                     timer.cancel();
+                    buttonbar.setBackgroundColor(Color.parseColor("#000000"));
                 }
                 if(isChecked){
                     sunToggle.setBackgroundColor(Color.parseColor("#BDA71A"));

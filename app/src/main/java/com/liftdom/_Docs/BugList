@@ -193,6 +193,7 @@ Template Editor:
     done - imitate first set scheme's settings when adding new set scheme.
     done - flash add day set in beginning, end when selected.
     done - flash day picker on add day set, end when selected.
+    - make snackbar flashes only happen once
     - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
         switching around and any of it dies.
 

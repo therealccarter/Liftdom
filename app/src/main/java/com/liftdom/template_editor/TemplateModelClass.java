@@ -41,6 +41,8 @@ public class TemplateModelClass {
     private boolean mIsActiveRestTimer;
     private String mVibrationTime;
     private boolean mIsRestTimerAlert;
+    private boolean mIsEdit;
+
 
     public TemplateModelClass(){
         //necessary for Firebase
@@ -99,6 +101,14 @@ public class TemplateModelClass {
         }catch (NullPointerException e){
 
         }
+    }
+
+    public boolean isIsEdit() {
+        return mIsEdit;
+    }
+
+    public void setIsEdit(boolean mIsEdit) {
+        this.mIsEdit = mIsEdit;
     }
 
     public String getVibrationTime() {
