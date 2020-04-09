@@ -197,6 +197,9 @@ Template Editor:
     - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
         switching around and any of it dies.
 
+    HUGE BUG: somewhere other than templateEditorSingleton we have code that is adding one exercise
+    in first day set to itself, duplicating that exercise. It isn't present in 4/8 commit.
+
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
