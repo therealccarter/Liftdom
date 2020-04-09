@@ -199,6 +199,18 @@ Template Editor:
 
     HUGE BUG: somewhere other than templateEditorSingleton we have code that is adding one exercise
     in first day set to itself, duplicating that exercise. It isn't present in 4/8 commit.
+    OK WE FOUND IT SORT OF: we greyed out
+    updateTemplateNode()1025,
+    cleanUpState()1279,
+    inflateFromRunning()1280.
+    Somewhere in there is the bug.
+    Maybe in the updateTemplate method when we affect the TemplateEditorSingleton values?
+
+    WHERE WE AT:
+        - Full save with two day sets with days selected and one empty ex each: works fine.
+        - Full save with two day sets without days selected gets completely fucked - we can't allow this
+        - Update with two day sets with days selected and one empty ex each: makes two maps, but the
+            first map has the empty ex added twice.
 
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
