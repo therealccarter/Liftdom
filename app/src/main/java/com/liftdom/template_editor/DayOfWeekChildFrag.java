@@ -77,6 +77,10 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         }
     }
 
+    public void setDoWInfoRunning(){
+
+    }
+
     public void daySelectedToFrag(String doW){
         setGreyChecked(doW);
     }

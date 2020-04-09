@@ -483,159 +483,159 @@ public class TemplateEditorActivity extends BaseActivity
      */
 
     private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
+        if(templateClass != null){
 
-        TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
+            TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
 
-        if(templateClass.isIsImperial()){
-            TemplateEditorSingleton.getInstance().isTemplateImperial = true;
-        }else{
-            TemplateEditorSingleton.getInstance().isTemplateImperial = false;
-        }
-
-        if(templateClass.getRestTime() != null){
-            String delims = "[:]";
-            String[] tokens = templateClass.getRestTime().split(delims);
-            minutesEditText.setText(tokens[0]);
-            secondsEditText.setText(tokens[1]);
-        }
-
-        if(templateClass.getVibrationTime() != null){
-            secondsVibrateEditText.setText(templateClass.getVibrationTime());
-            if(templateClass.isIsRestTimerAlert()){
-                justVibrateRB.setChecked(false);
-                showRestTimerAlertRB.setChecked(true);
+            if(templateClass.isIsImperial()){
+                TemplateEditorSingleton.getInstance().isTemplateImperial = true;
             }else{
-                justVibrateRB.setChecked(true);
-                showRestTimerAlertRB.setChecked(false);
+                TemplateEditorSingleton.getInstance().isTemplateImperial = false;
             }
-        }
 
-        restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
+            if(templateClass.getRestTime() != null){
+                String delims = "[:]";
+                String[] tokens = templateClass.getRestTime().split(delims);
+                minutesEditText.setText(tokens[0]);
+                secondsEditText.setText(tokens[1]);
+            }
 
-        TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
+            if(templateClass.getVibrationTime() != null){
+                secondsVibrateEditText.setText(templateClass.getVibrationTime());
+                if(templateClass.isIsRestTimerAlert()){
+                    justVibrateRB.setChecked(false);
+                    showRestTimerAlertRB.setChecked(true);
+                }else{
+                    justVibrateRB.setChecked(true);
+                    showRestTimerAlertRB.setChecked(false);
+                }
+            }
 
-        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        String userName = sharedPref.getString("userName", "loading...");
+            restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
 
-        if(!templateClass.getUserId().equals(uid)){
-            // if editing someone else's template
-            TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
-            TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
-            TemplateEditorSingleton.getInstance().mUserId2 = uid;
-            TemplateEditorSingleton.getInstance().mUserName2 = userName;
-        }else{
-            TemplateEditorSingleton.getInstance().mUserId = uid;
-            TemplateEditorSingleton.getInstance().mUserName = userName;
-        }
+            TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+            String userName = sharedPref.getString("userName", "loading...");
 
-        if(templateClass.getMapOne() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW1.isEdit = true;
-            doW1.isFirstTime = true;
-            doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
-            doW1.map = templateClass.getMapOne();
-            doW1.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
-            loadingView.setVisibility(View.GONE);
-        }
-        if(templateClass.getMapTwo() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW2.isEdit = true;
-            doW2.isFirstTime = true;
-            doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
-            doW2.map = templateClass.getMapTwo();
-            doW2.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
-        }
-        if(templateClass.getMapThree() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW3.isEdit = true;
-            doW3.isFirstTime = true;
-            doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
-            doW3.map = templateClass.getMapThree();
-            doW3.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
-        }
-        if(templateClass.getMapFour() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW4.isEdit = true;
-            doW4.isFirstTime = true;
-            doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
-            doW4.map = templateClass.getMapFour();
-            doW4.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
-        }
-        if(templateClass.getMapFive() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW5.isEdit = true;
-            doW5.isFirstTime = true;
-            doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
-            doW5.map = templateClass.getMapFive();
-            doW5.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
-        }
-        if(templateClass.getMapSix() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW6.isEdit = true;
-            doW6.isFirstTime = true;
-            doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
-            doW6.map = templateClass.getMapSix();
-            doW6.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
-        }
-        if(templateClass.getMapSeven() != null){
-            ++fragIdCount;
-            String fragString = Integer.toString(fragIdCount);
-            doW7.isEdit = true;
-            doW7.isFirstTime = true;
-            doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
-            doW7.map = templateClass.getMapSeven();
-            doW7.templateName = templateClass.getTemplateName();
-            fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
-        }
-
-        if(templateClass.getMapOne() == null && templateClass.getMapTwo() == null &&
-                templateClass.getMapThree() == null && templateClass.getMapFour() == null &&
-                templateClass.getMapFive() == null && templateClass.getMapSix() == null &&
-                templateClass.getMapSeven() == null){
-            loadingView.setVisibility(View.GONE);
-            addDaySet();
-        }
-
-        fragmentTransaction.commitAllowingStateLoss();
-
-        if(templateClass.getIsAlgorithm()){
-            TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
-            if(templateClass.getIsAlgoApplyToAll()){
-                TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
-                List<String> tempAlgoInfoList2 = new ArrayList<>();
-                tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
-                String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
-                tempAlgoInfoList2.set(6, weightValue);
-                EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+            if(!templateClass.getUserId().equals(uid)){
+                // if editing someone else's template
+                TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
+                TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
+                TemplateEditorSingleton.getInstance().mUserId2 = uid;
+                TemplateEditorSingleton.getInstance().mUserName2 = userName;
             }else{
-                EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
-                for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
-                    String key = entry.getKey();
-                    List<String> listValue = entry.getValue();
-                    String newValue = handleUnitConversion(listValue.get(6));
-                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
-                            newValue);
-                    //listValue.set(6, newValue);
+                TemplateEditorSingleton.getInstance().mUserId = uid;
+                TemplateEditorSingleton.getInstance().mUserName = userName;
+            }
+
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            if(templateClass.getMapOne() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW1.isEdit = true;
+                doW1.isFirstTime = true;
+                doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
+                doW1.map = templateClass.getMapOne();
+                doW1.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                loadingView.setVisibility(View.GONE);
+            }
+            if(templateClass.getMapTwo() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW2.isEdit = true;
+                doW2.isFirstTime = true;
+                doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
+                doW2.map = templateClass.getMapTwo();
+                doW2.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW2, fragString);
+            }
+            if(templateClass.getMapThree() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW3.isEdit = true;
+                doW3.isFirstTime = true;
+                doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
+                doW3.map = templateClass.getMapThree();
+                doW3.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW3, fragString);
+            }
+            if(templateClass.getMapFour() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW4.isEdit = true;
+                doW4.isFirstTime = true;
+                doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
+                doW4.map = templateClass.getMapFour();
+                doW4.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW4, fragString);
+            }
+            if(templateClass.getMapFive() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW5.isEdit = true;
+                doW5.isFirstTime = true;
+                doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
+                doW5.map = templateClass.getMapFive();
+                doW5.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW5, fragString);
+            }
+            if(templateClass.getMapSix() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW6.isEdit = true;
+                doW6.isFirstTime = true;
+                doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
+                doW6.map = templateClass.getMapSix();
+                doW6.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW6, fragString);
+            }
+            if(templateClass.getMapSeven() != null){
+                ++fragIdCount;
+                String fragString = Integer.toString(fragIdCount);
+                doW7.isEdit = true;
+                doW7.isFirstTime = true;
+                doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
+                doW7.map = templateClass.getMapSeven();
+                doW7.templateName = templateClass.getTemplateName();
+                fragmentTransaction.add(R.id.templateFragmentLayout, doW7, fragString);
+            }
+
+            if(templateClass.getMapOne() == null && templateClass.getMapTwo() == null &&
+                    templateClass.getMapThree() == null && templateClass.getMapFour() == null &&
+                    templateClass.getMapFive() == null && templateClass.getMapSix() == null &&
+                    templateClass.getMapSeven() == null){
+                loadingView.setVisibility(View.GONE);
+                addDaySet();
+            }
+
+            fragmentTransaction.commitAllowingStateLoss();
+
+            if(templateClass.getIsAlgorithm()){
+                TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
+                if(templateClass.getIsAlgoApplyToAll()){
+                    TemplateEditorSingleton.getInstance().isAlgoApplyToAll = true;
+                    List<String> tempAlgoInfoList2 = new ArrayList<>();
+                    tempAlgoInfoList2.addAll(templateClass.getAlgorithmInfo().get("0_key"));
+                    String weightValue = handleUnitConversion(tempAlgoInfoList2.get(6));
+                    tempAlgoInfoList2.set(6, weightValue);
+                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo2.put("0_key", tempAlgoInfoList2);
+                }else{
+                    EditTemplateAssemblerClass.getInstance().tempAlgoInfo.putAll(templateClass.getAlgorithmInfo());
+                    for(Map.Entry<String, List<String>> entry : templateClass.getAlgorithmInfo().entrySet()){
+                        String key = entry.getKey();
+                        List<String> listValue = entry.getValue();
+                        String newValue = handleUnitConversion(listValue.get(6));
+                        EditTemplateAssemblerClass.getInstance().tempAlgoInfo.get(key).set(6,
+                                newValue);
+                        //listValue.set(6, newValue);
+                    }
                 }
             }
         }
-
-
     }
 
     private void checkForEditState(){
@@ -793,16 +793,22 @@ public class TemplateEditorActivity extends BaseActivity
                     }
                 });
 
-                DatabaseReference runningRef = mRootRef.child("templatesRunning").child(uid);
+                DatabaseReference runningRef =
+                        mRootRef.child("templatesRunning").child(uid).child("userId");
 
                 runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
                             // we ask first
-                            Intent intent = new Intent(TemplateEditorActivity.this,
-                                    UseRunningTemplateDialog.class);
-                            startActivityForResult(intent, 3);
+                            //TODO This detects true even well after the node has been deleted
+                            String string =
+                                    dataSnapshot.getValue(String.class);
+                            if(string != null){
+                                Intent intent = new Intent(TemplateEditorActivity.this,
+                                        UseRunningTemplateDialog.class);
+                                startActivityForResult(intent, 3);
+                            }
                         }else{
                             // do nothing?
                         }
@@ -827,6 +833,26 @@ public class TemplateEditorActivity extends BaseActivity
     }
 
     public void updateTemplateNode(){
+        /**
+         * Let's collect everything that happens
+         * now we need to be able to save empty day sets/ex sets
+         *
+         * The first day set is being saved correctly, - 1, bp flat.
+         *
+         * But then on saving the second, it re-saves the first as a new day set and then saves
+         * the second one third.
+         *
+         *
+         * OK so it shouldn't be sending bp flat over at all, or if it does it should detect that
+         * it is 1.
+         *
+         *
+         *
+         */
+
+        for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
+            dayOfWeekChildFrag.setDoWInfo();
+        }
 
         String dateUpdated = null;
 
@@ -835,6 +861,32 @@ public class TemplateEditorActivity extends BaseActivity
 
         DatabaseReference selectedTemplateDataRef;
         selectedTemplateDataRef = mRootRef.child("templatesRunning").child(uid);
+
+        String descriptionString = templateDescriptionEdit.getText().toString();
+        TemplateEditorSingleton.getInstance().mDescription = descriptionString;
+        TemplateEditorSingleton.getInstance().mIsActiveRestTimer = restTimerBool;
+        TemplateEditorSingleton.getInstance().mRestTime = minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString();
+        TemplateEditorSingleton.getInstance().mVibrationTime =
+                secondsVibrateEditText.getText().toString();
+        TemplateEditorSingleton.getInstance().mIsRestTimerAlert =
+                showRestTimerAlertRB.isChecked();
+
+
+        SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        String userName = sharedPref.getString("userName", "loading...");
+        if(TemplateEditorSingleton.getInstance().isFromPublic){
+            // if editing someone else's template
+            TemplateEditorSingleton.getInstance().mUserId2 = uid;
+            TemplateEditorSingleton.getInstance().mUserName2 = userName;
+        }else{
+            TemplateEditorSingleton.getInstance().mUserId = uid;
+            TemplateEditorSingleton.getInstance().mUserName = userName;
+        }
+
+        /**
+         * Problem is sometimes it is from public...
+         */
+
 
         String xTemplateName = TemplateEditorSingleton.getInstance().mTemplateName;
         String xUserId = TemplateEditorSingleton.getInstance().mUserId;
@@ -969,6 +1021,8 @@ public class TemplateEditorActivity extends BaseActivity
         } catch (NullPointerException e){
 
         }
+
+        updateTemplateNode();
     }
 
     private void removeAllDaySets(){
@@ -1138,6 +1192,22 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
+    private void inflateFromRunning(){
+        DatabaseReference runningRef = mRootRef.child("templatesRunning").child(uid);
+        runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                inflateFromTemplateModelClass(modelClass);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -1206,6 +1276,8 @@ public class TemplateEditorActivity extends BaseActivity
                  * would be for full template saving, remembering to save day sets that don't
                  * have selected days. Maybe force selections? idk.
                  */
+                cleanUpState();
+                inflateFromRunning();
             }else if(resultCode == 2){
                 // normal inflate
             }
@@ -1427,5 +1499,7 @@ public class TemplateEditorActivity extends BaseActivity
         String[] days = daysUn.split("_");
         return days;
     }
+
+
 
 }

@@ -50,6 +50,10 @@ public class TemplateEditorSingleton {
     String mVibrationTime;
     boolean mIsRestTimerAlert;
 
+    /**
+     * TODO boolean for if we're coming from real save or from update. if real save, don't use numbering system.
+     */
+
     public void setValues2(String daysOfWeek, List<String> infoList){
         List<String> dayEntry = new ArrayList<>();
         dayEntry.add(daysOfWeek);
@@ -71,6 +75,11 @@ public class TemplateEditorSingleton {
                     mapSeven.isEmpty()
                     ){
                 Log.i("info", "Map one added: " + daysOfWeek);
+                if(daysOfWeek.equals("")){
+                    daysOfWeek = "1";
+                    dayEntry.clear();
+                    dayEntry.add(daysOfWeek);
+                }
                 mapOne.put("0_key", dayEntry);
                 setMapValues(daysOfWeek, infoList);
             } else if(!mapOne.isEmpty() &&
@@ -83,6 +92,11 @@ public class TemplateEditorSingleton {
                     ){
                 if(!daysOfWeek.equals(mapOne.get("0_key").get(0))){
                     Log.i("info", "Map two added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "2";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapTwo.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{
@@ -99,6 +113,11 @@ public class TemplateEditorSingleton {
                 if(!daysOfWeek.equals(mapOne.get("0_key").get(0)) &&
                         !daysOfWeek.equals(mapTwo.get("0_key").get(0))){
                     Log.i("info", "Map three added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "3";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapThree.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{
@@ -116,6 +135,11 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapTwo.get("0_key").get(0)) &&
                         !daysOfWeek.equals(mapThree.get("0_key").get(0))){
                     Log.i("info", "Map four added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "4";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapFour.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{
@@ -134,6 +158,11 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapThree.get("0_key").get(0)) &&
                         !daysOfWeek.equals(mapFour.get("0_key").get(0))){
                     Log.i("info", "Map five added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "5";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapFive.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{
@@ -153,6 +182,11 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapFour.get("0_key").get(0)) &&
                         !daysOfWeek.equals(mapFive.get("0_key").get(0))){
                     Log.i("info", "Map six added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "6";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapSix.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{
@@ -173,6 +207,11 @@ public class TemplateEditorSingleton {
                         !daysOfWeek.equals(mapFive.get("0_key").get(0)) &&
                         !daysOfWeek.equals(mapSix.get("0_key").get(0))){
                     Log.i("info", "Map seven added: " + daysOfWeek);
+                    if(daysOfWeek.equals("")){
+                        daysOfWeek = "7";
+                        dayEntry.clear();
+                        dayEntry.add(daysOfWeek);
+                    }
                     mapSeven.put("0_key", dayEntry);
                     setMapValues(daysOfWeek, infoList);
                 }else{

@@ -939,6 +939,8 @@
     <string name="secondsOfVibration">seconds of vibration</string>
 
     <string name="useRunningTemplate">Use the last detected Program Editor state?</string>
+    <string name="resetReminder">(Remember that you can click the reset button if you want
+        to clear the Program Editor and bring it back to an empty state.)</string>
 
     <!-- save dialog <string name=""></string> -->
     <string name="saveTemplateAs">SAVE PROGRAM AS...</string>
