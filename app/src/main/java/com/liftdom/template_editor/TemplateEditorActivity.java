@@ -94,6 +94,7 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.showRestTimerAlertRadioButton) RadioButton showRestTimerAlertRB;
     @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
     @BindView(R.id.updateButton) Button updateButton;
+    @BindView(R.id.templateNameView) TextView templateNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -716,10 +717,23 @@ public class TemplateEditorActivity extends BaseActivity
 
                     }
                 }else{
+                    /**
+                     * Ok, where we at:
+                     * We need to handle isEdit. When it first comes in, it knows it's isEdit
+                     * from the getIntent extra. Throughout the shit including savedTemplate it
+                     * is using that. So we need to set within the templateModelClass for running
+                     * that it isEdit and then when we detect that it is from the running model,
+                     * we need to see if we can set the intent extra as isEdit so it can detect
+                     * that when it's saving and processing in the end. Basically restore the
+                     * vanilla isEdit experience but from running. Then we also were thinking
+                     * that anytime you come from the savedTemplates page (clicking edit button)
+                     * it overrules whatever's in the running node. so this would only be used if
+                     * you do that once, leave, then come back via the from scratch button.
+                     */
                     // isEdit, not from public, coming from saved workouts.
                     templateNameEdit = getIntent().getExtras().getString("templateName");
-
-
+                    templateNameView.setText(templateNameEdit);
+                    templateNameView.setVisibility(View.VISIBLE);
 
                     // Check for active template
                     DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid);
