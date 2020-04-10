@@ -93,6 +93,7 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.secondsVibrate) EditText secondsVibrateEditText;
     @BindView(R.id.showRestTimerAlertRadioButton) RadioButton showRestTimerAlertRB;
     @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
+    @BindView(R.id.updateButton) Button updateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,18 +101,25 @@ public class TemplateEditorActivity extends BaseActivity
         setContentView(R.layout.activity_template_editor);
 
         dayOfWeekChildFragArrayList.add(doW1);
+        doW1.doWTag = 1;
 
         dayOfWeekChildFragArrayList.add(doW2);
+        doW2.doWTag = 2;
 
         dayOfWeekChildFragArrayList.add(doW3);
+        doW3.doWTag = 3;
 
         dayOfWeekChildFragArrayList.add(doW4);
+        doW4.doWTag = 4;
 
         dayOfWeekChildFragArrayList.add(doW5);
+        doW5.doWTag = 5;
 
         dayOfWeekChildFragArrayList.add(doW6);
+        doW6.doWTag = 6;
 
         dayOfWeekChildFragArrayList.add(doW7);
+        doW7.doWTag = 7;
 
         Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -188,6 +196,13 @@ public class TemplateEditorActivity extends BaseActivity
         // [END AUTH AND NAV-DRAWER BOILERPLATE] =================================================================
 
         // use increment to keep track of what the current doW frag is
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateTemplateNode();
+            }
+        });
 
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -850,8 +865,10 @@ public class TemplateEditorActivity extends BaseActivity
          *
          */
 
+        TemplateEditorSingleton.getInstance().clearWorkoutInfo();
+
         for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
-            dayOfWeekChildFrag.setDoWInfo();
+            dayOfWeekChildFrag.setDoWInfoRunning();
         }
 
         String dateUpdated = null;
@@ -861,6 +878,8 @@ public class TemplateEditorActivity extends BaseActivity
 
         DatabaseReference selectedTemplateDataRef;
         selectedTemplateDataRef = mRootRef.child("templatesRunning").child(uid);
+
+        //selectedTemplateDataRef.setValue(null);
 
         String descriptionString = templateDescriptionEdit.getText().toString();
         TemplateEditorSingleton.getInstance().mDescription = descriptionString;
@@ -1022,7 +1041,7 @@ public class TemplateEditorActivity extends BaseActivity
 
         }
 
-        updateTemplateNode();
+        //updateTemplateNode();
     }
 
     private void removeAllDaySets(){

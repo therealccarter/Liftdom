@@ -29,7 +29,8 @@ import java.util.Map;
 
 public class DayOfWeekChildFrag extends android.app.Fragment
         implements ExerciseLevelChildFrag.doWCallback,
-                ExerciseLevelChildFrag.removeFragCallback{
+                ExerciseLevelChildFrag.removeFragCallback,
+                ExerciseLevelChildFrag.doWTagCallback{
 
 
     //private OnFragmentInteractionListener mListener;
@@ -47,6 +48,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     String isFri = null;
     String isSat = null;
     String isSun = null;
+
+    int doWTag = 0;
 
     Boolean isEdit = false;
     Boolean isAdded = false;
@@ -72,13 +75,27 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     }
 
     public void setDoWInfo(){
-        for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
-            exerciseLevelChildFrag.setExerciseInfo();
+        if(!getDoW().equals("")){
+            for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+                exerciseLevelChildFrag.setExerciseInfo();
+            }
         }
     }
 
-    public void setDoWInfoRunning(){
+    public String getDoWTag(){
+        return String.valueOf(doWTag);
+    }
 
+    public void setDoWInfoRunning(){
+        for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
+            exerciseLevelChildFrag.setExerciseInfoRunning();
+        }
+        /**
+         * What are we trying to do?
+         * If the day set is not empty, we send in the days as usual. if it is empty, we send in
+         * the tag? gotta make sure the tags are right. then inflating, we would have to put them
+         * in order? wouldn't they be in order? we'll see.
+         */
     }
 
     public void daySelectedToFrag(String doW){

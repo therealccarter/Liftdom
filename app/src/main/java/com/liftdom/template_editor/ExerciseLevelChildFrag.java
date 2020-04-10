@@ -76,11 +76,17 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     public interface removeGoldCallback{
         void removeGold();
     }
+
+    public interface doWTagCallback{
+        String getDoWTag();
+    }
+
     private doWCallback callback;
     private removeFragCallback removeFragCallback;
     private removeFragCallback2 removeFragCallback2;
     private setToGoldCallback setToGoldCallback;
     private removeGoldCallback removeGoldCallback;
+    private doWTagCallback tagCallback;
 
     ArrayList<SetsLevelChildFrag> setsLevelChildFragAL = new ArrayList<>();
 
@@ -282,6 +288,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
 
         callback = (doWCallback) getParentFragment();
+        tagCallback = (doWTagCallback) getParentFragment();
 
         return view;
     }
@@ -546,6 +553,59 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         extraOptionsButton.setImageResource(R.drawable.three_dot_menu);
     }
 
+    public void setExerciseInfoRunning(){
+        List<String> infoList = new ArrayList<>();
+
+            infoList.add(getExerciseValueFormatted());
+
+            for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                if(!setsLevelChildFrag.getSetSchemeString().equals("")){
+                    String delims = "[x, @]";
+                    String[] schemeTokens = setsLevelChildFrag.getSetSchemeString().split(delims);
+                    if(schemeTokens.length == 3){
+                        infoList.add(setsLevelChildFrag.getSetSchemeString());
+                    }
+                }
+            }
+
+            for(ExerciseLevelSSFrag exerciseLevelSSFrag : superSetFragList){
+                if(!exerciseLevelSSFrag.getSupersetInfoList().isEmpty()){
+                    infoList.addAll(exerciseLevelSSFrag.getSupersetInfoList());
+                }
+            }
+
+            if(getDoW1().equals("")){
+                TemplateEditorSingleton.getInstance().setValues3(getDoWTag(), infoList);
+            }else{
+                TemplateEditorSingleton.getInstance().setValues3(getDoW1(), infoList);
+            }
+
+
+        if(!algorithmList.isEmpty()){
+            Log.i("algoLog", getExerciseValueFormatted() + " is not empty (ex level)");
+            if(algorithmList.size() > 13){
+                algorithmList.set(13, getDoWValue());
+            }else{
+                algorithmList.add(getDoWValue());
+            }
+            TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
+            TemplateEditorSingleton.getInstance().setAlgorithmList(getExerciseValueFormatted(), algorithmList);
+            if(hasSupersets){
+                for(ExerciseLevelSSFrag exFrag : superSetFragList){
+                    String exName = exFrag.getExerciseValueFormatted();
+                    if(!exName.equals("Click to select exercise")){
+                        List<String> stringList = new ArrayList<>();
+                        stringList.addAll(algorithmList);
+                        stringList.add("ss");
+                        TemplateEditorSingleton.getInstance().setAlgorithmList(exFrag.getExerciseValueFormatted(), stringList);
+                    }
+                }
+            }
+        }else{
+            Log.i("algoLog", getExerciseValueFormatted() + " is empty (ex level)");
+        }
+    }
+
     public void setExerciseInfo(){
         List<String> infoList = new ArrayList<>();
         if(!getExerciseValueFormatted().equals("Click to select exercise")){
@@ -681,6 +741,10 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
     public String getDoW1(){
         return getDoWValue();
+    }
+
+    public String getDoWTag(){
+        return tagCallback.getDoWTag();
     }
 
     public String getExerciseValueFormatted(){
