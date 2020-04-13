@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.InputFilter;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,7 +48,8 @@ import java.util.Map;
 public class TemplateEditorActivity extends BaseActivity
         implements DayOfWeekChildFrag.onDaySelectedListener,
         ExerciseLevelChildFrag.setToGoldCallback,
-        ExerciseLevelChildFrag.removeGoldCallback{
+        ExerciseLevelChildFrag.removeGoldCallback,
+        DayOfWeekChildFrag.updateCallback{
 
     private static final String TAG = "EmailPassword";
 
@@ -300,7 +302,9 @@ public class TemplateEditorActivity extends BaseActivity
                                         Intent intent = new Intent(TemplateEditorActivity.this, SaveTemplateDialog.class);
 
                                         boolean checkBool = activeTemplateCheckbox.isChecked();
-                                        boolean isPublic = makePublicCheckbox.isChecked();
+                                        //boolean isPublic = makePublicCheckbox.isChecked();
+                                        boolean isPublic =
+                                                TemplateEditorSingleton.getInstance().isFromPublic;
                                         String descriptionString = templateDescriptionEdit.getText().toString();
                                         TemplateEditorSingleton.getInstance().mDescription = descriptionString;
 
@@ -322,7 +326,11 @@ public class TemplateEditorActivity extends BaseActivity
                                                 startActivityForResult(intent, 1);
                                             }
                                         }else{
-                                            intent.putExtra("isEdit", "no");
+                                            if(TemplateEditorSingleton.getInstance().isEdit){
+                                                intent.putExtra("isEdit", "yes");
+                                            }else{
+                                                intent.putExtra("isEdit", "no");
+                                            }
                                             intent.putExtra("isActiveTemplate", checkBool);
                                             //intent.putExtra("isAlgorithm", algBool);
                                             intent.putExtra("isPublic", isPublic);
@@ -373,7 +381,11 @@ public class TemplateEditorActivity extends BaseActivity
                                 startActivityForResult(intent, 1);
                             }
                         }else{
-                            intent.putExtra("isEdit", "no");
+                            if(TemplateEditorSingleton.getInstance().isEdit){
+                                intent.putExtra("isEdit", "yes");
+                            }else{
+                                intent.putExtra("isEdit", "no");
+                            }
                             intent.putExtra("isActiveTemplate", checkBool);
                             //intent.putExtra("isAlgorithm", algBool);
                             intent.putExtra("isPublic", isPublic);
@@ -391,6 +403,8 @@ public class TemplateEditorActivity extends BaseActivity
             flashAddDay();
         }
 
+        checkForEditState();
+
     }
 
 
@@ -398,7 +412,49 @@ public class TemplateEditorActivity extends BaseActivity
     public void onResume(){
         super.onResume();
 
+        if(hasHitOnPause){
+            hasHitOnPause = false;
+            cleanUpState();
+            checkRunningNode();
+        }
 
+    }
+
+    boolean hasHitOnPause = false;
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        hasHitOnPause = true;
+
+    }
+
+    private void checkRunningNode(){
+
+        DatabaseReference runningRef =
+                mRootRef.child("templatesRunning").child(uid);
+
+        runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
+                    if(modelClass.getMapOne() != null){
+                        inflateFromTemplateModelClass(modelClass);
+                    }else{
+                        checkForEditState();
+                    }
+                }else{
+                    // do nothing?
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // [START on_start_add_listener]
@@ -406,8 +462,6 @@ public class TemplateEditorActivity extends BaseActivity
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-
-        checkForEditState();
 
         DatabaseReference isFirstTemplate = mRootRef.child("templates").child(uid);
         isFirstTemplate.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -501,6 +555,35 @@ public class TemplateEditorActivity extends BaseActivity
     private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
         if(templateClass != null){
 
+            //cleanUpState();
+
+            if(!isTemplateEdit){
+                if(templateClass.isIsEdit()){
+                    TemplateEditorSingleton.getInstance().isEdit = true;
+                    isTemplateEdit = true;
+                    //getIntent().putExtra("isEdit", "yes");
+                }else{
+                    TemplateEditorSingleton.getInstance().isEdit = false;
+                    isTemplateEdit = false;
+                    //getIntent().putExtra("isEdit", "no");
+                }
+            }
+
+
+            if(templateClass.isPublic()){
+                TemplateEditorSingleton.getInstance().isFromPublic = true;
+                TemplateEditorSingleton.getInstance().mIsPublic = true;
+                makePublicCheckbox.setChecked(true);
+                isFromPublic = true;
+                //getIntent().putExtra("isFromPublic", "yes");
+            }else{
+                TemplateEditorSingleton.getInstance().isFromPublic = false;
+                TemplateEditorSingleton.getInstance().mIsPublic = false;
+                //getIntent().putExtra("isFromPublic", "no");
+                makePublicCheckbox.setChecked(false);
+                isFromPublic = false;
+            }
+
             TemplateEditorSingleton.getInstance().mAlgorithmDateMap = templateClass.getAlgorithmDateMap();
 
             if(templateClass.isIsImperial()){
@@ -548,9 +631,14 @@ public class TemplateEditorActivity extends BaseActivity
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+            int count = templateClass.getMapCount();
+
             if(templateClass.getMapOne() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 1){
+                    doW1.isBiggest = true;
+                }
                 doW1.isEdit = true;
                 doW1.isFirstTime = true;
                 doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
@@ -562,6 +650,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapTwo() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 2){
+                    doW2.isBiggest = true;
+                }
                 doW2.isEdit = true;
                 doW2.isFirstTime = true;
                 doW2.daysArray = daysToArray(templateClass.getMapTwo().get("0_key").get(0));
@@ -572,6 +663,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapThree() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 3){
+                    doW3.isBiggest = true;
+                }
                 doW3.isEdit = true;
                 doW3.isFirstTime = true;
                 doW3.daysArray = daysToArray(templateClass.getMapThree().get("0_key").get(0));
@@ -582,6 +676,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapFour() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 4){
+                    doW4.isBiggest = true;
+                }
                 doW4.isEdit = true;
                 doW4.isFirstTime = true;
                 doW4.daysArray = daysToArray(templateClass.getMapFour().get("0_key").get(0));
@@ -592,6 +689,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapFive() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 5){
+                    doW5.isBiggest = true;
+                }
                 doW5.isEdit = true;
                 doW5.isFirstTime = true;
                 doW5.daysArray = daysToArray(templateClass.getMapFive().get("0_key").get(0));
@@ -602,6 +702,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapSix() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 6){
+                    doW6.isBiggest = true;
+                }
                 doW6.isEdit = true;
                 doW6.isFirstTime = true;
                 doW6.daysArray = daysToArray(templateClass.getMapSix().get("0_key").get(0));
@@ -612,6 +715,9 @@ public class TemplateEditorActivity extends BaseActivity
             if(templateClass.getMapSeven() != null){
                 ++fragIdCount;
                 String fragString = Integer.toString(fragIdCount);
+                if(count == 7){
+                    doW7.isBiggest = true;
+                }
                 doW7.isEdit = true;
                 doW7.isFirstTime = true;
                 doW7.daysArray = daysToArray(templateClass.getMapSeven().get("0_key").get(0));
@@ -651,13 +757,43 @@ public class TemplateEditorActivity extends BaseActivity
                     }
                 }
             }
+            if(timer2 != null){
+                timer2.cancel();
+            }
+            timer2 = new CountDownTimer(2000, 2000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    updateTemplateNode();
+                }
+            }.start();
         }
     }
+
+    CountDownTimer timer2;
+
+
+    //First: updating right after inflating doesn't work, it doesn't catch the DoW maps
+    //Second: having checkForEditState in onResume means that every time it comes back in view,
+    //          it's still got the intents so it erases any progress and re-inflates from default.
+
+    /**
+     * We should put checkForEditState in onCreate. Then again in onResume. However, we'll put a
+     * boolean in onPause so we aren't onResuming from the start, only if onPause gets triggered
+     * first. In onResume it shouldn't be full checkForEditState, it'll just be checking the
+     * running ref. To protect against a malformed/too early update, if there are no maps, we
+     * will do full checkForEditState.
+     */
 
     private void checkForEditState(){
         if (getIntent().getExtras().getString("isEdit") != null) {
             if (getIntent().getExtras().getString("isEdit").equals("yes")){
                 isTemplateEdit = true;
+                TemplateEditorSingleton.getInstance().isEdit = true;
                 if (getIntent().getExtras().getString("isFromPublic") != null) {
                     if (getIntent().getExtras().getString("isFromPublic").equals("yes")) {
                         // if template isEdit, isFromPublic
@@ -729,9 +865,12 @@ public class TemplateEditorActivity extends BaseActivity
                      * that anytime you come from the savedTemplates page (clicking edit button)
                      * it overrules whatever's in the running node. so this would only be used if
                      * you do that once, leave, then come back via the from scratch button.
+                     * Also we need to remove the template name view if it isn't edit. tho idk if
+                     * that will be a problem.
                      */
                     // isEdit, not from public, coming from saved workouts.
                     templateNameEdit = getIntent().getExtras().getString("templateName");
+                    TemplateEditorSingleton.getInstance().mTemplateName = getIntent().getExtras().getString("templateName");
                     templateNameView.setText(templateNameEdit);
                     templateNameView.setVisibility(View.VISIBLE);
 
@@ -831,13 +970,42 @@ public class TemplateEditorActivity extends BaseActivity
                         if(dataSnapshot.exists()){
                             // we ask first
                             //TODO This detects true even well after the node has been deleted
-                            String string =
-                                    dataSnapshot.getValue(String.class);
-                            if(string != null){
-                                Intent intent = new Intent(TemplateEditorActivity.this,
-                                        UseRunningTemplateDialog.class);
-                                startActivityForResult(intent, 3);
-                            }
+                            //checkRunningNode();
+                            inflateFromRunning();
+                            /**
+                             * Ok, so we eliminated the pop up window and it inflates correctly.
+                             * We need to know why.
+                             *
+                             * Also we're using checkRunningNode instead of the direct inflate
+                             * running. (actually that doesn't matter, they both work.)
+                             * So somewhere along that line shit gets fucked.
+                             * Another problem is when the save dialog comes up (so onPause then
+                             * maybe onResume), we lose the days selected from DoW frag. And bc
+                             * we then update? so it updates the day less version.
+                             *
+                             * So I think it first goes to onPause, then the day is unselected,
+                             * then onResume hits and inflates. But no, somewhere in there it
+                             * updates.
+                             *
+                             * Ok it updates right after inflate? So we need to put breakpoints
+                             * in onResume, inflate beginning, inflate before update, inflate at
+                             * update, then update.
+                             *
+                             * Also it looks like the template name isn't being saved to the
+                             * running ref.
+                             *
+                             * OK, by the time it gets to updating, the doW1.map is actually
+                             * correct with Monday selected. But the TemplateEditorSingleton
+                             * mapOne has it as 1/no day selected. And visually we don't see
+                             * Monday selected.
+                             */
+                            //String string =
+                            //        dataSnapshot.getValue(String.class);
+                            //if(string != null){
+                            //    Intent intent = new Intent(TemplateEditorActivity.this,
+                            //            UseRunningTemplateDialog.class);
+                            //    startActivityForResult(intent, 3);
+                            //}
                         }else{
                             // do nothing?
                         }
@@ -973,6 +1141,8 @@ public class TemplateEditorActivity extends BaseActivity
                 xAlgorithmDateMap, unitsIsImperial, null, xRestTimer, xIsActiveRestTimer,
                 xVibrationTimer, xIsShowAlert);
 
+        modelClass.setIsEdit(TemplateEditorSingleton.getInstance().isEdit);
+
         if(TemplateEditorSingleton.getInstance().isFromPublic){
             modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);
         }
@@ -1066,7 +1236,7 @@ public class TemplateEditorActivity extends BaseActivity
         for(int i = fragIdCount; i > 0 ; i--){
             String fragString = Integer.toString(i);
             handleDoWRemoval(i, fragString);
-            fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commitAllowingStateLoss();
         }
         fragIdCount = 0;
     }

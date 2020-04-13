@@ -103,6 +103,46 @@ public class TemplateModelClass {
         }
     }
 
+    public int getMapCount(){
+        int count = 0;
+        if(getMapOne() != null){
+            if(!getMapOne().isEmpty()){
+                count = 1;
+            }
+        }
+        if(getMapTwo() != null){
+            if(!getMapTwo().isEmpty()){
+                count = 2;
+            }
+        }
+        if(getMapThree() != null){
+            if(!getMapThree().isEmpty()){
+                count = 3;
+            }
+        }
+        if(getMapFour() != null){
+            if(!getMapFour().isEmpty()){
+                count = 4;
+            }
+        }
+        if(getMapFive() != null){
+            if(!getMapFive().isEmpty()){
+                count = 5;
+            }
+        }
+        if(getMapSix() != null){
+            if(!getMapSix().isEmpty()){
+                count = 6;
+            }
+        }
+        if(getMapSeven() != null){
+            if(!getMapSeven().isEmpty()){
+                count = 7;
+            }
+        }
+        return count;
+    }
+
     public boolean isIsEdit() {
         return mIsEdit;
     }

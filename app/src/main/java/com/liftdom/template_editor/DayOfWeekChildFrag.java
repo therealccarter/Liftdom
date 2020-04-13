@@ -57,9 +57,12 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     HashMap<String, List<String>> map;
     String templateName;
 
+    boolean isBiggest = false;
+
     ArrayList<ExerciseLevelChildFrag> exLevelFragList = new ArrayList<>();
 
     onDaySelectedListener mCallback;
+    updateCallback mUpdate;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -72,6 +75,10 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         void daySelectedFromFrag(String doW, String tag);
         void dayUnselectedFromFrag(String doW, String tag);
         ArrayList<String> getSelectedDaysOtherThan(String tag);
+    }
+
+    public interface updateCallback{
+        void updateTemplateNode();
     }
 
     public void setDoWInfo(){
@@ -768,6 +775,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (onDaySelectedListener) activity;
+            mUpdate = (updateCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");

@@ -49,6 +49,8 @@ public class TemplateEditorSingleton {
     boolean mIsActiveRestTimer;
     String mVibrationTime;
     boolean mIsRestTimerAlert;
+    boolean isEdit;
+    String publicKey;
 
     /**
      * TODO boolean for if we're coming from real save or from update. if real save, don't use numbering system.
