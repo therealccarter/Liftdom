@@ -279,17 +279,32 @@ public class TemplateSavedActivity extends BaseActivity {
                         publicRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                DatabaseReference runningRef =
+                                        mRootRef.child("templatesRunning").child(uid);
+                                runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        loadingView.setVisibility(View.GONE);
+                                        templateHolder.setVisibility(View.VISIBLE);
+                                        TemplateEditorSingleton.getInstance().clearAll();
+                                        EditTemplateAssemblerClass.getInstance().clearAll();
+                                    }
+                                });
+
+                            }
+                        });
+                    }else{
+                        DatabaseReference runningRef =
+                                mRootRef.child("templatesRunning").child(uid);
+                        runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
                                 loadingView.setVisibility(View.GONE);
                                 templateHolder.setVisibility(View.VISIBLE);
                                 TemplateEditorSingleton.getInstance().clearAll();
                                 EditTemplateAssemblerClass.getInstance().clearAll();
                             }
                         });
-                    }else{
-                        loadingView.setVisibility(View.GONE);
-                        templateHolder.setVisibility(View.VISIBLE);
-                        TemplateEditorSingleton.getInstance().clearAll();
-                        EditTemplateAssemblerClass.getInstance().clearAll();
                     }
                 }
             });

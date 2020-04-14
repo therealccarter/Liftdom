@@ -350,32 +350,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         });
 
 
-        if(isEdit && isFirstTime) {
-            for (String day : daysArray) {
-                if (day.equals("Monday")) {
-                    monToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Monday", getTag());
-                } else if (day.equals("Tuesday")) {
-                    tuesToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Tuesday", getTag());
-                } else if (day.equals("Wednesday")) {
-                    wedToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Wednesday", getTag());
-                } else if (day.equals("Thursday")) {
-                    thurToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Thursday", getTag());
-                } else if (day.equals("Friday")) {
-                    friToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Friday", getTag());
-                } else if (day.equals("Saturday")) {
-                    satToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Saturday", getTag());
-                } else if (day.equals("Sunday")) {
-                    sunToggle.setChecked(true);
-                    mCallback.daySelectedFromFrag("Sunday", getTag());
-                }
-            }
-        }
+
 
         if(!isEdit){
             ++fragIdCount1;
@@ -432,6 +407,33 @@ public class DayOfWeekChildFrag extends android.app.Fragment
     @Override
     public void onResume(){
         super.onResume();
+
+        if(isEdit && isFirstTime) {
+            for (String day : daysArray) {
+                if (day.equals("Monday")) {
+                    monToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Monday", getTag());
+                } else if (day.equals("Tuesday")) {
+                    tuesToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Tuesday", getTag());
+                } else if (day.equals("Wednesday")) {
+                    wedToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Wednesday", getTag());
+                } else if (day.equals("Thursday")) {
+                    thurToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Thursday", getTag());
+                } else if (day.equals("Friday")) {
+                    friToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Friday", getTag());
+                } else if (day.equals("Saturday")) {
+                    satToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Saturday", getTag());
+                } else if (day.equals("Sunday")) {
+                    sunToggle.setChecked(true);
+                    mCallback.daySelectedFromFrag("Sunday", getTag());
+                }
+            }
+        }
 
         if(TemplateEditorSingleton.getInstance().isFirstTimeTut){
             Button exButton = (Button) exLevelFragList.get(0).getView().findViewById(R.id.movementName);

@@ -3,6 +3,7 @@ package com.liftdom.template_editor;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputFilter;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -318,7 +320,12 @@ public class TemplateEditorActivity extends BaseActivity
                                                 intent.putExtra("isPublic", isPublic);
                                                 startActivityForResult(intent, 1);
                                             }else{
-                                                intent.putExtra("isEdit", "no");
+                                                if(TemplateEditorSingleton.getInstance().isEdit){
+                                                    intent.putExtra("isEdit", "yes");
+                                                    intent.putExtra("templateName", templateNameEdit);
+                                                }else{
+                                                    intent.putExtra("isEdit", "no");
+                                                }
                                                 intent.putExtra("isActiveTemplate", checkBool);
                                                 //intent.putExtra("isAlgorithm", algBool);
                                                 intent.putExtra("isPublic", isPublic);
@@ -328,6 +335,7 @@ public class TemplateEditorActivity extends BaseActivity
                                         }else{
                                             if(TemplateEditorSingleton.getInstance().isEdit){
                                                 intent.putExtra("isEdit", "yes");
+                                                intent.putExtra("templateName", templateNameEdit);
                                             }else{
                                                 intent.putExtra("isEdit", "no");
                                             }
@@ -373,7 +381,12 @@ public class TemplateEditorActivity extends BaseActivity
                                 intent.putExtra("isPublic", isPublic);
                                 startActivityForResult(intent, 1);
                             }else{
-                                intent.putExtra("isEdit", "no");
+                                if(TemplateEditorSingleton.getInstance().isEdit){
+                                    intent.putExtra("isEdit", "yes");
+                                    intent.putExtra("templateName", templateNameEdit);
+                                }else{
+                                    intent.putExtra("isEdit", "no");
+                                }
                                 intent.putExtra("isActiveTemplate", checkBool);
                                 //intent.putExtra("isAlgorithm", algBool);
                                 intent.putExtra("isPublic", isPublic);
@@ -383,6 +396,7 @@ public class TemplateEditorActivity extends BaseActivity
                         }else{
                             if(TemplateEditorSingleton.getInstance().isEdit){
                                 intent.putExtra("isEdit", "yes");
+                                intent.putExtra("templateName", templateNameEdit);
                             }else{
                                 intent.putExtra("isEdit", "no");
                             }
@@ -412,12 +426,27 @@ public class TemplateEditorActivity extends BaseActivity
     public void onResume(){
         super.onResume();
 
+        /**
+         * so we don't want to clear before updating...
+         */
+
         if(hasHitOnPause){
+            hideKeyboard();
             hasHitOnPause = false;
-            cleanUpState();
+            //cleanUpState();
             checkRunningNode();
         }
 
+    }
+
+    private void hideKeyboard(){
+        try{
+            InputMethodManager imm =
+                    (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }catch (NullPointerException e){
+
+        }
     }
 
     boolean hasHitOnPause = false;
@@ -555,7 +584,7 @@ public class TemplateEditorActivity extends BaseActivity
     private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
         if(templateClass != null){
 
-            //cleanUpState();
+            cleanUpState();
 
             if(!isTemplateEdit){
                 if(templateClass.isIsEdit()){
@@ -569,6 +598,13 @@ public class TemplateEditorActivity extends BaseActivity
                 }
             }
 
+            if(templateClass.getTemplateName() != null){
+                TemplateEditorSingleton.getInstance().mTemplateName =
+                        templateClass.getTemplateName();
+                templateNameEdit = templateClass.getTemplateName();
+                templateNameView.setText(templateClass.getTemplateName());
+                templateNameView.setVisibility(View.VISIBLE);
+            }
 
             if(templateClass.isPublic()){
                 TemplateEditorSingleton.getInstance().isFromPublic = true;
@@ -644,7 +680,11 @@ public class TemplateEditorActivity extends BaseActivity
                 doW1.daysArray = daysToArray(templateClass.getMapOne().get("0_key").get(0));
                 doW1.map = templateClass.getMapOne();
                 doW1.templateName = templateClass.getTemplateName();
-                fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                if(fragmentManager.findFragmentByTag(fragString) != null){
+                    fragmentTransaction.replace(R.id.templateFragmentLayout, doW1, fragString);
+                }else{
+                    fragmentTransaction.add(R.id.templateFragmentLayout, doW1, fragString);
+                }
                 loadingView.setVisibility(View.GONE);
             }
             if(templateClass.getMapTwo() != null){
@@ -734,7 +774,7 @@ public class TemplateEditorActivity extends BaseActivity
                 addDaySet();
             }
 
-            fragmentTransaction.commitAllowingStateLoss();
+            fragmentTransaction.commit();
 
             if(templateClass.getIsAlgorithm()){
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
@@ -768,7 +808,7 @@ public class TemplateEditorActivity extends BaseActivity
 
                 @Override
                 public void onFinish() {
-                    updateTemplateNode();
+                    //updateTemplateNode();
                 }
             }.start();
         }
@@ -1233,11 +1273,16 @@ public class TemplateEditorActivity extends BaseActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //String fragString = Integer.toString(fragIdCount);
 
-        for(int i = fragIdCount; i > 0 ; i--){
-            String fragString = Integer.toString(i);
-            handleDoWRemoval(i, fragString);
-            fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commitAllowingStateLoss();
+        if(fragIdCount != 0){
+            for(int i = fragIdCount; i > 0 ; i--){
+                String fragString = Integer.toString(i);
+                handleDoWRemoval(i, fragString);
+                fragmentTransaction.remove(dayOfWeekChildFragArrayList.get(i - 1));
+            }
+            fragmentTransaction.commitAllowingStateLoss();
+            fragmentManager.popBackStackImmediate();
         }
+
         fragIdCount = 0;
     }
 
@@ -1460,6 +1505,8 @@ public class TemplateEditorActivity extends BaseActivity
 
                     startActivity(intent);
                 }
+            }else if(resultCode == 2){
+                TemplateEditorSingleton.getInstance().ass = "ass";
             }
         }else if(requestCode == 2){
             if(resultCode == 2){

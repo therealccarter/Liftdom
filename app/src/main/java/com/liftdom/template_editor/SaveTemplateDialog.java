@@ -122,6 +122,7 @@ public class SaveTemplateDialog extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
+                setResult(2);
                 finish();
             }
         });
