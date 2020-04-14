@@ -167,6 +167,7 @@ public class SelectedTemplateFrag extends Fragment {
                                         String keyId = publicTemplateRef.getKey();
                                         publicTemplateRef.setValue(templateModelClass);
                                         templateModelClass.setPublicTemplateKeyId(keyId);
+                                        templateModelClass.setIsPublic(true);
                                         DatabaseReference myPublicTemplateRef = mRootRef.child("publicTemplates")
                                                 .child("myPublic").child(uid).child(templateName);
                                         myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {

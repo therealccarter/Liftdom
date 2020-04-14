@@ -17,7 +17,6 @@ public class TemplateModelClass {
     private String mUserName;
     private String mUserId2;
     private String mUserName2;
-    private boolean mIsPublic;
     private String mDateCreated;
     private String mDateUpdated;
     private String mWorkoutType;
@@ -39,6 +38,7 @@ public class TemplateModelClass {
     private List<String> mHasReppedList;
     private String mRestTime;
     private boolean mIsActiveRestTimer;
+    private boolean mIsPublic;
     private String mVibrationTime;
     private boolean mIsRestTimerAlert;
     private boolean mIsEdit;
@@ -598,12 +598,12 @@ public class TemplateModelClass {
         mUserName2 = userName2;
     }
 
-    public boolean isPublic() {
+    public boolean isIsPublic() {
         return mIsPublic;
     }
 
     public void setIsPublic(boolean isPublic) {
-        mIsPublic = isPublic;
+        this.mIsPublic = isPublic;
     }
 
     public String getDateCreated() {

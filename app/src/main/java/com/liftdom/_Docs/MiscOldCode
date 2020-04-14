@@ -1,5 +1,116 @@
 
-
+* So first let's get the first case down pat. Then second, then third, then try it
+*    eventually with first time tutorial. Also need to get first time tut squared away
+*    everywhere.
+*
+*
+* First case: No edit, no public.
+*  - we load in the default state and update. then update from there.
+*  - if we navigate away and come back it's just the same, is edit and template name edit
+*      stay false/null.
+*  - it needs to be in the exact state as it would be if we saved it there.
+*  - isEdit will be false, but runningAssistor will be "true"
+*  - two sub cases here: coming in fresh, and coming in with something in the
+*      templatesRunning node.
+*
+*  Second case: Is edit, not from public.
+*      - First we load in all the stuff like it's from edit. then we need to update the
+*      state and REMEMBER that it's edit, what the name is, etc.
+*      - Each time it comes in FROM saved templates it should run over the current
+*      templateRunning node and start fresh.
+*  Third case: is edit, from public
+*
+*      - same as with second case, we just need to remember that it's edit, and all the
+*      information that it gets and holds within its state.
+*
+*
+*
+/**
+ * Where we at: made cleanUp method. So now we need to clean up state, then get
+ * the templateModelClass and inflate from that (remember we have a method for
+ * that now). Then we need to work on getting the save state exactly like it
+ * would be for full template saving, remembering to save day sets that don't
+ * have selected days. Maybe force selections? idk.
+ */
+cleanUpState();
+/**
+ * Let's collect everything that happens
+ * now we need to be able to save empty day sets/ex sets
+ *
+ * The first day set is being saved correctly, - 1, bp flat.
+ *
+ * But then on saving the second, it re-saves the first as a new day set and then saves
+ * the second one third.
+ *
+ *
+ * OK so it shouldn't be sending bp flat over at all, or if it does it should detect that
+ * it is 1.
+ *
+ *
+ *
+ */
+/**
+ * Ok, so we eliminated the pop up window and it inflates correctly.
+ * We need to know why.
+ *
+ * Also we're using checkRunningNode instead of the direct inflate
+ * running. (actually that doesn't matter, they both work.)
+ * So somewhere along that line shit gets fucked.
+ * Another problem is when the save dialog comes up (so onPause then
+ * maybe onResume), we lose the days selected from DoW frag. And bc
+ * we then update? so it updates the day less version.
+ *
+ * So I think it first goes to onPause, then the day is unselected,
+ * then onResume hits and inflates. But no, somewhere in there it
+ * updates.
+ *
+ * Ok it updates right after inflate? So we need to put breakpoints
+ * in onResume, inflate beginning, inflate before update, inflate at
+ * update, then update.
+ *
+ * Also it looks like the template name isn't being saved to the
+ * running ref.
+ *
+ * OK, by the time it gets to updating, the doW1.map is actually
+ * correct with Monday selected. But the TemplateEditorSingleton
+ * mapOne has it as 1/no day selected. And visually we don't see
+ * Monday selected.
+ */
+//String string =
+//        dataSnapshot.getValue(String.class);
+//if(string != null){
+//    Intent intent = new Intent(TemplateEditorActivity.this,
+//            UseRunningTemplateDialog.class);
+//    startActivityForResult(intent, 3);
+//}
+//DatabaseReference firstTimeRef = mRootRef.child("firstTime").child(uid).child
+//        ("isFromScratchFirstTime");
+//if (getIntent().getExtras().getString("isEdit") != null) {
+//    if (getIntent().getExtras().getString("isEdit").equals("no")) {
+//    }
+//}
+/**
+ * First we check if there's a runningTemplate.
+ * It's probably safest if we clear everything and run this whole thing every time.
+ * We could just have it twice. And in onStart we show the dialog and in onResume
+ * we don't. We also need a way of reading day sets without any days selected.
+ * So we should clear lists every time and rebuild.
+ */
+/**
+* Ok, where we at:
+* We need to handle isEdit. When it first comes in, it knows it's isEdit
+* from the getIntent extra. Throughout the shit including savedTemplate it
+* is using that. So we need to set within the templateModelClass for running
+* that it isEdit and then when we detect that it is from the running model,
+* we need to see if we can set the intent extra as isEdit so it can detect
+* that when it's saving and processing in the end. Basically restore the
+* vanilla isEdit experience but from running. Then we also were thinking
+* that anytime you come from the savedTemplates page (clicking edit button)
+* it overrules whatever's in the running node. so this would only be used if
+* you do that once, leave, then come back via the from scratch button.
+* Also we need to remove the template name view if it isn't edit. tho idk if
+* that will be a problem.
+*/
 //@Override
     //public String getFormattedValue(float value, AxisBase axis) {
     //    // from float to long
