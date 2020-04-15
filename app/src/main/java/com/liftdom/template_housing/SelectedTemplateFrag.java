@@ -866,12 +866,15 @@ public class SelectedTemplateFrag extends Fragment {
                                 modelClass.setUserName2(userName);
                                 modelClass.setTemplateName(returnedName);
                                 modelClass.setDateUpdated(dateUpdated);
+                                modelClass.setIsPublic(false);
+                                modelClass.setPublicTemplateKeyId(null);
 
                                 DatabaseReference myTemplateRef = mRootRef.child("templates").child(uid).child(returnedName);
                                 myTemplateRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        CharSequence toastText = "Template Saved";
+                                        CharSequence toastText = "Template Saved. Go to your " +
+                                                "Saved Programs page to view it.";
                                         int duration = Snackbar.LENGTH_SHORT;
                                         try{
                                             Snackbar snackbar = Snackbar.make(getView(), toastText, duration);

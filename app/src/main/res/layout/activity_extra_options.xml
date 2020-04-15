@@ -156,7 +156,6 @@
                 android:id="@+id/noButton"
                 android:textColor="@color/white"
                 android:background="@color/black"
-
                 />
 
         <Button

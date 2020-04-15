@@ -1717,6 +1717,13 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         restTimerNoUpdate = true;
         restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
+        if(!restTimerSwitch.isChecked()){
+            restTimerBool = false;
+            restTimerInfoLL.setVisibility(View.GONE);
+        }else{
+            restTimerBool = true;
+            restTimerInfoLL.setVisibility(View.VISIBLE);
+        }
 
         if(runningMap != null){
             for(int i = 0; i < runningMap.size(); i++){

@@ -29,6 +29,7 @@ public class TemplateEditorSingleton {
     String mDateCreated;
     String mDescription;
     boolean isAlgoApplyToAll = false;
+    boolean isAuthoredByOther = false;
 
     HashMap<String, List<String>> mapOne = new HashMap<>();
     HashMap<String, List<String>> mapTwo = new HashMap<>();

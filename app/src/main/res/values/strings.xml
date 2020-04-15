@@ -931,7 +931,7 @@
         Notification.</string>
     <string name="restTimerInfo2">Rest Timer activates each time you check off a set in the workout
         notification, not when checking off sets on the main workout page.</string>
-    <string name="confirmRestTimer">Confirm Time</string>
+    <string name="confirmRestTimer">Update</string>
     <string name="justVibrate">Just vibrate</string>
     <string name="showRestTimerAlert">Show Rest Timer alert screen and vibrate</string>
     <string name="vibrateFor">Vibrate for&#8230;</string>

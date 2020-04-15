@@ -31,33 +31,39 @@
             android:layout_gravity="center"
     />
 
-    <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            tools:context="com.template_system_default.TemplateSaved"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:id="@+id/templateSavedHolder"
             android:visibility="gone"
-    >
+            >
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/just_knight_white_small"
+                android:layout_marginTop="10dp"
+                />
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/templateSaved"
-                android:textSize="50dp"
+                android:textSize="50sp"
                 android:id="@+id/templateSaved"
                 android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
         />
+
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/templateSaved"
                 android:orientation="vertical"
         >
@@ -65,28 +71,32 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
             >
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/goBackHome"
-                        android:text="@string/goHome"
-                        android:background="@color/black"
-                        android:textColor="@color/liftrGold1"
-                        android:layout_marginEnd="20dp"
-                />
 
                 <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/backToTemplates"
                         android:id="@+id/goBackToTemplates"
+                        style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
                         android:background="@color/black"
                         android:textColor="@color/liftrGold1"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        />
+
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/goBackHome"
+                        android:text="@string/goHome"
+                        style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                        android:background="@color/black"
+                        android:textColor="@color/liftrGold1"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
                 />
 
             </LinearLayout>
@@ -95,9 +105,9 @@
 
         </LinearLayout>
 
+    </LinearLayout>
 
 
-    </RelativeLayout>
 
 </LinearLayout>
 

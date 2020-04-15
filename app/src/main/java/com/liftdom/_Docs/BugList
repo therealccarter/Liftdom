@@ -203,6 +203,7 @@ HUGE BUG: somewhere other than templateEditorSingleton we have code that is addi
 Creating new template from scratch for liftdomapp@gmail didn't save the dates? - added a method that
  adds in date if it's missing.
 Fixed bug allowing templates to be republished (and creating duplicates in public node)
+Fixed bug causing Rest Timer info to be shown in AH even if RT is disabled.
 ----------------------
 ====================================================
 Template Editor:
@@ -216,11 +217,16 @@ Template Editor:
         switching around and any of it dies.
             done - get normal from scratch running to work
             done - get edit from selected templates to work
-            - get public templates to work, retaining the correct uids
+            done - get public template you downloaded to work, retaining the correct uids
+            done - get public template in myPublic to work, retaining all relevant values
+            - create update callbacks so it stays updated.
+    done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
 
 Adding exercise brings up the keyboard? (might have to do with onResume hide keyboard method)
+Saving template also brings up the keyboard...
 
-
+set as active should check to see if template has no days
+also we need to test what happens in WA if it reaches a no day DoW.
 
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
@@ -261,7 +267,9 @@ Look into obfuscation/doing something with those hardcoded ad/cloud strings
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
 
+
 ---- MISC ----
+public templates should be able to be sorted by two fields: type (bb, pl, all) and download count/newest
 Clicking on profile image or name in chat specific should bring up their profile like in feed.
 Check if things like saveTemplateDialog should be noHistory:true
 Chat send looks like shit.
@@ -301,6 +309,7 @@ Be able to write in ex/set info and it read and populate it. (needs limitations 
  exercises ala @'ing in groupme.
 
 ----- Template Editor -----
+do little icons next to choices to make it look more pro (eg, wrench next to "build from scratch")
 allow rep/weight settings to be changed for all sets of an exercise in template editor. prob in WA too.
 Switching apps back and forth fucks up the template editor.
 if percentage, actionNext for weight edit text, remember max/format for each new set? especially if

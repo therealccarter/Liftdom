@@ -340,6 +340,7 @@ public class TemplateEditorActivity extends BaseActivity
                                             }
                                             intent.putExtra("isActiveTemplate", checkBool);
                                             //intent.putExtra("isAlgorithm", algBool);
+
                                             intent.putExtra("isPublic", isPublic);
                                             intent.putExtra("description", descriptionString);
                                             startActivityForResult(intent, 1);
@@ -648,6 +649,7 @@ public class TemplateEditorActivity extends BaseActivity
 
             if(!templateClass.getUserId().equals(uid)){
                 // if editing someone else's template
+                TemplateEditorSingleton.getInstance().isAuthoredByOther = true;
                 TemplateEditorSingleton.getInstance().mUserId = templateClass.getUserId();
                 TemplateEditorSingleton.getInstance().mUserName = templateClass.getUserName();
                 TemplateEditorSingleton.getInstance().mUserId2 = uid;
@@ -1030,7 +1032,7 @@ public class TemplateEditorActivity extends BaseActivity
 
         SharedPreferences sharedPref = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
         String userName = sharedPref.getString("userName", "loading...");
-        if(TemplateEditorSingleton.getInstance().isFromPublic){
+        if(TemplateEditorSingleton.getInstance().isAuthoredByOther){
             // if editing someone else's template
             TemplateEditorSingleton.getInstance().mUserId2 = uid;
             TemplateEditorSingleton.getInstance().mUserName2 = userName;
@@ -1375,6 +1377,8 @@ public class TemplateEditorActivity extends BaseActivity
                 if(data != null){
                     // get info from the exercise frags
 
+                    TemplateEditorSingleton.getInstance().clearWorkoutInfo();
+
                     for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){
                         dayOfWeekChildFrag.setDoWInfo();
                     }
@@ -1417,7 +1421,7 @@ public class TemplateEditorActivity extends BaseActivity
                     startActivity(intent);
                 }
             }else if(resultCode == 2){
-                TemplateEditorSingleton.getInstance().ass = "ass";
+
             }
         }else if(requestCode == 2){
             if(resultCode == 2){

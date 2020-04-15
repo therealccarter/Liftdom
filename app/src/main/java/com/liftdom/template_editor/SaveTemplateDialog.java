@@ -234,6 +234,15 @@ public class SaveTemplateDialog extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     templateNameList.add(dataSnapshot1.getKey());
+                    try{
+                        if(templateName1 != null){
+                            if(dataSnapshot1.getKey().equals(templateName1)){
+                                programNameTakenView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }catch (NullPointerException e){
+
+                    }
                 }
             }
 

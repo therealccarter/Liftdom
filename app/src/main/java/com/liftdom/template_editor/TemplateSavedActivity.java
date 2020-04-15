@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,8 +48,6 @@ import java.util.List;
 
 public class TemplateSavedActivity extends BaseActivity {
 
-    private static final String FIREBASE_URL = "https://liftdom-27d9d.firebaseio.com/";
-
     private static final String TAG = "EmailPassword";
     // declare_auth
     private FirebaseAuth mAuth;
@@ -61,7 +60,7 @@ public class TemplateSavedActivity extends BaseActivity {
     // Butterknife binds
     @BindView(R.id.goBackHome) Button goHome;
     @BindView(R.id.goBackToTemplates) Button goToTemplates;
-    @BindView(R.id.templateSavedHolder) RelativeLayout templateHolder;
+    @BindView(R.id.templateSavedHolder) LinearLayout templateHolder;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
 
     String templateName;
