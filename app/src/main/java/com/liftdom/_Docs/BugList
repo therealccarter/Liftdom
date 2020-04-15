@@ -200,7 +200,9 @@ HUGE BUG: somewhere other than templateEditorSingleton we have code that is addi
             - if we update AFTER adding the info in, it's fine.
             - if we update first after adding the day set, then update second after the second day
                 set, it adds the extra exercise to the first one.
-
+Creating new template from scratch for liftdomapp@gmail didn't save the dates? - added a method that
+ adds in date if it's missing.
+Fixed bug allowing templates to be republished (and creating duplicates in public node)
 ----------------------
 ====================================================
 Template Editor:
@@ -212,6 +214,11 @@ Template Editor:
     - make snackbar flashes only happen once
     - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
         switching around and any of it dies.
+            done - get normal from scratch running to work
+            done - get edit from selected templates to work
+            - get public templates to work, retaining the correct uids
+
+Adding exercise brings up the keyboard? (might have to do with onResume hide keyboard method)
 
 
 
@@ -226,6 +233,13 @@ update launcher icon, maybe take L off knight, maybe go yellow background black 
 guidelines.
 
 nav back arrow
+
+We may need to do a version check in MainActivity so old version people don't fuck up the
+db.
+
+Look into if templates really shouldn't have a space in them.
+
+Change Kmac username in nodes
 
 decide what should be the default: WA, feed, or global feed. (possibly switch to RB for feed?)
     - could possibly do a check (fb/sharedpref) on if they've completed today's workout.
@@ -296,6 +310,7 @@ percentages need decimals.
 duplicate template (template name dialog, save, go back to saved programs)
 Be able to write in ex/set info and it read and populate it. (needs limitations for abuse, look into
  other place that need this too).
+Rearrange order of DoWs with those three horizontal bars touch screen shit. Low priority.
 
 ----- Charts/Stats/Tools -----
 Weights of workouts should be charted, literally just chart the workouts, it's easier to see progress

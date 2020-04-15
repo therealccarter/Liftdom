@@ -31,6 +31,8 @@ import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.util.ArrayList;
 
@@ -201,7 +203,11 @@ public class SavedTemplatesFrag extends Fragment {
                     holder.setFromSendProgram(false);
                 }
                 holder.setTemplateNameView(model.getTemplateName());
-                holder.setTimeStampView(model.getDateUpdated());
+                if(model.getDateUpdated() == null){
+                    setDateTime(model);
+                }else{
+                    holder.setTimeStampView(model.getDateUpdated());
+                }
                 holder.setDaysView(model.getDays());
                 holder.setDescriptionView(model.getDescription());
                 holder.setActivity(getActivity());
@@ -227,6 +233,21 @@ public class SavedTemplatesFrag extends Fragment {
         mFirebaseAdapter.startListening();
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+    }
+
+    private void setDateTime(TemplateModelClass templateModelClass){
+        DateTime dateTime = new DateTime(DateTimeZone.UTC);
+        String dateTimeString = dateTime.toString();
+        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child(
+                "templates").child(uid).child(templateModelClass.getTemplateName());
+        if(templateModelClass.getDateUpdated() == null && templateModelClass.getDateCreated() == null) {
+            templateModelClass.setDateCreated(dateTimeString);
+            templateModelClass.setDateUpdated(dateTimeString);
+            templateRef.setValue(templateModelClass);
+        }else{
+            templateModelClass.setDateUpdated(dateTimeString);
+            templateRef.setValue(templateModelClass);
+        }
     }
 
     private void setMargins (View view, int left, int top, int right, int bottom) {

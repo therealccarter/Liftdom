@@ -144,67 +144,108 @@ public class SelectedTemplateFrag extends Fragment {
 
         publishButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                if(templateName != null){
+                    DatabaseReference publicRef =
+                            FirebaseDatabase.getInstance().getReference().child("publicTemplates").child("myPublic").child(uid).child(templateName);
+                    publicRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.exists()){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                // set title
-                builder.setTitle("Publish Template?");
+                                // set title
+                                builder.setTitle("Publish Template?");
 
-                // set dialog message
-                builder
-                        .setMessage("This will create a new Public Template. Access your public templates via the " +
-                                "Public Templates page.")
-                        .setCancelable(false)
-                        .setPositiveButton("Publish Template",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
-                                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        TemplateModelClass templateModelClass = dataSnapshot.getValue
-                                                (TemplateModelClass.class);
-                                        DatabaseReference publicTemplateRef = mRootRef.child("publicTemplates")
-                                                .child("public").push();
-                                        String keyId = publicTemplateRef.getKey();
-                                        publicTemplateRef.setValue(templateModelClass);
-                                        templateModelClass.setPublicTemplateKeyId(keyId);
-                                        templateModelClass.setIsPublic(true);
-                                        DatabaseReference myPublicTemplateRef = mRootRef.child("publicTemplates")
-                                                .child("myPublic").child(uid).child(templateName);
-                                        myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                try{
-                                                    Snackbar snackbar = Snackbar.make(getView(), "Template Published", Snackbar.LENGTH_SHORT);
-                                                    snackbar.show();
-                                                } catch (NullPointerException e){
+                                // set dialog message
+                                builder
+                                        .setMessage("This will create a new Public Template. Access your public templates via the " +
+                                                "User-made Programs of the Workout Programming page.")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Publish Template",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                final DatabaseReference specificTemplateRef = mRootRef.child("templates").child(uid).child(templateName);
+                                                specificTemplateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        TemplateModelClass templateModelClass = dataSnapshot.getValue
+                                                                (TemplateModelClass.class);
+                                                        DatabaseReference publicTemplateRef = mRootRef.child("publicTemplates")
+                                                                .child("public").push();
+                                                        String keyId = publicTemplateRef.getKey();
+                                                        publicTemplateRef.setValue(templateModelClass);
+                                                        templateModelClass.setPublicTemplateKeyId(keyId);
+                                                        templateModelClass.setIsPublic(true);
+                                                        DatabaseReference myPublicTemplateRef = mRootRef.child("publicTemplates")
+                                                                .child("myPublic").child(uid).child(templateName);
+                                                        myPublicTemplateRef.setValue(templateModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                try{
+                                                                    Snackbar snackbar = Snackbar.make(getView(), "Template Published", Snackbar.LENGTH_SHORT);
+                                                                    snackbar.show();
+                                                                } catch (NullPointerException e){
 
-                                                }
+                                                                }
+                                                            }
+                                                        });
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+                                            }
+                                        })
+                                        .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                // if this button is clicked, just close
+                                                // the dialog box and do nothing
+                                                dialog.cancel();
                                             }
                                         });
 
-                                    }
+                                // create alert dialog
+                                AlertDialog alertDialog = builder.create();
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                // show it
+                                alertDialog.show();
+                            }else{
 
-                                    }
-                                });
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+                                // set title
+                                builder.setTitle("Publish Template?");
+
+                                // set dialog message
+                                builder
+                                        .setMessage("You have already published this template. Go" +
+                                                " to User-made Programs -> My Public Programs to " +
+                                                "edit the public version.")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok",
+                                                new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {dialog.cancel();
+
+                                            }
+                                        });
+
+                                // create alert dialog
+                                AlertDialog alertDialog = builder.create();
+
+                                // show it
+                                alertDialog.show();
                             }
-                        })
-                        .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
+                        }
 
-                // create alert dialog
-                AlertDialog alertDialog = builder.create();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                // show it
-                alertDialog.show();
+                        }
+                    });
+                }
             }
         });
 

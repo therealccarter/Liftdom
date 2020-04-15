@@ -553,11 +553,23 @@ public class TemplateEditorActivity extends BaseActivity
     /**
      * Where we at: we solved the isPublic = false problem.
      * However, we need to make sure that the userIds (1 and 2) (usernames too)
-     * are going to be set correctly. We want users to be able to "fork" workouts. Maybe if they
-     * simply save a workout it retains the user ids, and we also must probably set isPublic to
-     * false, because it's just going to their normal templates node. Then if they edit it AND
-     * publish it themselves, they become the author?
+     * are going to be set correctly. We want users to be able to "fork" workouts.
+     *
+     * If they simply save a workout it retains the user ids, and we also must probably set isPublic to
+     * false, because it's just going to their normal templates node.
+     * However, it will retain uid1 as a different uid. So that's how we'll tell.
+     *
+     * Then if they edit it AND publish it themselves, they become the author?
      * Either way, it'll have a lot to do with isPublic vs isFromPublic.
+     *
+     * So there's two cases:
+     * Someone editing a public template they've saved.
+     *  - Same as normal isEdit, but retain different uids.
+     *
+     * Someone editing a public template of their own in myPublic.
+     *  - If it's their own, it wouldn't have different uids, but we can still do the check.
+     *  - Definitely retain isPublic and the key. Then on save it should do it's thing
+     *
      */
 
     private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
