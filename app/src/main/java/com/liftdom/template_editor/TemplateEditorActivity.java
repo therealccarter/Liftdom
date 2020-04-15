@@ -132,6 +132,7 @@ public class TemplateEditorActivity extends BaseActivity
         HideKey.initialize(TemplateEditorActivity.this);
 
         title.setTypeface(lobster);
+        templateNameView.setTypeface(lobster);
 
         //if(savedInstanceState == null){
             showRestTimerAlertRB.setChecked(true);
@@ -426,12 +427,8 @@ public class TemplateEditorActivity extends BaseActivity
     public void onResume(){
         super.onResume();
 
-        /**
-         * so we don't want to clear before updating...
-         */
-
         if(hasHitOnPause){
-            hideKeyboard();
+            hideKeyboard2();
             hasHitOnPause = false;
             //cleanUpState();
             checkRunningNode();
@@ -439,11 +436,25 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
-    private void hideKeyboard(){
+    private void hideKeyboard1(){
         try{
             InputMethodManager imm =
                     (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    public void hideKeyboard2() {
+
+        InputMethodManager imm =
+                (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        try{
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }catch (NullPointerException e){
 
         }

@@ -204,6 +204,8 @@ Creating new template from scratch for liftdomapp@gmail didn't save the dates? -
  adds in date if it's missing.
 Fixed bug allowing templates to be republished (and creating duplicates in public node)
 Fixed bug causing Rest Timer info to be shown in AH even if RT is disabled.
+Fixed - Adding exercise brings up the keyboard? Saving template also brings up the keyboard...
+
 ----------------------
 ====================================================
 Template Editor:
@@ -219,11 +221,9 @@ Template Editor:
             done - get edit from selected templates to work
             done - get public template you downloaded to work, retaining the correct uids
             done - get public template in myPublic to work, retaining all relevant values
-            - create update callbacks so it stays updated.
+            - create update callbacks so it stays updated. // ALL THAT'S LEFT!
     done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
 
-Adding exercise brings up the keyboard? (might have to do with onResume hide keyboard method)
-Saving template also brings up the keyboard...
 
 set as active should check to see if template has no days
 also we need to test what happens in WA if it reaches a no day DoW.
