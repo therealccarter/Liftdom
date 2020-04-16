@@ -221,7 +221,8 @@ Template Editor:
             done - get edit from selected templates to work
             done - get public template you downloaded to work, retaining the correct uids
             done - get public template in myPublic to work, retaining all relevant values
-            - create update callbacks so it stays updated. // ALL THAT'S LEFT!
+            - create update callbacks so it stays updated.
+            - made tons of progress on callbacks, just need to do more testing (esp on algorithms...)
     done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
 
 
@@ -236,9 +237,8 @@ Get the 3 pre-mades working correctly. Smolov, PPL, PPL_Reddit.
     - (normal ppl and a bodyweight plan could be normal template mode)
 
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
-guidelines.
+guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
 
-nav back arrow
 
 We may need to do a version check in MainActivity so old version people don't fuck up the
 db.
@@ -277,6 +277,10 @@ Chat just keeps writing horizontally instead of going to next line. This could a
     anywhere there is a text box.
 Now the edit text needs to resize itself.
 Shouldn't be able to send premades.
+MHW bounty complete styled updates
+choices with just a couple boring buttons (premades vs from scratch) could be full filled with image
+ behind them or something cool like that. semi transparent, nice big lettering.
+nav back arrow
 
 ----- Service -----
 Make both main service and rest timer dismissible with a swipe (impossible as foreground, may need

@@ -28,6 +28,13 @@ public class SetsLevelSSFrag extends android.app.Fragment {
 
     boolean isEdit;
     String isEditSetScheme;
+    boolean isLastOne;
+
+    public interface updateCallback{
+        void updateNode();
+    }
+
+    updateCallback mUpdate;
 
     // Butterknife
     @BindView(R.id.sets) EditText setsEditText;
@@ -48,6 +55,8 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_sets_level_s, container, false);
 
         ButterKnife.bind(this, view);
+
+        mUpdate = (updateCallback) getParentFragment();
 
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
@@ -122,6 +131,10 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                 setRepsToFailure();
             }else if(isAmrap){
                 setAmrapEmpty();
+            }
+
+            if(isLastOne){
+                mUpdate.updateNode();
             }
         }
 

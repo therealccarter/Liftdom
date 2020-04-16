@@ -50,7 +50,8 @@ public class TemplateEditorActivity extends BaseActivity
         implements DayOfWeekChildFrag.onDaySelectedListener,
         ExerciseLevelChildFrag.setToGoldCallback,
         ExerciseLevelChildFrag.removeGoldCallback,
-        DayOfWeekChildFrag.updateCallback{
+        DayOfWeekChildFrag.updateCallback,
+        DayOfWeekChildFrag.withinCallback{
 
     private static final String TAG = "EmailPassword";
 
@@ -220,6 +221,7 @@ public class TemplateEditorActivity extends BaseActivity
             @Override
             public void onClick(View v) {
                 if(fragIdCount != 0 && fragIdCount != 1){
+                    fromWithin = true;
                     Intent intent = new Intent(v.getContext(), DaySetDeleteConfirmation.class);
                     startActivityForResult(intent, 2);
                 }else if(fragIdCount == 0){
@@ -422,16 +424,23 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
+    boolean fromWithin = false;
+
+    public void fromWithin(){
+        fromWithin = true;
+    }
 
     @Override
     public void onResume(){
         super.onResume();
 
-        if(hasHitOnPause){
+        if(hasHitOnPause && !fromWithin){
             hideKeyboard2();
             hasHitOnPause = false;
             //cleanUpState();
             checkRunningNode();
+        }else{
+            fromWithin = false;
         }
 
     }
@@ -1216,7 +1225,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW1.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW1.dayUnselectedToFrag(days);
+                doW1.dayUnselectedToFrag(days, false);
                 doW1.setToNull();
             }
             doW1.removeExercises();
@@ -1224,7 +1233,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW2.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW2.dayUnselectedToFrag(days);
+                doW2.dayUnselectedToFrag(days, false);
                 doW2.setToNull();
             }
             doW2.removeExercises();
@@ -1232,7 +1241,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW3.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW3.dayUnselectedToFrag(days);
+                doW3.dayUnselectedToFrag(days, false);
                 doW3.setToNull();
             }
             doW3.removeExercises();
@@ -1240,7 +1249,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW4.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW4.dayUnselectedToFrag(days);
+                doW4.dayUnselectedToFrag(days, false);
                 doW4.setToNull();
             }
             doW4.removeExercises();
@@ -1248,7 +1257,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW5.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW5.dayUnselectedToFrag(days);
+                doW5.dayUnselectedToFrag(days, false);
                 doW5.setToNull();
             }
             doW5.removeExercises();
@@ -1256,7 +1265,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW6.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW6.dayUnselectedToFrag(days);
+                doW6.dayUnselectedToFrag(days, false);
                 doW6.setToNull();
             }
             doW6.removeExercises();
@@ -1264,7 +1273,7 @@ public class TemplateEditorActivity extends BaseActivity
             removeList = doW7.getSelectedDays();
             for(String days : removeList){
                 dayUnselectedFromFrag(days, fragString);
-                doW7.dayUnselectedToFrag(days);
+                doW7.dayUnselectedToFrag(days, false);
                 doW7.setToNull();
             }
             doW7.removeExercises();
@@ -1297,7 +1306,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW2.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW2.dayUnselectedToFrag(days);
+                    doW2.dayUnselectedToFrag(days, false);
                     doW2.setToNull();
                 }
                 fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
@@ -1308,7 +1317,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW3.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW3.dayUnselectedToFrag(days);
+                    doW3.dayUnselectedToFrag(days, false);
                     doW3.setToNull();
                 }
                 fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
@@ -1319,7 +1328,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW4.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW4.dayUnselectedToFrag(days);
+                    doW4.dayUnselectedToFrag(days, false);
                     doW4.setToNull();
 
                 }
@@ -1331,7 +1340,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW5.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW5.dayUnselectedToFrag(days);
+                    doW5.dayUnselectedToFrag(days, false);
                     doW5.setToNull();
                 }
                 fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
@@ -1342,7 +1351,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW6.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW6.dayUnselectedToFrag(days);
+                    doW6.dayUnselectedToFrag(days, false);
                     doW6.setToNull();
                 }
                 fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
@@ -1353,7 +1362,7 @@ public class TemplateEditorActivity extends BaseActivity
                 removeList = doW7.getSelectedDays();
                 for(String days : removeList){
                     dayUnselectedFromFrag(days, fragString);
-                    doW7.dayUnselectedToFrag(days);
+                    doW7.dayUnselectedToFrag(days, false);
                     doW7.setToNull();
                 }
                 fragmentTransaction.remove(fragmentManager.findFragmentByTag(fragString)).commit();
@@ -1361,6 +1370,8 @@ public class TemplateEditorActivity extends BaseActivity
                 --fragIdCount;
             }
         }
+
+        updateTemplateNode();
 
     }
 
@@ -1602,8 +1613,20 @@ public class TemplateEditorActivity extends BaseActivity
     public void daySelectedFromFrag(String doW, String tag){
         try {
             for (int i = 0; i < fragIdCount; i++) {
-                if (!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)) {
-                    dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW);
+                if(fragIdCount == 1){
+                    updateTemplateNode();
+                }else{
+                    if (!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)) {
+                        //if(i == fragIdCount - 1){
+                            //dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW, true);
+                        //}else{
+                            dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW, false);
+                        //}
+                        //dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW, false);
+                    }
+                }
+                if(i == fragIdCount - 1){
+                    updateTemplateNode();
                 }
             }
         } catch (IndexOutOfBoundsException e){
@@ -1613,8 +1636,20 @@ public class TemplateEditorActivity extends BaseActivity
 
     public void dayUnselectedFromFrag(String doW, String tag){
         for(int i = 0; i < fragIdCount; i++){
-            if(!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)){
-                dayOfWeekChildFragArrayList.get(i).dayUnselectedToFrag(doW);
+            if(fragIdCount == 1){
+                updateTemplateNode();
+            }else{
+                if (!dayOfWeekChildFragArrayList.get(i).getTag().equals(tag)) {
+                    //if(i == fragIdCount - 1){
+                    //dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW, true);
+                    //}else{
+                    dayOfWeekChildFragArrayList.get(i).dayUnselectedToFrag(doW, false);
+                    //}
+                    //dayOfWeekChildFragArrayList.get(i).daySelectedToFrag(doW, false);
+                }
+            }
+            if(i == fragIdCount - 1){
+                updateTemplateNode();
             }
         }
     }

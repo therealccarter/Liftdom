@@ -28,6 +28,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
     Boolean isEdit = false;
     String setSchemeEdited;
     Boolean isEditFirstEdit = false;
+    boolean isSupersets = false;
 
     // Callback
     public interface setSchemesCallback{
@@ -39,6 +40,16 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         void removeFrag(String fragTag);
     }
 
+    public interface updateCallback{
+        void updateNode();
+    }
+
+    public interface withinCallback{
+        void fromWithin();
+    }
+
+    private withinCallback fromWithinCallback;
+    updateCallback mUpdate;
     private setSchemesCallback callback;
     private removeFragCallback fragCallback;
 
@@ -66,6 +77,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         callback = (setSchemesCallback) getParentFragment();
+        mUpdate = (updateCallback) getParentFragment();
+        fromWithinCallback = (withinCallback) getParentFragment();
 
         String delims = "[x,@]";
 
@@ -150,6 +163,10 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }else if(isAmrap){
                 setAmrapEmpty();
             }
+
+            if(!isSupersets){
+                mUpdate.updateNode();
+            }
         }
 
         fragCallback = (removeFragCallback) getParentFragment();
@@ -162,6 +179,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
                 if(percentageLL.getVisibility() == View.VISIBLE){
                     intent.putExtra("isPercentageString", "true");
@@ -184,6 +202,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         percentageWeightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 Intent intent = new Intent(v.getContext(), PercentageOptionsDialog.class);
                 intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
                         .isCurrentUserImperial));

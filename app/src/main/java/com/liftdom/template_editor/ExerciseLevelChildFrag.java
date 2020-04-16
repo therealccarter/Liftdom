@@ -29,7 +29,11 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 SetsLevelChildFrag.removeFragCallback,
                 ExerciseLevelSSFrag.removeFragCallback2,
                 ExerciseLevelSSFrag.getParentEx,
-                ExerciseLevelSSFrag.getParentDoW{
+                ExerciseLevelSSFrag.getParentDoW,
+                SetsLevelChildFrag.updateCallback,
+                ExerciseLevelSSFrag.updateCallback,
+                ExerciseLevelSSFrag.withinCallback,
+                SetsLevelChildFrag.withinCallback{
 
     int fragIdCount2 = 0;
     int supersetFragCount = 0;
@@ -81,6 +85,25 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         String getDoWTag();
     }
 
+    public interface updateCallback{
+        void updateNode();
+    }
+
+    updateCallback mUpdate;
+
+    public void updateNode(){
+        mUpdate.updateNode();
+    }
+
+    public interface withinCallback{
+        void fromWithin();
+    }
+
+    public void fromWithin(){
+        fromWithinCallback.fromWithin();
+    }
+
+    private withinCallback fromWithinCallback;
     private doWCallback callback;
     private removeFragCallback removeFragCallback;
     private removeFragCallback2 removeFragCallback2;
@@ -232,6 +255,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     if(isPercentage){
                         frag1.percentageWeight = percentageWeight;
                     }
+                    if(!superSetFragList.isEmpty()){
+                        frag1.isSupersets = true;
+                    }
                 }
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.LinearLayoutChild1, frag1, fragString2);
@@ -254,6 +280,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 } catch (NullPointerException e){
 
                 }
+
             }
         });
 
@@ -270,6 +297,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
                 int exID = exerciseButton.getId();
                 intent.putExtra("exID", exID);
@@ -279,6 +307,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 Intent intent = new Intent(v.getContext(), ExLevelOptionsDialog.class);
                 String exName = getExerciseValueFormatted();
                 intent.putExtra("exName", exName);
@@ -289,6 +318,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
 
         callback = (doWCallback) getParentFragment();
         tagCallback = (doWTagCallback) getParentFragment();
+        mUpdate = (updateCallback) getParentFragment();
+        fromWithinCallback = (withinCallback) getParentFragment();
 
         return view;
     }
@@ -358,10 +389,12 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                             }
                         }
                     }
+                    mUpdate.updateNode();
                 }
             } else if(requestCode == 3){
                 if(resultCode == 7){
                     // handle set scheme choice
+                    fromWithinCallback.fromWithin();
                     Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
                     intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
                             .isCurrentUserImperial));
@@ -374,7 +407,9 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                             setsLevelChildFrag.setToPercentageBoolean();
                         }
                     }
+                    mUpdate.updateNode();
                 }else if(resultCode == 9){
+                    fromWithinCallback.fromWithin();
                     Intent intent = new Intent(getActivity(), ExtraOptionsDialog.class);
 
                     String isPercentage = "false";
@@ -418,6 +453,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                             hasSupersets = true;
                             superSetFragList.add(exerciseLevelSSFrag);
                         }
+                        //mUpdate.updateNode();
                     }
                 }
             } else if(requestCode == 4){
@@ -454,6 +490,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
 
+                mUpdate.updateNode();
+
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
                     String exerciseName = data.getStringExtra("exercise");
@@ -461,6 +499,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             }else if(requestCode == 7){
                 if(resultCode == 3){
                     if(data != null){
+                        fromWithinCallback.fromWithin();
                         if(data.getStringExtra("MESSAGE1") != null) {
                             String message = data.getStringExtra("MESSAGE1");
                             if(message.equals("bodyweight")){
@@ -525,6 +564,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                                 }
                             }
                         }
+                        mUpdate.updateNode();
                     }
                 }
             }
@@ -748,6 +788,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
     }
 
     public String getExerciseValueFormatted(){
+
         String spinnerText = exerciseButton.getText().toString();
 
         return spinnerText.replaceAll("\n", "");

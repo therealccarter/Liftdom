@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.firebase.database.snapshot.Index;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 
@@ -24,7 +23,8 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExerciseLevelSSFrag extends android.app.Fragment {
+public class ExerciseLevelSSFrag extends android.app.Fragment
+        implements SetsLevelSSFrag.updateCallback{
 
     public ExerciseLevelSSFrag() {
         // Required empty public constructor
@@ -48,9 +48,23 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
         String getDoW1();
     }
 
+    public interface updateCallback{
+        void updateNode();
+    }
+
+    public interface withinCallback{
+        void fromWithin();
+    }
+
+    private withinCallback fromWithinCallback;
+    updateCallback mUpdate;
     private removeFragCallback2 removeFragCallback;
     private getParentEx getParentExCallback;
     private getParentDoW getParentDoWCallback;
+
+    public void updateNode(){
+        mUpdate.updateNode();
+    }
 
     // Butterknife
     @BindView(R.id.movementName) Button exerciseButton;
@@ -69,7 +83,8 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
 
         getParentExCallback = (getParentEx) getParentFragment();
         getParentDoWCallback = (getParentDoW) getParentFragment();
-
+        mUpdate = (updateCallback) getParentFragment();
+        fromWithinCallback = (withinCallback) getParentFragment();
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,6 +94,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 Intent intent = new Intent(v.getContext(), ExSelectorActivity.class);
                 int exID = exerciseButton.getId();
                 intent.putExtra("exID", exID);
@@ -108,6 +124,9 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                 String fragString = "sss" + Integer.toString(i + 1);
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 SetsLevelSSFrag superSetSetFrag = new SetsLevelSSFrag();
+                if(i == initialSchemeCount - 1){
+                    superSetSetFrag.isLastOne = true;
+                }
                 fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
                 fragmentTransaction.commitAllowingStateLoss();
                 setSchemeList.add(superSetSetFrag);
@@ -117,6 +136,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromWithinCallback.fromWithin();
                 //Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
                 //intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
                 //        .isCurrentUserImperial));
@@ -168,15 +188,18 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                             }
                         }
                     }
+                    mUpdate.updateNode();
                 }
             }else if(requestCode == 3){
                 if(resultCode == 1){
+                    fromWithinCallback.fromWithin();
                     Intent intent = new Intent(getActivity(), PercentageOptionsDialog.class);
                     intent.putExtra("isImperial", String.valueOf(TemplateEditorSingleton.getInstance()
                             .isCurrentUserImperial));
                     intent.putExtra("isFrom", "exLevel");
                     startActivityForResult(intent, 3);
                 }else if(resultCode == 2){
+                    fromWithinCallback.fromWithin();
                     Intent intent = new Intent(getActivity(), ExtraOptionsDialog.class);
 
                     String isPercentage = "false";
@@ -202,6 +225,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                         for(SetsLevelSSFrag setsLevelChildFrag : setSchemeList){
                             setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
                         }
+                        mUpdate.updateNode();
                     }
                 }
             }else if(requestCode == 7){
@@ -271,6 +295,8 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
                                 }
                             }
                         }
+
+                        mUpdate.updateNode();
                     }
                 }
             }
@@ -350,6 +376,7 @@ public class ExerciseLevelSSFrag extends android.app.Fragment {
             if(isPercentage){
                 superSetSetFrag.percentageWeight = percentageWeight;
             }
+            superSetSetFrag.isLastOne = true;
         }
         fragmentTransaction.add(R.id.superSetSchemeHolder, superSetSetFrag, fragString);
         fragmentTransaction.commitAllowingStateLoss();
