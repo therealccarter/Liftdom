@@ -387,6 +387,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
                         Snackbar.LENGTH_SHORT).show();
             }catch (NullPointerException e){
 
+            }catch (IllegalArgumentException e){
+
             }
             flashAddDay();
         }

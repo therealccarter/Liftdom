@@ -350,6 +350,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
         if(resultCode == 5){
+            fromWithinCallback.fromWithin();
             extraOptionsButton.setImageResource(R.drawable.three_dot_menu);
         }
         if(data != null){
@@ -401,13 +402,16 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     intent.putExtra("isFrom", "exLevel");
                     startActivityForResult(intent, 3);
                 }else if(resultCode == 8){
-                    if(!setsLevelChildFragAL.isEmpty()){
-                        for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
-                            setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
-                            setsLevelChildFrag.setToPercentageBoolean();
+                    fromWithinCallback.fromWithin();
+                    if(data.getStringExtra("empty") == null){
+                        if(!setsLevelChildFragAL.isEmpty()){
+                            for(SetsLevelChildFrag setsLevelChildFrag : setsLevelChildFragAL){
+                                setsLevelChildFrag.setWeightToPercentAndSetWeightText(data.getStringExtra("weightResult"));
+                                setsLevelChildFrag.setToPercentageBoolean();
+                            }
                         }
+                        mUpdate.updateNode();
                     }
-                    mUpdate.updateNode();
                 }else if(resultCode == 9){
                     fromWithinCallback.fromWithin();
                     Intent intent = new Intent(getActivity(), ExtraOptionsDialog.class);
@@ -434,6 +438,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     if(data.getStringExtra("choice") != null){
                         String message = data.getStringExtra("choice");
                         if(message.equals("algo")){
+                            fromWithinCallback.fromWithin();
                             Intent intent = new Intent(getActivity(), AlgorithmSelectorActivity.class);
                             String exName = getExerciseValueFormatted();
                             intent.putExtra("exName", exName);
@@ -457,40 +462,46 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     }
                 }
             } else if(requestCode == 4){
-                if(data.getStringArrayListExtra("list") != null){
-                    ArrayList<String> arrayList = data.getStringArrayListExtra("list");
-                    if(!algorithmList.isEmpty()){
-                        algorithmList.clear();
-                    }
-                    algorithmList = ((List<String>) arrayList);
+                if(data.getStringExtra("hasNothing") != null){
+                    fromWithinCallback.fromWithin();
+                }else{
+                    fromWithinCallback.fromWithin();
+                    if(data.getStringArrayListExtra("list") != null){
 
-                    try{
-                        Snackbar snackbar = Snackbar.make(getView(), "Algorithm added", Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    } catch (NullPointerException e){
+                        ArrayList<String> arrayList = data.getStringArrayListExtra("list");
+                        if(!algorithmList.isEmpty()){
+                            algorithmList.clear();
+                        }
+                        algorithmList = ((List<String>) arrayList);
 
-                    }
-                    extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
-                }
-                if(data.getStringExtra("applyToAll") != null){
-                    if(data.getStringExtra("applyToAll").equals("yes")){
-                        setToGoldCallback.setToGold();
-                    }
-                }
-                if(data.getStringExtra("wasApplyToAll") != null){
-                    if(data.getStringExtra("wasApplyToAll").equals("yes")){
-                        removeGoldCallback.removeGold();
-                        setToGoldFromDoW();
-                    }
-                }
-                if(data.getStringExtra("wasCleared") != null){
-                    if(data.getStringExtra("wasCleared").equals("yes")){
-                        removeGoldCallback.removeGold();
-                        algorithmList.clear();
-                    }
-                }
+                        try{
+                            Snackbar snackbar = Snackbar.make(getView(), "Algorithm added", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                        } catch (NullPointerException e){
 
-                mUpdate.updateNode();
+                        }
+                        extraOptionsButton.setImageResource(R.drawable.three_dot_menu_gold);
+                    }
+                    if(data.getStringExtra("applyToAll") != null){
+                        if(data.getStringExtra("applyToAll").equals("yes")){
+                            setToGoldCallback.setToGold();
+                        }
+                    }
+                    if(data.getStringExtra("wasApplyToAll") != null){
+                        if(data.getStringExtra("wasApplyToAll").equals("yes")){
+                            removeGoldCallback.removeGold();
+                            setToGoldFromDoW();
+                        }
+                    }
+                    if(data.getStringExtra("wasCleared") != null){
+                        if(data.getStringExtra("wasCleared").equals("yes")){
+                            removeGoldCallback.removeGold();
+                            algorithmList.clear();
+                        }
+                    }
+
+                    mUpdate.updateNode();
+                }
 
             } else if(requestCode == 6){
                 if(data.getStringExtra("exercise") != null){
@@ -609,8 +620,8 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
             }
 
             for(ExerciseLevelSSFrag exerciseLevelSSFrag : superSetFragList){
-                if(!exerciseLevelSSFrag.getSupersetInfoList().isEmpty()){
-                    infoList.addAll(exerciseLevelSSFrag.getSupersetInfoList());
+                if(!exerciseLevelSSFrag.getSupersetInfoListRunning().isEmpty()){
+                    infoList.addAll(exerciseLevelSSFrag.getSupersetInfoListRunning());
                 }
             }
 
@@ -735,6 +746,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                     exFrag.removeSetScheme(fragString2);
                 }
                 --fragIdCount2;
+                mUpdate.updateNode();
             }
         }
     }
@@ -755,6 +767,7 @@ public class ExerciseLevelChildFrag extends android.app.Fragment
                 if(supersetFragCount == 0){
                     hasSupersets = false;
                 }
+                mUpdate.updateNode();
             }
         }
     }

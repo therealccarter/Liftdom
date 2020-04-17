@@ -222,7 +222,12 @@ Template Editor:
             done - get public template you downloaded to work, retaining the correct uids
             done - get public template in myPublic to work, retaining all relevant values
             - create update callbacks so it stays updated.
-            - made tons of progress on callbacks, just need to do more testing (esp on algorithms...)
+                done - algorithm needs to be worked on
+                done - from within callbacks to prevent excessive reloading
+                done - fixed up reset workout button functionality
+                done - get rid of back confirmation on TE
+                done - supersets not being saved to running unless they have ex names
+                - figure out how to update on keyboard close.
     done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
 
 

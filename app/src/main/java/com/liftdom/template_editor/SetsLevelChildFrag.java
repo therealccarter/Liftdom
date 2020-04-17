@@ -221,6 +221,7 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         // check if the request code is same as what is passed  here it is 3
         if(requestCode == 3){
             if(data != null){
+                fromWithinCallback.fromWithin();
                 if(data.getStringExtra("MESSAGE1") != null) {
                     String message = data.getStringExtra("MESSAGE1");
                     if(message.equals("bodyweight")){
@@ -252,8 +253,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             }
         }else if(requestCode == 4){
             if(data != null){
-                setPercentageWeight(data.getStringExtra("weightResult"));
-                percentageWeight = data.getStringExtra("weightResult");
+                fromWithinCallback.fromWithin();
+                if(data.getStringExtra("empty") == null){
+                    setPercentageWeight(data.getStringExtra("weightResult"));
+                    percentageWeight = data.getStringExtra("weightResult");
+                }
             }
         }
     }

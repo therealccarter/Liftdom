@@ -85,6 +85,14 @@ public class PercentageOptionsDialog extends AppCompatActivity {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("empty", "yes");
+                if(isFromEx){
+                    setResult(8, intent);
+                }else{
+                    setResult(4, intent);
+                }
+
                 finish();
             }
         });

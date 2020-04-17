@@ -34,6 +34,11 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         void updateNode();
     }
 
+    public interface withinCallback{
+        void fromWithin();
+    }
+
+    private withinCallback fromWithinCallback;
     updateCallback mUpdate;
 
     // Butterknife
@@ -57,6 +62,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         ButterKnife.bind(this, view);
 
         mUpdate = (updateCallback) getParentFragment();
+        fromWithinCallback = (withinCallback) getParentFragment();
 
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
@@ -172,6 +178,57 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 3
+        if(data != null){
+            if(requestCode == 3){
+                fromWithinCallback.fromWithin();
+                if(data.getStringExtra("MESSAGE1") != null && data != null ) {
+                    String message = data.getStringExtra("MESSAGE1");
+                    if(message.equals("bodyweight")){
+                        setWeightToBW();
+                        changeRepsIMEtoFinish();
+                        setToBWBoolean();
+                    }else if(message.equals("defaultWeight")){
+                        if(!isNumber(weightEditText.getText().toString())){
+                            setWeightToDefault();
+                            setToDefaultWeightBoolean();
+                        }
+                    }else if(message.equals("percentage")){
+                        weightLL.setVisibility(View.GONE);
+                        percentageLL.setVisibility(View.VISIBLE);
+                        setToPercentageBoolean();
+                    }
+                }
+                if(data.getStringExtra("MESSAGE2") != null && data != null ) {
+                    String message = data.getStringExtra("MESSAGE2");
+                    if(message.equals("to failure")){
+                        setRepsToFailure();
+                        setToFailureBoolean();
+                    }else if(message.equals("defaultReps")){
+                        if(!isNumber(repsEditText.getText().toString())){
+                            setRepsToDefault();
+                            setToDefaultRepsBoolean();
+                        }
+                    }else if(message.equals("amrap")){
+                        amrap.setVisibility(View.VISIBLE);
+                        setToAmrapBoolean();
+                    }
+                }
+            }else if(requestCode == 4){
+                if(data != null){
+                    fromWithinCallback.fromWithin();
+                    if(data.getStringExtra("empty") == null){
+                        setPercentageWeight(data.getStringExtra("weightResult"));
+                        percentageWeight = data.getStringExtra("weightResult");
+                    }
+                }
+            }
+        }
     }
 
     public void setAmrapEmpty(){
@@ -371,53 +428,6 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         percentageLL.setVisibility(View.VISIBLE);
         percentageWeightButton.setText(weight);
         setToPercentageBoolean();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        // check if the request code is same as what is passed  here it is 3
-        if(data != null){
-            if(requestCode == 3){
-                if(data.getStringExtra("MESSAGE1") != null && data != null ) {
-                    String message = data.getStringExtra("MESSAGE1");
-                    if(message.equals("bodyweight")){
-                        setWeightToBW();
-                        changeRepsIMEtoFinish();
-                        setToBWBoolean();
-                    }else if(message.equals("defaultWeight")){
-                        if(!isNumber(weightEditText.getText().toString())){
-                            setWeightToDefault();
-                            setToDefaultWeightBoolean();
-                        }
-                    }else if(message.equals("percentage")){
-                        weightLL.setVisibility(View.GONE);
-                        percentageLL.setVisibility(View.VISIBLE);
-                        setToPercentageBoolean();
-                    }
-                }
-                if(data.getStringExtra("MESSAGE2") != null && data != null ) {
-                    String message = data.getStringExtra("MESSAGE2");
-                    if(message.equals("to failure")){
-                        setRepsToFailure();
-                        setToFailureBoolean();
-                    }else if(message.equals("defaultReps")){
-                        if(!isNumber(repsEditText.getText().toString())){
-                            setRepsToDefault();
-                            setToDefaultRepsBoolean();
-                        }
-                    }else if(message.equals("amrap")){
-                        amrap.setVisibility(View.VISIBLE);
-                        setToAmrapBoolean();
-                    }
-                }
-            }else if(requestCode == 4){
-                if(data != null){
-                    setPercentageWeight(data.getStringExtra("weightResult"));
-                    percentageWeight = data.getStringExtra("weightResult");
-                }
-            }
-        }
     }
 
     public String getInfoList(){

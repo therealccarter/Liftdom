@@ -24,7 +24,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ExerciseLevelSSFrag extends android.app.Fragment
-        implements SetsLevelSSFrag.updateCallback{
+        implements SetsLevelSSFrag.updateCallback,
+                    SetsLevelSSFrag.withinCallback{
 
     public ExerciseLevelSSFrag() {
         // Required empty public constructor
@@ -64,6 +65,10 @@ public class ExerciseLevelSSFrag extends android.app.Fragment
 
     public void updateNode(){
         mUpdate.updateNode();
+    }
+
+    public void fromWithin(){
+        fromWithinCallback.fromWithin();
     }
 
     // Butterknife
@@ -313,6 +318,20 @@ public class ExerciseLevelSSFrag extends android.app.Fragment
                     infoList.add(setsLevelSSFrag.getInfoList());
                 //}
             }
+        }
+
+        return infoList;
+    }
+
+    public List<String> getSupersetInfoListRunning(){
+        List<String> infoList = new ArrayList<>();
+
+        infoList.add(getExerciseValueFormatted());
+
+        for(SetsLevelSSFrag setsLevelSSFrag : setSchemeList){
+            //if(!setsLevelSSFrag.getInfoList().equals("0x0@0")){
+            infoList.add(setsLevelSSFrag.getInfoList());
+            //}
         }
 
         return infoList;

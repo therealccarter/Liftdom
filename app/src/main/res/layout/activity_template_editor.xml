@@ -111,8 +111,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp"
-
+                    android:gravity="center"
                     >
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/draftDetectedTextView"
+                        android:text="@string/draftDetected"
+                        android:textColor="@color/liftrGold1"
+                        android:visibility="visible"
+                        android:background="@color/lessDarkGrey"
+                        android:padding="3dp"
+                        />
 
                 <Button
                         android:layout_width="wrap_content"
@@ -121,12 +132,14 @@
                         android:text="@string/resetProgramEditor"
                         android:id="@+id/resetButton"
                         android:textColor="@color/white"
-                        android:background="@color/lessDarkGrey"
+                        android:background="@color/darkerGrey"
                         android:textAllCaps="false"
                         android:minHeight="0dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:padding="5dp"
                         />
 
             </LinearLayout>

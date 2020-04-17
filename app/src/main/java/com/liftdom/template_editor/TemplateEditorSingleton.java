@@ -462,9 +462,14 @@ public class TemplateEditorSingleton {
         mTemplateName = null;
         mUserId = null;
         mUserName = null;
+        mUserId2 = null;
+        mUserName2 = null;
         mIsPublic = false;
+        isFromPublic = false;
         mDateCreated = null;
         mDescription = null;
+        isAlgoApplyToAll = false;
+        isAuthoredByOther = false;
         mapOne.clear();
         mapTwo.clear();
         mapThree.clear();
@@ -474,9 +479,20 @@ public class TemplateEditorSingleton {
         mapSeven.clear();
         mIsAlgorithm = false; // so right now the problem is that when adding a superset, for some reason algorithm
         // gets set to false
-        mAlgorithmInfo.clear();
+        if(mAlgorithmInfo != null){
+            mAlgorithmInfo.clear();
+        }
+        if(mAlgorithmDateMap != null){
+            mAlgorithmDateMap.clear();
+        }
         mRestTime = null;
         mIsActiveRestTimer = false;
+        isCurrentUserImperial = false;
+        isTemplateImperial = false;
+        isFirstTimeTut = false;
+        mVibrationTime = null;
+        mIsRestTimerAlert = false;
+        isEdit = false;
     }
 
     public void clearWorkoutInfo(){
@@ -489,7 +505,13 @@ public class TemplateEditorSingleton {
         mapSeven.clear();
         mIsAlgorithm = false; // so right now the problem is that when adding a superset, for some reason algorithm
         // gets set to false
-        mAlgorithmInfo.clear();
+        if(mAlgorithmInfo != null){
+            mAlgorithmInfo.clear();
+        }
+        if(mAlgorithmDateMap != null){
+            mAlgorithmDateMap.clear();
+        }
+
     }
 }
 

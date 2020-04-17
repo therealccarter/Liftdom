@@ -99,6 +99,8 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
     @BindView(R.id.updateButton) Button updateButton;
     @BindView(R.id.templateNameView) TextView templateNameView;
+    @BindView(R.id.draftDetectedTextView) TextView draftDetectedTextView;
+    @BindView(R.id.resetButton) Button resetButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +166,14 @@ public class TemplateEditorActivity extends BaseActivity
                     restTimerBool = false;
                     restTimerInfoLL.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleanUpState();
+                resetState();
             }
         });
 
@@ -435,6 +445,7 @@ public class TemplateEditorActivity extends BaseActivity
         super.onResume();
 
         if(hasHitOnPause && !fromWithin){
+            loadingView.setVisibility(View.VISIBLE);
             hideKeyboard2();
             hasHitOnPause = false;
             //cleanUpState();
@@ -490,8 +501,10 @@ public class TemplateEditorActivity extends BaseActivity
                 if(dataSnapshot.exists()){
                     TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
                     if(modelClass.getMapOne() != null){
+                        loadingView.setVisibility(View.GONE);
                         inflateFromTemplateModelClass(modelClass);
                     }else{
+                        loadingView.setVisibility(View.GONE);
                         checkForEditState();
                     }
                 }else{
@@ -999,9 +1012,12 @@ public class TemplateEditorActivity extends BaseActivity
                             // we ask first
                             //TODO This detects true even well after the node has been deleted
                             //checkRunningNode();
+                            draftDetectedTextView.setVisibility(View.VISIBLE);
                             inflateFromRunning();
                         }else{
                             // do nothing?
+                            draftDetectedTextView.setVisibility(View.GONE);
+                            addDaySet();
                         }
                     }
 
@@ -1013,13 +1029,6 @@ public class TemplateEditorActivity extends BaseActivity
 
                 loadingView.setVisibility(View.GONE);
             }
-        }
-    }
-
-
-    private void cleanUpState(){
-        if(!dayOfWeekChildFragArrayList.isEmpty()){
-            removeAllDaySets();
         }
     }
 
@@ -1199,6 +1208,84 @@ public class TemplateEditorActivity extends BaseActivity
         }
 
         //updateTemplateNode();
+    }
+
+    private void cleanUpState(){
+        if(!dayOfWeekChildFragArrayList.isEmpty()){
+            removeAllDaySets();
+        }
+    }
+
+    private void resetState(){
+        if(!dayOfWeekChildFragArrayList.isEmpty()){
+            removeAllDaySetsFull();
+        }
+    }
+
+    private void removeAllDaySetsFull(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //String fragString = Integer.toString(fragIdCount);
+
+        if(fragIdCount != 0){
+            for(int i = fragIdCount; i > 0 ; i--){
+                String fragString = Integer.toString(i);
+                //handleDoWRemoval(i, fragString);
+                fragmentTransaction.remove(dayOfWeekChildFragArrayList.get(i - 1));
+            }
+            fragmentTransaction.commitAllowingStateLoss();
+            fragmentManager.popBackStackImmediate();
+        }
+
+        TemplateEditorSingleton.getInstance().clearAll();
+
+        dayOfWeekChildFragArrayList.clear();
+        doW1 = new DayOfWeekChildFrag();
+        doW2 = new DayOfWeekChildFrag();
+        doW3 = new DayOfWeekChildFrag();
+        doW4 = new DayOfWeekChildFrag();
+        doW5 = new DayOfWeekChildFrag();
+        doW6 = new DayOfWeekChildFrag();
+        doW7 = new DayOfWeekChildFrag();
+
+        dayOfWeekChildFragArrayList.add(doW1);
+        doW1.doWTag = 1;
+
+        dayOfWeekChildFragArrayList.add(doW2);
+        doW2.doWTag = 2;
+
+        dayOfWeekChildFragArrayList.add(doW3);
+        doW3.doWTag = 3;
+
+        dayOfWeekChildFragArrayList.add(doW4);
+        doW4.doWTag = 4;
+
+        dayOfWeekChildFragArrayList.add(doW5);
+        doW5.doWTag = 5;
+
+        dayOfWeekChildFragArrayList.add(doW6);
+        doW6.doWTag = 6;
+
+        dayOfWeekChildFragArrayList.add(doW7);
+        doW7.doWTag = 7;
+
+        fragIdCount = 0;
+
+        templateNameEdit = "";
+        templateNameView.setText("");
+        templateNameView.setVisibility(View.GONE);
+
+        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child(
+                "templatesRunning").child(uid);
+        runningRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                getIntent().putExtra("isEdit", "no");
+                getIntent().putExtra("isFromPublic", "no");
+                checkForEditState();
+            }
+        });
+
     }
 
     private void removeAllDaySets(){
@@ -1577,37 +1664,41 @@ public class TemplateEditorActivity extends BaseActivity
     @Override
     public void onBackPressed(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        // set title
-        builder.setTitle("Discard template?");
-
-        // set dialog message
-        builder
-                .setMessage("Are you sure you want to discard changes to this template?")
-                .setCancelable(false)
-                .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        TemplateEditorSingleton.getInstance().clearAll();
-                        EditTemplateAssemblerClass.getInstance().clearAll();
-
-                        finish();
-                    }
-                })
-                .setNegativeButton("Continue Editing",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = builder.create();
-
-        // show it
-        alertDialog.show();
+        TemplateEditorSingleton.getInstance().clearAll();
+        EditTemplateAssemblerClass.getInstance().clearAll();
+        //super.onBackPressed();
+        finish();
+        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+        //// set title
+        //builder.setTitle("Discard template?");
+//
+        //// set dialog message
+        //builder
+        //        .setMessage("Are you sure you want to discard changes to this template?")
+        //        .setCancelable(false)
+        //        .setPositiveButton("Discard",new DialogInterface.OnClickListener() {
+        //            public void onClick(DialogInterface dialog,int id) {
+//
+        //                TemplateEditorSingleton.getInstance().clearAll();
+        //                EditTemplateAssemblerClass.getInstance().clearAll();
+//
+        //                finish();
+        //            }
+        //        })
+        //        .setNegativeButton("Continue Editing",new DialogInterface.OnClickListener() {
+        //            public void onClick(DialogInterface dialog,int id) {
+        //                // if this button is clicked, just close
+        //                // the dialog box and do nothing
+        //                dialog.cancel();
+        //            }
+        //        });
+//
+        //// create alert dialog
+        //AlertDialog alertDialog = builder.create();
+//
+        //// show it
+        //alertDialog.show();
     }
 
     public void daySelectedFromFrag(String doW, String tag){

@@ -116,7 +116,7 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                                 applyAlgoToExs.setChecked(true);
                             }else{
                                 if(!day.equals("null")){
-                                    if(containsDay(tempList.get(12), day)){
+                                    if(containsDay(tempList.get(13), day)){
                                         setsWeeksEditText.setText(tempList.get(1));
                                         setsIncreasedEditText.setText(tempList.get(2));
                                         repsWeeksEditText.setText(tempList.get(3));
@@ -352,6 +352,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
                     setResult(5, intent);
                     finish();
                 }else{
+                    Intent intent = new Intent();
+                    intent.putExtra("hasNothing", "yes");
+                    setResult(4, intent);
                     finish();
                 }
 

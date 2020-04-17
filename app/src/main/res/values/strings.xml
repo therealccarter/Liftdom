@@ -707,7 +707,8 @@
     <string name="delete">Delete</string>
     <string name="renameThisTemplate">Rename</string>
     <string name="deleteThisTemplate">Delete Program</string>
-    <string name="resetProgramEditor">Reset to blank state</string>
+    <string name="draftDetected">Inflating last detected Program Editor state</string>
+    <string name="resetProgramEditor">Reset Program Editor to blank state</string>
 
     <string name="restDay">Rest Day</string>
 
