@@ -205,38 +205,47 @@ Creating new template from scratch for liftdomapp@gmail didn't save the dates? -
 Fixed bug allowing templates to be republished (and creating duplicates in public node)
 Fixed bug causing Rest Timer info to be shown in AH even if RT is disabled.
 Fixed - Adding exercise brings up the keyboard? Saving template also brings up the keyboard...
-
-----------------------
-====================================================
+clicking on main frag comment edit texts brings up edit text but the button bar hides it.
+    done - need to either scroll up on edit text focus OR hide button bar on keyboard open, then
+            show on close.
+    done - for WA save on kb close, we can have an identical listener as MA listener, just make sure
+            to kill it onStop.
 Template Editor:
     done - if bodyweight ex, change reps ime action to finish instead of next.
     done - change rep settings for all set schemes from ex level.
     done - imitate first set scheme's settings when adding new set scheme.
     done - flash add day set in beginning, end when selected.
     done - flash day picker on add day set, end when selected.
-    - make snackbar flashes only happen once
-    - update template to intermediary node and show that on resume. like WA. rn it gets fucked if
-        switching around and any of it dies.
+    done - update template to intermediary node and show that on resume. like WA. rn it gets fucked
+            if switching around and any of it dies.
             done - get normal from scratch running to work
             done - get edit from selected templates to work
             done - get public template you downloaded to work, retaining the correct uids
             done - get public template in myPublic to work, retaining all relevant values
-            - create update callbacks so it stays updated.
+            done - create update callbacks so it stays updated.
                 done - algorithm needs to be worked on
                 done - from within callbacks to prevent excessive reloading
                 done - fixed up reset workout button functionality
                 done - get rid of back confirmation on TE
                 done - supersets not being saved to running unless they have ex names
-                - figure out how to update on keyboard close.
+                done - figure out how to update on keyboard close.
     done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
-
-
-set as active should check to see if template has no days
 also we need to test what happens in WA if it reaches a no day DoW.
+Fixed - WA is not inflating weights...monkaS. Was due to methods trying to clear B.W. version
+
+----------------------
+====================================================
+
+make snackbar flashes only happen once
+set as active should check to see if template has no days
+set as active template was checked despite us not having no templates
+
 
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
+make search button just show edit text then on finish/click on search button it just opens some user
+ search frag
 
 Get the 3 pre-mades working correctly. Smolov, PPL, PPL_Reddit.
     - (normal ppl and a bodyweight plan could be normal template mode)
@@ -244,9 +253,8 @@ Get the 3 pre-mades working correctly. Smolov, PPL, PPL_Reddit.
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
 guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
 
-
 We may need to do a version check in MainActivity so old version people don't fuck up the
-db.
+db. Could also just delete all old data.
 
 Look into if templates really shouldn't have a space in them.
 

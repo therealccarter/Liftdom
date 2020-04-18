@@ -4,19 +4,17 @@ package com.liftdom.workout_assistor;
 import android.app.ActivityManager;
 import android.content.*;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.InputFilter;
+import android.view.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import butterknife.BindView;
@@ -85,6 +83,10 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isLastDay;
     boolean isListening;
 
+    boolean mIsKeyboardVisible = false;
+    View rootView;
+    Rect measureRect = new Rect();
+    ViewTreeObserver.OnGlobalLayoutListener keyboardListener;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
     //.child("assistorModel");
@@ -190,6 +192,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         View view = inflater.inflate(R.layout.fragment_assistor_holder, container, false);
 
         ButterKnife.bind(this, view);
+
+        rootView = (LinearLayout) view.findViewById(R.id.assistorHolder);
 
         HideKey.initialize(getActivity());
 
@@ -698,6 +702,44 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         return view;
     }
+
+    ViewTreeObserver.OnGlobalLayoutListener layoutListener;
+
+    private void setUpLayoutListener(){
+
+        if(rootView != null){
+
+            keyboardListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    //you should cache this, onGlobalLayout can get called often
+                    rootView.getWindowVisibleDisplayFrame(measureRect);
+                    // measureRect.bottom is the position above soft keypad
+                    int keypadHeight = rootView.getRootView().getHeight() - measureRect.bottom;
+
+                    if (keypadHeight > 0) {
+                        // keyboard is opened
+                        mIsKeyboardVisible = true;
+                    } else {
+                        //store keyboard state to use in onBackPress if you need to
+                        if(mIsKeyboardVisible){
+                            mIsKeyboardVisible = false;
+                            if(isInForeground){
+                                updateWorkoutState();
+                            }
+
+                        }
+
+                    }
+                }
+            };
+
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(keyboardListener);
+
+        }
+
+    }
+
 
     // index will always be the last item checked, or the first item.
 
@@ -1335,6 +1377,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         super.onStart();
         isInForeground = true;
         setButtonsForService();
+        setUpLayoutListener();
     }
 
     private void setButtonsForService(){
@@ -1435,6 +1478,9 @@ public class AssistorHolderFrag extends android.app.Fragment
         //    runningAssistorRef.removeEventListener(runningAssistorListener);
         //}
         isInForeground = false;
+        if(rootView != null && keyboardListener != null){
+            rootView.getViewTreeObserver().removeOnGlobalLayoutListener(keyboardListener);
+        }
 
         super.onStop();
     }

@@ -8,10 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputFilter;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -70,6 +72,11 @@ public class TemplateEditorActivity extends BaseActivity
     boolean restTimerBool = false;
     String templateNameEdit;
 
+    View rootView;
+    boolean mIsKeyboardVisible = false;
+    Rect measureRect = new Rect();
+    boolean hasUpdatedOnce = false;
+
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
     DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
@@ -101,6 +108,7 @@ public class TemplateEditorActivity extends BaseActivity
     @BindView(R.id.templateNameView) TextView templateNameView;
     @BindView(R.id.draftDetectedTextView) TextView draftDetectedTextView;
     @BindView(R.id.resetButton) Button resetButton;
+    //@BindView(R.id.main_activity_container) LinearLayout mainActivityContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +148,8 @@ public class TemplateEditorActivity extends BaseActivity
         //if(savedInstanceState == null){
             showRestTimerAlertRB.setChecked(true);
         //}
+
+        rootView = (LinearLayout) findViewById(R.id.main_activity_container);
 
         secondsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 59)});
         minutesEditText.setFilters(new InputFilter[]{new InputFilterMinMax(0, 15)});
@@ -430,8 +440,39 @@ public class TemplateEditorActivity extends BaseActivity
             flashAddDay();
         }
 
+        setUpLayoutListener();
+
         checkForEditState();
 
+    }
+
+    private void setUpLayoutListener(){
+        if(rootView != null){
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    //you should cache this, onGlobalLayout can get called often
+                    rootView.getWindowVisibleDisplayFrame(measureRect);
+                    // measureRect.bottom is the position above soft keypad
+                    int keypadHeight = rootView.getRootView().getHeight() - measureRect.bottom;
+
+                    if (keypadHeight > 0) {
+                        // keyboard is opened
+                        mIsKeyboardVisible = true;
+
+                    } else {
+                        //store keyboard state to use in onBackPress if you need to
+                        if(mIsKeyboardVisible){
+                            mIsKeyboardVisible = false;
+                            //if(hasUpdatedOnce){
+                            updateTemplateNode();
+                            //}
+                        }
+
+                    }
+                }
+            });
+        }
     }
 
     boolean fromWithin = false;
@@ -1033,6 +1074,8 @@ public class TemplateEditorActivity extends BaseActivity
     }
 
     public void updateTemplateNode(){
+        hasUpdatedOnce = true;
+
         TemplateEditorSingleton.getInstance().clearWorkoutInfo();
 
         for(DayOfWeekChildFrag dayOfWeekChildFrag : dayOfWeekChildFragArrayList){

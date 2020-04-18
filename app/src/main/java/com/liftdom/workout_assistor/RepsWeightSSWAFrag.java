@@ -319,7 +319,9 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             InputFilter[] filterArray = new InputFilter[1];
             filterArray[0] = new InputFilter.LengthFilter(3);
             weightEditText.setFilters(filterArray);
-            weightEditText.setText("");
+            //if(weightEditText.getText().toString().equals("B.W.")){
+                weightEditText.setText("");
+            //}
             weightEditText.setEnabled(true);
             weightEditText.setHint("W");
             unitView.setVisibility(View.VISIBLE);
@@ -612,7 +614,9 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
                             InputFilter[] filterArray = new InputFilter[1];
                             filterArray[0] = new InputFilter.LengthFilter(3);
                             weightEditText.setFilters(filterArray);
-                            weightEditText.setText("");
+                            if(weightEditText.getText().toString().equals("B.W.")){
+                                weightEditText.setText("");
+                            }
                             weightEditText.setEnabled(true);
                             weightEditText.setHint("W");
                             unitView.setVisibility(View.VISIBLE);

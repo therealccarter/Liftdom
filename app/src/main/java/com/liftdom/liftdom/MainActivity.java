@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -72,8 +74,12 @@ public class MainActivity extends BaseActivity implements
     private ArrayList<String> typeAheadData;
     private ScrollView scrollView;
 
-    Toolbar toolbar;
+    boolean mIsKeyboardVisible = false;
+    View rootView;
+    Rect measureRect = new Rect();
+    boolean isCorrectFrag = true;
 
+    Toolbar toolbar;
 
     DatabaseReference mRootRef;
     String uid;
@@ -127,6 +133,8 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        rootView = (CoordinatorLayout) findViewById(R.id.rootView);
 
         //Paper.init(getApplicationContext());
 
@@ -264,6 +272,7 @@ public class MainActivity extends BaseActivity implements
                 if(id == 0){
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+                    isCorrectFrag = true;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -275,6 +284,7 @@ public class MainActivity extends BaseActivity implements
                 }else if(id == 1){
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+                    isCorrectFrag = false;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     TemplateMenuFrag templateMenuFrag = new TemplateMenuFrag();
@@ -284,8 +294,9 @@ public class MainActivity extends BaseActivity implements
                     fragmentTransaction.commit();
                     bottomNavigation.setSelectedIndex(1, false);
                 } else if(id == 2){
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+                    isCorrectFrag = true;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -296,6 +307,7 @@ public class MainActivity extends BaseActivity implements
                 } else if(id == 3){
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+                    isCorrectFrag = false;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -306,6 +318,7 @@ public class MainActivity extends BaseActivity implements
                 } else if(id == 4){
                     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+                    isCorrectFrag = false;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -336,6 +349,7 @@ public class MainActivity extends BaseActivity implements
                     if (i1 == 0) {
                         setNavDrawerSelection(1);
                         //showSearchButton();
+                        isCorrectFrag = true;
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -348,6 +362,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 1) {
                         setNavDrawerSelection(2);
                         //hideSearchButton();
+                        isCorrectFrag = false;
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -359,7 +374,8 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 2) {
                         setNavDrawerSelection(3);
                         //hideSearchButton();
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                        isCorrectFrag = true;
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -370,6 +386,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 3) {
                         setNavDrawerSelection(4);
                         //hideSearchButton();
+                        isCorrectFrag = false;
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -381,6 +398,7 @@ public class MainActivity extends BaseActivity implements
                     } else if (i1 == 4) {
                         setNavDrawerSelection(5);
                         //hideSearchButton();
+                        isCorrectFrag = false;
                         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                         FragmentManager fragmentManager = getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -439,8 +457,51 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
+        setUpLayoutListener();
 
+    }
 
+    private void setUpLayoutListener(){
+
+        if(rootView != null){
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    //you should cache this, onGlobalLayout can get called often
+                    rootView.getWindowVisibleDisplayFrame(measureRect);
+                    // measureRect.bottom is the position above soft keypad
+                    int keypadHeight = rootView.getRootView().getHeight() - measureRect.bottom;
+
+                    if (keypadHeight > 0) {
+                        // keyboard is opened
+                        mIsKeyboardVisible = true;
+                        if(isCorrectFrag){
+                            hideBottomBar();
+                        }
+                    } else {
+                        //store keyboard state to use in onBackPress if you need to
+                        if(mIsKeyboardVisible){
+                            mIsKeyboardVisible = false;
+                            if(isCorrectFrag){
+                                showBottomBar();
+                            }
+
+                        }
+
+                    }
+                }
+            });
+        }
+
+    }
+
+    private void showBottomBar(){
+        // show in onStart just in case
+        bottomNavigation.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBottomBar(){
+        bottomNavigation.setVisibility(View.GONE);
     }
 
     private void setUpSearch(){
@@ -521,11 +582,14 @@ public class MainActivity extends BaseActivity implements
                 FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(uid);
         DatabaseReference defaultRef = FirebaseDatabase.getInstance().getReference().child(
                 "defaultTemplates");
+        DatabaseReference templateRunning = FirebaseDatabase.getInstance().getReference().child(
+                "templatesRunning").child(uid);
         templateRef.keepSynced(true);
         userRef.keepSynced(true);
         runningRef.keepSynced(true);
         workoutHistoryRef.keepSynced(true);
         defaultRef.keepSynced(true);
+        templateRunning.keepSynced(true);
 
     }
 
