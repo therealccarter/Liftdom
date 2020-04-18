@@ -1,5 +1,6 @@
 
-
+set as active should check to see if template has no days
+set as active template was checked despite us not having no templates
 <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

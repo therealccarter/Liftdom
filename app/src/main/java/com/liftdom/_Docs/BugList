@@ -232,23 +232,26 @@ Template Editor:
     done - It's duplicating exercises. Not on update, but on full save. Only does it if I update running node first...
 also we need to test what happens in WA if it reaches a no day DoW.
 Fixed - WA is not inflating weights...monkaS. Was due to methods trying to clear B.W. version
+make snackbar flashes only happen once
+check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 
 ----------------------
 ====================================================
 
-make snackbar flashes only happen once
-set as active should check to see if template has no days
-set as active template was checked despite us not having no templates
+Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
+    -  Smolov
+        -
+    - PPL
+        - (normal ppl and a bodyweight plan could be normal template mode)
+    PPL_Reddit
+        -
 
-
-check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
 make search button just show edit text then on finish/click on search button it just opens some user
  search frag
 
-Get the 3 pre-mades working correctly. Smolov, PPL, PPL_Reddit.
-    - (normal ppl and a bodyweight plan could be normal template mode)
+
 
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
 guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
@@ -260,6 +263,9 @@ Look into if templates really shouldn't have a space in them.
 
 Change Kmac username in nodes
 
+check out playLibVersion = "17.0.0"     in gradle file.
+          supportLibVersion = "28.0.0"
+
 decide what should be the default: WA, feed, or global feed. (possibly switch to RB for feed?)
     - could possibly do a check (fb/sharedpref) on if they've completed today's workout.
     - if yes, it goes to feed, if no it goes to WA.
@@ -268,7 +274,8 @@ Your security rules are not secure. Any authenticated user can steal, modify, or
 
 YUGE bug, seems for some people their workouts are going into feed but not selfFeed and not into
  globalFeed. Then if they rep that post, it sends the has repped to the nonexistent post in
- selfFeed. Malformed.
+ selfFeed. Malformed. Maybe replicate it yourself (manually) and add function to idk delete it? or
+ create it from the other feed node.
 
 check through app for what happens when it dies
     - (https://www.reddit.com/r/androiddev/comments/fni20d/weekly_questions_thread_march_23_2020/fljg33r/)

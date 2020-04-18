@@ -1654,7 +1654,7 @@ public class TemplateEditorActivity extends BaseActivity
         if(timer != null){
             timer.cancel();
         }
-        timer = new CountDownTimer(2000, 150) {
+        timer = new CountDownTimer(1400, 100) {
             @Override
             public void onTick(long l) {
                 if(isBlack){

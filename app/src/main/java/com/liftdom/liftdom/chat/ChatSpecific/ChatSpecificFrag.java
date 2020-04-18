@@ -2,6 +2,7 @@ package com.liftdom.liftdom.chat.ChatSpecific;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.irozon.library.HideKey;
+import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import org.joda.time.DateTime;
@@ -74,9 +76,16 @@ public class ChatSpecificFrag extends Fragment {
 
         userList = new ArrayList<>();
 
-        for(Map.Entry<String, String> mapEntry : memberMap.entrySet()){
-            userList.add(mapEntry.getKey());
+        if(memberMap != null){
+            for(Map.Entry<String, String> mapEntry : memberMap.entrySet()){
+                userList.add(mapEntry.getKey());
+            }
+        }else{
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.putExtra("fragID", 4);
+            startActivity(intent);
         }
+
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
