@@ -74,7 +74,7 @@ public class TemplateEditorActivity extends BaseActivity
 
     View rootView;
     boolean mIsKeyboardVisible = false;
-    Rect measureRect = new Rect();
+    Rect measureRect;
     boolean hasUpdatedOnce = false;
 
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
@@ -448,6 +448,9 @@ public class TemplateEditorActivity extends BaseActivity
 
     private void setUpLayoutListener(){
         if(rootView != null){
+
+            measureRect = new Rect();
+
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {

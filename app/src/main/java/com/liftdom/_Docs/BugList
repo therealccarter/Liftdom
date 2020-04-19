@@ -234,6 +234,7 @@ also we need to test what happens in WA if it reaches a no day DoW.
 Fixed - WA is not inflating weights...monkaS. Was due to methods trying to clear B.W. version
 make snackbar flashes only happen once
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
+Create the Rect as a field and then reset it before use.
 
 ----------------------
 ====================================================
@@ -250,8 +251,6 @@ Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
 ============ What are the next most important things for beta release? =====
 make search button just show edit text then on finish/click on search button it just opens some user
  search frag
-
-
 
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
 guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
@@ -289,6 +288,7 @@ Look into obfuscation/doing something with those hardcoded ad/cloud strings
 
 
 ---- MISC ----
+parcels? to save state when coming back to app from post-onDestroy (going to other apps or too long)
 public templates should be able to be sorted by two fields: type (bb, pl, all) and download count/newest
 Clicking on profile image or name in chat specific should bring up their profile like in feed.
 Check if things like saveTemplateDialog should be noHistory:true

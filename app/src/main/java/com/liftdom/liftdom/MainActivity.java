@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements
 
     boolean mIsKeyboardVisible = false;
     View rootView;
-    Rect measureRect = new Rect();
+    Rect measureRect;
     boolean isCorrectFrag = true;
 
     Toolbar toolbar;
@@ -464,6 +464,9 @@ public class MainActivity extends BaseActivity implements
     private void setUpLayoutListener(){
 
         if(rootView != null){
+
+            measureRect = new Rect();
+
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {

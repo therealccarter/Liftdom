@@ -85,7 +85,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     boolean mIsKeyboardVisible = false;
     View rootView;
-    Rect measureRect = new Rect();
+    Rect measureRect;
     ViewTreeObserver.OnGlobalLayoutListener keyboardListener;
 
     DatabaseReference mRunningAssistorRef = mRootRef.child("runningAssistor").child(uid);
@@ -708,6 +708,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void setUpLayoutListener(){
 
         if(rootView != null){
+
+            measureRect = new Rect();
 
             keyboardListener = new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
