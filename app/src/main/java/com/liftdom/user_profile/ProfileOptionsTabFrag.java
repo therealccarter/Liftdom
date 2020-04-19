@@ -49,12 +49,17 @@ public class ProfileOptionsTabFrag extends Fragment {
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if(xUid.equals(uid)){
-            // your profile
-            //xUid = uid;
-        }else{
+        try{
+            if(xUid.equals(uid)){
+                // your profile
+                //xUid = uid;
+            }else{
+
+            }
+        }catch (NullPointerException e){
 
         }
+
 
         //if(!isOtherUser){
         //    // is you

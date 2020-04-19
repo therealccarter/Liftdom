@@ -80,14 +80,16 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
     private void generateLayoutSmolov(String maxWeight, String exName, String beginDate){
         Smolov smolov = new Smolov(exName, maxWeight);
-        HashMap<String, List<String>> map = smolov.getMapForSpecificDay(beginDate, formattedDate);
-        FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-        subFrag.isCurrentUserImperial = isCurrentUserImperial;
-        subFrag.isTemplateImperial = isTemplateImperial;
-        subFrag.map = map;
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-        fragmentTransaction.commit();
+        HashMap<String, List<String>> map = new HashMap<>();
+        map.putAll(smolov.getMapForSpecificDay(beginDate, formattedDate));
+        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+        adapter.setIsOriginallyImperial(isTemplateImperial);
+        //adapter.setInfoList(workoutInfoMap);
+        adapter.setImperialPOV(isCurrentUserImperial);
+        infoRecyclerView.setAdapter(adapter); // isImperialPOV = false
+        infoRecyclerView.setHasFixedSize(false);
+        infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
     }
 
     private void generateLayout(){

@@ -68,7 +68,7 @@ public class Smolov {
 
         LocalDate beginDate = LocalDate.parse(beginDateString);
 
-        for(int i = 1; i < 100; i++){
+        for(int i = 0; i < 100; i++){
             LocalDate newDate = beginDate.plusDays(i);
             int daysBetween = Days.daysBetween(beginDate, newDate).getDays();
 
@@ -80,8 +80,12 @@ public class Smolov {
 
             List<String> workoutList = getWorkout(week, days);
             if(!workoutList.get(1).equals("rest")){
-                if(newDate.isAfter(LocalDate.now())){
+                if(week == 1 && days == 1){
                     smolovDates.add(newDate);
+                }else{
+                    if(newDate.isAfter(LocalDate.now())){
+                        smolovDates.add(newDate);
+                    }
                 }
             }
         }
@@ -105,8 +109,11 @@ public class Smolov {
         days++;
 
         List<String> workoutList = getWorkout(week, days);
+        List<String> dummyList = new ArrayList<>();
+        dummyList.add("Monday");
 
         map.put("1_key", workoutList);
+        map.put("0_key", dummyList);
 
         return map;
     }
@@ -371,7 +378,7 @@ public class Smolov {
         return workout;
     }
 
-    double percentToWeight(int percent){
+    int percentToWeight(int percent){
         double weight;
         //int weight2;
 
@@ -379,23 +386,23 @@ public class Smolov {
 
         weight = oneRM * percentage;
 
-        weight = (int) Math.round(weight);
+        int weight2 = (int) Math.round(weight);
 
-        return weight;
+        return weight2;
     }
 
-    double percentToWeight(int percent, int addExtra){
+    int percentToWeight(int percent, int addExtra){
         double weight;
         //int weight2;
         double percentage = (double)percent/(double)100;
 
         weight = oneRM * percentage;
 
-        weight = (int) Math.round(weight) + addExtra;
+        int weight2 = (int) Math.round(weight) + addExtra;
 
         //weight = weight + addExtra;
 
-        return weight;
+        return weight2;
     }
 
 }

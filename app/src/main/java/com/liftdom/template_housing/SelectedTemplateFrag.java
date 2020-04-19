@@ -32,6 +32,7 @@ import com.liftdom.template_editor.SaveTemplateDialog;
 import com.liftdom.template_editor.TemplateEditorActivity;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 import com.liftdom.workout_assistor.AssistorServiceClass;
 import com.liftdom.workout_programs.FiveThreeOne.W531fBInfoFrag;
 import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
@@ -262,6 +263,18 @@ public class SelectedTemplateFrag extends Fragment {
             }else{
                 // personal template
                 setUpInfoViews(2);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                HistoryCalendarTab historyCalendarTab = new HistoryCalendarTab();
+                historyCalendarTab.isOtherUser = false;
+                historyCalendarTab.xUid = uid;
+                historyCalendarTab.isExclusive = true;
+                historyCalendarTab.templateName = templateName;
+
+                fragmentTransaction.add(R.id.fragHolder2, historyCalendarTab);
+                fragmentTransaction.commit();
             }
         }
 

@@ -85,7 +85,13 @@ public class ProfileHeaderFrag extends Fragment {
         if(uidFromOutside == null){
             startActivity(new Intent(getActivity(), MainActivity.class));
         }
-        DatabaseReference profileRef = mRootRef.child("user").child(uidFromOutside);
+        DatabaseReference profileRef = mRootRef.child("user");
+        try{
+            profileRef = mRootRef.child("user").child(uidFromOutside);
+        }catch (NullPointerException e){
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        }
+
         profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

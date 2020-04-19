@@ -4,6 +4,7 @@ package com.liftdom.user_profile.calendar_stuff;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,6 +49,9 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
     public Boolean isOtherUser = false;
     public String xUid = "null";
+
+    public boolean isExclusive = false;
+    public String templateName;
 
     boolean isSmolov;
 
@@ -97,6 +101,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
 
     @BindView(R.id.calendarView) MaterialCalendarView widget;
+    @BindView(R.id.calendarRoot) LinearLayout calendarLL;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -186,19 +191,19 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             }
         });
 
-        DatabaseReference userRef = mRootRef.child("user").child(uid);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+        if(isExclusive){
 
-                isCurrentUserImperial = userModelClass.isIsImperial();
+            calendarLL.setBackgroundColor(getResources().getColor(R.color.darkGrey));
 
-                String activeTemplate = userModelClass.getActiveTemplate();
+            DatabaseReference userRef = mRootRef.child("user").child(uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
 
-                if(activeTemplate != null){
+                    isCurrentUserImperial = userModelClass.isIsImperial();
 
-                    final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
+                    final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(templateName);
 
                     futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -261,14 +266,101 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                         }
                     });
+
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        }else{
+            DatabaseReference userRef = mRootRef.child("user").child(uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+
+                    isCurrentUserImperial = userModelClass.isIsImperial();
+
+                    String activeTemplate = userModelClass.getActiveTemplate();
+
+                    if(activeTemplate != null){
+
+                        final DatabaseReference futureRef = mRootRef.child("templates").child(uid).child(activeTemplate);
+
+                        futureRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                                isTemplateImperial = templateModelClass.isIsImperial();
+
+                                if(templateModelClass.getWorkoutType().equals("Smolov")){
+                                    isSmolov = true;
+                                    smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
+                                    smolovExName = templateModelClass.getExtraInfo().get("exName");
+                                    smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
+                                    Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
+                                            templateModelClass.getExtraInfo().get("maxWeight"));
+                                    futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
+                                }else{
+                                    if(templateModelClass.getMapOne() != null){
+                                        if(!templateModelClass.getMapOne().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapOne());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapTwo() != null){
+                                        if(!templateModelClass.getMapTwo().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapTwo());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapThree() != null){
+                                        if(!templateModelClass.getMapThree().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapThree());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapFour() != null){
+                                        if(!templateModelClass.getMapFour().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapFour());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapFive() != null){
+                                        if(!templateModelClass.getMapFive().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapFive());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapSix() != null){
+                                        if(!templateModelClass.getMapSix().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapSix());
+                                        }
+                                    }
+                                    if(templateModelClass.getMapSeven() != null){
+                                        if(!templateModelClass.getMapSeven().isEmpty()){
+                                            futureConstructor(templateModelClass.getMapSeven());
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
 
         return view;
     }

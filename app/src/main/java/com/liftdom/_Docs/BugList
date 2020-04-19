@@ -235,17 +235,25 @@ Fixed - WA is not inflating weights...monkaS. Was due to methods trying to clear
 make snackbar flashes only happen once
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 Create the Rect as a field and then reset it before use.
+Add calendar view for every program
 
 ----------------------
 ====================================================
 
 Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
     -  Smolov
-        -
+        - Add a calendar view
+            done - bug causing first day if it's today to not be shown
+            done - future date looks like ass, not like the new ones.
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
-    PPL_Reddit
+    - 531
         -
+    - PPL_Reddit
+        -
+    - pre-mades shouldn't be allowed to be "fully" edited, but they should be able to have their
+        extraInfo values edited.
+
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
@@ -278,9 +286,14 @@ YUGE bug, seems for some people their workouts are going into feed but not selfF
 
 check through app for what happens when it dies
     - (https://www.reddit.com/r/androiddev/comments/fni20d/weekly_questions_thread_march_23_2020/fljg33r/)
+    - save page/state of app for kill in background (lotta null crashes, gotta do every single
+          fragment/activity)(esp profile header frag)
+
 look into 10mb download? (look into pagination for feeds)(https://www.reddit
 .com/r/androiddev/comments/fjnvn6/so_the_instagram_feed_is_just_an_infinite/)
+
 go through your TO-DOs
+
 Look into obfuscation/doing something with those hardcoded ad/cloud strings
 ============================================================================
 
@@ -390,7 +403,6 @@ expand notification to see full ex name and possibly see set information (ie, 1/
 for offline, we could even save the current template to disk anytime you save a template, so it can
     - be inflated offline. and then save the WA to disk anytime you would update fb. have a warning
     text box flashing at them to hit the finish button when they are in service/wifi range.
-save page/state of app for kill in background
 make WA the default opener, make feed
 hamburger needs back functionality
 cheat prevention, have a cap for xp gain. maybe report system if numbers are too high
