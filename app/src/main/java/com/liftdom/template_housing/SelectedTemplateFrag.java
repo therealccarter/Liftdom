@@ -36,6 +36,7 @@ import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 import com.liftdom.workout_assistor.AssistorServiceClass;
 import com.liftdom.workout_programs.FiveThreeOne.W531fBInfoFrag;
 import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
+import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -75,6 +76,7 @@ public class SelectedTemplateFrag extends Fragment {
     @BindView(R.id.choicesBar) LinearLayout choicesBar;
     @BindView(R.id.publishButton) Button publishButton;
     @BindView(R.id.saveTemplateButton) Button saveTemplateButton;
+    @BindView(R.id.loadingView) TextView loadingView;
 
     int colorIncrement = 0;
 
@@ -647,6 +649,7 @@ public class SelectedTemplateFrag extends Fragment {
                                     }
                                 }
                             }
+                            loadingView.setVisibility(View.GONE);
                         }else{
                             processPreMadeProgram(templateClass);
                         }
@@ -669,6 +672,7 @@ public class SelectedTemplateFrag extends Fragment {
     private void processPreMadeProgram(TemplateModelClass templateModelClass){
         editTemplate.setVisibility(View.GONE);
         publishButton.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
 
         // TODO: Have these editable...duh!
 
@@ -678,6 +682,7 @@ public class SelectedTemplateFrag extends Fragment {
                     .beginTransaction();
             SmolovInfoFrag smolovInfoFrag = new SmolovInfoFrag();
             smolovInfoFrag.infoMap.putAll(templateModelClass.getExtraInfo());
+            smolovInfoFrag.isMaxImperial = templateModelClass.isIsImperial();
             fragmentTransaction.add(R.id.templateListedView,
                     smolovInfoFrag);
             if (!getActivity().isFinishing()) {

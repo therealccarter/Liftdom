@@ -28,6 +28,8 @@ public class SmolovInfoFrag extends Fragment {
     }
 
     public HashMap<String, String> infoMap = new HashMap<>();
+    public boolean isMaxImperial;
+
 
     @BindView(R.id.exerciseNameView) TextView exNameView;
     @BindView(R.id.maxView) TextView maxWeightView;
@@ -48,15 +50,17 @@ public class SmolovInfoFrag extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                 String max;
-                if(userModelClass.isIsImperial()){
-                    max = infoMap.get("maxWeight") + " lbs";
-                }else{
-                    max = infoMap.get("maxWeight") + " kgs";
-                }
+                //if(userModelClass.isIsImperial()){
+                //    max = infoMap.get("maxWeight") + " lbs";
+                //}else{
+                //    max = infoMap.get("maxWeight") + " kgs";
+                //}
 
                 exNameView.setText(infoMap.get("exName"));
-                maxWeightView.setText(max);
+                //maxWeightView.setText(max);
                 beginDateView.setText(infoMap.get("beginDate"));
+
+                convertUnitsAndPost(userModelClass.isIsImperial());
             }
 
             @Override
@@ -67,6 +71,60 @@ public class SmolovInfoFrag extends Fragment {
 
 
         return view;
+    }
+
+    private void convertUnitsAndPost(boolean currentPOV){
+        /**
+         * We need the units of the max, and the units we currently are.
+         */
+
+        String maxValue = infoMap.get("maxWeight");
+        // maxImperial = what the max is
+        // currentPOV = what the user currently is (this will be what the template is saved as)
+
+        if(isMaxImperial == currentPOV){
+            if(currentPOV){
+                //imperial
+                String val = maxValue + " lbs";
+                maxWeightView.setText(val);
+            }else{
+                //kgs
+                String val = maxValue + " kgs";
+                maxWeightView.setText(val);
+            }
+
+        }else{
+            if(isMaxImperial && !currentPOV){
+                // convert from imperial to metric
+                // max is imperial, POV is kg
+                String val = imperialToMetric(maxValue) + " kgs";
+                maxWeightView.setText(val);
+            }else if(!isMaxImperial && currentPOV){
+                // convert from metric to imperial
+                // max is kg, POV is imperial
+                String val = metricToImperial(maxValue) + " lbs";
+                maxWeightView.setText(val);
+            }
+        }
+
+    }
+
+    private String metricToImperial(String input){
+
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        String newString = String.valueOf(lbsInt);
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        String newString = String.valueOf(kgInt);
+
+        return newString;
     }
 
 }

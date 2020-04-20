@@ -16,7 +16,8 @@ public class Smolov {
 
     double oneRM;
     String exerciseName;
-    boolean isOneRepMaxDay;
+    boolean isOneRepMaxDay = false;
+    boolean isLastDay = false;
     String weekDayString = "";
 
     public Smolov(String exName, String max){
@@ -50,7 +51,13 @@ public class Smolov {
             week++;
             days++;
 
-            weekDayString = "Week " + week + ", day " + days + " of Smolov";
+            if(week == 13 && days == 4){
+                String normal = "Week " + week + ", day " + days + " of Smolov";
+                weekDayString = "Smolov Completed!\n" + normal;
+            }else{
+                weekDayString = "Week " + week + ", day " + days + " of Smolov";
+            }
+
 
             List<String> workoutList = getWorkout(week, days);
 
@@ -58,7 +65,15 @@ public class Smolov {
 
         }
 
+        return map;
+    }
 
+    public HashMap<String, List<String>> generateSpecific(int week, int day){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        List<String> workoutList = getWorkout(week, day);
+
+        map.put("1_key", workoutList);
 
         return map;
     }
@@ -120,6 +135,14 @@ public class Smolov {
 
     public String getWeekDayString() {
         return weekDayString;
+    }
+
+    public boolean isLastDay() {
+        return isLastDay;
+    }
+
+    public void setLastDay(boolean lastDay) {
+        isLastDay = lastDay;
     }
 
     public boolean getIsOneRepMaxDay() {
@@ -214,11 +237,11 @@ public class Smolov {
             String one = "rest";
             workout.add(one);
         }else if(week == 6 && day == 4){
-            String one = "1x1@" + percentToWeight(100);
+            String one = "1x1@" + percentToWeight(0);
             workout.add(one);
             setOneRepMaxDay(true);
         }else if(week == 6 && day == 6){
-            String one = "1x1@" + percentToWeight(100);
+            String one = "1x1@" + percentToWeight(0);
             workout.add(one);
             setOneRepMaxDay(true);
         }else if(week == 7 && day == 1){
@@ -366,9 +389,10 @@ public class Smolov {
             String two = "4x4@" + percentToWeight(85);
             workout.add(two);
         }else if(week == 13 && day == 4){
-            String one = "1x1@" + percentToWeight(100);
+            String one = "1x1@" + percentToWeight(0);
             workout.add(one);
             setOneRepMaxDay(true);
+            setLastDay(true);
         }else{
             //need to alert that it's the end.
             String one = "rest";
@@ -380,13 +404,18 @@ public class Smolov {
 
     int percentToWeight(int percent){
         double weight;
-        //int weight2;
+        int weight2;
 
-        double percentage = (double)percent/(double)100;
+        if(percent == 0){
+            weight2 = 0;
+        }else{
+            double percentage = (double)percent/(double)100;
 
-        weight = oneRM * percentage;
+            weight = oneRM * percentage;
 
-        int weight2 = (int) Math.round(weight);
+            weight2 = (int) Math.round(weight);
+        }
+
 
         return weight2;
     }

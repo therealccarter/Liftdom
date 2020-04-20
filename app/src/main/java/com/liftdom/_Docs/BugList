@@ -236,15 +236,22 @@ make snackbar flashes only happen once
 check that crash in chat 3/26/6:44 (went into chat specific, went to different app, went back to chat, crashed)
 Create the Rect as a field and then reset it before use.
 Add calendar view for every program
+Rest day shouldn't be in bonus list
 
 ----------------------
 ====================================================
 
 Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
     -  Smolov
-        - Add a calendar view
+        done - Add a calendar view
             done - bug causing first day if it's today to not be shown
             done - future date looks like ass, not like the new ones.
+        done - Kilo compat (including in SelectedTemplates)(CHECK switched units in WA)
+        - It needs to use 1RM set in week 6, and those days need to be displayed correctly for the
+            user in AH
+        - Add rest timer settings to Smolov builder
+        done - Add checkmark for taking 10% off of max
+        done - Add max automatically onCreate, and onActivityResult.
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - 531
@@ -259,6 +266,11 @@ Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
 ============ What are the next most important things for beta release? =====
 make search button just show edit text then on finish/click on search button it just opens some user
  search frag
+
+After saving a new program, maybe we should go to its SelectedTemplate page, or give the option for
+it.
+
+Show next workout date in rest day frag. Could help compel people to go there.
 
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
 guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
@@ -295,10 +307,25 @@ look into 10mb download? (look into pagination for feeds)(https://www.reddit
 go through your TO-DOs
 
 Look into obfuscation/doing something with those hardcoded ad/cloud strings
+
+app too thicc
+    https://www.reddit.com/r/androiddev/comments/g0grat/weekly_questions_thread_april_13_2020/fnvolwz/?context=3
+    https://stackoverflow.com/questions/41653134/how-to-optimizereduce-the-size-of-my-android-app
+
+rep button could be higher (in line with last workout info line)
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+For each new program, check:
+    - HistoryCalendarTab/Future Date Constructor
+    - SelectedTemplateFrag
+    - PremadeProgramHolderFrag
+    - WorkoutAssistorFrag
+    - AssistorHolderFarg
+    - AssistorSavedFrag (probably)
 
+
+Programmed deloads?
 
 ---- MISC ----
 parcels? to save state when coming back to app from post-onDestroy (going to other apps or too long)

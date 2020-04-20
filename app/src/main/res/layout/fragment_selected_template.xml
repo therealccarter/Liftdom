@@ -223,6 +223,16 @@
                             android:background="@color/lessDarkGrey"
                             android:orientation="vertical"
                     >
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/loadingView"
+                                android:text="@string/loading"
+                                android:textColor="@color/offerGrey"
+                                android:textSize="15sp"
+                                android:gravity="center"
+                                />
+
 
                     </LinearLayout>
 

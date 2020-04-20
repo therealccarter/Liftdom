@@ -1016,11 +1016,15 @@ public class CompletedWorkoutViewHolder extends RecyclerView.ViewHolder{
 
     public void setBonusView(List<String> bonusList){
         try{
-            String bonusString = "";
+            //String bonusString = "";
+            StringBuilder stringBuilder = new StringBuilder();
             for(String string : bonusList){
-                bonusString = bonusString + "\n" + string;
+                //bonusString = bonusString + string + "\n";
+                stringBuilder.append(string);
+                stringBuilder.append("\n");
             }
-            mBonusView.setText(bonusString);
+            mBonusView.setText(stringBuilder.toString());
+            mBonusView.setVisibility(View.VISIBLE);
         }catch (NullPointerException e){
 
         }catch (IndexOutOfBoundsException e){

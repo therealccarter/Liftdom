@@ -503,6 +503,8 @@
 
     <string name="initialMax">Initial 1-rep Max:</string>
 
+    <string name="workingMax">Working Max:</string>
+
     <string name="confirmSmolov">Finish Smolov Creation</string>
 
     <string name="confirmW531fB">Finish\nWendler 5/3/1\n(For Beginners)\nCreation</string>
@@ -709,6 +711,8 @@
     <string name="deleteThisTemplate">Delete Program</string>
     <string name="draftDetected">Inflating last detected Program Editor state</string>
     <string name="resetProgramEditor">Reset Program Editor to blank state</string>
+
+    <string name="autoTake10Off">Automatically take 10% off of this value for working max?</string>
 
     <string name="restDay">Rest Day</string>
 

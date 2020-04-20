@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -76,12 +77,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> modelMapFormatted;
     HashMap<String, List<String>> completedMapFormatted;
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
+    HashMap<String, String> preMadeInfo;
     List<String> completedExerciseList;
     String smolovWeekDayString;
     String redoRefKey;
     boolean isRevisedWorkout;
     boolean isFromRestDay;
-    boolean isLastDay;
+    //boolean isLastDay;
     boolean isFreestyle;
 
     boolean isFirstTimeFirstTime;
@@ -105,6 +107,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
     @BindView(R.id.mainLinearLayout) LinearLayout mainLinearLayout;
     @BindView(R.id.dontLeavePage) TextView dontLeavePage;
     @BindView(R.id.loadingText) TextView loadingText;
+    @BindView(R.id.extraInfoTextView) TextView extraInfoTextView;
+    @BindView(R.id.scrollView) ScrollView scrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -359,7 +363,21 @@ public class AssistorSavedFrag extends android.app.Fragment {
             final DatabaseReference userRef = mRootRef.child("user").child(uid);
             DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
 
-            if(isLastDay){
+            if(preMadeInfo != null){
+                if(!preMadeInfo.isEmpty()){
+                    if(preMadeInfo.get("type").equals("Smolov")){
+                        if(preMadeInfo.get("oneRepMaxDay").equals("true")){
+                            if(preMadeInfo.get("isLastDay").equals("true")){
+                                extraInfoTextView.setText("Congratulations! You\'ve finished Smolov.");
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }else{
+                                processSmolovMaxDay();
+                                extraInfoTextView.setText("You\'re halfway there!");
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }
                 activeTemplateRef.setValue(null);
             }
 
@@ -592,6 +610,65 @@ public class AssistorSavedFrag extends android.app.Fragment {
         }
 
         return view;
+    }
+
+    private void processSmolovMaxDay(){
+        /**
+         * How do we get the new max and insert it into the template?
+         * First we need to make sure the template is actually smolov.
+         * Then we store the exercise being used for smolov.
+         * Next we scan through the completed workout and try to find
+         * all sets of that exercise. After that we put those in a list and
+         * take the highest. Then we insert that into the template as the
+         * 1rm and save. Then we say you're halfway there.
+         */
+
+        if(templateClass.getWorkoutType().equals("Smolov")){
+            HashMap<String, String> extraInfo = new HashMap<>();
+            extraInfo = templateClass.getExtraInfo();
+            List<String> weightsForExercise = new ArrayList<>();
+            String exName = extraInfo.get("exName");
+            //int listInc = 0;
+
+            for(Map.Entry<String, List<String>> entry : completedMapFormatted.entrySet()){
+                boolean isExBool = false;
+                for(String string : entry.getValue()){
+                    if(isExerciseName(string)){
+                        if(string.equals(exName)){
+                            isExBool = true;
+                            //List<String> list = new ArrayList<>();
+                            //list.add(string);
+                            //exInfoList.add(list);
+                            //listInc++;
+                        }else{
+                            isExBool = false;
+                        }
+                    }else{
+                        if(isExBool){
+                            weightsForExercise.add(string);
+                        }
+                    }
+                }
+            }
+
+            int highestWeight = 0;
+
+            for(String set : weightsForExercise){
+                String[] tokens = set.split("@");
+                if(!isExerciseName(tokens[1])){
+                    int weight = Integer.parseInt(tokens[1]);
+                    if(weight > highestWeight){
+                        highestWeight = weight;
+                    }
+                }
+            }
+
+            extraInfo.put("maxWeight", String.valueOf(highestWeight));
+            templateClass.setExtraInfo(extraInfo);
+
+        }
+
+
     }
 
     private void setMaxes(){
@@ -850,6 +927,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             super.onResume();
         }else{
             Log.i("deadInfo", "AssistorSavedFrag (onResume)");
+            scrollView.smoothScrollTo(0,0);
             super.onResume();
         }
     }
@@ -964,6 +1042,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     loadingView.setVisibility(View.GONE);
                     loadingText.setVisibility(View.GONE);
                     mainLinearLayout.setVisibility(View.VISIBLE);
+                    goHomeButton.setVisibility(View.VISIBLE);
                     if(isFromAd){
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {

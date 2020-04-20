@@ -80,7 +80,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     String refKey;
     boolean isFromRestDay;
     boolean isInForeground;
-    boolean isLastDay;
+    //boolean isLastDay;
     boolean isListening;
 
     boolean mIsKeyboardVisible = false;
@@ -111,7 +111,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     @BindView(R.id.privateJournal) EditText privateJournalView;
     @BindView(R.id.publicComment) EditText publicCommentView;
     @BindView(R.id.saveImage) ImageButton saveImage;
-    @BindView(R.id.oneRepMaxDayView) TextView maxDayView;
+    @BindView(R.id.extraInfoTextView) TextView extraInfoTextView;
     @BindView(R.id.endView) TextView endView;
     @BindView(R.id.activateStatusBarWA) Button activateStatusBarService;
     @BindView(R.id.deactivateStatusBarWA) Button deactivateStatusBarService;
@@ -1674,7 +1674,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
         assistorSavedFrag.isFromRestDay = isFromRestDay;
-        assistorSavedFrag.isLastDay = isLastDay;
+        //assistorSavedFrag.isLastDay = isLastDay;
+        assistorSavedFrag.preMadeInfo = preMadeInfo;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
@@ -1721,6 +1722,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
         assistorSavedFrag.isFromRestDay = isFromRestDay;
+        assistorSavedFrag.preMadeInfo = preMadeInfo;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;
@@ -1879,15 +1881,28 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
+    HashMap<String, String> preMadeInfo = new HashMap<>();
+
     private void inflateSmolov(){
         Smolov smolov = new Smolov(mTemplateClass.getExtraInfo().get("exName"),
                 mTemplateClass.getExtraInfo().get("maxWeight"));
-        HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
-                (mTemplateClass.getExtraInfo().get("beginDate"));
+        //HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+        //        (mTemplateClass.getExtraInfo().get("beginDate"));
+
+        HashMap<String, List<String>> smolovMap = smolov.generateSpecific(6, 3);
+
         if(smolov.getIsOneRepMaxDay()){
-            maxDayView.setVisibility(View.VISIBLE);
-            endView.setVisibility(View.VISIBLE);
-            isLastDay = true;
+            extraInfoTextView.setText(R.string.oneRepMaxDay);
+            extraInfoTextView.setVisibility(View.VISIBLE);
+            preMadeInfo.clear();
+            preMadeInfo.put("type", "Smolov");
+            preMadeInfo.put("oneRepMaxDay", "true");
+            if(smolov.isLastDay()){
+                preMadeInfo.put("isLastDay", "true");
+                endView.setVisibility(View.VISIBLE);
+            }else{
+                preMadeInfo.put("isLastDay", "false");
+            }
         }
 
         smolovWeekDayString = smolov.getWeekDayString();

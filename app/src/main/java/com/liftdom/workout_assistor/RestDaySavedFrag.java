@@ -190,7 +190,7 @@ public class RestDaySavedFrag extends Fragment {
                                 bonusList.add("Level up!");
                             }
 
-                            bonusList.add("Rest Day");
+                            //bonusList.add("Rest Day");
 
                             completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),
                                     userModelClass.getUserName(), publicDescription, dateUTC, isImperial1, refKey, mediaRef,

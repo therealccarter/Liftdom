@@ -1593,7 +1593,7 @@ public class AssistorHolderFrag1 extends android.app.Fragment
         assistorSavedFrag.privateJournal = privateJournal;
         assistorSavedFrag.publicDescription = publicComment;
         assistorSavedFrag.isFromRestDay = isFromRestDay;
-        assistorSavedFrag.isLastDay = isLastDay;
+        //assistorSavedFrag.isLastDay = isLastDay;
         if(isRevisedWorkout){
             assistorSavedFrag.isRevisedWorkout = true;
             assistorSavedFrag.redoRefKey = refKey;

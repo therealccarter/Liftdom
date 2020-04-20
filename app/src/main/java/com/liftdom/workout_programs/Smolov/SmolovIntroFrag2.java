@@ -1,6 +1,10 @@
 package com.liftdom.workout_programs.Smolov;
 
 
+import android.widget.*;
+import androidx.annotation.NonNull;
+import com.liftdom.template_editor.TemplateEditorSingleton;
+import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +28,7 @@ import com.liftdom.user_profile.UserModelClass;
  */
 public class SmolovIntroFrag2 extends SlideFragment {
 
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public SmolovIntroFrag2() {
         // Required empty public constructor
@@ -38,6 +39,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
     @BindView(R.id.mondayRadioButton) RadioButton mondayRadioButton;
     @BindView(R.id.maxWeightEditText) EditText maxWeightEditText;
     @BindView(R.id.unitsView) TextView unitsView;
+    @BindView(R.id.takeOff10) CheckBox takeOff10Checkbox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +53,9 @@ public class SmolovIntroFrag2 extends SlideFragment {
 
         exerciseButton.setText("Squat (Barbell - Back)");
 
+
         mondayRadioButton.setChecked(true);
+        takeOff10Checkbox.setChecked(true);
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,8 +66,8 @@ public class SmolovIntroFrag2 extends SlideFragment {
             }
         });
 
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth
-                .getInstance().getCurrentUser().getUid());
+        DatabaseReference userRef =
+                FirebaseDatabase.getInstance().getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,9 +75,11 @@ public class SmolovIntroFrag2 extends SlideFragment {
                 if(!userModelClass.isIsImperial()){
                     unitsView.setText("kgs");
                     SmolovSetupSingleton.getInstance().isImperial = false;
+                    setFromMax(exerciseButton.getText().toString());
                 }else{
                     unitsView.setText("lbs");
                     SmolovSetupSingleton.getInstance().isImperial = true;
+                    setFromMax(exerciseButton.getText().toString());
                 }
             }
 
@@ -84,6 +90,78 @@ public class SmolovIntroFrag2 extends SlideFragment {
         });
 
         return view;
+    }
+
+    private void setFromMax(String exerciseName){
+        DatabaseReference maxRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(exerciseName);
+        maxRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ExerciseMaxesModelClass modelClass =
+                            dataSnapshot.getValue(ExerciseMaxesModelClass.class);
+                    try{
+                        convertUnitsAndPost(modelClass.getMaxValue(), modelClass.isIsImperial());
+                    }catch (NullPointerException e){
+
+                    }
+                }else{
+                    maxWeightEditText.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void convertUnitsAndPost(String maxValue, boolean maxImperial){
+        /**
+         * We need the units of the max, and the units we currently are.
+         */
+
+        boolean currentPOV = SmolovSetupSingleton.getInstance().isImperial;
+
+        // maxImperial = what the max is
+        // currentPOV = what the user currently is (this will be what the template is saved as)
+
+        if(maxImperial == currentPOV){
+            maxWeightEditText.setText(maxValue);
+        }else{
+            if(maxImperial && !currentPOV){
+                // convert from imperial to metric
+                // max is imperial, POV is kg
+                String val = imperialToMetric(maxValue);
+                maxWeightEditText.setText(val);
+            }else if(!maxImperial && currentPOV){
+                // convert from metric to imperial
+                // max is kg, POV is imperial
+                String val = metricToImperial(maxValue);
+                maxWeightEditText.setText(val);
+            }
+        }
+
+    }
+
+    private String metricToImperial(String input){
+
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        String newString = String.valueOf(lbsInt);
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        String newString = String.valueOf(kgInt);
+
+        return newString;
     }
 
     @Override
@@ -97,6 +175,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
                     if (isBodyweight(message)) {
                         Snackbar.make(getView(), "Bodyweight exercise not allowed for Smolov", Snackbar.LENGTH_SHORT).show();
                     } else {
+                        setFromMax(message);
                         exerciseButton.setText(message);
                     }
                 }
@@ -125,7 +204,15 @@ public class SmolovIntroFrag2 extends SlideFragment {
         if(!maxWeightEditText.getText().toString().equals("") && !maxWeightEditText.getText().toString().equals(" ")){
             SmolovSetupSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
             SmolovSetupSingleton.getInstance().exName = exerciseButton.getText().toString();
-            SmolovSetupSingleton.getInstance().maxWeight = maxWeightEditText.getText().toString();
+            if(takeOff10Checkbox.isChecked()){
+                double weight1 = Double.parseDouble(maxWeightEditText.getText().toString());
+                weight1 = weight1 * .9;
+                weight1 = 5 * (Math.round(weight1/5));
+                int weight2 = (int) weight1;
+                SmolovSetupSingleton.getInstance().maxWeight = String.valueOf(weight2);
+            }else{
+                SmolovSetupSingleton.getInstance().maxWeight = maxWeightEditText.getText().toString();
+            }
             valuesEntered = true;
         }
 

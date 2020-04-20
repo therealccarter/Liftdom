@@ -34,6 +34,7 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/scrollView"
     >
 
         <LinearLayout
@@ -66,6 +67,18 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="10dp"
             />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/workoutFinished"
+                    android:textSize="20sp"
+                    android:id="@+id/extraInfoTextView"
+                    android:textColor="@color/offerWhite"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
+                    />
 
             <com.appodeal.ads.BannerView
                     android:id="@+id/appodealBannerView"
@@ -387,6 +400,7 @@
                         android:layout_marginBottom="200dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:visibility="gone"
                 />
 
         </LinearLayout>
