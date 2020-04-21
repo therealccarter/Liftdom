@@ -82,6 +82,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     boolean isInForeground;
     //boolean isLastDay;
     boolean isListening;
+    HashMap<String, String> preMadeInfo = new HashMap<>();
 
     boolean mIsKeyboardVisible = false;
     View rootView;
@@ -850,6 +851,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                     null, isRevisedWorkout, isFromRestDay);
         }
 
+        if(!preMadeInfo.isEmpty()){
+            progressModelClass.setmPreMadeInfo(preMadeInfo);
+        }
+
         if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
         }else{
@@ -911,6 +916,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        if(!preMadeInfo.isEmpty()){
+            progressModelClass.setmPreMadeInfo(preMadeInfo);
+        }
 
         if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
@@ -985,6 +994,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass = new WorkoutProgressModelClass(dateTimeString,
                     completedBool, runningMap, privateJournal, publicComment, mediaResource, isTemplateImperial,
                     null, isRevisedWorkout, isFromRestDay);
+        }
+
+        if(!preMadeInfo.isEmpty()){
+            progressModelClass.setmPreMadeInfo(preMadeInfo);
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
@@ -1068,6 +1081,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 null, isRevisedWorkout, isFromRestDay);
                     }
 
+                    if(!preMadeInfo.isEmpty()){
+                        progressModelClass.setmPreMadeInfo(preMadeInfo);
+                    }
+
                     if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
                         progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
                     }else{
@@ -1125,6 +1142,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
+
+        if(!preMadeInfo.isEmpty()){
+            progressModelClass.setmPreMadeInfo(preMadeInfo);
+        }
 
         progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
         progressModelClass.setIsActiveRestTimer(restTimerBool);
@@ -1553,6 +1574,11 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 if(isFromRestDay){
                                     cancelRevisionHolder.setVisibility(View.VISIBLE);
                                 }
+                                if(workoutProgressModelClass.getmPreMadeInfo() != null){
+                                    if(!workoutProgressModelClass.getmPreMadeInfo().isEmpty()){
+                                        preMadeInfo = workoutProgressModelClass.getmPreMadeInfo();
+                                    }
+                                }
                                 if(workoutProgressModelClass.getExInfoHashMap() == null){
                                     cleanUpState();
                                     noProgressInflateViews();
@@ -1881,15 +1907,16 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
-    HashMap<String, String> preMadeInfo = new HashMap<>();
-
     private void inflateSmolov(){
         Smolov smolov = new Smolov(mTemplateClass.getExtraInfo().get("exName"),
                 mTemplateClass.getExtraInfo().get("maxWeight"));
+        if(mTemplateClass.getExtraInfo().get("isTakeOff10") != null){
+            smolov.setTakeOff10(Boolean.parseBoolean(mTemplateClass.getExtraInfo().get("isTakeOff10")));
+        }
         //HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
         //        (mTemplateClass.getExtraInfo().get("beginDate"));
 
-        HashMap<String, List<String>> smolovMap = smolov.generateSpecific(6, 3);
+        HashMap<String, List<String>> smolovMap = smolov.generateSpecific(6, 4);
 
         if(smolov.getIsOneRepMaxDay()){
             extraInfoTextView.setText(R.string.oneRepMaxDay);
@@ -1897,6 +1924,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             preMadeInfo.clear();
             preMadeInfo.put("type", "Smolov");
             preMadeInfo.put("oneRepMaxDay", "true");
+            preMadeInfo.put("isTakeOff10", String.valueOf(smolov.isTakeOff10()));
             if(smolov.isLastDay()){
                 preMadeInfo.put("isLastDay", "true");
                 endView.setVisibility(View.VISIBLE);

@@ -26,6 +26,11 @@ public class SmolovSetupSingleton {
     String maxWeight = "";
     String programName = "";
     boolean isActiveTemplate = false;
+    boolean isTakeOff10;
+    String mRestTime;
+    boolean mIsActiveRestTimer;
+    String mVibrationTime;
+    boolean mIsRestTimerAlert;
 
     public HashMap<String, String> assembleSmolovMap(){
         HashMap<String, String> extraInfo = new HashMap<>();
@@ -48,6 +53,7 @@ public class SmolovSetupSingleton {
         extraInfo.put("beginDate", beginDate);
         extraInfo.put("exName", exName);
         extraInfo.put("maxWeight", maxWeight);
+        extraInfo.put("isTakeOff10", String.valueOf(isTakeOff10));
 
         return extraInfo;
     }

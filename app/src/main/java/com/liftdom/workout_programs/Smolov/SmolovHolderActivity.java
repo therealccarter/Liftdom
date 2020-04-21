@@ -62,6 +62,10 @@ public class SmolovHolderActivity extends MaterialIntroActivity {
                 modelClass.setExtraInfo(extraInfoMap);
                 modelClass.setDateCreated(dateTimeString);
                 modelClass.setDateUpdated(dateTimeString);
+                modelClass.setRestTime(SmolovSetupSingleton.getInstance().mRestTime);
+                modelClass.setIsActiveRestTimer(SmolovSetupSingleton.getInstance().mIsActiveRestTimer);
+                modelClass.setVibrationTime(SmolovSetupSingleton.getInstance().mVibrationTime);
+                modelClass.setIsRestTimerAlert(SmolovSetupSingleton.getInstance().mIsRestTimerAlert);
                 modelClass.setIsImperial(SmolovSetupSingleton.getInstance().isImperial);
                 modelClass.setDescription("Smolov is an advanced 13 week strength program that can increase " +
                         "your squat\'s max by 100lbs or more.");

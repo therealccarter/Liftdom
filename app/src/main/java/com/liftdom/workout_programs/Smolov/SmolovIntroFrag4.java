@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
 
+import android.widget.*;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -71,6 +68,17 @@ public class SmolovIntroFrag4 extends SlideFragment {
         //    resultsConfirmationView.setText(string);
         //}
 
+        activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    SmolovSetupSingleton.getInstance().isActiveTemplate = true;
+                }else{
+                    SmolovSetupSingleton.getInstance().isActiveTemplate = false;
+                }
+            }
+        });
+
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -81,6 +89,26 @@ public class SmolovIntroFrag4 extends SlideFragment {
                 SmolovSetupSingleton.getInstance().isImperial = isImperial;
                 SmolovSetupSingleton.getInstance().userName = userName;
                 SmolovSetupSingleton.getInstance().uid = uid;
+                if(userModelClass.getActiveTemplate() != null){
+                    try{
+                        String string = userModelClass.getActiveTemplate();
+                        if(string == null){
+                            activeProgramCheckbox.setChecked(true);
+                            if(string.isEmpty()){
+                                activeProgramCheckbox.setChecked(true);
+                            }else{
+                                activeProgramCheckbox.setChecked(false);
+                            }
+                        }else{
+                            activeProgramCheckbox.setChecked(false);
+                        }
+                    }catch (NullPointerException e){
+                        activeProgramCheckbox.setChecked(true);
+                    }
+
+                }else{
+                    activeProgramCheckbox.setChecked(true);
+                }
                 loadingView.setVisibility(View.GONE);
                 finishButton.setVisibility(View.VISIBLE);
             }
@@ -88,17 +116,6 @@ public class SmolovIntroFrag4 extends SlideFragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-        activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    SmolovSetupSingleton.getInstance().isActiveTemplate = true;
-                }else{
-                    SmolovSetupSingleton.getInstance().isActiveTemplate = true;
-                }
             }
         });
 
@@ -128,6 +145,10 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         modelClass.setExtraInfo(extraInfoMap);
                         modelClass.setDateCreated(dateTimeString);
                         modelClass.setDateUpdated(dateTimeString);
+                        modelClass.setRestTime(SmolovSetupSingleton.getInstance().mRestTime);
+                        modelClass.setIsActiveRestTimer(SmolovSetupSingleton.getInstance().mIsActiveRestTimer);
+                        modelClass.setVibrationTime(SmolovSetupSingleton.getInstance().mVibrationTime);
+                        modelClass.setIsRestTimerAlert(SmolovSetupSingleton.getInstance().mIsRestTimerAlert);
                         modelClass.setIsImperial(isImperial);
                         modelClass.setDescription("Smolov is an advanced 13 week strength program that can increase " +
                                 "your squat\'s max by 100lbs or more.");

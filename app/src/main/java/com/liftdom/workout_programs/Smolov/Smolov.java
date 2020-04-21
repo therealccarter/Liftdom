@@ -19,6 +19,7 @@ public class Smolov {
     boolean isOneRepMaxDay = false;
     boolean isLastDay = false;
     String weekDayString = "";
+    boolean isTakeOff10;
 
     public Smolov(String exName, String max){
         exerciseName = exName;
@@ -66,6 +67,14 @@ public class Smolov {
         }
 
         return map;
+    }
+
+    public boolean isTakeOff10() {
+        return isTakeOff10;
+    }
+
+    public void setTakeOff10(boolean takeOff10) {
+        isTakeOff10 = takeOff10;
     }
 
     public HashMap<String, List<String>> generateSpecific(int week, int day){

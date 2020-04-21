@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
 
+import android.widget.*;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +45,14 @@ public class SmolovIntroFrag3 extends SlideFragment {
 
     @BindView(R.id.programNameEditText) EditText programNameEditText;
     @BindView(R.id.programNameTakenView) TextView programNameTakenView;
+    @BindView(R.id.restTimerLL) LinearLayout restTimerLL;
+    @BindView(R.id.restTimerSwitch) Switch restTimerSwitch;
+    @BindView(R.id.restTimerInfoLL) LinearLayout restTimerInfoLL;
+    @BindView(R.id.minutes) EditText minutesEditText;
+    @BindView(R.id.seconds) EditText secondsEditText;
+    @BindView(R.id.secondsVibrate) EditText secondsVibrateEditText;
+    @BindView(R.id.showRestTimerAlertRadioButton) RadioButton showRestTimerAlertRB;
+    @BindView(R.id.justVibrateRadioButton) RadioButton justVibrateRB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,6 +145,11 @@ public class SmolovIntroFrag3 extends SlideFragment {
         if(!programNameEditText.getText().toString().equals("") && !programNameEditText.getText().toString().equals(" ")){
             SmolovSetupSingleton.getInstance().programName = programNameEditText.getText().toString();
             validName = true;
+            SmolovSetupSingleton.getInstance().mRestTime =
+                    minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString();
+            SmolovSetupSingleton.getInstance().mIsActiveRestTimer = restTimerSwitch.isChecked();
+            SmolovSetupSingleton.getInstance().mVibrationTime = secondsVibrateEditText.getText().toString();
+            SmolovSetupSingleton.getInstance().mIsRestTimerAlert = showRestTimerAlertRB.isChecked();
         }
 
         return validName;

@@ -204,6 +204,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
         if(!maxWeightEditText.getText().toString().equals("") && !maxWeightEditText.getText().toString().equals(" ")){
             SmolovSetupSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
             SmolovSetupSingleton.getInstance().exName = exerciseButton.getText().toString();
+            SmolovSetupSingleton.getInstance().isTakeOff10 = takeOff10Checkbox.isChecked();
             if(takeOff10Checkbox.isChecked()){
                 double weight1 = Double.parseDouble(maxWeightEditText.getText().toString());
                 weight1 = weight1 * .9;

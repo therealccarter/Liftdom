@@ -663,6 +663,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 }
             }
 
+            double weight1 = (double) highestWeight;
+            weight1 = weight1 * .9;
+            weight1 = 5 * (Math.round(weight1/5));
+            int weight2 = (int) weight1;
+
+            if(Boolean.parseBoolean(extraInfo.get("isTakeOff10"))){
+                highestWeight = weight2;
+            }
+
             extraInfo.put("maxWeight", String.valueOf(highestWeight));
             templateClass.setExtraInfo(extraInfo);
 

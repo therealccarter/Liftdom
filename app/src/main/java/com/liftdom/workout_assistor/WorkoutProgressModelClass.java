@@ -31,6 +31,7 @@ public class WorkoutProgressModelClass {
     private boolean mIsFromRestDay;
     private String mVibrationTime;
     private boolean mIsRestTimerAlert;
+    private HashMap<String, String> mPreMadeInfo;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -52,6 +53,14 @@ public class WorkoutProgressModelClass {
         }
         mIsRevise = isRevise;
         mIsFromRestDay = isFromRestDay;
+    }
+
+    public HashMap<String, String> getmPreMadeInfo() {
+        return mPreMadeInfo;
+    }
+
+    public void setmPreMadeInfo(HashMap<String, String> mPreMadeInfo) {
+        this.mPreMadeInfo = mPreMadeInfo;
     }
 
     public String getVibrationTime() {
