@@ -714,6 +714,8 @@
 
     <string name="autoTake10Off">Automatically take 10% off of this value for working max?</string>
 
+    <string name="roundToNearest5">Round workout weights to the nearest 5?</string>
+
     <string name="restDay">Rest Day</string>
 
     <string name="publicCommentHint">Public comment&#8230;</string>

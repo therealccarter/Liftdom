@@ -66,6 +66,9 @@ public class SmolovIntroFrag3 extends SlideFragment {
 
         getTemplateNames();
 
+        showRestTimerAlertRB.setChecked(true);
+        restTimerSwitch.setChecked(true);
+
         if(savedInstanceState == null){
             programNameEditText.setText("Smolov");
         }

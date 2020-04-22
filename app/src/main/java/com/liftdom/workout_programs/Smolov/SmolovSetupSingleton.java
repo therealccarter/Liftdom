@@ -27,6 +27,7 @@ public class SmolovSetupSingleton {
     String programName = "";
     boolean isActiveTemplate = false;
     boolean isTakeOff10;
+    boolean isRoundToNearest5;
     String mRestTime;
     boolean mIsActiveRestTimer;
     String mVibrationTime;
@@ -54,6 +55,7 @@ public class SmolovSetupSingleton {
         extraInfo.put("exName", exName);
         extraInfo.put("maxWeight", maxWeight);
         extraInfo.put("isTakeOff10", String.valueOf(isTakeOff10));
+        extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
 
         return extraInfo;
     }

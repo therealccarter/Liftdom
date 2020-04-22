@@ -1913,10 +1913,19 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(mTemplateClass.getExtraInfo().get("isTakeOff10") != null){
             smolov.setTakeOff10(Boolean.parseBoolean(mTemplateClass.getExtraInfo().get("isTakeOff10")));
         }
-        //HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
-        //        (mTemplateClass.getExtraInfo().get("beginDate"));
 
-        HashMap<String, List<String>> smolovMap = smolov.generateSpecific(6, 4);
+        boolean round;
+
+        if(mTemplateClass.getExtraInfo().get("roundToNearest5") != null){
+            round = Boolean.parseBoolean(mTemplateClass.getExtraInfo().get("roundToNearest5"));
+        }else{
+            round = false;
+        }
+
+        HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
+                (mTemplateClass.getExtraInfo().get("beginDate"), round);
+
+        //HashMap<String, List<String>> smolovMap = smolov.generateSpecific(6, 4);
 
         if(smolov.getIsOneRepMaxDay()){
             extraInfoTextView.setText(R.string.oneRepMaxDay);

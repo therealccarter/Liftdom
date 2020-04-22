@@ -237,12 +237,7 @@ check that crash in chat 3/26/6:44 (went into chat specific, went to different a
 Create the Rect as a field and then reset it before use.
 Add calendar view for every program
 Rest day shouldn't be in bonus list
-
-----------------------
-====================================================
-
-Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
-    -  Smolov
+done -  Smolov
         done - Add a calendar view
             done - bug causing first day if it's today to not be shown
             done - future date looks like ass, not like the new ones.
@@ -250,13 +245,22 @@ Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
         done - It needs to use 1RM set in week 6, and those days need to be displayed correctly for
                 the user in AH
         done - Add rest timer settings to Smolov builder
-        - maybe rounding option?
+        done - maybe rounding option?
         done - Add checkmark for taking 10% off of max
         done - Add max automatically onCreate, and onActivityResult.
         tried - set as active should be set if there's no active template
+        done - bonus list posted wrong
+        done - don't forget to change back smolovGetMap
+
+----------------------
+====================================================
+
+Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
+    - W531
+        -
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
-    - 531
+    - BW routine
         -
     - PPL_Reddit
         -
@@ -266,6 +270,15 @@ Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
+Get rid of feed slider/start on global/radio buttons
+
+Create a high level plan to trust.
+    - A few premades + testers, then more, etc.
+    - Game plan/strategize what to do when the big dogs come for the niche.
+        - They'll start adding these premades etc.
+        - You want all the popular programs, they'll try too.
+        - So you have to get there first and market it enough to where it's associated with Liftdom.
+
 make search button just show edit text then on finish/click on search button it just opens some user
  search frag
 

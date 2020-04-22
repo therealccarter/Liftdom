@@ -761,8 +761,17 @@ public class WorkoutAssistorFrag extends Fragment{
     private void inflateSmolov(TemplateModelClass templateModelClass){
         Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
                 templateModelClass.getExtraInfo().get("maxWeight"));
+
+        boolean round;
+
+        if(templateModelClass.getExtraInfo().get("roundToNearest5") != null){
+            round = Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5"));
+        }else{
+            round = false;
+        }
+
         HashMap<String, List<String>> smolovMap = smolov.generateSmolovWorkoutMap
-                (templateModelClass.getExtraInfo().get("beginDate"));
+                (templateModelClass.getExtraInfo().get("beginDate"), round);
 
         if(smolovMap.get("1_key").get(1).equals("rest")){
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

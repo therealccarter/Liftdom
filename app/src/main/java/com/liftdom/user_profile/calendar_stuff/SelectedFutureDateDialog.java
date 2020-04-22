@@ -61,7 +61,8 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             String maxWeight = getIntent().getStringExtra("maxWeight");
             String exName = getIntent().getStringExtra("exName");
             String beginDate = getIntent().getStringExtra("beginDate");
-            generateLayoutSmolov(maxWeight, exName, beginDate);
+            String round = getIntent().getStringExtra("isRound");
+            generateLayoutSmolov(maxWeight, exName, beginDate, round);
         }else{
 
             generateLayout();
@@ -78,10 +79,12 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
         });
     }
 
-    private void generateLayoutSmolov(String maxWeight, String exName, String beginDate){
+    private void generateLayoutSmolov(String maxWeight, String exName, String beginDate,
+                                      String round){
         Smolov smolov = new Smolov(exName, maxWeight);
         HashMap<String, List<String>> map = new HashMap<>();
-        map.putAll(smolov.getMapForSpecificDay(beginDate, formattedDate));
+        map.putAll(smolov.getMapForSpecificDay(beginDate, formattedDate,
+                Boolean.parseBoolean(round)));
         WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
         adapter.setIsOriginallyImperial(isTemplateImperial);
         //adapter.setInfoList(workoutInfoMap);

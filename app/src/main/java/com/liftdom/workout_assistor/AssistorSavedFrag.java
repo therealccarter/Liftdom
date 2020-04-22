@@ -438,7 +438,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     }
 
                     if (smolovWeekDayString != null) {
-                        bonusList.add(smolovWeekDayString);
+                        if(!smolovWeekDayString.isEmpty()){
+                            bonusList.add(smolovWeekDayString);
+                        }
                     }
 
                     completedWorkoutModelClass = new CompletedWorkoutModelClass(userModelClass.getUserId(),

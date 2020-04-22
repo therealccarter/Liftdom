@@ -40,6 +40,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
     @BindView(R.id.maxWeightEditText) EditText maxWeightEditText;
     @BindView(R.id.unitsView) TextView unitsView;
     @BindView(R.id.takeOff10) CheckBox takeOff10Checkbox;
+    @BindView(R.id.roundToNearest5) CheckBox roundToNearest5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +57,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
 
         mondayRadioButton.setChecked(true);
         takeOff10Checkbox.setChecked(true);
+        roundToNearest5.setChecked(true);
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -205,6 +207,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
             SmolovSetupSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
             SmolovSetupSingleton.getInstance().exName = exerciseButton.getText().toString();
             SmolovSetupSingleton.getInstance().isTakeOff10 = takeOff10Checkbox.isChecked();
+            SmolovSetupSingleton.getInstance().isRoundToNearest5 = roundToNearest5.isChecked();
             if(takeOff10Checkbox.isChecked()){
                 double weight1 = Double.parseDouble(maxWeightEditText.getText().toString());
                 weight1 = weight1 * .9;

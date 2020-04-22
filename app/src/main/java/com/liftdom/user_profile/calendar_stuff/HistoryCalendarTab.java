@@ -58,6 +58,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     String smolovMaxWeight;
     String smolovBeginDate;
     String smolovExName;
+    String smolovRound;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -218,8 +219,11 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                 smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
                                 smolovExName = templateModelClass.getExtraInfo().get("exName");
                                 smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
+                                smolovRound = templateModelClass.getExtraInfo().get(
+                                        "roundToNearest5");
                                 Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
                                         templateModelClass.getExtraInfo().get("maxWeight"));
+                                smolov.setRoundToNearest5(Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5")));
                                 futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
                             }else{
                                 if(templateModelClass.getMapOne() != null){
@@ -303,8 +307,10 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
                                     smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
                                     smolovExName = templateModelClass.getExtraInfo().get("exName");
                                     smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
+                                    smolovRound = templateModelClass.getExtraInfo().get("roundToNearest5");
                                     Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
                                             templateModelClass.getExtraInfo().get("maxWeight"));
+                                    smolov.setRoundToNearest5(Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5")));
                                     futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
                                 }else{
                                     if(templateModelClass.getMapOne() != null){
@@ -398,10 +404,12 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
             futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
             futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
             if(isSmolov){
+                futureIntent.putExtra("isRound", smolovRound);
                 futureIntent.putExtra("isSmolov", true);
                 futureIntent.putExtra("maxWeight", smolovMaxWeight);
                 futureIntent.putExtra("beginDate", smolovBeginDate);
                 futureIntent.putExtra("exName", smolovExName);
+                futureIntent.putExtra("isRound", smolovRound);
             }
             startActivity(futureIntent);
         }else if(FutureDateHelperClass.getInstance().DateCollection2.contains(date)){
@@ -453,7 +461,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
     private void futureConstructorSmolov(Smolov smolov, String beginDate){
 
-        ArrayList<LocalDate> dateTimeList = smolov.getSmolovDates(beginDate);
+        ArrayList<LocalDate> dateTimeList = smolov.getSmolovDates(beginDate, smolov.isRoundToNearest5());
 
         for(LocalDate dateTime : dateTimeList){
             CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());

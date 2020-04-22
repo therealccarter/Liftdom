@@ -132,4 +132,17 @@
             android:layout_marginEnd="10dp"
             />
 
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/roundToNearest5"
+            android:textColor="@color/black"
+            android:id="@+id/roundToNearest5"
+            android:textSize="14sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="start"
+            />
+
+
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

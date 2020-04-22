@@ -20,13 +20,15 @@ public class Smolov {
     boolean isLastDay = false;
     String weekDayString = "";
     boolean isTakeOff10;
+    boolean isRoundToNearest5;
 
     public Smolov(String exName, String max){
         exerciseName = exName;
         oneRM = Double.parseDouble(max);
     }
 
-    public HashMap<String, List<String>> generateSmolovWorkoutMap(String beginDateString){
+    public HashMap<String, List<String>> generateSmolovWorkoutMap(String beginDateString,
+                                                                  boolean round){
         HashMap<String, List<String>> map = new HashMap<>();
 
         /**
@@ -60,7 +62,7 @@ public class Smolov {
             }
 
 
-            List<String> workoutList = getWorkout(week, days);
+            List<String> workoutList = getWorkout(week, days, round);
 
             map.put("1_key", workoutList);
 
@@ -77,17 +79,25 @@ public class Smolov {
         isTakeOff10 = takeOff10;
     }
 
-    public HashMap<String, List<String>> generateSpecific(int week, int day){
+    public boolean isRoundToNearest5() {
+        return isRoundToNearest5;
+    }
+
+    public void setRoundToNearest5(boolean roundToNearest5) {
+        isRoundToNearest5 = roundToNearest5;
+    }
+
+    public HashMap<String, List<String>> generateSpecific(int week, int day, boolean round){
         HashMap<String, List<String>> map = new HashMap<>();
 
-        List<String> workoutList = getWorkout(week, day);
+        List<String> workoutList = getWorkout(week, day, round);
 
         map.put("1_key", workoutList);
 
         return map;
     }
 
-    public ArrayList<LocalDate> getSmolovDates(String beginDateString){
+    public ArrayList<LocalDate> getSmolovDates(String beginDateString, boolean round){
         ArrayList<LocalDate> smolovDates = new ArrayList<>();
 
         LocalDate beginDate = LocalDate.parse(beginDateString);
@@ -102,7 +112,7 @@ public class Smolov {
             week++;
             days++;
 
-            List<String> workoutList = getWorkout(week, days);
+            List<String> workoutList = getWorkout(week, days, round);
             if(!workoutList.get(1).equals("rest")){
                 if(week == 1 && days == 1){
                     smolovDates.add(newDate);
@@ -118,7 +128,9 @@ public class Smolov {
         return smolovDates;
     }
 
-    public HashMap<String, List<String>> getMapForSpecificDay(String beginDateString, String specificDateString){
+    public HashMap<String, List<String>> getMapForSpecificDay(String beginDateString,
+                                                              String specificDateString,
+                                                              boolean round){
         HashMap<String, List<String>> map = new HashMap<>();
 
         LocalDate beginDate = LocalDate.parse(beginDateString);
@@ -132,7 +144,7 @@ public class Smolov {
         week++;
         days++;
 
-        List<String> workoutList = getWorkout(week, days);
+        List<String> workoutList = getWorkout(week, days, round);
         List<String> dummyList = new ArrayList<>();
         dummyList.add("Monday");
 
@@ -162,82 +174,82 @@ public class Smolov {
         isOneRepMaxDay = oneRepMaxDay;
     }
 
-    public List<String> getWorkout(int week, int day){
+    public List<String> getWorkout(int week, int day, boolean round){
         List<String> workout = new ArrayList<>();
 
         workout.add(exerciseName);
 
         if(week == 1 && day == 1){
-            String one = "3x8@" + percentToWeight(65);
+            String one = "3x8@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x5@" + percentToWeight(70);
+            String two = "1x5@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "2x2@" + percentToWeight(75);
+            String three = "2x2@" + percentToWeight(75, round);
             workout.add(three);
-            String four = "1x1@" + percentToWeight(80);
+            String four = "1x1@" + percentToWeight(80, round);
             workout.add(four);
         }else if(week == 1 && day == 2){
-            String one = "3x8@" + percentToWeight(65);
+            String one = "3x8@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x5@" + percentToWeight(70);
+            String two = "1x5@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "2x2@" + percentToWeight(75);
+            String three = "2x2@" + percentToWeight(75, round);
             workout.add(three);
-            String four = "1x1@" + percentToWeight(80);
+            String four = "1x1@" + percentToWeight(80, round);
             workout.add(four);
         }else if(week == 1 && day == 4){
-            String one = "4x5@" + percentToWeight(70);
+            String one = "4x5@" + percentToWeight(70, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(75);
+            String two = "1x3@" + percentToWeight(75, round);
             workout.add(two);
-            String three = "2x2@" + percentToWeight(80);
+            String three = "2x2@" + percentToWeight(80, round);
             workout.add(three);
-            String four = "1x1@" + percentToWeight(90);
+            String four = "1x1@" + percentToWeight(90, round);
             workout.add(four);
         }else if(week == 2 && day == 1){
-            String one = "1x5@" + percentToWeight(80);
+            String one = "1x5@" + percentToWeight(80, round);
             workout.add(one);
         }else if(week == 2 && day == 2){
-            String one = "1x5@" + percentToWeight(83);
+            String one = "1x5@" + percentToWeight(83, round);
             workout.add(one);
         }else if(week == 2 && day == 4){
-            String one = "1x5@" + percentToWeight(85);
+            String one = "1x5@" + percentToWeight(85, round);
             workout.add(one);
         }else if(week == 3 && day == 1){
-            String one = "4x9@" + percentToWeight(70);
+            String one = "4x9@" + percentToWeight(70, round);
             workout.add(one);
         }else if(week == 3 && day == 2){
-            String one = "5x7@" + percentToWeight(75);
+            String one = "5x7@" + percentToWeight(75, round);
             workout.add(one);
         }else if(week == 3 && day == 4){
-            String one = "7x5@" + percentToWeight(80);
+            String one = "7x5@" + percentToWeight(80, round);
             workout.add(one);
         }else if(week == 3 && day == 6){
-            String one = "10x3@" + percentToWeight(85);
+            String one = "10x3@" + percentToWeight(85, round);
             workout.add(one);
         }else if(week == 4 && day == 1){
-            String one = "4x9@" + percentToWeight(70, 20);
+            String one = "4x9@" + percentToWeight(70, 20, round);
             workout.add(one);
         }else if(week == 4 && day == 2){
-            String one = "5x7@" + percentToWeight(75, 20);
+            String one = "5x7@" + percentToWeight(75, 20, round);
             workout.add(one);
         }else if(week == 4 && day == 4){
-            String one = "7x5@" + percentToWeight(80, 20);
+            String one = "7x5@" + percentToWeight(80, 20, round);
             workout.add(one);
         }else if(week == 4 && day == 6){
-            String one = "10x3@" + percentToWeight(85, 20);
+            String one = "10x3@" + percentToWeight(85, 20, round);
             workout.add(one);
         }else if(week == 5 && day == 1){
-            String one = "4x9@" + percentToWeight(70, 30);
+            String one = "4x9@" + percentToWeight(70, 30, round);
             workout.add(one);
         }else if(week == 5 && day == 2){
-            String one = "5x7@" + percentToWeight(75, 30);
+            String one = "5x7@" + percentToWeight(75, 30, round);
             workout.add(one);
         }else if(week == 5 && day == 4){
-            String one = "7x5@" + percentToWeight(80, 30);
+            String one = "7x5@" + percentToWeight(80, 30, round);
             workout.add(one);
         }else if(week == 5 && day == 6) {
-            String one = "10x3@" + percentToWeight(85, 30);
+            String one = "10x3@" + percentToWeight(85, 30, round);
             workout.add(one);
         }else if(week == 6 && day == 1){
             String one = "rest";
@@ -246,159 +258,159 @@ public class Smolov {
             String one = "rest";
             workout.add(one);
         }else if(week == 6 && day == 4){
-            String one = "1x1@" + percentToWeight(0);
+            String one = "1x1@" + percentToWeight(0, round);
             workout.add(one);
             setOneRepMaxDay(true);
         }else if(week == 6 && day == 6){
-            String one = "1x1@" + percentToWeight(0);
+            String one = "1x1@" + percentToWeight(0, round);
             workout.add(one);
             setOneRepMaxDay(true);
         }else if(week == 7 && day == 1){
             workout.clear();
             workout.add("Squat (Negative)"); // ex name
-            workout.add("1x1@" + percentToWeight(80)); // set scheme
+            workout.add("1x1@" + percentToWeight(80, round)); // set scheme
         }else if(week == 7 && day == 3){
             workout.clear();
             workout.add("Power Clean (Barbell)"); // ex name
-            workout.add("8x3@" + percentToWeight(50)); // set scheme
+            workout.add("8x3@" + percentToWeight(50, round)); // set scheme
         }else if(week == 7 && day == 5){
             workout.clear();
             workout.add("Squat (Box)"); // ex name
-            workout.add("6x2@" + percentToWeight(60)); // set scheme
+            workout.add("6x2@" + percentToWeight(60, round)); // set scheme
         }else if(week == 8 && day == 1){
             workout.clear();
             workout.add("Squat (Negative)"); // ex name
-            workout.add("1x1@" + percentToWeight(85)); // set scheme
+            workout.add("1x1@" + percentToWeight(85, round)); // set scheme
         }else if(week == 8 && day == 3){
             workout.clear();
             workout.add("Power Clean (Barbell)"); // ex name
-            workout.add("8x3@" + percentToWeight(55)); // set scheme
+            workout.add("8x3@" + percentToWeight(55, round)); // set scheme
         }else if(week == 8 && day == 5){
             workout.clear();
             workout.add("Squat (Box)"); // ex name
-            workout.add("6x2@" + percentToWeight(65)); // set scheme
+            workout.add("6x2@" + percentToWeight(65, round)); // set scheme
         }else if(week == 9 && day == 1){
-            String one = "1x3@" + percentToWeight(65);
+            String one = "1x3@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x4@" + percentToWeight(75);
+            String two = "1x4@" + percentToWeight(75, round);
             workout.add(two);
-            String three = "3x4@" + percentToWeight(85);
+            String three = "3x4@" + percentToWeight(85, round);
             workout.add(three);
-            String four = "1x5@" + percentToWeight(90);
+            String four = "1x5@" + percentToWeight(90, round);
             workout.add(four);
         }else if(week == 9 && day == 2){
-            String one = "1x3@" + percentToWeight(60);
+            String one = "1x3@" + percentToWeight(60, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(70);
+            String two = "1x3@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "1x4@" + percentToWeight(80);
+            String three = "1x4@" + percentToWeight(80, round);
             workout.add(three);
-            String four = "1x3@" + percentToWeight(90);
+            String four = "1x3@" + percentToWeight(90, round);
             workout.add(four);
-            String five = "2x5@" + percentToWeight(85);
+            String five = "2x5@" + percentToWeight(85, round);
             workout.add(five);
         }else if(week == 9 && day == 4){
-            String one = "1x4@" + percentToWeight(65);
+            String one = "1x4@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x4@" + percentToWeight(70);
+            String two = "1x4@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "5x4@" + percentToWeight(80);
+            String three = "5x4@" + percentToWeight(80, round);
             workout.add(three);
         }else if(week == 10 && day == 1){
-            String one = "1x4@" + percentToWeight(60);
+            String one = "1x4@" + percentToWeight(60, round);
             workout.add(one);
-            String two = "1x4@" + percentToWeight(70);
+            String two = "1x4@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "1x4@" + percentToWeight(80);
+            String three = "1x4@" + percentToWeight(80, round);
             workout.add(three);
-            String four = "1x3@" + percentToWeight(90);
+            String four = "1x3@" + percentToWeight(90, round);
             workout.add(four);
-            String five = "2x4@" + percentToWeight(90);
+            String five = "2x4@" + percentToWeight(90, round);
             workout.add(five);
         }else if(week == 10 && day == 2){
-            String one = "1x3@" + percentToWeight(65);
+            String one = "1x3@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(75);
+            String two = "1x3@" + percentToWeight(75, round);
             workout.add(two);
-            String three = "1x3@" + percentToWeight(85);
+            String three = "1x3@" + percentToWeight(85, round);
             workout.add(three);
-            String four = "3x3@" + percentToWeight(90);
+            String four = "3x3@" + percentToWeight(90, round);
             workout.add(four);
-            String five = "1x3@" + percentToWeight(95);
+            String five = "1x3@" + percentToWeight(95, round);
             workout.add(five);
         }else if(week == 10 && day == 4){
-            String one = "1x3@" + percentToWeight(65);
+            String one = "1x3@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(75);
+            String two = "1x3@" + percentToWeight(75, round);
             workout.add(two);
-            String three = "1x4@" + percentToWeight(85);
+            String three = "1x4@" + percentToWeight(85, round);
             workout.add(three);
-            String four = "4x5@" + percentToWeight(90);
+            String four = "4x5@" + percentToWeight(90, round);
             workout.add(four);
         }else if(week == 11 && day == 1){
-            String one = "1x3@" + percentToWeight(60);
+            String one = "1x3@" + percentToWeight(60, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(70);
+            String two = "1x3@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "1x3@" + percentToWeight(80);
+            String three = "1x3@" + percentToWeight(80, round);
             workout.add(three);
-            String four = "5x5@" + percentToWeight(90);
+            String four = "5x5@" + percentToWeight(90, round);
             workout.add(four);
         }else if(week == 11 && day == 2){
-            String one = "1x3@" + percentToWeight(60);
+            String one = "1x3@" + percentToWeight(60, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(70);
+            String two = "1x3@" + percentToWeight(70, round);
             workout.add(two);
-            String three = "1x3@" + percentToWeight(80);
+            String three = "1x3@" + percentToWeight(80, round);
             workout.add(three);
-            String four = "2x3@" + percentToWeight(95);
+            String four = "2x3@" + percentToWeight(95, round);
             workout.add(four);
         }else if(week == 11 && day == 4){
-            String one = "1x3@" + percentToWeight(65);
+            String one = "1x3@" + percentToWeight(65, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(75);
+            String two = "1x3@" + percentToWeight(75, round);
             workout.add(two);
-            String three = "1x3@" + percentToWeight(85);
+            String three = "1x3@" + percentToWeight(85, round);
             workout.add(three);
-            String four = "4x3@" + percentToWeight(95);
+            String four = "4x3@" + percentToWeight(95, round);
             workout.add(four);
         }else if(week == 12 && day == 1){
-            String one = "1x3@" + percentToWeight(70);
+            String one = "1x3@" + percentToWeight(70, round);
             workout.add(one);
-            String two = "1x4@" + percentToWeight(80);
+            String two = "1x4@" + percentToWeight(80, round);
             workout.add(two);
-            String three = "5x5@" + percentToWeight(90);
+            String three = "5x5@" + percentToWeight(90, round);
             workout.add(three);
         }else if(week == 12 && day == 2){
-            String one = "1x3@" + percentToWeight(70);
+            String one = "1x3@" + percentToWeight(70, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(80);
+            String two = "1x3@" + percentToWeight(80, round);
             workout.add(two);
-            String three = "4x3@" + percentToWeight(95);
+            String three = "4x3@" + percentToWeight(95, round);
             workout.add(three);
         }else if(week == 12 && day == 4){
-            String one = "1x3@" + percentToWeight(75);
+            String one = "1x3@" + percentToWeight(75, round);
             workout.add(one);
-            String two = "1x4@" + percentToWeight(90);
+            String two = "1x4@" + percentToWeight(90, round);
             workout.add(two);
-            String three = "3x4@" + percentToWeight(80);
+            String three = "3x4@" + percentToWeight(80, round);
             workout.add(three);
         }else if(week == 13 && day == 1){
-            String one = "1x3@" + percentToWeight(70);
+            String one = "1x3@" + percentToWeight(70, round);
             workout.add(one);
-            String two = "1x3@" + percentToWeight(80);
+            String two = "1x3@" + percentToWeight(80, round);
             workout.add(two);
-            String three = "2x5@" + percentToWeight(90);
+            String three = "2x5@" + percentToWeight(90, round);
             workout.add(three);
-            String four = "3x4@" + percentToWeight(95);
+            String four = "3x4@" + percentToWeight(95, round);
             workout.add(four);
         }else if(week == 13 && day == 2){
-            String one = "1x4@" + percentToWeight(75);
+            String one = "1x4@" + percentToWeight(75, round);
             workout.add(one);
-            String two = "4x4@" + percentToWeight(85);
+            String two = "4x4@" + percentToWeight(85, round);
             workout.add(two);
         }else if(week == 13 && day == 4){
-            String one = "1x1@" + percentToWeight(0);
+            String one = "1x1@" + percentToWeight(0, round);
             workout.add(one);
             setOneRepMaxDay(true);
             setLastDay(true);
@@ -411,7 +423,7 @@ public class Smolov {
         return workout;
     }
 
-    int percentToWeight(int percent){
+    int percentToWeight(int percent, boolean round){
         double weight;
         int weight2;
 
@@ -422,19 +434,28 @@ public class Smolov {
 
             weight = oneRM * percentage;
 
+            if(round){
+                weight = 5 * (Math.round(weight/5));
+            }
+
             weight2 = (int) Math.round(weight);
+
         }
 
 
         return weight2;
     }
 
-    int percentToWeight(int percent, int addExtra){
+    int percentToWeight(int percent, int addExtra, boolean round){
         double weight;
         //int weight2;
         double percentage = (double)percent/(double)100;
 
         weight = oneRM * percentage;
+
+        if(round){
+            weight = 5 * (Math.round(weight/5));
+        }
 
         int weight2 = (int) Math.round(weight) + addExtra;
 
