@@ -1,4 +1,4 @@
-package com.liftdom.workout_programs.FiveThreeOne;
+package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 
 import io.github.dreierf.materialintroscreen.SlideFragment;
@@ -24,24 +24,22 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.workout_programs.Smolov.SmolovSetupSingleton;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class W531fBIntroFrag3 extends SlideFragment {
+public class W531fBIntroFrag5 extends SlideFragment {
 
 
-    public W531fBIntroFrag3() {
+    public W531fBIntroFrag5() {
         // Required empty public constructor
     }
 
@@ -63,7 +61,7 @@ public class W531fBIntroFrag3 extends SlideFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_w531f_bintro_frag3, container, false);
+        View view = inflater.inflate(R.layout.fragment_w531f_bintro_frag5, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -132,8 +130,7 @@ public class W531fBIntroFrag3 extends SlideFragment {
                         modelClass.setDateCreated(dateTimeString);
                         modelClass.setDateUpdated(dateTimeString);
                         modelClass.setIsImperial(isImperial);
-                        modelClass.setDescription("Wendler\'s 5/3/1 For Beginners is an intermediate strength " +
-                                "program that can provide amazing and consistent strength gains when done correctly.");
+                        modelClass.setDescription(getResources().getString(R.string.W5314BShortDescription));
 
                         DatabaseReference newProgramRef = FirebaseDatabase.getInstance().getReference().child
                                 ("templates").child(uid).child(programName);

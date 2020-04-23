@@ -2,15 +2,12 @@ package com.liftdom.template_housing;
 
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -19,9 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
-import com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity;
-import com.liftdom.workout_programs.PPL.PPLHolderActivity;
-import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
 
 /**
  * A simple {@link Fragment} subclass.

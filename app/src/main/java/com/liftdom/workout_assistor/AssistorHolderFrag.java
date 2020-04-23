@@ -33,7 +33,7 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.TemplateModelClass;
-import com.liftdom.workout_programs.FiveThreeOne.Wendler_531_For_Beginners;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;

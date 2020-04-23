@@ -34,12 +34,10 @@ import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.calendar_stuff.HistoryCalendarTab;
 import com.liftdom.workout_assistor.AssistorServiceClass;
-import com.liftdom.workout_programs.FiveThreeOne.W531fBInfoFrag;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBInfoFrag;
 import com.liftdom.workout_programs.Smolov.SmolovInfoFrag;
-import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
-import me.toptas.fancyshowcase.FocusShape;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 

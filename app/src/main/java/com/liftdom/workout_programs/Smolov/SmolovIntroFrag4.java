@@ -150,8 +150,7 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         modelClass.setVibrationTime(SmolovSetupSingleton.getInstance().mVibrationTime);
                         modelClass.setIsRestTimerAlert(SmolovSetupSingleton.getInstance().mIsRestTimerAlert);
                         modelClass.setIsImperial(isImperial);
-                        modelClass.setDescription("Smolov is an advanced 13 week strength program that can increase " +
-                                "your squat\'s max by 100lbs or more.");
+                        modelClass.setDescription(getResources().getString(R.string.smolovShortDescription));
 
                         DatabaseReference smolovRef = FirebaseDatabase.getInstance().getReference().child("templates")
                                 .child(uid).child(programName);

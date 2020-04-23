@@ -23,7 +23,7 @@ import com.liftdom.liftdom.MainActivitySingleton;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
-import com.liftdom.workout_programs.FiveThreeOne.Wendler_531_For_Beginners;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;

@@ -1,4 +1,4 @@
-package com.liftdom.workout_programs.FiveThreeOne;
+package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 
 import android.os.Bundle;

@@ -255,9 +255,27 @@ done -  Smolov
 ----------------------
 ====================================================
 
-Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
-    - W531
-        -
+Get the 3 premades working correctly., PPL, PPL_Reddit.
+    - W5314B
+        - Lots of problems here. It seems half assed.
+        - auto-fill maxes
+        - give actual description of the program instead of babbling about shit
+        - convert from forced Monday to determining via days passed. add choice.
+        - give it future date functionality
+        - add rest timer options (at least a 4th page, maybe more)
+            - 3rd for accessory info, 4th for rest timer, 5th is finalize.
+        - you'll have to have a way for them to pick their accessories out of that pool
+            - going to need a map in template to save the weights of the accessories
+            - let them enter in a set scheme?
+            - tell them that they can enter the weight on the day and it'll remember
+            - tell them that the set scheme/weights aren't very important, it's just volume.
+        - after 3 weeks you add 5lbs to the TM of Bench and OHP, 10lbs to TM of Squat and DL
+        - on the 10th week (or after the 9th week/3rd set of 3 weeks) you do
+            - Monday - OHP TM 1rm, Squat TM 1rm
+            - Wednesday - Bench TM 1rm
+            - Friday - Deadlift TM 1rm.
+            - normal assistance work
+        - would be cool to save the initial max
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
@@ -270,6 +288,8 @@ Get the 3 pre-mades working correctly., PPL, PPL_Reddit.
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
+bodyweight exercises shouldn't be allowed to be changed from B.W.
+
 Get rid of feed slider/start on global/radio buttons
 
 Create a high level plan to trust.
@@ -341,6 +361,8 @@ For each new program, check:
 
 
 Programmed deloads?
+    - could be a button within TE that you click and brings up window just like TE, and you set how
+    many weeks it runs and when it should run (run for 2 weeks after 2 months of normal).
 
 ---- MISC ----
 parcels? to save state when coming back to app from post-onDestroy (going to other apps or too long)
@@ -423,6 +445,7 @@ we need to check w531fb and smolov, that shit is fucked.
 Premades need future workout calendar compat
 Need to have some kind of end condition for premade programs.
 Come up with a plan for missing weight in a workout.
+starting strength?
 
 ----- Non-code Necessities -----
 Talk to Firebase about the privacy rules

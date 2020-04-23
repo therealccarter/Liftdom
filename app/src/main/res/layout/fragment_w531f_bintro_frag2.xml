@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:background="@color/transparent"
         android:gravity="center"
-        tools:context="com.liftdom.workout_programs.FiveThreeOne.W531fBIntroFrag2">
+        tools:context="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBIntroFrag2">
 
     <TextView
            android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.liftdom.workout_programs.FiveThreeOne;
+package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -142,17 +142,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             squatList.add("1x5@p_65_a_" + squatTM);
             squatList.add("1x5@p_75_a_" + squatTM);
-            squatList.add("1xT.F.@p_85_a_" + squatTM); // T.F. but goal is 5
+            squatList.add("1x5_a.@p_85_a_" + squatTM); // T.F. but goal is 5
             squatList.add("5x5@p_65_a_" + squatTM);
         }else if(weekType == 2){
             squatList.add("1x3@p_70_a_" + squatTM);
             squatList.add("1x3@p_80_a_" + squatTM);
-            squatList.add("1xT.F.@p_90_a_" + squatTM); // T.F. but goal is 3
+            squatList.add("1x3_a@p_90_a_" + squatTM); // T.F. but goal is 3
             squatList.add("5x5@p_70_a_" + squatTM);
         }else if(weekType == 3){
             squatList.add("1x5@p_75_a_" + squatTM);
             squatList.add("1x3@p_85_a_" + squatTM);
-            squatList.add("1xT.F.@p_95_a_" + squatTM); // T.F. but goal is 1
+            squatList.add("1x1_a@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
 
@@ -166,17 +166,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             benchList.add("1x5@p_65_a_" + benchTM);
             benchList.add("1x5@p_75_a_" + benchTM);
-            benchList.add("1xT.F.@p_85_a_" + benchTM); // T.F. but goal is 5
+            benchList.add("1x5_a@p_85_a_" + benchTM); // T.F. but goal is 5
             benchList.add("5x5@p_65_a_" + benchTM);
         }else if(weekType == 2){
             benchList.add("1x3@p_70_a_" + benchTM);
             benchList.add("1x3@p_80_a_" + benchTM);
-            benchList.add("1xT.F.@p_90_a_" + benchTM); // T.F. but goal is 3
+            benchList.add("1x3_a@p_90_a_" + benchTM); // T.F. but goal is 3
             benchList.add("5x5@p_70_a_" + benchTM);
         }else if(weekType == 3){
             benchList.add("1x5@p_75_a_" + benchTM);
             benchList.add("1x3@p_85_a_" + benchTM);
-            benchList.add("1xT.F.@p_95_a_" + benchTM); // T.F. but goal is 1
+            benchList.add("1x1_a@p_95_a_" + benchTM); // T.F. but goal is 1
             benchList.add("5x5@p_75_a_" + benchTM);
         }
 
@@ -212,17 +212,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             deadliftList.add("1x5@p_65_a_" + deadliftTM);
             deadliftList.add("1x5@p_75_a_" + deadliftTM);
-            deadliftList.add("1xT.F.@p_85_a_" + deadliftTM); // T.F. but goal is 5
+            deadliftList.add("1x5_a@p_85_a_" + deadliftTM); // T.F. but goal is 5
             deadliftList.add("5x5@p_65_a_" + deadliftTM);
         }else if(weekType == 2){
             deadliftList.add("1x3@p_70_a_" + deadliftTM);
             deadliftList.add("1x3@p_80_a_" + deadliftTM);
-            deadliftList.add("1xT.F.@p_90_a_" + deadliftTM); // T.F. but goal is 3
+            deadliftList.add("1x3_a@p_90_a_" + deadliftTM); // T.F. but goal is 3
             deadliftList.add("5x5@p_70_a_" + deadliftTM);
         }else if(weekType == 3){
             deadliftList.add("1x5@p_75_a_" + deadliftTM);
             deadliftList.add("1x3@p_85_a_" + deadliftTM);
-            deadliftList.add("1xT.F.@p_95_a_" + deadliftTM); // T.F. but goal is 1
+            deadliftList.add("1x1_a@p_95_a_" + deadliftTM); // T.F. but goal is 1
             deadliftList.add("5x5@p_75_a_" + deadliftTM);
         }
 
@@ -236,17 +236,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             ohpList.add("1x5@p_65_a_" + ohpTM);
             ohpList.add("1x5@p_75_a_" + ohpTM);
-            ohpList.add("1xT.F.@p_85_a_" + ohpTM); // T.F. but goal is 5
+            ohpList.add("1x5_a@p_85_a_" + ohpTM); // T.F. but goal is 5
             ohpList.add("5x5@p_65_a_" + ohpTM);
         }else if(weekType == 2){
             ohpList.add("1x3@p_70_a_" + ohpTM);
             ohpList.add("1x3@p_80_a_" + ohpTM);
-            ohpList.add("1xT.F.@p_90_a_" + ohpTM); // T.F. but goal is 3
+            ohpList.add("1x3_a@p_90_a_" + ohpTM); // T.F. but goal is 3
             ohpList.add("5x5@p_70_a_" + ohpTM);
         }else if(weekType == 3){
             ohpList.add("1x5@p_75_a_" + ohpTM);
             ohpList.add("1x3@p_85_a_" + ohpTM);
-            ohpList.add("1xT.F.@p_95_a_" + ohpTM); // T.F. but goal is 1
+            ohpList.add("1x1_a@p_95_a_" + ohpTM); // T.F. but goal is 1
             ohpList.add("5x5@p_75_a_" + ohpTM);
         }
 
@@ -282,17 +282,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             benchList.add("1x5@p_65_a_" + benchTM);
             benchList.add("1x5@p_75_a_" + benchTM);
-            benchList.add("1xT.F.@p_85_a_" + benchTM); // T.F. but goal is 5
+            benchList.add("1x5_a@p_85_a_" + benchTM); // T.F. but goal is 5
             benchList.add("5x5@p_65_a_" + benchTM);
         }else if(weekType == 2){
             benchList.add("1x3@p_70_a_" + benchTM);
             benchList.add("1x3@p_80_a_" + benchTM);
-            benchList.add("1xT.F.@p_90_a_" + benchTM); // T.F. but goal is 3
+            benchList.add("1x3_a@p_90_a_" + benchTM); // T.F. but goal is 3
             benchList.add("5x5@p_70_a_" + benchTM);
         }else if(weekType == 3){
             benchList.add("1x5@p_75_a_" + benchTM);
             benchList.add("1x3@p_85_a_" + benchTM);
-            benchList.add("1xT.F.@p_95_a_" + benchTM); // T.F. but goal is 1
+            benchList.add("1x1_a@p_95_a_" + benchTM); // T.F. but goal is 1
             benchList.add("5x5@p_75_a_" + benchTM);
         }
 
@@ -306,17 +306,17 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             squatList.add("1x5@p_65_a_" + squatTM);
             squatList.add("1x5@p_75_a_" + squatTM);
-            squatList.add("1xT.F.@p_85_a_" + squatTM); // T.F. but goal is 5
+            squatList.add("1x5_a@p_85_a_" + squatTM); // T.F. but goal is 5
             squatList.add("5x5@p_65_a_" + squatTM);
         }else if(weekType == 2){
             squatList.add("1x3@p_70_a_" + squatTM);
             squatList.add("1x3@p_80_a_" + squatTM);
-            squatList.add("1xT.F.@p_90_a_" + squatTM); // T.F. but goal is 3
+            squatList.add("1x3_a@p_90_a_" + squatTM); // T.F. but goal is 3
             squatList.add("5x5@p_70_a_" + squatTM);
         }else if(weekType == 3){
             squatList.add("1x5@p_75_a_" + squatTM);
             squatList.add("1x3@p_85_a_" + squatTM);
-            squatList.add("1xT.F.@p_95_a_" + squatTM); // T.F. but goal is 1
+            squatList.add("1x1_a@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
 

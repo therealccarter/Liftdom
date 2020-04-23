@@ -1,5 +1,6 @@
-package com.liftdom.workout_programs.FiveThreeOne;
+package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
+import com.liftdom.liftdom.R;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
 
         addSlide(new W531fBIntroFrag2());
 
-        addSlide(new W531fBIntroFrag3());
+        addSlide(new W531fBIntroFrag5());
     }
 
     @Override
@@ -54,8 +55,7 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
                 modelClass.setDateCreated(dateTimeString);
                 modelClass.setDateUpdated(dateTimeString);
                 modelClass.setIsImperial(W531fBSingleton.getInstance().isImperial);
-                modelClass.setDescription("Wendler\'s 5/3/1 For Beginners is an intermediate strength " +
-                        "program that can provide consistent strength gains when done correctly.");
+                modelClass.setDescription(getResources().getString(R.string.W5314BShortDescription));
 
                 DatabaseReference newProgramRef = FirebaseDatabase.getInstance().getReference().child
                         ("templates").child(W531fBSingleton.getInstance().uid).child(programName);

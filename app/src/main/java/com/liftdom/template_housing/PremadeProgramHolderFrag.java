@@ -13,7 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
-import com.liftdom.workout_programs.FiveThreeOne.W531fB_HolderActivity;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fB_HolderActivity;
 import com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity;
 import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
 
@@ -85,22 +85,20 @@ public class PremadeProgramHolderFrag extends Fragment {
         templateNameView.setText("Push/Pull/Legs Reddit Variant");
         experienceLevelview.setText("Beginner");
         workoutTypeView.setText("Bodybuilding");
-        descriptionView.setText("A popular Push/Pull/Legs variant from Reddit. The recommended beginner program.");
+        descriptionView.setText(getResources().getString(R.string.PPLRedditShortDescription));
     }
 
     private void setUpSmolov(){
         templateNameView.setText("Smolov");
         experienceLevelview.setText("Advanced");
         workoutTypeView.setText("Strength");
-        descriptionView.setText("Smolov is an advanced 13 week strength program that can increase " +
-                "your squat\'s max by 100lbs or more.");
+        descriptionView.setText(getResources().getString(R.string.smolovShortDescription));
     }
 
     private void setUpW531fB(){
         templateNameView.setText("Wendler 5/3/1 For Beginners");
         experienceLevelview.setText("Intermediate");
         workoutTypeView.setText("Strength");
-        descriptionView.setText("Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide" +
-                " consistent strength gains when done correctly.");
+        descriptionView.setText(getResources().getString(R.string.W5314BShortDescription));
     }
 }

@@ -518,22 +518,52 @@
     <string name="checkAll">Check off all of the sets in this exercise</string>
 
     <string name="smolovDescription">
-        Smolov is an advanced 13 week strength program that can increase your squat\'s
-        max by 100lbs or more. \n \n
+        Smolov is an advanced 13 week strength program that can increase some people\'s squat
+        max by 75lbs or more. \n \n
         Make sure to eat, sleep, and stretch as much as possible because this program is extremely
         taxing on the body.
     </string>
 
+    <string name="smolovShortDescription">
+        Smolov is an advanced 13 week strength program that can increase some people\'s squat
+        max by 75lbs or more.
+    </string>
+
     <string name="W531fBDescription">
-        Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide amazing and consistent
+        Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide consistent
         strength gains when done correctly.\nThis program has a great reputation for a reason, but as always, make
         sure you are eating, sleeping, and recovering as much as you need to!
+    </string>
+
+    <string name="W5314BShortDescription">
+        Wendler\'s 5/3/1 For Beginners is an intermediate strength program that can provide
+        consistent strength gains over a long period of time.
     </string>
 
     <string name="W531fBDisclaimer">
         The title says \"for beginners\" but this is definitely a program for intermediate level lifters.\nIf you
         want to know more, I recommend Googling \"Wendler\'s 5/3/1 For Beginners\" for further reading and clarification
         on the background and theory behind the lifts you\'ll be doing.
+    </string>
+
+    <string name="W5314BRealDescription">
+        In this program, 3 days a week you\'ll be doing a warm up, two main exercises (eight sets
+        each), then 50 reps each of three lighter assistance exercises. The main exercises will
+        rotate so you\'ll be getting a full body workout done each time but in different ways.\n
+        The first day is Squat and Bench Press, the second day is Deadlift and Overhead Press, and
+        the third day is Bench Press and Squats. Plus accessory work each time. \nThe weights of
+        the main lifts will be percentages based on a training max (TM) (90% of your estimated true
+        max). For three weeks, the percentages increase by 5% each week, and then the percentages
+        reset and the TM increases by 5lbs/2.5kgs for upper body and 10lbs/5kgs for
+        lower body. After nine weeks or three sets of these three weeks, you will perform a test
+        which will determine whether your TM increases as it would after a normal three
+        week cycle or if you should lower it.\n The test is a sequence of sets rising in weight
+        by 10% each time, until you get to a set asking for 3-5 reps at 100% of your TM. If you
+        complete (and enter into the rep field) 3 or greater reps, your TM will increase like
+        normal. If you complete/enter less than 3 reps, your TM will decrease by 5lbs/2.5kgs
+        (upper body) and 10lbs/5kgs (lower body). If you think that\'s still too much, you can
+        always manually edit your TM by navigating to your workouts page in Workout Programming and
+        pressing the edit button.
     </string>
 
     <!-- PPL Reddit -->
@@ -567,6 +597,10 @@
     <string name="dumbbellCalfRaises">Dumbbell Calf Raises</string>
 
     <string name="enterProgramName">Please enter a program name.</string>
+
+    <string name="PPLRedditShortDescription">
+        "A popular Push/Pull/Legs variant from Reddit. The recommended beginner program."
+    </string>
 
     <string name="PPLRedditDescription">
         A popular PPL variant as described by user Metallicadpa. This program will have you doing a heavy barbell exercise first each day, then following
