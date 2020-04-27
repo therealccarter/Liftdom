@@ -3,6 +3,7 @@ package com.liftdom.template_editor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import androidx.fragment.app.Fragment;
 import android.text.InputFilter;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.charts_stats_tools.DigitsInputFilter;
 import com.liftdom.liftdom.R;
 
 /**
@@ -66,8 +68,14 @@ public class SetsLevelSSFrag extends android.app.Fragment {
 
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
         }else{
             units.setText("kgs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
         }
 
         if(isEdit){
@@ -80,7 +88,11 @@ public class SetsLevelSSFrag extends android.app.Fragment {
             }else{
                 String delims = "[x,@]";
                 String[] tokens = isEditSetScheme.split(delims);
-                setsEditText.setText(tokens[0]);
+                if(tokens[0].equals("0")){
+                    setsEditText.setText("");
+                }else{
+                    setsEditText.setText(tokens[0]);
+                }
 
                 if(isAmrap(isEditSetScheme)){
                     setAmrap(isEditSetScheme);
@@ -94,12 +106,14 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                         repsEditText.setEnabled(false);
                         setToFailureBoolean();
                     }else{
-                        repsEditText.setText(tokens[1]);
+                        if(tokens[1].equals("0")){
+                            repsEditText.setText("");
+                        }else{
+                            repsEditText.setText(tokens[1]);
+                        }
                         setToDefaultRepsBoolean();
                     }
                 }
-
-
 
                 // weight
                 if(isPercentage(isEditSetScheme)){
@@ -121,7 +135,11 @@ public class SetsLevelSSFrag extends android.app.Fragment {
                         weightEditText.setEnabled(false);
                         setToBWBoolean();
                     }else{
-                        weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                        if(weightWithoutSpaces.equals("0")){
+                            weightEditText.setText("");
+                        }else{
+                            weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                        }
                         setToDefaultWeightBoolean();
                     }
                 }
@@ -437,10 +455,14 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         String weightString;
         if(isEdit){
             if(percentageLL.getVisibility() == View.VISIBLE){
-                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + reHandleUnitConversion(percentageWeightButton
-                        .getText().toString());
+                //weightString = "p_" + percentageEditText.getText().toString() + "_a_"
+                //        + reHandleUnitConversion(percentageWeightButton
+                //        .getText().toString());
+                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
+                        .getText().toString();
             }else{
-                weightString = reHandleUnitConversion(weightEditText.getText().toString());
+                //weightString = reHandleUnitConversion(weightEditText.getText().toString());
+                weightString = weightEditText.getText().toString();
             }
         }else{
             if(percentageLL.getVisibility() == View.VISIBLE){

@@ -384,7 +384,8 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         if(getSelectedDays().size() == 0){
             if(doWTag == 1){
                 try{
-                    Snackbar.make(getActivity().getCurrentFocus(), "Click on the days you want from the button bar.",
+                    Snackbar.make(getActivity().getCurrentFocus(), "Click on the days you want " +
+                                    "from the button bar.",
                             Snackbar.LENGTH_SHORT).show();
                 }catch (NullPointerException e){
 

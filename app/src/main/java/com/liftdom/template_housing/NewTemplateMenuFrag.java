@@ -3,7 +3,11 @@ package com.liftdom.template_housing;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +17,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.charts_stats_tools.DigitsInputFilter;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.TemplateEditorActivity;
 
 /**
@@ -61,6 +67,20 @@ public class NewTemplateMenuFrag extends Fragment {
         });
 
         return view;
+    }
+
+    private void setToImperial(){
+        //editTest.setText("");
+        //editTest.setInputType(InputType.TYPE_CLASS_NUMBER);
+        //units.setText(" lbs");
+        //editTest.setFilters(new InputFilter[]{new InputFilterMinMax(1, 500)});
+    }
+
+    private void setToMetric(){
+        //editTest.setText("");
+        //editTest.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        //units.setText(" kgs");
+        //editTest.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
     }
 
 }

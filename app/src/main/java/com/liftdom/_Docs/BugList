@@ -251,13 +251,16 @@ done -  Smolov
         tried - set as active should be set if there's no active template
         done - bonus list posted wrong
         done - don't forget to change back smolovGetMap
+Minimizing TE and coming back to it STILL added 1 set scheme to current exercise, 1 extra exercise,
+and 1 extra DoW. Wtf. Maybe it tried to do onCreate again?? It also resets the node to default 0x0@0
+ mode.
+0 needs to default to nothing if read in from db
 
 ----------------------
 ====================================================
 
 Get the 3 premades working correctly., PPL, PPL_Reddit.
     - W5314B
-        - Lots of problems here. It seems half assed.
         - auto-fill maxes
         - give actual description of the program instead of babbling about shit
         - convert from forced Monday to determining via days passed. add choice.
@@ -269,6 +272,7 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
             - let them enter in a set scheme?
             - tell them that they can enter the weight on the day and it'll remember
             - tell them that the set scheme/weights aren't very important, it's just volume.
+            - have three buttons, each one for each type of accessory
         - after 3 weeks you add 5lbs to the TM of Bench and OHP, 10lbs to TM of Squat and DL
         - on the 10th week (or after the 9th week/3rd set of 3 weeks) you do
             - Monday - OHP TM 1rm, Squat TM 1rm
@@ -276,6 +280,13 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
             - Friday - Deadlift TM 1rm.
             - normal assistance work
         - would be cool to save the initial max
+        - going to also need a round option?
+        - need percentages as decimals
+            - (think of the implications if we add/subtract/multiply/divide
+                and then round we lose precision.)
+            - got the input filter done, now seeing if it saves correctly in TE.
+            - then need to make sure it works everywhere. Wherever it's displayed
+            (SelectedTemplates, WA, Dates, etc).
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
@@ -288,6 +299,25 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
 
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
+TE running problem, it was imperial, then set profile to kgs. In TE running, the units changed to
+kgs, but when i entered 10 (kgs), saved, then came back, it was 22 kgs. So if the TE knows it's
+imperial first, it's directly saving what's in the edit text and thinking that's still imperial.
+Then taking that number thinking it's imperial and then seeing that we're now kgs, it's trying to
+convert it back. This might be problem in normal TE? and WA.
+What should happen?
+    - If you're editing something as that POV, shouldn't we assume that the template becomes that as
+     well?
+    - Therefore, if a Template was imperial, but you are now editing it in kgs, it should become kgs.
+    - The only place it should "convert" the value from whatever the Template was to what the POV
+    is, is when it first reads it in.
+    - We can solve this by simply making the update set the template units to the POV.
+    - ok it updated to the right units, but it didn't save the new weight. it was 10(kgs), switched
+    to imperial, it switched to 22lbs, but when we updated it kept the 10 and not the 22...
+
+    - so the true problem here is that when updating, it tries to convert the weight before updating
+     instead of just updating the weight.
+    - fixed in TE, now gotta investigate behavior in WA.
+
 bodyweight exercises shouldn't be allowed to be changed from B.W.
 
 Get rid of feed slider/start on global/radio buttons
@@ -363,6 +393,9 @@ For each new program, check:
 Programmed deloads?
     - could be a button within TE that you click and brings up window just like TE, and you set how
     many weeks it runs and when it should run (run for 2 weeks after 2 months of normal).
+
+Forum reps tied to user level/xp gained from workouts. Incentive to gain reps from workouts for your
+ rep on forum.
 
 ---- MISC ----
 parcels? to save state when coming back to app from post-onDestroy (going to other apps or too long)

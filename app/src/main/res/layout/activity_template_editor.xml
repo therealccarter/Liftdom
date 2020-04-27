@@ -191,6 +191,7 @@
                     android:layout_height="wrap_content"
                     android:text="update"
                     android:id="@+id/updateButton"
+                    android:visibility="gone"
                     />
 
             <LinearLayout

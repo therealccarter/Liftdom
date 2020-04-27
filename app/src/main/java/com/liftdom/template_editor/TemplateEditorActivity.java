@@ -184,6 +184,7 @@ public class TemplateEditorActivity extends BaseActivity
             public void onClick(View v) {
                 cleanUpState();
                 resetState();
+                clearSingletonAndRestart();
             }
         });
 
@@ -233,7 +234,8 @@ public class TemplateEditorActivity extends BaseActivity
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addDaySet();
+                //addDaySet();
+                doNothing();
             }
         });
 
@@ -266,6 +268,8 @@ public class TemplateEditorActivity extends BaseActivity
 
         onSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
+
+                fromWithin();
 
                 boolean hasEmptyDays = false;
                 boolean hasNoDays = false;
@@ -442,8 +446,32 @@ public class TemplateEditorActivity extends BaseActivity
 
         setUpLayoutListener();
 
-        checkForEditState();
+        if(hasHitOnPause){
+            if(templateModelClass == null){
+                loadingView.setVisibility(View.VISIBLE);
+                //resetButton.setText("1");
+                hideKeyboard2();
+                hasHitOnPause = false;
+                fromWithin = true;
+                //cleanUpState();
+                clearSingletonAndRestart();
+            }
+        }else{
+            fromWithin = true;
+            checkForEditState();
+            //resetButton.setText("2");
+        }
 
+
+
+    }
+
+    private void clearSingletonAndRestart(){
+        TemplateEditorSingleton.getInstance().clearAll();
+        Intent intent = new Intent(TemplateEditorActivity.this, TemplateEditorActivity.class);
+        intent.putExtra("isEdit", "no");
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void setUpLayoutListener(){
@@ -492,10 +520,12 @@ public class TemplateEditorActivity extends BaseActivity
             loadingView.setVisibility(View.VISIBLE);
             hideKeyboard2();
             hasHitOnPause = false;
+            //resetButton.setText("3");
             //cleanUpState();
             checkRunningNode();
         }else{
             fromWithin = false;
+            //resetButton.setText("4");
         }
 
     }
@@ -534,6 +564,13 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        hasHitOnPause = true;
+    }
+
     private void checkRunningNode(){
 
         DatabaseReference runningRef =
@@ -546,6 +583,7 @@ public class TemplateEditorActivity extends BaseActivity
                     TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
                     if(modelClass.getMapOne() != null){
                         loadingView.setVisibility(View.GONE);
+                        //resetButton.setText("7");
                         inflateFromTemplateModelClass(modelClass);
                     }else{
                         loadingView.setVisibility(View.GONE);
@@ -652,6 +690,8 @@ public class TemplateEditorActivity extends BaseActivity
 
     private void inflateFromTemplateModelClass(TemplateModelClass templateClass){
         if(templateClass != null && templateClass.getUserId() != null){
+
+            //resetButton.setText("5");
 
             cleanUpState();
 
@@ -846,7 +886,11 @@ public class TemplateEditorActivity extends BaseActivity
                 addDaySet();
             }
 
-            fragmentTransaction.commit();
+            try{
+                fragmentTransaction.commit();
+            }catch (IllegalStateException e){
+                clearSingletonAndRestart();
+            }
 
             if(templateClass.getIsAlgorithm()){
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
@@ -956,6 +1000,7 @@ public class TemplateEditorActivity extends BaseActivity
                                 TemplateEditorSingleton.getInstance().publicTemplateKeyId = templateClass
                                         .getPublicTemplateKeyId();
 
+                                //resetButton.setText("8");
                                 inflateFromTemplateModelClass(templateClass);
 
                             }
@@ -1005,6 +1050,7 @@ public class TemplateEditorActivity extends BaseActivity
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             TemplateModelClass templateClass = dataSnapshot.getValue(TemplateModelClass.class);
+                            //"8");
                             inflateFromTemplateModelClass(templateClass);
                         }
 
@@ -1032,7 +1078,8 @@ public class TemplateEditorActivity extends BaseActivity
 
                         try{
                             if(getCurrentFocus() != null){
-                                Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to begin!", Snackbar
+                                Snackbar.make(getCurrentFocus(), "Click (+) Add Day Set to " +
+                                        "begin!", Snackbar
                                         .LENGTH_LONG).show();
                             }
                         }catch (IllegalStateException e){
@@ -1057,11 +1104,41 @@ public class TemplateEditorActivity extends BaseActivity
                             //TODO This detects true even well after the node has been deleted
                             //checkRunningNode();
                             draftDetectedTextView.setVisibility(View.VISIBLE);
+                            /**
+                             * Where we at:
+                             * Having the thing die in background and comeback 1: adds exercises,
+                             * sets, days. 2: sets the node to default node. Adding cleanUpState
+                             * and resetState caused an endless loop. But we need to do something
+                             * here. One idea is to restart the whole activity, but we'd have to
+                             * know that we're coming from process death. Other idea is that we
+                             * just need to clean it up first and prevent it from updating the
+                             * node (maybe in the process of cleaning up we do that?) but post
+                             * process death the normal clean up methods don't seem to work.
+                             */
+                            //resetButton.setText("6");
                             inflateFromRunning();
+                            try{
+                                if(getCurrentFocus() != null){
+                                    Snackbar.make(getCurrentFocus(), "Inflated from running",
+                                            Snackbar
+                                            .LENGTH_LONG).show();
+                                }
+                            }catch (IllegalStateException e){
+
+                            }
                         }else{
                             // do nothing?
                             draftDetectedTextView.setVisibility(View.GONE);
+                            //resetButton.setText("7");
                             addDaySet();
+                            try{
+                                if(getCurrentFocus() != null){
+                                    Snackbar.make(getCurrentFocus(), "Added day set", Snackbar
+                                            .LENGTH_LONG).show();
+                                }
+                            }catch (IllegalStateException e){
+
+                            }
                         }
                     }
 
@@ -1175,15 +1252,31 @@ public class TemplateEditorActivity extends BaseActivity
             modelClass.setPublicTemplateKeyId(TemplateEditorSingleton.getInstance().publicTemplateKeyId);
         }
 
-        selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                boolean myAss = TemplateEditorSingleton.getInstance().isCurrentUserImperial;
-            }
-        });
+        try{
+            String string = modelClass.getMapOne().get("1_key").get(1);
+
+            selectedTemplateDataRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    boolean myAss = TemplateEditorSingleton.getInstance().isCurrentUserImperial;
+                    templateModelClass = modelClass;
+                }
+            });
+
+        }catch (NullPointerException e){
+            clearSingletonAndRestart();
+        }
+
     }
 
+    TemplateModelClass templateModelClass;
+
     // END UPLOAD OF TEMPLATE
+
+    private void doNothing(){
+        ++fragIdCount;
+        --fragIdCount;
+    }
 
     private void addDaySet(){
         if(timer != null){
@@ -1514,7 +1607,12 @@ public class TemplateEditorActivity extends BaseActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TemplateModelClass modelClass = dataSnapshot.getValue(TemplateModelClass.class);
-                inflateFromTemplateModelClass(modelClass);
+                try{
+                    //resetButton.setText(modelClass.getMapOne().get("1_key").get(1));
+                    inflateFromTemplateModelClass(modelClass);
+                }catch (NullPointerException e){
+
+                }
             }
 
             @Override
@@ -1589,6 +1687,7 @@ public class TemplateEditorActivity extends BaseActivity
         }else if(requestCode == 3){
             if(resultCode == 1){
                 // inflate from running
+                //resetButton.setText("10");
                 inflateFromRunning();
             }else if(resultCode == 2){
                 // normal inflate

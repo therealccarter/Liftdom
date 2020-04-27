@@ -3,6 +3,7 @@ package com.liftdom.template_editor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import androidx.fragment.app.Fragment;
 import android.text.InputFilter;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.charts_stats_tools.DigitsInputFilter;
 import com.liftdom.liftdom.R;
 
 /**
@@ -84,8 +86,14 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
         }else{
             units.setText("kgs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
         }
 
         if(isEdit){
@@ -102,7 +110,12 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 String setsWithSpaces = setSchemesEachArray[0];
                 String setsWithoutSpaces = setsWithSpaces.replaceAll("\\s+","");
                 //int setsInt = Integer.parseInt(setsWithoutSpaces);
-                setsEditText.setText(setsWithoutSpaces);
+                if(setsWithoutSpaces.equals("0")){
+                    setsEditText.setText("");
+                }else{
+                    setsEditText.setText(setsWithoutSpaces);
+                }
+
 
                 // reps
                 if(isAmrap(setSchemeEdited)){
@@ -119,7 +132,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         repsEditText.setEnabled(false);
                         setToFailureBoolean();
                     }else{
-                        repsEditText.setText(repsWithout);
+                        if(repsWithout.equals("0")){
+                            repsEditText.setText("");
+                        }else{
+                            repsEditText.setText(repsWithout);
+                        }
                         setToDefaultRepsBoolean();
                     }
                 }
@@ -145,7 +162,11 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                         weightEditText.setEnabled(false);
                         setToBWBoolean();
                     }else{
-                        weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                        if(weightWithoutSpaces.equals("0")){
+                            weightEditText.setText("");
+                        }else{
+                            weightEditText.setText(handleUnitConversion(weightWithoutSpaces));
+                        }
                         setToDefaultWeightBoolean();
                     }
                 }
@@ -495,10 +516,15 @@ public class SetsLevelChildFrag extends android.app.Fragment {
         String weightString;
         if(isEdit){
             if(percentageLL.getVisibility() == View.VISIBLE){
-                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + reHandleUnitConversion(percentageWeightButton
-                        .getText().toString());
+                //weightString =
+                //        "p_" + percentageEditText.getText().toString() + "_a_" +
+                //        reHandleUnitConversion(percentageWeightButton
+                //        .getText().toString());
+                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
+                        .getText().toString();
             }else{
-                weightString = reHandleUnitConversion(weightEditText.getText().toString());
+                //weightString = reHandleUnitConversion(weightEditText.getText().toString());
+                weightString = weightEditText.getText().toString();
             }
             //weightString = reHandleUnitConversion(weightEditText.getText().toString());
         }else{
