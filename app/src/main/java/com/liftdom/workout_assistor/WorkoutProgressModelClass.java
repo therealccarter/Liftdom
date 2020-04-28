@@ -23,6 +23,7 @@ public class WorkoutProgressModelClass {
     private String mPublicComment;
     private String mMediaResource;
     private boolean mIsTemplateImperial;
+    private boolean mIsRunningImperial;
     private String mViewCursor; // the current set we're on
     private String mRefKey;
     private String mRestTime;
@@ -53,6 +54,14 @@ public class WorkoutProgressModelClass {
         }
         mIsRevise = isRevise;
         mIsFromRestDay = isFromRestDay;
+    }
+
+    public boolean isIsRunningImperial() {
+        return mIsRunningImperial;
+    }
+
+    public void setIsRunningImperial(boolean mIsRunningImperial) {
+        this.mIsRunningImperial = mIsRunningImperial;
     }
 
     public HashMap<String, String> getmPreMadeInfo() {

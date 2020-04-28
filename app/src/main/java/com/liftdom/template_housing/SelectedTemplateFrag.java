@@ -273,8 +273,15 @@ public class SelectedTemplateFrag extends Fragment {
                 historyCalendarTab.isExclusive = true;
                 historyCalendarTab.templateName = templateName;
 
-                fragmentTransaction.add(R.id.fragHolder2, historyCalendarTab);
-                fragmentTransaction.commit();
+                try{
+                    fragmentTransaction.add(R.id.fragHolder2, historyCalendarTab);
+                    fragmentTransaction.commit();
+                }catch (IllegalArgumentException e){
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.putExtra("fragID", 1);
+                    startActivity(intent);
+                }
+
             }
         }
 

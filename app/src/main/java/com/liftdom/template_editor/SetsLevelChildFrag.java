@@ -488,6 +488,17 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             InputFilter[] filterArray = new InputFilter[1];
             filterArray[0] = new InputFilter.LengthFilter(3);
             weightEditText.setFilters(filterArray);
+            if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
+                units.setText("lbs");
+                //weightEditText.setText("");
+                weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+            }else{
+                units.setText("kgs");
+                //weightEditText.setText("");
+                weightEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+                weightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
+            }
             weightEditText.setText("");
             weightEditText.setEnabled(true);
             weightEditText.setHint("W");

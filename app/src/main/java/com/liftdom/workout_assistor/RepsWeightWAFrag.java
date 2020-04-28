@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.Fragment;
@@ -17,9 +18,11 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.liftdom.charts_stats_tools.DigitsInputFilter;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExtraOptionsDialog;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.SetsLevelChildFrag;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -100,8 +103,14 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
         if(isUserImperial){
             unitView.setText("lbs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
         }else{
             unitView.setText("kgs");
+            weightEditText.setText("");
+            weightEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
         }
 
         if(repsWeightString.equals("false")){
@@ -628,7 +637,8 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             weightText = "0";
         }else{
             if(!weightText.equals("B.W.")){
-                weightText = convertUnitsBackToTemplate(weightText);
+                //weightText = convertUnitsBackToTemplate(weightText);
+                weightText = weightText;
             }
         }
 
@@ -689,6 +699,15 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         weightEditText.setFilters(filterArray);
         if(weightEditText.getText().toString().equals("B.W.")){
             weightEditText.setText("");
+        }
+        if(isUserImperial){
+            unitView.setText("lbs");
+            weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+        }else{
+            unitView.setText("kgs");
+            weightEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            weightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
         }
         weightEditText.setEnabled(true);
         weightEditText.setHint("W");

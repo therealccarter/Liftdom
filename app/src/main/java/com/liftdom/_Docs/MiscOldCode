@@ -1,4 +1,166 @@
 
+
+
+
+TE running problem, it was imperial, then set profile to kgs. In TE running, the units changed to
+kgs, but when i entered 10 (kgs), saved, then came back, it was 22 kgs. So if the TE knows it's
+imperial first, it's directly saving what's in the edit text and thinking that's still imperial.
+Then taking that number thinking it's imperial and then seeing that we're now kgs, it's trying to
+convert it back. This might be problem in normal TE? and WA.
+What should happen?
+    - If you're editing something as that POV, shouldn't we assume that the template becomes that as
+     well?
+    - Therefore, if a Template was imperial, but you are now editing it in kgs, it should become kgs.
+    - The only place it should "convert" the value from whatever the Template was to what the POV
+    is, is when it first reads it in.
+    - We can solve this by simply making the update set the template units to the POV.
+    - ok it updated to the right units, but it didn't save the new weight. it was 10(kgs), switched
+    to imperial, it switched to 22lbs, but when we updated it kept the 10 and not the 22...
+
+    - so the true problem here is that when updating, it tries to convert the weight before updating
+     instead of just updating the weight.
+    - fixed in TE, now gotta investigate behavior in WA.
+        - ok and when it converts from imperial to metric, it should be the closest decimal with .5
+        or a flat number. ie ties into the decimal feature.
+    - noprogress should detect and convert from template units. then we set a running units, and if
+    it's from the running node we detect and convert from that.
+
+package com.liftdom.workout_assistor;
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.liftdom.liftdom.R;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class RepsWeightFrag extends Fragment {
+
+
+    public RepsWeightFrag() {
+        // Required empty public constructor
+    }
+
+    int setNumber;
+
+
+    public String reps = "fail";
+    public String weight = "fail";
+    public String parentExercise = "failed";
+    public String fullString = "failed";
+    public boolean isFromCalendar = false;
+    public boolean isCheckbox = false;
+
+    @BindView(R.id.repsEditText) EditText repsEditText;
+    @BindView(R.id.weightEditText) EditText weightEditText;
+    @BindView(R.id.checkBox) CheckBox checkBox;
+    @BindView(R.id.main_layout) LinearLayout mainLayout;
+    @BindView(R.id.pounds) TextView pounds;
+
+    Bundle mSaved;
+
+    View view;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_reps_weight, container, false);
+
+        ButterKnife.bind(this, view);
+
+        mSaved = savedInstanceState;
+
+        repsEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(repsEditText.getText().toString().equals("0")){
+                    repsEditText.setText("");
+                }
+            }
+        });
+
+        weightEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(weightEditText.getText().toString().equals("0")){
+                    weightEditText.setText("");
+                }
+            }
+        });
+
+        repsEditText.setText(reps);
+        if(weight.equals("B.W.")){
+            weightEditText.setText(weight);
+            weightEditText.setEnabled(false);
+            pounds.setVisibility(View.GONE);
+            weightEditText.setTextColor(Color.parseColor("#000000"));
+        }else{
+            weightEditText.setText(weight);
+        }
+
+        if(isFromCalendar){
+            checkBox.setVisibility(View.GONE);
+        }
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(checkBox.isChecked()){
+                    mainLayout.setBackgroundColor(Color.parseColor("#EBEBEB"));
+                } else{
+                    mainLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+            }
+        });
+
+        if(isCheckbox){
+            checkBox.setChecked(true);
+        }
+
+        return view;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        if(mSaved == null && !isFromCalendar) {
+            CheckBox checkBox = (CheckBox) getView().findViewById(R.id.checkBox);
+            EditText repsEditText = (EditText) getView().findViewById(R.id.repsEditText);
+            EditText weightEditText = (EditText) getView().findViewById(R.id.weightEditText);
+
+            if (checkBox.isChecked()) {
+                String compiledString = repsEditText.getText() + "@" + weightEditText.getText();
+                WorkoutAssistorAssemblerClass.getInstance().setRepsWeight(parentExercise, compiledString);
+            }
+        }
+    }
+
+    public String getCheckedStatus(){
+        boolean isChecked;
+
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+        isChecked = checkBox.isChecked();
+
+        String toString = String.valueOf(isChecked);
+
+        return toString;
+    }
+
+    public String getParentExercise(){
+        return parentExercise;
+    }
+
+}
 set as active should check to see if template has no days
 set as active template was checked despite us not having no templates
 <RelativeLayout

@@ -179,7 +179,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
             isNumber = true;
         } else{
             try {
-                int num = Integer.parseInt(input);
+                double num = Double.parseDouble(input);
                 Log.i("",num+" is a number");
                 isNumber = true;
             } catch (NumberFormatException e) {

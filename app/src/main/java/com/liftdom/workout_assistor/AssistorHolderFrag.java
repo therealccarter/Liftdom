@@ -74,6 +74,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     WorkoutProgressModelClass workoutProgressModelClass;
     String smolovWeekDayString;
     boolean isTemplateImperial;
+    boolean isRunningImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
     boolean isRevisedWorkout;
     boolean isFreestyleWorkout;
@@ -868,6 +869,8 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
         }
 
+        progressModelClass.setIsRunningImperial(isUserImperial);
+
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
@@ -933,6 +936,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         }else{
             progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
         }
+
+        progressModelClass.setIsRunningImperial(isUserImperial);
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
         workoutProgressModelClass = progressModelClass;
@@ -1014,6 +1019,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         }else{
             progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
         }
+
+        progressModelClass.setIsRunningImperial(isUserImperial);
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
 
@@ -1098,6 +1105,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
                     }
 
+                    progressModelClass.setIsRunningImperial(isUserImperial);
+
                     progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
                     workoutProgressModelClass = progressModelClass;
 
@@ -1155,6 +1164,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         }else{
             progressModelClass.setVibrationTime(secondsVibrateEditText.getText().toString());
         }
+
+        progressModelClass.setIsRunningImperial(isUserImperial);
 
         progressModelClass.setIsRestTimerAlert(showRestTimerAlertRB.isChecked());
         workoutProgressModelClass = progressModelClass;
@@ -1570,6 +1581,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 Log.i("assistorInfo", "runningAssistor confirmed");
                                 cleanUpState();
                                 isTemplateImperial = workoutProgressModelClass.isIsTemplateImperial();
+                                isRunningImperial = workoutProgressModelClass.isIsRunningImperial();
                                 isFromRestDay = workoutProgressModelClass.isIsFromRestDay();
                                 if(isFromRestDay){
                                     cancelRevisionHolder.setVisibility(View.VISIBLE);
@@ -1584,7 +1596,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                                     noProgressInflateViews();
                                 }else{
                                     savedProgressInflateViews(workoutProgressModelClass.getExInfoHashMap(), workoutProgressModelClass.getPrivateJournal(),
-                                            workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial());
+                                            workoutProgressModelClass.getPublicComment(), workoutProgressModelClass.isIsTemplateImperial(),
+                                            workoutProgressModelClass.isIsRunningImperial());
                                 }
                             }else{
                                 if(exNameFragList.isEmpty()){
@@ -1766,7 +1779,8 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
-            privateJournal, String publicComment, boolean isTemplateImperial1){
+            privateJournal, String publicComment, boolean isTemplateImperial1,
+                                           boolean isRunningImperial1){
 
         Log.i("assistorInfo", "savedProgressInflateViews");
 
@@ -1815,7 +1829,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         HashMap<String, List<String>> exerciseMap = entry.getValue();
                         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExNameWAFrag exNameFrag = new ExNameWAFrag();
-                        exNameFrag.isTemplateImperial = isTemplateImperial1;
+                        //exNameFrag.isTemplateImperial = isTemplateImperial1;
+                        exNameFrag.isTemplateImperial = isRunningImperial1;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.isEditInfoList = exerciseMap;
                         exNameFrag.fragTag = tag;
