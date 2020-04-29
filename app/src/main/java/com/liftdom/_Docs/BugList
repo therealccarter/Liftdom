@@ -258,6 +258,8 @@ and 1 extra DoW. Wtf. Maybe it tried to do onCreate again?? It also resets the n
 Fixed problem with TE running and WA where changing units midway causes issues
     - noprogress should detect and convert from template units. then we set a running units, and if
           it's from the running node we detect and convert from that.
+Made TE no history
+TE needs to update when rest timer stuff is changed.
 ----------------------
 ====================================================
 
@@ -304,17 +306,13 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
 history calendar tab error
     - if we go from hct to workout programming then hit back button, hct crashes (selected template
     frag)
+    - this actually shows a huge problem throughout the app; hitting back and returning to a page
+    probably only triggers onResume, and so in some places it won't be updated and in other places
+    it may crash like HCT crashes.
 
 bodyweight exercises shouldn't be allowed to be changed from B.W.
 
 Get rid of feed slider/start on global/radio buttons
-
-Create a high level plan to trust.
-    - A few premades + testers, then more, etc.
-    - Game plan/strategize what to do when the big dogs come for the niche.
-        - They'll start adding these premades etc.
-        - You want all the popular programs, they'll try too.
-        - So you have to get there first and market it enough to where it's associated with Liftdom.
 
 make search button just show edit text then on finish/click on search button it just opens some user
  search frag
@@ -365,6 +363,18 @@ app too thicc
     https://stackoverflow.com/questions/41653134/how-to-optimizereduce-the-size-of-my-android-app
 
 rep button could be higher (in line with last workout info line)
+
+maybe notification bar should be in paid version? maybe not and just show interstitials?
+    - if they used the notification bar they get an interstitial?
+
+full units parity should be emphasized
+
+Create a high level plan to trust.
+    - A few premades + testers, then more, etc.
+    - Game plan/strategize what to do when the big dogs come for the niche.
+        - They'll start adding these premades etc.
+        - You want all the popular programs, they'll try too.
+        - So you have to get there first and market it enough to where it's associated with Liftdom.
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================

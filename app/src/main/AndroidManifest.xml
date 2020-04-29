@@ -80,6 +80,7 @@
         <activity
                 android:name="com.liftdom.template_editor.TemplateEditorActivity"
                 android:label=""
+                android:noHistory="true"
                 android:screenOrientation="portrait" />
         <activity
                 android:name="com.liftdom.template_editor.SaveTemplateDialog"

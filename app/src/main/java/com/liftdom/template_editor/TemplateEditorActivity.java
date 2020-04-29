@@ -77,6 +77,8 @@ public class TemplateEditorActivity extends BaseActivity
     Rect measureRect;
     boolean hasUpdatedOnce = false;
 
+    boolean restTimerNoUpdate = false;
+
     ArrayList<DayOfWeekChildFrag> dayOfWeekChildFragArrayList = new ArrayList<>();
 
     DayOfWeekChildFrag doW1 = new DayOfWeekChildFrag();
@@ -158,6 +160,7 @@ public class TemplateEditorActivity extends BaseActivity
         restTimerLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                restTimerNoUpdate = false;
                 if(restTimerBool){
                     restTimerSwitch.setChecked(false);
                 }else{
@@ -172,9 +175,30 @@ public class TemplateEditorActivity extends BaseActivity
                 if(b){
                     restTimerBool = true;
                     restTimerInfoLL.setVisibility(View.VISIBLE);
+                    if(!restTimerNoUpdate){
+                        updateTemplateNode();
+                    }else{
+                        restTimerNoUpdate = false;
+                    }
                 }else{
                     restTimerBool = false;
                     restTimerInfoLL.setVisibility(View.GONE);
+                    if(!restTimerNoUpdate){
+                        updateTemplateNode();
+                    }else{
+                        restTimerNoUpdate = false;
+                    }
+                }
+            }
+        });
+
+        showRestTimerAlertRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!restTimerNoUpdate){
+                    updateTemplateNode();
+                }else{
+                    restTimerNoUpdate = false;
                 }
             }
         });
@@ -234,8 +258,8 @@ public class TemplateEditorActivity extends BaseActivity
         addDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //addDaySet();
-                doNothing();
+                addDaySet();
+                //doNothing();
             }
         });
 
@@ -746,8 +770,10 @@ public class TemplateEditorActivity extends BaseActivity
                 secondsEditText.setText(tokens[1]);
             }
 
+
             if(templateClass.getVibrationTime() != null){
                 secondsVibrateEditText.setText(templateClass.getVibrationTime());
+                restTimerNoUpdate = true;
                 if(templateClass.isIsRestTimerAlert()){
                     justVibrateRB.setChecked(false);
                     showRestTimerAlertRB.setChecked(true);
@@ -757,6 +783,7 @@ public class TemplateEditorActivity extends BaseActivity
                 }
             }
 
+            restTimerNoUpdate = true;
             restTimerSwitch.setChecked(templateClass.isIsActiveRestTimer());
 
             TemplateEditorSingleton.getInstance().mDateCreated = templateClass.getDateCreated();
@@ -891,6 +918,8 @@ public class TemplateEditorActivity extends BaseActivity
             }catch (IllegalStateException e){
                 clearSingletonAndRestart();
             }
+
+            restTimerNoUpdate = false;
 
             if(templateClass.getIsAlgorithm()){
                 TemplateEditorSingleton.getInstance().mIsAlgorithm = true;
@@ -1062,6 +1091,7 @@ public class TemplateEditorActivity extends BaseActivity
                 }
             }else if(getIntent().getExtras().getString("isEdit").equals("no")){
                 // totally from scratch
+                restTimerNoUpdate = true;
                 restTimerSwitch.setChecked(true);
 
                 DatabaseReference userRef = mRootRef.child("user").child(uid);

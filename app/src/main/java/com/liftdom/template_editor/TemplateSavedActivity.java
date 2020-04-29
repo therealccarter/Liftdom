@@ -373,14 +373,5 @@ public class TemplateSavedActivity extends BaseActivity {
         return days;
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        Intent intent = new Intent(TemplateSavedActivity.this, MainActivity.class);
-        intent.putExtra("fragID", 0);
-        startActivity(intent);
-
-    }
-
 
 }
