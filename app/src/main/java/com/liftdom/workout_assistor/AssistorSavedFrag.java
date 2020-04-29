@@ -370,6 +370,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             if(preMadeInfo.get("isLastDay").equals("true")){
                                 extraInfoTextView.setText("Congratulations! You\'ve finished Smolov.");
                                 extraInfoTextView.setVisibility(View.VISIBLE);
+                                activeTemplateRef.setValue(null);
                             }else{
                                 processSmolovMaxDay();
                                 extraInfoTextView.setText("You\'re halfway there!");
@@ -378,7 +379,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         }
                     }
                 }
-                activeTemplateRef.setValue(null);
             }
 
             //DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
@@ -447,10 +447,11 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             userModelClass.getUserName(), publicDescription, dateUTC, isImperial, refKey, mediaRef,
                             workoutInfoMapProcessed, commentModelClassMap, null, bonusList);
 
+                    //needed
                     myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     feedFanOut(refKey, completedWorkoutModelClass);
 
+                    //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     //runningRef.child("refKey").setValue(refKey);
                     //runningRef.child("isRevise").setValue(false);
                     //runningRef.child("completedBool").setValue(true);
@@ -458,68 +459,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     dontLeavePage.setVisibility(View.GONE);
 
                     // workout history
-                    WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
-                            userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
-                            workoutInfoMapProcessed, isImperial);
-                    //if (!isFirstTimeFirstTime) {//
-                        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-                                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
-                                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-                                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service
-                                                .getClassName())) {
-                                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
-                                            getActivity().stopService(stopIntent);
-                                        }
-                                    }
-                                }
-                                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
-                                        ("runningAssistor").child(uid).child("assistorModel");
-
-                                runningRef.addListenerForSingleValueEvent(new
-                                ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        WorkoutProgressModelClass workoutProgressModelClass =
-                                                dataSnapshot.getValue(WorkoutProgressModelClass
-                                                        .class);
-                                        workoutProgressModelClass.setRefKey(REFKEY);
-                                        workoutProgressModelClass.setIsRevise(false);
-                                        workoutProgressModelClass.setCompletedBool(true);
-                                        workoutProgressModelClass.setExInfoHashMap(completedMap);
-//
-                                        runningRef.setValue(workoutProgressModelClass);
-                                    }
-                                    //
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError
-                                                                    databaseError) {
-//
-                                    }
-                                });
-
-                                //Handler handler = new Handler();
-                                //handler.postDelayed(new Runnable() {
-                                //    @Override
-                                //    public void run() {
-                                //
-                                //    }
-                                //}, 15000);
-
-
-
-                                //Map runningMa = new HashMap<>();
-//
-                                //runningMa.put("/refKey", REFKEY);
-                                //runningMa.put("/isRevise", false);
-                                //runningMa.put("/completedBool", true);
-//
-                                //runningRef.updateChildren(runningMa);
-                            }
-                        });
-                    //}
+                    //needed
+                    setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
+                            workoutHistoryRef, REFKEY);
 
                 }
 
@@ -612,6 +554,58 @@ public class AssistorSavedFrag extends android.app.Fragment {
         }
 
         return view;
+    }
+
+    private void setWorkoutHistoryRef(String date, boolean isImperial,
+                                      HashMap<String, List<String>> workoutInfoMapProcessed,
+                                      DatabaseReference workoutHistoryRef,
+                                      final String REFKEY){
+
+        WorkoutHistoryModelClass historyModelClass = new WorkoutHistoryModelClass(userModelClass.getUserId(),
+                userModelClass.getUserName(), publicDescription, privateJournal, date, mediaRef,
+                workoutInfoMapProcessed, isImperial);
+
+        workoutHistoryRef.setValue(historyModelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+                if (manager.getRunningServices(Integer.MAX_VALUE) != null) {
+                    for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+                        if (AssistorServiceClass.class.getName().equals(serviceInfo.service
+                                .getClassName())) {
+                            Intent stopIntent = new Intent(getActivity(), AssistorServiceClass.class);
+                            getActivity().stopService(stopIntent);
+                        }
+                    }
+                }
+                DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+                        ("runningAssistor").child(uid).child("assistorModel");
+
+                runningRef.addListenerForSingleValueEvent(new
+                ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        WorkoutProgressModelClass workoutProgressModelClass =
+                                dataSnapshot.getValue(WorkoutProgressModelClass
+                                        .class);
+                        workoutProgressModelClass.setRefKey(REFKEY);
+                        workoutProgressModelClass.setIsRevise(false);
+                        workoutProgressModelClass.setCompletedBool(true);
+                        workoutProgressModelClass.setExInfoHashMap(completedMap);
+//
+                        runningRef.setValue(workoutProgressModelClass);
+                    }
+                    //
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError
+                                                    databaseError) {
+//
+                    }
+                });
+
+
+            }
+        });
     }
 
     private void processSmolovMaxDay(){

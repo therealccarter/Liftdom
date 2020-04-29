@@ -260,6 +260,7 @@ Fixed problem with TE running and WA where changing units midway causes issues
           it's from the running node we detect and convert from that.
 Made TE no history
 TE needs to update when rest timer stuff is changed.
+made WA text boxes auto go to next line
 ----------------------
 ====================================================
 
@@ -291,6 +292,7 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
             - got the input filter done, now seeing if it saves correctly in TE.
             - then need to make sure it works everywhere. Wherever it's displayed
             (SelectedTemplates, WA, Dates, etc).
+            - when calculating premade values for metric, we gotta round to nearest .5.
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine

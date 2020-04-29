@@ -86,6 +86,10 @@ public class StatChartsFrag extends Fragment {
 
         titleView.setTypeface(lobster);
 
+        /**
+         * 113.25kg reads as 0 in chart
+         */
+
         maxWeightRadioButton.setChecked(true);
         exercisesRadioButton.setChecked(true);
 

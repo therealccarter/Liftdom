@@ -322,7 +322,7 @@ public class UserModelClass {
                     String delims = "[@,_]";
                     String tokens[] = string.split(delims);
                     int int1 = Integer.parseInt(tokens[0]);
-                    int int2;
+                    double int2;
                     if(tokens[1].equals("B.W.")){
                         if(isIsImperial()){
                             int2 = Integer.parseInt(getPounds()) / 4;
@@ -330,9 +330,9 @@ public class UserModelClass {
                             int2 = Integer.parseInt(getKgs()) / 2;
                         }
                     }else{
-                        int2 = Integer.parseInt(tokens[1]);
+                        int2 = Double.parseDouble(tokens[1]);
                     }
-                    int int3 = int1 * int2;
+                    int int3 = int1 * (int) int2;
                     totalPoundage = totalPoundage + int3;
                 }
             }
