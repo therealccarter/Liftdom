@@ -178,7 +178,7 @@ public class WorkoutHistoryModelClass {
     private double converter(double poundage, boolean isImperialPOV){
         double converted = 0.0;
 
-        if(isImperialPOV && mIsImperial){
+        if(isImperialPOV == mIsImperial){
             converted = poundage;
         }else if(!isImperialPOV && mIsImperial){
             // user is currently kg, workout is in pounds. imperial to metric.

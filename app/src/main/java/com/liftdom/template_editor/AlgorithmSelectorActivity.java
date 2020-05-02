@@ -1,6 +1,7 @@
 package com.liftdom.template_editor;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -60,6 +61,9 @@ public class AlgorithmSelectorActivity extends AppCompatActivity {
         }else{
             units.setText("kgs");
         }
+
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "fonts/Lobster-Regular.ttf");
+        titleView.setTypeface(lobster);
 
         exName = getIntent().getExtras().getString("exName");
         if(getIntent().getExtras().getString("day") != null){

@@ -531,8 +531,18 @@ public class SetsLevelChildFrag extends android.app.Fragment {
                 //        "p_" + percentageEditText.getText().toString() + "_a_" +
                 //        reHandleUnitConversion(percentageWeightButton
                 //        .getText().toString());
-                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
-                        .getText().toString();
+                String percentage = percentageEditText.getText().toString();
+                String percentageWeight = percentageWeightButton.getText().toString();
+
+                if(percentage.isEmpty()){
+                    percentage = "0";
+                }
+
+                if(percentageWeight.isEmpty()){
+                    percentageWeight = "0";
+                }
+
+                weightString = "p_" + percentage + "_a_" + percentageWeight;
             }else{
                 //weightString = reHandleUnitConversion(weightEditText.getText().toString());
                 weightString = weightEditText.getText().toString();
@@ -540,8 +550,19 @@ public class SetsLevelChildFrag extends android.app.Fragment {
             //weightString = reHandleUnitConversion(weightEditText.getText().toString());
         }else{
             if(percentageLL.getVisibility() == View.VISIBLE){
-                weightString = "p_" + percentageEditText.getText().toString() + "_a_" + percentageWeightButton
-                        .getText().toString();
+
+                String percentage = percentageEditText.getText().toString();
+                String percentageWeight = percentageWeightButton.getText().toString();
+
+                if(percentage.isEmpty()){
+                    percentage = "0";
+                }
+
+                if(percentageWeight.isEmpty()){
+                    percentageWeight = "0";
+                }
+
+                weightString = "p_" + percentage + "_a_" + percentageWeight;
             }else{
                 weightString = weightEditText.getText().toString();
             }

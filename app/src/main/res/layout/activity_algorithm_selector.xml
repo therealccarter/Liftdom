@@ -391,11 +391,20 @@
                     android:textSize="16sp"
                     android:id="@+id/algorithmLooper"
                     android:buttonTint="@color/liftrGold1"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:gravity="center"
             />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
             <CheckBox
                     android:layout_width="match_parent"
@@ -407,9 +416,18 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:text="@string/algoExApply"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
             />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
             <CheckBox
                     android:layout_width="match_parent"
@@ -421,10 +439,18 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:text="@string/algoWeightCheck"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
             />
 
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
             <CheckBox
                     android:layout_width="match_parent"
@@ -436,9 +462,18 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:text="@string/algoAllExApply"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
             />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
             <LinearLayout
                     android:layout_width="match_parent"

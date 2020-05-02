@@ -261,6 +261,12 @@ Fixed problem with TE running and WA where changing units midway causes issues
 Made TE no history
 TE needs to update when rest timer stuff is changed.
 made WA text boxes auto go to next line
+made it so metricPOV && isMetric workout histories get charted
+preliminary decimal support
+    - got the input filter done, now seeing if it saves correctly in TE.
+    - then need to make sure it works everywhere. Wherever it's displayed
+                (SelectedTemplates, WA, Dates, etc).
+Fixed bug causing empty percentages to not be saved in TE running
 ----------------------
 ====================================================
 
@@ -289,10 +295,8 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
         - need percentages as decimals
             - (think of the implications if we add/subtract/multiply/divide
                 and then round we lose precision.)
-            - got the input filter done, now seeing if it saves correctly in TE.
-            - then need to make sure it works everywhere. Wherever it's displayed
-            (SelectedTemplates, WA, Dates, etc).
-            - when calculating premade values for metric, we gotta round to nearest .5.
+            - when calculating premade values for metric, we gotta round to nearest flat multiple of
+             5 or 2.5.
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
@@ -302,7 +306,7 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
     - pre-mades shouldn't be allowed to be "fully" edited, but they should be able to have their
         extraInfo values edited.
 
-
+Create a class that handles the premade selection in places like WA,
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====
 history calendar tab error
@@ -388,6 +392,7 @@ For each new program, check:
     - AssistorHolderFarg
     - AssistorSavedFrag (probably)
 
+PLATE CALCULATOR https://play.google.com/store/apps/details?id=com.dongledan.barisloaded
 
 Programmed deloads?
     - could be a button within TE that you click and brings up window just like TE, and you set how
