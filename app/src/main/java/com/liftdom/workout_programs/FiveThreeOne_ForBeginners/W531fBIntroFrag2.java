@@ -1,6 +1,10 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import androidx.annotation.NonNull;
+import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,11 +41,6 @@ public class W531fBIntroFrag2 extends SlideFragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-    private long delay = 50;
-    private long lastTextEdit = 0;
-    Handler handler = new Handler();
-    List<String> templateNameList = new ArrayList<>();
-
     @BindView(R.id.squatEditText) EditText squatEditText;
     @BindView(R.id.unitsView1) TextView unitsView1;
     @BindView(R.id.benchPressEditText) EditText benchPressEditText;
@@ -50,8 +49,9 @@ public class W531fBIntroFrag2 extends SlideFragment {
     @BindView(R.id.unitsView3) TextView unitsView3;
     @BindView(R.id.ohpEditText) EditText ohpEditText;
     @BindView(R.id.unitsView4) TextView unitsView4;
-    @BindView(R.id.programNameEditText) EditText programNameEditText;
-    @BindView(R.id.programNameTakenView) TextView programNameTakenView;
+    @BindView(R.id.roundToNearest5) CheckBox roundToNearest5;
+    @BindView(R.id.todayRadioButton) RadioButton todayRadioButton;
+    @BindView(R.id.mondayRadioButton) RadioButton mondayRadioButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,11 +63,8 @@ public class W531fBIntroFrag2 extends SlideFragment {
 
         HideKey.initialize(getActivity(), view);
 
-        getTemplateNames();
-
-        if(savedInstanceState == null){
-            programNameEditText.setText("Wendler_5-3-1");
-        }
+        mondayRadioButton.setChecked(true);
+        roundToNearest5.setChecked(true);
 
         /**
          * I'd feel best about this program if it is in normal formatting.
@@ -81,12 +78,15 @@ public class W531fBIntroFrag2 extends SlideFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
+                W531fBSingleton.getInstance().isImperial = userModelClass.isIsImperial();
                 if(userModelClass.isIsImperial()){
+                    checkMaxes(userModelClass.isIsImperial());
                     unitsView1.setText("lbs");
                     unitsView2.setText("lbs");
                     unitsView3.setText("lbs");
                     unitsView4.setText("lbs");
                 }else{
+                    checkMaxes(userModelClass.isIsImperial());
                     unitsView1.setText("kgs");
                     unitsView2.setText("kgs");
                     unitsView3.setText("kgs");
@@ -100,41 +100,138 @@ public class W531fBIntroFrag2 extends SlideFragment {
             }
         });
 
-        programNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                handler.removeCallbacks(inputFinishChecker);
-                programNameTakenView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length() > 0){
-                    lastTextEdit = System.currentTimeMillis();
-                    handler.postDelayed(inputFinishChecker, delay);
-                }
-            }
-        });
-
         return view;
     }
 
-    private Runnable inputFinishChecker = new Runnable() {
-        @Override
-        public void run() {
-            if(System.currentTimeMillis() > (lastTextEdit + delay - 500)){
-                String editTextString = programNameEditText.getText().toString();
-                if(templateNameList.contains(editTextString)){
-                    programNameTakenView.setVisibility(View.VISIBLE);
+    private String convert(boolean isImperialPOV, boolean isValueImperial, String oldValue){
+        String converted;
+
+        if(isImperialPOV && !isValueImperial){
+            // pov is lbs, value is kgs
+            // convert from kgs to lbs
+            converted = metricToImperial(oldValue);
+        }else if(!isImperialPOV && isValueImperial){
+            // pov is kgs, value is lbs
+            // convert from lbs to kgs
+            converted = imperialToMetric(oldValue);
+        }else{
+            converted = oldValue;
+        }
+
+        return converted;
+    }
+
+    private String metricToImperial(String input){
+        double lbsDouble = Double.parseDouble(input) * 2.2046;
+        int lbsInt = (int) Math.round(lbsDouble);
+        return String.valueOf(lbsInt);
+    }
+
+    private String imperialToMetric(String input){
+        double kgDouble = Double.parseDouble(input) / 2.2046;
+        int kgInt = (int) Math.round(kgDouble);
+        return String.valueOf(kgInt);
+    }
+
+    private void checkMaxes(boolean isImperialPOV){
+        DatabaseReference squatRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(
+                        "Squat (Barbell - Back)");
+        squatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ExerciseMaxesModelClass modelClass =
+                            dataSnapshot.getValue(ExerciseMaxesModelClass.class);
+                    try{
+                        squatEditText.setText(convert(isImperialPOV, modelClass.isIsImperial(),
+                                modelClass.getMaxValue()));
+                    }catch (NullPointerException e){
+
+                    }
                 }
             }
-        }
-    };
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference benchRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(
+                        "Bench Press (Barbell - Flat)");
+        benchRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ExerciseMaxesModelClass modelClass =
+                            dataSnapshot.getValue(ExerciseMaxesModelClass.class);
+                    try{
+                        benchPressEditText.setText(convert(isImperialPOV, modelClass.isIsImperial(),
+                                modelClass.getMaxValue()));
+                    }catch (NullPointerException e){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference deadliftRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(
+                        "Deadlift (Barbell - Conventional)");
+        deadliftRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ExerciseMaxesModelClass modelClass =
+                            dataSnapshot.getValue(ExerciseMaxesModelClass.class);
+                    try{
+                        deadliftEditText.setText(convert(isImperialPOV, modelClass.isIsImperial(),
+                                modelClass.getMaxValue()));
+                    }catch (NullPointerException e){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference ohpRef =
+                FirebaseDatabase.getInstance().getReference().child("maxes").child(uid).child(
+                        "Overhead Press (Barbell)");
+        ohpRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ExerciseMaxesModelClass modelClass =
+                            dataSnapshot.getValue(ExerciseMaxesModelClass.class);
+                    try{
+                        ohpEditText.setText(convert(isImperialPOV, modelClass.isIsImperial(),
+                                modelClass.getMaxValue()));
+                    }catch (NullPointerException e){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 
     @Override
     public boolean canMoveFurther(){
@@ -143,39 +240,17 @@ public class W531fBIntroFrag2 extends SlideFragment {
         if(!squatEditText.getText().toString().isEmpty()
                 && !benchPressEditText.getText().toString().isEmpty()
                 && !deadliftEditText.getText().toString().isEmpty()
-                && !ohpEditText.getText().toString().isEmpty()
-                && !programNameEditText.getText().toString().isEmpty()){
+                && !ohpEditText.getText().toString().isEmpty()){
             W531fBSingleton.getInstance().squatMax = squatEditText.getText().toString();
             W531fBSingleton.getInstance().benchMax = benchPressEditText.getText().toString();
             W531fBSingleton.getInstance().deadliftMax = deadliftEditText.getText().toString();
             W531fBSingleton.getInstance().ohpMax = ohpEditText.getText().toString();
-            W531fBSingleton.getInstance().programName = programNameEditText.getText().toString();
+            W531fBSingleton.getInstance().isRoundToNearest5 = roundToNearest5.isChecked();
+            W531fBSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
             valuesEntered = true;
         }
 
         return valuesEntered;
-    }
-
-    private void getTemplateNames(){
-        DatabaseReference templatesRef = mRootRef.child("templates").child(uid);
-        templatesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                        templateNameList.add(dataSnapshot1.getKey());
-                        if(dataSnapshot1.getKey().equals("Wendler_5-3-1")){
-                            programNameTakenView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override

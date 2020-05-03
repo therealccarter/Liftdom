@@ -66,6 +66,8 @@ public class SetsLevelSSFrag extends android.app.Fragment {
         mUpdate = (updateCallback) getParentFragment();
         fromWithinCallback = (withinCallback) getParentFragment();
 
+        setsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 20)});
+
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
             weightEditText.setText("");

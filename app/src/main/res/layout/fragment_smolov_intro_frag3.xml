@@ -30,7 +30,6 @@
             android:padding="3dp"
             android:textSize="14sp"
             android:visibility="gone"
-            android:imeOptions="actionDone"
     />
 
     <EditText
@@ -40,7 +39,8 @@
             android:layout_margin="20dp"
             android:textColor="@color/black"
             android:imeOptions="actionDone"
-            android:maxLength="12"
+            android:maxLength="20"
+            android:hint="@string/programName"
             android:inputType="text"
             android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,-,$,QWERTYUIOPASDFGHJKLZXCVBNM"
     />

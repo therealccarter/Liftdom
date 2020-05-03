@@ -33,6 +33,7 @@ public class TemplateModelClass {
     private HashMap<String, List<String>> mAlgorithmInfo;
     private HashMap<String, List<String>> mAlgorithmDateMap;
     private HashMap<String, String> mExtraInfo;
+    private HashMap<String, String> mExtraInfo2;
     private String publicTemplateKeyId;
     private boolean mIsImperial;
     private List<String> mHasReppedList;
@@ -101,6 +102,14 @@ public class TemplateModelClass {
         }catch (NullPointerException e){
 
         }
+    }
+
+    public HashMap<String, String> getExtraInfo2() {
+        return mExtraInfo2;
+    }
+
+    public void setExtraInfo2(HashMap<String, String> mExtraInfo2) {
+        this.mExtraInfo2 = mExtraInfo2;
     }
 
     public int getMapCount(){

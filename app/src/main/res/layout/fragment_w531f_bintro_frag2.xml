@@ -9,32 +9,48 @@
         tools:context="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBIntroFrag2">
 
     <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/programNameTakenView"
-           android:text="@string/programNameTaken"
-           android:textColor="@color/backgroundgrey1"
-           android:background="@color/transparent"
-           android:gravity="center"
-           android:padding="3dp"
-           android:textSize="14sp"
-           android:visibility="invisible"
-           android:imeOptions="actionDone"
-    />
-
-    <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/programNameEditText"
+            android:text="@string/startTodayOrNextMonday"
+            android:gravity="center"
+            android:textSize="22sp"
             android:textColor="@color/black"
-            android:imeOptions="actionDone"
-            android:maxLength="20"
-            android:inputType="text"
-            android:hint="@string/programName"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,-,$,QWERTYUIOPASDFGHJKLZXCVBNM"
-    />
+            />
+
+    <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            >
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/todayRadioButton"
+                android:text="@string/today"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/darkGrey"
+                />
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mondayRadioButton"
+                android:text="@string/nextMonday"
+                android:textColor="@color/darkGrey"
+                />
+
+    </RadioGroup>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/black"
+            android:layout_margin="20dp"
+            />
+
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -197,5 +213,17 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
     />
+
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/roundToNearest5"
+            android:textColor="@color/black"
+            android:id="@+id/roundToNearest5"
+            android:textSize="14sp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            />
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

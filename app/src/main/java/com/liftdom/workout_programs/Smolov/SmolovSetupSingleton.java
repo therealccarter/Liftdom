@@ -54,6 +54,7 @@ public class SmolovSetupSingleton {
         extraInfo.put("beginDate", beginDate);
         extraInfo.put("exName", exName);
         extraInfo.put("maxWeight", maxWeight);
+        extraInfo.put("maxWeightOG", maxWeight);
         extraInfo.put("isTakeOff10", String.valueOf(isTakeOff10));
         extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
 

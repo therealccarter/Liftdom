@@ -55,7 +55,7 @@ public class W531fBIntroFrag5 extends SlideFragment {
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
-    @BindView(R.id.messageView) TextView messageView;
+    //@BindView(R.id.messageView) TextView messageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,11 +86,28 @@ public class W531fBIntroFrag5 extends SlideFragment {
                 W531fBSingleton.getInstance().isImperial = isImperial;
                 W531fBSingleton.getInstance().userName = userName;
                 W531fBSingleton.getInstance().uid = uid;
-                loadingView.setVisibility(View.GONE);
-                finishButton.setVisibility(View.VISIBLE);
-                if(userModelClass.getActiveTemplate() == null){
+                if(userModelClass.getActiveTemplate() != null){
+                    try{
+                        String string = userModelClass.getActiveTemplate();
+                        if(string == null){
+                            activeProgramCheckbox.setChecked(true);
+                            if(string.isEmpty()){
+                                activeProgramCheckbox.setChecked(true);
+                            }else{
+                                activeProgramCheckbox.setChecked(false);
+                            }
+                        }else{
+                            activeProgramCheckbox.setChecked(false);
+                        }
+                    }catch (NullPointerException e){
+                        activeProgramCheckbox.setChecked(true);
+                    }
+
+                }else{
                     activeProgramCheckbox.setChecked(true);
                 }
+                loadingView.setVisibility(View.GONE);
+                finishButton.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -99,7 +116,7 @@ public class W531fBIntroFrag5 extends SlideFragment {
             }
         });
 
-        messageView.setText(W531fBSingleton.getInstance().getStartDateString());
+        //messageView.setText(W531fBSingleton.getInstance().getStartDateString());
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +146,10 @@ public class W531fBIntroFrag5 extends SlideFragment {
                         modelClass.setExtraInfo(extraInfoMap);
                         modelClass.setDateCreated(dateTimeString);
                         modelClass.setDateUpdated(dateTimeString);
+                        modelClass.setRestTime(W531fBSingleton.getInstance().mRestTime);
+                        modelClass.setIsActiveRestTimer(W531fBSingleton.getInstance().mIsActiveRestTimer);
+                        modelClass.setVibrationTime(W531fBSingleton.getInstance().mVibrationTime);
+                        modelClass.setIsRestTimerAlert(W531fBSingleton.getInstance().mIsRestTimerAlert);
                         modelClass.setIsImperial(isImperial);
                         modelClass.setDescription(getResources().getString(R.string.W5314BShortDescription));
 

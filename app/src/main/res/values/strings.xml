@@ -541,9 +541,57 @@
     </string>
 
     <string name="W531fBDisclaimer">
-        The title says \"for beginners\" but this is definitely a program for intermediate level lifters.\nIf you
-        want to know more, I recommend Googling \"Wendler\'s 5/3/1 For Beginners\" for further reading and clarification
-        on the background and theory behind the lifts you\'ll be doing.
+        The title says \"for beginners\" but it would probably be best to have at least some
+        experience lifting weights.\nIf you want to know more, I recommend Googling \"Wendler\'s
+        5/3/1 For Beginners\" for further reading and clarification on the background and theory
+        behind the lifts you\'ll be doing.
+    </string>
+
+    <string name="assistanceTitle">Assistance Exercise Settings</string>
+
+    <string name="pushColon">Push:</string>
+
+    <string name="pullColon">Pull:</string>
+
+    <string name="SingleLegCoreColon">Single Leg/Core:</string>
+
+    <string name="SingleLegCore">Single Leg/Core</string>
+
+    <string name="needsMoreReps">Needs more reps!</string>
+
+    <string name="needsLessReps">Needs less reps!</string>
+
+    <string name="W5314BPushExercises">
+        Dips, push-ups, DB bench/incline/press, triceps extensions/pushdowns.
+    </string>
+
+    <string name="W5314BPullExercises">
+        Chin-ups/pull-ups, inverted rows, rows (DB/machine/BB), face pulls, band pull-aparts, lat
+        pulldown, curls.
+    </string>
+
+    <string name="invalidW5314BFields">
+        One or more set scheme is not adding up to more than 50 and less than 100 reps.
+    </string>
+
+    <string name="W5314BLegCoreExercises">
+        Abdominal work, back raises, reverse hyperextensions, lunges, step-ups, Bulgarian
+        one-leg squats, KB snatches, swings.
+    </string>
+
+    <string name="W5314BAssistanceTitle">For reference, these are the exercises you\'ll be
+        choosing from:</string>
+
+    <string name="W5314BAssistanceDescription">
+        Every workout day you will choose one exercise each from three categories: Push, Pull, and
+        Single Leg/Core. Your goal is to complete 50-100 reps of each exercise. When you select
+        an exercise, try to enter a modest weight you know can do for that many reps. These
+        exercises aren\'t meant to be too difficult, they\'re meant to get in some extra volume and
+        are called \"assistance\" work for a reason. \n\nHere you can edit what sets and reps
+        you\'d like for each category; they must add up to at least 50 reps and be less than or
+        equal to 100 reps. What\'s set here is just a template that you can further
+        customize later while working out. Weight for each exercise will be chosen as you add
+        them in on the workout day.
     </string>
 
     <string name="W5314BRealDescription">
@@ -563,7 +611,8 @@
         normal. If you complete/enter less than 3 reps, your TM will decrease by 5lbs/2.5kgs
         (upper body) and 10lbs/5kgs (lower body). If you think that\'s still too much, you can
         always manually edit your TM by navigating to your workouts page in Workout Programming and
-        pressing the edit button.
+        pressing the edit button. Instructions will be shown in Today\'s Workout so you are aware
+        of what to do on the relevant days.
     </string>
 
     <!-- PPL Reddit -->
@@ -748,7 +797,7 @@
 
     <string name="autoTake10Off">Automatically take 10% off of this value for working max?</string>
 
-    <string name="roundToNearest5">Round workout weights to the nearest 5?</string>
+    <string name="roundToNearest5">Round generated workout weights to the nearest 5?</string>
 
     <string name="restDay">Rest Day</string>
 

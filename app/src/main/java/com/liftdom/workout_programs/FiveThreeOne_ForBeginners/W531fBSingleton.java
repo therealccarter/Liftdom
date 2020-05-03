@@ -24,9 +24,18 @@ public class W531fBSingleton {
     String benchMax = "";
     String deadliftMax = "";
     String ohpMax = "";
-    boolean autoDeload = false;
+    String pushSetScheme = "";
+    String pullSetScheme = "";
+    String legCoreSetScheme = "";
+    //boolean autoDeload = false;
     boolean isImperial;
     boolean isActiveCheckbox;
+    boolean isRoundToNearest5;
+    boolean isBeginToday;
+    String mRestTime;
+    boolean mIsActiveRestTimer;
+    String mVibrationTime;
+    boolean mIsRestTimerAlert;
 
     public String getStartDateString(){
         String message;
@@ -51,12 +60,13 @@ public class W531fBSingleton {
         HashMap<String, String> extraInfo = new HashMap<>();
 
         String beginDate;
-        LocalDate today = LocalDate.now();
-        int old = today.getDayOfWeek();
-        if(old == 1){
-            beginDate = today.toString();
+        if(isBeginToday){
+            beginDate = LocalDate.now().toString();
         }else{
+            LocalDate today = LocalDate.now();
+            int old = today.getDayOfWeek();
             int monday = 1;
+
             if(monday <= old){
                 monday += 7;
             }
@@ -68,7 +78,11 @@ public class W531fBSingleton {
         extraInfo.put("benchMax", benchMax);
         extraInfo.put("deadliftMax", deadliftMax);
         extraInfo.put("ohpMax", ohpMax);
-        extraInfo.put("autoDeload", String.valueOf(autoDeload));
+        extraInfo.put("squatMaxOG", squatMax);
+        extraInfo.put("benchMaxOG", benchMax);
+        extraInfo.put("deadliftMaxOG", deadliftMax);
+        extraInfo.put("ohpMaxOG", ohpMax);
+        extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
 
         return extraInfo;
     }

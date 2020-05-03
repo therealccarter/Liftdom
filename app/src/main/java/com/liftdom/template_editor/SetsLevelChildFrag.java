@@ -84,6 +84,8 @@ public class SetsLevelChildFrag extends android.app.Fragment {
 
         String delims = "[x,@]";
 
+        setsEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 20)});
+
         if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
             units.setText("lbs");
             weightEditText.setText("");

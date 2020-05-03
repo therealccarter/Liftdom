@@ -28,6 +28,10 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
 
         addSlide(new W531fBIntroFrag2());
 
+        addSlide(new W531fBIntroFrag3());
+
+        addSlide(new W531fBIntroFrag4());
+
         addSlide(new W531fBIntroFrag5());
     }
 
@@ -54,6 +58,10 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
                 modelClass.setExtraInfo(extraInfoMap);
                 modelClass.setDateCreated(dateTimeString);
                 modelClass.setDateUpdated(dateTimeString);
+                modelClass.setRestTime(W531fBSingleton.getInstance().mRestTime);
+                modelClass.setIsActiveRestTimer(W531fBSingleton.getInstance().mIsActiveRestTimer);
+                modelClass.setVibrationTime(W531fBSingleton.getInstance().mVibrationTime);
+                modelClass.setIsRestTimerAlert(W531fBSingleton.getInstance().mIsRestTimerAlert);
                 modelClass.setIsImperial(W531fBSingleton.getInstance().isImperial);
                 modelClass.setDescription(getResources().getString(R.string.W5314BShortDescription));
 
@@ -69,7 +77,8 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
                                 activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Intent intent = new Intent(W531fB_HolderActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(W531fB_HolderActivity.this,
+                                                MainActivity.class);
                                         intent.putExtra("fragID", 1);
                                         startActivity(intent);
                                     }

@@ -145,14 +145,14 @@ public class SmolovIntroFrag3 extends SlideFragment {
     public boolean canMoveFurther() {
         boolean validName = false;
 
-        if(!programNameEditText.getText().toString().equals("") && !programNameEditText.getText().toString().equals(" ")){
+        if(!programNameEditText.getText().toString().isEmpty()){
             SmolovSetupSingleton.getInstance().programName = programNameEditText.getText().toString();
-            validName = true;
             SmolovSetupSingleton.getInstance().mRestTime =
                     minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString();
             SmolovSetupSingleton.getInstance().mIsActiveRestTimer = restTimerSwitch.isChecked();
             SmolovSetupSingleton.getInstance().mVibrationTime = secondsVibrateEditText.getText().toString();
             SmolovSetupSingleton.getInstance().mIsRestTimerAlert = showRestTimerAlertRB.isChecked();
+            validName = true;
         }
 
         return validName;

@@ -270,20 +270,29 @@ Fixed bug causing empty percentages to not be saved in TE running
 ----------------------
 ====================================================
 
-Get the 3 premades working correctly., PPL, PPL_Reddit.
+WA Running model class should have a hashmap for premade extra info. Maybe also save template type.
+
+Get these premades working correctly:
     - W5314B
-        - auto-fill maxes
-        - give actual description of the program instead of babbling about shit
+        done - auto-fill maxes
+        done - give actual description of the program instead of babbling about shit
+        - give it future date functionality (premade Class comes in here, somehow)
+        done - add rest timer options (at least a 4th page, maybe more)
+            done - 3rd for accessory info
+            done - 4th for rest timer and date choice
+            done - 2nd - add round to nearest 5 checkbox (Smolov 2)
+        - 5th/Holder is finalize (now we have to organize all the new data into the extra info)
         - convert from forced Monday to determining via days passed. add choice.
-        - give it future date functionality
-        - add rest timer options (at least a 4th page, maybe more)
-            - 3rd for accessory info, 4th for rest timer, 5th is finalize.
+        - going to need a map in template to save the weights of the accessories
         - you'll have to have a way for them to pick their accessories out of that pool
-            - going to need a map in template to save the weights of the accessories
-            - let them enter in a set scheme?
-            - tell them that they can enter the weight on the day and it'll remember
-            - tell them that the set scheme/weights aren't very important, it's just volume.
+            done - let them enter in a set scheme?
+            done - tell them that they can enter the weight on the day and it'll remember
+            done - tell them that the set scheme/weights aren't very important, it's just volume.
             - have three buttons, each one for each type of accessory
+            - after picking exercise, show dialog asking for weight so it can inflate their
+                saved set schemes. Once they do it once, it should save that exercise's weight to
+                extra info hashmap. Show the set scheme in the dialog, and auto fill the last saved
+                weight if that exercise has it.
         - after 3 weeks you add 5lbs to the TM of Bench and OHP, 10lbs to TM of Squat and DL
         - on the 10th week (or after the 9th week/3rd set of 3 weeks) you do
             - Monday - OHP TM 1rm, Squat TM 1rm
@@ -292,19 +301,20 @@ Get the 3 premades working correctly., PPL, PPL_Reddit.
             - normal assistance work
         - would be cool to save the initial max
         - going to also need a round option?
-        - need percentages as decimals
-            - (think of the implications if we add/subtract/multiply/divide
-                and then round we lose precision.)
-            - when calculating premade values for metric, we gotta round to nearest flat multiple of
-             5 or 2.5.
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
         -
     - PPL_Reddit
         -
-    - pre-mades shouldn't be allowed to be "fully" edited, but they should be able to have their
-        extraInfo values edited.
+
+- (think of the implications if we add/subtract/multiply/divide
+                and then round we lose precision.)
+            - when calculating premade values for metric, we gotta round to nearest flat multiple of
+             5 or 2.5.
+
+Premades shouldn't be allowed to be "fully" edited, but they should be able to have their
+    extraInfo values edited.
 
 Create a class that handles the premade selection in places like WA,
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
