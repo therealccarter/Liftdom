@@ -493,7 +493,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
             weight = Double.parseDouble(tokens[1]) * percentage;
 
-            weight2 = (int) Math.round(weight);
+            weight2 = (int) (5 * (Math.round(weight / 5)));
 
             formatted = String.valueOf(weight2);
         }else{

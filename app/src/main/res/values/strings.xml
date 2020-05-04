@@ -600,7 +600,7 @@
         rotate so you\'ll be getting a full body workout done each time but in different ways.\n
         The first day is Squat and Bench Press, the second day is Deadlift and Overhead Press, and
         the third day is Bench Press and Squats. Plus accessory work each time. \nThe weights of
-        the main lifts will be percentages based on a training max (TM) (90% of your estimated true
+        the main lifts will be percentages based on a training max (TM) (90% of your true
         max). For three weeks, the percentages increase by 5% each week, and then the percentages
         reset and the TM increases by 5lbs/2.5kgs for upper body and 10lbs/5kgs for
         lower body. After nine weeks or three sets of these three weeks, you will perform a test
@@ -613,6 +613,19 @@
         always manually edit your TM by navigating to your workouts page in Workout Programming and
         pressing the edit button. Instructions will be shown in Today\'s Workout so you are aware
         of what to do on the relevant days.
+    </string>
+
+    <string name="W5314BSpecialWeekInstruction">
+        You\'ve made it to Training Max week. \nYou will be building up to a last set which is at
+        100% of your current Training Max, with goal reps of 3+ (AMRAP). \nSo, put that 100% on
+        the bar and then try for at least 3 reps, but whatever you get from 0-5 reps, <b>remember
+        to enter in that number as the reps</b>(where the 3+ is)! That number (what you actually
+        did) will be used to calculate whether your training max goes down or stays the same.
+    </string>
+
+    <string name="W5314BIncreaseWeekAlert">
+        This is the third week of the microcycle, which means your Training Max will increase for
+        the main lifts done today.
     </string>
 
     <!-- PPL Reddit -->

@@ -1,5 +1,24 @@
 
 
+
+w531fb
+public boolean isIncreaseDate(){
+    boolean increase = false;
+
+
+
+    return increase;
+}
+
+//int weekType;
+//
+        //if(week % 3 == 0){
+        //    weekType = 3;
+        //}else if(week % 2 == 0){
+        //    weekType = 2;
+        //}else{
+        //    weekType = 1;
+        //}
 public class StatChartsFrag2 extends Fragment {
 
     public StatChartsFrag2() {

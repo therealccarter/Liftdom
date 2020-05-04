@@ -72,7 +72,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     int exNameInc = 0;
     boolean savedState = false;
     WorkoutProgressModelClass workoutProgressModelClass;
-    String smolovWeekDayString;
+    String premadeWeekDayString;
     boolean isTemplateImperial;
     boolean isRunningImperial;
     ArrayList<String> fragTagList = new ArrayList<>();
@@ -1545,6 +1545,14 @@ public class AssistorHolderFrag extends android.app.Fragment
         });
     }
 
+    private void processPreMadeInfo(){
+        if(preMadeInfo.get("type").equals("Smolov")){
+            if(preMadeInfo.get("oneRepMaxDay").equals("true")){
+                extraInfoTextView.setText(R.string.oneRepMaxDay);
+                extraInfoTextView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
 
     private void initializeViews(){
@@ -1705,8 +1713,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
         }
-        if(smolovWeekDayString != null){
-            assistorSavedFrag.smolovWeekDayString = smolovWeekDayString;
+        if(premadeWeekDayString != null){
+            assistorSavedFrag.premadeWeekDayString = premadeWeekDayString;
         }
         assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
@@ -1753,8 +1761,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(isTutorialFirstTime){
             assistorSavedFrag.isFirstTimeFirstTime = true;
         }
-        if(smolovWeekDayString != null){
-            assistorSavedFrag.smolovWeekDayString = smolovWeekDayString;
+        if(premadeWeekDayString != null){
+            assistorSavedFrag.premadeWeekDayString = premadeWeekDayString;
         }
         assistorSavedFrag.templateClass = mTemplateClass;
         assistorSavedFrag.completedMap = runningMap;
@@ -1880,10 +1888,42 @@ public class AssistorHolderFrag extends android.app.Fragment
     }
 
     private void inflateW531fB(){
-        Wendler_531_For_Beginners W531fBClass = new Wendler_531_For_Beginners(mTemplateClass.getExtraInfo());
-        HashMap<String, List<String>> map = W531fBClass.generateWorkoutMap();
+        Wendler_531_For_Beginners W531fB = new Wendler_531_For_Beginners(
+                mTemplateClass.getExtraInfo());
+        HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
 
         //smolovWeekDayString = smolov.getWeekDayString();
+
+        /**
+         * If it's TM increase day, we need to send that to AS in preMadeInfo
+         * Send type W531fB
+         * Send if it's special day.
+         *  If it's special day, in AS we need to read through for the set which has a weight of
+         *  100% of TM or higher. Then see what that set's reps are and manipulate TM from there.
+         *  So we need to also send the current TM of the current Exercise/s.
+         */
+
+        if(W531fB.isTMIncreaseWeek()){
+            extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);
+            extraInfoTextView.setVisibility(View.VISIBLE);
+            preMadeInfo.clear();
+            preMadeInfo.put("type", "W531fB");
+            preMadeInfo.put("TMIncreaseWeek", "true");
+            preMadeInfo.put("SpecialWeek", "false");
+            /**
+             * OK, now we need to get the list of exercisesAndTMs() and add them in
+             */
+        }
+        if(W531fB.isSpecialWeek()){
+            extraInfoTextView.setText(R.string.W5314BSpecialWeekInstruction);
+            extraInfoTextView.setVisibility(View.VISIBLE);
+            // in AS we should tell them how their TM changed.
+            // so either way, this or TMIncrease, we'll be sending in the current TM.
+            preMadeInfo.clear();
+            preMadeInfo.put("type", "W531fB");
+            preMadeInfo.put("SpecialWeek", "true");
+            preMadeInfo.put("TMIncreaseWeek", "false");
+        }
 
         for(int i = 0; i < map.size(); i++){
             if(i == 0){
@@ -1957,7 +1997,7 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
         }
 
-        smolovWeekDayString = smolov.getWeekDayString();
+        premadeWeekDayString = smolov.getWeekDayString();
 
         for(int i = 0; i < smolovMap.size(); i++){
             if(i == 0){

@@ -49,7 +49,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
     @BindView(R.id.unitsView3) TextView unitsView3;
     @BindView(R.id.ohpEditText) EditText ohpEditText;
     @BindView(R.id.unitsView4) TextView unitsView4;
-    @BindView(R.id.roundToNearest5) CheckBox roundToNearest5;
+    //@BindView(R.id.roundToNearest5) CheckBox roundToNearest5;
     @BindView(R.id.todayRadioButton) RadioButton todayRadioButton;
     @BindView(R.id.mondayRadioButton) RadioButton mondayRadioButton;
 
@@ -64,7 +64,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
         HideKey.initialize(getActivity(), view);
 
         mondayRadioButton.setChecked(true);
-        roundToNearest5.setChecked(true);
+        //roundToNearest5.setChecked(true);
 
         /**
          * I'd feel best about this program if it is in normal formatting.
@@ -245,7 +245,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
             W531fBSingleton.getInstance().benchMax = benchPressEditText.getText().toString();
             W531fBSingleton.getInstance().deadliftMax = deadliftEditText.getText().toString();
             W531fBSingleton.getInstance().ohpMax = ohpEditText.getText().toString();
-            W531fBSingleton.getInstance().isRoundToNearest5 = roundToNearest5.isChecked();
+            //W531fBSingleton.getInstance().isRoundToNearest5 = roundToNearest5.isChecked();
             W531fBSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
             valuesEntered = true;
         }

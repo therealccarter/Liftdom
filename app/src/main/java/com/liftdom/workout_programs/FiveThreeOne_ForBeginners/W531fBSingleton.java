@@ -82,7 +82,7 @@ public class W531fBSingleton {
         extraInfo.put("benchMaxOG", benchMax);
         extraInfo.put("deadliftMaxOG", deadliftMax);
         extraInfo.put("ohpMaxOG", ohpMax);
-        extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
+        //extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
 
         return extraInfo;
     }

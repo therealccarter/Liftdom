@@ -13,7 +13,6 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.appodeal.ads.Appodeal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -38,8 +36,6 @@ import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
-import me.toptas.fancyshowcase.FancyShowCaseQueue;
-import me.toptas.fancyshowcase.FancyShowCaseView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -79,7 +75,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
     HashMap<String, List<String>> originalHashmap = new HashMap<>();
     HashMap<String, String> preMadeInfo;
     List<String> completedExerciseList;
-    String smolovWeekDayString;
+    String premadeWeekDayString;
     String redoRefKey;
     boolean isRevisedWorkout;
     boolean isFromRestDay;
@@ -377,6 +373,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 extraInfoTextView.setVisibility(View.VISIBLE);
                             }
                         }
+                    }else if(preMadeInfo.get("type").equals("W531fB")){
+
                     }
                 }
             }
@@ -437,9 +435,9 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         bonusList.add("Level up!");
                     }
 
-                    if (smolovWeekDayString != null) {
-                        if(!smolovWeekDayString.isEmpty()){
-                            bonusList.add(smolovWeekDayString);
+                    if (premadeWeekDayString != null) {
+                        if(!premadeWeekDayString.isEmpty()){
+                            bonusList.add(premadeWeekDayString);
                         }
                     }
 

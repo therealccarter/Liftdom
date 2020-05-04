@@ -14,13 +14,13 @@ import java.util.List;
 
 public class Smolov {
 
-    double oneRM;
-    String exerciseName;
-    boolean isOneRepMaxDay = false;
-    boolean isLastDay = false;
-    String weekDayString = "";
-    boolean isTakeOff10;
-    boolean isRoundToNearest5;
+    private double oneRM;
+    private String exerciseName;
+    private boolean isOneRepMaxDay = false;
+    private boolean isLastDay = false;
+    private String weekDayString = "";
+    private boolean isTakeOff10;
+    private boolean isRoundToNearest5;
 
     public Smolov(String exName, String max){
         exerciseName = exName;

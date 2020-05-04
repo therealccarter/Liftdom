@@ -224,6 +224,7 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="start"
+            android:visibility="gone"
             />
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

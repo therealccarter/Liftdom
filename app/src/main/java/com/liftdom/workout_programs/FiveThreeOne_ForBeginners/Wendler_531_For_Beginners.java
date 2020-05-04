@@ -14,20 +14,26 @@ import java.util.List;
  */
 public class Wendler_531_For_Beginners {
 
-    String squatMax;
-    String benchMax;
-    String deadliftMax;
-    String ohpMax;
-    boolean autoDeload;
-    String beginDateString;
+    private String squatMax;
+    private String benchMax;
+    private String deadliftMax;
+    private String ohpMax;
 
-    double squatTM;
-    double benchTM;
-    double deadliftTM;
-    double ohpTM;
+    private String beginDateString;
+    private boolean isRoundToNearest5;
 
-    LocalDate beginDate;
-    LocalDate todaysDate;
+    private boolean isTMIncreaseWeek;
+    private boolean isSpecialWeek;
+
+    private double squatTM;
+    private double benchTM;
+    private double deadliftTM;
+    private double ohpTM;
+
+    private LocalDate beginDate;
+    private LocalDate todaysDate;
+
+    public HashMap<String, String> exercisesAndTMs = new HashMap<>();
 
     public Wendler_531_For_Beginners(HashMap<String, String> extraInfo){
         beginDateString = extraInfo.get("beginDate");
@@ -35,18 +41,9 @@ public class Wendler_531_For_Beginners {
         benchMax = extraInfo.get("benchMax");
         deadliftMax = extraInfo.get("deadliftMax");
         ohpMax = extraInfo.get("ohpMax");
-        autoDeload = Boolean.parseBoolean(extraInfo.get("autoDeload"));
 
         beginDate = LocalDate.parse(beginDateString);
         todaysDate = LocalDate.now();
-    }
-
-    public boolean isIncreaseDate(){
-        boolean increase = false;
-
-
-
-        return increase;
     }
 
     public HashMap<String, List<String>> generateWorkoutMap() {
@@ -58,50 +55,137 @@ public class Wendler_531_For_Beginners {
             workoutList.add("rest");
             map.put("1_key", workoutList);
         }else{
+
+            //Days: 1 3 5
+
             int daysBetween = Days.daysBetween(beginDate, todaysDate).getDays();
 
-            double week = daysBetween / 7;
+            int week = daysBetween / 7;
+            int days = daysBetween % 7;
 
             week++;
+            days++;
 
             setTrainingMaxes();
 
-            map = getWorkout(week);
+            int weekType = getWeekType(week);
+
+            if(weekType == 0){
+                // get special workout with the days var
+                map = getWorkoutSpecial(days);
+            }else{
+                map = getWorkout(weekType, days);
+            }
+
         }
 
         return map;
     }
 
-    private HashMap<String, List<String>> getWorkout(double week){
-        HashMap<String, List<String>> workoutMap = new HashMap<>();
-
+    private int getWeekType(int week){
         int weekType;
 
-        if(week % 3 == 0){
-            weekType = 3;
-        }else if(week % 2 == 0){
-            weekType = 2;
-        }else{
+        int mod = week % 10;
+
+        if(mod == 1 || mod == 4 || mod == 7){
             weekType = 1;
+        }else if(mod == 2 || mod == 5 || mod == 8){
+            weekType = 2;
+        }else if(mod == 3 || mod == 6 || mod == 9){
+            weekType = 3;
+            setTMIncreaseWeek(true);
+        }else{
+            weekType = 0;
+            setSpecialWeek(true);
         }
 
-        int dayOfWeek = todaysDate.getDayOfWeek();
+        return weekType;
+    }
 
-        if(dayOfWeek == 1){
+    /**
+     * What do we need to do here?
+     *
+     * We need to alert AS that we have reached the 3rd week and to increase the TMs accordingly.
+     * We can do this like how we alert AS in Smolov (setOneRepMaxDay())
+     * After 9 weeks/on the 10th week, special workout for each day. On the last set, you enter in
+     * how many reps you did.
+     * If >= 3: TM doesn't increase (because we already increased it at
+     *  the end of the last 3 week block).
+     * If it's 2: decrease by normal increase amount.
+     * If it's 1: decrease by normal increase amount x 2.
+     *
+     * So we'll need to send that info from AH to AS and then process it knowing that it's a
+     * special week.
+     *
+     * Special week:
+     * 5 reps at 70%
+     * 5 reps at 80%
+     * 3 reps at at 90%
+     * 3-5 reps at 100%
+     * Day 1 (Monday): OHP TM Test first, then Squat TM Test
+     * Day 2 (Wednesday): Bench TM Test
+     * Day 3 (Friday): Deadlift TM Test
+     *
+     * SO what do we really need?
+     * 1. Know when it's TM increase time. (Any week that is a multiple of 3)
+     * 2. Know when it's special week. (Any week that is a multiple of 10)
+     * Actually, it's not multiples/math based. Well, it is.
+     * But what we have to do is take the last digit on the right,
+     *  and then compare it to a list to get the right workout.
+     *
+     *  If the last right digit is:
+     *  1,4,7 - it is the 1st week
+     *  2,5,8 - it is the 2nd week
+     *  3,6,9 - it is the 3rd week (isTMIncrease)
+     *  0 - it is Special Week (isSpecialWeek)
+     *
+     * "It says 3+, which is the goal, but enter the amount of reps you actually did."
+     * "Old TM, current TM"
+     */
+
+    private HashMap<String, List<String>> getWorkout(int week, int day){
+
+        HashMap<String, List<String>> workoutMap = new HashMap<>();
+
+        if(day == 1){
             // monday
-            workoutMap = getMondayWorkout(weekType);
-        }else if(dayOfWeek == 3){
+            workoutMap = getFirstWorkout(week);
+            setTMIncreaseWeek(false);
+        }else if(day == 3){
             // wednesday
-            workoutMap = getWednesdayWorkout(weekType);
-        }else if(dayOfWeek == 5){
+            workoutMap = getSecondWorkout(week);
+        }else if(day == 5){
             // friday
-            workoutMap = getFridayWorkout(weekType);
+            workoutMap = getThirdWorkout(week);
+        }else{
+            // rest day
+            setTMIncreaseWeek(false);
+            List<String> workoutList = new ArrayList<>();
+            workoutList.add("Bench Press");
+            workoutList.add("rest");
+            workoutMap.put("1_key", workoutList);
+        }
+
+        return workoutMap;
+    }
+
+    private HashMap<String, List<String>> getWorkoutSpecial(int day){
+
+        HashMap<String, List<String>> workoutMap = new HashMap<>();
+
+        if(day == 1){
+            workoutMap = getFirstWorkoutSpecial();
+        }else if(day == 3){
+            workoutMap = getSecondWorkoutSpecial();
+        }else if(day == 5){
+            workoutMap = getThirdWorkoutSpecial();
         }else{
             // rest day
             List<String> workoutList = new ArrayList<>();
             workoutList.add("Bench Press");
             workoutList.add("rest");
             workoutMap.put("1_key", workoutList);
+            setSpecialWeek(false);
         }
 
         return workoutMap;
@@ -119,7 +203,7 @@ public class Wendler_531_For_Beginners {
      1x3 @ 60%
      */
 
-    private HashMap<String, List<String>> getMondayWorkout(int weekType){
+    private HashMap<String, List<String>> getFirstWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
         /**
@@ -142,7 +226,7 @@ public class Wendler_531_For_Beginners {
         if(weekType == 1){
             squatList.add("1x5@p_65_a_" + squatTM);
             squatList.add("1x5@p_75_a_" + squatTM);
-            squatList.add("1x5_a.@p_85_a_" + squatTM); // T.F. but goal is 5
+            squatList.add("1x5_a@p_85_a_" + squatTM); // T.F. but goal is 5
             squatList.add("5x5@p_65_a_" + squatTM);
         }else if(weekType == 2){
             squatList.add("1x3@p_70_a_" + squatTM);
@@ -155,6 +239,7 @@ public class Wendler_531_For_Beginners {
             squatList.add("1x1_a@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
+        //exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
         // bench
         List<String> benchList = new ArrayList<>();
@@ -179,6 +264,7 @@ public class Wendler_531_For_Beginners {
             benchList.add("1x1_a@p_95_a_" + benchTM); // T.F. but goal is 1
             benchList.add("5x5@p_75_a_" + benchTM);
         }
+        //exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
 
         // assistance
 
@@ -189,7 +275,34 @@ public class Wendler_531_For_Beginners {
         return map;
     }
 
-    private HashMap<String, List<String>> getWednesdayWorkout(int weekType){
+    private HashMap<String, List<String>> getFirstWorkoutSpecial(){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        // ohp
+        List<String> ohpList = new ArrayList<>();
+        ohpList.add("Overhead Press (Barbell)");
+        ohpList.add("1x5@p_70_a_" + ohpTM);
+        ohpList.add("1x5@p_80_a_" + ohpTM);
+        ohpList.add("1x3@p_90_a_" + ohpTM);
+        ohpList.add("1x3_a@p_100_a_" + ohpTM);
+        exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
+
+        // squat
+        List<String> squatList = new ArrayList<>();
+        squatList.add("Squat (Barbell - Back)");
+        squatList.add("1x5@p_70_a_" + squatTM);
+        squatList.add("1x5@p_80_a_" + squatTM);
+        squatList.add("1x3@p_90_a_" + squatTM);
+        squatList.add("1x3_a@p_100_a_" + squatTM);
+        exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
+
+        map.put("1_key", ohpList);
+        map.put("2_key", squatList);
+
+        return map;
+    }
+
+    private HashMap<String, List<String>> getSecondWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
         /**
@@ -225,6 +338,7 @@ public class Wendler_531_For_Beginners {
             deadliftList.add("1x1_a@p_95_a_" + deadliftTM); // T.F. but goal is 1
             deadliftList.add("5x5@p_75_a_" + deadliftTM);
         }
+        exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
 
         // ohp
         List<String> ohpList = new ArrayList<>();
@@ -249,6 +363,7 @@ public class Wendler_531_For_Beginners {
             ohpList.add("1x1_a@p_95_a_" + ohpTM); // T.F. but goal is 1
             ohpList.add("5x5@p_75_a_" + ohpTM);
         }
+        exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
 
         // assistance
 
@@ -259,7 +374,24 @@ public class Wendler_531_For_Beginners {
         return map;
     }
 
-    private HashMap<String, List<String>> getFridayWorkout(int weekType){
+    private HashMap<String, List<String>> getSecondWorkoutSpecial(){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        // bench
+        List<String> benchList = new ArrayList<>();
+        benchList.add("Bench Press (Barbell - Flat)");
+        benchList.add("1x5@p_70_a_" + benchTM);
+        benchList.add("1x5@p_80_a_" + benchTM);
+        benchList.add("1x3@p_90_a_" + benchTM);
+        benchList.add("1x3_a@p_100_a_" + benchTM);
+        exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
+
+        map.put("1_key", benchList);
+
+        return map;
+    }
+
+    private HashMap<String, List<String>> getThirdWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
         /**
@@ -295,6 +427,7 @@ public class Wendler_531_For_Beginners {
             benchList.add("1x1_a@p_95_a_" + benchTM); // T.F. but goal is 1
             benchList.add("5x5@p_75_a_" + benchTM);
         }
+        exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
 
         // squat
         List<String> squatList = new ArrayList<>();
@@ -319,6 +452,7 @@ public class Wendler_531_For_Beginners {
             squatList.add("1x1_a@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
+        exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
         // assistance
 
@@ -327,6 +461,39 @@ public class Wendler_531_For_Beginners {
         map.put("3_key", squatList);
 
         return map;
+    }
+
+    private HashMap<String, List<String>> getThirdWorkoutSpecial(){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        // bench
+        List<String> deadliftList = new ArrayList<>();
+        deadliftList.add("Deadlift (Barbell - Conventional)");
+        deadliftList.add("1x5@p_70_a_" + deadliftTM);
+        deadliftList.add("1x5@p_80_a_" + deadliftTM);
+        deadliftList.add("1x3@p_90_a_" + deadliftTM);
+        deadliftList.add("1x3_a@p_100_a_" + deadliftTM);
+        exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
+
+        map.put("1_key", deadliftList);
+
+        return map;
+    }
+
+    public boolean isTMIncreaseWeek() {
+        return isTMIncreaseWeek;
+    }
+
+    public void setTMIncreaseWeek(boolean TMIncreaseWeek) {
+        isTMIncreaseWeek = TMIncreaseWeek;
+    }
+
+    public boolean isSpecialWeek() {
+        return isSpecialWeek;
+    }
+
+    public void setSpecialWeek(boolean specialWeek) {
+        isSpecialWeek = specialWeek;
     }
 
     private void setTrainingMaxes(){
