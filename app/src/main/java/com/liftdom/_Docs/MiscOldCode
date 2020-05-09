@@ -1,6 +1,321 @@
 
+//gradle
+    //implementation 'com.squareup.picasso:picasso:2.5.2' //for Inmobi
+    //implementation name: 'adcolony-sdk-3.3.0', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-alphab', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-common', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-interstitial', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-interstitialvideo', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-mvdownloads', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-mvjscommon', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-mvnative', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-nativeex', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-playercommon', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-reward', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-videocommon', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-videofeeds', ext: 'aar'
+    //implementation name: 'mobvista-8.11.0-videojs', ext: 'aar'
+    //implementation 'io.paperdb:paperdb:2.6'
+    //implementation "android.arch.lifecycle:extensions:1.0.0"
+    //implementation "android.arch.persistence.room:runtime:1.0.0"
+    //annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+// exNameWA onStart
+    //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
+    //        (FirebaseAuth.getInstance().getCurrentUser().getxUid()).child("isAssistorFirstTime");
+    //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    //    @Override
+    //    public void onDataChange(DataSnapshot dataSnapshot) {
+    //        if(dataSnapshot.exists()){
 
+    //            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
+    //                    .title("Welcome to the Workout Assistor. \n \n" +
+    //                            "This is where you'll come every day to complete your workouts and check off " +
+    //                    "rest" +
+    //                            " days." +
+    //                            "\n \n You can customize everything here to most accurately reflect and record " +
+    //                    "the workout " +
+    //                            "you did that day.")
+    //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
+    //                    .build();
 
+    //            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
+    //                    .focusOn(getView())
+    //                    .title("This view shows every set for each exercise. \n \n You can add or delete sets " +
+    //                            "here, as " +
+    //                            "well as change the reps to 'to failure' or weight to 'bodyweight' via the 3
+                                // dot" +
+    //                    " " +
+    //                            "menu on the left." +
+    //                            "\n \n Go ahead and check off the first set now, and we'll move on.")
+    //                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
+    //                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
+    //                    .build();
+
+    //            new FancyShowCaseQueue()
+    //                    .add(fancyShowCaseView1)
+    //                    .add(fancyShowCaseView2)
+    //                    .show();
+
+    //            CheckBox checkBox = (CheckBox) repsWeightFragList2.get(0).getView().findViewById(R.id.checkBox);
+    //            firstTimeShowcaseCallback.firstTimeShowcase(checkBox);
+
+    //            //firstTimeRef.setValue(null);
+    //        }
+    //    }
+
+    //    @Override
+    //    public void onCancelled(DatabaseError databaseError) {
+
+    //    }
+    //});
+// exName wa check off shit
+    //try{
+    //    if(!repsWeightFragList1.isEmpty()){
+    //        boolean areAllChecked = true;
+    //        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+    //            if(!repsWeightWAFrag.isChecked()){
+    //                areAllChecked = false;
+    //            }
+    //        }
+    //        if(areAllChecked){
+    //                checkOffAll.setChecked(true);
+    //            }else{
+    //                isComingFromReps = true;
+    //                checkOffAll.setChecked(false);
+    //            }
+    //        //updateWorkoutState.updateWorkoutStateWithDelay();
+    //    }else{
+    //        checkOffAll.setChecked(false);
+    //    }
+    //}catch (NullPointerException e){
+    //    checkOffAll.setChecked(false);
+    //}
+    //try{
+    //    if(!repsWeightFragList2.isEmpty()){
+    //        boolean areAllChecked = true;
+    //        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+    //            if(!repsWeightWAFrag.isChecked()){
+    //                areAllChecked = false;
+    //            }
+    //        }
+    //        if(areAllChecked){
+    //                checkOffAll.setChecked(true);
+    //            }else{
+    //                isComingFromReps = true;
+    //                checkOffAll.setChecked(false);
+    //            }
+    //        //updateWorkoutState.updateWorkoutStateWithDelay();
+    //    }
+    //}catch (NullPointerException e){
+    //    checkOffAll.setChecked(false);
+    //}
+    //try{
+    //    /**
+    //     * PROBLEM RIGHT NOW: Unchecking one SS unchecks all of them.
+    //     *
+    //     *
+    //     * So what we're going to do now is this: get this thing to work smoothly without the
+    //     * internet. then after it works perfectly offline SNAPPY, we'll experiment with real
+    //     * time data writing/reading or with save button or with saving it on leaving the
+    //     * page, or turning off the phone.
+    //     */
+
+    //    if(!exNameSupersetFragList.isEmpty()){
+    //        boolean areAllChecked = true;
+    //        for(ExNameSSWAFrag exNameFrag : exNameSupersetFragList){
+    //            if(!exNameFrag.isChecked()){
+    //                areAllChecked = false;
+    //            }
+    //        }
+    //        if(areAllChecked){
+    //            checkOffAll.setChecked(true);
+    //        }else{
+    //            isComingFromReps2 = true;
+    //            checkOffAll.setChecked(false);
+    //        }
+    //        //updateWorkoutState.updateWorkoutStateWithDelay();
+    //    }
+    //}catch (NullPointerException e){
+//
+        //}
+// under feed fan out in assistorSaved onCreate
+    //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+    //runningRef.child("refKey").setValue(refKey);
+    //runningRef.child("isRevise").setValue(false);
+    //runningRef.child("completedBool").setValue(true);
+// in assistorSaved onCreate
+     //DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
+
+     //String refKey;
+     //if(redoRefKey != null){
+     //    refKey = redoRefKey;
+     //}else{
+     //    refKey = myFeedRef.push().getKey();
+     //}
+
+            //final String REFKEY = refKey;
+// at end of assistorSaved onCreate
+//DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
+            //        ("runningAssistor").child(uid).child("assistorModel");
+            //runningRef.child("refKey").setValue(REFKEY).addOnCompleteListener(new
+            // OnCompleteListener<Void>() {
+            //    @Override
+            //    public void onComplete(@NonNull Task<Void> task) {
+            //        runningRef.child("isRevise").setValue(false).addOnCompleteListener(new
+            //        OnCompleteListener<Void>() {
+            //            @Override
+            //            public void onComplete(@NonNull Task<Void> task) {
+            //                runningRef.child("completedBool").setValue(true)
+            //                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            //                    @Override
+            //                    public void onComplete(@NonNull Task<Void> task) {
+            //                        runningRef.child("exInfoHashMap").setValue(completedMap)
+            //                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            //                            @Override
+            //                            public void onComplete(@NonNull Task<Void> task) {
+            //                                runningRef.child("privateJournal").setValue("you
+            //                                are" +
+            //                                        " " +
+            //                                        "a shitter you fucking fuck"); //ok so this
+            //                                // is being set which means it's not here.
+            //                            }
+            //                        });
+            //                    }
+            //                });
+            //            }
+            //        });
+            //    }
+            //});
+
+            //runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            //    @Override
+            //    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //        WorkoutProgressModelClass workoutProgressModelClass =
+            //                dataSnapshot.getValue(WorkoutProgressModelClass.class);
+            //        workoutProgressModelClass.setRefKey(REFKEY);
+            //        workoutProgressModelClass.setIsRevise(false);
+            //        workoutProgressModelClass.setCompletedBool(true);
+            //        workoutProgressModelClass.setExInfoHashMap(completedMap);
+//
+            //        runningRef.setValue(workoutProgressModelClass);
+            //    }
+//
+            //    @Override
+            //    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+            //    }
+            //});
+//checkOffAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //    @Override
+        //    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //if(isChecked){
+                //    if(repsWeightFragList1 != null){
+                //        if(!repsWeightFragList1.isEmpty()){
+                //            try{
+                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                //                    repsWeightWAFrag.setCheckedView();
+                //                }
+                //                //updateWorkoutState.updateWorkoutStateWithDelay();
+                //            }catch (NullPointerException e){
+//
+                //            }
+                //        }else{
+                //            checkOffAll.setChecked(false);
+                //        }
+                //    }else{
+                //        checkOffAll.setChecked(false);
+                //    }
+                //    if(repsWeightFragList2 != null){
+                //        if(!repsWeightFragList2.isEmpty()){
+                //            try{
+                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                //                    repsWeightWAFrag.setCheckedView();
+                //                }
+                //                //updateWorkoutState.updateWorkoutStateWithDelay();
+                //            }catch (NullPointerException e){
+//
+                //            }
+                //        }
+                //    }else{
+                //        checkOffAll.setChecked(false);
+                //    }
+                //    if(exNameSupersetFragList != null){
+                //        if(!exNameSupersetFragList.isEmpty() && !isComingFromReps2){
+                //            try{
+                //                for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+                //                    exNameSSWAFrag.checkAllRepsWeight();
+                //                }
+                //            }catch (NullPointerException e){
+//
+                //            }
+                //        }else{
+                //            isComingFromReps2 = false;
+                //            checkOffAll.setChecked(false);
+                //        }
+                //    }
+                //    //updateWorkoutState.updateWorkoutStateWithDelay();
+                //}else{
+                //    if(repsWeightFragList1 != null){
+                //        if(!repsWeightFragList1.isEmpty() && !isComingFromReps){
+                //            try{
+                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                //                    repsWeightWAFrag.setUnCheckedView();
+                //                }
+                //                //updateWorkoutState.updateWorkoutStateWithDelay();
+                //            }catch (NullPointerException e){
+//
+                //            }
+//
+                //        }else{
+                //            isComingFromReps = false;
+                //        }
+                //    }
+                //    if(repsWeightFragList2 != null){
+                //        if(!repsWeightFragList2.isEmpty() && !isComingFromReps){
+                //            try{
+                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                //                    repsWeightWAFrag.setUnCheckedView();
+                //                }
+                //                //updateWorkoutState.updateWorkoutStateWithDelay();
+                //            }catch (NullPointerException e){
+//
+                //            }
+                //        }
+                //        else{
+                //            isComingFromReps = false;
+                //        }
+                //    }
+                //    if(exNameSupersetFragList != null){
+                //        if(!exNameSupersetFragList.isEmpty() && !isComingFromReps2){
+                //            try{
+                //                for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+                //                    exNameSSWAFrag.unCheckAllRepsWeight();
+                //                }
+                //            }catch (NullPointerException e){
+//
+                //            }
+                //        }
+                //        else{
+                //            isComingFromReps2 = false;
+                //        }
+                //    }
+                //    //updateWorkoutState.updateWorkoutStateWithDelay();
+                //}
+        //    }
+        //});
+package com.liftdom.liftdom;
+
+import android.app.Application;
+import android.test.ApplicationTestCase;
+
+/**
+ * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ */
+public class ApplicationTest extends ApplicationTestCase<Application> {
+    public ApplicationTest() {
+        super(Application.class);
+    }
+}
 w531fb
 public boolean isIncreaseDate(){
     boolean increase = false;

@@ -86,7 +86,7 @@ public class StatChartsFrag extends Fragment {
 
         titleView.setTypeface(lobster);
 
-        /**
+        /*
          * 113.25kg reads as 0 in chart
          */
 
@@ -376,7 +376,7 @@ public class StatChartsFrag extends Fragment {
 
     long mTimestamp = 0;
 
-    /**
+    /*
      * Where we are: we're considering changing the x values to the straight dates sans the dashes
      * instead of long/float millis versions due to an issue with converting and re-converting
      * giving the wrong value.

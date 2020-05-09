@@ -74,7 +74,7 @@ public class SmolovInfoFrag extends Fragment {
     }
 
     private void convertUnitsAndPost(boolean currentPOV){
-        /**
+        /*
          * We need the units of the max, and the units we currently are.
          */
 

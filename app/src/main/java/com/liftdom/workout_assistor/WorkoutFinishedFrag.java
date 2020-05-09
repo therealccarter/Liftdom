@@ -52,7 +52,7 @@ public class WorkoutFinishedFrag extends Fragment {
                 DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference()
                         .child("runningAssistor").child(uid).child("assistorModel");
 
-                /**
+                /*
                  * Why did this not work? And this seems to be the shit that's being put in.
                  */
 

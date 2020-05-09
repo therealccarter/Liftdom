@@ -432,7 +432,7 @@ public class SetsLevelSSFrag extends android.app.Fragment {
             if(TemplateEditorSingleton.getInstance().isCurrentUserImperial){
                 units.setText("lbs");
                 //weightEditText.setText("");
-                /**
+                /*
                  * Where we at:
                  * need to see if we want it to clear the edit text or not.
                  */

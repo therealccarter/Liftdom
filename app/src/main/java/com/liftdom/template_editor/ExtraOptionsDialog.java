@@ -106,14 +106,14 @@ public class ExtraOptionsDialog extends AppCompatActivity {
         });
 
 
-        /**
+        /*
          * But how can we ensure that using someone else's percentage-based template works if
          * we're using arbitrary-based percentages? Some sort of notification when first receiving a template with
          * arbitrary percentages. Just would need a method in the template editor model class. They could then just
          * go in and edit that. But what if it's a current max and they don't have it? We'd have to notify that as well.
          */
 
-        /**
+        /*
          * So what we'll do is create a string that gives us the required data on getInfo
          * For example, p_85_a_345 which means (percentage flag) 85% of arbitrary number 345 (lbs or kgs depending on
          * template imperial status).
@@ -122,7 +122,7 @@ public class ExtraOptionsDialog extends AppCompatActivity {
          * We need to have an option to set this through the parent exercise as well as through the sets level child
          */
 
-        /**
+        /*
          * How about a different approach. What if we just, on choosing %, change the scheme to (S x R @ _ % of []) ?
          * And then when you click on the box on the right it opens up a thing that shows the options??
          * And then you can do the same thing at the exercise level to allow for changes of all set schemes.

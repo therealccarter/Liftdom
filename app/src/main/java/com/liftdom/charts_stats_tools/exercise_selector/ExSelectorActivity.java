@@ -37,6 +37,8 @@ public class ExSelectorActivity extends AppCompatActivity {
 
     ViewPager pager;
     ExPagerAdapter adapter;
+    ExPagerAdapterCustomList adapterCustomList;
+    boolean isCustomList = false;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"Upper Body", "Lower Body", "Other", "Custom"};
     int Numboftabs = 4;
@@ -74,16 +76,42 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
-            ExercisePickerController.getInstance().fragTag = getIntent().getExtras().getString(
-                    "fragTag");
-            if(getIntent().getStringExtra("exclusive") != null){
-                adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, true);
-                confirmButton.setVisibility(View.GONE);
+            ExercisePickerController.getInstance().fragTag = getIntent().getExtras().getString("fragTag");
+            if(getIntent().getStringExtra("customList") != null){
+                if(getIntent().getStringExtra("W531fB") != null){
+                    if(getIntent().getStringExtra("push") != null){
+                        isCustomList = true;
+                        CharSequence titles[]={"Push (W531fB Assistance)"};
+                        adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
+                                , titles, 1,true, true);
+                        adapterCustomList.setListType("push");
+                        confirmButton.setVisibility(View.GONE);
+                    }else if(getIntent().getStringExtra("pull") != null){
+                        isCustomList = true;
+                        CharSequence titles[]={"Pull (W531fB Assistance)"};
+                        adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
+                                , titles, 1,true, true);
+                        adapterCustomList.setListType("pull");
+                        confirmButton.setVisibility(View.GONE);
+                    }else if(getIntent().getStringExtra("legCore") != null){
+                        isCustomList = true;
+                        CharSequence titles[]={"Single Leg/Core (W531fB Assistance)"};
+                        adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
+                                , titles, 1,true, true);
+                        adapterCustomList.setListType("legCore");
+                        confirmButton.setVisibility(View.GONE);
+                    }
+                }
             }else{
-                // is from template editor
-                // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-                adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
-                confirmButton.setVisibility(View.GONE);
+                if(getIntent().getStringExtra("exclusive") != null){
+                    adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, true);
+                    confirmButton.setVisibility(View.GONE);
+                }else{
+                    // is from template editor
+                    // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+                    adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, false);
+                    confirmButton.setVisibility(View.GONE);
+                }
             }
         }else{
             isFromExChart = true;
@@ -94,7 +122,11 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+        if(isCustomList){
+            pager.setAdapter(adapterCustomList);
+        }else{
+            pager.setAdapter(adapter);
+        }
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);

@@ -56,7 +56,7 @@ public class SelfFeedFrag extends Fragment {
 
         rootRef = FirebaseDatabase.getInstance().getReference();
 
-        /**
+        /*
          * What are the consequences of a self-feed? How would that work from the perspective of other users?
          *
          * So, if we are in the main feed and we comment: it needs to update to all main feeds, and the one self feed.

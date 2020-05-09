@@ -74,7 +74,7 @@ public class CurrentUserProfile extends BaseActivity {
 
         HideKey.initialize(CurrentUserProfile.this);
 
-        /**
+        /*
          * What we're going to do here.
          * Have one fragment for both your profile and other people's.
          * Have a simple check for if the desired profile is yours or not, and have a method for setting up each case.

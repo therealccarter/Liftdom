@@ -207,7 +207,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                     }
                 }
 
-                /**
+                /*
                  * Next up is the superset version. Also maybe do something about extra sets in
                  * parent giving supersets empty shit. idk.
                  */
@@ -622,6 +622,23 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             Log.i("deadInfo", "RepsWeightWAFrag (onResume)");
             super.onResume();
         }
+    }
+
+    public String getWeight(){
+        String weightText = weightEditText.getText().toString();
+
+        if(weightText.isEmpty()){
+            weightText = "0";
+        }else{
+            if(!weightText.equals("B.W.")){
+                //weightText = convertUnitsBackToTemplate(weightText);
+                weightText = weightText;
+            }else{
+                weightText = "0";
+            }
+        }
+
+        return weightText;
     }
 
     public String getInfo(){

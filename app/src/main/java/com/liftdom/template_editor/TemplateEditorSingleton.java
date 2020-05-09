@@ -54,7 +54,7 @@ public class TemplateEditorSingleton {
     String publicKey;
     String ass;
 
-    /**
+    /*
      * TODO boolean for if we're coming from real save or from update. if real save, don't use numbering system.
      */
 

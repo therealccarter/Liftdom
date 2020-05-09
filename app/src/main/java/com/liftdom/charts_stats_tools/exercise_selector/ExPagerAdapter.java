@@ -10,12 +10,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class ExPagerAdapter extends FragmentStatePagerAdapter {
 
-    CharSequence Titles[]={"Upper Body", "Lower Body", "Other", "Custom"};
+    private CharSequence Titles[]={"Upper Body", "Lower Body", "Other", "Custom"};
     //CharSequence Titles[]={"Upper Body", "Lower Body", "Other"};
-    int NumbOfTabs = 4; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+    private int NumbOfTabs = 4; // Store the number of tabs, this will also be passed when the
+    // ViewPagerAdapter is created
     //int NumbOfTabs = 3; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
-    boolean mNoCheckbox = false;
-    boolean mIsExclusive = false;
+    private boolean mNoCheckbox = false;
+    private boolean mIsExclusive = false;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ExPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {

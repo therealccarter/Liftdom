@@ -112,6 +112,10 @@ public class TemplateModelClass {
         this.mExtraInfo2 = mExtraInfo2;
     }
 
+    public void addToExtraInfo(String key, String value){
+        mExtraInfo.put(key, value);
+    }
+
     public int getMapCount(){
         int count = 0;
         if(getMapOne() != null){
@@ -287,7 +291,7 @@ public class TemplateModelClass {
     }
 
     public void updateAlgorithmDateMap(String key, String exName, String isCompareOldDateBool){
-        /**
+        /*
          * if the bool is true and WAS false, we set a new date.
          * if the bool is true and WAS true, we keep the date.
          *

@@ -138,7 +138,7 @@ public class WorkoutProgressModelClass {
         int y = 0;
         String key = "_key";
         boolean keepGoing = true;
-        /**
+        /*
          * x/y
          * so for the x value we need to go through each [0] and add the amount of [1]'s to an incrementer. Then we
          * stop once the values [0]_[1] = the one we're in.
@@ -208,7 +208,7 @@ public class WorkoutProgressModelClass {
         int tokensInt2 = Integer.parseInt(tokens[2]);
         String key = "_key";
 
-        /**
+        /*
          * For each map less than [0], get size of all lists - amount of lists x 1
          * For the map that matches [0], get [2] - 1 and multiply it by [1]
          */
@@ -237,7 +237,7 @@ public class WorkoutProgressModelClass {
                     x2 = tokensInt2;
                 }else{
                     // superset map
-                    /**
+                    /*
                      * Let's say we're at 2_0_2 and there are 2 maps, 0_key and 1_key.
                      * That means that we're 3 in.
                      * 2_1_2 means we're 4 in.
@@ -249,7 +249,7 @@ public class WorkoutProgressModelClass {
                      * now we need to account for overflow
                      */
 
-                    /**
+                    /*
                      * YOO so maybe here we can have the (1/3) type place within exercise
                      * 2_0_1 = 1
                      * 2_1_1 = 2
@@ -386,7 +386,7 @@ public class WorkoutProgressModelClass {
     }
 
     public void reFindViewCursor(){
-        /**
+        /*
          * In case of exercise/set deletion, try to find if the old view cursor data matches itself,
          * if not,
          * First find identical data set (full data set, meaning exercise + superset value + set_checkedValue).
@@ -400,7 +400,7 @@ public class WorkoutProgressModelClass {
          */
     }
 
-    /**
+    /*
      * We should, instead of deleting this on AssistorSaved, update this class with the ref keys necessary to
      * re-do/edit the workout we did that day.
      *
@@ -416,7 +416,7 @@ public class WorkoutProgressModelClass {
         int y = 0;
         String key = "_key";
         boolean keepGoing = true;
-        /**
+        /*
          * x/y
          * so for the x value we need to go through each [0] and add the amount of [1]'s to an incrementer. Then we
          * stop once the values [0]_[1] = the one we're in.
@@ -469,7 +469,7 @@ public class WorkoutProgressModelClass {
     }
 
     public void next(){
-        /**
+        /*
          * So, what we need to do is take the current cursor and try to first increment [2] by 1.
          * First we need to see if this is a superset map.
          * Case 1: (!superset)
@@ -510,7 +510,7 @@ public class WorkoutProgressModelClass {
         }else{
             Log.i("progressModel", "hello superset");
             // superset
-            /**
+            /*
              * This one will be a bit harder. We're going to have to jump between each list,
              * so [1] = 0, [1] = 1, [1] = 2, [1] = 0, etc
              */
@@ -676,7 +676,7 @@ public class WorkoutProgressModelClass {
                     }
                 }else{
                     // superset
-                    /**
+                    /*
                      * Let's just say I'm at 2_0_5. Here would be the correct sequence of previous button clicks
                      * 2_0_5
                      * 2_0_4
@@ -720,7 +720,7 @@ public class WorkoutProgressModelClass {
                             if(tokens[2].equals("1")){
                                 Log.i("progressModel", "215, previous, cursor = " + cursor);
                                 // jump to previous map
-                                /**
+                                /*
                                  * If the current map is 1_key, we're back at the beginning. Do nothing.
                                  * If the previous map is not a superset, just jump to the size of that map - 1.
                                  * If the previous map is a superset:
@@ -736,7 +736,7 @@ public class WorkoutProgressModelClass {
                             }
                         }else{
 
-                            /**
+                            /*
                              * not overflow, can go to previous list
                              * let's just say I'm in 2_1_2, aka 3@55. Previous should be 2_0_1
                              * OK so if [1] == 0 then we go to the highest [1] with [2] - 1
@@ -749,7 +749,7 @@ public class WorkoutProgressModelClass {
                             }else{
                                 // subtract em
                                 Log.i("progressModel", "245, previous, cursor = " + cursor);
-                                /**
+                                /*
                                  * Let's really think this one out.
                                  * 2_1_3
                                  * 2_0_3

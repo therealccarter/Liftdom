@@ -113,7 +113,7 @@ public class DayOfWeekChildFrag extends android.app.Fragment
         for(ExerciseLevelChildFrag exerciseLevelChildFrag : exLevelFragList){
             exerciseLevelChildFrag.setExerciseInfoRunning();
         }
-        /**
+        /*
          * What are we trying to do?
          * If the day set is not empty, we send in the days as usual. if it is empty, we send in
          * the tag? gotta make sure the tags are right. then inflating, we would have to put them

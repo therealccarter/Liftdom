@@ -267,10 +267,13 @@ preliminary decimal support
     - then need to make sure it works everywhere. Wherever it's displayed
                 (SelectedTemplates, WA, Dates, etc).
 Fixed bug causing empty percentages to not be saved in TE running
+WA Running model class should have a hashmap for premade extra info. Maybe also save template type.
+
 ----------------------
 ====================================================
-
-WA Running model class should have a hashmap for premade extra info. Maybe also save template type.
+Yo wtf is RestDaySaved? That's gotta be where that weird broken self feed bug is coming from and
+it's also just plain crashing. Gotta figure that thing out. It needs to be VERY similar to
+AssistorSaved.
 
 Get these premades working correctly:
     - W5314B
@@ -325,6 +328,8 @@ history calendar tab error
     - this actually shows a huge problem throughout the app; hitting back and returning to a page
     probably only triggers onResume, and so in some places it won't be updated and in other places
     it may crash like HCT crashes.
+
+In TE caution users that 0x0@0 sets won't be saved in TE or in WA, (try it out for yourself first)
 
 bodyweight exercises shouldn't be allowed to be changed from B.W.
 
@@ -391,6 +396,9 @@ Create a high level plan to trust.
         - They'll start adding these premades etc.
         - You want all the popular programs, they'll try too.
         - So you have to get there first and market it enough to where it's associated with Liftdom.
+    - think of superchat monetization strategy: give people the opportunity for 1:1 relationship
+    between money and the attention they desire. Also could have community lobbying towards some
+    thing with money. Meme pic somewhere they vote on? Idk.
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
@@ -403,6 +411,8 @@ For each new program, check:
     - AssistorSavedFrag (probably)
 
 PLATE CALCULATOR https://play.google.com/store/apps/details?id=com.dongledan.barisloaded
+    - find a kg plate loader and figure out the possible and practical possibilities of
+    weights/weights that end in decimals.
 
 Programmed deloads?
     - could be a button within TE that you click and brings up window just like TE, and you set how

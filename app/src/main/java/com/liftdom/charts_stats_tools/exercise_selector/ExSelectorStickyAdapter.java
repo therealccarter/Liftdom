@@ -30,6 +30,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     String mbodyString = "null";
     boolean mNoCheckbox = false;
     FragmentActivity fragActivity;
+    boolean isCustomOpenList;
 
     public ExSelectorStickyAdapter(Context context, FragmentActivity activity,  String bodyString, boolean
             noCheckbox, boolean isExclusive){
@@ -91,6 +92,8 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
 
                 Collections.sort(newList, String.CASE_INSENSITIVE_ORDER);
                 exercises = newList.toArray(new String[0]);
+            }else if(bodyString.equals("customOpen")){
+
             }
         } else {
             if(bodyString.equals("upper")){
@@ -101,8 +104,20 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                 exercises = context.getResources().getStringArray(R.array.otherBodyList);
             }
         }
+    }
 
+    public void setUpCustomOpenList(Context context, String listType) {
+        if(listType.equals("push")){
+            String[] otherArray = context.getResources().getStringArray(R.array.otherBodyList);
+            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
 
+            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
+            exercises = otherList.toArray(new String[0]);
+        }else if(listType.equals("pull")){
+
+        }else if(listType.equals("legCore")){
+
+        }
     }
 
     @Override

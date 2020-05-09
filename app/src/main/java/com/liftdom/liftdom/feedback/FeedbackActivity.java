@@ -73,7 +73,7 @@ public class FeedbackActivity extends BaseActivity {
         }
     }
 
-    /**
+    /*
      * So, we need a node for me to be able to view all of the feedback chats.
      * We also need a node for easy access for the users (/uid/).
      * But they need to both update each other.

@@ -39,10 +39,11 @@
             android:hint="@string/elipses"
             android:textSize="18sp"
             android:textColor="@color/white"
-            android:maxLength="30"
+            android:maxLength="40"
             android:foregroundTint="@color/liftrGold1"
             android:inputType="textCapSentences"
-    />
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            />
 
     <TextView
             android:layout_width="match_parent"

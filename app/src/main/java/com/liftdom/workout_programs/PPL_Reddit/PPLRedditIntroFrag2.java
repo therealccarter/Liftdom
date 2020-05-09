@@ -258,7 +258,7 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
     }
 
     private void generateSingletonValues(){
-        /**
+        /*
          * How are we going to do this?
          *
          * Each day, 6 different ways, we'll be using the exercises

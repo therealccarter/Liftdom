@@ -400,7 +400,7 @@ public class RestDaySavedFrag extends Fragment {
 
     }
 
-    /**
+    /*
      * So, the current bug is that when you increase a power level, shit goes negative.
      */
 

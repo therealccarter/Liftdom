@@ -131,7 +131,7 @@ public class PieChartFrag extends Fragment {
 
         firstLoad = true;
 
-        /**
+        /*
          * What's the data set look like?
          * We'll run through every WorkoutHistoryModelClass in /workoutHistory.
          * In each one, we'll get a list of the exercises done that day.
@@ -237,7 +237,7 @@ public class PieChartFrag extends Fragment {
         int thirdInc = index;
         int fourthInc = index;
 
-        /**
+        /*
          * Ok, so let's say we're at 20.
          * 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
          * 0,1,2,3,4,5, 6,7,8,9,10, 11,12,13,14,15, 16,17,18,19,20, 21,22,23
@@ -260,7 +260,7 @@ public class PieChartFrag extends Fragment {
                 }
             }
         }else{
-            /**
+            /*
              * It's showing 24-28. And we want it showing 19-24.
              *
              */
@@ -297,7 +297,7 @@ public class PieChartFrag extends Fragment {
     private void next5(){
         int size = entries.size();
 
-        /**
+        /*
          * What do we need to do?
          * We need to know the current last index.
          * Then we for loop through the main entries, and if i is > current last index and <
@@ -360,7 +360,7 @@ public class PieChartFrag extends Fragment {
         pieChart.getDescription().setText("");
         pieChart.invalidate();
 
-        /**
+        /*
          * Where we at: need to make it stop when no more entries, then need to do next. Also
          * grey out when no more left.
          */
@@ -417,7 +417,7 @@ public class PieChartFrag extends Fragment {
         pieChart.invalidate();
         buttonsLL.setVisibility(View.VISIBLE);
 
-        /**
+        /*
          * Where we at: need to add some sort of button system to tab between datasets 5
          * at a time. It's just too crowded. Also thinking about loading statCharts automatically.
          */

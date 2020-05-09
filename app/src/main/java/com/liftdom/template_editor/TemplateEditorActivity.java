@@ -690,7 +690,7 @@ public class TemplateEditorActivity extends BaseActivity
 
     }
 
-    /**
+    /*
      * Where we at: we solved the isPublic = false problem.
      * However, we need to make sure that the userIds (1 and 2) (usernames too)
      * are going to be set correctly. We want users to be able to "fork" workouts.
@@ -966,7 +966,7 @@ public class TemplateEditorActivity extends BaseActivity
     //Second: having checkForEditState in onResume means that every time it comes back in view,
     //          it's still got the intents so it erases any progress and re-inflates from default.
 
-    /**
+    /*
      * We should put checkForEditState in onCreate. Then again in onResume. However, we'll put a
      * boolean in onPause so we aren't onResuming from the start, only if onPause gets triggered
      * first. In onResume it shouldn't be full checkForEditState, it'll just be checking the
@@ -1134,7 +1134,7 @@ public class TemplateEditorActivity extends BaseActivity
                             //TODO This detects true even well after the node has been deleted
                             //checkRunningNode();
                             draftDetectedTextView.setVisibility(View.VISIBLE);
-                            /**
+                            /*
                              * Where we at:
                              * Having the thing die in background and comeback 1: adds exercises,
                              * sets, days. 2: sets the node to default node. Adding cleanUpState

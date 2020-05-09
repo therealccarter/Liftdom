@@ -12,21 +12,29 @@
         <item>Bench Press (Dumbbell - Incline)</item>
         <item>Bench Press (Dumbbell - Decline)</item>
         <item>Bench Press (Close-grip - Flat)</item>
+        <item>Bicycle Crunches (Bodyweight)</item>
 
         <!--C-->
         <item>Chest Fly (Dumbbell - Flat)</item>
         <item>Chest Fly (Dumbbell - Incline)</item>
         <item>Chest Fly (Dumbbell - Decline)</item>
         <item>Chest Fly (Machine)</item>
+        <item>Chin-up (Bodyweight)</item>
+        <item>Chin-up (Weighted)</item>
+        <item>Crunches (Bodyweight)</item>
         <item>Curl (Barbell - Standing)</item>
         <item>Curl (Dumbbell - Seated)</item>
         <item>Curl (Dumbbell - Standing)</item>
         <!--D-->
+        <item>Dips (Bodyweight)</item>
+        <item>Dips (Weighted)</item>
         <!--E-->
         <!--F-->
+        <item>Face Pulls</item>
         <!--G-->
         <!--H-->
         <!--I-->
+        <item>Inverted Rows (Bodyweight)</item>
         <!--J-->
         <!--K-->
 
@@ -34,6 +42,7 @@
         <item>Lateral Raise (Machine)</item>
         <item>Lateral Raise (Dumbbell)</item>
         <item>Lateral Raise (Dumbbell - Bent-over)</item>
+        <item>Leg Raises (Bodyweight)</item>
 
         <!--M-->
         <item>Military Press (Barbell)</item>
@@ -47,24 +56,35 @@
         <item>Overhead Press (Machine)</item>
 
         <!--P-->
+        <item>Preacher Curls (Dumbbell)</item>
+        <item>Preacher Curls (Barbell)</item>
+        <item>Preacher Curls (Machine)</item>
         <item>Pull-down (Machine)</item>
         <item>Pull-up (Bodyweight)</item>
         <item>Pull-up (Weighted)</item>
+        <item>Pull-Aparts (Banded)</item>
         <item>Push-up (Bodyweight)</item>
 
         <!--Q-->
         <!--R-->
+        <item>Reverse Hyperextension (Bodyweight)</item>
+        <item>Reverse Hyperextension (Weighted)</item>
         <item>Row (Barbell - Bent-over)</item>
         <item>Row (Dumbbell - Bent-over)</item>
         <item>Row (Machine)</item>
+        <item>Russian Twist (Bodyweight)</item>
+        <item>Russian Twist (Weighted)</item>
 
         <!--S-->
         <item>Shrug (Machine)</item>
         <item>Shrug (Barbell)</item>
+        <item>Sit-ups (Bodyweight)</item>
+        <item>Sit-ups (Weighted)</item>
 
         <!--T-->
         <item>Tricep Extension (Barbell - Overhead)</item>
         <item>Tricep Extension (Machine)</item>
+        <item>Tricep Pushdowns (Machine)</item>
         <!--U-->
         <item>Upright Row (Barbell)</item>
 
@@ -79,7 +99,11 @@
     <string-array name="lowerBodyList">
         <!--A-->
         <!--B-->
-
+        <item>Back Raises (Bodyweight)</item>
+        <item>Back Raises (Weighted)</item>
+        <item>Bulgarian Split Squat (One Dumbbell)</item>
+        <item>Bulgarian Split Squat (Two Dumbbells)</item>
+        <item>Bulgarian Split Squat (Barbell)</item>
         <!--C-->
         <item>Calf-raise (Barbell - Back)</item>
         <item>Calf-raise (Barbell - Front)</item>
@@ -93,15 +117,20 @@
         <!--E-->
         <!--F-->
         <!--G-->
+        <item>Glute Ham Raises (Bodyweight)</item>
+        <item>Glute Ham Raises (Weighted)</item>
         <!--H-->
         <!--I-->
         <!--J-->
         <!--K-->
+        <item>Kettlebell Snatch</item>
+        <item>Kettlebell Swing</item>
 
         <!--L-->
         <item>Leg Press</item>
         <item>Leg Extension</item>
         <item>Leg Curl</item>
+        <item>Lunges (Bodyweight)</item>
         <item>Lunges (Barbell - Back)</item>
         <item>Lunges (Barbell - Front)</item>
         <item>Lunges (Dumbbell)</item>
@@ -114,6 +143,9 @@
         <!--R-->
 
         <!--S-->
+        <item>Step-ups (Bodyweight)</item>
+        <item>Step-ups (Dumbbell)</item>
+        <item>Step-ups (Barbell)</item>
         <item>Squat (Barbell - Back)</item>
         <item>Squat (Barbell - Front)</item>
         <item>Squat (Bodyweight)</item>
@@ -288,6 +320,62 @@
         <!--Y-->
         <!--Z-->
     </string-array>
+
+    <!-- ======================= W531fB Assistance Exercises ========================== -->
+    <string-array name="W531fBPush">
+        <item>Dips (Bodyweight)</item>
+        <item>Dips (Weighted)</item>
+        <item>Push-up (Bodyweight)</item>
+        <item>Bench Press (Dumbbell - Flat)</item>
+        <item>Bench Press (Dumbbell - Incline)</item>
+        <item>Overhead Press (Dumbbell)</item>
+        <item>Tricep Extension (Barbell - Overhead)</item>
+        <item>Tricep Extension (Machine)</item>
+        <item>Tricep Pushdowns (Machine)</item>
+    </string-array>
+
+    <string-array name="W531fBPull">
+        <item>Chin-up (Bodyweight)</item>
+        <item>Chin-up (Weighted)</item>
+        <item>Pull-up (Bodyweight)</item>
+        <item>Pull-up (Weighted)</item>
+        <item>Inverted Rows (Bodyweight)</item>
+        <item>Row (Barbell - Bent-over)</item>
+        <item>Row (Dumbbell - Bent-over)</item>
+        <item>Row (Machine)</item>
+        <item>Face Pulls</item>
+        <item>Pull-Aparts (Banded)</item>
+        <item>Pull-down (Machine)</item>
+        <item>Curl (Barbell - Standing)</item>
+        <item>Curl (Dumbbell - Seated)</item>
+        <item>Curl (Dumbbell - Standing)</item>
+    </string-array>
+
+    <string-array name="W531fBLegCore">
+        <item>Back Raises (Bodyweight)</item>
+        <item>Back Raises (Weighted)</item>
+        <item>any abdominal work</item>
+        <item>Leg Raises (Bodyweight)</item>
+        <item>Crunches (Bodyweight)</item>
+        <item>Sit-ups (Bodyweight)</item>
+        <item>Russian Twist (Bodyweight)</item>
+        <item>Russian Twist (Weighted)</item>
+        <item>Bicycle Crunches (Bodyweight)</item>
+        <item>Reverse Hyperextension (Bodyweight)</item>
+        <item>Reverse Hyperextension (Weighted)</item>
+        <item>Lunges (Bodyweight)</item>
+        <item>Lunges (Barbell - Back)</item>
+        <item>Lunges (Dumbbell)</item>
+        <item>Step-ups (Bodyweight)</item>
+        <item>Step-ups (Dumbbell)</item>
+        <item>Step-ups (Barbell)</item>
+        <item>Bulgarian Split Squat (One Dumbbell)</item>
+        <item>Bulgarian Split Squat (Two Dumbbells)</item>
+        <item>Bulgarian Split Squat (Barbell)</item>
+        <item>Kettlebell Snatch</item>
+        <item>Kettlebell Swing</item>
+    </string-array>
+
 
     <!-- ======================= END EXERCISE LIBRARY LIST ========================== -->
 </resources>

@@ -1,9 +1,13 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 
+import android.text.InputFilter;
+import android.text.InputType;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
+import com.liftdom.charts_stats_tools.DigitsInputFilter;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
@@ -66,7 +70,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
         mondayRadioButton.setChecked(true);
         //roundToNearest5.setChecked(true);
 
-        /**
+        /*
          * I'd feel best about this program if it is in normal formatting.
          * So the user can edit to their heart's content.
          * Orrr for each premade we can have a bespoke editor that allows modification of
@@ -79,19 +83,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModelClass userModelClass = dataSnapshot.getValue(UserModelClass.class);
                 W531fBSingleton.getInstance().isImperial = userModelClass.isIsImperial();
-                if(userModelClass.isIsImperial()){
-                    checkMaxes(userModelClass.isIsImperial());
-                    unitsView1.setText("lbs");
-                    unitsView2.setText("lbs");
-                    unitsView3.setText("lbs");
-                    unitsView4.setText("lbs");
-                }else{
-                    checkMaxes(userModelClass.isIsImperial());
-                    unitsView1.setText("kgs");
-                    unitsView2.setText("kgs");
-                    unitsView3.setText("kgs");
-                    unitsView4.setText("kgs");
-                }
+                setUnitInfo(userModelClass.isIsImperial());
             }
 
             @Override
@@ -101,6 +93,46 @@ public class W531fBIntroFrag2 extends SlideFragment {
         });
 
         return view;
+    }
+
+    private void setUnitInfo(boolean isImperial){
+        if(isImperial){
+            checkMaxes(isImperial);
+            unitsView1.setText("lbs");
+            unitsView2.setText("lbs");
+            unitsView3.setText("lbs");
+            unitsView4.setText("lbs");
+
+            squatEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            squatEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+
+            benchPressEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            benchPressEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+
+            deadliftEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            deadliftEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+
+            ohpEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            ohpEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
+        }else{
+            checkMaxes(isImperial);
+            unitsView1.setText("kgs");
+            unitsView2.setText("kgs");
+            unitsView3.setText("kgs");
+            unitsView4.setText("kgs");
+
+            squatEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            squatEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
+
+            benchPressEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            benchPressEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
+
+            deadliftEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            deadliftEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
+
+            ohpEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+            ohpEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
+        }
     }
 
     private String convert(boolean isImperialPOV, boolean isValueImperial, String oldValue){

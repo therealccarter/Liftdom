@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.liftdom.charts_stats_tools.exercise_selector.CustomOpenExListFrag">
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/stickyList1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+</LinearLayout>
+
+
+
+</LinearLayout>

@@ -132,7 +132,7 @@ public class UserModelClass {
     public HashMap<String, String> generateXpMap(HashMap<String, List<String>> completedMap, boolean isRevised){
         // will also set related values, so we'll only have to call one method
 
-        /**
+        /*
          * So what are we trying to do here?
          * We need to take the daily streak and the completed ex info
          * and generate the XP gain accordingly.

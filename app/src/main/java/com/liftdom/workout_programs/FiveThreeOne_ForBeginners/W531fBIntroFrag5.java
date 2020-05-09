@@ -200,7 +200,7 @@ public class W531fBIntroFrag5 extends SlideFragment {
         double deadliftTM = round((Double.parseDouble(W531fBSingleton.getInstance().deadliftMax) * 0.9), 2);
 
 
-        /**
+        /*
          Week 1:
          1x5 @ 65%
          1x5 @ 75%

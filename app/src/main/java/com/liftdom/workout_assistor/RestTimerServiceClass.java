@@ -208,7 +208,7 @@ public class RestTimerServiceClass extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-        /**
+        /*
          * Got a crash on finish and no alert activity just vibrate.
          */
 

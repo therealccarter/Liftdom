@@ -18,6 +18,9 @@ public class Wendler_531_For_Beginners {
     private String benchMax;
     private String deadliftMax;
     private String ohpMax;
+    private String pushSetScheme;
+    private String pullSetScheme;
+    private String legCoreSetScheme;
 
     private String beginDateString;
     private boolean isRoundToNearest5;
@@ -25,10 +28,14 @@ public class Wendler_531_For_Beginners {
     private boolean isTMIncreaseWeek;
     private boolean isSpecialWeek;
 
+    private HashMap<String, String> mExtraInfo;
+
     private double squatTM;
     private double benchTM;
     private double deadliftTM;
     private double ohpTM;
+
+    private String whichDay;
 
     private LocalDate beginDate;
     private LocalDate todaysDate;
@@ -36,14 +43,28 @@ public class Wendler_531_For_Beginners {
     public HashMap<String, String> exercisesAndTMs = new HashMap<>();
 
     public Wendler_531_For_Beginners(HashMap<String, String> extraInfo){
+
+        mExtraInfo = extraInfo;
+
+        setValues(extraInfo);
+
+        beginDate = LocalDate.parse(beginDateString);
+        todaysDate = LocalDate.now();
+    }
+
+    private void setValues(HashMap<String, String> extraInfo){
         beginDateString = extraInfo.get("beginDate");
         squatMax = extraInfo.get("squatMax");
         benchMax = extraInfo.get("benchMax");
         deadliftMax = extraInfo.get("deadliftMax");
         ohpMax = extraInfo.get("ohpMax");
+        pushSetScheme = extraInfo.get("pushSetScheme");
+        pullSetScheme = extraInfo.get("pullSetScheme");
+        legCoreSetScheme = extraInfo.get("legCoreSetScheme");
+    }
 
-        beginDate = LocalDate.parse(beginDateString);
-        todaysDate = LocalDate.now();
+    public HashMap<String, String> getExtraInfo() {
+        return mExtraInfo;
     }
 
     public HashMap<String, List<String>> generateWorkoutMap() {
@@ -102,7 +123,27 @@ public class Wendler_531_For_Beginners {
         return weekType;
     }
 
-    /**
+    public String getPushSetScheme() {
+        return pushSetScheme;
+    }
+
+    public String getPullSetScheme() {
+        return pullSetScheme;
+    }
+
+    public String getLegCoreSetScheme() {
+        return legCoreSetScheme;
+    }
+
+    public String getWhichDay() {
+        return whichDay;
+    }
+
+    public void setWhichDay(String whichDay) {
+        this.whichDay = whichDay;
+    }
+
+    /*
      * What do we need to do here?
      *
      * We need to alert AS that we have reached the 3rd week and to increase the TMs accordingly.
@@ -191,7 +232,7 @@ public class Wendler_531_For_Beginners {
         return workoutMap;
     }
 
-    /**
+    /*
      Before any lifting, choose one of the following and do 10-15 total reps over 2-3 sets:
      Box Jumps
      Broad Jumps
@@ -206,7 +247,7 @@ public class Wendler_531_For_Beginners {
     private HashMap<String, List<String>> getFirstWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
-        /**
+        /*
          Squats: 5/3/1 sets/reps, then 5x5 FSL
          Bench Press: 5/3/1 sets/reps, then 5x5 FSL
          Assistance Work
@@ -296,6 +337,8 @@ public class Wendler_531_For_Beginners {
         squatList.add("1x3_a@p_100_a_" + squatTM);
         exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
+        setWhichDay("first");
+
         map.put("1_key", ohpList);
         map.put("2_key", squatList);
 
@@ -305,7 +348,7 @@ public class Wendler_531_For_Beginners {
     private HashMap<String, List<String>> getSecondWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
-        /**
+        /*
          Deadlift: 5/3/1 sets/reps, then 5x5 FSL
          Overhead Press: 5/3/1 sets/reps, then 5x5 FSL
          Assistance Work
@@ -365,6 +408,8 @@ public class Wendler_531_For_Beginners {
         }
         exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
 
+        setWhichDay("second");
+
         // assistance
 
         map.put("1_key", warmupList);
@@ -386,6 +431,8 @@ public class Wendler_531_For_Beginners {
         benchList.add("1x3_a@p_100_a_" + benchTM);
         exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
 
+        setWhichDay("second");
+
         map.put("1_key", benchList);
 
         return map;
@@ -394,7 +441,7 @@ public class Wendler_531_For_Beginners {
     private HashMap<String, List<String>> getThirdWorkout(int weekType){
         HashMap<String, List<String>> map = new HashMap<>();
 
-        /**
+        /*
          Bench Press: 5/3/1 sets/reps, then 5x5 FSL
          Squats: 5/3/1 sets/reps, then 5x5 FSL
          Assistance Work
@@ -454,6 +501,8 @@ public class Wendler_531_For_Beginners {
         }
         exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
+        setWhichDay("third");
+
         // assistance
 
         map.put("1_key", warmupList);
@@ -474,6 +523,8 @@ public class Wendler_531_For_Beginners {
         deadliftList.add("1x3@p_90_a_" + deadliftTM);
         deadliftList.add("1x3_a@p_100_a_" + deadliftTM);
         exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
+
+        setWhichDay("third");
 
         map.put("1_key", deadliftList);
 

@@ -526,7 +526,7 @@ public class WorkoutAssistorFrag extends Fragment{
         });
     }
 
-    /**
+    /*
      * Current problem: after freestyle workout is completed, we get the no active template frag
      * with a loading view instead of workout finished frag.
      */

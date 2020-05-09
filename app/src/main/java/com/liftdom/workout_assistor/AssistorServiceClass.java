@@ -397,7 +397,7 @@ public class AssistorServiceClass extends Service {
     private Notification buildNotification(){
         Log.i("serviceInfo", "Building notification...");
 
-        /**
+        /*
          * Here is probably where we could check for most advanced set check off.
          */
 

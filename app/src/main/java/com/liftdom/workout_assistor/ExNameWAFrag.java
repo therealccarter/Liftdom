@@ -47,10 +47,11 @@ public class ExNameWAFrag extends android.app.Fragment
         // Required empty public constructor
     }
 
-    public String exerciseName = "fail";
+    //public String exerciseName = "fail";
     List<String> infoList = new ArrayList<>();
     List<String> tagListWA = new ArrayList<>();
     List<String> tagListSSEx = new ArrayList<>();
+    public boolean isAssistanceW531fB;
     int repsWeightInc = 0;
     int exNameSupersetInc = 0;
     boolean isEdit = false;
@@ -81,10 +82,6 @@ public class ExNameWAFrag extends android.app.Fragment
         //void updateWorkoutState();
     }
 
-    private updateWorkoutStateCallback updateWorkoutState;
-    private updateWorkoutStateFastCallback updateWorkoutStateFast;
-    private updateExNameCallback updateExName;
-
     public interface updateExNameCallback{
         void updateExName(String frag, String exName);
     }
@@ -92,6 +89,16 @@ public class ExNameWAFrag extends android.app.Fragment
     public interface updateWorkoutStateForResultCallback{
         void updateWorkoutStateForResult(String tag1, String tag2);
     }
+
+    public interface sendAssistanceExerciseCallback{
+        void setAssistanceExercise(String exName);
+    }
+
+    private sendAssistanceExerciseCallback sendAssistance;
+
+    private updateWorkoutStateCallback updateWorkoutState;
+    private updateWorkoutStateFastCallback updateWorkoutStateFast;
+    private updateExNameCallback updateExName;
 
     private updateWorkoutStateForResultCallback updateWorkoutStateForResult;
 
@@ -101,7 +108,7 @@ public class ExNameWAFrag extends android.app.Fragment
         void firstTimeShowcase(CheckBox checkBox);
     }
 
-    /**
+    /*
      * We need to clear the children here too
      * Gotta account for SuperSet frags in this level and the top level
      */
@@ -120,318 +127,6 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public void updateWorkoutStateForResult(String tag2){
         updateWorkoutStateForResult.updateWorkoutStateForResult(fragTag, tag2);
-    }
-
-    public void setCheckedSuccess(String repsWeightTag){
-        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-            if(repsWeightWAFrag.fragTag1.equals(repsWeightTag)){
-                repsWeightWAFrag.setCheckedView();
-            }
-        }
-    }
-
-    public void checkForSS(){
-        boolean areAllChecked = true;
-        try{
-            if(!repsWeightFragList1.isEmpty()){
-                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                    if(!repsWeightWAFrag.isChecked()){
-                        areAllChecked = false;
-                    }
-                }
-
-                //updateWorkoutState.updateWorkoutStateWithDelay();
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }catch (NullPointerException e){
-            //areAllChecked = false;
-        }
-        try{
-            if(!repsWeightFragList2.isEmpty()){
-                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                    if(!repsWeightWAFrag.isChecked()){
-                        areAllChecked = false;
-                    }
-                }
-                //updateWorkoutState.updateWorkoutStateWithDelay();
-            }
-        }catch (NullPointerException e){
-            //checkOffAll.setChecked(false);
-        }
-        for(ExNameSSWAFrag exNameFrag : exNameSupersetFragList){
-            if(!exNameFrag.isChecked()){
-                areAllChecked = false;
-                /**
-                 * This is getting null/false the first time it's checked. Maybe do a boolean
-                 * instead? idk.
-                 */
-            }
-        }
-        if(areAllChecked){
-            checkOffAll.setChecked(true);
-        }else{
-            isComingFromReps = true;
-            checkOffAll.setChecked(false);
-        }
-    }
-
-    public void checkForNonSS(){
-        boolean areAllChecked = true;
-        try{
-            if(!repsWeightFragList1.isEmpty()){
-                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                    if(!repsWeightWAFrag.isChecked()){
-                        areAllChecked = false;
-                    }
-                }
-
-                //updateWorkoutState.updateWorkoutStateWithDelay();
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }catch (NullPointerException e){
-            //checkOffAll.setChecked(false);
-        }
-        try{
-            if(!repsWeightFragList2.isEmpty()){
-                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                    if(!repsWeightWAFrag.isChecked()){
-                        areAllChecked = false;
-                    }
-                }
-                //updateWorkoutState.updateWorkoutStateWithDelay();
-            }
-        }catch (NullPointerException e){
-            //checkOffAll.setChecked(false);
-        }
-        if(areAllChecked){
-            checkOffAll.setChecked(true);
-        }else{
-            isComingFromReps = true;
-            checkOffAll.setChecked(false);
-        }
-    }
-
-    public void checkIfAllAreCheckedWithDelay(){
-        Handler handler = new Handler();
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(exNameSupersetFragList != null){
-                    if(!exNameSupersetFragList.isEmpty()){
-                        checkForSS();
-                        //updateWorkoutState.updateWorkoutState();
-                    }else{
-                        checkForNonSS();
-                    }
-                }else{
-                    checkForNonSS();
-                }
-            }
-        }, 1000);
-
-
-    }
-
-    public void checkIfAllAreChecked(){
-
-        // This is where the issue is. Clicking once checks them all off, but the main checkmark
-        // stays unchecked, until you click it again, at which point the sets stay checked, but
-        // the main checkmark finally becomes checked.
-
-        // so what's happening is we're triggering a check every time we
-
-        if(exNameSupersetFragList != null){
-            if(!exNameSupersetFragList.isEmpty()){
-                checkForSS();
-                //updateWorkoutState.updateWorkoutState();
-            }else{
-                checkForNonSS();
-            }
-        }else{
-            checkForNonSS();
-        }
-
-        //try{
-        //    if(!repsWeightFragList1.isEmpty()){
-        //        boolean areAllChecked = true;
-        //        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-        //            if(!repsWeightWAFrag.isChecked()){
-        //                areAllChecked = false;
-        //            }
-        //        }
-        //        if(areAllChecked){
-        //                checkOffAll.setChecked(true);
-        //            }else{
-        //                isComingFromReps = true;
-        //                checkOffAll.setChecked(false);
-        //            }
-        //        //updateWorkoutState.updateWorkoutStateWithDelay();
-        //    }else{
-        //        checkOffAll.setChecked(false);
-        //    }
-        //}catch (NullPointerException e){
-        //    checkOffAll.setChecked(false);
-        //}
-        //try{
-        //    if(!repsWeightFragList2.isEmpty()){
-        //        boolean areAllChecked = true;
-        //        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-        //            if(!repsWeightWAFrag.isChecked()){
-        //                areAllChecked = false;
-        //            }
-        //        }
-        //        if(areAllChecked){
-        //                checkOffAll.setChecked(true);
-        //            }else{
-        //                isComingFromReps = true;
-        //                checkOffAll.setChecked(false);
-        //            }
-        //        //updateWorkoutState.updateWorkoutStateWithDelay();
-        //    }
-        //}catch (NullPointerException e){
-        //    checkOffAll.setChecked(false);
-        //}
-        //try{
-        //    /**
-        //     * PROBLEM RIGHT NOW: Unchecking one SS unchecks all of them.
-        //     *
-        //     *
-        //     * So what we're going to do now is this: get this thing to work smoothly without the
-        //     * internet. then after it works perfectly offline SNAPPY, we'll experiment with real
-        //     * time data writing/reading or with save button or with saving it on leaving the
-        //     * page, or turning off the phone.
-        //     */
-//
-        //    if(!exNameSupersetFragList.isEmpty()){
-        //        boolean areAllChecked = true;
-        //        for(ExNameSSWAFrag exNameFrag : exNameSupersetFragList){
-        //            if(!exNameFrag.isChecked()){
-        //                areAllChecked = false;
-        //            }
-        //        }
-        //        if(areAllChecked){
-        //            checkOffAll.setChecked(true);
-        //        }else{
-        //            isComingFromReps2 = true;
-        //            checkOffAll.setChecked(false);
-        //        }
-        //        //updateWorkoutState.updateWorkoutStateWithDelay();
-        //    }
-        //}catch (NullPointerException e){
-//
-        //}
-    }
-
-    public void checkOffSS(){
-        checkOffNonSS();
-        if(exNameSupersetFragList != null){
-            if(!exNameSupersetFragList.isEmpty()){
-                try{
-                    for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
-                        exNameSSWAFrag.checkAllRepsWeight();
-                    }
-                }catch (NullPointerException e){
-                    ////checkOffAll.setChecked(false);
-                }
-            }else{
-                ////checkOffAll.setChecked(false);
-            }
-        }else{
-            ////checkOffAll.setChecked(false);
-        }
-    }
-
-    public void checkOffNonSS(){
-        //checkOffAll.setChecked(true);
-        if(repsWeightFragList1 != null){
-            if(!repsWeightFragList1.isEmpty()){
-                try{
-                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                        repsWeightWAFrag.setCheckedView();
-                    }
-                    //updateWorkoutState.updateWorkoutStateWithDelay();
-                }catch (NullPointerException e){
-                    //checkOffAll.setChecked(false);
-                }
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }else{
-            //checkOffAll.setChecked(false);
-        }
-        if(repsWeightFragList2 != null){
-            if(!repsWeightFragList2.isEmpty()){
-                try{
-                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                        repsWeightWAFrag.setCheckedView();
-                    }
-                    //updateWorkoutState.updateWorkoutStateWithDelay();
-                }catch (NullPointerException e){
-                    //checkOffAll.setChecked(false);
-                }
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }else{
-            //checkOffAll.setChecked(false);
-        }
-    }
-
-    public void unCheckOffSS(){
-        unCheckOffNonSS();
-        if(exNameSupersetFragList != null){
-            if(!exNameSupersetFragList.isEmpty()){//
-                try{
-                    for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
-                        exNameSSWAFrag.unCheckAllRepsWeight();
-                    }
-                }catch (NullPointerException e){
-                    //checkOffAll.setChecked(false);
-                }
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }else{
-            //checkOffAll.setChecked(false);
-        }
-    }
-
-    public void unCheckOffNonSS(){
-        if(repsWeightFragList1 != null){
-            if(!repsWeightFragList1.isEmpty()){
-                try{
-                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                        repsWeightWAFrag.setUnCheckedView();
-                    }
-                    //updateWorkoutState.updateWorkoutStateWithDelay();
-                }catch (NullPointerException e){
-                    //checkOffAll.setChecked(false);
-                }
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }else{
-            //checkOffAll.setChecked(false);
-        }
-        if(repsWeightFragList2 != null){
-            if(!repsWeightFragList2.isEmpty()){
-                try{
-                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                        repsWeightWAFrag.setUnCheckedView();
-                    }
-                    //updateWorkoutState.updateWorkoutStateWithDelay();
-                }catch (NullPointerException e){
-                    //checkOffAll.setChecked(false);
-                }
-            }else{
-                //checkOffAll.setChecked(false);
-            }
-        }else{
-            //checkOffAll.setChecked(false);
-        }
     }
 
     @BindView(R.id.exerciseName) TextView exerciseNameView;
@@ -455,6 +150,7 @@ public class ExNameWAFrag extends android.app.Fragment
         updateWorkoutStateForResult = (updateWorkoutStateForResultCallback) getParentFragment();
         updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
         updateExName = (updateExNameCallback) getParentFragment();
+        sendAssistance = (sendAssistanceExerciseCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -501,104 +197,6 @@ public class ExNameWAFrag extends android.app.Fragment
             }
         });
 
-        //checkOffAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        //    @Override
-        //    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //if(isChecked){
-                //    if(repsWeightFragList1 != null){
-                //        if(!repsWeightFragList1.isEmpty()){
-                //            try{
-                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                //                    repsWeightWAFrag.setCheckedView();
-                //                }
-                //                //updateWorkoutState.updateWorkoutStateWithDelay();
-                //            }catch (NullPointerException e){
-//
-                //            }
-                //        }else{
-                //            checkOffAll.setChecked(false);
-                //        }
-                //    }else{
-                //        checkOffAll.setChecked(false);
-                //    }
-                //    if(repsWeightFragList2 != null){
-                //        if(!repsWeightFragList2.isEmpty()){
-                //            try{
-                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                //                    repsWeightWAFrag.setCheckedView();
-                //                }
-                //                //updateWorkoutState.updateWorkoutStateWithDelay();
-                //            }catch (NullPointerException e){
-//
-                //            }
-                //        }
-                //    }else{
-                //        checkOffAll.setChecked(false);
-                //    }
-                //    if(exNameSupersetFragList != null){
-                //        if(!exNameSupersetFragList.isEmpty() && !isComingFromReps2){
-                //            try{
-                //                for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
-                //                    exNameSSWAFrag.checkAllRepsWeight();
-                //                }
-                //            }catch (NullPointerException e){
-//
-                //            }
-                //        }else{
-                //            isComingFromReps2 = false;
-                //            checkOffAll.setChecked(false);
-                //        }
-                //    }
-                //    //updateWorkoutState.updateWorkoutStateWithDelay();
-                //}else{
-                //    if(repsWeightFragList1 != null){
-                //        if(!repsWeightFragList1.isEmpty() && !isComingFromReps){
-                //            try{
-                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                //                    repsWeightWAFrag.setUnCheckedView();
-                //                }
-                //                //updateWorkoutState.updateWorkoutStateWithDelay();
-                //            }catch (NullPointerException e){
-//
-                //            }
-//
-                //        }else{
-                //            isComingFromReps = false;
-                //        }
-                //    }
-                //    if(repsWeightFragList2 != null){
-                //        if(!repsWeightFragList2.isEmpty() && !isComingFromReps){
-                //            try{
-                //                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                //                    repsWeightWAFrag.setUnCheckedView();
-                //                }
-                //                //updateWorkoutState.updateWorkoutStateWithDelay();
-                //            }catch (NullPointerException e){
-//
-                //            }
-                //        }
-                //        else{
-                //            isComingFromReps = false;
-                //        }
-                //    }
-                //    if(exNameSupersetFragList != null){
-                //        if(!exNameSupersetFragList.isEmpty() && !isComingFromReps2){
-                //            try{
-                //                for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
-                //                    exNameSSWAFrag.unCheckAllRepsWeight();
-                //                }
-                //            }catch (NullPointerException e){
-//
-                //            }
-                //        }
-                //        else{
-                //            isComingFromReps2 = false;
-                //        }
-                //    }
-                //    //updateWorkoutState.updateWorkoutStateWithDelay();
-                //}
-        //    }
-        //});
 
         exerciseNameView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -617,11 +215,63 @@ public class ExNameWAFrag extends android.app.Fragment
                         }
                     }
                 }
-                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                int exID = exerciseNameView.getId();
-                intent.putExtra("fragTag", fragTag);
-                intent.putExtra("exID", exID);
-                startActivityForResult(intent, 2);
+
+                if(isAssistanceW531fB){
+                    String exName = exerciseNameView.getText().toString();
+
+                    if(exName.equals("Choose PUSH assistance exercise")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("fragTag", fragTag);
+                        intent.putExtra("exID", exID);
+                        intent.putExtra("customList", "true");
+                        intent.putExtra("W531fB", "true");
+                        intent.putExtra("push", "true");
+                        startActivityForResult(intent, 2);
+                    }else if(exName.equals("Choose PULL assistance exercise")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("fragTag", fragTag);
+                        intent.putExtra("exID", exID);
+                        intent.putExtra("customList", "true");
+                        intent.putExtra("W531fB", "true");
+                        intent.putExtra("pull", "true");
+                        startActivityForResult(intent, 2);
+                    }else if(exName.equals("Choose SINGLE LEG/CORE assistance exercise")){
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("fragTag", fragTag);
+                        intent.putExtra("exID", exID);
+                        intent.putExtra("customList", "true");
+                        intent.putExtra("W531fB", "true");
+                        intent.putExtra("legCore", "true");
+                        startActivityForResult(intent, 2);
+                    }else{
+
+                    }
+                }else{
+                    Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                    int exID = exerciseNameView.getId();
+                    intent.putExtra("fragTag", fragTag);
+                    intent.putExtra("exID", exID);
+                    startActivityForResult(intent, 2);
+                }
+
+                /**
+                 *
+                 * What we're working on now:
+                 * We need it to bring up the right exercises.
+                 *
+                 * First case is none have been selected, so it has the pertinent info already
+                 * "stored" in the ex name placeholder text. And we'll bring up a version of
+                 * ExSelectorActivity with a custom list (which we'll have to make).
+                 *
+                 * However, how will we know which type of list to bring up once we've selected
+                 * an exercise? Maybe "IF isAssistanceW531fB is true, check current ex name
+                 * against a list of the available exercises and then we'll know which one it is?"
+                 *
+                 */
+
             }
         });
 
@@ -668,7 +318,7 @@ public class ExNameWAFrag extends android.app.Fragment
             int biggestSize = getBiggestSizeList(finalList);
             inflateFragsFromEdit(finalList, biggestSize);
             //checkIfAllAreChecked();
-            /**
+            /*
              * ISSUE RIGHT NOW IS THAT THE FRAGS ARE NOT YET ALIVE WHEN THIS GETS RUN.
              */
         }else{
@@ -681,58 +331,13 @@ public class ExNameWAFrag extends android.app.Fragment
 
     boolean isFirstTimeFirstTime = true;
 
+    private void inflateCorrectExSelector(String exName){
+
+    }
+
     @Override
     public void onStart(){
         super.onStart();
-
-        //final DatabaseReference firstTimeRef = FirebaseDatabase.getInstance().getReference().child("firstTime").child
-        //        (FirebaseAuth.getInstance().getCurrentUser().getxUid()).child("isAssistorFirstTime");
-        //firstTimeRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        //    @Override
-        //    public void onDataChange(DataSnapshot dataSnapshot) {
-        //        if(dataSnapshot.exists()){
-//
-        //            FancyShowCaseView fancyShowCaseView1 = new FancyShowCaseView.Builder(getActivity())
-        //                    .title("Welcome to the Workout Assistor. \n \n" +
-        //                            "This is where you'll come every day to complete your workouts and check off " +
-        //                    "rest" +
-        //                            " days." +
-        //                            "\n \n You can customize everything here to most accurately reflect and record " +
-        //                    "the workout " +
-        //                            "you did that day.")
-        //                    .titleStyle(R.style.showCaseViewStyle1, Gravity.CENTER)
-        //                    .build();
-//
-        //            FancyShowCaseView fancyShowCaseView2 = new FancyShowCaseView.Builder(getActivity())
-        //                    .focusOn(getView())
-        //                    .title("This view shows every set for each exercise. \n \n You can add or delete sets " +
-        //                            "here, as " +
-        //                            "well as change the reps to 'to failure' or weight to 'bodyweight' via the 3
-                                    // dot" +
-        //                    " " +
-        //                            "menu on the left." +
-        //                            "\n \n Go ahead and check off the first set now, and we'll move on.")
-        //                    .titleStyle(R.style.showCaseViewStyle2, Gravity.CENTER | Gravity.BOTTOM)
-        //                    .focusShape(FocusShape.ROUNDED_RECTANGLE)
-        //                    .build();
-//
-        //            new FancyShowCaseQueue()
-        //                    .add(fancyShowCaseView1)
-        //                    .add(fancyShowCaseView2)
-        //                    .show();
-//
-        //            CheckBox checkBox = (CheckBox) repsWeightFragList2.get(0).getView().findViewById(R.id.checkBox);
-        //            firstTimeShowcaseCallback.firstTimeShowcase(checkBox);
-//
-        //            //firstTimeRef.setValue(null);
-        //        }
-        //    }
-//
-        //    @Override
-        //    public void onCancelled(DatabaseError databaseError) {
-//
-        //    }
-        //});
     }
 
     @Override
@@ -758,8 +363,10 @@ public class ExNameWAFrag extends android.app.Fragment
                     String fragTag1 = data.getStringExtra("fragTag");
                     if(fragTag1.equals(fragTag)){
                         updateChildExNames(data.getStringExtra("MESSAGE"));
+                        if(isAssistanceW531fB){
+                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                        }
                         exerciseNameView.setText(data.getStringExtra("MESSAGE"));
-
                     }else{
                         updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
                     }
@@ -769,7 +376,7 @@ public class ExNameWAFrag extends android.app.Fragment
         }else if(resultCode == 3){
             if(data != null){
                 if(data.getStringArrayExtra("MESSAGE") != null){
-                    /**
+                    /*
                      * What we'd have to do here is show a pop up for SxR@W and then add it to the key location that
                      * will be set from parent frag.
                      */
@@ -787,7 +394,7 @@ public class ExNameWAFrag extends android.app.Fragment
     private void updateChildExNames(String exerciseName){
         if(!repsWeightFragList1.isEmpty()){
             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
-                /**
+                /*
                  * We need reps frags to switch to bw if the ex is bw.
                  */
                 repsWeightWAFrag.updateExName(exerciseName);
@@ -795,7 +402,7 @@ public class ExNameWAFrag extends android.app.Fragment
         }
         if(!repsWeightFragList2.isEmpty()){
             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
-                /**
+                /*
                  * We need reps frags to switch to bw if the ex is bw.
                  */
                 repsWeightWAFrag.updateExName(exerciseName);
@@ -805,6 +412,9 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public void setExName(String exName){
         updateChildExNames(exName);
+        if(isAssistanceW531fB){
+            sendAssistance.setAssistanceExercise(exName);
+        }
         exerciseNameView.setText(exName);
     }
 
@@ -935,6 +545,12 @@ public class ExNameWAFrag extends android.app.Fragment
 
         exerciseNameView.setText(finalList.get(0).get(0));
 
+        if(finalList.get(0).get(0).equals("Choose PUSH assistance exercise")
+        || finalList.get(0).get(0).equals("Choose PULL assistance exercise")
+        || finalList.get(0).get(0).equals("Choose SINGLE LEG/CORE assistance exercise")){
+            isAssistanceW531fB = true;
+        }
+
 
         for(int i = 0; i < biggestSize; i++){
             int count = 0;
@@ -1063,6 +679,283 @@ public class ExNameWAFrag extends android.app.Fragment
         return exMap;
     }
 
+    public String getExerciseName(){
+        return exerciseNameView.getText().toString();
+    }
+
+    public String getHighestChildWeight(){
+        String highestWeight = "0";
+
+        List<String> parentExInfoList = new ArrayList<>();
+
+        if(repsWeightFragList1.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                parentExInfoList.add(repsWeightWAFrag.getWeight());
+            }
+        }
+
+        if(repsWeightFragList2.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                parentExInfoList.add(repsWeightWAFrag.getWeight());
+            }
+        }
+
+
+        if(!parentExInfoList.isEmpty()){
+            for(String string : parentExInfoList){
+                double firstWeight = Double.parseDouble(highestWeight);
+                double secondWeight = Double.parseDouble(string);
+                if(secondWeight > firstWeight){
+                    highestWeight = String.valueOf(secondWeight);
+                }
+            }
+        }
+
+        return highestWeight;
+    }
+
+    public void setCheckedSuccess(String repsWeightTag){
+        for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+            if(repsWeightWAFrag.fragTag1.equals(repsWeightTag)){
+                repsWeightWAFrag.setCheckedView();
+            }
+        }
+    }
+
+    public void checkForSS(){
+        boolean areAllChecked = true;
+        try{
+            if(!repsWeightFragList1.isEmpty()){
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+
+                //updateWorkoutState.updateWorkoutStateWithDelay();
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }catch (NullPointerException e){
+            //areAllChecked = false;
+        }
+        try{
+            if(!repsWeightFragList2.isEmpty()){
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+                //updateWorkoutState.updateWorkoutStateWithDelay();
+            }
+        }catch (NullPointerException e){
+            //checkOffAll.setChecked(false);
+        }
+        for(ExNameSSWAFrag exNameFrag : exNameSupersetFragList){
+            if(!exNameFrag.isChecked()){
+                areAllChecked = false;
+                /*
+                 * This is getting null/false the first time it's checked. Maybe do a boolean
+                 * instead? idk.
+                 */
+            }
+        }
+        if(areAllChecked){
+            checkOffAll.setChecked(true);
+        }else{
+            isComingFromReps = true;
+            checkOffAll.setChecked(false);
+        }
+    }
+
+    public void checkForNonSS(){
+        boolean areAllChecked = true;
+        try{
+            if(!repsWeightFragList1.isEmpty()){
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+
+                //updateWorkoutState.updateWorkoutStateWithDelay();
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }catch (NullPointerException e){
+            //checkOffAll.setChecked(false);
+        }
+        try{
+            if(!repsWeightFragList2.isEmpty()){
+                for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                    if(!repsWeightWAFrag.isChecked()){
+                        areAllChecked = false;
+                    }
+                }
+                //updateWorkoutState.updateWorkoutStateWithDelay();
+            }
+        }catch (NullPointerException e){
+            //checkOffAll.setChecked(false);
+        }
+        if(areAllChecked){
+            checkOffAll.setChecked(true);
+        }else{
+            isComingFromReps = true;
+            checkOffAll.setChecked(false);
+        }
+    }
+
+    public void checkIfAllAreCheckedWithDelay(){
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(exNameSupersetFragList != null){
+                    if(!exNameSupersetFragList.isEmpty()){
+                        checkForSS();
+                        //updateWorkoutState.updateWorkoutState();
+                    }else{
+                        checkForNonSS();
+                    }
+                }else{
+                    checkForNonSS();
+                }
+            }
+        }, 1000);
+
+
+    }
+
+    public void checkIfAllAreChecked(){
+
+        // This is where the issue is. Clicking once checks them all off, but the main checkmark
+        // stays unchecked, until you click it again, at which point the sets stay checked, but
+        // the main checkmark finally becomes checked.
+
+        // so what's happening is we're triggering a check every time we
+
+        if(exNameSupersetFragList != null){
+            if(!exNameSupersetFragList.isEmpty()){
+                checkForSS();
+                //updateWorkoutState.updateWorkoutState();
+            }else{
+                checkForNonSS();
+            }
+        }else{
+            checkForNonSS();
+        }
+    }
+
+    public void checkOffSS(){
+        checkOffNonSS();
+        if(exNameSupersetFragList != null){
+            if(!exNameSupersetFragList.isEmpty()){
+                try{
+                    for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+                        exNameSSWAFrag.checkAllRepsWeight();
+                    }
+                }catch (NullPointerException e){
+                    ////checkOffAll.setChecked(false);
+                }
+            }else{
+                ////checkOffAll.setChecked(false);
+            }
+        }else{
+            ////checkOffAll.setChecked(false);
+        }
+    }
+
+    public void checkOffNonSS(){
+        //checkOffAll.setChecked(true);
+        if(repsWeightFragList1 != null){
+            if(!repsWeightFragList1.isEmpty()){
+                try{
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                        repsWeightWAFrag.setCheckedView();
+                    }
+                    //updateWorkoutState.updateWorkoutStateWithDelay();
+                }catch (NullPointerException e){
+                    //checkOffAll.setChecked(false);
+                }
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }else{
+            //checkOffAll.setChecked(false);
+        }
+        if(repsWeightFragList2 != null){
+            if(!repsWeightFragList2.isEmpty()){
+                try{
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                        repsWeightWAFrag.setCheckedView();
+                    }
+                    //updateWorkoutState.updateWorkoutStateWithDelay();
+                }catch (NullPointerException e){
+                    //checkOffAll.setChecked(false);
+                }
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }else{
+            //checkOffAll.setChecked(false);
+        }
+    }
+
+    public void unCheckOffSS(){
+        unCheckOffNonSS();
+        if(exNameSupersetFragList != null){
+            if(!exNameSupersetFragList.isEmpty()){//
+                try{
+                    for(ExNameSSWAFrag exNameSSWAFrag : exNameSupersetFragList){
+                        exNameSSWAFrag.unCheckAllRepsWeight();
+                    }
+                }catch (NullPointerException e){
+                    //checkOffAll.setChecked(false);
+                }
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }else{
+            //checkOffAll.setChecked(false);
+        }
+    }
+
+    public void unCheckOffNonSS(){
+        if(repsWeightFragList1 != null){
+            if(!repsWeightFragList1.isEmpty()){
+                try{
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                        repsWeightWAFrag.setUnCheckedView();
+                    }
+                    //updateWorkoutState.updateWorkoutStateWithDelay();
+                }catch (NullPointerException e){
+                    //checkOffAll.setChecked(false);
+                }
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }else{
+            //checkOffAll.setChecked(false);
+        }
+        if(repsWeightFragList2 != null){
+            if(!repsWeightFragList2.isEmpty()){
+                try{
+                    for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                        repsWeightWAFrag.setUnCheckedView();
+                    }
+                    //updateWorkoutState.updateWorkoutStateWithDelay();
+                }catch (NullPointerException e){
+                    //checkOffAll.setChecked(false);
+                }
+            }else{
+                //checkOffAll.setChecked(false);
+            }
+        }else{
+            //checkOffAll.setChecked(false);
+        }
+    }
+
     private boolean listHasEx(ArrayList<List<String>> parentList, String exName){
         boolean bool = false;
 
@@ -1123,7 +1016,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 //String fragString = Integer.toString(repsWeightInc);
                 if(getChildFragmentManager().findFragmentByTag(tag) != null){
                     fragmentTransaction.remove(getChildFragmentManager().findFragmentByTag(tag)).commit();
-                    /**
+                    /*
                      * Let's say we've got this list: [1rwSS, 2rwSS, 3rwSS, 4rwSS] size = 4;
                      * If we delete, say, 3rwSS, we're removing the frag at index (2) (size = 3 now)
                      * but then if we next remove 4rwSS, we're removing at index (3), which is now out of bounds.

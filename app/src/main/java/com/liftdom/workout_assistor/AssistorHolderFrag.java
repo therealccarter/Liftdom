@@ -57,7 +57,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 ExNameWAFrag.updateWorkoutStateCallback,
                 ExNameWAFrag.updateWorkoutStateForResultCallback,
                 ExNameWAFrag.updateWorkoutStateFastCallback,
-                ExNameWAFrag.updateExNameCallback{
+                ExNameWAFrag.updateExNameCallback,
+                ExNameWAFrag.sendAssistanceExerciseCallback{
 
 
     public AssistorHolderFrag() {
@@ -209,7 +210,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
         //checkIfUserIsImperial();
 
-        /**
+        /*
          * This is being called on the split screen shit.
          */
         //checkForOldData();
@@ -285,7 +286,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         showRestTimerAlertRB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                /**
+                /*
                  * Problem now is that it's "true" twice. Takes one manual turn to turn it false.
                  * Should be "true" until it's populated and then turn false automatically.
                  */
@@ -564,7 +565,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     Button negativeButton = (Button) dialogView.findViewById(R.id.negativeView);
                     negativeButton.setText(R.string.cancel);
 
-                    /**
+                    /*
                      * Couple problems I'm seeing here.
                      * Why did another algoInfoDateMap get created?
                      * Why didn't the shit increase weight? because I set both dates to 2-07
@@ -815,6 +816,10 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
+    void setAssistanceExercise(String exName, String value){
+        preMadeInfo.put(exName, value);
+    }
+
     public void updateWorkoutStateNoProgress(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -829,11 +834,30 @@ public class AssistorHolderFrag extends android.app.Fragment
         boolean completedBool = false; // obviously this will be set to true in assistor saved
         String mediaResource = "";
 
+        boolean isW531fB = false;
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()){
+                if(preMadeInfo.get("type") != null){
+                    if(preMadeInfo.get("type").equals("W531fB")){
+                        isW531fB = true;
+                        W531fBAssistanceList = getAssistanceExList();
+                    }
+                }
+            }
+        }
+
         // might need to make this not clickable without inflated views so it isn't set to null
         for(ExNameWAFrag exNameFrag : exNameFragList){
             inc++;
             //for(int i = 1; i <= exNameFragList.size(); i++){}
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(isW531fB){
+                if(W531fBAssistanceList.contains(exNameFrag.getExerciseName())){
+                    setAssistanceExercise(exNameFrag.getExerciseName(), exNameFrag.getHighestChildWeight());
+                }
+            }
         }
 
         WorkoutProgressModelClass progressModelClass;
@@ -895,11 +919,35 @@ public class AssistorHolderFrag extends android.app.Fragment
         boolean completedBool = false; // obviously this will be set to true in assistor saved
         String mediaResource = "";
 
+        /*
+            Where we at:
+            Gotta duplicate/do something similar to this in the final finishWorkout method.
+         */
+
+        boolean isW531fB = false;
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()){
+                if(preMadeInfo.get("type") != null){
+                    if(preMadeInfo.get("type").equals("W531fB")){
+                        isW531fB = true;
+                        W531fBAssistanceList = getAssistanceExList();
+                    }
+                }
+            }
+        }
+
         // might need to make this not clickable without inflated views so it isn't set to null
         for(ExNameWAFrag exNameFrag : exNameFragList){
             inc++;
             //for(int i = 1; i <= exNameFragList.size(); i++){}
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(isW531fB){
+                if(W531fBAssistanceList.contains(exNameFrag.getExerciseName())){
+                    setAssistanceExercise(exNameFrag.getExerciseName(), exNameFrag.getHighestChildWeight());
+                }
+            }
         }
 
         WorkoutProgressModelClass progressModelClass;
@@ -958,7 +1006,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         //    removeFrag(exNameWAFrag.fragTag);
         //}
 
-        /**
+        /*
          * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
          * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
          */
@@ -978,11 +1026,30 @@ public class AssistorHolderFrag extends android.app.Fragment
         boolean completedBool = false; // obviously this will be set to true in assistor saved
         String mediaResource = "";
 
+        boolean isW531fB = false;
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()){
+                if(preMadeInfo.get("type") != null){
+                    if(preMadeInfo.get("type").equals("W531fB")){
+                        isW531fB = true;
+                        W531fBAssistanceList = getAssistanceExList();
+                    }
+                }
+            }
+        }
+
         // might need to make this not clickable without inflated views so it isn't set to null
         for(ExNameWAFrag exNameFrag : exNameFragList){
             inc++;
             //for(int i = 1; i <= exNameFragList.size(); i++){}
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(isW531fB){
+                if(W531fBAssistanceList.contains(exNameFrag.getExerciseName())){
+                    setAssistanceExercise(exNameFrag.getExerciseName(), exNameFrag.getHighestChildWeight());
+                }
+            }
         }
 
         WorkoutProgressModelClass progressModelClass;
@@ -1032,7 +1099,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         //    removeFrag(exNameWAFrag.fragTag);
         //}
 
-        /**
+        /*
          * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
          * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
          */
@@ -1042,7 +1109,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     public void updateWorkoutStateWithDelay(){
 
-        /**
+        /*
          * Current issue: when checking something off and then minimizing the app, duplicates (9) were added
          * to the db. first we'll try it without the delay, then possibly an (!getActivity.isFinishing) conditional
          */
@@ -1065,11 +1132,30 @@ public class AssistorHolderFrag extends android.app.Fragment
                     boolean completedBool = false; // obviously this will be set to true in assistor saved
                     String mediaResource = "";
 
+                    boolean isW531fB = false;
+                    List<String> W531fBAssistanceList = new ArrayList<>();
+
+                    if(preMadeInfo != null){
+                        if(!preMadeInfo.isEmpty()){
+                            if(preMadeInfo.get("type") != null){
+                                if(preMadeInfo.get("type").equals("W531fB")){
+                                    isW531fB = true;
+                                    W531fBAssistanceList = getAssistanceExList();
+                                }
+                            }
+                        }
+                    }
+
                     // might need to make this not clickable without inflated views so it isn't set to null
                     for(ExNameWAFrag exNameFrag : exNameFragList){
                         inc++;
                         //for(int i = 1; i <= exNameFragList.size(); i++){}
                         runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+                        if(isW531fB){
+                            if(W531fBAssistanceList.contains(exNameFrag.getExerciseName())){
+                                setAssistanceExercise(exNameFrag.getExerciseName(), exNameFrag.getHighestChildWeight());
+                            }
+                        }
                     }
 
                     WorkoutProgressModelClass progressModelClass;
@@ -1131,11 +1217,30 @@ public class AssistorHolderFrag extends android.app.Fragment
         boolean completedBool = false; // obviously this will be set to true in assistor saved
         String mediaResource = "";
 
+        boolean isW531fB = false;
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()){
+                if(preMadeInfo.get("type") != null){
+                    if(preMadeInfo.get("type").equals("W531fB")){
+                        isW531fB = true;
+                        W531fBAssistanceList = getAssistanceExList();
+                    }
+                }
+            }
+        }
+
         // might need to make this not clickable without inflated views so it isn't set to null
         for(ExNameWAFrag exNameFrag : exNameFragList){
             inc++;
             //for(int i = 1; i <= exNameFragList.size(); i++){}
             runningMap.put(String.valueOf(inc) + "_key", exNameFrag.getInfoForMap());
+            if(isW531fB){
+                if(W531fBAssistanceList.contains(exNameFrag.getExerciseName())){
+                    setAssistanceExercise(exNameFrag.getExerciseName(), exNameFrag.getHighestChildWeight());
+                }
+            }
         }
 
         WorkoutProgressModelClass progressModelClass;
@@ -1190,7 +1295,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         //    removeFrag(exNameWAFrag.fragTag);
         //}
 
-        /**
+        /*
          * OK, so what we need to do is just convert the original template class to a running model, then inflate that.
          * Inflating the original, then deleting it, then inflating the running model is just too much overhead.
          */
@@ -1328,7 +1433,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
                 });
             }else{
-                /**
+                /*
                  * Where we are now: we have the freestyle set up in running assistor. may need
                  * to make it no have is from rest day/revise, not sure.
                  * But right now the issue is that there is no associated template with it.
@@ -1402,7 +1507,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
-    /**
+    /*
      * Edge case and set/ex deletion time.
      */
 
@@ -1556,14 +1661,14 @@ public class AssistorHolderFrag extends android.app.Fragment
 
 
     private void initializeViews(){
-        /**
+        /*
          * So what I'm thinking right now is to automatically update to the running assistor, and have both the WA
          * and the Service setting/getting continuously from that node. We shall see.
          * just trying some things out. thinking about ways of implementing this WA/Service symbiosis.
          * I'm excited though! Could make it so we don't have to deal with the save button AND get a notification bar working.
          */
 
-        /**
+        /*
          * This was folly. It's laggy and doesn't allow for offline use. Also there is a problem
          * with calling update when no views are there/views are not properly inflated.
          *
@@ -1786,6 +1891,33 @@ public class AssistorHolderFrag extends android.app.Fragment
         fragmentTransaction.commit();
     }
 
+    List<String> getAssistanceExList(){
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null) {
+            if (!preMadeInfo.isEmpty()) {
+                if (preMadeInfo.get("type") != null) {
+                    if (preMadeInfo.get("type").equals("W531fB")) {
+                        List<String> dummyList = new ArrayList<>();
+                        dummyList.add("TMIncreaseWeek");
+                        dummyList.add("SpecialWeek");
+                        dummyList.add("Squat (Barbell - Back)");
+                        dummyList.add("Bench Press (Barbell - Flat)");
+                        dummyList.add("Overhead Press (Barbell)");
+                        dummyList.add("Deadlift (Barbell - Conventional)");
+                        for(Map.Entry<String, String> entry : preMadeInfo.entrySet()){
+                            if(!dummyList.contains(entry.getKey())){
+                                W531fBAssistanceList.add(entry.getKey());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return W531fBAssistanceList;
+    }
+
     private void savedProgressInflateViews(HashMap<String, HashMap<String, List<String>>> runningMap, String
             privateJournal, String publicComment, boolean isTemplateImperial1,
                                            boolean isRunningImperial1){
@@ -1812,6 +1944,19 @@ public class AssistorHolderFrag extends android.app.Fragment
             justVibrateNoUpdate = false;
         }
 
+        boolean isW531fB = false;
+        List<String> W531fBAssistanceList = new ArrayList<>();
+
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()){
+                if(preMadeInfo.get("type") != null){
+                    if(preMadeInfo.get("type").equals("W531fB")){
+                        isW531fB = true;
+                        W531fBAssistanceList = getAssistanceExList();
+                    }
+                }
+            }
+        }
 
         restTimerNoUpdate = true;
         restTimerSwitch.setChecked(workoutProgressModelClass.isIsActiveRestTimer());
@@ -1838,6 +1983,13 @@ public class AssistorHolderFrag extends android.app.Fragment
                         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExNameWAFrag exNameFrag = new ExNameWAFrag();
                         //exNameFrag.isTemplateImperial = isTemplateImperial1;
+                        if(isW531fB){
+                            for(Map.Entry<String, List<String>> entry1 : exerciseMap.entrySet()){
+                                if(W531fBAssistanceList.contains(entry1.getValue().get(0))){
+                                    exNameFrag.isAssistanceW531fB = true;
+                                }
+                            }
+                        }
                         exNameFrag.isTemplateImperial = isRunningImperial1;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.isEditInfoList = exerciseMap;
@@ -1887,14 +2039,19 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
+    public void setAssistanceExercise(String exName){
+        preMadeInfo.put(exName, "0");
+    }
+
     private void inflateW531fB(){
         Wendler_531_For_Beginners W531fB = new Wendler_531_For_Beginners(
                 mTemplateClass.getExtraInfo());
         HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
 
+
         //smolovWeekDayString = smolov.getWeekDayString();
 
-        /**
+        /*
          * If it's TM increase day, we need to send that to AS in preMadeInfo
          * Send type W531fB
          * Send if it's special day.
@@ -1903,27 +2060,50 @@ public class AssistorHolderFrag extends android.app.Fragment
          *  So we need to also send the current TM of the current Exercise/s.
          */
 
+        preMadeInfo.put("type", "W531fB");
+
         if(W531fB.isTMIncreaseWeek()){
             extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);
             extraInfoTextView.setVisibility(View.VISIBLE);
             preMadeInfo.clear();
-            preMadeInfo.put("type", "W531fB");
             preMadeInfo.put("TMIncreaseWeek", "true");
             preMadeInfo.put("SpecialWeek", "false");
-            /**
-             * OK, now we need to get the list of exercisesAndTMs() and add them in
-             */
+            preMadeInfo.put("whichDay", W531fB.getWhichDay());
+            //HashMap<String, String> exercisesAndTMs = W531fB.exercisesAndTMs;
+            //for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
+            //    preMadeInfo.put(entry.getKey(), entry.getValue());
+            //}
         }
+
         if(W531fB.isSpecialWeek()){
             extraInfoTextView.setText(R.string.W5314BSpecialWeekInstruction);
             extraInfoTextView.setVisibility(View.VISIBLE);
             // in AS we should tell them how their TM changed.
             // so either way, this or TMIncrease, we'll be sending in the current TM.
             preMadeInfo.clear();
-            preMadeInfo.put("type", "W531fB");
             preMadeInfo.put("SpecialWeek", "true");
             preMadeInfo.put("TMIncreaseWeek", "false");
+            preMadeInfo.put("whichDay", W531fB.getWhichDay());
+            HashMap<String, String> exercisesAndTMs = W531fB.exercisesAndTMs;
+            for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
+                preMadeInfo.put(entry.getKey(), entry.getValue());
+            }
         }
+
+        /*
+        How do we remember the assistance exercises?
+        How do we add the ex frags in knowing they're for assistance?
+        We need a boolean within them that we'll activate.
+        But then how do we remember that boolean when we head over to AS?
+        We have a callback that is triggered when you choose an exercise if that ex frag has
+         the right boolean. It will add the exercise to premade info as the key and the value will
+         be the weight. 0 at first. Then each time we update the node we look for ex frags with
+         the boolean and whose ex name matches our keys. We then update the premade info with that
+         key's new weight. Then in AS we just take those keys and add them to the template's pre
+         made info. So then when we come through again, we will have those exercise's and their
+         weights to fill in the dialog. Remember we'll also need the set scheme for
+         Push/Pull/LegsCore. That should also be in premade info.
+        */
 
         for(int i = 0; i < map.size(); i++){
             if(i == 0){
@@ -1956,6 +2136,46 @@ public class AssistorHolderFrag extends android.app.Fragment
                 }
             }
             if(i == (map.size() - 1)){
+
+                /*
+                Ok so the problem is: how do we
+                 */
+
+                for(int j = 0; j < 3; j++){
+                    exNameInc++;
+                    String tag = String.valueOf(exNameInc) + "ex";
+                    android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager()
+                            .beginTransaction();
+                    ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                    exNameFrag.isTemplateImperial = isTemplateImperial;
+                    exNameFrag.isUserImperial = isUserImperial;
+                    exNameFrag.isAssistanceW531fB = true;
+                    //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
+                    ArrayList<String> info = new ArrayList<>();
+                    if(j == 0){
+                        info.add("Choose PUSH assistance exercise");
+                        info.add(W531fB.getPushSetScheme() + "@0");
+                    }else if(j == 1){
+                        info.add("Choose PULL assistance exercise");
+                        info.add(W531fB.getPullSetScheme() + "@0");
+                    }else if(j == 2){
+                        info.add("Choose SINGLE LEG/CORE assistance exercise");
+                        info.add(W531fB.getLegCoreSetScheme() + "@0");
+                    }
+                    exNameFrag.infoList = info;
+                    exNameFrag.fragTag = tag;
+                    if(getActivity() != null) {
+                        if (!getActivity().isFinishing()) {
+                            fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                            fragmentTransaction.commitAllowingStateLoss();
+                            getChildFragmentManager().executePendingTransactions();
+                            exNameFragList.add(exNameFrag);
+                            fragTagList.add(tag);
+                        }
+                    }
+                }
+
+
                 updateWorkoutStateNoProgress();
                 serviceCardView.setVisibility(View.VISIBLE);
             }
@@ -2035,7 +2255,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
     private void noProgressInflateViews(){
 
-        /**
+        /*
          * Current problem: after the listener has been set, saving a template causes the updated info to be added
          * onto the existing running assistor node. It should either totally delete it or delete the current stuff and
          * add the new info in place of the old info.
@@ -2247,7 +2467,7 @@ public class AssistorHolderFrag extends android.app.Fragment
 
 
 
-                    /**
+                    /*
                      * So we're going to take the ex name from this intent
                      * and then start a new activity for result (requestCode == 3).
                      * The new activity would have template editor style functions for adding set schemes
@@ -2307,6 +2527,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                      .beginTransaction();
                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
                     exNameFrag.isTemplateImperial = isTemplateImperial;
+                    exNameFrag.isUserImperial = isUserImperial;
                     //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
                     ArrayList<String> info = new ArrayList<>();
                     info.add(data.getStringExtra("MESSAGE"));

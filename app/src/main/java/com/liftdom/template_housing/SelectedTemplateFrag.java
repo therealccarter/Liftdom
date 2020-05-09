@@ -300,7 +300,7 @@ public class SelectedTemplateFrag extends Fragment {
             }
         });
 
-        /**
+        /*
          * What we need to do:
          * Change the keys of algorithmInfo
          * Add a boolean isApplyToAll to template model class

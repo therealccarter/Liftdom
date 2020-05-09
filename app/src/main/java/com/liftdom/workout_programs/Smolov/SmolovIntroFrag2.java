@@ -120,7 +120,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
     }
 
     private void convertUnitsAndPost(String maxValue, boolean maxImperial){
-        /**
+        /*
          * We need the units of the max, and the units we currently are.
          */
 

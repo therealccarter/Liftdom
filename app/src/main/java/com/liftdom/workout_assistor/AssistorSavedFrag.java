@@ -35,6 +35,7 @@ import com.liftdom.liftdom.main_social_feed.completed_workout_post.CompletedWork
 import com.liftdom.liftdom.utils.WorkoutHistoryModelClass;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
 import com.wang.avi.AVLoadingIndicatorView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
@@ -359,36 +360,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             final DatabaseReference userRef = mRootRef.child("user").child(uid);
             DatabaseReference activeTemplateRef = mRootRef.child("user").child(uid).child("activeTemplate");
 
-            if(preMadeInfo != null){
-                if(!preMadeInfo.isEmpty()){
-                    if(preMadeInfo.get("type").equals("Smolov")){
-                        if(preMadeInfo.get("oneRepMaxDay").equals("true")){
-                            if(preMadeInfo.get("isLastDay").equals("true")){
-                                extraInfoTextView.setText("Congratulations! You\'ve finished Smolov.");
-                                extraInfoTextView.setVisibility(View.VISIBLE);
-                                activeTemplateRef.setValue(null);
-                            }else{
-                                processSmolovMaxDay();
-                                extraInfoTextView.setText("You\'re halfway there!");
-                                extraInfoTextView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }else if(preMadeInfo.get("type").equals("W531fB")){
-
-                    }
-                }
-            }
-
-            //DatabaseReference myFeedRef = mRootRef.child("feed").child(uid);
-//
-            //String refKey;
-            //if(redoRefKey != null){
-            //    refKey = redoRefKey;
-            //}else{
-            //    refKey = myFeedRef.push().getKey();
-            //}
-
-            //final String REFKEY = refKey;
+            processPremadeInfo(activeTemplateRef);
 
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -449,18 +421,12 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
                     feedFanOut(refKey, completedWorkoutModelClass);
 
-                    //selfFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    //runningRef.child("refKey").setValue(refKey);
-                    //runningRef.child("isRevise").setValue(false);
-                    //runningRef.child("completedBool").setValue(true);
-
-                    dontLeavePage.setVisibility(View.GONE);
-
                     // workout history
                     //needed
                     setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
                             workoutHistoryRef, REFKEY);
 
+                    dontLeavePage.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -468,8 +434,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
                 }
             });
-
-
 
             completedExercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -499,59 +463,300 @@ public class AssistorSavedFrag extends android.app.Fragment {
                 templateRef.setValue(templateClass);
             }
 
-            //DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child
-            //        ("runningAssistor").child(uid).child("assistorModel");
-            //runningRef.child("refKey").setValue(REFKEY).addOnCompleteListener(new
-            // OnCompleteListener<Void>() {
-            //    @Override
-            //    public void onComplete(@NonNull Task<Void> task) {
-            //        runningRef.child("isRevise").setValue(false).addOnCompleteListener(new
-            //        OnCompleteListener<Void>() {
-            //            @Override
-            //            public void onComplete(@NonNull Task<Void> task) {
-            //                runningRef.child("completedBool").setValue(true)
-            //                .addOnCompleteListener(new OnCompleteListener<Void>() {
-            //                    @Override
-            //                    public void onComplete(@NonNull Task<Void> task) {
-            //                        runningRef.child("exInfoHashMap").setValue(completedMap)
-            //                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-            //                            @Override
-            //                            public void onComplete(@NonNull Task<Void> task) {
-            //                                runningRef.child("privateJournal").setValue("you
-            //                                are" +
-            //                                        " " +
-            //                                        "a shitter you fucking fuck"); //ok so this
-            //                                // is being set which means it's not here.
-            //                            }
-            //                        });
-            //                    }
-            //                });
-            //            }
-            //        });
-            //    }
-            //});
-
-            //runningRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            //    @Override
-            //    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            //        WorkoutProgressModelClass workoutProgressModelClass =
-            //                dataSnapshot.getValue(WorkoutProgressModelClass.class);
-            //        workoutProgressModelClass.setRefKey(REFKEY);
-            //        workoutProgressModelClass.setIsRevise(false);
-            //        workoutProgressModelClass.setCompletedBool(true);
-            //        workoutProgressModelClass.setExInfoHashMap(completedMap);
-//
-            //        runningRef.setValue(workoutProgressModelClass);
-            //    }
-//
-            //    @Override
-            //    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-            //    }
-            //});
         }
 
         return view;
+    }
+
+    private void processPremadeInfo(DatabaseReference activeTemplateRef){
+        if(preMadeInfo != null){
+            if(!preMadeInfo.isEmpty()) {
+                if (preMadeInfo.get("type") != null) {
+                    if (preMadeInfo.get("type").equals("Smolov")) {
+                        if (preMadeInfo.get("oneRepMaxDay").equals("true")) {
+                            if (preMadeInfo.get("isLastDay").equals("true")) {
+                                extraInfoTextView.setText("Congratulations! You\'ve finished Smolov.");
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                                activeTemplateRef.setValue(null);
+                            } else {
+                                processSmolovMaxDay();
+                                extraInfoTextView.setText("You\'re halfway there!");
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    } else if (preMadeInfo.get("type").equals("W531fB")) {
+                        /*
+                            Now we need to figure out what to do here.
+                            TM increases, Special Weeks, and updating assistance exercises.
+                         */
+                        HashMap<String, String> W531fBAssistanceList = new HashMap<>();
+
+                        if(preMadeInfo != null) {
+                            if (!preMadeInfo.isEmpty()) {
+                                if (preMadeInfo.get("type") != null) {
+                                    if (preMadeInfo.get("type").equals("W531fB")) {
+                                        List<String> dummyList = new ArrayList<>();
+                                        dummyList.add("TMIncreaseWeek");
+                                        dummyList.add("SpecialWeek");
+                                        dummyList.add("Squat (Barbell - Back)");
+                                        dummyList.add("Bench Press (Barbell - Flat)");
+                                        dummyList.add("Overhead Press (Barbell)");
+                                        dummyList.add("Deadlift (Barbell - Conventional)");
+                                        for(Map.Entry<String, String> entry : preMadeInfo.entrySet()){
+                                            if(!dummyList.contains(entry.getKey())){
+                                                W531fBAssistanceList.put(entry.getKey(),
+                                                        entry.getValue());
+                                            }
+                                        }
+
+                                        // now we have a list of accessories.
+                                        for(Map.Entry<String, String> entry :
+                                                W531fBAssistanceList.entrySet()){
+                                            templateClass.addToExtraInfo(entry.getKey(),
+                                                    entry.getValue());
+                                        }
+
+                                        // now we need to deal with TM Increase/Special Week
+                                        if(preMadeInfo.get("TMIncreaseWeek").equals("true")){
+                                            processW531fBTMIncreaseWeek(preMadeInfo.get("whichDay"));
+                                        }else if(preMadeInfo.get("TMIncreaseWeek").equals("false")){
+                                            if(preMadeInfo.get("SpecialWeek").equals("true")){
+                                                processW531fBSpecialWeek(preMadeInfo.get("whichDay"));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void processW531fBTMIncreaseWeek(String whichDay){
+        /*
+            What do we do on TM increase week?
+            We need to increase the main lifts that are in premade info by the correct amount
+            So we'll loop through till we find them,
+         */
+
+        /*
+        We're trying to figure out whether integer or double
+         */
+        List<String> exList = new ArrayList<>();
+        if(whichDay.equals("second")){
+            exList.add("benchMax");
+            exList.add("squatMax");
+        }else if(whichDay.equals("third")){
+            exList.add("deadliftMax");
+            exList.add("ohpMax");
+        }
+        for(String ex : exList){
+            double value = Double.parseDouble(templateClass.getExtraInfo().get(ex));
+            if(value % 1 == 0){
+                int value2 = (int) value;
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value2 = value2 + 5;
+                }else{
+                    value2 = value2 + 10;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value2));
+            }else{
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value = value + 5;
+                }else{
+                    value = value + 10;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value));
+            }
+        }
+    }
+
+    private void processW531fBSpecialWeek(String whichDay){
+        /**
+         * Now what do we need to do here?
+         * We need to get the right exercises like TMI, so first/second/third.
+         * Then we'll loop through that and get each ex. Then within the loop we'll have to look
+         * through the completed map until we find the weight that matches 100% of training max
+         * (we'll have to use the same method we did in W531fB class to ensure the same number).
+         * Then we'll take that set scheme with the right weight and get the reps for it. If the
+         * reps is 1, we decrease by normal increase x2, if it's 2 we decrease by normal increase
+         * x1. If it's 3 or higher we change nothing.
+         */
+
+        HashMap<String, String> exMap = new HashMap<>();
+        exMap.put("Overhead Press (Barbell)", "ohpMax");
+        exMap.put("Squat (Barbell - Back)", "squatMax");
+        exMap.put("Bench Press (Barbell - Flat)", "benchMax");
+        exMap.put("Deadlift (Barbell - Conventional)", "deadliftMax");
+
+        List<String> exList = new ArrayList<>();
+        if(templateClass.getWorkoutType().equals("W531fB")){
+            if(whichDay.equals("first")){
+                exList.add("Overhead Press (Barbell)");
+                exList.add("Squat (Barbell - Back)");
+            }else if(whichDay.equals("second")){
+                exList.add("Bench Press (Barbell - Flat)");
+            }else if(whichDay.equals("third")){
+                exList.add("Deadlift (Barbell - Conventional)");
+            }
+
+            /**
+             * So for each ex in the list, we then try to find all set schemes of that ex in the
+             * completed map. then we find the one with weight equalling the TM we have in
+             * premades, then read its reps.
+             */
+
+            List<String> setSchemesForEx = new ArrayList<>();
+            for(String exName : exList){
+                for(Map.Entry<String, List<String>> entry : completedMapFormatted.entrySet()){
+                    boolean isExBool = false;
+                    for(String string : entry.getValue()){
+                        if(isExerciseName(string)){
+                            if(string.equals(exName)){
+                                isExBool = true;
+                            }else{
+                                isExBool = false;
+                            }
+                        }else{
+                            if(isExBool){
+                                setSchemesForEx.add(string);
+                            }
+                        }
+                    }
+                }
+
+                String trainingMax = preMadeInfo.get(exName);
+
+                for(String setScheme : setSchemesForEx){
+                    String[] tokens = setScheme.split("@");
+                    if(!isExerciseName(tokens[1])){
+                        //int weight = Integer.parseInt(tokens[1]);
+                        if(tokens[1].equals(trainingMax)){
+                            int reps = Integer.parseInt(tokens[0]);
+                            processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName));
+                        }else{
+                            double weight1 = Double.parseDouble(tokens[1]);
+                            double TM = Double.parseDouble(trainingMax);
+                            if(weight1 >= TM){
+                                int reps = Integer.parseInt(tokens[0]);
+                                processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void processW531fBSpecialWeekTemplateInfo(int reps, String ex){
+        if(reps == 1){
+            // decrease specified ex by double the normal amount
+            double value = Double.parseDouble(templateClass.getExtraInfo().get(ex));
+            if(value % 1 == 0){
+                int value2 = (int) value;
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value2 = value2 - 10;
+                }else{
+                    value2 = value2 - 20;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value2));
+            }else{
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value = value - 10;
+                }else{
+                    value = value - 20;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value));
+            }
+        }else if(reps == 2){
+            // decrease specified ex by normal amount
+            double value = Double.parseDouble(templateClass.getExtraInfo().get(ex));
+            if(value % 1 == 0){
+                int value2 = (int) value;
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value2 = value2 - 5;
+                }else{
+                    value2 = value2 - 10;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value2));
+            }else{
+                if(ex.equals("benchMax") || ex.equals("ohpMax")){
+                    value = value - 5;
+                }else{
+                    value = value - 10;
+                }
+                templateClass.addToExtraInfo(ex, String.valueOf(value));
+            }
+        }
+    }
+
+    private void processSmolovMaxDay(){
+        /*
+         * How do we get the new max and insert it into the template?
+         * First we need to make sure the template is actually smolov.
+         * Then we store the exercise being used for smolov.
+         * Next we scan through the completed workout and try to find
+         * all sets of that exercise. After that we put those in a list and
+         * take the highest. Then we insert that into the template as the
+         * 1rm and save. Then we say you're halfway there.
+         */
+
+        if(templateClass.getWorkoutType().equals("Smolov")){
+            HashMap<String, String> extraInfo = new HashMap<>();
+            extraInfo = templateClass.getExtraInfo();
+            List<String> weightsForExercise = new ArrayList<>();
+            String exName = extraInfo.get("exName");
+            //int listInc = 0;
+
+            for(Map.Entry<String, List<String>> entry : completedMapFormatted.entrySet()){
+                boolean isExBool = false;
+                for(String string : entry.getValue()){
+                    if(isExerciseName(string)){
+                        if(string.equals(exName)){
+                            isExBool = true;
+                            //List<String> list = new ArrayList<>();
+                            //list.add(string);
+                            //exInfoList.add(list);
+                            //listInc++;
+                        }else{
+                            isExBool = false;
+                        }
+                    }else{
+                        if(isExBool){
+                            weightsForExercise.add(string);
+                        }
+                    }
+                }
+            }
+
+            double highestWeight = 0;
+
+            for(String set : weightsForExercise){
+                String[] tokens = set.split("@");
+                if(!isExerciseName(tokens[1])){
+                    double weight = Double.parseDouble(tokens[1]);
+                    if(weight > highestWeight){
+                        highestWeight = weight;
+                    }
+                }
+            }
+
+            //TODO: we need to make sure that kg decimals works here...
+
+            double weight1 = (double) highestWeight;
+            weight1 = weight1 * .9;
+            weight1 = 5 * (Math.round(weight1/5));
+            int weight2 = (int) weight1;
+
+            if(Boolean.parseBoolean(extraInfo.get("isTakeOff10"))){
+                highestWeight = weight2;
+            }
+
+            extraInfo.put("maxWeight", String.valueOf((int) highestWeight));
+            templateClass.setExtraInfo(extraInfo);
+        }
     }
 
     private void setWorkoutHistoryRef(String date, boolean isImperial,
@@ -604,74 +809,6 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
             }
         });
-    }
-
-    private void processSmolovMaxDay(){
-        /**
-         * How do we get the new max and insert it into the template?
-         * First we need to make sure the template is actually smolov.
-         * Then we store the exercise being used for smolov.
-         * Next we scan through the completed workout and try to find
-         * all sets of that exercise. After that we put those in a list and
-         * take the highest. Then we insert that into the template as the
-         * 1rm and save. Then we say you're halfway there.
-         */
-
-        if(templateClass.getWorkoutType().equals("Smolov")){
-            HashMap<String, String> extraInfo = new HashMap<>();
-            extraInfo = templateClass.getExtraInfo();
-            List<String> weightsForExercise = new ArrayList<>();
-            String exName = extraInfo.get("exName");
-            //int listInc = 0;
-
-            for(Map.Entry<String, List<String>> entry : completedMapFormatted.entrySet()){
-                boolean isExBool = false;
-                for(String string : entry.getValue()){
-                    if(isExerciseName(string)){
-                        if(string.equals(exName)){
-                            isExBool = true;
-                            //List<String> list = new ArrayList<>();
-                            //list.add(string);
-                            //exInfoList.add(list);
-                            //listInc++;
-                        }else{
-                            isExBool = false;
-                        }
-                    }else{
-                        if(isExBool){
-                            weightsForExercise.add(string);
-                        }
-                    }
-                }
-            }
-
-            int highestWeight = 0;
-
-            for(String set : weightsForExercise){
-                String[] tokens = set.split("@");
-                if(!isExerciseName(tokens[1])){
-                    int weight = Integer.parseInt(tokens[1]);
-                    if(weight > highestWeight){
-                        highestWeight = weight;
-                    }
-                }
-            }
-
-            double weight1 = (double) highestWeight;
-            weight1 = weight1 * .9;
-            weight1 = 5 * (Math.round(weight1/5));
-            int weight2 = (int) weight1;
-
-            if(Boolean.parseBoolean(extraInfo.get("isTakeOff10"))){
-                highestWeight = weight2;
-            }
-
-            extraInfo.put("maxWeight", String.valueOf(highestWeight));
-            templateClass.setExtraInfo(extraInfo);
-
-        }
-
-
     }
 
     private void setMaxes(){
@@ -766,7 +903,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         //List<List<String>>
 
-        /**
+        /*
          * So what do we need to do? For each key, we will check to see if the next value is the same as the one
          * we're currently on. Let's break it down some more.
          * Ex:
@@ -954,6 +1091,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
         userListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // this the bug?
                 if(dataSnapshot.exists()){
                     Map fanoutObject = new HashMap<>();
                     int inc = 0;
@@ -995,6 +1133,8 @@ public class AssistorSavedFrag extends android.app.Fragment {
                     //        }
                     //    });
                     //}
+                }else{
+                    Map fanoutObject = new HashMap<>();
                 }
             }
 
@@ -2099,7 +2239,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         isSuperset = false;
 
-        /**
+        /*
          * What I want it to do:
          * Increase the sets/reps/weight for each exercise with the ex name of "exName"
          */
@@ -3338,7 +3478,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
 
         isSuperset = false;
 
-        /**
+        /*
          * What I want it to do:
          * Increase the sets/reps/weight for each exercise with the ex name of "exName"
          */
@@ -3391,7 +3531,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
             }
         }
 
-        /**
+        /*
          * OK, so (4) simply tells us if we're on a "roll." If we haven't missed a week. If we should even run the
          * algo check.
          * (1) is what we use to actually get the weeksSinceLast!

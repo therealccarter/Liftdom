@@ -66,7 +66,7 @@ public class SendDirectMessageFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        /**
+        /*
          * So, first we need to check to see if there's already a chat with just you and the person you're messaging.
          * If there is, we will update that chat.
          * If not, we need to create a new chat group for both users and a new chat with the message typed here.

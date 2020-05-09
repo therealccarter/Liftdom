@@ -154,7 +154,7 @@ public class ExNameSSWAFrag extends android.app.Fragment
     private void updateChildExNames(String exerciseName){
         if(!repsWeightFragList.isEmpty()){
             for(RepsWeightSSWAFrag repsWeightWAFrag : repsWeightFragList){
-                /**
+                /*
                  * We need reps frags to switch to bw if the ex is bw.
                  */
                 repsWeightWAFrag.updateExName(exerciseName);

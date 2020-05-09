@@ -9,7 +9,7 @@ import org.joda.time.DateTimeZone;
 
 public class NotificationModelClass {
 
-    /**
+    /*
      * So what do we need here?
      * Going to need a database refKey of whatever was acted upon.
      *  If you liked or commented on a post, we'll use that post's refKey and then also check the type.

@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public class W531fBInfoFrag extends Fragment {
 
-    /**
+    /*
      * This is for the SelectedTemplatePage btw
      */
 

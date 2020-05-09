@@ -31,7 +31,7 @@ public class Smolov {
                                                                   boolean round){
         HashMap<String, List<String>> map = new HashMap<>();
 
-        /**
+        /*
          * So we'd have to get the begin date and today's date.
          * From there we'd calculate how many days have passed.
          * We can then set the week and day numbers accordingly

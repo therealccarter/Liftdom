@@ -44,7 +44,7 @@ public class PPLFinishedFrag extends Fragment {
     String squatMax;
     Boolean isActive = false;
 
-    /**
+    /*
      * PushA.add("Monday");
      PullA.add("Tuesday");
      LegsA.add("Wednesday");
