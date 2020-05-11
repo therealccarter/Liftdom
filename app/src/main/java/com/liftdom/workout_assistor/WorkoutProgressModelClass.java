@@ -33,6 +33,7 @@ public class WorkoutProgressModelClass {
     private String mVibrationTime;
     private boolean mIsRestTimerAlert;
     private HashMap<String, String> mPreMadeInfo;
+    private String mTemplateName;
 
     public WorkoutProgressModelClass(){
         // necessary for Firebase
@@ -54,6 +55,14 @@ public class WorkoutProgressModelClass {
         }
         mIsRevise = isRevise;
         mIsFromRestDay = isFromRestDay;
+    }
+
+    public String getTemplateName() {
+        return mTemplateName;
+    }
+
+    public void setTemplateName(String mTemplateName) {
+        this.mTemplateName = mTemplateName;
     }
 
     public boolean isIsRunningImperial() {

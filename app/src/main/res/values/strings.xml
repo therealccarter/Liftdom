@@ -628,6 +628,13 @@
         the main lifts done today.
     </string>
 
+    <string name="chooseAssistanceWeight">Choose Assistance Exercise Weight for\n</string>
+
+    <string name="chooseSensibleWeight">(Remember to choose a sensible weight you can do
+        for the full amount of reps)</string>
+
+    <string name="manualInputAssistanceCancel">Manually Input Weights</string>
+
     <!-- PPL Reddit -->
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>

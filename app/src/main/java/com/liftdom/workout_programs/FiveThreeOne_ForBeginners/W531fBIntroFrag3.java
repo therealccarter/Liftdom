@@ -319,9 +319,12 @@ public class W531fBIntroFrag3 extends SlideFragment {
         if(isPushCorrect().equals("correct")
         && isPullCorrect().equals("correct")
         && isLegCoreCorrect().equals("correct")){
-            W531fBSingleton.getInstance().pushSetScheme = setsPush + "x" + repsPush;
-            W531fBSingleton.getInstance().pullSetScheme = setsPull + "x" + repsPull;
-            W531fBSingleton.getInstance().legCoreSetScheme = repsLegCore + "x" + repsLegCore;
+            W531fBSingleton.getInstance().pushSetScheme =
+                    setsPush.getText().toString() + "x" + repsPush.getText().toString();
+            W531fBSingleton.getInstance().pullSetScheme =
+                    setsPull.getText().toString() + "x" + repsPull.getText().toString();
+            W531fBSingleton.getInstance().legCoreSetScheme =
+                    setsLegCore.getText().toString() + "x" + repsLegCore.getText().toString();
 
             moveFurther = true;
         }

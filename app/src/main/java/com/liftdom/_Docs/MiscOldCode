@@ -1,4 +1,17 @@
 
+//exNameWAFrag
+
+    boolean isFirstTimeFirstTime = true;
+
+    private void inflateCorrectExSelector(String exName){
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
 //gradle
     //implementation 'com.squareup.picasso:picasso:2.5.2' //for Inmobi
     //implementation name: 'adcolony-sdk-3.3.0', ext: 'aar'

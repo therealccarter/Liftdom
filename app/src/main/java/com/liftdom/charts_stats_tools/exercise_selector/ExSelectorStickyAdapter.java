@@ -30,6 +30,7 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     String mbodyString = "null";
     boolean mNoCheckbox = false;
     FragmentActivity fragActivity;
+    boolean isW531fB;
     boolean isCustomOpenList;
 
     public ExSelectorStickyAdapter(Context context, FragmentActivity activity,  String bodyString, boolean
@@ -107,16 +108,25 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     }
 
     public void setUpCustomOpenList(Context context, String listType) {
+        isW531fB = true;
         if(listType.equals("push")){
-            String[] otherArray = context.getResources().getStringArray(R.array.otherBodyList);
+            String[] otherArray = context.getResources().getStringArray(R.array.W531fBPush);
             ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
 
             Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
             exercises = otherList.toArray(new String[0]);
         }else if(listType.equals("pull")){
+            String[] otherArray = context.getResources().getStringArray(R.array.W531fBPull);
+            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
 
+            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
+            exercises = otherList.toArray(new String[0]);
         }else if(listType.equals("legCore")){
+            String[] otherArray = context.getResources().getStringArray(R.array.W531fBLegCore);
+            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
 
+            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
+            exercises = otherList.toArray(new String[0]);
         }
     }
 
@@ -163,7 +173,11 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
                     Intent intent = new Intent();
                     intent.putExtra("MESSAGE", exercises[position]);
                     intent.putExtra("fragTag", ExercisePickerController.getInstance().fragTag);
-                    fragActivity.setResult(2, intent);
+                    if(isW531fB){
+                        fragActivity.setResult(5, intent);
+                    }else{
+                        fragActivity.setResult(2, intent);
+                    }
                     //ExercisePickerController.getInstance().exName = null;
                     fragActivity.finish();
                 }

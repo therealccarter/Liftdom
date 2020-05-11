@@ -21,14 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBWeightDialog;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +49,6 @@ public class ExNameWAFrag extends android.app.Fragment
     List<String> infoList = new ArrayList<>();
     List<String> tagListWA = new ArrayList<>();
     List<String> tagListSSEx = new ArrayList<>();
-    public boolean isAssistanceW531fB;
     int repsWeightInc = 0;
     int exNameSupersetInc = 0;
     boolean isEdit = false;
@@ -65,6 +62,13 @@ public class ExNameWAFrag extends android.app.Fragment
     public boolean isUserImperial;
     boolean isComingFromReps;
     boolean isComingFromReps2;
+    public String templateName;
+
+    //W531fB
+    public boolean isAssistanceW531fB;
+    boolean isPushW531fB;
+    boolean isPullW531fB;
+    boolean isLegCoreW531fB;
 
     // need to set up update progress callback
 
@@ -217,38 +221,7 @@ public class ExNameWAFrag extends android.app.Fragment
                 }
 
                 if(isAssistanceW531fB){
-                    String exName = exerciseNameView.getText().toString();
-
-                    if(exName.equals("Choose PUSH assistance exercise")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        int exID = exerciseNameView.getId();
-                        intent.putExtra("fragTag", fragTag);
-                        intent.putExtra("exID", exID);
-                        intent.putExtra("customList", "true");
-                        intent.putExtra("W531fB", "true");
-                        intent.putExtra("push", "true");
-                        startActivityForResult(intent, 2);
-                    }else if(exName.equals("Choose PULL assistance exercise")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        int exID = exerciseNameView.getId();
-                        intent.putExtra("fragTag", fragTag);
-                        intent.putExtra("exID", exID);
-                        intent.putExtra("customList", "true");
-                        intent.putExtra("W531fB", "true");
-                        intent.putExtra("pull", "true");
-                        startActivityForResult(intent, 2);
-                    }else if(exName.equals("Choose SINGLE LEG/CORE assistance exercise")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        int exID = exerciseNameView.getId();
-                        intent.putExtra("fragTag", fragTag);
-                        intent.putExtra("exID", exID);
-                        intent.putExtra("customList", "true");
-                        intent.putExtra("W531fB", "true");
-                        intent.putExtra("legCore", "true");
-                        startActivityForResult(intent, 2);
-                    }else{
-
-                    }
+                    handleExNameIntentW531fB();
                 }else{
                     Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
                     int exID = exerciseNameView.getId();
@@ -329,66 +302,243 @@ public class ExNameWAFrag extends android.app.Fragment
         return view;
     }
 
-    boolean isFirstTimeFirstTime = true;
+    private void handleExNameIntentW531fB(){
+        String exName = exerciseNameView.getText().toString();
 
-    private void inflateCorrectExSelector(String exName){
+        if(exName.equals("Choose PUSH assistance exercise")){
+            isPushW531fB = true;
+            Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+            int exID = exerciseNameView.getId();
+            intent.putExtra("fragTag", fragTag);
+            intent.putExtra("exID", exID);
+            intent.putExtra("customList", "true");
+            intent.putExtra("W531fB", "true");
+            intent.putExtra("push", "true");
+            startActivityForResult(intent, 2);
+        }else if(exName.equals("Choose PULL assistance exercise")){
+            isPullW531fB = true;
+            Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+            int exID = exerciseNameView.getId();
+            intent.putExtra("fragTag", fragTag);
+            intent.putExtra("exID", exID);
+            intent.putExtra("customList", "true");
+            intent.putExtra("W531fB", "true");
+            intent.putExtra("pull", "true");
+            startActivityForResult(intent, 2);
+        }else if(exName.equals("Choose SINGLE LEG/CORE assistance exercise")){
+            isLegCoreW531fB = true;
+            Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+            int exID = exerciseNameView.getId();
+            intent.putExtra("fragTag", fragTag);
+            intent.putExtra("exID", exID);
+            intent.putExtra("customList", "true");
+            intent.putExtra("W531fB", "true");
+            intent.putExtra("legCore", "true");
+            startActivityForResult(intent, 2);
+        }else{
+            // compare current ex name to list
+            String[] pushArray = getActivity().getResources().getStringArray(R.array.W531fBPush);
+            ArrayList<String> pushList = new ArrayList<>(Arrays.asList(pushArray));
+            String[] pullArray = getActivity().getResources().getStringArray(R.array.W531fBPull);
+            ArrayList<String> pullList = new ArrayList<>(Arrays.asList(pullArray));
+            String[] legCoreArray = getActivity().getResources().getStringArray(R.array.W531fBLegCore);
+            ArrayList<String> legCoreList = new ArrayList<>(Arrays.asList(legCoreArray));
 
+            if(pushList.contains(exName)){
+                isAssistanceW531fB = true;
+                isPushW531fB = true;
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = exerciseNameView.getId();
+                intent.putExtra("fragTag", fragTag);
+                intent.putExtra("exID", exID);
+                intent.putExtra("customList", "true");
+                intent.putExtra("W531fB", "true");
+                intent.putExtra("push", "true");
+                startActivityForResult(intent, 2);
+            }else if(pullList.contains(exName)){
+                isAssistanceW531fB = true;
+                isPullW531fB = true;
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = exerciseNameView.getId();
+                intent.putExtra("fragTag", fragTag);
+                intent.putExtra("exID", exID);
+                intent.putExtra("customList", "true");
+                intent.putExtra("W531fB", "true");
+                intent.putExtra("pull", "true");
+                startActivityForResult(intent, 2);
+            }else if(legCoreList.contains(exName)){
+                isAssistanceW531fB = true;
+                isLegCoreW531fB = true;
+                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                int exID = exerciseNameView.getId();
+                intent.putExtra("fragTag", fragTag);
+                intent.putExtra("exID", exID);
+                intent.putExtra("customList", "true");
+                intent.putExtra("W531fB", "true");
+                intent.putExtra("legCore", "true");
+                startActivityForResult(intent, 2);
+            }
+        }
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
+    private void checkExNameForW531fB(String exName){
+        if(exName.equals("Choose PUSH assistance exercise")){
+            isAssistanceW531fB = true;
+            isPushW531fB = true;
+        }else if(exName.equals("Choose PULL assistance exercise")){
+            isAssistanceW531fB = true;
+            isPullW531fB = true;
+        }else if(exName.equals("Choose SINGLE LEG/CORE assistance exercise")){
+            isAssistanceW531fB = true;
+            isLegCoreW531fB = true;
+        }else{
+            if(isAssistanceW531fB){
+                String[] pushArray = getActivity().getResources().getStringArray(R.array.W531fBPush);
+                ArrayList<String> pushList = new ArrayList<>(Arrays.asList(pushArray));
+                String[] pullArray = getActivity().getResources().getStringArray(R.array.W531fBPull);
+                ArrayList<String> pullList = new ArrayList<>(Arrays.asList(pullArray));
+                String[] legCoreArray = getActivity().getResources().getStringArray(R.array.W531fBLegCore);
+                ArrayList<String> legCoreList = new ArrayList<>(Arrays.asList(legCoreArray));
+
+                if(pushList.contains(exName)){
+                    //isAssistanceW531fB = true;
+                    isPushW531fB = true;
+                }else if(pullList.contains(exName)){
+                    //isAssistanceW531fB = true;
+                    isPullW531fB = true;
+                }else if(legCoreList.contains(exName)){
+                    //isAssistanceW531fB = true;
+                    isLegCoreW531fB = true;
+                }
+            }
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1){
-            if(data != null){
-                if(data.getStringExtra("choice") != null){
-                    if(data.getStringExtra("choice").equals("selectEx")){
-                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                        int exID = exerciseNameView.getId();
-                        intent.putExtra("fragTag", fragTag);
-                        intent.putExtra("exID", exID);
-                        startActivityForResult(intent, 2);
-                    }else if(data.getStringExtra("choice").equals("infoEx")){
-                        //TODO: get exercise info popup
-                    }
-                }
-            }
-        }else if(resultCode == 2){
-            if(data != null){
-                if(data.getStringExtra("MESSAGE") != null){
+        if(requestCode == 5){
+            if(resultCode == 7){
+                try{
                     String fragTag1 = data.getStringExtra("fragTag");
                     if(fragTag1.equals(fragTag)){
-                        updateChildExNames(data.getStringExtra("MESSAGE"));
-                        if(isAssistanceW531fB){
-                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
-                        }
-                        exerciseNameView.setText(data.getStringExtra("MESSAGE"));
-                    }else{
-                        updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
+                        String weight = data.getStringExtra("weight");
+                        updateChildWeights(weight, false);
+                        updateWorkoutStateFast();
                     }
+                    /**
+                     * We might need a callback to find the right exname frag...
+                     * And we gotta make sure isAssistanceW531fB gets set before.
+                     * It probably will given all the safeguards but.
+                     */
+                }catch (NullPointerException e){
+
+                }
+            }
+        }else{
+            if(resultCode == 1){
+                if(data != null){
+                    if(data.getStringExtra("choice") != null){
+                        if(data.getStringExtra("choice").equals("selectEx")){
+                            Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                            int exID = exerciseNameView.getId();
+                            intent.putExtra("fragTag", fragTag);
+                            intent.putExtra("exID", exID);
+                            startActivityForResult(intent, 2);
+                        }else if(data.getStringExtra("choice").equals("infoEx")){
+                            //TODO: get exercise info popup
+                        }
+                    }
+                }
+            }else if(resultCode == 2){
+                if(data != null){
+                    if(data.getStringExtra("MESSAGE") != null){
+                        String fragTag1 = data.getStringExtra("fragTag");
+                        if(fragTag1.equals(fragTag)){
+                            updateChildExNames(data.getStringExtra("MESSAGE"));
+                            if(isAssistanceW531fB){
+                                sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            }
+                            exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                        }else{
+                            updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
+                        }
+                        updateWorkoutStateFast();
+                    }
+                }
+            }else if(resultCode == 3){
+                if(data != null){
+                    if(data.getStringArrayExtra("MESSAGE") != null){
+                        /*
+                         * What we'd have to do here is show a pop up for SxR@W and then add it to the key location that
+                         * will be set from parent frag.
+                         */
+                    }
+                }
+            }else if(resultCode == 4){
+                if(data != null){
+                    if(data.getBooleanExtra("remove", false)){
+                        removeFrag.removeFrag(fragTag);
+                    }
+                }
+            }else if(resultCode == 5){
+                // W531fB Ex Name Handling
+                String fragTag1 = data.getStringExtra("fragTag");
+                if(fragTag1.equals(fragTag)){
+                    updateChildExNames(data.getStringExtra("MESSAGE"));
+                    if(isAssistanceW531fB){
+                        String exName = data.getStringExtra("MESSAGE");
+                        if(isBodyweight(exName)){
+                            // If ex is bodyweight we don't show dialog and just update child frags
+                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            updateChildWeights("", true);
+                            updateWorkoutStateFast();
+                        }else{
+                            // If ex is not bodyweight show dialog
+                            // We need to pass ex name into dialog
+                            // Would be nice to pass set schemes in too...would have to gather them from child frags.
+                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            Intent intent = new Intent(getActivity(), W531fBWeightDialog.class);
+                            intent.putExtra("exName", exName);
+                            intent.putExtra("templateName", templateName);
+                            intent.putExtra("fragTag", fragTag);
+                            startActivityForResult(intent, 5);
+                        }
+                    }
+                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                }else{
+                    updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
                     updateWorkoutStateFast();
                 }
             }
-        }else if(resultCode == 3){
-            if(data != null){
-                if(data.getStringArrayExtra("MESSAGE") != null){
-                    /*
-                     * What we'd have to do here is show a pop up for SxR@W and then add it to the key location that
-                     * will be set from parent frag.
-                     */
-                }
-            }
-        }else if(resultCode == 4){
-            if(data != null){
-                if(data.getBooleanExtra("remove", false)){
-                    removeFrag.removeFrag(fragTag);
-                }
+        }
+    }
+
+    private void updateChildWeights(String weight, boolean isBW){
+        if(!repsWeightFragList1.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                repsWeightWAFrag.updateWeights(weight, isBW);
             }
         }
+        if(!repsWeightFragList2.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                repsWeightWAFrag.updateWeights(weight, isBW);
+            }
+        }
+    }
+
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
     }
 
     private void updateChildExNames(String exerciseName){
@@ -436,6 +586,7 @@ public class ExNameWAFrag extends android.app.Fragment
             tagListWA.add(tag);
         }else {
             exerciseNameView.setText(infoList.get(0));
+            checkExNameForW531fB(infoList.get(0));
 
             int inc = 0;
 
@@ -544,13 +695,7 @@ public class ExNameWAFrag extends android.app.Fragment
     private void inflateFragsFromEdit(ArrayList<List<String>> finalList, int biggestSize){
 
         exerciseNameView.setText(finalList.get(0).get(0));
-
-        if(finalList.get(0).get(0).equals("Choose PUSH assistance exercise")
-        || finalList.get(0).get(0).equals("Choose PULL assistance exercise")
-        || finalList.get(0).get(0).equals("Choose SINGLE LEG/CORE assistance exercise")){
-            isAssistanceW531fB = true;
-        }
-
+        checkExNameForW531fB(finalList.get(0).get(0));
 
         for(int i = 0; i < biggestSize; i++){
             int count = 0;

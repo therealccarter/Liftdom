@@ -85,6 +85,7 @@ public class AssistorHolderFrag extends android.app.Fragment
     //boolean isLastDay;
     boolean isListening;
     HashMap<String, String> preMadeInfo = new HashMap<>();
+    String templateName;
 
     boolean mIsKeyboardVisible = false;
     View rootView;
@@ -880,6 +881,8 @@ public class AssistorHolderFrag extends android.app.Fragment
             progressModelClass.setmPreMadeInfo(preMadeInfo);
         }
 
+        progressModelClass.setTemplateName(templateName);
+
         if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
         }else{
@@ -971,6 +974,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(!preMadeInfo.isEmpty()){
             progressModelClass.setmPreMadeInfo(preMadeInfo);
         }
+
+        progressModelClass.setTemplateName(templateName);
 
         if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
             progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
@@ -1071,6 +1076,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(!preMadeInfo.isEmpty()){
             progressModelClass.setmPreMadeInfo(preMadeInfo);
         }
+
+        progressModelClass.setTemplateName(templateName);
 
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
@@ -1178,6 +1185,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                         progressModelClass.setmPreMadeInfo(preMadeInfo);
                     }
 
+                    progressModelClass.setTemplateName(templateName);
+
                     if(secondsEditText.getText().toString().isEmpty() || secondsEditText.getText().toString().equals("0")){
                         progressModelClass.setRestTime(minutesEditText.getText().toString() + ":00");
                     }else{
@@ -1260,6 +1269,8 @@ public class AssistorHolderFrag extends android.app.Fragment
         if(!preMadeInfo.isEmpty()){
             progressModelClass.setmPreMadeInfo(preMadeInfo);
         }
+
+        progressModelClass.setTemplateName(templateName);
 
         progressModelClass.setRestTime(minutesEditText.getText().toString() + ":" + secondsEditText.getText().toString());
         progressModelClass.setIsActiveRestTimer(restTimerBool);
@@ -1931,6 +1942,10 @@ public class AssistorHolderFrag extends android.app.Fragment
             secondsEditText.setText(tokens[1]);
         }
 
+        if(workoutProgressModelClass.getTemplateName() != null){
+            templateName = workoutProgressModelClass.getTemplateName();
+        }
+
         justVibrateNoUpdate = true;
         if(workoutProgressModelClass.getVibrationTime() != null){
             secondsVibrateEditText.setText(workoutProgressModelClass.getVibrationTime());
@@ -1995,6 +2010,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.isEditInfoList = exerciseMap;
                         exNameFrag.fragTag = tag;
                         exNameFrag.isEdit = true;
+                        exNameFrag.templateName = templateName;
                         if(getActivity() != null){
                             if (!getActivity().isFinishing()) {
                                 fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -2122,6 +2138,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.infoList = stringList;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.fragTag = tag;
+                        exNameFrag.templateName = templateName;
                         if(getActivity() != null){
                             if (!getActivity().isFinishing()) {
                                 fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -2137,8 +2154,11 @@ public class AssistorHolderFrag extends android.app.Fragment
             }
             if(i == (map.size() - 1)){
 
-                /*
-                Ok so the problem is: how do we
+                /**
+                 * What we need to do:
+                 * add the set scheme info to each exNameWAFrag
+                 * Now that I think about it, it doesn't need to be "remembered" if we put it in
+                 * first thing, because ofc the set schemes are stored in the db.
                  */
 
                 for(int j = 0; j < 3; j++){
@@ -2150,17 +2170,21 @@ public class AssistorHolderFrag extends android.app.Fragment
                     exNameFrag.isTemplateImperial = isTemplateImperial;
                     exNameFrag.isUserImperial = isUserImperial;
                     exNameFrag.isAssistanceW531fB = true;
+                    exNameFrag.templateName = templateName;
                     //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
                     ArrayList<String> info = new ArrayList<>();
                     if(j == 0){
                         info.add("Choose PUSH assistance exercise");
-                        info.add(W531fB.getPushSetScheme() + "@0");
+                        info.add(W531fB.getPushSetScheme() + "@1");
+                        //info.add(mTemplateClass.getExtraInfo().get("pushSetScheme") + "@1");
                     }else if(j == 1){
                         info.add("Choose PULL assistance exercise");
-                        info.add(W531fB.getPullSetScheme() + "@0");
+                        info.add(W531fB.getPullSetScheme() + "@1");
+                        //info.add(mTemplateClass.getExtraInfo().get("pullSetScheme") + "@1");
                     }else if(j == 2){
                         info.add("Choose SINGLE LEG/CORE assistance exercise");
-                        info.add(W531fB.getLegCoreSetScheme() + "@0");
+                        info.add(W531fB.getLegCoreSetScheme() + "@1");
+                        //info.add(mTemplateClass.getExtraInfo().get("legCoreSetScheme") + "@1");
                     }
                     exNameFrag.infoList = info;
                     exNameFrag.fragTag = tag;
@@ -2236,6 +2260,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.infoList = stringList;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.fragTag = tag;
+                        exNameFrag.templateName = templateName;
                         if (!getActivity().isFinishing()) {
                             fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
                             fragmentTransaction.commitAllowingStateLoss();
@@ -2273,6 +2298,8 @@ public class AssistorHolderFrag extends android.app.Fragment
 
                     DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child("templates").child(uid)
                             .child(templateNameString);
+
+                    templateName = templateNameString;
 
                     templateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -2329,6 +2356,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                                                             exNameFrag.infoList = stringList;
                                                             exNameFrag.isUserImperial = isUserImperial;
                                                             exNameFrag.fragTag = tag;
+                                                            exNameFrag.templateName = templateName;
                                                             if(getActivity() != null){
                                                                 if(!getActivity().isFinishing()) {
                                                                     fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -2528,6 +2556,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     ExNameWAFrag exNameFrag = new ExNameWAFrag();
                     exNameFrag.isTemplateImperial = isTemplateImperial;
                     exNameFrag.isUserImperial = isUserImperial;
+                    exNameFrag.templateName = templateName;
                     //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
                     ArrayList<String> info = new ArrayList<>();
                     info.add(data.getStringExtra("MESSAGE"));

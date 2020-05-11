@@ -273,7 +273,10 @@ WA Running model class should have a hashmap for premade extra info. Maybe also 
 ====================================================
 Yo wtf is RestDaySaved? That's gotta be where that weird broken self feed bug is coming from and
 it's also just plain crashing. Gotta figure that thing out. It needs to be VERY similar to
-AssistorSaved.
+AssistorSaved. It also put "Level Up!" in my completedWorkout extra info which isn't true.
+
+For premades with long intro frag descriptions, maybe do titles so it looks nicer.
+Also just go through each one after you know they work and make them prettier.
 
 Get these premades working correctly:
     - W5314B
@@ -304,12 +307,15 @@ Get these premades working correctly:
             - normal assistance work
         - would be cool to save the initial max
         - going to also need a round option?
+        - for assistance set scheme setting, calculate the amount of reps and display them on the
+            side
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
         -
     - PPL_Reddit
         -
+    - Sheiko - White Whale
 
 - (think of the implications if we add/subtract/multiply/divide
                 and then round we lose precision.)
@@ -402,6 +408,8 @@ Create a high level plan to trust.
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+PUSH NOTIFICATIONS FOR WORKOUTS!
+
 For each new program, check:
     - HistoryCalendarTab/Future Date Constructor
     - SelectedTemplateFrag
@@ -413,6 +421,11 @@ For each new program, check:
 PLATE CALCULATOR https://play.google.com/store/apps/details?id=com.dongledan.barisloaded
     - find a kg plate loader and figure out the possible and practical possibilities of
     weights/weights that end in decimals.
+    - each plate above it can have like completedWorkoutViewHolder lines
+        - so the first of its kind would have a line up and to the right, the next would have a "T"
+        shape, and the last would know it's last and have the line + the name of the plate weight.
+        - only thing I don't know is how it'd push over the view to the right, but that's the
+        general idea.
 
 Programmed deloads?
     - could be a button within TE that you click and brings up window just like TE, and you set how

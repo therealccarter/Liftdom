@@ -203,7 +203,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                         setBW();
                         changeRepsIMEtoFinish();
                     }else{
-                        setNotBW();
+                        setNotBW(false);
                     }
                 }
 
@@ -302,7 +302,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
                         setBW();
                         changeRepsIMEtoFinish();
                     }else{
-                        setNotBW();
+                        setNotBW(false);
                     }
                 }
             }
@@ -710,11 +710,11 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         weightEditText.setEnabled(false);
     }
 
-    public void setNotBW(){
+    public void setNotBW(boolean wipe){
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(3);
         weightEditText.setFilters(filterArray);
-        if(weightEditText.getText().toString().equals("B.W.")){
+        if(weightEditText.getText().toString().equals("B.W.") || wipe){
             weightEditText.setText("");
         }
         if(isUserImperial){
@@ -741,14 +741,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             unitView.setVisibility(View.GONE);
             weightEditText.setEnabled(false);
         }else{
-            InputFilter[] filterArray = new InputFilter[1];
-            filterArray[0] = new InputFilter.LengthFilter(3);
-            weightEditText.setFilters(filterArray);
-            weightEditText.setText("");
-            weightEditText.setEnabled(true);
-            weightEditText.setHint("W");
-            unitView.setVisibility(View.VISIBLE);
-            weightEditText.setEnabled(true);
+            setNotBW(true);
+        }
+    }
+
+    public void updateWeights(String weight, boolean isBW){
+        if(isBW){
+            setBW();
+        }else{
+            setNotBW(true);
+            weightEditText.setText(weight);
         }
     }
 
