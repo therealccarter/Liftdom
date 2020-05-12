@@ -209,14 +209,13 @@
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/roundToNearest5"
+            android:text="@string/includeWarmupW531fB"
             android:textColor="@color/black"
-            android:id="@+id/roundToNearest5"
+            android:id="@+id/warmupCheckbox"
             android:textSize="14sp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="start"
-            android:visibility="gone"
             />
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

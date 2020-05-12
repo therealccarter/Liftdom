@@ -90,6 +90,10 @@ public class ExNameWAFrag extends android.app.Fragment
         void updateExName(String frag, String exName);
     }
 
+    public interface updateChildFragWeightsCallback{
+        void updateChildFragWeights(String frag, String exName, String weight);
+    }
+
     public interface updateWorkoutStateForResultCallback{
         void updateWorkoutStateForResult(String tag1, String tag2);
     }
@@ -103,6 +107,7 @@ public class ExNameWAFrag extends android.app.Fragment
     private updateWorkoutStateCallback updateWorkoutState;
     private updateWorkoutStateFastCallback updateWorkoutStateFast;
     private updateExNameCallback updateExName;
+    private updateChildFragWeightsCallback updateChildWeights;
 
     private updateWorkoutStateForResultCallback updateWorkoutStateForResult;
 
@@ -155,6 +160,7 @@ public class ExNameWAFrag extends android.app.Fragment
         updateWorkoutStateFast = (updateWorkoutStateFastCallback) getParentFragment();
         updateExName = (updateExNameCallback) getParentFragment();
         sendAssistance = (sendAssistanceExerciseCallback) getParentFragment();
+        updateChildWeights = (updateChildFragWeightsCallback) getParentFragment();
 
         Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
 
@@ -425,12 +431,10 @@ public class ExNameWAFrag extends android.app.Fragment
                         String weight = data.getStringExtra("weight");
                         updateChildWeights(weight, false);
                         updateWorkoutStateFast();
+                    }else{
+                        updateChildWeights.updateChildFragWeights(fragTag1, data.getStringExtra(
+                                "exName"), data.getStringExtra("weight"));
                     }
-                    /**
-                     * We might need a callback to find the right exname frag...
-                     * And we gotta make sure isAssistanceW531fB gets set before.
-                     * It probably will given all the safeguards but.
-                     */
                 }catch (NullPointerException e){
 
                 }
@@ -460,10 +464,11 @@ public class ExNameWAFrag extends android.app.Fragment
                                 sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
                             }
                             exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                            updateWorkoutStateFast();
                         }else{
                             updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
                         }
-                        updateWorkoutStateFast();
+                        //updateWorkoutStateFast();
                     }
                 }
             }else if(resultCode == 3){
@@ -491,6 +496,7 @@ public class ExNameWAFrag extends android.app.Fragment
                         if(isBodyweight(exName)){
                             // If ex is bodyweight we don't show dialog and just update child frags
                             sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                             updateChildWeights("", true);
                             updateWorkoutStateFast();
                         }else{
@@ -498,6 +504,8 @@ public class ExNameWAFrag extends android.app.Fragment
                             // We need to pass ex name into dialog
                             // Would be nice to pass set schemes in too...would have to gather them from child frags.
                             sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            exerciseNameView.setText(data.getStringExtra("MESSAGE"));
+                            updateWorkoutStateFast();
                             Intent intent = new Intent(getActivity(), W531fBWeightDialog.class);
                             intent.putExtra("exName", exName);
                             intent.putExtra("templateName", templateName);
@@ -505,7 +513,6 @@ public class ExNameWAFrag extends android.app.Fragment
                             startActivityForResult(intent, 5);
                         }
                     }
-                    exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                 }else{
                     updateExName.updateExName(fragTag1, data.getStringExtra("MESSAGE"));
                     updateWorkoutStateFast();
@@ -514,7 +521,7 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
-    private void updateChildWeights(String weight, boolean isBW){
+    public void updateChildWeights(String weight, boolean isBW){
         if(!repsWeightFragList1.isEmpty()){
             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
                 repsWeightWAFrag.updateWeights(weight, isBW);

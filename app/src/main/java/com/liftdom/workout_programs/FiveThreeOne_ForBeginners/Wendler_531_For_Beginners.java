@@ -27,6 +27,7 @@ public class Wendler_531_For_Beginners {
 
     private boolean isTMIncreaseWeek;
     private boolean isSpecialWeek;
+    private boolean isWarmup;
 
     private HashMap<String, String> mExtraInfo;
 
@@ -61,6 +62,15 @@ public class Wendler_531_For_Beginners {
         pushSetScheme = extraInfo.get("pushSetScheme");
         pullSetScheme = extraInfo.get("pullSetScheme");
         legCoreSetScheme = extraInfo.get("legCoreSetScheme");
+        isWarmup = Boolean.parseBoolean(extraInfo.get("isWarmup"));
+    }
+
+    public boolean isWarmup() {
+        return isWarmup;
+    }
+
+    public void setWarmup(boolean warmup) {
+        isWarmup = warmup;
     }
 
     public HashMap<String, String> getExtraInfo() {
@@ -254,15 +264,17 @@ public class Wendler_531_For_Beginners {
          */
 
         List<String> warmupList = new ArrayList<>();
-        warmupList.add("Box Jumps");
+        warmupList.add("Box Jumps (Bodyweight)");
         warmupList.add("3x4@B.W.");
 
         // squat
         List<String> squatList = new ArrayList<>();
         squatList.add("Squat (Barbell - Back)");
-        squatList.add("1x5@p_40_a_" + squatTM);
-        squatList.add("1x5@p_50_a_" + squatTM);
-        squatList.add("1x3@p_60_a_" + squatTM);
+        if(isWarmup){
+            squatList.add("1x5@p_40_a_" + squatTM);
+            squatList.add("1x5@p_50_a_" + squatTM);
+            squatList.add("1x3@p_60_a_" + squatTM);
+        }
         // done with warmup
         if(weekType == 1){
             squatList.add("1x5@p_65_a_" + squatTM);
@@ -285,9 +297,11 @@ public class Wendler_531_For_Beginners {
         // bench
         List<String> benchList = new ArrayList<>();
         benchList.add("Bench Press (Barbell - Flat)");
-        benchList.add("1x5@p_40_a_" + benchTM);
-        benchList.add("1x5@p_50_a_" + benchTM);
-        benchList.add("1x3@p_60_a_" + benchTM);
+        if(isWarmup){
+            benchList.add("1x5@p_40_a_" + benchTM);
+            benchList.add("1x5@p_50_a_" + benchTM);
+            benchList.add("1x3@p_60_a_" + benchTM);
+        }
         // done with warmup
         if(weekType == 1){
             benchList.add("1x5@p_65_a_" + benchTM);
@@ -361,9 +375,11 @@ public class Wendler_531_For_Beginners {
         // deadlift
         List<String> deadliftList = new ArrayList<>();
         deadliftList.add("Deadlift (Barbell - Conventional)");
-        deadliftList.add("1x5@p_40_a_" + deadliftTM);
-        deadliftList.add("1x5@p_50_a_" + deadliftTM);
-        deadliftList.add("1x3@p_60_a_" + deadliftTM);
+        if(isWarmup){
+            deadliftList.add("1x5@p_40_a_" + deadliftTM);
+            deadliftList.add("1x5@p_50_a_" + deadliftTM);
+            deadliftList.add("1x3@p_60_a_" + deadliftTM);
+        }
         // done with warmup
         if(weekType == 1){
             deadliftList.add("1x5@p_65_a_" + deadliftTM);
@@ -386,9 +402,11 @@ public class Wendler_531_For_Beginners {
         // ohp
         List<String> ohpList = new ArrayList<>();
         ohpList.add("Overhead Press (Barbell)");
-        ohpList.add("1x5@p_40_a_" + ohpTM);
-        ohpList.add("1x5@p_50_a_" + ohpTM);
-        ohpList.add("1x3@p_60_a_" + ohpTM);
+        if(isWarmup){
+            ohpList.add("1x5@p_40_a_" + ohpTM);
+            ohpList.add("1x5@p_50_a_" + ohpTM);
+            ohpList.add("1x3@p_60_a_" + ohpTM);
+        }
         // done with warmup
         if(weekType == 1){
             ohpList.add("1x5@p_65_a_" + ohpTM);
@@ -454,9 +472,11 @@ public class Wendler_531_For_Beginners {
         // bench
         List<String> benchList = new ArrayList<>();
         benchList.add("Bench Press (Barbell - Flat)");
-        benchList.add("1x5@p_40_a_" + benchTM);
-        benchList.add("1x5@p_50_a_" + benchTM);
-        benchList.add("1x3@p_60_a_" + benchTM);
+        if(isWarmup){
+            benchList.add("1x5@p_40_a_" + benchTM);
+            benchList.add("1x5@p_50_a_" + benchTM);
+            benchList.add("1x3@p_60_a_" + benchTM);
+        }
         // done with warmup
         if(weekType == 1){
             benchList.add("1x5@p_65_a_" + benchTM);
@@ -479,9 +499,11 @@ public class Wendler_531_For_Beginners {
         // squat
         List<String> squatList = new ArrayList<>();
         squatList.add("Squat (Barbell - Back)");
-        squatList.add("1x5@p_40_a_" + squatTM);
-        squatList.add("1x5@p_50_a_" + squatTM);
-        squatList.add("1x3@p_60_a_" + squatTM);
+        if(isWarmup){
+            squatList.add("1x5@p_40_a_" + squatTM);
+            squatList.add("1x5@p_50_a_" + squatTM);
+            squatList.add("1x3@p_60_a_" + squatTM);
+        }
         // done with warmup
         if(weekType == 1){
             squatList.add("1x5@p_65_a_" + squatTM);

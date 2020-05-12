@@ -635,6 +635,8 @@
 
     <string name="manualInputAssistanceCancel">Manually Input Weights</string>
 
+    <string name="includeWarmupW531fB">Include 3 sets of light warmup for each main lift?</string>
+
     <!-- PPL Reddit -->
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>

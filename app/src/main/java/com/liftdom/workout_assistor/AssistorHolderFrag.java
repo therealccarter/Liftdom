@@ -58,7 +58,8 @@ public class AssistorHolderFrag extends android.app.Fragment
                 ExNameWAFrag.updateWorkoutStateForResultCallback,
                 ExNameWAFrag.updateWorkoutStateFastCallback,
                 ExNameWAFrag.updateExNameCallback,
-                ExNameWAFrag.sendAssistanceExerciseCallback{
+                ExNameWAFrag.sendAssistanceExerciseCallback,
+                ExNameWAFrag.updateChildFragWeightsCallback{
 
 
     public AssistorHolderFrag() {
@@ -812,6 +813,20 @@ public class AssistorHolderFrag extends android.app.Fragment
                 if(exNameWAFrag.fragTag.equals(frag)){
                     exNameWAFrag.setExName(exName);
                     updateWorkoutState();
+                }
+            }
+        }
+    }
+
+    public void updateChildFragWeights(String frag, String exName, String weight){
+        getChildFragmentManager().executePendingTransactions();
+        if(frag != null){
+            for(ExNameWAFrag exNameWAFrag : exNameFragList){
+                if(exNameWAFrag.fragTag.equals(frag)){
+                    if(exNameWAFrag.getExerciseName().equals(exName)){
+                        exNameWAFrag.updateChildWeights(weight, false);
+                        updateWorkoutState();
+                    }
                 }
             }
         }

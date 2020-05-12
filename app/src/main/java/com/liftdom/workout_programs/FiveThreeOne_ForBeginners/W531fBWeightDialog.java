@@ -119,6 +119,7 @@ public class W531fBWeightDialog extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("weight", weightEditText.getText().toString());
                     intent.putExtra("fragTag", fragTag);
+                    intent.putExtra("exName", exName);
                     setResult(7, intent);
                     finish();
                 }

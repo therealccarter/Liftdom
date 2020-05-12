@@ -418,13 +418,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             workoutInfoMapProcessed, commentModelClassMap, null, bonusList);
 
                     //needed
-                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    feedFanOut(refKey, completedWorkoutModelClass);
+                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    //feedFanOut(refKey, completedWorkoutModelClass);
 
                     // workout history
                     //needed
-                    setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
-                            workoutHistoryRef, REFKEY);
+                    //setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
+                    //        workoutHistoryRef, REFKEY);
 
                     dontLeavePage.setVisibility(View.GONE);
                 }
@@ -484,7 +484,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                 extraInfoTextView.setVisibility(View.VISIBLE);
                             }
                         }
-                    } else if (preMadeInfo.get("type").equals("W531fB")) {
+                    }else if(preMadeInfo.get("type").equals("W531fB")) {
                         /*
                             Now we need to figure out what to do here.
                             TM increases, Special Weeks, and updating assistance exercises.

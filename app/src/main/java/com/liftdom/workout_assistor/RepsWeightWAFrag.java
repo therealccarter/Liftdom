@@ -741,7 +741,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             unitView.setVisibility(View.GONE);
             weightEditText.setEnabled(false);
         }else{
-            setNotBW(true);
+            setNotBW(false);
         }
     }
 

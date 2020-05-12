@@ -157,22 +157,35 @@ public class SmolovIntroFrag4 extends SlideFragment {
                         smolovRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(activeProgramCheckbox.isChecked()){
-                                    DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
-                                            ("user").child(uid).child("activeTemplate");
-                                    activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Intent intent = new Intent(getContext(), MainActivity.class);
-                                            intent.putExtra("fragID", 1);
-                                            startActivity(intent);
+                                DatabaseReference preMadeCountRef =
+                                        FirebaseDatabase.getInstance().getReference().child("premadeCount").child("Smolov");
+                                preMadeCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()){
+                                            Integer countInt = dataSnapshot.getValue(Integer.class);
+                                            countInt++;
+                                            preMadeCountRef.setValue(countInt).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    setActiveAndIntent(programName);
+                                                }
+                                            });
+                                        }else{
+                                            preMadeCountRef.setValue(1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    setActiveAndIntent(programName);
+                                                }
+                                            });
                                         }
-                                    });
-                                }else{
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
-                                    intent.putExtra("fragID", 1);
-                                    startActivity(intent);
-                                }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         });
                     }
@@ -187,6 +200,25 @@ public class SmolovIntroFrag4 extends SlideFragment {
         });
 
         return view;
+    }
+
+    private void setActiveAndIntent(String programName){
+        if(activeProgramCheckbox.isChecked()){
+            DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
+                    ("user").child(uid).child("activeTemplate");
+            activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.putExtra("fragID", 1);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.putExtra("fragID", 1);
+            startActivity(intent);
+        }
     }
 
     @Override

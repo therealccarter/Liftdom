@@ -1,5 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBSingleton;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fB_HolderActivity;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -74,22 +76,35 @@ public class SmolovHolderActivity extends MaterialIntroActivity {
                 smolovRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(SmolovSetupSingleton.getInstance().isActiveTemplate){
-                            DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
-                                    ("user").child(uid).child("activeTemplate");
-                            activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Intent intent = new Intent(SmolovHolderActivity.this, MainActivity.class);
-                                    intent.putExtra("fragID", 1);
-                                    startActivity(intent);
+                        DatabaseReference preMadeCountRef =
+                                FirebaseDatabase.getInstance().getReference().child("premadeCount").child("Smolov");
+                        preMadeCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    Integer countInt = dataSnapshot.getValue(Integer.class);
+                                    countInt++;
+                                    preMadeCountRef.setValue(countInt).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            setActiveAndIntent(programName);
+                                        }
+                                    });
+                                }else{
+                                    preMadeCountRef.setValue(1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            setActiveAndIntent(programName);
+                                        }
+                                    });
                                 }
-                            });
-                        }else{
-                            Intent intent = new Intent(SmolovHolderActivity.this, MainActivity.class);
-                            intent.putExtra("fragID", 1);
-                            startActivity(intent);
-                        }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 });
             }
@@ -99,5 +114,24 @@ public class SmolovHolderActivity extends MaterialIntroActivity {
 
             }
         });
+    }
+
+    private void setActiveAndIntent(String programName){
+        if(SmolovSetupSingleton.getInstance().isActiveTemplate){
+            DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference().child
+                    ("user").child(SmolovSetupSingleton.getInstance().uid).child("activeTemplate");
+            activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(SmolovHolderActivity.this, MainActivity.class);
+                    intent.putExtra("fragID", 1);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            Intent intent = new Intent(SmolovHolderActivity.this, MainActivity.class);
+            intent.putExtra("fragID", 1);
+            startActivity(intent);
+        }
     }
 }

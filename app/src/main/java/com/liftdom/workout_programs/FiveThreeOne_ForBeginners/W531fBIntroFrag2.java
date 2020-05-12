@@ -53,7 +53,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
     @BindView(R.id.unitsView3) TextView unitsView3;
     @BindView(R.id.ohpEditText) EditText ohpEditText;
     @BindView(R.id.unitsView4) TextView unitsView4;
-    //@BindView(R.id.roundToNearest5) CheckBox roundToNearest5;
+    @BindView(R.id.warmupCheckbox) CheckBox warmupCheckbox;
     @BindView(R.id.todayRadioButton) RadioButton todayRadioButton;
     @BindView(R.id.mondayRadioButton) RadioButton mondayRadioButton;
 
@@ -279,6 +279,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
             W531fBSingleton.getInstance().ohpMax = ohpEditText.getText().toString();
             //W531fBSingleton.getInstance().isRoundToNearest5 = roundToNearest5.isChecked();
             W531fBSingleton.getInstance().isBeginToday = todayRadioButton.isChecked();
+            W531fBSingleton.getInstance().isWarmup = warmupCheckbox.isChecked();
             valuesEntered = true;
         }
 

@@ -32,6 +32,7 @@ public class W531fBSingleton {
     boolean isActiveCheckbox;
     boolean isRoundToNearest5;
     boolean isBeginToday;
+    boolean isWarmup;
     String mRestTime;
     boolean mIsActiveRestTimer;
     String mVibrationTime;
@@ -85,6 +86,7 @@ public class W531fBSingleton {
         extraInfo.put("pushSetScheme", pushSetScheme);
         extraInfo.put("pullSetScheme", pullSetScheme);
         extraInfo.put("legCoreSetScheme", legCoreSetScheme);
+        extraInfo.put("isWarmup", String.valueOf(isWarmup));
         //extraInfo.put("roundToNearest5", String.valueOf(isRoundToNearest5));
 
         return extraInfo;
