@@ -49,6 +49,7 @@ public class ExSelectorActivity extends AppCompatActivity {
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     boolean isFromExChart;
     String fragTag;
+    boolean isW531fB;
 
     @BindView(R.id.confirmButton) Button confirmButton;
     //@BindView(R.id.search_view) MaterialSearchView searchView;
@@ -72,14 +73,14 @@ public class ExSelectorActivity extends AppCompatActivity {
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
-        setUpTypeAheadData();
-
         if(getIntent().getExtras() != null){
             ExercisePickerController.getInstance().exID = getIntent().getExtras().getInt("exID");
             ExercisePickerController.getInstance().fragTag = getIntent().getExtras().getString("fragTag");
             if(getIntent().getStringExtra("customList") != null){
                 if(getIntent().getStringExtra("W531fB") != null){
+                    isW531fB = true;
                     if(getIntent().getStringExtra("push") != null){
+                        setUpTypeAheadData("pushW531fB");
                         isCustomList = true;
                         CharSequence titles[]={"Push (W531fB Assistance)"};
                         adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
@@ -87,6 +88,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                         adapterCustomList.setListType("push");
                         confirmButton.setVisibility(View.GONE);
                     }else if(getIntent().getStringExtra("pull") != null){
+                        setUpTypeAheadData("pullW531fB");
                         isCustomList = true;
                         CharSequence titles[]={"Pull (W531fB Assistance)"};
                         adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
@@ -94,6 +96,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                         adapterCustomList.setListType("pull");
                         confirmButton.setVisibility(View.GONE);
                     }else if(getIntent().getStringExtra("legCore") != null){
+                        setUpTypeAheadData("legCoreW531fB");
                         isCustomList = true;
                         CharSequence titles[]={"Single Leg/Core (W531fB Assistance)"};
                         adapterCustomList =  new ExPagerAdapterCustomList(this.getSupportFragmentManager()
@@ -103,6 +106,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                     }
                 }
             }else{
+                setUpTypeAheadData();
                 if(getIntent().getStringExtra("exclusive") != null){
                     adapter =  new ExPagerAdapter(this.getSupportFragmentManager(), Titles, Numboftabs, true, true);
                     confirmButton.setVisibility(View.GONE);
@@ -114,6 +118,7 @@ public class ExSelectorActivity extends AppCompatActivity {
                 }
             }
         }else{
+            setUpTypeAheadData();
             isFromExChart = true;
             // is from ex-chart frag
             // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
@@ -207,7 +212,11 @@ public class ExSelectorActivity extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.putExtra("MESSAGE", ((AppCompatTextView) view).getText().toString());
                         intent.putExtra("fragTag", ExercisePickerController.getInstance().fragTag);
-                        setResult(2, intent);
+                        if(isW531fB){
+                            setResult(5, intent);
+                        }else{
+                            setResult(2, intent);
+                        }
                         finish();
                     }
                 }catch (NullPointerException e){
@@ -219,6 +228,24 @@ public class ExSelectorActivity extends AppCompatActivity {
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
 
+    }
+
+    private void setUpTypeAheadData(String type){
+        typeAheadData = new ArrayList<>();
+
+        if(type.equals("pushW531fB")){
+            String[] pushArray = getResources().getStringArray(R.array.W531fBPush);
+            ArrayList<String> pushList = new ArrayList<>(Arrays.asList(pushArray));
+            typeAheadData.addAll(pushList);
+        }else if(type.equals("pullW531fB")){
+            String[] pullArray = getResources().getStringArray(R.array.W531fBPull);
+            ArrayList<String> pullList = new ArrayList<>(Arrays.asList(pullArray));
+            typeAheadData.addAll(pullList);
+        }else if(type.equals("legCoreW531fB")){
+            String[] legCoreArray = getResources().getStringArray(R.array.W531fBLegCore);
+            ArrayList<String> legCoreList = new ArrayList<>(Arrays.asList(legCoreArray));
+            typeAheadData.addAll(legCoreList);
+        }
     }
 
     private void setUpTypeAheadData(){

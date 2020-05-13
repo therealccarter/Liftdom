@@ -2104,6 +2104,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             //for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
             //    preMadeInfo.put(entry.getKey(), entry.getValue());
             //}
+        }else{
+            preMadeInfo.clear();
+            preMadeInfo.put("TMIncreaseWeek", "false");
         }
 
         if(W531fB.isSpecialWeek()){
@@ -2119,6 +2122,9 @@ public class AssistorHolderFrag extends android.app.Fragment
             for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
                 preMadeInfo.put(entry.getKey(), entry.getValue());
             }
+        }else{
+            preMadeInfo.clear();
+            preMadeInfo.put("SpecialWeek", "false");
         }
 
         /*

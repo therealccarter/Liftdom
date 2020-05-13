@@ -67,7 +67,7 @@ public class W531fBIntroFrag2 extends SlideFragment {
 
         HideKey.initialize(getActivity(), view);
 
-        mondayRadioButton.setChecked(true);
+        todayRadioButton.setChecked(true);
         //roundToNearest5.setChecked(true);
 
         /*

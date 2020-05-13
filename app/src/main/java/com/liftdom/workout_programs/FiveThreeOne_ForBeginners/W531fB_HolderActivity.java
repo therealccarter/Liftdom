@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.liftdom.liftdom.R;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
@@ -72,9 +73,6 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
                     newProgramRef.setValue(modelClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            /**
-                             * This never runs monkaW
-                             */
                             DatabaseReference preMadeCountRef =
                                     FirebaseDatabase.getInstance().getReference().child("premadeCount").child("W531fB");
                             preMadeCountRef.addListenerForSingleValueEvent(new ValueEventListener() {

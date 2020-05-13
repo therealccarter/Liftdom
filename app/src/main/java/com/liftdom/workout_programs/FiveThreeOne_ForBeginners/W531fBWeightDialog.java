@@ -82,7 +82,9 @@ public class W531fBWeightDialog extends AppCompatActivity {
                             if(dataSnapshot.exists()){
                                 try{
                                     String weight = dataSnapshot.getValue(String.class);
-                                    weightEditText.setText(weight);
+                                    if(!weight.equals("1.0")){
+                                        weightEditText.setText(weight);
+                                    }
                                 }catch (NullPointerException e){
 
                                 }

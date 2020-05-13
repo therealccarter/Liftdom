@@ -325,6 +325,9 @@ Get these premades working correctly:
 Premades shouldn't be allowed to be "fully" edited, but they should be able to have their
     extraInfo values edited.
 
+Premade info/intro frags might need to be backed up to database with a running node. What if they
+switch or leave it minimized while halfway done?
+
 Create a class that handles the premade selection in places like WA,
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
 ============ What are the next most important things for beta release? =====

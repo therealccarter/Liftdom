@@ -110,23 +110,23 @@ public class ExSelectorStickyAdapter extends BaseAdapter implements StickyListHe
     public void setUpCustomOpenList(Context context, String listType) {
         isW531fB = true;
         if(listType.equals("push")){
-            String[] otherArray = context.getResources().getStringArray(R.array.W531fBPush);
-            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
+            String[] pushArray = context.getResources().getStringArray(R.array.W531fBPush);
+            ArrayList<String> pushList = new ArrayList<>(Arrays.asList(pushArray));
 
-            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
-            exercises = otherList.toArray(new String[0]);
+            Collections.sort(pushList, String.CASE_INSENSITIVE_ORDER);
+            exercises = pushList.toArray(new String[0]);
         }else if(listType.equals("pull")){
-            String[] otherArray = context.getResources().getStringArray(R.array.W531fBPull);
-            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
+            String[] pullArray = context.getResources().getStringArray(R.array.W531fBPull);
+            ArrayList<String> pullList = new ArrayList<>(Arrays.asList(pullArray));
 
-            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
-            exercises = otherList.toArray(new String[0]);
+            Collections.sort(pullList, String.CASE_INSENSITIVE_ORDER);
+            exercises = pullList.toArray(new String[0]);
         }else if(listType.equals("legCore")){
-            String[] otherArray = context.getResources().getStringArray(R.array.W531fBLegCore);
-            ArrayList<String> otherList = new ArrayList<>(Arrays.asList(otherArray));
+            String[] legCoreArray = context.getResources().getStringArray(R.array.W531fBLegCore);
+            ArrayList<String> legCoreList = new ArrayList<>(Arrays.asList(legCoreArray));
 
-            Collections.sort(otherList, String.CASE_INSENSITIVE_ORDER);
-            exercises = otherList.toArray(new String[0]);
+            Collections.sort(legCoreList, String.CASE_INSENSITIVE_ORDER);
+            exercises = legCoreList.toArray(new String[0]);
         }
     }
 
