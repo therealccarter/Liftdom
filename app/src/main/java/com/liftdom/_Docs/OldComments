@@ -1,0 +1,25 @@
+
+
+AH:
+/*
+How do we remember the assistance exercises?
+How do we add the ex frags in knowing they're for assistance?
+We need a boolean within them that we'll activate.
+But then how do we remember that boolean when we head over to AS?
+We have a callback that is triggered when you choose an exercise if that ex frag has
+ the right boolean. It will add the exercise to premade info as the key and the value will
+ be the weight. 0 at first. Then each time we update the node we look for ex frags with
+ the boolean and whose ex name matches our keys. We then update the premade info with that
+ key's new weight. Then in AS we just take those keys and add them to the template's pre
+ made info. So then when we come through again, we will have those exercise's and their
+ weights to fill in the dialog. Remember we'll also need the set scheme for
+ Push/Pull/LegsCore. That should also be in premade info.
+*/
+/**
+ * We need to store the last used assistance for each assistance type.
+ *
+ * So each time we update the assistance and put it in premade info,
+ * we'll store it also in a value lastUsedPush, lastUsedPull, lastUsedLegCore.
+ * Only difficulty will be determining which it is. Should we compare it to a list each
+ * time or should we send the type from ExNameWAFrag?
+ */

@@ -99,7 +99,7 @@ public class ExNameWAFrag extends android.app.Fragment
     }
 
     public interface sendAssistanceExerciseCallback{
-        void setAssistanceExercise(String exName);
+        void setAssistanceExercise(String exName, int type);
     }
 
     private sendAssistanceExerciseCallback sendAssistance;
@@ -461,9 +461,10 @@ public class ExNameWAFrag extends android.app.Fragment
                         if(fragTag1.equals(fragTag)){
                             updateChildExNames(data.getStringExtra("MESSAGE"));
                             if(isAssistanceW531fB){
-                                if(!isBodyweight(data.getStringExtra("MESSAGE"))){
-                                    sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
-                                }
+                                //if(!isBodyweight(data.getStringExtra("MESSAGE"))){
+                                    sendAssistance.setAssistanceExercise(data.getStringExtra(
+                                            "MESSAGE"), getW531fBAssistanceType());
+                                //}
                             }
                             exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                             updateWorkoutStateFast();
@@ -498,6 +499,8 @@ public class ExNameWAFrag extends android.app.Fragment
                         if(isBodyweight(exName)){
                             // If ex is bodyweight we don't show dialog and just update child frags
                             //sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"),
+                                    getW531fBAssistanceType());
                             exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                             updateChildWeights("", true);
                             updateWorkoutStateFast();
@@ -505,7 +508,8 @@ public class ExNameWAFrag extends android.app.Fragment
                             // If ex is not bodyweight show dialog
                             // We need to pass ex name into dialog
                             // Would be nice to pass set schemes in too...would have to gather them from child frags.
-                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"));
+                            sendAssistance.setAssistanceExercise(data.getStringExtra("MESSAGE"),
+                                    getW531fBAssistanceType());
                             exerciseNameView.setText(data.getStringExtra("MESSAGE"));
                             updateWorkoutStateFast();
                             Intent intent = new Intent(getActivity(), W531fBWeightDialog.class);
@@ -572,11 +576,23 @@ public class ExNameWAFrag extends android.app.Fragment
     public void setExName(String exName){
         updateChildExNames(exName);
         if(isAssistanceW531fB){
-            if(!isBodyweight(exName)){
-                sendAssistance.setAssistanceExercise(exName);
-            }
+            //if(!isBodyweight(exName)){
+                sendAssistance.setAssistanceExercise(exName, getW531fBAssistanceType());
+            //}
         }
         exerciseNameView.setText(exName);
+    }
+
+    private int getW531fBAssistanceType(){
+        if(isPushW531fB){
+            return  1;
+        }else if(isPullW531fB){
+            return  2;
+        }else if(isLegCoreW531fB){
+            return  3;
+        }else{
+            return 0;
+        }
     }
 
     private void inflateFrags(){

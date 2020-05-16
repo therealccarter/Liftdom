@@ -459,6 +459,21 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         return formatted;
     }
 
+    private String roundNumberToNearest5(String weightString){
+        String rounded;
+
+        double weight;
+        int weight2;
+
+        weight = Double.parseDouble(weightString);
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        rounded = String.valueOf(weight2);
+
+        return rounded;
+    }
+
     public boolean isPercentage(String setScheme){
         boolean percentage = false;
 
@@ -475,17 +490,44 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
         return percentage;
     }
 
+    public boolean isPercentageShort(String string){
+        boolean isPercentage;
+
+        char c = string.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            isPercentage = true;
+        }else{
+            isPercentage = false;
+        }
+
+        return isPercentage;
+    }
+
     private String convertUnitsToUser(String unConverted){
         String converted;
 
         if(isUserImperial && !isTemplateImperial){
             // user is lbs, template is kgs
             converted = metricToImperial(unConverted);
+            if(!isPercentageShort(unConverted)){
+                converted = roundNumberToNearest5(converted);
+            }
         }else if(!isUserImperial && isTemplateImperial){
             // user is kgs, template is lbs
             converted = imperialToMetric(unConverted);
+            if(!isPercentageShort(unConverted)){
+                converted = roundNumberToNearest5(converted);
+            }
         }else{
             converted = unConverted;
+            if(isUserImperial){
+                if(!isPercentageShort(unConverted)){
+                    double doubleVersion = Double.parseDouble(unConverted);
+                    int intVersion = (int) doubleVersion;
+                    converted = String.valueOf(intVersion);
+                }
+            }
         }
 
         return converted;

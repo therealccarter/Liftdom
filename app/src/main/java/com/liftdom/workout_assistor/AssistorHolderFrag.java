@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.*;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -832,10 +833,6 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
-    void setAssistanceExercise(String exName, String value){
-        preMadeInfo.put(exName, value);
-    }
-
     public void updateWorkoutStateNoProgress(){
         DatabaseReference runningAssistorRef = mRootRef.child("runningAssistor").child(uid).child
                 ("assistorModel");
@@ -893,7 +890,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         if(!preMadeInfo.isEmpty()){
-            progressModelClass.setmPreMadeInfo(preMadeInfo);
+            progressModelClass.setPreMadeInfo(preMadeInfo);
         }
 
         progressModelClass.setTemplateName(templateName);
@@ -987,7 +984,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
         if(!preMadeInfo.isEmpty()){
-            progressModelClass.setmPreMadeInfo(preMadeInfo);
+            progressModelClass.setPreMadeInfo(preMadeInfo);
         }
 
         progressModelClass.setTemplateName(templateName);
@@ -1089,7 +1086,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
 
         if(!preMadeInfo.isEmpty()){
-            progressModelClass.setmPreMadeInfo(preMadeInfo);
+            progressModelClass.setPreMadeInfo(preMadeInfo);
         }
 
         progressModelClass.setTemplateName(templateName);
@@ -1197,7 +1194,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                     }
 
                     if(!preMadeInfo.isEmpty()){
-                        progressModelClass.setmPreMadeInfo(preMadeInfo);
+                        progressModelClass.setPreMadeInfo(preMadeInfo);
                     }
 
                     progressModelClass.setTemplateName(templateName);
@@ -1282,7 +1279,7 @@ public class AssistorHolderFrag extends android.app.Fragment
         //progressModelClass.setIsTemplateImperial(isTemplateImperial);
 
         if(!preMadeInfo.isEmpty()){
-            progressModelClass.setmPreMadeInfo(preMadeInfo);
+            progressModelClass.setPreMadeInfo(preMadeInfo);
         }
 
         progressModelClass.setTemplateName(templateName);
@@ -1725,9 +1722,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 if(isFromRestDay){
                                     cancelRevisionHolder.setVisibility(View.VISIBLE);
                                 }
-                                if(workoutProgressModelClass.getmPreMadeInfo() != null){
-                                    if(!workoutProgressModelClass.getmPreMadeInfo().isEmpty()){
-                                        preMadeInfo = workoutProgressModelClass.getmPreMadeInfo();
+                                if(workoutProgressModelClass.getPreMadeInfo() != null){
+                                    if(!workoutProgressModelClass.getPreMadeInfo().isEmpty()){
+                                        preMadeInfo = workoutProgressModelClass.getPreMadeInfo();
                                     }
                                 }
                                 if(workoutProgressModelClass.getExInfoHashMap() == null){
@@ -1931,6 +1928,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         dummyList.add("Bench Press (Barbell - Flat)");
                         dummyList.add("Overhead Press (Barbell)");
                         dummyList.add("Deadlift (Barbell - Conventional)");
+                        dummyList.add("whichDay");
                         for(Map.Entry<String, String> entry : preMadeInfo.entrySet()){
                             if(!dummyList.contains(entry.getKey())){
                                 W531fBAssistanceList.add(entry.getKey());
@@ -2070,28 +2068,176 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
-    public void setAssistanceExercise(String exName){
+    public void setAssistanceExercise(String exName, int type){
         preMadeInfo.put(exName, "0");
+        if(type == 1){
+            preMadeInfo.put("lastUsedPush", exName);
+        }else if(type == 2){
+            preMadeInfo.put("lastUsedPull", exName);
+        }else if(type == 3){
+            preMadeInfo.put("lastUsedLegCore", exName);
+        }
+    }
+
+    void setAssistanceExercise(String exName, String value){
+        preMadeInfo.put(exName, value);
+    }
+
+    private void setSpecialWeekTMs(List<String> infoList, boolean isUserImperial,
+                                   boolean isTemplateImperial){
+        List<String> exList = new ArrayList<>();
+        exList.add("Squat (Barbell - Back)");
+        exList.add("Bench Press (Barbell - Flat)");
+        exList.add("Overhead Press (Barbell)");
+        exList.add("Deadlift (Barbell - Conventional)");
+
+        if(exList.contains(infoList.get(0))){
+            double weight;
+
+            String delims = "[_]";
+            String[] tokens = infoList.get(4).split(delims);
+
+            String unConverted = tokens[tokens.length - 1];
+
+            //weight = Double.parseDouble(tokens[tokens.length - 1]);
+            //double roundedWeight = Double.parseDouble(roundNumberToNearest5(weight));
+
+            /**
+             * What we need to do:
+             * We need to replicate the normal process to get the right value, but we also need
+             * to get the opposite as well. So, one in lbs and one in kgs.
+             */
+
+            String convertedLbs;
+            String convertedKgs;
+
+            if(isUserImperial && !isTemplateImperial){
+                // user is lbs, template is kgs
+                convertedLbs = metricToImperial(unConverted);
+                convertedLbs = roundNumberToNearest5(convertedLbs);
+                convertedKgs = imperialToMetric(unConverted);
+                convertedKgs = roundNumberToNearest5(convertedKgs);
+
+            }else if(!isUserImperial && isTemplateImperial){
+                // user is kgs, template is lbs
+                convertedLbs = metricToImperial(unConverted);
+                convertedLbs = roundNumberToNearest5(convertedLbs);
+                convertedKgs = imperialToMetric(unConverted);
+                convertedKgs = roundNumberToNearest5(convertedKgs);
+            }else{
+                convertedLbs = unConverted;
+                if(isUserImperial){
+                    double doubleVersion = Double.parseDouble
+                            (roundNumberToNearest5(unConverted));
+                    int intVersion = (int) doubleVersion;
+                    convertedLbs = String.valueOf(intVersion);
+                    convertedKgs = imperialToMetric(unConverted);
+                    convertedKgs = roundNumberToNearest5(convertedKgs);
+                }else{
+                    double doubleVersion = Double.parseDouble
+                            (roundNumberToNearest5(unConverted));
+                    int intVersion = (int) doubleVersion;
+                    convertedKgs = String.valueOf(intVersion);
+                    convertedLbs = metricToImperial(unConverted);
+                    convertedLbs = roundNumberToNearest5(convertedLbs);
+                }
+            }
+
+            String first = infoList.get(0) + "Lbs";
+            String second = infoList.get(0) + "Kgs";
+
+            setAssistanceExercise(first, convertedLbs);
+            setAssistanceExercise(second, convertedKgs);
+
+        }
+    }
+
+    public boolean isPercentageShort(String string){
+        boolean isPercentage;
+
+        char c = string.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            isPercentage = true;
+        }else{
+            isPercentage = false;
+        }
+
+        return isPercentage;
+    }
+
+    private String metricToImperial(String input){
+
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(lbsInt);
+        }else{
+            weight = input;
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString = String.valueOf(lbsInt);
+        }
+
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(kgInt);
+        }else{
+            weight = input;
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString = String.valueOf(kgInt);
+        }
+
+        return newString;
+    }
+
+    private String roundNumberToNearest5(String weightString){
+        String rounded;
+
+        double weight;
+        int weight2;
+
+        weight = Double.parseDouble(weightString);
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        rounded = String.valueOf(weight2);
+
+        return rounded;
     }
 
     private void inflateW531fB(){
         Wendler_531_For_Beginners W531fB = new Wendler_531_For_Beginners(
                 mTemplateClass.getExtraInfo());
-        HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
+        //HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
 
-
-        //smolovWeekDayString = smolov.getWeekDayString();
-
-        /*
-         * If it's TM increase day, we need to send that to AS in preMadeInfo
-         * Send type W531fB
-         * Send if it's special day.
-         *  If it's special day, in AS we need to read through for the set which has a weight of
-         *  100% of TM or higher. Then see what that set's reps are and manipulate TM from there.
-         *  So we need to also send the current TM of the current Exercise/s.
-         */
-
-        preMadeInfo.put("type", "W531fB");
+        HashMap<String, List<String>> map = W531fB.generateSpecificWorkoutMap(6, 5);
 
         if(W531fB.isTMIncreaseWeek()){
             extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);
@@ -2100,14 +2246,20 @@ public class AssistorHolderFrag extends android.app.Fragment
             preMadeInfo.put("TMIncreaseWeek", "true");
             preMadeInfo.put("SpecialWeek", "false");
             preMadeInfo.put("whichDay", W531fB.getWhichDay());
-            //HashMap<String, String> exercisesAndTMs = W531fB.exercisesAndTMs;
-            //for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
-            //    preMadeInfo.put(entry.getKey(), entry.getValue());
-            //}
+            /*
+             * If it's TM increase day, we need to send that to AS in preMadeInfo
+             * Send type W531fB
+             * Send if it's special day.
+             *  If it's special day, in AS we need to read through for the set which has a weight of
+             *  100% of TM or higher. Then see what that set's reps are and manipulate TM from there.
+             *  So we need to also send the current TM of the current Exercise/s.
+             */
         }else{
             preMadeInfo.clear();
             preMadeInfo.put("TMIncreaseWeek", "false");
         }
+
+        boolean isSpecialWeek = false;
 
         if(W531fB.isSpecialWeek()){
             extraInfoTextView.setText(R.string.W5314BSpecialWeekInstruction);
@@ -2118,29 +2270,16 @@ public class AssistorHolderFrag extends android.app.Fragment
             preMadeInfo.put("SpecialWeek", "true");
             preMadeInfo.put("TMIncreaseWeek", "false");
             preMadeInfo.put("whichDay", W531fB.getWhichDay());
-            HashMap<String, String> exercisesAndTMs = W531fB.exercisesAndTMs;
-            for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
-                preMadeInfo.put(entry.getKey(), entry.getValue());
-            }
+            isSpecialWeek = true;
+            //HashMap<String, String> exercisesAndTMs = W531fB.exercisesAndTMs;
+            //for(Map.Entry<String, String> entry : exercisesAndTMs.entrySet()){
+            //    preMadeInfo.put(entry.getKey(), entry.getValue());
+            //}
         }else{
-            preMadeInfo.clear();
             preMadeInfo.put("SpecialWeek", "false");
         }
 
-        /*
-        How do we remember the assistance exercises?
-        How do we add the ex frags in knowing they're for assistance?
-        We need a boolean within them that we'll activate.
-        But then how do we remember that boolean when we head over to AS?
-        We have a callback that is triggered when you choose an exercise if that ex frag has
-         the right boolean. It will add the exercise to premade info as the key and the value will
-         be the weight. 0 at first. Then each time we update the node we look for ex frags with
-         the boolean and whose ex name matches our keys. We then update the premade info with that
-         key's new weight. Then in AS we just take those keys and add them to the template's pre
-         made info. So then when we come through again, we will have those exercise's and their
-         weights to fill in the dialog. Remember we'll also need the set scheme for
-         Push/Pull/LegsCore. That should also be in premade info.
-        */
+        preMadeInfo.put("type", "W531fB");
 
         for(int i = 0; i < map.size(); i++){
             if(i == 0){
@@ -2153,6 +2292,9 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameInc++;
                         String tag = String.valueOf(exNameInc) + "ex";
                         List<String> stringList = entry.getValue();
+                        if(isSpecialWeek){
+                            setSpecialWeekTMs(stringList, isUserImperial, isTemplateImperial);
+                        }
                         android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                         ExNameWAFrag exNameFrag = new ExNameWAFrag();
                         exNameFrag.isTemplateImperial = isTemplateImperial;
@@ -2195,16 +2337,58 @@ public class AssistorHolderFrag extends android.app.Fragment
                     //exNameFrag.exerciseName = data.getStringExtra("MESSAGE");
                     ArrayList<String> info = new ArrayList<>();
                     if(j == 0){
-                        info.add("Choose PUSH assistance exercise");
-                        info.add(W531fB.getPushSetScheme() + "@1");
+                        String lastUsed = W531fB.getLastUsedAssistance(1);
+                        if(!lastUsed.equals("null")){
+                            info.add(lastUsed);
+                            if(isBodyweight(lastUsed)){
+                                info.add(W531fB.getPushSetScheme() + "@B.W.");
+                            }else{
+                                try{
+                                    info.add(W531fB.getPushSetScheme() + "@" + mTemplateClass.getExtraInfo().get(lastUsed));
+                                }catch (NullPointerException e){
+                                    info.add(W531fB.getPushSetScheme() + "@1");
+                                }
+                            }
+                        }else{
+                            info.add("Choose PUSH assistance exercise");
+                            info.add(W531fB.getPushSetScheme() + "@1");
+                        }
                         //info.add(mTemplateClass.getExtraInfo().get("pushSetScheme") + "@1");
                     }else if(j == 1){
-                        info.add("Choose PULL assistance exercise");
-                        info.add(W531fB.getPullSetScheme() + "@1");
+                        String lastUsed = W531fB.getLastUsedAssistance(2);
+                        if(!lastUsed.equals("null")){
+                            info.add(lastUsed);
+                            if(isBodyweight(lastUsed)){
+                                info.add(W531fB.getPullSetScheme() + "@B.W.");
+                            }else{
+                                try{
+                                    info.add(W531fB.getPullSetScheme() + "@" + mTemplateClass.getExtraInfo().get(lastUsed));
+                                }catch (NullPointerException e){
+                                    info.add(W531fB.getPullSetScheme() + "@1");
+                                }
+                            }
+                        }else{
+                            info.add("Choose PULL assistance exercise");
+                            info.add(W531fB.getPullSetScheme() + "@1");
+                        }
                         //info.add(mTemplateClass.getExtraInfo().get("pullSetScheme") + "@1");
                     }else if(j == 2){
-                        info.add("Choose SINGLE LEG/CORE assistance exercise");
-                        info.add(W531fB.getLegCoreSetScheme() + "@1");
+                        String lastUsed = W531fB.getLastUsedAssistance(3);
+                        if(!lastUsed.equals("null")){
+                            info.add(lastUsed);
+                            if(isBodyweight(lastUsed)){
+                                info.add(W531fB.getLegCoreSetScheme() + "@B.W.");
+                            }else{
+                                try{
+                                    info.add(W531fB.getLegCoreSetScheme() + "@" + mTemplateClass.getExtraInfo().get(lastUsed));
+                                }catch (NullPointerException e){
+                                    info.add(W531fB.getLegCoreSetScheme() + "@1");
+                                }
+                            }
+                        }else{
+                            info.add("Choose SINGLE LEG/CORE assistance exercise");
+                            info.add(W531fB.getLegCoreSetScheme() + "@1");
+                        }
                         //info.add(mTemplateClass.getExtraInfo().get("legCoreSetScheme") + "@1");
                     }
                     exNameFrag.infoList = info;
@@ -2225,6 +2409,20 @@ public class AssistorHolderFrag extends android.app.Fragment
                 serviceCardView.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
     }
 
     private void inflateSmolov(){

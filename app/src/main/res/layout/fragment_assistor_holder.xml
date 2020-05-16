@@ -155,6 +155,77 @@
             />
 
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/extraInfoTextView"
+            android:text="@string/oneRepMaxDay"
+            android:layout_margin="10dp"
+            android:textColor="@color/green"
+            android:gravity="center"
+            android:visibility="gone"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/endView"
+            android:text="@string/lastDayOfWorkout"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:visibility="gone"
+            />
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exInfoHolder2"
+            android:orientation="vertical"
+    >
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            app:cardElevation="5dp"
+    >
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addExerciseButton"
+                android:background="@color/black"
+                android:textSize="18sp"
+                android:text="@string/addExercise"
+                android:textColor="@color/white"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+        />
+    </androidx.cardview.widget.CardView>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@color/darkerGrey"
+            android:layout_margin="10dp"
+
+    />
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,7 +233,7 @@
             android:gravity="start"
             android:id="@+id/restTimerLL"
             android:visibility="gone"
-        >
+            >
 
         <Switch
                 android:layout_width="wrap_content"
@@ -337,89 +408,12 @@
 
     </LinearLayout>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/darkerGrey"
-            android:layout_margin="10dp"
-    />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/extraInfoTextView"
-            android:text="@string/oneRepMaxDay"
-            android:layout_margin="10dp"
-            android:textColor="@color/green"
-            android:gravity="center"
-            android:visibility="gone"
-    />
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/endView"
-            android:text="@string/lastDayOfWorkout"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:visibility="gone"
-            />
-
-    <com.wang.avi.AVLoadingIndicatorView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:indicatorName="BallClipRotateMultipleIndicator"
-            android:id="@+id/loadingView"
-            app:indicatorColor="@color/liftrGold2"
-            android:layout_gravity="center"
-    />
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/exInfoHolder2"
-            android:orientation="vertical"
-    >
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            app:cardElevation="5dp"
-    >
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/addExerciseButton"
-                android:background="@color/black"
-                android:textSize="18sp"
-                android:text="@string/addExercise"
-                android:textColor="@color/white"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-        />
-    </androidx.cardview.widget.CardView>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="@color/darkerGrey"
-            android:layout_margin="10dp"
-
-    />
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
             >
         <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -434,7 +428,7 @@
                     android:background="@color/darkGrey"
                     android:textSize="16sp"
                     android:text="@string/resetWorkout"
-                    android:textColor="@color/offWhite"
+                    android:textColor="@color/backgroundgrey2"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:paddingStart="10dp"

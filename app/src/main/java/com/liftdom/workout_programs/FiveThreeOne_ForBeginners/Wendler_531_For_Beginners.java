@@ -21,6 +21,9 @@ public class Wendler_531_For_Beginners {
     private String pushSetScheme;
     private String pullSetScheme;
     private String legCoreSetScheme;
+    private String lastUsedPush;
+    private String lastUsedPull;
+    private String lastUsedLegCore;
 
     private String beginDateString;
     private boolean isRoundToNearest5;
@@ -63,6 +66,15 @@ public class Wendler_531_For_Beginners {
         pullSetScheme = extraInfo.get("pullSetScheme");
         legCoreSetScheme = extraInfo.get("legCoreSetScheme");
         isWarmup = Boolean.parseBoolean(extraInfo.get("isWarmup"));
+        if(extraInfo.get("lastUsedPush") != null){
+            lastUsedPush = extraInfo.get("lastUsedPush");
+        }
+        if(extraInfo.get("lastUsedPull") != null){
+            lastUsedPull = extraInfo.get("lastUsedPull");
+        }
+        if(extraInfo.get("lastUsedLegCore") != null){
+            lastUsedLegCore = extraInfo.get("lastUsedLegCore");
+        }
     }
 
     public boolean isWarmup() {
@@ -108,6 +120,23 @@ public class Wendler_531_For_Beginners {
                 map = getWorkout(weekType, days);
             }
 
+        }
+
+        return map;
+    }
+
+    public HashMap<String, List<String>> generateSpecificWorkoutMap(int week, int day){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        setTrainingMaxes();
+
+        int weekType = getWeekType(week);
+
+        if(weekType == 0){
+            // get special workout with the days var
+            map = getWorkoutSpecial(day);
+        }else{
+            map = getWorkout(weekType, day);
         }
 
         return map;
@@ -242,6 +271,52 @@ public class Wendler_531_For_Beginners {
         return workoutMap;
     }
 
+    public String getLastUsedAssistance(int type){
+        String lastUsed = "null";
+
+        if(type == 1){
+            if(lastUsedPush != null){
+                lastUsed = lastUsedPush;
+            }
+        }else if(type == 2){
+            if(lastUsedPull != null){
+                lastUsed = lastUsedPull;
+            }
+        }else if(type == 3){
+            if(lastUsedLegCore != null){
+                lastUsed = lastUsedLegCore;
+            }
+        }
+
+        return lastUsed;
+    }
+
+    /**
+     * Current problem:
+     * We have to predict or create the correct Special Week 100% weight.
+     * Instead of generating it here, we could just "get" it somehow in AH.
+     * This is probably preferable bc there are too many possibilities of what happens when it's
+     * generated. The only issue would be updating it if they switch units midway.
+     *
+     * What we could do is send both the generated value and the value in the other unit.
+     *
+     * 120, 365
+     * 55, 165
+     *
+     */
+
+    private String roundNumberToNearest5(double weight){
+        String rounded;
+
+        int weight2;
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        rounded = String.valueOf(weight2);
+
+        return rounded;
+    }
+
     /*
      Before any lifting, choose one of the following and do 10-15 total reps over 2-3 sets:
      Box Jumps
@@ -340,7 +415,7 @@ public class Wendler_531_For_Beginners {
         ohpList.add("1x5@p_80_a_" + ohpTM);
         ohpList.add("1x3@p_90_a_" + ohpTM);
         ohpList.add("1x3_a@p_100_a_" + ohpTM);
-        exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
+        //exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
 
         // squat
         List<String> squatList = new ArrayList<>();
@@ -349,7 +424,7 @@ public class Wendler_531_For_Beginners {
         squatList.add("1x5@p_80_a_" + squatTM);
         squatList.add("1x3@p_90_a_" + squatTM);
         squatList.add("1x3_a@p_100_a_" + squatTM);
-        exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
+        //exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
         setWhichDay("first");
 
@@ -397,7 +472,7 @@ public class Wendler_531_For_Beginners {
             deadliftList.add("1x1_a@p_95_a_" + deadliftTM); // T.F. but goal is 1
             deadliftList.add("5x5@p_75_a_" + deadliftTM);
         }
-        exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
+        //exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
 
         // ohp
         List<String> ohpList = new ArrayList<>();
@@ -424,7 +499,7 @@ public class Wendler_531_For_Beginners {
             ohpList.add("1x1_a@p_95_a_" + ohpTM); // T.F. but goal is 1
             ohpList.add("5x5@p_75_a_" + ohpTM);
         }
-        exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
+        //exercisesAndTMs.put("Overhead Press (Barbell)", String.valueOf(ohpTM));
 
         setWhichDay("second");
 
@@ -447,7 +522,7 @@ public class Wendler_531_For_Beginners {
         benchList.add("1x5@p_80_a_" + benchTM);
         benchList.add("1x3@p_90_a_" + benchTM);
         benchList.add("1x3_a@p_100_a_" + benchTM);
-        exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
+        //exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
 
         setWhichDay("second");
 
@@ -494,7 +569,7 @@ public class Wendler_531_For_Beginners {
             benchList.add("1x1_a@p_95_a_" + benchTM); // T.F. but goal is 1
             benchList.add("5x5@p_75_a_" + benchTM);
         }
-        exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
+        //exercisesAndTMs.put("Bench Press (Barbell - Flat)", String.valueOf(benchTM));
 
         // squat
         List<String> squatList = new ArrayList<>();
@@ -521,7 +596,7 @@ public class Wendler_531_For_Beginners {
             squatList.add("1x1_a@p_95_a_" + squatTM); // T.F. but goal is 1
             squatList.add("5x5@p_75_a_" + squatTM);
         }
-        exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
+        //exercisesAndTMs.put("Squat (Barbell - Back)", String.valueOf(squatTM));
 
         setWhichDay("third");
 
@@ -544,7 +619,7 @@ public class Wendler_531_For_Beginners {
         deadliftList.add("1x5@p_80_a_" + deadliftTM);
         deadliftList.add("1x3@p_90_a_" + deadliftTM);
         deadliftList.add("1x3_a@p_100_a_" + deadliftTM);
-        exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
+        //exercisesAndTMs.put("Deadlift (Barbell - Conventional)", String.valueOf(deadliftTM));
 
         setWhichDay("third");
 

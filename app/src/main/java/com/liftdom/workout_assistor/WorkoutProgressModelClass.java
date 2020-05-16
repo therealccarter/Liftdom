@@ -73,11 +73,11 @@ public class WorkoutProgressModelClass {
         this.mIsRunningImperial = mIsRunningImperial;
     }
 
-    public HashMap<String, String> getmPreMadeInfo() {
+    public HashMap<String, String> getPreMadeInfo() {
         return mPreMadeInfo;
     }
 
-    public void setmPreMadeInfo(HashMap<String, String> mPreMadeInfo) {
+    public void setPreMadeInfo(HashMap<String, String> mPreMadeInfo) {
         this.mPreMadeInfo = mPreMadeInfo;
     }
 
