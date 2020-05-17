@@ -2235,9 +2235,9 @@ public class AssistorHolderFrag extends android.app.Fragment
     private void inflateW531fB(){
         Wendler_531_For_Beginners W531fB = new Wendler_531_For_Beginners(
                 mTemplateClass.getExtraInfo());
-        //HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
+        HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
 
-        HashMap<String, List<String>> map = W531fB.generateSpecificWorkoutMap(10, 1);
+        //HashMap<String, List<String>> map = W531fB.generateSpecificWorkoutMap(10, 1);
 
         if(W531fB.isTMIncreaseWeek()){
             extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);

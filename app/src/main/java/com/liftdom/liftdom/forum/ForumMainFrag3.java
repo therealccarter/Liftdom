@@ -20,6 +20,7 @@ import com.google.firebase.database.*;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.user_search.UserSearchFrag;
 import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
+import com.liftdom.workout_programs.PremadeProgramModelClass;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
@@ -45,7 +46,6 @@ public class ForumMainFrag3 extends Fragment {
         mCallback.changeHeaderTitle(title);
     }
 
-
     bottomNavChanger navChangerCallback;
 
     public interface bottomNavChanger{
@@ -55,6 +55,9 @@ public class ForumMainFrag3 extends Fragment {
     private void navChanger(int navIndex){
         navChangerCallback.setBottomNavIndex(navIndex);
     }
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     //@BindView(R.id.tlr) Button tlrButton;
 
@@ -73,6 +76,8 @@ public class ForumMainFrag3 extends Fragment {
 
         AppBarLayout appBarLayout = getActivity().findViewById(R.id.appBar);
         appBarLayout.setExpanded(true, true);
+
+        doSomething();
 
         //tlrButton.setOnClickListener(new View.OnClickListener() {
         //    @Override
@@ -111,6 +116,10 @@ public class ForumMainFrag3 extends Fragment {
 
 
         return view;
+    }
+
+    private void doSomething(){
+
     }
 
 

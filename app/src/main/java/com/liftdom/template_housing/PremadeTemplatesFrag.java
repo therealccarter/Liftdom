@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liftdom.liftdom.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,12 +41,10 @@ public class PremadeTemplatesFrag extends Fragment {
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
 
-    //@BindView(R.id.smolovButton) Button smolovButton;
-    @BindView(R.id.titleView) TextView titleView;
-    //@BindView(R.id.W531fBButton) Button W531FBButton;
-    @BindView(R.id.holder2) LinearLayout holder2;
-    @BindView(R.id.holder1) LinearLayout holder1;
+    @BindView(R.id.recycler_view_premade_programs) RecyclerView mRecyclerView;
+    @BindView(R.id.loadingView2) AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,64 +54,42 @@ public class PremadeTemplatesFrag extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
-
-        titleView.setTypeface(lobster);
-
-        //smolovButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //    Intent intent;
-        //    intent = new Intent(getContext(), SmolovHolderActivity.class);
-        //    startActivity(intent);
-        //    }
-        //});
-
-        //W531FBButton.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //        Intent intent;
-        //        intent = new Intent(getContext(), W531fB_HolderActivity.class);
-        //        startActivity(intent);
-        //    }
-        //});
-
-        if(savedInstanceState == null){
-            setUpFragsForWorkoutType();
-        }
-
-        //pplButton.setOnClickListener(new View.OnClickListener() {
-        //    public void onClick(View v) {
-        //        Intent intent;
-        //        intent = new Intent(getContext(), PPLHolderActivity.class);
-        //        startActivity(intent);
-        //    }
-        //});
+        setUpFirebaseAdapter();
 
         return view;
     }
 
-    private void setUpFragsForWorkoutType(){
-        androidx.fragment.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+    private void setUpFirebaseAdapter(){
+        /**
+         * So we need a radio group at the top that doesn't scroll.
+         * Then once in onCreate and then every time the radio button selections change, we hit
+         * this and make our Query out of what is selected, determining how we should sort the data.
+         */
 
-        PremadeProgramHolderFrag smolovFrag = new PremadeProgramHolderFrag();
-        smolovFrag.workoutType = "Smolov";
-        PremadeProgramHolderFrag W531fBFrag = new PremadeProgramHolderFrag();
-        W531fBFrag.workoutType = "W531fB";
-        PremadeProgramHolderFrag PPLReddit = new PremadeProgramHolderFrag();
-        PPLReddit.workoutType = "PPLReddit";
 
-        fragmentTransaction.add(R.id.holder2, smolovFrag);
-        fragmentTransaction.add(R.id.holder2, W531fBFrag);
-        fragmentTransaction.add(R.id.holder1, PPLReddit);
-
-        fragmentTransaction.commit();
     }
+
 
     @Override
     public void onStart(){
         super.onStart();
 
         headerChanger("Premade Programs");
+
+
+        if(mFirebaseAdapter != null && mFirebaseAdapter.getItemCount() == 0){
+            mFirebaseAdapter.startListening();
+        }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
+        if(mFirebaseAdapter != null){
+            mFirebaseAdapter.stopListening();
+        }
     }
 
     @Override

@@ -1,4 +1,204 @@
 
+private void setUpFragsForWorkoutType(){
+        //androidx.fragment.app.FragmentTransaction fragmentTransaction =
+        //        getChildFragmentManager().beginTransaction();
+        //PremadeProgramHolderFrag smolovFrag = new PremadeProgramHolderFrag();
+        //smolovFrag.workoutType = "Smolov";
+        //PremadeProgramHolderFrag W531fBFrag = new PremadeProgramHolderFrag();
+        //W531fBFrag.workoutType = "W531fB";
+        //PremadeProgramHolderFrag PPLReddit = new PremadeProgramHolderFrag();
+        //PPLReddit.workoutType = "PPLReddit";
+        //fragmentTransaction.add(R.id.holder2, smolovFrag);
+        //fragmentTransaction.add(R.id.holder2, W531fBFrag);
+        //fragmentTransaction.add(R.id.holder1, PPLReddit);
+        //fragmentTransaction.commit();
+    }
+// Setting PremadePrograms
+        String W531fBDescription = getResources().getString(R.string.W5314BShortDescription);
+        PremadeProgramModelClass w531fB = new PremadeProgramModelClass("Strength", "Wendler 5-3-1" +
+                " For Beginners", "Intermediate", W531fBDescription, "W531fB");
+        String SmolovDescription = getResources().getString(R.string.smolovShortDescription);
+        PremadeProgramModelClass smolov = new PremadeProgramModelClass("Strength", "Smolov",
+                "Advanced", SmolovDescription, "Smolov");
+        String PPLRedditDescription = getResources().getString(R.string.PPLRedditShortDescription);
+        PremadeProgramModelClass pplReddit = new PremadeProgramModelClass("Bodybuilding",
+                "Push-Pull-Legs Reddit Variant", "Beginner", PPLRedditDescription, "PPLReddit");
+
+
+        DatabaseReference W531fBRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("W531fB");
+        DatabaseReference SmolovRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("Smolov");
+        DatabaseReference PPLRedditRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("PPLReddit");
+
+        W531fBRef.setValue(w531fB);
+        SmolovRef.setValue(smolov);
+        PPLRedditRef.setValue(pplReddit);
+// PremadeTemplatesFrag layout
+
+        //smolovButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //    Intent intent;
+        //    intent = new Intent(getContext(), SmolovHolderActivity.class);
+        //    startActivity(intent);
+        //    }
+        //});
+
+        //W531FBButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        Intent intent;
+        //        intent = new Intent(getContext(), W531fB_HolderActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
+
+        //pplButton.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        Intent intent;
+        //        intent = new Intent(getContext(), PPLHolderActivity.class);
+        //        startActivity(intent);
+        //    }
+        //});
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@color/lessDarkGrey"
+              android:orientation="vertical"
+              android:fillViewport="true"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="100dp"
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/premadePrograms"
+                    android:textColor="@color/liftrGold1"
+                    android:textSize="26sp"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/titleView"
+                    android:background="@color/darkGrey"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone"
+            />
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/liftrGold1"
+                        android:text="@string/bodybuildingPrograms"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="5dp"
+                />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/holder1"
+                    >
+
+            </LinearLayout>
+
+
+
+
+            <!-- Strength -->
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/liftrGold1"
+                        android:text="@string/strengthPrograms"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="5dp"
+                />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/holder2"
+            >
+
+            </LinearLayout>
+
+            <!-- Hybrid/Other Programs -->
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+            >
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/liftrGold1"
+                        android:text="@string/otherPrograms"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="5dp"
+                />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    app:cardElevation="5dp"
+                    android:layout_marginTop="5dp"
+            >
+                <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/comingSoon"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:background="@color/darkGrey"
+                        android:textAllCaps="false"
+                        android:gravity="start"
+                        android:paddingStart="20dp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
 //exNameWAFrag
 
     boolean isFirstTimeFirstTime = true;

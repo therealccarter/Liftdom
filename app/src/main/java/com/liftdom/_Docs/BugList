@@ -317,13 +317,15 @@ Get these premades working correctly:
         -
     - Sheiko - White Whale
 
-- (think of the implications if we add/subtract/multiply/divide
-                and then round we lose precision.)
+- (think of the implications if we add/subtract/multiply/divide and then round we lose precision.)
             - when calculating premade values for metric, we gotta round to nearest flat multiple of
              5 or 2.5.
+            - best solution is don't auto round in RepsWeightFrag if the unitsPOV matches the
+            templatePOV. Else, round. And, if imperial, make it int (which may not be necessary
+            given the input filters we put on the weight edit text).
 
 Premades shouldn't be allowed to be "fully" edited, but they should be able to have their
-    extraInfo values edited.
+    extraInfo values edited. Selected template for premades should also be prettier.
 
 Premade info/intro frags might need to be backed up to database with a running node. What if they
 switch or leave it minimized while halfway done? This is probably not worth the effort, so we should

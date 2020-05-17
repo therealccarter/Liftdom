@@ -1,137 +1,31 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/lessDarkGrey"
               android:orientation="vertical"
-              android:fillViewport="true"
               app:layout_behavior="@string/appbar_scrolling_view_behavior"
               tools:context="com.liftdom.template_housing.PremadeTemplatesFrag">
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="100dp"
-        >
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/premadePrograms"
-                    android:textColor="@color/liftrGold1"
-                    android:textSize="26sp"
-                    android:gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:id="@+id/titleView"
-                    android:background="@color/darkGrey"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:visibility="gone"
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:indicatorName="BallClipRotateMultipleIndicator"
+            android:id="@+id/loadingView2"
+            android:layout_marginTop="110dp"
+            app:indicatorColor="@color/liftrGold2"
+            android:layout_gravity="center"
             />
 
-            <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-            >
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/liftrGold1"
-                        android:text="@string/bodybuildingPrograms"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="5dp"
-                />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/holder1"
-                    >
-
-            </LinearLayout>
-
-
-
-
-            <!-- Strength -->
-            <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-            >
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/liftrGold1"
-                        android:text="@string/strengthPrograms"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="5dp"
-                />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/holder2"
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:background="@color/lessDarkGrey"
+            android:id="@+id/recycler_view_premade_programs"
             >
 
-            </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
-            <!-- Hybrid/Other Programs -->
-            <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-            >
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/liftrGold1"
-                        android:text="@string/otherPrograms"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="5dp"
-                />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    app:cardElevation="5dp"
-                    android:layout_marginTop="5dp"
-            >
-                <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/comingSoon"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:background="@color/darkGrey"
-                        android:textAllCaps="false"
-                        android:gravity="start"
-                        android:paddingStart="20dp"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                />
-
-            </androidx.cardview.widget.CardView>
-
-
-        </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
