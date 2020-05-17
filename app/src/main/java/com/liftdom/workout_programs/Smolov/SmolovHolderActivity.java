@@ -1,17 +1,9 @@
 package com.liftdom.workout_programs.Smolov;
 
-import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBSingleton;
-import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fB_HolderActivity;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.*;

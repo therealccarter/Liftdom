@@ -13,8 +13,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
-import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fB_HolderActivity;
-import com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBHolderActivity;
+import com.liftdom.workout_programs.PPL_Reddit.PPLRedditHolderActivity;
 import com.liftdom.workout_programs.Smolov.SmolovHolderActivity;
 
 /**
@@ -32,7 +32,7 @@ public class PremadeProgramHolderFrag extends Fragment {
     @BindView(R.id.templateName) TextView templateNameView;
     @BindView(R.id.descriptionView) TextView descriptionView;
     @BindView(R.id.parentLL) LinearLayout parentLL;
-    @BindView(R.id.experienceLevelView) TextView experienceLevelview;
+    @BindView(R.id.experienceLevelView) TextView experienceLevelView;
     @BindView(R.id.workoutTypeView) TextView workoutTypeView;
 
     @Override
@@ -57,11 +57,11 @@ public class PremadeProgramHolderFrag extends Fragment {
                         startActivity(intent);
                     }else if(workoutType.equals("W531fB")){
                         Intent intent;
-                        intent = new Intent(getContext(), W531fB_HolderActivity.class);
+                        intent = new Intent(getContext(), W531fBHolderActivity.class);
                         startActivity(intent);
                     }else if(workoutType.equals("PPLReddit")){
                         Intent intent;
-                        intent = new Intent(getContext(), PPLReddit_HolderActivity.class);
+                        intent = new Intent(getContext(), PPLRedditHolderActivity.class);
                         startActivity(intent);
                     }
                 }
@@ -83,21 +83,21 @@ public class PremadeProgramHolderFrag extends Fragment {
 
     private void setUpPPLReddit(){
         templateNameView.setText("Push/Pull/Legs Reddit Variant");
-        experienceLevelview.setText("Beginner");
+        experienceLevelView.setText("Beginner");
         workoutTypeView.setText("Bodybuilding");
         descriptionView.setText(getResources().getString(R.string.PPLRedditShortDescription));
     }
 
     private void setUpSmolov(){
         templateNameView.setText("Smolov");
-        experienceLevelview.setText("Advanced");
+        experienceLevelView.setText("Advanced");
         workoutTypeView.setText("Strength");
         descriptionView.setText(getResources().getString(R.string.smolovShortDescription));
     }
 
     private void setUpW531fB(){
         templateNameView.setText("Wendler 5/3/1 For Beginners");
-        experienceLevelview.setText("Intermediate");
+        experienceLevelView.setText("Intermediate");
         workoutTypeView.setText("Strength");
         descriptionView.setText(getResources().getString(R.string.W5314BShortDescription));
     }

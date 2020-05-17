@@ -51,6 +51,9 @@ public class W531fBIntroFrag3 extends SlideFragment {
     @BindView(R.id.needsMoreLegCore) TextView needsMoreLegCore;
     @BindView(R.id.needsLessLegCore) TextView needsLessLegCore;
     @BindView(R.id.assistanceTitle) TextView assistanceTitle;
+    @BindView(R.id.pushRepCount) TextView pushRepCount;
+    @BindView(R.id.pullRepCount) TextView pullRepCount;
+    @BindView(R.id.legCoreRepCount) TextView legCoreRepCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -253,6 +256,9 @@ public class W531fBIntroFrag3 extends SlideFragment {
 
         int overall = sets * reps;
 
+        String repCount = "(" + overall + " reps)";
+        pushRepCount.setText(repCount);
+
         if(overall > 100){
             return "less";
         }else if(overall < 50){
@@ -278,6 +284,9 @@ public class W531fBIntroFrag3 extends SlideFragment {
 
         int overall = sets * reps;
 
+        String repCount = "(" + overall + " reps)";
+        pullRepCount.setText(repCount);
+
         if(overall > 100){
             return "less";
         }else if(overall < 50){
@@ -302,6 +311,9 @@ public class W531fBIntroFrag3 extends SlideFragment {
         }
 
         int overall = sets * reps;
+
+        String repCount = "(" + overall + " reps)";
+        legCoreRepCount.setText(repCount);
 
         if(overall > 100){
             return "less";

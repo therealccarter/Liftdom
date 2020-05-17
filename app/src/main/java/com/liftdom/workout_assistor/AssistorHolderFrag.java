@@ -2237,7 +2237,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                 mTemplateClass.getExtraInfo());
         //HashMap<String, List<String>> map = W531fB.generateWorkoutMap();
 
-        HashMap<String, List<String>> map = W531fB.generateSpecificWorkoutMap(6, 5);
+        HashMap<String, List<String>> map = W531fB.generateSpecificWorkoutMap(10, 1);
 
         if(W531fB.isTMIncreaseWeek()){
             extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);

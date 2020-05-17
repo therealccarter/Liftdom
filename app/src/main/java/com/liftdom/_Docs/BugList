@@ -268,6 +268,34 @@ preliminary decimal support
                 (SelectedTemplates, WA, Dates, etc).
 Fixed bug causing empty percentages to not be saved in TE running
 WA Running model class should have a hashmap for premade extra info. Maybe also save template type.
+- W5314B
+    done - auto-fill maxes
+    done - give actual description of the program instead of babbling about shit
+    done - give it future date functionality (premade Class comes in here, somehow)
+    done - add rest timer options (at least a 4th page, maybe more)
+        done - 3rd for accessory info
+        done - 4th for rest timer and date choice
+        done - 2nd - add round to nearest 5 checkbox (Smolov 2)
+    done - 5th/Holder is finalize (now we have to organize all the new data into the extra info)
+    done - convert from forced Monday to determining via days passed. add choice.
+    done - going to need a map in template to save the weights of the accessories
+    done - you'll have to have a way for them to pick their accessories out of that pool
+        done - let them enter in a set scheme?
+        done - tell them that they can enter the weight on the day and it'll remember
+        done - tell them that the set scheme/weights aren't very important, it's just volume.
+        done - have three buttons, each one for each type of accessory
+        done - after picking exercise, show dialog asking for weight so it can inflate their
+            saved set schemes. Once they do it once, it should save that exercise's weight to
+            extra info hashmap. Show the set scheme in the dialog, and auto fill the last saved
+            weight if that exercise has it.
+    done - after 3 weeks you add 5lbs to the TM of Bench and OHP, 10lbs to TM of Squat and DL
+    done - on the 10th week (or after the 9th week/3rd set of 3 weeks) you do
+        done - Monday - OHP TM 1rm, Squat TM 1rm
+        done - Wednesday - Bench TM 1rm
+        done - Friday - Deadlift TM 1rm.
+        done - normal assistance work
+    done - would be cool to save the initial max
+    done - for assistance set scheme setting, calculate the amount of reps and display them on the side
 
 ----------------------
 ====================================================
@@ -279,36 +307,8 @@ For premades with long intro frag descriptions, maybe do titles so it looks nice
 Also just go through each one after you know they work and make them prettier.
 
 Get these premades working correctly:
-    - W5314B
-        done - auto-fill maxes
-        done - give actual description of the program instead of babbling about shit
-        - give it future date functionality (premade Class comes in here, somehow)
-        done - add rest timer options (at least a 4th page, maybe more)
-            done - 3rd for accessory info
-            done - 4th for rest timer and date choice
-            done - 2nd - add round to nearest 5 checkbox (Smolov 2)
-        - 5th/Holder is finalize (now we have to organize all the new data into the extra info)
-        - convert from forced Monday to determining via days passed. add choice.
-        - going to need a map in template to save the weights of the accessories
-        - you'll have to have a way for them to pick their accessories out of that pool
-            done - let them enter in a set scheme?
-            done - tell them that they can enter the weight on the day and it'll remember
-            done - tell them that the set scheme/weights aren't very important, it's just volume.
-            - have three buttons, each one for each type of accessory
-            - after picking exercise, show dialog asking for weight so it can inflate their
-                saved set schemes. Once they do it once, it should save that exercise's weight to
-                extra info hashmap. Show the set scheme in the dialog, and auto fill the last saved
-                weight if that exercise has it.
-        - after 3 weeks you add 5lbs to the TM of Bench and OHP, 10lbs to TM of Squat and DL
-        - on the 10th week (or after the 9th week/3rd set of 3 weeks) you do
-            - Monday - OHP TM 1rm, Squat TM 1rm
-            - Wednesday - Bench TM 1rm
-            - Friday - Deadlift TM 1rm.
-            - normal assistance work
-        - would be cool to save the initial max
-        - going to also need a round option?
-        - for assistance set scheme setting, calculate the amount of reps and display them on the
-            side
+    - W531fB
+        - compat for date stuff
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
@@ -326,7 +326,12 @@ Premades shouldn't be allowed to be "fully" edited, but they should be able to h
     extraInfo values edited.
 
 Premade info/intro frags might need to be backed up to database with a running node. What if they
-switch or leave it minimized while halfway done?
+switch or leave it minimized while halfway done? This is probably not worth the effort, so we should
+ do some kind of check in each frag to see if something like the uid is null in its singleton. If it
+  is then we'll just restart the intro.
+
+PremadeProgramHolder should switch to a FirebaseRecyclerAdapter which we can order by values within
+a PremadeProgramModelClass. Type, count, etc.
 
 Create a class that handles the premade selection in places like WA,
 ============ THE ABSOLUTE MOST IMPORTANT ===================================
@@ -418,7 +423,7 @@ For each new program, check:
     - SelectedTemplateFrag
     - PremadeProgramHolderFrag
     - WorkoutAssistorFrag
-    - AssistorHolderFarg
+    - AssistorHolderFrag
     - AssistorSavedFrag (probably)
 
 possibly add custom workouts tacked onto premades?

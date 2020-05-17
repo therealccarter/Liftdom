@@ -14,7 +14,7 @@ import org.joda.time.DateTimeZone;
 
 import java.util.HashMap;
 
-public class PPLReddit_HolderActivity extends MaterialIntroActivity {
+public class PPLRedditHolderActivity extends MaterialIntroActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +70,14 @@ public class PPLReddit_HolderActivity extends MaterialIntroActivity {
                                 activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Intent intent = new Intent(PPLReddit_HolderActivity.this,
+                                        Intent intent = new Intent(PPLRedditHolderActivity.this,
                                                 MainActivity.class);
                                         intent.putExtra("fragID", 1);
                                         startActivity(intent);
                                     }
                                 });
                             }else{
-                                Intent intent = new Intent(PPLReddit_HolderActivity.this,
+                                Intent intent = new Intent(PPLRedditHolderActivity.this,
                                         MainActivity.class);
                                 intent.putExtra("fragID", 1);
                                 startActivity(intent);

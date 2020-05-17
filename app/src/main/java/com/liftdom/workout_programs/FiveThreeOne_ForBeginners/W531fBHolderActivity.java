@@ -1,7 +1,5 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.liftdom.liftdom.R;
 import io.github.dreierf.materialintroscreen.MaterialIntroActivity;
 import android.content.Intent;
@@ -20,7 +18,7 @@ import java.util.HashMap;
 /**
  * Created by Brodin on 5/18/2018.
  */
-public class W531fB_HolderActivity extends MaterialIntroActivity {
+public class W531fBHolderActivity extends MaterialIntroActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -122,13 +120,13 @@ public class W531fB_HolderActivity extends MaterialIntroActivity {
             activeRef.setValue(programName).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Intent intent = new Intent(W531fB_HolderActivity.this, MainActivity.class);
+                    Intent intent = new Intent(W531fBHolderActivity.this, MainActivity.class);
                     intent.putExtra("fragID", 1);
                     startActivity(intent);
                 }
             });
         }else{
-            Intent intent = new Intent(W531fB_HolderActivity.this, MainActivity.class);
+            Intent intent = new Intent(W531fBHolderActivity.this, MainActivity.class);
             intent.putExtra("fragID", 1);
             startActivity(intent);
         }

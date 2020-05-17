@@ -49,7 +49,7 @@
                 android:name="com.liftdom.template_editor.DaySetDeleteConfirmation"
                 android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
-                android:name="com.liftdom.workout_programs.PPL_Reddit.PPLReddit_HolderActivity"
+                android:name="com.liftdom.workout_programs.PPL_Reddit.PPLRedditHolderActivity"
                 android:theme="@style/Theme.Intro" />
         <activity
                 android:name="com.liftdom.workout_assistor.ExDeleteConfirmation"
@@ -162,7 +162,7 @@
                 android:name="com.liftdom.workout_programs.Smolov.SmolovHolderActivity"
                 android:theme="@style/Theme.Intro" />
         <activity
-                android:name="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fB_HolderActivity"
+                android:name="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBHolderActivity"
                 android:theme="@style/Theme.Intro" />
         <activity
                 android:name=".SignInActivity"

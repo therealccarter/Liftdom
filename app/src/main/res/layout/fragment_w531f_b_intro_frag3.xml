@@ -87,8 +87,17 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="17sp"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:maxLength="2"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pushRepCount"
+                        android:text="(50 reps)"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/lessDarkGrey"
                         />
 
             </LinearLayout>
@@ -173,8 +182,17 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="17sp"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:maxLength="2"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pullRepCount"
+                        android:text="(50 reps)"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/lessDarkGrey"
                         />
 
             </LinearLayout>
@@ -258,8 +276,17 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="17sp"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:maxLength="2"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/legCoreRepCount"
+                        android:text="(50 reps)"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/lessDarkGrey"
                         />
 
             </LinearLayout>

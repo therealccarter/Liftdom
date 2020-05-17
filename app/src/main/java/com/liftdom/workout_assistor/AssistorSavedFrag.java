@@ -417,13 +417,13 @@ public class AssistorSavedFrag extends android.app.Fragment {
                             workoutInfoMapProcessed, commentModelClassMap, null, bonusList);
 
                     //needed
-                    //myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
-                    //feedFanOut(refKey, completedWorkoutModelClass);
+                    myFeedRef.child(refKey).setValue(completedWorkoutModelClass);
+                    feedFanOut(refKey, completedWorkoutModelClass);
 
                     // workout history
                     //needed
-                    //setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
-                    //        workoutHistoryRef, REFKEY);
+                    setWorkoutHistoryRef(date, isImperial, workoutInfoMapProcessed,
+                            workoutHistoryRef, REFKEY);
 
                     if(!isFreestyle){
                         templateRef.setValue(templateClass);
@@ -500,7 +500,7 @@ public class AssistorSavedFrag extends android.app.Fragment {
                                         dummyList.add("Squat (Barbell - Back)Lbs");
                                         dummyList.add("Bench Press (Barbell - Flat)Lbs");
                                         dummyList.add("Overhead Press (Barbell)Lbs");
-                                        dummyList.add("Deadlift (Barbell - ConventionalLbs)");
+                                        dummyList.add("Deadlift (Barbell - Conventional)Lbs");
                                         dummyList.add("Squat (Barbell - Back)Kgs");
                                         dummyList.add("Bench Press (Barbell - Flat)Kgs");
                                         dummyList.add("Overhead Press (Barbell)Kgs");
@@ -662,13 +662,15 @@ public class AssistorSavedFrag extends android.app.Fragment {
                         //int weight = Integer.parseInt(tokens[1]);
                         if(tokens[1].equals(trainingMax)){
                             int reps = Integer.parseInt(tokens[0]);
-                            processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName), exName);
+                            processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName), exName,
+                                    isImperial);
                         }else{
                             double weight1 = Double.parseDouble(tokens[1]);
                             double TM = Double.parseDouble(trainingMax);
                             if(weight1 >= TM){
                                 int reps = Integer.parseInt(tokens[0]);
-                                processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName), exName);
+                                processW531fBSpecialWeekTemplateInfo(reps, exMap.get(exName),
+                                        exName, isImperial);
                             }
                         }
                     }
@@ -689,38 +691,57 @@ public class AssistorSavedFrag extends android.app.Fragment {
         extraInfoTextView.setVisibility(View.VISIBLE);
     }
 
-    private void processW531fBSpecialWeekTemplateInfo(int reps, String ex, String exName){
+    private void processW531fBSpecialWeekTemplateInfo(int reps, String ex, String exName,
+                                                      boolean isImperial){
+        double increaseSmall;
+        double increaseLarge;
+        double increaseSmallMore;
+        double increaseLargeMore;
+
+        if(isImperial){
+            increaseSmall = 5;
+            increaseSmallMore = 10;
+            increaseLarge = 10;
+            increaseLargeMore = 20;
+        }else{
+            increaseSmall = 2.5;
+            increaseSmallMore = 5;
+            increaseLarge = 5;
+            increaseLargeMore = 10;
+        }
+
         if(reps == 1){
             // decrease specified ex by double the normal amount
             double value = Double.parseDouble(templateClass.getExtraInfo().get(ex));
             if(value % 1 == 0){
-                int value2 = (int) value;
+                double value2 = (int) value;
                 if(ex.equals("benchMax") || ex.equals("ohpMax")){
-                    value2 = value2 - 10;
+                    value2 = value2 - increaseSmallMore;
                     String extraInfo =
                             "You only completed 1 rep for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 10 so you can keep up.";
+                                    "your training max has been reduced by " + increaseSmallMore + " so you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }else{
-                    value2 = value2 - 20;
+                    value2 = value2 - increaseLargeMore;
                     String extraInfo =
                             "You only completed 1 rep for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 20 so you can keep up.";
+                                    "your training max has been reduced by " + increaseLargeMore + " so you " +
+                                    "can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }
                 templateClass.addToExtraInfo(ex, String.valueOf(value2));
             }else{
                 if(ex.equals("benchMax") || ex.equals("ohpMax")){
-                    value = value - 10;
+                    value = value - increaseSmallMore;
                     String extraInfo =
                             "You only completed 1 rep for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 10 so you can keep up.";
+                                    "your training max has been reduced by " + increaseSmallMore + " so you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }else{
-                    value = value - 20;
+                    value = value - increaseLargeMore;
                     String extraInfo =
                             "You only completed 1 rep for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 10 so you can keep up.";
+                                    "your training max has been reduced by " + increaseLargeMore + " so you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }
                 templateClass.addToExtraInfo(ex, String.valueOf(value));
@@ -730,33 +751,35 @@ public class AssistorSavedFrag extends android.app.Fragment {
             // decrease specified ex by normal amount
             double value = Double.parseDouble(templateClass.getExtraInfo().get(ex));
             if(value % 1 == 0){
-                int value2 = (int) value;
+                double value2 = (int) value;
                 if(ex.equals("benchMax") || ex.equals("ohpMax")){
-                    value2 = value2 - 5;
+                    value2 = value2 - increaseSmall;
                     String extraInfo =
                             "You only completed 2 reps for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 5 so you can keep up.";
+                                    "your training max has been reduced by " + increaseSmall + " so you " +
+                                    "can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }else{
-                    value2 = value2 - 10;
+                    value2 = value2 - increaseLarge;
                     String extraInfo =
                             "You only completed 2 reps for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 10 so you can keep up.";
+                                    "your training max has been reduced by " + increaseLarge + " so" +
+                                    " you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }
                 templateClass.addToExtraInfo(ex, String.valueOf(value2));
             }else{
                 if(ex.equals("benchMax") || ex.equals("ohpMax")){
-                    value = value - 5;
+                    value = value - increaseSmall;
                     String extraInfo =
                             "You only completed 2 reps for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 5 so you can keep up.";
+                                    "your training max has been reduced by " + increaseSmall + " so you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }else{
-                    value = value - 10;
+                    value = value - increaseLarge;
                     String extraInfo =
                             "You only completed 2 reps for your max week with " + exName + ", so " +
-                                    "your training max has been reduced by 10 so you can keep up.";
+                                    "your training max has been reduced by " + increaseLarge + " so you can keep up.";
                     setExtraInfoTextWithMultiple(extraInfo);
                 }
                 templateClass.addToExtraInfo(ex, String.valueOf(value));
