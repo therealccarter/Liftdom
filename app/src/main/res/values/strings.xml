@@ -637,6 +637,10 @@
 
     <string name="includeWarmupW531fB">Include 3 sets of light warmup for each main lift?</string>
 
+    <string name="experienceLevelNoColon">Experience Level</string>
+
+    <string name="workoutTypeNoColon">Workout Type</string>
+
     <!-- PPL Reddit -->
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>

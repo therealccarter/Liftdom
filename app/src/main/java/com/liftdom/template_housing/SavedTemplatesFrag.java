@@ -213,8 +213,9 @@ public class SavedTemplatesFrag extends Fragment {
                 holder.setActivity(getActivity());
             }
 
+            @NonNull
             @Override
-            public SavedTemplateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public SavedTemplateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext()).inflate(
                         R.layout.saved_template_list_item,
