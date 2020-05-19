@@ -641,6 +641,8 @@
 
     <string name="workoutTypeNoColon">Workout Type</string>
 
+    <string name="type">Type</string>
+
     <!-- PPL Reddit -->
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>
@@ -993,6 +995,17 @@
     <string name="powerliftingPrograms">Powerlifting Programs</string>
     <string name="strengthPrograms">Strength Programs</string>
     <string name="otherPrograms">Hybrid Programs/Other</string>
+
+    <string name="hybridOther">Hybrid/Other</string>
+
+    <string name="beginner">Beginner</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="advanced">Advanced</string>
+
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+
+    <string name="strength">Strength</string>
 
     <string name="results">Results:\u0020</string>
 

@@ -28,6 +28,7 @@
     <item name="black" type="color">#000000</item>
     <item name="white" type="color">#FFFFFF</item>
     <color name="darkGrey" type="color">#1d1d1d</color>
+    <color name="darkGrey2" type="color">#2C2C2C</color>
     <color name="lessDarkGrey" type="color">#303030</color>
     <color name="darkerGrey" type="color">#0e0e0e</color>
     <color name="transBlack1" type="color">#c9000000</color>
