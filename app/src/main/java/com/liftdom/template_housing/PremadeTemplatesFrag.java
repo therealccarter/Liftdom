@@ -97,6 +97,8 @@ public class PremadeTemplatesFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!dontRun){
                     if(isChecked){
+                        experienceLevelRB.setChecked(false);
+                        alphabeticalRB.setChecked(false);
                         typeLL.setVisibility(View.VISIBLE);
                         experienceLL.setVisibility(View.GONE);
                         alphabeticalLL.setVisibility(View.GONE);
@@ -111,6 +113,8 @@ public class PremadeTemplatesFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!dontRun){
                     if(isChecked){
+                        workoutTypeRB.setChecked(false);
+                        alphabeticalRB.setChecked(false);
                         typeLL.setVisibility(View.GONE);
                         experienceLL.setVisibility(View.VISIBLE);
                         alphabeticalLL.setVisibility(View.GONE);
@@ -125,6 +129,8 @@ public class PremadeTemplatesFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!dontRun){
                     if(isChecked){
+                        workoutTypeRB.setChecked(false);
+                        experienceLevelRB.setChecked(false);
                         typeLL.setVisibility(View.GONE);
                         experienceLL.setVisibility(View.GONE);
                         alphabeticalLL.setVisibility(View.VISIBLE);
@@ -217,6 +223,7 @@ public class PremadeTemplatesFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!dontRun) {
                     if (isChecked) {
+                        descendingRB.setChecked(false);
                         setUpRecyclerView();
                     }
                 }
@@ -228,6 +235,7 @@ public class PremadeTemplatesFrag extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!dontRun) {
                     if (isChecked) {
+                        ascendingRB.setChecked(false);
                         setUpRecyclerView();
                     }
                 }
