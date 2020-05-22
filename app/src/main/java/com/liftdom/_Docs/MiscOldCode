@@ -1,4 +1,89 @@
 
+// W531fB theorizing
+/**
+         * multiply the increases (x3) by the first digit.
+         * So really, it's the week after that means it has increased.
+         * 3, 4. 6, 7. 9, 10.
+         * then
+         *  if it's (3>x<7) increase by one turn
+         *  if it's (6>x<10) increase by two turns
+         *  If it's special week (0), we also increase.
+         *
+         *  4 to 6 is x1.
+         *  7 to 9 is x2.
+         *  0 is x3.
+         *
+         *  If number is double digits, multiply first number by 3, and multiply values by that.
+         *
+         *  So let's say we get 26.
+         *  Because of the first digit, 2, we do 2x3 = 6.
+         *  For each max, they are max = max + (x*6);
+         *  Then we look at the second digit, 6. 6 = x1, so now max = max + (x*1).
+         *
+         *  Let's try 30.
+         *  First digit is 3, so 3*3 = 9.
+         *  max = max + (x*9);
+         *  Second digit is 0. 0 = x3.
+         *  max = max + (x*3);
+         *
+         *  Let's try 3.
+         *  No first digit.
+         *  Second digit is 3. 3 = 0.
+         *  max = max + (x*0);
+         *  stays the same.
+         *
+         *  Let's try 23.
+         *  max = max + (x*6);
+         *  max = max + (x*0);
+         *
+         *  24
+         *  max = max + (x*6);
+         *  max = max + (x*1);
+         *
+         *  It works. I think.
+         *
+         *  1
+         *  2
+         *  3
+         *  4 - increased
+         *  5
+         *  6
+         *  7 - increased
+         *  8
+         *  9
+         *  10 - increased
+         *  11
+         *  12
+         *  13
+         *  14 - increased
+         *  15
+         *  16
+         *  17 - increased
+         *  18
+         *  19
+         *  20 - increased
+         *  21
+         *  22
+         *  23
+         *  24 - increased
+         *  25
+         *  26
+         *  27 - increased
+         *  28
+         *  29
+         *  30 -increased
+         */
+
+//SelectedFutureDateDialog
+//FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
+//subFrag.isCurrentUserImperial = isCurrentUserImperial;
+//subFrag.isTemplateImperial = isTemplateImperial;
+//subFrag.map = map;
+//FragmentTransaction fragmentTransaction =
+//        getSupportFragmentManager().beginTransaction();
+//fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
+//fragmentTransaction.commit();
+
 private void setUpFragsForWorkoutType(){
         //androidx.fragment.app.FragmentTransaction fragmentTransaction =
         //        getChildFragmentManager().beginTransaction();

@@ -296,7 +296,7 @@ WA Running model class should have a hashmap for premade extra info. Maybe also 
         done - normal assistance work
     done - would be cool to save the initial max
     done - for assistance set scheme setting, calculate the amount of reps and display them on the side
-
+    done - compat for date stuff
 ----------------------
 ====================================================
 Yo wtf is RestDaySaved? That's gotta be where that weird broken self feed bug is coming from and
@@ -307,8 +307,6 @@ For premades with long intro frag descriptions, maybe do titles so it looks nice
 Also just go through each one after you know they work and make them prettier.
 
 Get these premades working correctly:
-    - W531fB
-        - compat for date stuff
     - PPL
         - (normal ppl and a bodyweight plan could be normal template mode)
     - BW routine
@@ -361,11 +359,15 @@ Show next workout date in rest day frag. Could help compel people to go there.
 
 update launcher icon, maybe take L off knight, maybe go yellow background black knight. check new
 guidelines. We should have Knight+Liftdom anywhere there is knight for brand recog.
+    - Trace outlines of real bb pics (maybe arnold conquer pic) to be body of brodin?
+    - just plain "Liftdom" for store listing? or LIFTDOM.
 
 We may need to do a version check in MainActivity so old version people don't fuck up the
 db. Could also just delete all old data.
 
 Look into if templates really shouldn't have a space in them.
+
+AS line 4412: "Stringbuilder can be same for either check"
 
 Change Kmac username in nodes
 
@@ -418,10 +420,13 @@ Create a high level plan to trust.
 ============================================================================
 
 ============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+Some sort of animations in WA like candy crush. Good for ads and visuals generally?
+
 PUSH NOTIFICATIONS FOR WORKOUTS!
 
 For each new program, check:
-    - HistoryCalendarTab/Future Date Constructor
+    - HistoryCalendarTab
+    - SelectedFutureDateDialog
     - SelectedTemplateFrag
     - PremadeProgramHolderFrag
     - WorkoutAssistorFrag

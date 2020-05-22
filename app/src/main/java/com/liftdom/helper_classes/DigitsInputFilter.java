@@ -1,4 +1,4 @@
-package com.liftdom.charts_stats_tools;
+package com.liftdom.helper_classes;
 
 import android.text.InputFilter;
 import android.text.Spanned;

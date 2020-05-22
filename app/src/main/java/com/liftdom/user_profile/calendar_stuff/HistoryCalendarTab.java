@@ -21,6 +21,7 @@ import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.user_profile.calendar_stuff.decorators.OneDayDecorator;
 import com.liftdom.user_profile.calendar_stuff.decorators.PastEventDecorator;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -54,11 +55,14 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
     public String templateName;
 
     boolean isSmolov;
+    boolean isW531fB;
 
     String smolovMaxWeight;
     String smolovBeginDate;
     String smolovExName;
     String smolovRound;
+
+    HashMap<String, String> W531fBInfoMap = new HashMap<>();
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -212,54 +216,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                             isTemplateImperial = templateModelClass.isIsImperial();
 
-                            if(templateModelClass.getWorkoutType().equals("Smolov")){
-                                isSmolov = true;
-                                smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
-                                smolovExName = templateModelClass.getExtraInfo().get("exName");
-                                smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
-                                smolovRound = templateModelClass.getExtraInfo().get(
-                                        "roundToNearest5");
-                                Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
-                                        templateModelClass.getExtraInfo().get("maxWeight"));
-                                smolov.setRoundToNearest5(Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5")));
-                                futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
-                            }else{
-                                if(templateModelClass.getMapOne() != null){
-                                    if(!templateModelClass.getMapOne().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapOne());
-                                    }
-                                }
-                                if(templateModelClass.getMapTwo() != null){
-                                    if(!templateModelClass.getMapTwo().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapTwo());
-                                    }
-                                }
-                                if(templateModelClass.getMapThree() != null){
-                                    if(!templateModelClass.getMapThree().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapThree());
-                                    }
-                                }
-                                if(templateModelClass.getMapFour() != null){
-                                    if(!templateModelClass.getMapFour().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapFour());
-                                    }
-                                }
-                                if(templateModelClass.getMapFive() != null){
-                                    if(!templateModelClass.getMapFive().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapFive());
-                                    }
-                                }
-                                if(templateModelClass.getMapSix() != null){
-                                    if(!templateModelClass.getMapSix().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapSix());
-                                    }
-                                }
-                                if(templateModelClass.getMapSeven() != null){
-                                    if(!templateModelClass.getMapSeven().isEmpty()){
-                                        futureConstructor(templateModelClass.getMapSeven());
-                                    }
-                                }
-                            }
+                            handleType(templateModelClass);
 
                         }
 
@@ -300,53 +257,7 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
 
                                 isTemplateImperial = templateModelClass.isIsImperial();
 
-                                if(templateModelClass.getWorkoutType().equals("Smolov")){
-                                    isSmolov = true;
-                                    smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
-                                    smolovExName = templateModelClass.getExtraInfo().get("exName");
-                                    smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
-                                    smolovRound = templateModelClass.getExtraInfo().get("roundToNearest5");
-                                    Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
-                                            templateModelClass.getExtraInfo().get("maxWeight"));
-                                    smolov.setRoundToNearest5(Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5")));
-                                    futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
-                                }else{
-                                    if(templateModelClass.getMapOne() != null){
-                                        if(!templateModelClass.getMapOne().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapOne());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapTwo() != null){
-                                        if(!templateModelClass.getMapTwo().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapTwo());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapThree() != null){
-                                        if(!templateModelClass.getMapThree().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapThree());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapFour() != null){
-                                        if(!templateModelClass.getMapFour().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapFour());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapFive() != null){
-                                        if(!templateModelClass.getMapFive().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapFive());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapSix() != null){
-                                        if(!templateModelClass.getMapSix().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapSix());
-                                        }
-                                    }
-                                    if(templateModelClass.getMapSeven() != null){
-                                        if(!templateModelClass.getMapSeven().isEmpty()){
-                                            futureConstructor(templateModelClass.getMapSeven());
-                                        }
-                                    }
-                                }
+                                handleType(templateModelClass);
 
                             }
 
@@ -369,93 +280,62 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         return view;
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        FutureDateHelperClass.getInstance().clearAll();
-    }
-
-
-    @Override
-    public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-        //If you change a decorate, you need to invalidate decorators
-        oneDayDecorator.setDate(date.getDate());
-
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-        DateTime dateTime = new DateTime(date.getDate());
-
-        String formatted = fmt.print(dateTime);
-
-        if(pastDates.contains(date)){
-            Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
-            if(isOtherUser){
-                pastIntent.putExtra("isOtherUser", true);
-                pastIntent.putExtra("xUid", xUid);
+    private void handleType(TemplateModelClass templateModelClass){
+        if(templateModelClass.getWorkoutType().equals("Smolov")){
+            isSmolov = true;
+            smolovBeginDate = templateModelClass.getExtraInfo().get("beginDate");
+            smolovExName = templateModelClass.getExtraInfo().get("exName");
+            smolovMaxWeight = templateModelClass.getExtraInfo().get("maxWeight");
+            smolovRound = templateModelClass.getExtraInfo().get("roundToNearest5");
+            Smolov smolov = new Smolov(templateModelClass.getExtraInfo().get("exName"),
+                    templateModelClass.getExtraInfo().get("maxWeight"));
+            smolov.setRoundToNearest5(Boolean.parseBoolean(templateModelClass.getExtraInfo().get("roundToNearest5")));
+            futureConstructorSmolov(smolov, templateModelClass.getExtraInfo().get("beginDate"));
+        }else if(templateModelClass.getWorkoutType().equals("W531fB")){
+            isW531fB = true;
+            Wendler_531_For_Beginners w531fB =
+                    new Wendler_531_For_Beginners(templateModelClass.getExtraInfo());
+            W531fBInfoMap = templateModelClass.getExtraInfo();
+            futureConstructorW531fB(w531fB);
+        }else{
+            if(templateModelClass.getMapOne() != null){
+                if(!templateModelClass.getMapOne().isEmpty()){
+                    futureConstructor(templateModelClass.getMapOne());
+                }
             }
-            pastIntent.putExtra("date", formatted);
-            startActivity(pastIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection1.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 1);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            if(isSmolov){
-                futureIntent.putExtra("isRound", smolovRound);
-                futureIntent.putExtra("isSmolov", true);
-                futureIntent.putExtra("maxWeight", smolovMaxWeight);
-                futureIntent.putExtra("beginDate", smolovBeginDate);
-                futureIntent.putExtra("exName", smolovExName);
-                futureIntent.putExtra("isRound", smolovRound);
+            if(templateModelClass.getMapTwo() != null){
+                if(!templateModelClass.getMapTwo().isEmpty()){
+                    futureConstructor(templateModelClass.getMapTwo());
+                }
             }
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection2.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 2);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection3.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 3);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection4.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 4);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection5.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 5);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection6.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 6);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
-        }else if(FutureDateHelperClass.getInstance().DateCollection7.contains(date)){
-            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
-            futureIntent.putExtra("date", formatted);
-            futureIntent.putExtra("collectionNumber", 7);
-            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
-            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
-            startActivity(futureIntent);
+            if(templateModelClass.getMapThree() != null){
+                if(!templateModelClass.getMapThree().isEmpty()){
+                    futureConstructor(templateModelClass.getMapThree());
+                }
+            }
+            if(templateModelClass.getMapFour() != null){
+                if(!templateModelClass.getMapFour().isEmpty()){
+                    futureConstructor(templateModelClass.getMapFour());
+                }
+            }
+            if(templateModelClass.getMapFive() != null){
+                if(!templateModelClass.getMapFive().isEmpty()){
+                    futureConstructor(templateModelClass.getMapFive());
+                }
+            }
+            if(templateModelClass.getMapSix() != null){
+                if(!templateModelClass.getMapSix().isEmpty()){
+                    futureConstructor(templateModelClass.getMapSix());
+                }
+            }
+            if(templateModelClass.getMapSeven() != null){
+                if(!templateModelClass.getMapSeven().isEmpty()){
+                    futureConstructor(templateModelClass.getMapSeven());
+                }
+            }
         }
-
-        widget.invalidateDecorators();
     }
+
 
     private void futureConstructorSmolov(Smolov smolov, String beginDate){
 
@@ -469,6 +349,18 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
                 .DateCollection1, 7));
 
+    }
+
+    private void futureConstructorW531fB(Wendler_531_For_Beginners w531fB){
+        ArrayList<LocalDate> dateTimeList = w531fB.getW531fBDates();
+
+        for(LocalDate dateTime : dateTimeList){
+            CalendarDay convertedDateTime = CalendarDay.from(dateTime.toDate());
+            FutureDateHelperClass.getInstance().DateCollection1.add(convertedDateTime);
+        }
+
+        widget.addDecorator(new PastEventDecorator(Color.GRAY, FutureDateHelperClass.getInstance()
+                .DateCollection1, 7));
     }
 
     private void futureConstructor(HashMap<String, List<String>> map){
@@ -549,6 +441,98 @@ public class HistoryCalendarTab extends Fragment implements OnDateSelectedListen
         }
 
 
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        FutureDateHelperClass.getInstance().clearAll();
+    }
+
+
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+        //If you change a decorate, you need to invalidate decorators
+        oneDayDecorator.setDate(date.getDate());
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+
+        DateTime dateTime = new DateTime(date.getDate());
+
+        String formatted = fmt.print(dateTime);
+
+        if(pastDates.contains(date)){
+            Intent pastIntent = new Intent(getContext(), SelectedPastDateDialog.class);
+            if(isOtherUser){
+                pastIntent.putExtra("isOtherUser", true);
+                pastIntent.putExtra("xUid", xUid);
+            }
+            pastIntent.putExtra("date", formatted);
+            startActivity(pastIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection1.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 1);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            if(isSmolov){
+                futureIntent.putExtra("isRound", smolovRound);
+                futureIntent.putExtra("type", "Smolov");
+                //futureIntent.putExtra("isSmolov", true);
+                futureIntent.putExtra("maxWeight", smolovMaxWeight);
+                futureIntent.putExtra("beginDate", smolovBeginDate);
+                futureIntent.putExtra("exName", smolovExName);
+                futureIntent.putExtra("isRound", smolovRound);
+            }else if(isW531fB){
+                futureIntent.putExtra("type", "W531fB");
+                futureIntent.putExtra("W531fBMap", W531fBInfoMap);
+            }
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection2.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 2);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection3.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 3);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection4.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 4);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection5.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 5);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection6.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 6);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }else if(FutureDateHelperClass.getInstance().DateCollection7.contains(date)){
+            Intent futureIntent = new Intent(getContext(), SelectedFutureDateDialog.class);
+            futureIntent.putExtra("date", formatted);
+            futureIntent.putExtra("collectionNumber", 7);
+            futureIntent.putExtra("isCurrentUserImperial", isCurrentUserImperial);
+            futureIntent.putExtra("isTemplateImperial", isTemplateImperial);
+            startActivity(futureIntent);
+        }
+
+        widget.invalidateDecorators();
     }
 
     int dayIntFromString(String day){

@@ -6,15 +6,12 @@ import android.text.InputType;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
-import com.liftdom.charts_stats_tools.DigitsInputFilter;
+import com.liftdom.helper_classes.DigitsInputFilter;
 import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.os.Bundle;
-import android.os.Handler;
 import androidx.fragment.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +25,6 @@ import com.google.firebase.database.*;
 import com.irozon.library.HideKey;
 import com.liftdom.liftdom.R;
 import com.liftdom.user_profile.UserModelClass;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

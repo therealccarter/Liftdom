@@ -18,12 +18,11 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.liftdom.charts_stats_tools.DigitsInputFilter;
+import com.liftdom.helper_classes.DigitsInputFilter;
 import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExtraOptionsDialog;
 import com.liftdom.template_editor.InputFilterMinMax;
-import com.liftdom.template_editor.SetsLevelChildFrag;
 import com.wang.avi.AVLoadingIndicatorView;
 
 /**

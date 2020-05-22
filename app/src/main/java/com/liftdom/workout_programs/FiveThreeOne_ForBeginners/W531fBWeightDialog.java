@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
-import com.liftdom.charts_stats_tools.DigitsInputFilter;
+import com.liftdom.helper_classes.DigitsInputFilter;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.user_profile.UserModelClass;

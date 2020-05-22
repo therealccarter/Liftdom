@@ -1,5 +1,7 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
+import com.liftdom.helper_classes.ConvertWithUnits;
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -44,6 +46,9 @@ public class Wendler_531_For_Beginners {
     private LocalDate beginDate;
     private LocalDate todaysDate;
 
+    boolean isTemplateImperial;
+    boolean isUserImperial;
+
     public HashMap<String, String> exercisesAndTMs = new HashMap<>();
 
     public Wendler_531_For_Beginners(HashMap<String, String> extraInfo){
@@ -75,18 +80,6 @@ public class Wendler_531_For_Beginners {
         if(extraInfo.get("lastUsedLegCore") != null){
             lastUsedLegCore = extraInfo.get("lastUsedLegCore");
         }
-    }
-
-    public boolean isWarmup() {
-        return isWarmup;
-    }
-
-    public void setWarmup(boolean warmup) {
-        isWarmup = warmup;
-    }
-
-    public HashMap<String, String> getExtraInfo() {
-        return mExtraInfo;
     }
 
     public HashMap<String, List<String>> generateWorkoutMap() {
@@ -142,44 +135,145 @@ public class Wendler_531_For_Beginners {
         return map;
     }
 
-    private int getWeekType(int week){
-        int weekType;
+    public HashMap<String, List<String>> generateSpecificWithDates(String specificDateString,
+                                                                   boolean isTempImperial,
+                                                                   boolean isCurrentImperial){
+        isTemplateImperial = isTempImperial;
+        isUserImperial = isCurrentImperial;
 
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        LocalDate specificDate = LocalDate.parse(specificDateString);
+
+        int daysBetween = Days.daysBetween(beginDate, specificDate).getDays();
+
+        int week = daysBetween / 7;
+        int days = daysBetween % 7;
+
+        week++;
+        days++;
+
+        // Here we need to increase our maxes by the correct amounts
+
+        processMaxIncreasesForWeeks(week);
+
+        List<String> dummyList = new ArrayList<>();
+        dummyList.add("Monday");
+        map.put("0_key", dummyList);
+        map.putAll(generateSpecificWorkoutMap(week, days));
+
+        return map;
+    }
+
+    private void processMaxIncreasesForWeeks(int week){
         int mod = week % 10;
-
-        if(mod == 1 || mod == 4 || mod == 7){
-            weekType = 1;
-        }else if(mod == 2 || mod == 5 || mod == 8){
-            weekType = 2;
-        }else if(mod == 3 || mod == 6 || mod == 9){
-            weekType = 3;
-            setTMIncreaseWeek(true);
+        int firstDigit;
+        if(week > 9){
+            firstDigit = Integer.parseInt(Integer.toString(week).substring(0, 1));
         }else{
-            weekType = 0;
-            setSpecialWeek(true);
+            firstDigit = 0;
         }
 
-        return weekType;
+        firstDigit = firstDigit * 3;
+
+        convertMaxesUnits();
+
+        increaseMaxesBy(firstDigit);
+
+        int amount;
+
+        if(mod == 4 || mod == 5 || mod == 6){
+            amount = 1;
+        }else if(mod == 7 || mod == 8 || mod == 9){
+            amount = 2;
+        }else{
+            amount = 0;
+        }
+
+        increaseMaxesBy(amount);
     }
 
-    public String getPushSetScheme() {
-        return pushSetScheme;
+    private void convertMaxesUnits(){
+        ConvertWithUnits squatConvert = new ConvertWithUnits(squatMax, isTemplateImperial,
+                isUserImperial, true);
+        ConvertWithUnits benchConvert = new ConvertWithUnits(benchMax, isTemplateImperial,
+                isUserImperial, true);
+        ConvertWithUnits deadliftConvert = new ConvertWithUnits(deadliftMax, isTemplateImperial,
+                isUserImperial, true);
+        ConvertWithUnits ohpConvert = new ConvertWithUnits(ohpMax, isTemplateImperial,
+                isUserImperial, true);
+
+        squatMax = String.valueOf(squatConvert.getNumber());
+        benchMax = String.valueOf(benchConvert.getNumber());
+        deadliftMax = String.valueOf(deadliftConvert.getNumber());
+        ohpMax = String.valueOf(ohpConvert.getNumber());
     }
 
-    public String getPullSetScheme() {
-        return pullSetScheme;
+    private void increaseMaxesBy(int amount){
+        int xLbs = 5;
+        int yLbs = 10;
+        double xKgs = 2.5;
+        double yKgs = 5;
+
+        if(isUserImperial){
+            squatMax = String.valueOf(Double.parseDouble(squatMax) + (amount * yLbs));
+            deadliftMax = String.valueOf(Double.parseDouble(deadliftMax) + (amount * yLbs));
+            benchMax = String.valueOf(Double.parseDouble(benchMax) + (amount * xLbs));
+            ohpMax = String.valueOf(Double.parseDouble(ohpMax) + (amount * xLbs));
+        }else{
+            squatMax = String.valueOf(Double.parseDouble(squatMax) + (amount * yKgs));
+            deadliftMax = String.valueOf(Double.parseDouble(deadliftMax) + (amount * yKgs));
+            benchMax = String.valueOf(Double.parseDouble(benchMax) + (amount * xKgs));
+            ohpMax = String.valueOf(Double.parseDouble(ohpMax) + (amount * xKgs));
+        }
     }
 
-    public String getLegCoreSetScheme() {
-        return legCoreSetScheme;
-    }
+    public ArrayList<LocalDate> getW531fBDates(){
+        ArrayList<LocalDate> w531fBDates = new ArrayList<>();
 
-    public String getWhichDay() {
-        return whichDay;
-    }
+        /**
+         * How do we get all the dates and then how will we know how to update the weights?
+         * Ofc we'll be doing ideal updated weights (so as if they hit all their reps).
+         * All we'd really need is to know the begin date in the specific day generator and
+         * then we can subtract days and figure out the weeks (and we know 3 weeks increase, but
+         * also have to account for 10th week...may be same as when we normally generate, where
+         * it's based on the last number.)
+         *
+         * So for what we do here specifically:
+         * We need to iterate through dates from now until the end of the year.
+         * Each day we'll check to see what the workout is and if it's not a rest day, we add
+         * that day to the list.
+         */
 
-    public void setWhichDay(String whichDay) {
-        this.whichDay = whichDay;
+        DateTime endOfYear = new DateTime("2020-12-31");
+
+        int daysBetween = Days.daysBetween(beginDate, endOfYear.toLocalDate()).getDays();
+
+        for(int i = 0; i < daysBetween; i++){
+            LocalDate newDate = beginDate.plusDays(i);
+
+            int daysBetween2 = Days.daysBetween(beginDate, newDate).getDays();
+
+            int week = daysBetween / 7;
+            int days = daysBetween % 7;
+
+            week++;
+            days++;
+
+            HashMap<String, List<String>> workoutMap = generateSpecificWorkoutMap(week, days);
+
+            if(!workoutMap.get("1_key").get(1).equals("rest")){
+                //if(week == 1 && days == 1){
+                //    w531fBDates.add(newDate);
+                //}else{
+                if(newDate.isAfter(LocalDate.now())){
+                    w531fBDates.add(newDate);
+                }
+                //}
+            }
+        }
+
+        return w531fBDates;
     }
 
     /*
@@ -222,6 +316,26 @@ public class Wendler_531_For_Beginners {
      * "It says 3+, which is the goal, but enter the amount of reps you actually did."
      * "Old TM, current TM"
      */
+
+    private int getWeekType(int week){
+        int weekType;
+
+        int mod = week % 10;
+
+        if(mod == 1 || mod == 4 || mod == 7){
+            weekType = 1;
+        }else if(mod == 2 || mod == 5 || mod == 8){
+            weekType = 2;
+        }else if(mod == 3 || mod == 6 || mod == 9){
+            weekType = 3;
+            setTMIncreaseWeek(true);
+        }else{
+            weekType = 0;
+            setSpecialWeek(true);
+        }
+
+        return weekType;
+    }
 
     private HashMap<String, List<String>> getWorkout(int week, int day){
 
@@ -304,6 +418,38 @@ public class Wendler_531_For_Beginners {
      * 55, 165
      *
      */
+
+    public String getPushSetScheme() {
+        return pushSetScheme;
+    }
+
+    public String getPullSetScheme() {
+        return pullSetScheme;
+    }
+
+    public String getLegCoreSetScheme() {
+        return legCoreSetScheme;
+    }
+
+    public String getWhichDay() {
+        return whichDay;
+    }
+
+    public void setWhichDay(String whichDay) {
+        this.whichDay = whichDay;
+    }
+
+    public boolean isWarmup() {
+        return isWarmup;
+    }
+
+    public void setWarmup(boolean warmup) {
+        isWarmup = warmup;
+    }
+
+    public HashMap<String, String> getExtraInfo() {
+        return mExtraInfo;
+    }
 
     private String roundNumberToNearest5(double weight){
         String rounded;

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.liftdom.charts_stats_tools.DigitsInputFilter;
+import com.liftdom.helper_classes.DigitsInputFilter;
 import com.liftdom.liftdom.R;
 
 /**

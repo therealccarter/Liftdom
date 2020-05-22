@@ -231,10 +231,9 @@ public class WorkoutInfoViewHolder extends RecyclerView.ViewHolder{
         String processed;
 
         double percentage = Double.parseDouble(percent)/(double)100;
-        double weightDouble = Double.valueOf(Integer.parseInt(weight)) * percentage;
+        double weightDouble = Double.parseDouble(weight) * percentage;
 
-
-        int endWeight = (int) Math.round(weightDouble);
+        int endWeight = (int) (5 * (Math.round(weightDouble / 5)));
 
         processed = String.valueOf(endWeight);
 

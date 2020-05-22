@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import com.liftdom.liftdom.R;
 import com.liftdom.liftdom.main_social_feed.completed_workout_post.WorkoutInfoRecyclerAdapter;
 import com.liftdom.workout_assistor.ExerciseNameFrag;
+import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
 import com.liftdom.workout_programs.Smolov.Smolov;
 
 import java.util.ArrayList;
@@ -57,14 +58,20 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
 
         formattedDate = getIntent().getExtras().getString("date");
         collectionNumber = getIntent().getExtras().getInt("collectionNumber");
-        if(getIntent().getExtras().getBoolean("isSmolov")){
-            String maxWeight = getIntent().getStringExtra("maxWeight");
-            String exName = getIntent().getStringExtra("exName");
-            String beginDate = getIntent().getStringExtra("beginDate");
-            String round = getIntent().getStringExtra("isRound");
-            generateLayoutSmolov(maxWeight, exName, beginDate, round);
+        if(getIntent().getStringExtra("type") != null){
+            String type = getIntent().getStringExtra("type");
+            if(type.equals("Smolov")){
+                String maxWeight = getIntent().getStringExtra("maxWeight");
+                String exName = getIntent().getStringExtra("exName");
+                String beginDate = getIntent().getStringExtra("beginDate");
+                String round = getIntent().getStringExtra("isRound");
+                generateLayoutSmolov(maxWeight, exName, beginDate, round);
+            }else if(type.equals("W531fB")){
+                HashMap<String, String> map =
+                        (HashMap<String, String>) getIntent().getSerializableExtra("W531fBMap");
+                generateLayoutW531fB(map);
+            }
         }else{
-
             generateLayout();
         }
 
@@ -82,10 +89,23 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
     private void generateLayoutSmolov(String maxWeight, String exName, String beginDate,
                                       String round){
         Smolov smolov = new Smolov(exName, maxWeight);
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.putAll(smolov.getMapForSpecificDay(beginDate, formattedDate,
+        HashMap<String, List<String>> workoutMap = new HashMap<>();
+        workoutMap.putAll(smolov.getMapForSpecificDay(beginDate, formattedDate,
                 Boolean.parseBoolean(round)));
-        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(map, this);
+
+        setUpAdapter(workoutMap);
+    }
+
+    private void generateLayoutW531fB(HashMap<String, String> infoMap){
+        Wendler_531_For_Beginners w531fB = new Wendler_531_For_Beginners(infoMap);
+        HashMap<String, List<String>> workoutMap = new HashMap<>();
+        workoutMap.putAll(w531fB.generateSpecificWithDates(formattedDate, isTemplateImperial, isCurrentUserImperial));
+
+        setUpAdapter(workoutMap);
+    }
+
+    private void setUpAdapter(HashMap<String, List<String>> workoutMap){
+        WorkoutInfoRecyclerAdapter adapter = new WorkoutInfoRecyclerAdapter(workoutMap, this);
         adapter.setIsOriginallyImperial(isTemplateImperial);
         //adapter.setInfoList(workoutInfoMap);
         adapter.setImperialPOV(isCurrentUserImperial);
@@ -107,16 +127,6 @@ public class SelectedFutureDateDialog extends AppCompatActivity {
             infoRecyclerView.setHasFixedSize(false);
             infoRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                     LinearLayoutManager.VERTICAL, false));
-
-            //FutureDateDialogSubFrag subFrag = new FutureDateDialogSubFrag();
-            //subFrag.isCurrentUserImperial = isCurrentUserImperial;
-            //subFrag.isTemplateImperial = isTemplateImperial;
-            //subFrag.map = map;
-            //FragmentTransaction fragmentTransaction =
-            //        getSupportFragmentManager().beginTransaction();
-            //fragmentTransaction.replace(R.id.eachExerciseFragHolder, subFrag);
-            //fragmentTransaction.commit();
-
         }else if(collectionNumber == 2){
             HashMap<String, List<String>> map = new HashMap<>();
             map.putAll(FutureDateHelperClass.getInstance().DataCollectionMap.get("1_key"));
