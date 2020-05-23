@@ -1,4 +1,9 @@
 
+// Bug list
+Create a class that handles the premade selection in places like WA,
+- (think of the implications if we add/subtract/multiply/divide and then round we lose precision.)
+            - when calculating premade values for metric, we gotta round to nearest flat multiple of
+             5 or 2.5.
 // W531fB theorizing
 /**
          * multiply the increases (x3) by the first digit.

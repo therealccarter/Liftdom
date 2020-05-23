@@ -9,10 +9,9 @@
         android:gravity="center"
         tools:context="com.liftdom.workout_programs.PPL_Reddit.PPLRedditIntroFrag1">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="wrap_content">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -24,30 +23,44 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/programNameTakenView"
-                    android:text="@string/programNameTaken"
-                    android:textColor="@color/backgroundgrey1"
-                    android:background="@color/transparent"
+                    android:text="@string/startTodayOrNextMondayPPLReddit"
                     android:gravity="center"
-                    android:padding="3dp"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    android:imeOptions="actionDone"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
                     />
 
-            <EditText
+            <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/programNameEditText"
-                    android:textColor="@color/black"
-                    android:imeOptions="actionDone"
-                    android:maxLength="20"
-                    android:inputType="text"
-                    android:hint="@string/programName"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,-,$,QWERTYUIOPASDFGHJKLZXCVBNM"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/todayRadioButton"
+                        android:text="@string/today"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/darkGrey"
+                        />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mondayRadioButton"
+                        android:text="@string/nextMonday"
+                        android:textColor="@color/darkGrey"
+                        />
+
+            </RadioGroup>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/black"
+                    android:layout_margin="20dp"
                     />
 
             <TextView
@@ -64,7 +77,6 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="10dp"
                     >
 
                 <RadioButton
@@ -90,521 +102,8 @@
 
             </RadioGroup>
 
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/PPLReddit2"
-                    android:gravity="center"
-                    />
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/pull"
-                    android:gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"
-                    android:textSize="17sp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/pulldownsRB"
-                        android:text="@string/pulldowns"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/pullupsRB"
-                        android:text="@string/pullups"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/chinupsRB"
-                        android:text="@string/chinups"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/seatedCableRowsRB"
-                        android:text="@string/seatedCableRows"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dbRowsRB"
-                        android:text="@string/dbRows"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tBarRowsRB"
-                        android:text="@string/tBarRows"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/facePullsRB"
-                        android:text="@string/facePulls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rearDeltFlyesRB"
-                        android:text="@string/rearDeltFlyesBandPulls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dumbbellCurlsRB"
-                        android:text="@string/dumbbellCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/barbellCurlsRB1"
-                        android:text="@string/barbellCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/machineCurlsRB1"
-                        android:text="@string/machineCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/hammerCurlsRB"
-                        android:text="@string/hammerCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/barbellCurlsRB2"
-                        android:text="@string/barbellCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/machineCurlsRB2"
-                        android:text="@string/machineCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/push"
-                    android:gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"
-                    android:textSize="17sp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/inclineDbRB"
-                        android:text="@string/inclineDb"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/landminePressRB"
-                        android:text="@string/landminePress"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tricepsPushdownsRB"
-                        android:text="@string/tricepsPushdowns"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/skullcrushersRB1"
-                        android:text="@string/skullcrushers"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/jmPressRB1"
-                        android:text="@string/jmPress"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dbTricepsExtensionsRB1"
-                        android:text="@string/dbTricepsExtensions"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/overheadTricepsExtensionsRB"
-                        android:text="@string/overheadTricepsExtensions"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/skullcrushersRB2"
-                        android:text="@string/skullcrushers"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/jmPressRB2"
-                        android:text="@string/jmPress"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dbTricepsExtensionsRB2"
-                        android:text="@string/dbTricepsExtensions"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/legs"
-                    android:gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"
-                    android:textSize="17sp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/legPressRB"
-                        android:text="@string/legPress"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/frontSquatRB"
-                        android:text="@string/frontSquat"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/legCurlsRB"
-                        android:text="@string/legCurls"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ghrRB"
-                        android:text="@string/ghr"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
-            <View
-                    android:layout_width="30dp"
-                    android:layout_height="1dp"
-                    android:background="@color/black"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    />
-
-            <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/barbellCalfRaisesRB"
-                        android:text="@string/barbellCalfRaises"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dumbbellCalfRaisesRB"
-                        android:text="@string/dumbbellCalfRaises"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="10dp"
-                        />
-
-            </RadioGroup>
-
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

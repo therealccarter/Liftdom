@@ -24,9 +24,9 @@ public class PPLRedditHolderActivity extends MaterialIntroActivity {
 
         addSlide(new PPLRedditIntroFrag2());
 
-        addSlide(new PPLRedditIntroFrag3());
-
         addSlide(new PPLRedditIntroFrag4());
+
+        addSlide(new PPLRedditIntroFrag6());
 
     }
 

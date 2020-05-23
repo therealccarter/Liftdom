@@ -1,0 +1,197 @@
+<io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/transparent"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:context="com.liftdom.workout_programs.PPL_Reddit.PPLRedditIntroFrag5">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/programName"
+            android:textSize="26sp"
+            android:textColor="@color/darkGrey"
+            android:layout_marginBottom="10dp"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/programNameTakenView"
+            android:text="@string/programNameTaken"
+            android:textColor="@color/backgroundgrey1"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:padding="3dp"
+            android:textSize="14sp"
+            android:visibility="gone"
+            />
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/programNameEditText"
+            android:textColor="@color/black"
+            android:imeOptions="actionDone"
+            android:maxLength="20"
+            android:inputType="text"
+            android:hint="@string/programName"
+            android:layout_margin="20dp"
+            android:digits="0,1,2,3,4,5,6,7,8,9,qwertyuiopasdfghjklzxcvbnm,_,-,$,QWERTYUIOPASDFGHJKLZXCVBNM"
+            />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:id="@+id/restTimerLL"
+            android:layout_marginStart="10dp"
+            >
+
+        <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/restTimerSwitch"
+                android:textAlignment="textEnd"
+                android:theme="@style/SwitchTheme"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restTimer"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:textSize="17sp"
+                />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/restTimerInfoLL"
+            android:layout_marginStart="10dp"
+            android:visibility="visible"
+            >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                >
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/minutes"
+                    android:maxLength="1"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colon"
+                    android:textColor="@color/black"
+                    />
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/seconds"
+                    android:maxLength="2"
+                    android:text="30"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minutesSeconds"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restTimerInfo2"
+                android:textColor="@color/black"
+                />
+
+        <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="7dp"
+                >
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/showRestTimerAlertRadioButton"
+                    android:text="@string/showRestTimerAlert"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:buttonTint="@color/black"
+                    android:layout_marginEnd="10dp"
+                    />
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/justVibrateRadioButton"
+                    android:text="@string/justVibrate"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:buttonTint="@color/black"
+                    />
+
+        </RadioGroup>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondsVibrate"
+                    android:maxLength="2"
+                    android:text="5"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secondsOfVibration"
+                    android:textColor="@color/black"
+                    />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

@@ -34,6 +34,12 @@ public class PPLRedditSingleton {
     boolean isImperial;
     String userName;
     String uid;
+    boolean isBeginToday;
+    boolean isWarmup;
+    String mRestTime;
+    boolean mIsActiveRestTimer;
+    String mVibrationTime;
+    boolean mIsRestTimerAlert;
 
     String getStartDateString(){
         String message;

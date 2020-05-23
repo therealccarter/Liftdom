@@ -10,10 +10,14 @@
       <w>bodyweight</w>
       <w>brodin</w>
       <w>checkmark</w>
+      <w>checkmarks</w>
+      <w>chinups</w>
       <w>crashlytics</w>
       <w>deactive</w>
       <w>deadlift</w>
+      <w>deadlifts</w>
       <w>delims</w>
+      <w>deload</w>
       <w>deloads</w>
       <w>fanout</w>
       <w>firebase</w>
@@ -28,10 +32,14 @@
       <w>powerlifting</w>
       <w>premade</w>
       <w>premades</w>
+      <w>pulldown</w>
+      <w>pulldowns</w>
+      <w>pullups</w>
       <w>pushdowns</w>
       <w>reddit</w>
       <w>repped</w>
       <w>sheiko</w>
+      <w>skullcrushers</w>
       <w>smolov</w>
       <w>snackbar</w>
       <w>strategize</w>
@@ -39,6 +47,7 @@
       <w>usernames</w>
       <w>warmup</w>
       <w>wendler</w>
+      <w>wilks</w>
     </words>
   </dictionary>
 </component>

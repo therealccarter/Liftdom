@@ -11,7 +11,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/startTodayOrNextMonday"
+            android:text="@string/startTodayOrNextMondaySmolov"
             android:gravity="center"
             android:textSize="22sp"
             android:textColor="@color/black"

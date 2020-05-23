@@ -647,33 +647,36 @@
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>
     <string name="PPLRedditTitleText2">(Reddit)</string>
-    <string name="inclineDb">Incline Dumbbell Press</string>
+    <string name="inclineDb">Bench Press (Dumbbell - Incline)</string>
     <string name="landminePress">Landmine Press</string>
-    <string name="tricepsPushdowns">Triceps Pushdowns</string>
-    <string name="skullcrushers">Skullcrushers</string>
-    <string name="jmPress">JM Press</string>
-    <string name="dbTricepsExtensions">Dumbbell Triceps Extensions</string>
-    <string name="overheadTricepsExtensions">Overhead Triceps Extensions</string>
-    <string name="pulldowns">Lat Pulldowns</string>
-    <string name="pullups">Pullups</string>
-    <string name="chinups">Chinups</string>
-    <string name="seatedCableRows">Seated Cable Rows</string>
-    <string name="dbRows">Dumbbell Rows</string>
-    <string name="tBarRows">T-Bar Rows</string>
+    <string name="tricepsPushdowns">Tricep Pushdowns (Machine)</string>
+    <string name="skullcrushers">Skullcrushers (Barbell)</string>
+    <string name="jmPress">JM Press (Barbell - Flat)</string>
+    <string name="dbTricepsExtensions">Triceps Extensions (Dumbbell - Flat)</string>
+    <string name="overheadTricepsExtensions">Tricep Extension (Barbell - Overhead)</string>
+    <string name="pulldowns">Lat Pulldown (Machine)</string>
+    <string name="pullups">Pull-up (Bodyweight)</string>
+    <string name="chinups">Chin-up (Bodyweight)</string>
+    <string name="seatedCableRows">Cable Rows (Machine - Seated)</string>
+    <string name="dbRows">Row (Dumbbell - Bent-over)</string>
+    <string name="chestSupportedRows">Chest Supported Rows (Machine)</string>
+    <string name="tBarRows">T-Bar Rows (Barbell)</string>
     <string name="facePulls">Face Pulls</string>
     <string name="rearDeltFlyesBandPulls">Rear Delt Flyes and Band Pulls</string>
-    <string name="dumbbellCurls">Dumbbell Curls</string>
-    <string name="barbellCurls">Barbell Curls</string>
-    <string name="machineCurls">Machine Curls</string>
-    <string name="hammerCurls">Hammer Curls</string>
+    <string name="dumbbellCurls">Curl (Dumbbell - Standing)</string>
+    <string name="barbellCurls">Curl (Barbell - Standing)</string>
+    <string name="machineCurls">Preacher Curls (Machine)</string>
+    <string name="hammerCurls">Hammer Curls (Dumbbell)</string>
     <string name="legPress">Leg Press</string>
-    <string name="frontSquat">Front Squat</string>
+    <string name="frontSquat">Squat (Barbell - Front)</string>
     <string name="legCurls">Leg Curls</string>
-    <string name="ghr">Glute Ham Raise</string>
-    <string name="barbellCalfRaises">Barbell Calf Raises</string>
-    <string name="dumbbellCalfRaises">Dumbbell Calf Raises</string>
+    <string name="ghr">Glute Ham Raises (Bodyweight)</string>
+    <string name="barbellCalfRaises">Calf-raise (Barbell - Back)</string>
+    <string name="dumbbellCalfRaises">Calf-raise (Dumbbell)</string>
 
     <string name="enterProgramName">Please enter a program name.</string>
+
+    <string name="chooseAccessories">Choose Accessories</string>
 
     <string name="PPLRedditShortDescription">
         "A popular Push/Pull/Legs variant from Reddit. The recommended beginner program."
@@ -697,17 +700,20 @@
     </string>
 
     <string name="PPLRedditWarning">
-        Some important notes: \n\n The first time you do each exercise, the weights will be 0. You
+        The first time you do each exercise, the weights will be 0. You
         must enter in the initial weights that you can do, and the program will then use those
         weights to linearly progress the weight in subsequent workouts. Also, the reps for
         accessory exercises will start at 8. If you can do one more with good form for all sets of that
-        exercise that day, enter that in (so change the 8 to a 9). Once you can do 12 reps, the weight will increase and the reps will go back to 8.
-        \n\n This is to stay in line with the creator of this program\'s recommendation for choosing
-        your starting weights. Which is to start each exercise with an empty bar/0 weight,
+        exercise that day, enter that in (so change the 8\'s to 9\'s). Once you can get that to 12
+        reps, the weight will increase and the reps will go back to 8.
+        \n\n The plan is to start each exercise with an empty bar/0 weight,
         do a set of 5, add weight, do another set of 5, etc, until the bar speed slows down. Then
-        subtract 5 pounds and that is your starting weight (the weight you should enter in.) This
-        message will be shown in the Workout Assistor as you do your first workouts to remind you.
+        subtract 5lbs/2.5kgs and that is your starting weight (the weight you should enter in.)
+        This idea will be shown and explained in the Workout Assistor as you do your first workouts
+        to remind you.
     </string>
+
+    <string name="importantNotes">Important Notes:</string>
 
     <string name="PPLRedditDateWarning">If today is Monday, the program will start today.
         If today is not Monday, the program will start this coming Monday.</string>
@@ -740,7 +746,15 @@
     <string name="today">Today</string>
     <string name="nextMonday">Next Monday</string>
 
-    <string name="startTodayOrNextMonday">Would you like to start Smolov today, or begin next Monday?</string>
+    <string name="startTodayOrNextMondaySmolov">Would you like to start Smolov today, or begin next Monday?</string>
+
+    <string name="startTodayOrNextMondayW531fB">
+        Would you like to start Wendler\'s 5/3/1 for Beginners today, or begin next Monday?
+    </string>
+
+    <string name="startTodayOrNextMondayPPLReddit">
+        Would you like to start Reddit PPL today, or begin next Monday?
+    </string>
 
     <string name="noProgramsFound">No programs found&#8230;</string>
 
@@ -1004,6 +1018,9 @@
 
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
+
+    <string name="profileSetupInfo">(Your age, sex, and measurements are needed for things
+        like BMI calculator, Wilks calculator, and workout creation.)</string>
 
     <string name="strength">Strength</string>
 

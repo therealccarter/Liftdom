@@ -297,8 +297,32 @@ WA Running model class should have a hashmap for premade extra info. Maybe also 
     done - would be cool to save the initial max
     done - for assistance set scheme setting, calculate the amount of reps and display them on the side
     done - compat for date stuff
+- best solution is don't auto round in RepsWeightFrag if the unitsPOV matches the
+            templatePOV. Else, round. And, if imperial, make it int (which may not be necessary
+            given the input filters we put on the weight edit text).
+PremadeProgramHolder should switch to a FirebaseRecyclerAdapter which we can order by values within
+a PremadeProgramModelClass. Type, count, etc.
+future constructor for premades
+Auto populate maxes for w531fb (tm's, so 90% of maxes)
+we need to check w531fb and smolov, that shit is fucked.
+Premades need future workout calendar compat
+
 ----------------------
-====================================================
+=========================================== RIGHT NOW =================================================================================================
+Get these premades working correctly:
+    - PPL_Reddit
+        done - Read the various explanations of the program to understand it. Then you can begin
+                theorizing it.
+        - change intro frags to collect what we really need
+        - actually describe the program in practical terms instead of bullshitting.
+        - shut down AS to test
+        - program name/rest timer stuff will be on 4th
+        - week format/begin options will be on 2nd
+    - PPL
+        - normal template
+    - BW routine
+        - normal template
+
 Yo wtf is RestDaySaved? That's gotta be where that weird broken self feed bug is coming from and
 it's also just plain crashing. Gotta figure that thing out. It needs to be VERY similar to
 AssistorSaved. It also put "Level Up!" in my completedWorkout extra info which isn't true.
@@ -306,36 +330,23 @@ AssistorSaved. It also put "Level Up!" in my completedWorkout extra info which i
 For premades with long intro frag descriptions, maybe do titles so it looks nicer.
 Also just go through each one after you know they work and make them prettier.
 
-Get these premades working correctly:
-    - PPL
-        - (normal ppl and a bodyweight plan could be normal template mode)
-    - BW routine
-        -
-    - PPL_Reddit
-        -
-    - Sheiko - White Whale
-
-- (think of the implications if we add/subtract/multiply/divide and then round we lose precision.)
-            - when calculating premade values for metric, we gotta round to nearest flat multiple of
-             5 or 2.5.
-            - best solution is don't auto round in RepsWeightFrag if the unitsPOV matches the
-            templatePOV. Else, round. And, if imperial, make it int (which may not be necessary
-            given the input filters we put on the weight edit text).
-
 Premades shouldn't be allowed to be "fully" edited, but they should be able to have their
     extraInfo values edited. Selected template for premades should also be prettier.
 
 Premade info/intro frags might need to be backed up to database with a running node. What if they
-switch or leave it minimized while halfway done? This is probably not worth the effort, so we should
- do some kind of check in each frag to see if something like the uid is null in its singleton. If it
-  is then we'll just restart the intro.
-
-PremadeProgramHolder should switch to a FirebaseRecyclerAdapter which we can order by values within
-a PremadeProgramModelClass. Type, count, etc.
-
-Create a class that handles the premade selection in places like WA,
-============ THE ABSOLUTE MOST IMPORTANT ===================================
+switch or leave it minimized while halfway done?
+    - This is probably not worth the effort, so we should do some kind of check in each frag to see
+        if something like the uid is null in its singleton. If it is then we'll just restart the
+        intro.
+============ THE ABSOLUTE MOST IMPORTANT ===============================================================================================================
 ============ What are the next most important things for beta release? =====
+Set reps and weight for each child of ExNameFrag in WA
+
+In Stats Charts, show some basic stats from last 7 days
+    - (lbs lifted that week, sets done, reps done, exercises, etc)
+
+show workout count in profile
+
 history calendar tab error
     - if we go from hct to workout programming then hit back button, hct crashes (selected template
     frag)
@@ -417,9 +428,50 @@ Create a high level plan to trust.
     - think of superchat monetization strategy: give people the opportunity for 1:1 relationship
     between money and the attention they desire. Also could have community lobbying towards some
     thing with money. Meme pic somewhere they vote on? Idk.
-============================================================================
+========================================================================================================================================================
+Jefit
+    - one bar button on bottom of screen to check off next set.
+        - Similar to service in knowing where you are/what's next.
+    - start service immediately after first set is checked off. Could start it on first set, and not
+        auto on the following. Could also make this an option in settings.
+    - shows rest timer when you're on main WA. makes sense. They do a dialog in front, could have it
+     a little more in background. Could also have it follow around. We'd have to ensure parity
+     between what's being shown/done in WA open and what the service does. (Starting rest timer in
+     WA starts it in service?)
+    - Their AS shows:
+        - poundage lifted
+        - Exercises done
+        - "new record" (would be maxes for us, easy)
+        - workout duration
+        - calories burned?
+    - Their paid version has:
+        - Dark mode
+        - Analyze your results
+        - Upgrade your tracking experience (unlimited workout storage (they must limit this))
+        - no ads.
+        - shows testimonials and 5 star rating
+    - Their TemplateMenu has:
+        - greeting (Good morning, therealccarter)
+        - Trending workouts
+        - Recommended
+        - Most popular (30 minute no equipment) (3 day split)
+        - target muscle groups
+        - "short on time" workouts
+    - They show "Recommended friends" on homepage.
+    - Everything has snazzy little icons (barf) and all workouts are cardviews with image backgrounds
+    - Their choose exercises page has breadcrumbs that show muscle groups
+        - we could do something like this. Under search view, could have bread crumbs, clicking on
+        one brings those up within the tab we're in.
+============ CURRENTLY WORKING ON (FOR v1.40) ===============================================================================================================
+change search suggestions to current following (visibility issue?)
 
-============ CURRENTLY WORKING ON (FOR v1.40) ===================================
+Add third tab to profile slider (Stats (active template, streak, maxes, etc))
+
+Show completeWorkoutViewHolder in AS
+
+Liftdom vs X (eg Jefit) - PPL Reddit (YT Video)
+    - show how you're better.
+
 Some sort of animations in WA like candy crush. Good for ads and visuals generally?
 
 PUSH NOTIFICATIONS FOR WORKOUTS!
@@ -466,6 +518,7 @@ Shouldn't be able to send premades.
 MHW bounty complete styled updates
 choices with just a couple boring buttons (premades vs from scratch) could be full filled with image
  behind them or something cool like that. semi transparent, nice big lettering.
+Forum
 nav back arrow
 
 ----- Service -----
@@ -527,14 +580,9 @@ when a workout saves, save the name and show that when looking back at past work
 
 ----- Premades -----
 Be able to edit the maxes of a premade
-future constructor for premades
-Auto populate maxes for w531fb (tm's, so 90% of maxes)
 Add P/P/L Reddit
-we need to check w531fb and smolov, that shit is fucked.
-Premades need future workout calendar compat
 Need to have some kind of end condition for premade programs.
 Come up with a plan for missing weight in a workout.
-starting strength?
 
 ----- Non-code Necessities -----
 Talk to Firebase about the privacy rules
@@ -575,30 +623,11 @@ user "flair"
 focus dismiss after keyboard dismiss
 Fix up the Exercise History Chart page. (simply show exercises' full stuff (like 3x5@95lbs))
 add title callbacks for public programs/pre-made programs
-show workout count in profile
 max editing (* = set manually, not in liftdom workout)(also measurements)
 increase edit text max lengths for weight values
 decimal percentage functionality
 Improve the notification-bar layout.
 Add past update text to a dedicated page for that
-Add these workout programs{
-    Building the Monolith // no app for this
-    GZCL
-    Conjugate
-    Stronger by Science 28 free bench/squat/dead programs.
-    Westside for Skinny Bastards.
-    PHAT and PHUL
-    nSuns
-    nSuns 531 LP
-    StrongLifts 5x5
-    Starting Strength
-    GreySkull LP
-    Push Pull Legs (Reddit)
-    Lvysaurs 4-4-8
-    Practical programming
-    Madcow 5x5 Training Program
-    Texas Method
-}
 =====================================================
 
 ============ BUG LIST =====================================================
@@ -650,20 +679,11 @@ more quotes in more places
 add better running support
 redo add-exercise flow in WA (set set-scheme + superset)
 add feedback page (or just create chat with each user)
-more programs {
-    PPL
-    5x5
-    Starting Strength
-    Mad Cow
-    Texas Method
-}
 fill in the Knowledge Center (including ex descriptions in other packages)
 Advanced calendar view template editor a la Google Calendar (repeat every other, etc)
 ======================
 
 ===== social/user-related ==========
-Add third tab to profile slider (Stats (active template, streak, maxes, etc))
-Forum
 fix overflow icon (currently is always search bar)
 Empty search show all users
 Discover tab // or community tab, show highest rated posts from everyone{
@@ -683,7 +703,6 @@ bottom nav text is cut off (API 21 issue)
 =====================================================
 
 ============ FUTURE TO-DO LIST =====================================================
-change search suggestions to current following (visibility issue?)
 password recovery/changing
 look into design stuff like font
 // be a real companion. personalize the shit...

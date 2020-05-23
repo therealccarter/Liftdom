@@ -9,13 +9,12 @@
         android:gravity="center"
         tools:context="com.liftdom.workout_programs.PPL_Reddit.PPLRedditIntroFrag1">
 
-
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/PPLRedditTitleView1"
-            android:text="@string/PPLRedditTitleText1"
-            android:textSize="31sp"
+            android:id="@+id/PPLRedditTitleView2"
+            android:text="@string/PPLRedditTitleText2"
+            android:textSize="28sp"
             android:gravity="center"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
@@ -24,9 +23,9 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/PPLRedditTitleView2"
-            android:text="@string/PPLRedditTitleText2"
-            android:textSize="28sp"
+            android:id="@+id/PPLRedditTitleView1"
+            android:text="@string/PPLRedditTitleText1"
+            android:textSize="31sp"
             android:gravity="center"
             android:textColor="@color/liftrGold1"
             android:background="@color/black"
@@ -76,16 +75,6 @@
                 />
 
     </LinearLayout>
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@string/PPLRedditDateWarning"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            app:layout_parallaxFactor="0.8"
-            />
 
     <TextView
             android:layout_width="match_parent"

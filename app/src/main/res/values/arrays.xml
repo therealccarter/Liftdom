@@ -15,16 +15,20 @@
         <item>Bicycle Crunches (Bodyweight)</item>
 
         <!--C-->
+        <item>Cable Rows (Machine - Seated)</item>
         <item>Chest Fly (Dumbbell - Flat)</item>
         <item>Chest Fly (Dumbbell - Incline)</item>
         <item>Chest Fly (Dumbbell - Decline)</item>
         <item>Chest Fly (Machine)</item>
-        <item>Chin-up (Bodyweight)</item>
-        <item>Chin-up (Weighted)</item>
+        <item>Chest Supported Rows (Machine)</item>
+        <item>Chin-ups (Bodyweight)</item>
+        <item>Chin-ups (Weighted)</item>
         <item>Crunches (Bodyweight)</item>
         <item>Curl (Barbell - Standing)</item>
         <item>Curl (Dumbbell - Seated)</item>
         <item>Curl (Dumbbell - Standing)</item>
+        <item>Curl (Machine - Both Arms)</item>
+        <item>Curl (Machine - Single Arm)</item>
         <!--D-->
         <item>Dips (Bodyweight)</item>
         <item>Dips (Weighted)</item>
@@ -33,12 +37,15 @@
         <item>Face Pulls</item>
         <!--G-->
         <!--H-->
+        <item>Hammer Curls (Dumbbell)</item>
         <!--I-->
         <item>Inverted Rows (Bodyweight)</item>
         <!--J-->
+        <item>JM Press (Barbell - Flat)</item>
         <!--K-->
 
         <!--L-->
+        <item>Lat Pulldown (Machine)</item>
         <item>Lateral Raise (Machine)</item>
         <item>Lateral Raise (Dumbbell)</item>
         <item>Lateral Raise (Dumbbell - Bent-over)</item>
@@ -59,11 +66,10 @@
         <item>Preacher Curls (Dumbbell)</item>
         <item>Preacher Curls (Barbell)</item>
         <item>Preacher Curls (Machine)</item>
-        <item>Pull-down (Machine)</item>
-        <item>Pull-up (Bodyweight)</item>
-        <item>Pull-up (Weighted)</item>
+        <item>Pull-ups (Bodyweight)</item>
+        <item>Pull-ups (Weighted)</item>
         <item>Pull-Aparts (Banded)</item>
-        <item>Push-up (Bodyweight)</item>
+        <item>Push-ups (Bodyweight)</item>
 
         <!--Q-->
         <!--R-->
@@ -78,13 +84,18 @@
         <!--S-->
         <item>Shrug (Machine)</item>
         <item>Shrug (Barbell)</item>
+        <item>Skullcrushers (Barbell)</item>
+        <item>Skullcrushers (Dumbbell)</item>
         <item>Sit-ups (Bodyweight)</item>
         <item>Sit-ups (Weighted)</item>
 
         <!--T-->
-        <item>Tricep Extension (Barbell - Overhead)</item>
-        <item>Tricep Extension (Machine)</item>
-        <item>Tricep Pushdowns (Machine)</item>
+        <item>T-Bar Rows (Barbell)</item>
+        <item>Triceps Extensions (Barbell - Overhead)</item>
+        <item>Triceps Extensions (Dumbbell - Overhead)</item>
+        <item>Triceps Extensions (Dumbbell - Flat)</item>
+        <item>Triceps Extensions (Machine)</item>
+        <item>Triceps Pushdowns (Machine)</item>
         <!--U-->
         <item>Upright Row (Barbell)</item>
 
@@ -129,7 +140,7 @@
         <!--L-->
         <item>Leg Press</item>
         <item>Leg Extension</item>
-        <item>Leg Curl</item>
+        <item>Leg Curls</item>
         <item>Lunges (Bodyweight)</item>
         <item>Lunges (Barbell - Back)</item>
         <item>Lunges (Barbell - Front)</item>
