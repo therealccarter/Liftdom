@@ -72,7 +72,8 @@ public class W531fBHolderActivity extends MaterialIntroActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             DatabaseReference preMadeCountRef =
-                                    FirebaseDatabase.getInstance().getReference().child("premadeCount").child("W531fB");
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("premadePrograms").child("W531fB").child("usageCount");
                             preMadeCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

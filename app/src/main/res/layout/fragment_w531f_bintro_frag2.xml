@@ -206,16 +206,24 @@
             android:layout_marginTop="10dp"
     />
 
-    <CheckBox
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/includeWarmupW531fB"
-            android:textColor="@color/black"
-            android:id="@+id/warmupCheckbox"
-            android:textSize="14sp"
-            android:layout_marginStart="21dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_gravity="start"
-            />
+            >
+
+        <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/includeWarmupW531fB"
+                android:textColor="@color/black"
+                android:id="@+id/warmupCheckbox"
+                android:textSize="14sp"
+                android:gravity="center"
+                />
+
+    </LinearLayout>
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

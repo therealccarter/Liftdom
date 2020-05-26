@@ -16,20 +16,9 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                android:orientation="vertical"
+                    android:orientation="vertical"
                     android:layout_marginBottom="50dp"
                     >
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                    android:text="@string/PPLRedditWarning"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                />
-
 
                 <TextView
                         android:layout_width="match_parent"

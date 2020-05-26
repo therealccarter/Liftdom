@@ -45,9 +45,9 @@ public class PPLRedditClass {
      *
      * "Warmup"
      *  - Empty bar x 10
-     *  - 95lbs x10
-     *  - 135lbs x5
-     *  - 185lbs x3
+     *  - 95lbs x10 - 47%
+     *  - 135lbs x5 - 67%
+     *  - 185lbs x3 - 92%
      *  - 200lbs 4x5, 1x5+
      *
      * "REST"
@@ -96,6 +96,8 @@ public class PPLRedditClass {
      *
      *
      */
+
+    //Remember rear delt flyes replacing face pulls must be supersetted with band pull aparts
 
 }
 

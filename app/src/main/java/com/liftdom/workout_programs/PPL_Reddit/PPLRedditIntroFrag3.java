@@ -39,9 +39,14 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
     @BindView(R.id.jmPressRB2) RadioButton jmPressRB2;
     @BindView(R.id.dbTricepsExtensionsRB2) RadioButton dbTricepsExtensionsRB2;
 
+    @BindView(R.id.dipsWRB) RadioButton dipsWRB;
+    @BindView(R.id.dipsRB) RadioButton dipsRB;
+
     @BindView(R.id.pulldownsRB) RadioButton pulldownsRB;
     @BindView(R.id.pullupsRB) RadioButton pullupsRB;
     @BindView(R.id.chinupsRB) RadioButton chinupsRB;
+    @BindView(R.id.pullupsWRB) RadioButton pullupsWRB;
+    @BindView(R.id.chinupsWRB) RadioButton chinupsWRB;
 
     @BindView(R.id.seatedCableRowsRB) RadioButton seatedCableRowsRB;
     @BindView(R.id.chestSupportedRowsRB) RadioButton chestSupportedRowsRB;
@@ -59,14 +64,21 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
     @BindView(R.id.barbellCurlsRB2) RadioButton barbellCurlsRB2;
     @BindView(R.id.machineCurlsRB2) RadioButton machineCurlsRB2;
 
+    @BindView(R.id.abWheelRB1) RadioButton abWheelRB1;
+    @BindView(R.id.hangingLegRaisesRB1) RadioButton hangingLegRaisesRB1;
+
     @BindView(R.id.legPressRB) RadioButton legPressRB;
     @BindView(R.id.frontSquatRB) RadioButton frontSquatRB;
 
     @BindView(R.id.legCurlsRB) RadioButton legCurlsRB;
     @BindView(R.id.ghrRB) RadioButton ghrRB;
+    @BindView(R.id.ghrWRB) RadioButton ghrWRB;
 
     @BindView(R.id.barbellCalfRaisesRB) RadioButton barbellCalfRaisesRB;
     @BindView(R.id.dumbbellCalfRaisesRB) RadioButton dumbbellCalfRaisesRB;
+
+    @BindView(R.id.abWheelRB2) RadioButton abWheelRB2;
+    @BindView(R.id.hangingLegRaisesRB2) RadioButton hangingLegRaisesRB2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +103,8 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         legPressRB.setChecked(true);
         legCurlsRB.setChecked(true);
         barbellCalfRaisesRB.setChecked(true);
+        hangingLegRaisesRB1.setChecked(true);
+        hangingLegRaisesRB2.setChecked(true);
 
         skullcrushersRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -205,6 +219,8 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         return view;
     }
 
+    boolean areAllChecked;
+
     private void generateSingletonValues(){
         /*
          * How are we going to do this?
@@ -222,10 +238,14 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
          * down. Nah we're doing that.
          */
 
+        areAllChecked = true;
+
         if(inclineDbRB.isChecked()){
             PPLRedditSingleton.getInstance().inclineDB = inclineDbRB.getText().toString();
-        }else{
+        }else if(landminePressRB.isChecked()){
             PPLRedditSingleton.getInstance().inclineDB = landminePressRB.getText().toString();
+        }else{
+            areAllChecked = false;
         }
 
         if(tricepsPushdownsRB.isChecked()){
@@ -240,8 +260,10 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(dbTricepsExtensionsRB1.isChecked()){
             PPLRedditSingleton.getInstance().tricepsPushdowns =
                     dbTricepsExtensionsRB1.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(overheadTricepsExtensionsRB.isChecked()){
             PPLRedditSingleton.getInstance().overheadTricepsExtensions =
                     tricepsPushdownsRB.getText().toString();
@@ -254,8 +276,10 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(dbTricepsExtensionsRB2.isChecked()){
             PPLRedditSingleton.getInstance().overheadTricepsExtensions =
                     dbTricepsExtensionsRB2.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(pulldownsRB.isChecked()){
             PPLRedditSingleton.getInstance().pulldowns =
                     pulldownsRB.getText().toString();
@@ -265,8 +289,16 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(chinupsRB.isChecked()){
             PPLRedditSingleton.getInstance().pulldowns =
                     chinupsRB.getText().toString();
-        }
+        }else if(pullupsWRB.isChecked()){
+            PPLRedditSingleton.getInstance().pulldowns =
+                    pullupsWRB.getText().toString();
+        }else if(chinupsWRB.isChecked()){
+            PPLRedditSingleton.getInstance().pulldowns =
+                    chinupsWRB.getText().toString();
+        }else{
+            areAllChecked = false;
 
+        }
         if(seatedCableRowsRB.isChecked()){
             PPLRedditSingleton.getInstance().seatedCableRows =
                     seatedCableRowsRB.getText().toString();
@@ -279,14 +311,18 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(chestSupportedRowsRB.isChecked()){
             PPLRedditSingleton.getInstance().seatedCableRows =
                     chestSupportedRowsRB.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(facePullsRB.isChecked()){
             PPLRedditSingleton.getInstance().facePulls = facePullsRB.getText().toString();
-        }else{
+        }else if(rearDeltFlyesRB.isChecked()){
             PPLRedditSingleton.getInstance().facePulls = rearDeltFlyesRB.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(dumbbellCurlsRB.isChecked()){
             PPLRedditSingleton.getInstance().dumbbellCurls =
                     dumbbellCurlsRB.getText().toString();
@@ -296,8 +332,10 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(machineCurlsRB1.isChecked()){
             PPLRedditSingleton.getInstance().dumbbellCurls =
                     machineCurlsRB1.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(hammerCurlsRB.isChecked()){
             PPLRedditSingleton.getInstance().hammerCurls =
                     hammerCurlsRB.getText().toString();
@@ -307,24 +345,58 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(machineCurlsRB2.isChecked()){
             PPLRedditSingleton.getInstance().hammerCurls =
                     machineCurlsRB2.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(legPressRB.isChecked()){
             PPLRedditSingleton.getInstance().legPress = legPressRB.getText().toString();
-        }else{
+        }else if(frontSquatRB.isChecked()){
             PPLRedditSingleton.getInstance().legPress = frontSquatRB.getText().toString();
-        }
+        }else{
+            areAllChecked = false;
 
+        }
         if(legCurlsRB.isChecked()){
             PPLRedditSingleton.getInstance().legCurls = legCurlsRB.getText().toString();
-        }else{
+        }else if(ghrRB.isChecked()){
             PPLRedditSingleton.getInstance().legCurls = ghrRB.getText().toString();
-        }
+        }else if(ghrWRB.isChecked()){
+            PPLRedditSingleton.getInstance().legCurls = ghrWRB.getText().toString();
+        }else{
+            areAllChecked = false;
 
+        }
         if(barbellCalfRaisesRB.isChecked()){
             PPLRedditSingleton.getInstance().barbellCalfRaises = barbellCalfRaisesRB.getText().toString();
-        }else{
+        }else if(dumbbellCalfRaisesRB.isChecked()){
             PPLRedditSingleton.getInstance().barbellCalfRaises = dumbbellCalfRaisesRB.getText().toString();
+        }else{
+            areAllChecked = false;
+
+        }
+
+        if(dipsWRB.isChecked()){
+            PPLRedditSingleton.getInstance().dips = dipsWRB.getText().toString();
+        }else if(dipsRB.isChecked()){
+            PPLRedditSingleton.getInstance().dips = dipsRB.getText().toString();
+        }else{
+            PPLRedditSingleton.getInstance().dips = "false";
+        }
+
+        if(abWheelRB1.isChecked()){
+            PPLRedditSingleton.getInstance().abs1 = abWheelRB1.getText().toString();
+        }else if(hangingLegRaisesRB1.isChecked()){
+            PPLRedditSingleton.getInstance().abs1 = hangingLegRaisesRB1.getText().toString();
+        }else{
+            areAllChecked = false;
+        }
+        if(abWheelRB2.isChecked()){
+            PPLRedditSingleton.getInstance().abs2 = abWheelRB2.getText().toString();
+        }else if(hangingLegRaisesRB2.isChecked()){
+            PPLRedditSingleton.getInstance().abs2 = hangingLegRaisesRB2.getText().toString();
+        }else{
+            areAllChecked = false;
         }
 
     }
@@ -341,14 +413,21 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         boolean valuesEntered = false;
 
         generateSingletonValues();
-        valuesEntered = true;
+        if(areAllChecked){
+            valuesEntered = true;
+        }
 
         return valuesEntered;
     }
 
     @Override
+    public String cantMoveFurtherErrorMessage() {
+        return getString(R.string.makeSureAllChecked);
+    }
+
+    @Override
     public int backgroundColor() {
-        return R.color.confirmGreen;
+        return R.color.grey;
     }
 
     @Override

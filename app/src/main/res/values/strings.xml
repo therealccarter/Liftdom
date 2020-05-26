@@ -655,8 +655,10 @@
     <string name="dbTricepsExtensions">Triceps Extensions (Dumbbell - Flat)</string>
     <string name="overheadTricepsExtensions">Tricep Extension (Barbell - Overhead)</string>
     <string name="pulldowns">Lat Pulldown (Machine)</string>
-    <string name="pullups">Pull-up (Bodyweight)</string>
-    <string name="chinups">Chin-up (Bodyweight)</string>
+    <string name="pullups">Pull-ups (Bodyweight)</string>
+    <string name="chinups">Chin-ups (Bodyweight)</string>
+    <string name="pullupsW">Pull-ups (Weighted)</string>
+    <string name="chinupsW">Chin-ups (Weighted)</string>
     <string name="seatedCableRows">Cable Rows (Machine - Seated)</string>
     <string name="dbRows">Row (Dumbbell - Bent-over)</string>
     <string name="chestSupportedRows">Chest Supported Rows (Machine)</string>
@@ -667,19 +669,33 @@
     <string name="barbellCurls">Curl (Barbell - Standing)</string>
     <string name="machineCurls">Preacher Curls (Machine)</string>
     <string name="hammerCurls">Hammer Curls (Dumbbell)</string>
-    <string name="legPress">Leg Press</string>
+    <string name="legPress">Leg Press (Machine)</string>
     <string name="frontSquat">Squat (Barbell - Front)</string>
-    <string name="legCurls">Leg Curls</string>
+    <string name="legCurls">Leg Curls (Machine)</string>
     <string name="ghr">Glute Ham Raises (Bodyweight)</string>
+    <string name="ghrW">Glute Ham Raises (Weighted)</string>
     <string name="barbellCalfRaises">Calf-raise (Barbell - Back)</string>
     <string name="dumbbellCalfRaises">Calf-raise (Dumbbell)</string>
+    <string name="weightedDips">Dips (Weighted)</string>
+    <string name="dips">Dips (Bodyweight)</string>
+    <string name="abWheel">Ab Wheel (Bodyweight)</string>
+    <string name="hangingLegRaises">Hanging Leg Raises (Bodyweight)</string>
+
+    <string name="onlyDeadliftDays">(Only on deadlift days)</string>
+
+    <string name="forStrengthVersion">(Choose one if you\'re doing the strength version)</string>
+
+    <string name="accessories">Accessories</string>
 
     <string name="enterProgramName">Please enter a program name.</string>
 
     <string name="chooseAccessories">Choose Accessories</string>
 
+    <string name="makeSureAllChecked">Make sure you\'ve made all your choices!</string>
+
     <string name="PPLRedditShortDescription">
-        "A popular Push/Pull/Legs variant from Reddit. The recommended beginner program."
+        A popular linear progression Push/Pull/Legs variant from Reddit. The recommended beginner
+        program.
     </string>
 
     <string name="PPLRedditDescription">
@@ -719,16 +735,30 @@
         If today is not Monday, the program will start this coming Monday.</string>
 
     <string name="PPLReddit1">
-        Choose the format for the days you\'ll be working out \n(M/Tu/W/Th/F/Sa/Su)
+        Choose the format for the days you\'ll be working out:
     </string>
 
     <string name="pplpplr">PPLPPLR</string>
     <string name="pplrppl">PPLRPPL</string>
 
+    <string name="pushplpplr">Push/Pull/Legs/Push/Pull/Legs/Rest</string>
+    <string name="pullplpplr">Pull/Push/Legs/Pull/Push/Legs/Rest</string>
+    <string name="pushplrppl">Push/Pull/Legs/Rest/Push/Pull/Legs</string>
+    <string name="pullplrppl">Pull/Push/Legs/Rest/Pull/Push/Legs</string>
+
+    <string name="includeWarmupPPLReddit">Include warmup sets for main lifts?\n(4 sets
+        progressing up from empty bar)</string>
+    <string name="wontBeShownOnFirstDay">(This won\'t be shown on your first day for each
+        main lift as you\'ll be building up from an empty bar anyway)</string>
+
     <string name="PPLReddit2">
-        The main lifts (squat, bench, deadlift, bent over row, overhead press) are required. The
-        intended accessories are chosen by default, but if you don\'t
+        The main lifts (squat, bench, deadlift, bent over row, overhead press, Romanian Deadlifts)
+        are required. The recommended accessories are chosen by default, but if you don\'t
         have access to the necessary equipment, choose one of the alternates.
+        \n\n If you\'re doing the strength version, it\'s recommended to choose the weighted
+        version of pull-ups/chin-ups and dips (weighted if you can). If you can\'t do a high amount
+        of reps with these exercises as bodyweight, choose the bodyweight version instead. You can always
+        switch to the weighted versions later.
     </string>
 
     <string name="metallicadpa">

@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,9 +32,13 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         // Required empty public constructor
     }
 
-    @BindView(R.id.pplpplrRadioButton) RadioButton pplpplrRadioButton;
-    @BindView(R.id.pplrpplRadioButton) RadioButton pplrpplRadioButton;
-
+    @BindView(R.id.todayRadioButton) RadioButton todayRadioButton;
+    @BindView(R.id.mondayRadioButton) RadioButton mondayRadioButton;
+    @BindView(R.id.pushplpplrRadioButton) RadioButton pushplpplrRadioButton;
+    @BindView(R.id.pullplpplrRadioButton) RadioButton pullplpplrRadioButton;
+    @BindView(R.id.pushplrpplRadioButton) RadioButton pushplrpplRadioButton;
+    @BindView(R.id.pullplrpplRadioButton) RadioButton pullplrpplRadioButton;
+    @BindView(R.id.warmupCheckbox) CheckBox warmupCheckbox;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -53,26 +54,61 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         HideKey.initialize(getActivity(), view);
 
         // We'll collect the data into the singleton on program name evaluation.
-
-        pplpplrRadioButton.setChecked(true);
+        todayRadioButton.setChecked(true);
+        pullplpplrRadioButton.setChecked(true);
+        warmupCheckbox.setChecked(true);
 
         return view;
     }
-
 
     @Override
     public boolean canMoveFurther(){
         boolean valuesEntered = false;
 
+        /**
+         * We need to add the strength/high rep versions. Radio group with normal version there as well.
+         * Also the last slide looks like shit.
+         */
 
-        valuesEntered = true;
+        if(pushplpplrRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().format = "pushplpplr";
+            valuesEntered = true;
+        }else if(pullplpplrRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().format = "pullplpplr";
+            valuesEntered = true;
+        }else if(pushplrpplRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().format = "pushplrppl";
+            valuesEntered = true;
+        }else if(pullplrpplRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().format = "pullplrppl";
+            valuesEntered = true;
+        }
+
+        if(todayRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().isBeginToday = true;
+            valuesEntered = true;
+        }else if(mondayRadioButton.isChecked()){
+            PPLRedditSingleton.getInstance().isBeginToday = false;
+            valuesEntered = true;
+        }
+
+        if(warmupCheckbox.isChecked()){
+            PPLRedditSingleton.getInstance().isWarmup = true;
+        }else{
+            PPLRedditSingleton.getInstance().isWarmup = false;
+        }
 
         return valuesEntered;
     }
 
     @Override
+    public String cantMoveFurtherErrorMessage() {
+        return getString(R.string.makeSureAllChecked);
+    }
+
+    @Override
     public int backgroundColor() {
-        return R.color.grey;
+        return R.color.confirmGreen;
     }
 
     @Override

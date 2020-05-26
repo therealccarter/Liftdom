@@ -44,6 +44,7 @@ import com.liftdom.liftdom.main_social_feed.utils.RandomUsersBannerFrag;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.template_housing.TemplateMenuFrag;
 import com.liftdom.user_profile.UserModelClass;
+import com.liftdom.workout_programs.PremadeProgramModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import nl.dionsegijn.konfetti.KonfettiView;
@@ -167,6 +168,7 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         }
 
         //kablam();
+        //setUpPremadeNode();
 
         return view;
     }
@@ -346,6 +348,30 @@ public class MainFeedFrag extends Fragment implements RandomUsersBannerFrag.remo
         DatabaseReference loginDateRef = FirebaseDatabase.getInstance().getReference().child("loginDate").child(uid)
                 .child("date");
         loginDateRef.setValue(date);
+    }
+
+    private void setUpPremadeNode(){
+        String W531fBDescription = getResources().getString(R.string.W5314BShortDescription);
+        PremadeProgramModelClass w531fB = new PremadeProgramModelClass("Strength", "Wendler 5-3-1" +
+                " For Beginners", "Intermediate", W531fBDescription, "W531fB", 0);
+        String SmolovDescription = getResources().getString(R.string.smolovShortDescription);
+        PremadeProgramModelClass smolov = new PremadeProgramModelClass("Strength", "Smolov",
+                "Advanced", SmolovDescription, "Smolov", 0);
+        String PPLRedditDescription = getResources().getString(R.string.PPLRedditShortDescription);
+        PremadeProgramModelClass pplReddit = new PremadeProgramModelClass("Bodybuilding",
+                "Push-Pull-Legs Reddit Variant", "Beginner", PPLRedditDescription, "PPLReddit", 0);
+
+
+        DatabaseReference W531fBRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("W531fB");
+        DatabaseReference SmolovRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("Smolov");
+        DatabaseReference PPLRedditRef = FirebaseDatabase.getInstance().getReference().child(
+                "premadePrograms").child("PPLReddit");
+
+        W531fBRef.setValue(w531fB);
+        SmolovRef.setValue(smolov);
+        PPLRedditRef.setValue(pplReddit);
     }
 
     private void kablam(){

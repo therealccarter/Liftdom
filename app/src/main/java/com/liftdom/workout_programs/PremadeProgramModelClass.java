@@ -10,6 +10,7 @@ public class PremadeProgramModelClass {
     private String mExperienceLevel;
     private String mProgramDescription;
     private String mWorkoutCode;
+    private int mUsageCount;
 
     public PremadeProgramModelClass(){
         // necessary for Firebase
@@ -17,13 +18,21 @@ public class PremadeProgramModelClass {
 
     public PremadeProgramModelClass(String workoutType, String programName,
                                     String experienceLevel, String programDescription,
-                                    String workoutCode){
+                                    String workoutCode, int usageCount){
 
         mWorkoutType = workoutType;
         mProgramName = programName;
         mExperienceLevel = experienceLevel;
         mProgramDescription = programDescription;
         mWorkoutCode = workoutCode;
+    }
+
+    public int getUsageCount() {
+        return mUsageCount;
+    }
+
+    public void setUsageCount(int mUsageCount) {
+        this.mUsageCount = mUsageCount;
     }
 
     public String getWorkoutType() {

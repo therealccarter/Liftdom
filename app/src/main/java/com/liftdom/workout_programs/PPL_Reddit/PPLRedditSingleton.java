@@ -17,8 +17,8 @@ public class PPLRedditSingleton {
         return controller;
     }
 
+    String format;
     String programName = "";
-    Boolean pplpplrBool;
     String inclineDB;
     String tricepsPushdowns;
     String overheadTricepsExtensions;
@@ -30,6 +30,9 @@ public class PPLRedditSingleton {
     String legPress;
     String legCurls;
     String barbellCalfRaises;
+    String dips;
+    String abs1;
+    String abs2;
     boolean isActiveCheckbox;
     boolean isImperial;
     String userName;
@@ -64,12 +67,13 @@ public class PPLRedditSingleton {
         HashMap<String, String> extraInfo = new HashMap<>();
 
         String beginDate;
-        LocalDate today = LocalDate.now();
-        int old = today.getDayOfWeek();
-        if(old == 1){
-            beginDate = today.toString();
+        if(isBeginToday){
+            beginDate = LocalDate.now().toString();
         }else{
+            LocalDate today = LocalDate.now();
+            int old = today.getDayOfWeek();
             int monday = 1;
+
             if(monday <= old){
                 monday += 7;
             }
@@ -77,18 +81,22 @@ public class PPLRedditSingleton {
         }
 
         extraInfo.put("beginDate", beginDate);
-        extraInfo.put("pplpplrBool", pplpplrBool.toString());
-        extraInfo.put("inclineDB", inclineDB);
-        extraInfo.put("tricepsPushdowns", tricepsPushdowns);
-        extraInfo.put("overheadTricepsExtensions", overheadTricepsExtensions);
+        extraInfo.put("format", format);
         extraInfo.put("pulldowns", pulldowns);
         extraInfo.put("seatedCableRows", seatedCableRows);
         extraInfo.put("facePulls", facePulls);
         extraInfo.put("dumbbellCurls", dumbbellCurls);
         extraInfo.put("hammerCurls", hammerCurls);
+        extraInfo.put("inclineDB", inclineDB);
+        extraInfo.put("tricepsPushdowns", tricepsPushdowns);
+        extraInfo.put("overheadTricepsExtensions", overheadTricepsExtensions);
         extraInfo.put("legPress", legPress);
         extraInfo.put("legCurls", legCurls);
         extraInfo.put("barbellCalfRaises", barbellCalfRaises);
+        extraInfo.put("dips", dips);
+        extraInfo.put("abs1", abs1);
+        extraInfo.put("abs2", abs2);
+        extraInfo.put("isWarmup", String.valueOf(isWarmup));
 
         return extraInfo;
     }

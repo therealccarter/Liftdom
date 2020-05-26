@@ -158,7 +158,8 @@ public class SmolovIntroFrag4 extends SlideFragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 DatabaseReference preMadeCountRef =
-                                        FirebaseDatabase.getInstance().getReference().child("premadeCount").child("Smolov");
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("premadePrograms").child("Smolov").child("usageCount");
                                 preMadeCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

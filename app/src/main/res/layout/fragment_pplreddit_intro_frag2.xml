@@ -27,6 +27,8 @@
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     />
 
             <RadioGroup
@@ -44,6 +46,7 @@
                         android:text="@string/today"
                         android:layout_marginEnd="20dp"
                         android:textColor="@color/darkGrey"
+                        android:buttonTint="@color/black"
                         />
 
                 <RadioButton
@@ -52,6 +55,7 @@
                         android:id="@+id/mondayRadioButton"
                         android:text="@string/nextMonday"
                         android:textColor="@color/darkGrey"
+                        android:buttonTint="@color/black"
                         />
 
             </RadioGroup>
@@ -74,7 +78,7 @@
             <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:gravity="center"
                     android:layout_marginTop="7dp"
                     >
@@ -82,25 +86,83 @@
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/pplpplrRadioButton"
-                        android:text="@string/pplpplr"
+                        android:id="@+id/pushplpplrRadioButton"
+                        android:text="@string/pushplpplr"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:buttonTint="@color/black"
-                        android:layout_marginEnd="10dp"
                         />
 
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/pplrpplRadioButton"
-                        android:text="@string/pplrppl"
+                        android:id="@+id/pullplpplrRadioButton"
+                        android:text="@string/pullplpplr"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/black"
+                        />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pushplrpplRadioButton"
+                        android:text="@string/pushplrppl"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/black"
+                        />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pullplrpplRadioButton"
+                        android:text="@string/pullplrppl"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:buttonTint="@color/black"
                         />
 
             </RadioGroup>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/black"
+                    android:layout_margin="20dp"
+                    />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    >
+
+                <CheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/warmupCheckbox"
+                        android:text="@string/includeWarmupPPLReddit"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:buttonTint="@color/black"
+                        />
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wontBeShownOnFirstDay"
+                    android:textSize="13sp"
+                    android:textColor="@color/darkGrey"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    />
 
         </LinearLayout>
 

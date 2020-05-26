@@ -3,6 +3,7 @@
     <!-- ===================== BEGIN EXERCISE SELECTOR LIST ================================= -->
     <string-array name="upperBodyList">
         <!--A-->
+        <item>Ab Wheel (Bodyweight)</item>
 
         <!--B-->
         <item>Bench Press (Barbell - Flat)</item>
@@ -35,9 +36,11 @@
         <!--E-->
         <!--F-->
         <item>Face Pulls</item>
+        <item>Front Raise (Dumbbell)</item>
         <!--G-->
         <!--H-->
         <item>Hammer Curls (Dumbbell)</item>
+        <item>Hanging Leg Raises (Bodyweight)</item>
         <!--I-->
         <item>Inverted Rows (Bodyweight)</item>
         <!--J-->
@@ -70,9 +73,15 @@
         <item>Pull-ups (Weighted)</item>
         <item>Pull-Aparts (Banded)</item>
         <item>Push-ups (Bodyweight)</item>
+        <!--
+        This can't be done until we have time reps.
+        <item>Plank (Bodyweight)</item>
+        <item>Plank (Weighted)</item>
+        -->
 
         <!--Q-->
         <!--R-->
+        <item>Rear Delt Fly (Dumbbell)</item>
         <item>Reverse Hyperextension (Bodyweight)</item>
         <item>Reverse Hyperextension (Weighted)</item>
         <item>Row (Barbell - Bent-over)</item>
@@ -138,9 +147,9 @@
         <item>Kettlebell Swing</item>
 
         <!--L-->
-        <item>Leg Press</item>
-        <item>Leg Extension</item>
-        <item>Leg Curls</item>
+        <item>Leg Press (Machine)</item>
+        <item>Leg Extension (Machine)</item>
+        <item>Leg Curls (Machine)</item>
         <item>Lunges (Bodyweight)</item>
         <item>Lunges (Barbell - Back)</item>
         <item>Lunges (Barbell - Front)</item>
