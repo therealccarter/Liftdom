@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.FiveThreeOne_ForBeginners;
 
 
+import android.graphics.Typeface;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class W531fBIntroFrag5 extends SlideFragment {
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
-    //@BindView(R.id.messageView) TextView messageView;
+    @BindView(R.id.titleView) TextView titleView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +65,10 @@ public class W531fBIntroFrag5 extends SlideFragment {
         View view = inflater.inflate(R.layout.fragment_w531f_bintro_frag5, container, false);
 
         ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
 
         activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

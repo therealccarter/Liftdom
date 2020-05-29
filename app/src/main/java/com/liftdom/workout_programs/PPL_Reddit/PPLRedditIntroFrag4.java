@@ -44,7 +44,7 @@ public class PPLRedditIntroFrag4 extends SlideFragment {
 
     @Override
     public int backgroundColor() {
-        return R.color.grey;
+        return R.color.backgroundgrey1;
     }
 
     @Override

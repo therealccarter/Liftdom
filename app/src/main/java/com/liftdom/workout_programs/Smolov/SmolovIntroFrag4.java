@@ -1,6 +1,7 @@
 package com.liftdom.workout_programs.Smolov;
 
 
+import android.graphics.Typeface;
 import android.widget.*;
 import io.github.dreierf.materialintroscreen.SlideFragment;
 import android.content.Intent;
@@ -47,6 +48,7 @@ public class SmolovIntroFrag4 extends SlideFragment {
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
+    @BindView(R.id.titleView) TextView titleView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +57,10 @@ public class SmolovIntroFrag4 extends SlideFragment {
         View view = inflater.inflate(R.layout.fragment_smolov_intro_frag4, container, false);
 
         ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
 
         //if(SmolovSetupSingleton.getInstance().isBeginToday){
         //    String string = "Exercise: " + SmolovSetupSingleton.getInstance().exName

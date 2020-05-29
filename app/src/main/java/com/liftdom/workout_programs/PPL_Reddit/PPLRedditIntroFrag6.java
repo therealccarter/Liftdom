@@ -2,6 +2,7 @@ package com.liftdom.workout_programs.PPL_Reddit;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,7 +57,7 @@ public class PPLRedditIntroFrag6 extends SlideFragment {
     @BindView(R.id.confirmationTextView) TextView resultsConfirmationView;
     @BindView(R.id.loadingView) AVLoadingIndicatorView loadingView;
     @BindView(R.id.activeTemplateCheckbox) CheckBox activeProgramCheckbox;
-    @BindView(R.id.messageView) TextView messageView;
+    @BindView(R.id.titleView) TextView titleView;
 
 
     @Override
@@ -66,6 +67,10 @@ public class PPLRedditIntroFrag6 extends SlideFragment {
         View view = inflater.inflate(R.layout.fragment_pplreddit_intro_frag6, container, false);
 
         ButterKnife.bind(this, view);
+
+        Typeface lobster = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Lobster-Regular.ttf");
+
+        titleView.setTypeface(lobster);
 
         activeProgramCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

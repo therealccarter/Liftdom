@@ -26,7 +26,7 @@
                     android:text="@string/accessories"
                     android:id="@+id/chooseAccessories"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="30sp"
                     android:gravity="center"
                     android:layout_marginBottom="10dp"
                     />
@@ -533,8 +533,8 @@
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/dipsWRB"
-                        android:text="@string/weightedDips"
+                        android:id="@+id/dipsRB"
+                        android:text="@string/dips"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:buttonTint="@color/black"
@@ -544,8 +544,8 @@
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/dipsRB"
-                        android:text="@string/dips"
+                        android:id="@+id/dipsWRB"
+                        android:text="@string/weightedDips"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:buttonTint="@color/black"

@@ -33,6 +33,7 @@ public class PPLRedditSingleton {
     String dips;
     String abs1;
     String abs2;
+    String version;
     boolean isActiveCheckbox;
     boolean isImperial;
     String userName;
@@ -97,6 +98,7 @@ public class PPLRedditSingleton {
         extraInfo.put("abs1", abs1);
         extraInfo.put("abs2", abs2);
         extraInfo.put("isWarmup", String.valueOf(isWarmup));
+        extraInfo.put("version", version);
 
         return extraInfo;
     }

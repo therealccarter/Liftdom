@@ -8,11 +8,6 @@
         android:gravity="center"
         tools:context="com.liftdom.workout_programs.PPL_Reddit.PPLRedditIntroFrag6">
 
-    <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -23,14 +18,14 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:id="@+id/messageView"
-                        android:textSize="15sp"
-                        android:layout_marginBottom="5dp"
+                        android:text="@string/PPLRedditName"
+                        android:id="@+id/titleView"
+                        android:textSize="37sp"
+                        android:layout_marginBottom="25dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/white"
                         />
 
                 <TextView
@@ -79,7 +74,5 @@
                         />
 
             </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </io.github.dreierf.materialintroscreen.parallax.ParallaxLinearLayout>

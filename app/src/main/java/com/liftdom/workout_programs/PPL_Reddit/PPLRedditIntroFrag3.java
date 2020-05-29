@@ -105,6 +105,7 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         barbellCalfRaisesRB.setChecked(true);
         hangingLegRaisesRB1.setChecked(true);
         hangingLegRaisesRB2.setChecked(true);
+        dipsRB.setChecked(true);
 
         skullcrushersRB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -381,7 +382,7 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }else if(dipsRB.isChecked()){
             PPLRedditSingleton.getInstance().dips = dipsRB.getText().toString();
         }else{
-            PPLRedditSingleton.getInstance().dips = "false";
+            areAllChecked = false;
         }
 
         if(abWheelRB1.isChecked()){
@@ -400,13 +401,6 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }
 
     }
-
-    /**
-     * Could possibly make strength version "built in" by having those accessory options already
-     * here? Then just have a radio button in frag2 which puts in a boolean that determines the
-     * rep ranges. Same for Endurance version.
-     *
-     */
 
     @Override
     public boolean canMoveFurther(){

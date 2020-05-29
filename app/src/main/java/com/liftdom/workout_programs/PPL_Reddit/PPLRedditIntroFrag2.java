@@ -38,6 +38,9 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
     @BindView(R.id.pullplpplrRadioButton) RadioButton pullplpplrRadioButton;
     @BindView(R.id.pushplrpplRadioButton) RadioButton pushplrpplRadioButton;
     @BindView(R.id.pullplrpplRadioButton) RadioButton pullplrpplRadioButton;
+    @BindView(R.id.normalRB) RadioButton normalRB;
+    @BindView(R.id.strengthRB) RadioButton strengthRB;
+    @BindView(R.id.highRepsRB) RadioButton highRepsRB;
     @BindView(R.id.warmupCheckbox) CheckBox warmupCheckbox;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -57,13 +60,14 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
         todayRadioButton.setChecked(true);
         pullplpplrRadioButton.setChecked(true);
         warmupCheckbox.setChecked(true);
+        normalRB.setChecked(true);
 
         return view;
     }
 
     @Override
     public boolean canMoveFurther(){
-        boolean valuesEntered = false;
+        boolean valuesEntered = true;
 
         /**
          * We need to add the strength/high rep versions. Radio group with normal version there as well.
@@ -72,30 +76,38 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
 
         if(pushplpplrRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().format = "pushplpplr";
-            valuesEntered = true;
         }else if(pullplpplrRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().format = "pullplpplr";
-            valuesEntered = true;
         }else if(pushplrpplRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().format = "pushplrppl";
-            valuesEntered = true;
         }else if(pullplrpplRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().format = "pullplrppl";
-            valuesEntered = true;
+        }else{
+            valuesEntered = false;
         }
 
         if(todayRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().isBeginToday = true;
-            valuesEntered = true;
         }else if(mondayRadioButton.isChecked()){
             PPLRedditSingleton.getInstance().isBeginToday = false;
-            valuesEntered = true;
-        }
+        }else{
+            valuesEntered = false;
 
+        }
         if(warmupCheckbox.isChecked()){
             PPLRedditSingleton.getInstance().isWarmup = true;
         }else{
             PPLRedditSingleton.getInstance().isWarmup = false;
+        }
+
+        if(normalRB.isChecked()){
+            PPLRedditSingleton.getInstance().version = "normal";
+        }else if(strengthRB.isChecked()){
+            PPLRedditSingleton.getInstance().version = "strength";
+        }else if(highRepsRB.isChecked()){
+            PPLRedditSingleton.getInstance().version = "highReps";
+        }else{
+            valuesEntered = false;
         }
 
         return valuesEntered;
@@ -108,7 +120,7 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
 
     @Override
     public int backgroundColor() {
-        return R.color.confirmGreen;
+        return R.color.backgroundgrey1;
     }
 
     @Override

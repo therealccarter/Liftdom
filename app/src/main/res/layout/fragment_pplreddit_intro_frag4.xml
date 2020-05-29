@@ -24,10 +24,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/importantNotes"
                     android:id="@+id/importantNotes"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
                     android:gravity="center"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginTop="100dp"
                     />
 
             <TextView
@@ -36,9 +37,10 @@
                     android:text="@string/PPLRedditWarning"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:textSize="16sp"
+                    android:layout_marginBottom="200dp"
                     />
 
         </LinearLayout>

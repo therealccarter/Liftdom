@@ -54,7 +54,7 @@ public class SmolovIntroFrag2 extends SlideFragment {
 
         exerciseButton.setText("Squat (Barbell - Back)");
 
-        mondayRadioButton.setChecked(true);
+        todayRadioButton.setChecked(true);
         takeOff10Checkbox.setChecked(true);
         roundToNearest5.setChecked(true);
 

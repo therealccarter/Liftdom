@@ -105,6 +105,8 @@
     <string name="W531fBTitleText1">Wendler 5/3/1</string>
     <string name="W531fBTitleText2">(For Beginners)</string>
 
+    <string name="W531fBName">Wendler\'s 5/3/1 \nFor Beginners</string>
+
     <string name="smolovBeta">Smolov (Beta)</string>
 
 
@@ -681,9 +683,32 @@
     <string name="abWheel">Ab Wheel (Bodyweight)</string>
     <string name="hangingLegRaises">Hanging Leg Raises (Bodyweight)</string>
 
+    <string name="normalPPLR">
+        Standard Version
+    </string>
+    <string name="normalPPLR2">
+        &#8211; Recommended
+    </string>
+    <string name="strengthPPLR">
+        Strength Version
+    </string>
+    <string name="strengthPPLR2">
+        &#8211; Lower reps for compound accessories
+        \n    (RDLs, presses, pulldowns, leg presses)
+        \n &#8211; Weighted chin-ups/pull-ups, weighted dips.
+        \n    (By default wll be 4&#8211;8 reps, if you choose bodyweight instead they\'ll be
+        normal rep range)
+    </string>
+    <string name="highRepsPPLR">
+        High Reps Version
+    </string>
+    <string name="highRepsPPLR2">
+        &#8211; Accessories are 15&#8211;20 reps instead of 8&#8211;12 reps
+    </string>
+
     <string name="onlyDeadliftDays">(Only on deadlift days)</string>
 
-    <string name="forStrengthVersion">(Choose one if you\'re doing the strength version)</string>
+    <string name="forStrengthVersion">(Only applicable for strength version)</string>
 
     <string name="accessories">Accessories</string>
 
@@ -710,23 +735,50 @@
         strength adaptations.\"
     </string>
 
-    <string name="PPLRedditDescription3">
-        This program will have you doing a heavy barbell exercise first each day, then following
-        up with higher rep accessory work.
+    <string name="mainLiftsColon"><b>Main Lifts:</b></string>
+    <string name="mainLiftsPPLR">\n
+        <b>First push day</b>: Bench Press, high rep OHP.\n
+        <b>First pull day</b>: Deadlifts.\n
+        <b>First leg day</b>: Squats, RDLs.\n
+        <b>Second push day</b>: OHP, high rep Bench Press.\n
+        <b>Second pull day</b>: Barbell Rows.\n
+        <b>Second leg day</b>: Squats, RDLs.\n\n
+
+        Each day will have accessories following the main lifts, with different accessories for
+        each day-type (push/pull/legs).
     </string>
 
+    <string name="mainLiftsProgressionColon"><b>Main Lift Progression:</b></string>
+    <string name="mainLiftsProgressionPPLR">\n
+        <b>Bench Press/Row/OHP:</b> 5lbs/2.5kg each session.\n
+        <b>Squat:</b> 5lbs/2.5kg each session.\n
+        <b>Deadlift:</b> 5lbs/2.5kg each session.
+    </string>
+
+    <string name="accessoryProgressionColon"><b>Accessory Progression:</b></string>
+    <string name="accessoryProgressionPPLR">
+        Accessories will start at 8 reps (or 15 for high reps version, or 4 for some exercises in
+        the strength version).\n Each session you can try to increase the reps you complete until
+        you reach 12 reps (20 for high reps/6 for strength version). At that point, 5lbs/2.5kg
+        will be added to the accessory and the reps will drop back to their first rep number (8,
+        15, or 4).
+    </string>
+
+
     <string name="PPLRedditWarning">
-        The first time you do each exercise, the weights will be 0. You
-        must enter in the initial weights that you can do, and the program will then use those
-        weights to linearly progress the weight in subsequent workouts. Also, the reps for
-        accessory exercises will start at 8. If you can do one more with good form for all sets of that
-        exercise that day, enter that in (so change the 8\'s to 9\'s). Once you can get that to 12
-        reps, the weight will increase and the reps will go back to 8.
+        The first time you do each exercise, the weights will be 0. \n\n<b>You
+        must enter in the initial weights that you can do, and the program will remember those
+        weights and then use them to linearly progress the weight in subsequent workouts.</b>
+        \n\nThe reps for accessory exercises will start at 8. If you can do more with good form for all sets of that
+        exercise that day, <b>enter that in</b> (eg, change the 8\'s to 9\'s). Once you can get
+        that to 12 reps, the weight will increase and the reps will go back to 8. \nIf you chose the strength
+        version or high reps version, the rep range may be different, but the idea is the same:
+        once you can do on more rep for each set, <b>enter in the new rep number for each set</b>.
         \n\n The plan is to start each exercise with an empty bar/0 weight,
         do a set of 5, add weight, do another set of 5, etc, until the bar speed slows down. Then
-        subtract 5lbs/2.5kgs and that is your starting weight (the weight you should enter in.)
-        This idea will be shown and explained in the Workout Assistor as you do your first workouts
-        to remind you.
+        subtract 5lbs/2.5kgs and <b>that is your starting weight (the weight you should enter in.)</b>
+        \n\nThis idea will be shown and explained in the Workout Assistor as you do your first
+        workouts to remind you.
     </string>
 
     <string name="importantNotes">Important Notes:</string>
@@ -737,6 +789,8 @@
     <string name="PPLReddit1">
         Choose the format for the days you\'ll be working out:
     </string>
+
+    <string name="PPLRedditName">PPL (Reddit)</string>
 
     <string name="pplpplr">PPLPPLR</string>
     <string name="pplrppl">PPLRPPL</string>
@@ -753,7 +807,7 @@
 
     <string name="PPLReddit2">
         The main lifts (squat, bench, deadlift, bent over row, overhead press, Romanian Deadlifts)
-        are required. The recommended accessories are chosen by default, but if you don\'t
+        are required. <b>The recommended accessories are chosen by default</b>, but if you don\'t
         have access to the necessary equipment, choose one of the alternates.
         \n\n If you\'re doing the strength version, it\'s recommended to choose the weighted
         version of pull-ups/chin-ups and dips (weighted if you can). If you can\'t do a high amount

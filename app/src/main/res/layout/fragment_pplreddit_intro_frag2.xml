@@ -17,7 +17,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:layout_marginBottom="100dp"
                 android:orientation="vertical">
 
             <TextView
@@ -26,7 +25,7 @@
                     android:text="@string/startTodayOrNextMondayPPLReddit"
                     android:gravity="center"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     />
@@ -45,8 +44,8 @@
                         android:id="@+id/todayRadioButton"
                         android:text="@string/today"
                         android:layout_marginEnd="20dp"
-                        android:textColor="@color/darkGrey"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
                 <RadioButton
@@ -54,8 +53,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/mondayRadioButton"
                         android:text="@string/nextMonday"
-                        android:textColor="@color/darkGrey"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
             </RadioGroup>
@@ -63,14 +62,14 @@
             <View
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
-                    android:background="@color/black"
+                    android:background="@color/white"
                     android:layout_margin="20dp"
                     />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="@string/PPLReddit1"
                     android:gravity="center"
             />
@@ -89,8 +88,8 @@
                         android:id="@+id/pushplpplrRadioButton"
                         android:text="@string/pushplpplr"
                         android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
                 <RadioButton
@@ -99,8 +98,8 @@
                         android:id="@+id/pullplpplrRadioButton"
                         android:text="@string/pullplpplr"
                         android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
                 <RadioButton
@@ -109,8 +108,8 @@
                         android:id="@+id/pushplrpplRadioButton"
                         android:text="@string/pushplrppl"
                         android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
                 <RadioButton
@@ -119,8 +118,8 @@
                         android:id="@+id/pullplrpplRadioButton"
                         android:text="@string/pullplrppl"
                         android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:buttonTint="@color/black"
+                        android:textColor="@color/grey"
+                        android:buttonTint="@color/white"
                         />
 
             </RadioGroup>
@@ -128,7 +127,82 @@
             <View
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
-                    android:background="@color/black"
+                    android:background="@color/white"
+                    android:layout_margin="20dp"
+                    />
+
+            <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="start"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    >
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/normalRB"
+                        android:text="@string/normalPPLR"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/normalPPLR2"
+                        android:textColor="@color/grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/strengthRB"
+                        android:text="@string/strengthPPLR"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strengthPPLR2"
+                        android:textColor="@color/grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/highRepsRB"
+                        android:text="@string/highRepsPPLR"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/highRepsPPLR2"
+                        android:textColor="@color/grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+            </RadioGroup>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/white"
                     android:layout_margin="20dp"
                     />
 
@@ -144,10 +218,10 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/warmupCheckbox"
                         android:text="@string/includeWarmupPPLReddit"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:gravity="center"
-                        android:buttonTint="@color/black"
+                        android:buttonTint="@color/white"
                         />
 
             </LinearLayout>
@@ -157,11 +231,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/wontBeShownOnFirstDay"
                     android:textSize="13sp"
-                    android:textColor="@color/darkGrey"
+                    android:textColor="@color/grey"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="200dp"
                     />
 
         </LinearLayout>
