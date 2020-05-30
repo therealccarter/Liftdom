@@ -1,4 +1,14 @@
 
+// templateMenuFrag
+        //fromScratch.setOnClickListener(new View.OnClickListener(){
+        //    @Override
+        //    public void onClick(final View v){
+        //        String isEdit = "no";
+        //        Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
+        //        intent.putExtra("isEdit", isEdit );
+        //        startActivity(intent);
+        //    }
+        //});
 // Bug list
 Create a class that handles the premade selection in places like WA,
 - (think of the implications if we add/subtract/multiply/divide and then round we lose precision.)

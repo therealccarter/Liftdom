@@ -92,8 +92,8 @@ public class PPLRedditIntroFrag2 extends SlideFragment {
             PPLRedditSingleton.getInstance().isBeginToday = false;
         }else{
             valuesEntered = false;
-
         }
+
         if(warmupCheckbox.isChecked()){
             PPLRedditSingleton.getInstance().isWarmup = true;
         }else{

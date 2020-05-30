@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,8 +25,13 @@ import com.liftdom.liftdom.MainActivity;
 import com.liftdom.liftdom.utils.MotivationalQuotes;
 import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateEditorActivity;
+import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.template_housing.public_programs.PublicTemplateChooserFrag;
+import com.liftdom.workout_programs.PPL_Reddit.PPLRedditClass;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,6 +111,13 @@ public class TemplateMenuFrag extends Fragment {
             quoteAuthor.setText(quoteArray[1]);
         }
 
+        quoteAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testMethod();
+            }
+        });
+
         savedTemplates.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v){
@@ -130,17 +143,6 @@ public class TemplateMenuFrag extends Fragment {
         });
 
         final int padding = getResources().getDimensionPixelOffset(R.dimen.seven_dip);
-
-
-        //fromScratch.setOnClickListener(new View.OnClickListener(){
-        //    @Override
-        //    public void onClick(final View v){
-        //        String isEdit = "no";
-        //        Intent intent = new Intent(v.getContext(), TemplateEditorActivity.class);
-        //        intent.putExtra("isEdit", isEdit );
-        //        startActivity(intent);
-        //    }
-        //});
 
         fromScratch.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -187,6 +189,30 @@ public class TemplateMenuFrag extends Fragment {
 
         return view;
 
+    }
+
+    private void testMethod(){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference pplRedditRef = FirebaseDatabase.getInstance().getReference().child(
+                "templates").child(uid).child("PPLReddit");
+        pplRedditRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TemplateModelClass templateModelClass = dataSnapshot.getValue(TemplateModelClass.class);
+
+                PPLRedditClass pplReddit = new PPLRedditClass(templateModelClass.getExtraInfo());
+
+                HashMap<String, List<String>> map = pplReddit.getPull(1);
+
+                // it worked. obviously have a lot of different options within that to test for, but.
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

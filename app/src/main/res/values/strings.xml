@@ -649,6 +649,8 @@
 
     <string name="PPLRedditTitleText1">Push/Pull/Legs</string>
     <string name="PPLRedditTitleText2">(Reddit)</string>
+
+    <!-- Push -->
     <string name="inclineDb">Bench Press (Dumbbell - Incline)</string>
     <string name="landminePress">Landmine Press</string>
     <string name="tricepsPushdowns">Tricep Pushdowns (Machine)</string>
@@ -656,6 +658,10 @@
     <string name="jmPress">JM Press (Barbell - Flat)</string>
     <string name="dbTricepsExtensions">Triceps Extensions (Dumbbell - Flat)</string>
     <string name="overheadTricepsExtensions">Tricep Extension (Barbell - Overhead)</string>
+    <string name="weightedDips">Dips (Weighted)</string>
+    <string name="dips">Dips (Bodyweight)</string>
+
+    <!-- Pull -->
     <string name="pulldowns">Lat Pulldown (Machine)</string>
     <string name="pullups">Pull-ups (Bodyweight)</string>
     <string name="chinups">Chin-ups (Bodyweight)</string>
@@ -671,6 +677,8 @@
     <string name="barbellCurls">Curl (Barbell - Standing)</string>
     <string name="machineCurls">Preacher Curls (Machine)</string>
     <string name="hammerCurls">Hammer Curls (Dumbbell)</string>
+
+    <!-- Legs -->
     <string name="legPress">Leg Press (Machine)</string>
     <string name="frontSquat">Squat (Barbell - Front)</string>
     <string name="legCurls">Leg Curls (Machine)</string>
@@ -678,8 +686,8 @@
     <string name="ghrW">Glute Ham Raises (Weighted)</string>
     <string name="barbellCalfRaises">Calf-raise (Barbell - Back)</string>
     <string name="dumbbellCalfRaises">Calf-raise (Dumbbell)</string>
-    <string name="weightedDips">Dips (Weighted)</string>
-    <string name="dips">Dips (Bodyweight)</string>
+
+    <!-- Abs -->
     <string name="abWheel">Ab Wheel (Bodyweight)</string>
     <string name="hangingLegRaises">Hanging Leg Raises (Bodyweight)</string>
 

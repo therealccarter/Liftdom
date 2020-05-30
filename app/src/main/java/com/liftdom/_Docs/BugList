@@ -314,7 +314,7 @@ Get these premades working correctly:
         done - Read the various explanations of the program to understand it. Then you can begin
                 theorizing it.
         done - change intro frags to collect what we really need
-        - actually describe the program in practical terms instead of bullshitting.
+        done - actually describe the program in practical terms instead of bullshitting.
         - shut down AS to test
         done - program name/rest timer stuff will be on 4th
         done - week format/begin options will be on 2nd
@@ -329,6 +329,7 @@ AssistorSaved. It also put "Level Up!" in my completedWorkout extra info which i
 
 For premades with long intro frag descriptions, maybe do titles so it looks nicer.
 Also just go through each one after you know they work and make them prettier.
+    - PPLR is a good example
 
 Premades shouldn't be allowed to be "fully" edited, but they should be able to have their
     extraInfo values edited. Selected template for premades should also be prettier.
@@ -480,6 +481,10 @@ Liftdom vs X (eg Jefit) - PPL Reddit (YT Video)
 Some sort of animations in WA like candy crush. Good for ads and visuals generally?
 
 PUSH NOTIFICATIONS FOR WORKOUTS!
+
+More weeks in TE (instead of looping 1 week over and over, have up to 5 or something that are all
+different that can loop)
+Could have 4 buttons on right, jump up a day set jump up a week set, etc.
 
 For each new program, check:
     - HistoryCalendarTab

@@ -97,6 +97,12 @@ public class PPLRedditSingleton {
         extraInfo.put("dips", dips);
         extraInfo.put("abs1", abs1);
         extraInfo.put("abs2", abs2);
+        extraInfo.put("rdl", "Romanian Deadlift (Barbell - Conventional)");
+        extraInfo.put("benchPress", "Bench Press (Barbell - Flat)");
+        extraInfo.put("ohp", "Overhead Press (Barbell)");
+        extraInfo.put("squat", "Squat (Barbell - Back)");
+        extraInfo.put("deadlift", "Deadlift (Barbell - Conventional)");
+        extraInfo.put("barbellRows", "Row (Barbell - Bent-over)");
         extraInfo.put("isWarmup", String.valueOf(isWarmup));
         extraInfo.put("version", version);
 

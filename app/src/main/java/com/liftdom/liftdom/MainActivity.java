@@ -574,25 +574,23 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void keepSynced(){
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference templateRef = FirebaseDatabase.getInstance().getReference().child(
-                "templates").child(uid);
-        DatabaseReference userRef =
-                FirebaseDatabase.getInstance().getReference().child("user").child(uid);
-        DatabaseReference runningRef = FirebaseDatabase.getInstance().getReference().child(
-                "runningAssistor").child(uid).child("assistorModel");
-        DatabaseReference workoutHistoryRef =
-                FirebaseDatabase.getInstance().getReference().child("workoutHistory").child(uid);
-        DatabaseReference defaultRef = FirebaseDatabase.getInstance().getReference().child(
-                "defaultTemplates");
-        DatabaseReference templateRunning = FirebaseDatabase.getInstance().getReference().child(
-                "templatesRunning").child(uid);
+        DatabaseReference templateRef = mRootRef.child("templates").child(uid);
+        DatabaseReference userRef = mRootRef.child("user").child(uid);
+        DatabaseReference runningRef = mRootRef.child("runningAssistor").child(uid).child("assistorModel");
+        DatabaseReference workoutHistoryRef = mRootRef.child("workoutHistory").child(uid);
+        DatabaseReference defaultRef = mRootRef.child("defaultTemplates");
+        DatabaseReference templateRunning = mRootRef.child("templatesRunning").child(uid);
+        DatabaseReference premadesRef = mRootRef.child("premadePrograms");
+
         templateRef.keepSynced(true);
         userRef.keepSynced(true);
         runningRef.keepSynced(true);
         workoutHistoryRef.keepSynced(true);
         defaultRef.keepSynced(true);
         templateRunning.keepSynced(true);
+        premadesRef.keepSynced(true);
 
     }
 

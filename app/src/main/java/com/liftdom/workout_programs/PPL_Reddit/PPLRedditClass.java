@@ -1,5 +1,11 @@
 package com.liftdom.workout_programs.PPL_Reddit;
 
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by Brodin on 10/31/2019.
  */
@@ -71,7 +77,6 @@ public class PPLRedditClass {
      *
      */
 
-
     /**
      * For weight progression, let's add checkmarks for stalling the weight increase and for
      * activating deload (dropping weights by 10%).
@@ -99,7 +104,357 @@ public class PPLRedditClass {
 
     //Remember rear delt flyes replacing face pulls must be supersetted with band pull aparts
 
+    private HashMap<String, String> mExtraInfo;
+
+    private String beginDateString;
+    private LocalDate beginDate;
+    private LocalDate todaysDate;
+
+    private String pulldowns;
+    private String seatedCableRows;
+    private String facePulls;
+    private String dumbbellCurls;
+    private String hammerCurls;
+    private String inclineDB;
+    private String tricepsPushdowns;
+    private String overheadTricepsExtensions;
+    private String legPress;
+    private String legCurls;
+    private String barbellCalfRaises;
+    private String dips;
+    private String abs1;
+    private String abs2;
+    private String rdl;
+
+    private String benchPress;
+    private String ohp;
+    private String squat;
+    private String deadlift;
+    private String barbellRows;
+    private String benchPressWeight;
+    private String ohpWeight;
+    private String squatWeight;
+    private String deadliftWeight;
+    private String barbellRowsWeight;
+
+    private String format;
+    private boolean isWarmup;
+    private String version;
+
+    private boolean isFirstWeek;
+
+    public PPLRedditClass(HashMap<String, String> extraInfo){
+
+        mExtraInfo = extraInfo;
+
+        setValues(extraInfo);
+
+        beginDate = LocalDate.parse(beginDateString);
+        todaysDate = LocalDate.now();
+    }
+
+    private void setValues(HashMap<String, String> extraInfo){
+        beginDateString = extraInfo.get("beginDate");
+        format = extraInfo.get("format");
+        pulldowns = extraInfo.get("pulldowns");
+        seatedCableRows = extraInfo.get("seatedCableRows");
+        facePulls = extraInfo.get("facePulls");
+        dumbbellCurls = extraInfo.get("dumbbellCurls");
+        hammerCurls = extraInfo.get("hammerCurls");
+        inclineDB = extraInfo.get("inclineDB");
+        tricepsPushdowns = extraInfo.get("tricepsPushdowns");
+        overheadTricepsExtensions = extraInfo.get("overheadTricepsExtensions");
+        legPress = extraInfo.get("legPress");
+        legCurls = extraInfo.get("legCurls");
+        barbellCalfRaises = extraInfo.get("barbellCalfRaises");
+        dips = extraInfo.get("dips");
+        abs1 = extraInfo.get("abs1");
+        abs2 = extraInfo.get("abs2");
+        rdl = extraInfo.get("rdl");
+        isWarmup = Boolean.parseBoolean(extraInfo.get("isWarmup"));
+        version = extraInfo.get("version");
+        benchPress = extraInfo.get("benchPress");
+        ohp = extraInfo.get("ohp");
+        squat = extraInfo.get("squat");
+        deadlift = extraInfo.get("deadlift");
+        barbellRows = extraInfo.get("barbellRows");
+        try{
+            benchPressWeight = extraInfo.get("Bench Press (Barbell - Flat)");
+        }catch (NullPointerException e){
+
+        }
+        try{
+            ohpWeight = extraInfo.get("Overhead Press (Barbell)");
+        }catch (NullPointerException e){
+
+        }
+        try{
+            squatWeight = extraInfo.get("Squat (Barbell - Back)");
+        }catch (NullPointerException e){
+
+        }
+        try{
+            deadliftWeight = extraInfo.get("Deadlift (Barbell - Conventional)");
+        }catch (NullPointerException e){
+
+        }
+        try{
+            barbellRowsWeight = extraInfo.get("Row (Barbell - Bent-over)");
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    String normalDefault = "8@0";
+    String strengthDefault = "4@0";
+    String highRepsDefault = "15@0";
+    String normalDefaultBW = "8@B.W.";
+    String strengthDefaultBW = "4@B.W.";
+    String highRepsDefaultBW = "15@B.W.";
+
+    private List<String> getWarmupList(String weight){
+        List<String> warmupList = new ArrayList<>();
+
+        if(!weight.equals("0")){
+            warmupList.add("1x10@45");
+            warmupList.add("1x10@" + getPercentage("47", weight));
+            warmupList.add("1x5@" + getPercentage("67", weight));
+            warmupList.add("1x3@" + getPercentage("92", weight));
+        }
+
+        return warmupList;
+    }
+
+    private String getPercentage(String percent, String weightString){
+        String formatted;
+
+        double weight;
+        int weight2;
+
+        double percentage = Double.parseDouble(percent)/(double)100;
+
+        weight = Double.parseDouble(weightString) * percentage;
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        formatted = String.valueOf(weight2);
+
+        return formatted;
+    }
+
+    public HashMap<String, List<String>> getPull(int type) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        List<String> mainLiftList = new ArrayList<>();
+
+        if(type == 1){
+            if(deadliftWeight == null){
+                deadliftWeight = "0";
+            }else{
+                if(deadliftWeight.isEmpty()){
+                    deadliftWeight = "0";
+                }
+            }
+            mainLiftList.add("Deadlift (Barbell - Conventional)");
+            if(isWarmup){
+                if(!isFirstWeek){
+                    mainLiftList.addAll(getWarmupList(deadliftWeight));
+                }
+            }
+            mainLiftList.add("1x5_a@" + deadliftWeight);
+        }else if(type == 2){
+            if(barbellRowsWeight == null){
+                barbellRowsWeight = "0";
+            }else{
+                if(barbellRowsWeight.isEmpty()){
+                    barbellRowsWeight = "0";
+                }
+            }
+            mainLiftList.add("Row (Barbell - Bent-over)");
+            if(isWarmup){
+                if(!isFirstWeek){
+                    mainLiftList.addAll(getWarmupList(barbellRowsWeight));
+                }
+            }
+            mainLiftList.add("4x5@" + barbellRowsWeight);
+            mainLiftList.add("1x5_a@" + barbellRowsWeight);
+        }
+
+        List<String> pulldownList = new ArrayList<>();
+        List<String> seatedCableRowsList = new ArrayList<>();
+        List<String> facePullsList = new ArrayList<>();
+        List<String> hammerCurlsList = new ArrayList<>();
+        List<String> dumbbellCurlsList = new ArrayList<>();
+        List<String> absList = new ArrayList<>();
+
+        /**
+         * So, "pulldowns" gets us the ex name.
+         * Then we take the ex name and look for it in extra info.
+         * It's name in extra info will have the value reps@weight.
+         * If it doesn't exist in extra info, it's defaultReps@0.
+         */
+
+        if(version.equals("normal")){
+            if(mExtraInfo.get(pulldowns) == null){
+                mExtraInfo.put(pulldowns, normalDefault);
+            }
+            if(mExtraInfo.get(seatedCableRows) == null){
+                mExtraInfo.put(seatedCableRows, normalDefault);
+            }
+            if(facePulls.equals("Rear Delt Flyes and Band Pulls")){
+                if(mExtraInfo.get("Rear Delt Fly (Dumbbell)") == null){
+                    mExtraInfo.put("Rear Delt Fly (Dumbbell)", normalDefault);
+                }
+                if(mExtraInfo.get("Pull-Aparts (Banded)") == null){
+                    mExtraInfo.put("Pull-Aparts (Banded)", normalDefault);
+                }
+            }else{
+                if(mExtraInfo.get(facePulls) == null){
+                    mExtraInfo.put(facePulls, highRepsDefault);
+                }
+            }
+            if(mExtraInfo.get(hammerCurls) == null){
+                mExtraInfo.put(hammerCurls, normalDefault);
+            }
+            if(mExtraInfo.get(dumbbellCurls) == null){
+                mExtraInfo.put(dumbbellCurls, normalDefault);
+            }
+            if(mExtraInfo.get(abs1) == null){
+                mExtraInfo.put(abs1, normalDefaultBW);
+            }
+
+            if(isBodyweight(pulldowns)){
+                mExtraInfo.put(pulldowns, normalDefaultBW);
+            }
+
+        }else if(version.equals("strength")){
+            if(mExtraInfo.get(pulldowns) == null){
+                mExtraInfo.put(pulldowns, strengthDefault);
+            }
+            if(mExtraInfo.get(seatedCableRows) == null){
+                mExtraInfo.put(seatedCableRows, strengthDefault);
+            }
+            if(facePulls.equals("Rear Delt Flyes and Band Pulls")){
+                if(mExtraInfo.get("Rear Delt Fly (Dumbbell)") == null){
+                    mExtraInfo.put("Rear Delt Fly (Dumbbell)", normalDefault);
+                }
+                if(mExtraInfo.get("Pull-Aparts (Banded)") == null){
+                    mExtraInfo.put("Pull-Aparts (Banded)", normalDefault);
+                }
+            }else{
+                if(mExtraInfo.get(facePulls) == null){
+                    mExtraInfo.put(facePulls, highRepsDefault);
+                }
+            }
+            if(mExtraInfo.get(hammerCurls) == null){
+                mExtraInfo.put(hammerCurls, normalDefault);
+            }
+            if(mExtraInfo.get(dumbbellCurls) == null){
+                mExtraInfo.put(dumbbellCurls, normalDefault);
+            }
+            if(mExtraInfo.get(abs1) == null){
+                mExtraInfo.put(abs1, normalDefaultBW);
+            }
+
+            if(isBodyweight(pulldowns)){
+                mExtraInfo.put(pulldowns, normalDefaultBW);
+            }
+
+        }else if(version.equals("highReps")){
+            if(mExtraInfo.get(pulldowns) == null){
+                mExtraInfo.put(pulldowns, highRepsDefault);
+            }
+            if(mExtraInfo.get(seatedCableRows) == null){
+                mExtraInfo.put(seatedCableRows, highRepsDefault);
+            }
+            if(facePulls.equals("Rear Delt Flyes and Band Pulls")){
+                if(mExtraInfo.get("Rear Delt Fly (Dumbbell)") == null){
+                    mExtraInfo.put("Rear Delt Fly (Dumbbell)", highRepsDefault);
+                }
+                if(mExtraInfo.get("Pull-Aparts (Banded)") == null){
+                    mExtraInfo.put("Pull-Aparts (Banded)", highRepsDefault);
+                }
+            }else{
+                if(mExtraInfo.get(facePulls) == null){
+                    mExtraInfo.put(facePulls, highRepsDefault);
+                }
+            }
+            if(mExtraInfo.get(hammerCurls) == null){
+                mExtraInfo.put(hammerCurls, highRepsDefault);
+            }
+            if(mExtraInfo.get(dumbbellCurls) == null){
+                mExtraInfo.put(dumbbellCurls, highRepsDefault);
+            }
+            if(mExtraInfo.get(abs1) == null){
+                mExtraInfo.put(abs1, normalDefaultBW);
+            }
+
+            if(isBodyweight(pulldowns)){
+                mExtraInfo.put(pulldowns, normalDefaultBW);
+            }
+
+        }
+
+        pulldownList.add(pulldowns);
+        pulldownList.add("3x" + mExtraInfo.get(pulldowns));
+
+        seatedCableRowsList.add(seatedCableRows);
+        seatedCableRowsList.add("3x" + mExtraInfo.get(seatedCableRows));
+
+        if(facePulls.equals("Rear Delt Flyes and Band Pulls")){
+            facePullsList.add("Rear Delt Fly (Dumbbell)");
+            facePullsList.add("3x" + mExtraInfo.get("Rear Delt Fly (Dumbbell)"));
+            facePullsList.add("Pull-Aparts (Banded)");
+            facePullsList.add("3x" + mExtraInfo.get("Pull-Aparts (Banded)"));
+        }else{
+            facePullsList.add(facePulls);
+            facePullsList.add("5x" + mExtraInfo.get(facePulls));
+        }
+
+        hammerCurlsList.add(hammerCurls);
+        hammerCurlsList.add("4x" + mExtraInfo.get(hammerCurls));
+
+        dumbbellCurlsList.add(dumbbellCurls);
+        dumbbellCurlsList.add("4x" + mExtraInfo.get(dumbbellCurls));
+
+        absList.add(abs1);
+        absList.add("3x" + mExtraInfo.get(abs1));
+
+        map.put("1_key", mainLiftList);
+        map.put("2_key", pulldownList);
+        map.put("3_key", seatedCableRowsList);
+        map.put("4_key", facePullsList);
+        map.put("5_key", hammerCurlsList);
+        map.put("6_key", dumbbellCurlsList);
+        map.put("7_key", absList);
+
+        return map;
+    }
+
+    private boolean isBodyweight(String exName){
+        boolean isBW = false;
+
+        String delims = "[ ]";
+        String[] tokens = exName.split(delims);
+        for(String string : tokens){
+            if(string.equals("(Bodyweight)")){
+                isBW = true;
+            }
+        }
+
+        return isBW;
+    }
+
 }
+
+/**
+ * When the weight is 0, we could darken everything in the exname frag and below and blink the
+ * extra options button.
+ *
+ * Remember that bodyweight exercises don't have a weight so they don't increase in AS
+ *
+ * "Including super sets" checkmark in extra options
+ */
 
 /*
  * The best way would probably be to not save to default/empty template with extra info, but
