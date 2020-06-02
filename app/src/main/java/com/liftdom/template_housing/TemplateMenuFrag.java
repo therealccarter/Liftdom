@@ -202,7 +202,7 @@ public class TemplateMenuFrag extends Fragment {
 
                 PPLRedditClass pplReddit = new PPLRedditClass(templateModelClass.getExtraInfo());
 
-                HashMap<String, List<String>> map = pplReddit.getPull(1);
+                HashMap<String, List<String>> map = pplReddit.getPullWorkout(1);
 
                 // it worked. obviously have a lot of different options within that to test for, but.
 

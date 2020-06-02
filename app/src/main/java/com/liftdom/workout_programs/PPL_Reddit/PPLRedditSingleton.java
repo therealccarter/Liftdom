@@ -93,7 +93,7 @@ public class PPLRedditSingleton {
         extraInfo.put("overheadTricepsExtensions", overheadTricepsExtensions);
         extraInfo.put("legPress", legPress);
         extraInfo.put("legCurls", legCurls);
-        extraInfo.put("barbellCalfRaises", barbellCalfRaises);
+        extraInfo.put("calfRaises", barbellCalfRaises);
         extraInfo.put("dips", dips);
         extraInfo.put("abs1", abs1);
         extraInfo.put("abs2", abs2);
@@ -105,6 +105,8 @@ public class PPLRedditSingleton {
         extraInfo.put("barbellRows", "Row (Barbell - Bent-over)");
         extraInfo.put("isWarmup", String.valueOf(isWarmup));
         extraInfo.put("version", version);
+        //extraInfo.put("benchPressA", "8@0");
+        //extraInfo.put("ohpA", "8@0");
 
         return extraInfo;
     }

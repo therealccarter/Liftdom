@@ -1,5 +1,6 @@
 package com.liftdom.workout_programs.PPL_Reddit;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
@@ -120,11 +121,18 @@ public class PPLRedditClass {
     private String overheadTricepsExtensions;
     private String legPress;
     private String legCurls;
-    private String barbellCalfRaises;
+    private String calfRaises;
     private String dips;
+    /**
+     * Add dips to push
+     */
     private String abs1;
     private String abs2;
     private String rdl;
+    private String benchPressA;
+    private String ohpA;
+
+    private String lateralRaises = "Lateral Raise (Dumbbell)";
 
     private String benchPress;
     private String ohp;
@@ -141,7 +149,15 @@ public class PPLRedditClass {
     private boolean isWarmup;
     private String version;
 
+    String normalDefault = "8@0";
+    String strengthDefault = "4@0";
+    String highRepsDefault = "15@0";
+    String normalDefaultBW = "8@B.W.";
+    String strengthDefaultBW = "4@B.W.";
+    String highRepsDefaultBW = "15@B.W.";
+
     private boolean isFirstWeek;
+
 
     public PPLRedditClass(HashMap<String, String> extraInfo){
 
@@ -166,11 +182,13 @@ public class PPLRedditClass {
         overheadTricepsExtensions = extraInfo.get("overheadTricepsExtensions");
         legPress = extraInfo.get("legPress");
         legCurls = extraInfo.get("legCurls");
-        barbellCalfRaises = extraInfo.get("barbellCalfRaises");
+        calfRaises = extraInfo.get("calfRaises");
         dips = extraInfo.get("dips");
         abs1 = extraInfo.get("abs1");
         abs2 = extraInfo.get("abs2");
         rdl = extraInfo.get("rdl");
+        benchPressA = extraInfo.get("benchPressA");
+        ohpA = extraInfo.get("ohpA");
         isWarmup = Boolean.parseBoolean(extraInfo.get("isWarmup"));
         version = extraInfo.get("version");
         benchPress = extraInfo.get("benchPress");
@@ -205,44 +223,132 @@ public class PPLRedditClass {
         }
     }
 
-    String normalDefault = "8@0";
-    String strengthDefault = "4@0";
-    String highRepsDefault = "15@0";
-    String normalDefaultBW = "8@B.W.";
-    String strengthDefaultBW = "4@B.W.";
-    String highRepsDefaultBW = "15@B.W.";
+    public HashMap<String, List<String>> generateWorkoutMap(){
+        HashMap<String, List<String>> map = new HashMap<>();
 
-    private List<String> getWarmupList(String weight){
-        List<String> warmupList = new ArrayList<>();
+        if(beginDate.isAfter(todaysDate)){
+            List<String> workoutList = new ArrayList<>();
+            workoutList.add("Bench Press");
+            workoutList.add("rest");
+            map.put("1_key", workoutList);
+        }else{
+            int daysBetween = Days.daysBetween(beginDate, todaysDate).getDays();
 
-        if(!weight.equals("0")){
-            warmupList.add("1x10@45");
-            warmupList.add("1x10@" + getPercentage("47", weight));
-            warmupList.add("1x5@" + getPercentage("67", weight));
-            warmupList.add("1x3@" + getPercentage("92", weight));
+            int week = daysBetween / 7;
+            int days = daysBetween % 7;
+
+            week++;
+            days++;
+
+            if(week == 1){
+                isFirstWeek = true;
+            }
+
+            String type = getDayType(days);
+
+            map = getWorkout(type);
         }
 
-        return warmupList;
+        return map;
     }
 
-    private String getPercentage(String percent, String weightString){
-        String formatted;
+    public HashMap<String, List<String>> getWorkout(String dayType){
+        HashMap<String, List<String>> map = new HashMap<>();
 
-        double weight;
-        int weight2;
+        String delims = "[_]";
+        String[] tokens = dayType.split(delims);
 
-        double percentage = Double.parseDouble(percent)/(double)100;
+        int type = Integer.parseInt(tokens[1]);
 
-        weight = Double.parseDouble(weightString) * percentage;
+        if(tokens[0].equals("push")){
+            map = getPushWorkout(type);
+        }else if(tokens[0].equals("pull")){
+            map = getPullWorkout(type);
+        }else if(tokens[0].equals("legs")){
+            map = getLegsWorkout();
+        }else if(tokens[0].equals("rest")){
+            List<String> workoutList = new ArrayList<>();
+            workoutList.add("Bench Press");
+            workoutList.add("rest");
+            map.put("1_key", workoutList);
+        }
 
-        weight2 = (int) (5 * (Math.round(weight / 5)));
-
-        formatted = String.valueOf(weight2);
-
-        return formatted;
+        return map;
     }
 
-    public HashMap<String, List<String>> getPull(int type) {
+    private String getDayType(int days){
+        String dayType = "";
+
+        if(format.equals("pushplpplr")){
+            if(days == 1){
+                dayType = "push_1";
+            }else if(days == 2){
+                dayType = "pull_1";
+            }else if(days == 3){
+                dayType = "legs_1";
+            }else if(days == 4){
+                dayType = "push_2";
+            }else if(days == 5){
+                dayType = "pull_2";
+            }else if(days == 6){
+                dayType = "legs_2";
+            }else if(days == 7){
+                dayType = "rest";
+            }
+        }else if(format.equals("pullplpplr")){
+            if(days == 1){
+                dayType = "pull_1";
+            }else if(days == 2){
+                dayType = "push_1";
+            }else if(days == 3){
+                dayType = "legs_1";
+            }else if(days == 4){
+                dayType = "pull_2";
+            }else if(days == 5){
+                dayType = "push_2";
+            }else if(days == 6){
+                dayType = "legs_2";
+            }else if(days == 7){
+                dayType = "rest";
+            }
+        }else if(format.equals("pushplrppl")){
+            if(days == 1){
+                dayType = "push_1";
+            }else if(days == 2){
+                dayType = "pull_1";
+            }else if(days == 3){
+                dayType = "legs_1";
+            }else if(days == 4){
+                dayType = "rest";
+            }else if(days == 5){
+                dayType = "push_2";
+            }else if(days == 6){
+                dayType = "pull_2";
+            }else if(days == 7){
+                dayType = "legs_2";
+            }
+        }else if(format.equals("pullplrppl")){
+            if(days == 1){
+                dayType = "pull_1";
+            }else if(days == 2){
+                dayType = "push_1";
+            }else if(days == 3){
+                dayType = "legs_1";
+            }else if(days == 4){
+                dayType = "rest";
+            }else if(days == 5){
+                dayType = "pull_2";
+            }else if(days == 6){
+                dayType = "push_2";
+            }else if(days == 7){
+                dayType = "legs_2";
+            }
+        }
+
+        return dayType;
+    }
+
+    public HashMap<String, List<String>> getPullWorkout(int type) {
         HashMap<String, List<String>> map = new HashMap<>();
 
         List<String> mainLiftList = new ArrayList<>();
@@ -392,7 +498,6 @@ public class PPLRedditClass {
             if(isBodyweight(pulldowns)){
                 mExtraInfo.put(pulldowns, normalDefaultBW);
             }
-
         }
 
         pulldownList.add(pulldowns);
@@ -429,6 +534,284 @@ public class PPLRedditClass {
         map.put("7_key", absList);
 
         return map;
+    }
+
+    public HashMap<String, List<String>> getPushWorkout(int type) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        List<String> mainLiftList1 = new ArrayList<>();
+        List<String> mainLiftList2 = new ArrayList<>();
+
+        if(type == 1){
+            if(benchPressWeight == null){
+                benchPressWeight = "0";
+            }else{
+                if(benchPressWeight.isEmpty()){
+                    benchPressWeight = "0";
+                }
+            }
+            mainLiftList1.add("Bench Press (Barbell - Flat)");
+            if(isWarmup){
+                if(!isFirstWeek){
+                    mainLiftList1.addAll(getWarmupList(benchPressWeight));
+                }
+            }
+            mainLiftList1.add("4x5@" + benchPressWeight);
+            mainLiftList1.add("1x5_a@" + benchPressWeight);
+        }else if(type == 2){
+            if(ohpWeight == null){
+                ohpWeight = "0";
+            }else{
+                if(ohpWeight.isEmpty()){
+                    ohpWeight = "0";
+                }
+            }
+            mainLiftList1.add("Overhead Press (Barbell)");
+            if(isWarmup){
+                if(!isFirstWeek){
+                    mainLiftList1.addAll(getWarmupList(ohpWeight));
+                }
+            }
+            mainLiftList1.add("4x5@" + ohpWeight);
+            mainLiftList1.add("1x5_a@" + ohpWeight);
+        }
+
+        List<String> inclineDBList = new ArrayList<>();
+        List<String> tricepPushdownsList = new ArrayList<>();
+        List<String> overheadTricepsExtensionsList = new ArrayList<>();
+
+        if(version.equals("normal")){
+            if(mExtraInfo.get(inclineDB) == null){
+                mExtraInfo.put(inclineDB, normalDefault);
+            }
+            if(mExtraInfo.get(tricepsPushdowns) == null){
+                mExtraInfo.put(tricepsPushdowns, normalDefault);
+            }
+            if(mExtraInfo.get(lateralRaises) == null){
+                mExtraInfo.put(lateralRaises, highRepsDefault);
+            }
+            if(mExtraInfo.get(overheadTricepsExtensions) == null){
+                mExtraInfo.put(overheadTricepsExtensions, normalDefault);
+            }
+            if(mExtraInfo.get("ohpA") == null){
+                mExtraInfo.put("ohpA", normalDefault);
+            }
+            if(mExtraInfo.get("benchPressA") == null){
+                mExtraInfo.put("benchPressA", normalDefault);
+            }
+        }else if(version.equals("strength")){
+            if(mExtraInfo.get(inclineDB) == null){
+                mExtraInfo.put(inclineDB, strengthDefault);
+            }
+            if(mExtraInfo.get(tricepsPushdowns) == null){
+                mExtraInfo.put(tricepsPushdowns, normalDefault);
+            }
+            if(mExtraInfo.get(lateralRaises) == null){
+                mExtraInfo.put(lateralRaises, highRepsDefault);
+            }
+            if(mExtraInfo.get(overheadTricepsExtensions) == null){
+                mExtraInfo.put(overheadTricepsExtensions, normalDefault);
+            }
+            if(mExtraInfo.get("ohpA") == null){
+                mExtraInfo.put("ohpA", strengthDefault);
+            }
+            if(mExtraInfo.get("benchPressA") == null){
+                mExtraInfo.put("benchPressA", strengthDefault);
+            }
+        }else if(version.equals("highReps")){
+            if(mExtraInfo.get(inclineDB) == null){
+                mExtraInfo.put(inclineDB, highRepsDefault);
+            }
+            if(mExtraInfo.get(tricepsPushdowns) == null){
+                mExtraInfo.put(tricepsPushdowns, highRepsDefault);
+            }
+            if(mExtraInfo.get(lateralRaises) == null){
+                mExtraInfo.put(lateralRaises, highRepsDefault);
+            }
+            if(mExtraInfo.get(overheadTricepsExtensions) == null){
+                mExtraInfo.put(overheadTricepsExtensions, highRepsDefault);
+            }
+            if(mExtraInfo.get("ohpA") == null){
+                mExtraInfo.put("ohpA", highRepsDefault);
+            }
+            if(mExtraInfo.get("benchPressA") == null){
+                mExtraInfo.put("benchPressA", highRepsDefault);
+            }
+        }
+
+        if(type == 1){
+            mainLiftList2.add("Overhead Press (Barbell)");
+            mainLiftList2.add("3x" + ohpA);
+        }else if(type == 2){
+            mainLiftList2.add("Bench Press (Barbell - Flat)");
+            mainLiftList2.add("3x" + benchPressA);
+        }
+
+        inclineDBList.add(inclineDB);
+        inclineDBList.add("3x" + mExtraInfo.get(inclineDB));
+
+        tricepPushdownsList.add(tricepsPushdowns);
+        tricepPushdownsList.add("3x" + mExtraInfo.get(tricepsPushdowns));
+        tricepPushdownsList.add(lateralRaises);
+        tricepPushdownsList.add("3x" + mExtraInfo.get(lateralRaises));
+
+        overheadTricepsExtensionsList.add(overheadTricepsExtensions);
+        overheadTricepsExtensionsList.add("3x" + mExtraInfo.get(overheadTricepsExtensions));
+        overheadTricepsExtensionsList.add(lateralRaises);
+        overheadTricepsExtensionsList.add("3x" + mExtraInfo.get(lateralRaises));
+
+        map.put("1_key", mainLiftList1);
+        map.put("2_key", mainLiftList2);
+        map.put("3_key", inclineDBList);
+        map.put("4_key", tricepPushdownsList);
+        map.put("5_key", overheadTricepsExtensionsList);
+
+        return map;
+    }
+
+    public HashMap<String, List<String>> getLegsWorkout() {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        List<String> mainLiftList = new ArrayList<>();
+
+        if(squatWeight == null){
+            squatWeight = "0";
+        }else{
+            if(squatWeight.isEmpty()){
+                squatWeight = "0";
+            }
+        }
+        mainLiftList.add("Bench Press (Barbell - Flat)");
+        if(isWarmup){
+            if(!isFirstWeek){
+                mainLiftList.addAll(getWarmupList(squatWeight));
+            }
+        }
+        mainLiftList.add("2x5@" + squatWeight);
+        mainLiftList.add("1x5_a@" + squatWeight);
+
+        List<String> rdlList = new ArrayList<>();
+        List<String> legPressList = new ArrayList<>();
+        List<String> legCurlsList = new ArrayList<>();
+        List<String> calfRaisesList = new ArrayList<>();
+        List<String> absList = new ArrayList<>();
+
+        if(version.equals("normal")){
+            if(mExtraInfo.get(rdl) == null){
+                mExtraInfo.put(rdl, normalDefault);
+            }
+            if(mExtraInfo.get(legPress) == null){
+                mExtraInfo.put(legPress, normalDefault);
+            }
+            if(mExtraInfo.get(legCurls) == null){
+                mExtraInfo.put(legCurls, normalDefault);
+            }
+            if(mExtraInfo.get(calfRaises) == null){
+                mExtraInfo.put(calfRaises, normalDefault);
+            }
+            if(mExtraInfo.get(abs2) == null){
+                mExtraInfo.put(abs2, normalDefaultBW);
+            }
+
+            if(isBodyweight(legCurls)){
+                mExtraInfo.put(legCurls, normalDefaultBW);
+            }
+        }else if(version.equals("strength")){
+            if(mExtraInfo.get(rdl) == null){
+                mExtraInfo.put(rdl, strengthDefault);
+            }
+            if(mExtraInfo.get(legPress) == null){
+                mExtraInfo.put(legPress, strengthDefault);
+            }
+            if(mExtraInfo.get(legCurls) == null){
+                mExtraInfo.put(legCurls, normalDefault);
+            }
+            if(mExtraInfo.get(calfRaises) == null){
+                mExtraInfo.put(calfRaises, normalDefault);
+            }
+            if(mExtraInfo.get(abs2) == null){
+                mExtraInfo.put(abs2, normalDefaultBW);
+            }
+
+            if(isBodyweight(legCurls)){
+                mExtraInfo.put(legCurls, normalDefaultBW);
+            }
+        }else if(version.equals("highReps")){
+            if(mExtraInfo.get(rdl) == null){
+                mExtraInfo.put(rdl, highRepsDefault);
+            }
+            if(mExtraInfo.get(legPress) == null){
+                mExtraInfo.put(legPress, highRepsDefault);
+            }
+            if(mExtraInfo.get(legCurls) == null){
+                mExtraInfo.put(legCurls, highRepsDefault);
+            }
+            if(mExtraInfo.get(calfRaises) == null){
+                mExtraInfo.put(calfRaises, highRepsDefault);
+            }
+            if(mExtraInfo.get(abs2) == null){
+                mExtraInfo.put(abs2, normalDefaultBW);
+            }
+
+            if(isBodyweight(legCurls)){
+                mExtraInfo.put(legCurls, normalDefaultBW);
+            }
+        }
+
+        rdlList.add(rdl);
+        rdlList.add("3x" + mExtraInfo.get(rdl));
+
+        legPressList.add(legPress);
+        legPressList.add("3x" + mExtraInfo.get(legPress));
+
+        legCurlsList.add(legCurls);
+        legCurlsList.add("3x" + mExtraInfo.get(legCurls));
+
+
+        calfRaisesList.add(calfRaises);
+        calfRaisesList.add("5x" + mExtraInfo.get(calfRaises));
+
+        absList.add(abs2);
+        absList.add("3x" + mExtraInfo.get(abs2));
+
+        map.put("1_key", mainLiftList);
+        map.put("2_key", rdlList);
+        map.put("3_key", legPressList);
+        map.put("4_key", legCurlsList);
+        map.put("5_key", calfRaisesList);
+        map.put("6_key", absList);
+
+        return map;
+    }
+
+    private List<String> getWarmupList(String weight){
+        List<String> warmupList = new ArrayList<>();
+
+        if(!weight.equals("0")){
+            warmupList.add("1x10@45");
+            warmupList.add("1x10@" + getPercentage("47", weight));
+            warmupList.add("1x5@" + getPercentage("67", weight));
+            warmupList.add("1x3@" + getPercentage("92", weight));
+        }
+
+        return warmupList;
+    }
+
+    private String getPercentage(String percent, String weightString){
+        String formatted;
+
+        double weight;
+        int weight2;
+
+        double percentage = Double.parseDouble(percent)/(double)100;
+
+        weight = Double.parseDouble(weightString) * percentage;
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        formatted = String.valueOf(weight2);
+
+        return formatted;
     }
 
     private boolean isBodyweight(String exName){
