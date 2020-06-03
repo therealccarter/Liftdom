@@ -252,6 +252,39 @@ public class PPLRedditClass {
         return map;
     }
 
+    public HashMap<String, List<String>> generateWorkoutMapForDate(String dateString){
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        //LocalDate date = beginDate = LocalDate.parse(beginDateString);
+
+        LocalDate date = LocalDate.parse(dateString);
+
+        if(beginDate.isAfter(date)){
+            List<String> workoutList = new ArrayList<>();
+            workoutList.add("Bench Press");
+            workoutList.add("rest");
+            map.put("1_key", workoutList);
+        }else{
+            int daysBetween = Days.daysBetween(beginDate, date).getDays();
+
+            int week = daysBetween / 7;
+            int days = daysBetween % 7;
+
+            week++;
+            days++;
+
+            if(week == 1){
+                isFirstWeek = true;
+            }
+
+            String type = getDayType(days);
+
+            map = getWorkout(type);
+        }
+
+        return map;
+    }
+
     public HashMap<String, List<String>> getWorkout(String dayType){
         HashMap<String, List<String>> map = new HashMap<>();
 
@@ -542,14 +575,24 @@ public class PPLRedditClass {
         List<String> mainLiftList1 = new ArrayList<>();
         List<String> mainLiftList2 = new ArrayList<>();
 
-        if(type == 1){
-            if(benchPressWeight == null){
+
+        if(benchPressWeight == null){
+            benchPressWeight = "0";
+        }else{
+            if(benchPressWeight.isEmpty()){
                 benchPressWeight = "0";
-            }else{
-                if(benchPressWeight.isEmpty()){
-                    benchPressWeight = "0";
-                }
             }
+        }
+
+        if(ohpWeight == null){
+            ohpWeight = "0";
+        }else{
+            if(ohpWeight.isEmpty()){
+                ohpWeight = "0";
+            }
+        }
+
+        if(type == 1){
             mainLiftList1.add("Bench Press (Barbell - Flat)");
             if(isWarmup){
                 if(!isFirstWeek){
@@ -559,13 +602,6 @@ public class PPLRedditClass {
             mainLiftList1.add("4x5@" + benchPressWeight);
             mainLiftList1.add("1x5_a@" + benchPressWeight);
         }else if(type == 2){
-            if(ohpWeight == null){
-                ohpWeight = "0";
-            }else{
-                if(ohpWeight.isEmpty()){
-                    ohpWeight = "0";
-                }
-            }
             mainLiftList1.add("Overhead Press (Barbell)");
             if(isWarmup){
                 if(!isFirstWeek){
@@ -579,6 +615,7 @@ public class PPLRedditClass {
         List<String> inclineDBList = new ArrayList<>();
         List<String> tricepPushdownsList = new ArrayList<>();
         List<String> overheadTricepsExtensionsList = new ArrayList<>();
+        List<String> dipsList = new ArrayList<>();
 
         if(version.equals("normal")){
             if(mExtraInfo.get(inclineDB) == null){
@@ -617,6 +654,13 @@ public class PPLRedditClass {
             }
             if(mExtraInfo.get("benchPressA") == null){
                 mExtraInfo.put("benchPressA", strengthDefault);
+            }
+            if(mExtraInfo.get(dips) == null){
+                if(isBodyweight(dips)){
+                    mExtraInfo.put(dips, strengthDefaultBW);
+                }else{
+                    mExtraInfo.put(dips, strengthDefault);
+                }
             }
         }else if(version.equals("highReps")){
             if(mExtraInfo.get(inclineDB) == null){
@@ -660,11 +704,23 @@ public class PPLRedditClass {
         overheadTricepsExtensionsList.add(lateralRaises);
         overheadTricepsExtensionsList.add("3x" + mExtraInfo.get(lateralRaises));
 
+        if(version.equals("strength")){
+            dipsList.add(dips);
+            dipsList.add("3x" + mExtraInfo.get(dips));
+        }
+
         map.put("1_key", mainLiftList1);
         map.put("2_key", mainLiftList2);
-        map.put("3_key", inclineDBList);
-        map.put("4_key", tricepPushdownsList);
-        map.put("5_key", overheadTricepsExtensionsList);
+        if(dipsList.isEmpty()){
+            map.put("3_key", inclineDBList);
+            map.put("4_key", tricepPushdownsList);
+            map.put("5_key", overheadTricepsExtensionsList);
+        }else{
+            map.put("3_key", dipsList);
+            map.put("4_key", inclineDBList);
+            map.put("5_key", tricepPushdownsList);
+            map.put("6_key", overheadTricepsExtensionsList);
+        }
 
         return map;
     }
@@ -681,7 +737,7 @@ public class PPLRedditClass {
                 squatWeight = "0";
             }
         }
-        mainLiftList.add("Bench Press (Barbell - Flat)");
+        mainLiftList.add("Squat (Barbell - Back)");
         if(isWarmup){
             if(!isFirstWeek){
                 mainLiftList.addAll(getWarmupList(squatWeight));
