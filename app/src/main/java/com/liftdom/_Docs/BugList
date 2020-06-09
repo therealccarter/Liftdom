@@ -341,6 +341,16 @@ switch or leave it minimized while halfway done?
         intro.
 ============ THE ABSOLUTE MOST IMPORTANT ===============================================================================================================
 ============ What are the next most important things for beta release? =====
+WA Service went to shit when doing 25 sets supersetted with 25 sets. Big delay when clicking next, timer wouldn't exit.
+    - Caused by java.lang.NullPointerException
+      Attempt to invoke virtual method 'void com.liftdom.workout_assistor.WorkoutProgressModelClass.next()' on a null object reference
+      com.liftdom.workout_assistor.AssistorServiceClass.processNextAction
+      - If it equals null, reload.
+    - it also skips some sets or goes to the next set without checking the one you checked.
+    - it wasn't as bad when I didn't have the rest timer going.
+    - solution may be decoupling the service from reading from the database. then having some sort
+    of broadcast sent to the service any time WA is updated from WA.
+
 Some things should have time for the weight...and running needs distance (feet/yard/miles but also
 allow metric for that (like doing 100m)).
 

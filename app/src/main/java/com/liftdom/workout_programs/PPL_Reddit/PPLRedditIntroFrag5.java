@@ -112,7 +112,7 @@ public class PPLRedditIntroFrag5 extends SlideFragment {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         templateNameList.add(dataSnapshot1.getKey());
-                        if(dataSnapshot1.getKey().equals("Wendler 5-3-1 4B")){
+                        if(dataSnapshot1.getKey().equals("PPLReddit")){
                             programNameTakenView.setVisibility(View.VISIBLE);
                         }
                     }

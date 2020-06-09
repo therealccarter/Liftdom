@@ -29,13 +29,13 @@
                 android:layout_weight="1"
         >
             <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:src="@drawable/three_dot_menu"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="3dp"
+                    android:layout_marginStart="15dp"
                     android:id="@+id/extraOptionsButton"
-                    android:tint="@color/offerGrey"
+                    android:tint="@color/offerGrey2"
             />
 
         </LinearLayout>

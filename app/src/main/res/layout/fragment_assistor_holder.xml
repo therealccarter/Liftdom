@@ -159,7 +159,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/extraInfoTextView"
-            android:text="@string/oneRepMaxDay"
             android:layout_margin="10dp"
             android:textColor="@color/green"
             android:gravity="center"
@@ -172,7 +171,7 @@
             android:id="@+id/endView"
             android:text="@string/lastDayOfWorkout"
             android:layout_margin="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:gravity="center"
             android:visibility="gone"
             />

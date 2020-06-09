@@ -1,6 +1,8 @@
 package com.liftdom.charts_stats_tools.tools;
 
 import android.graphics.Typeface;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,7 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liftdom.helper_classes.DigitsInputFilter;
 import com.liftdom.liftdom.R;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.LocalDate;
@@ -63,8 +67,12 @@ public class MaxesEditExistingDialog extends AppCompatActivity {
             isImperialPOV = getIntent().getBooleanExtra("isImperialPOV", true);
             if(isImperialPOV){
                 unitsTextView.setText("lbs");
+                maxEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                maxEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
             }else{
                 unitsTextView.setText("kgs");
+                maxEditText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+                maxEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
             }
         }
 

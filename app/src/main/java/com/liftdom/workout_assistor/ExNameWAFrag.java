@@ -3,28 +3,22 @@ package com.liftdom.workout_assistor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.inputmethod.InputMethodManager;
 import androidx.fragment.app.Fragment;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.*;
 import com.liftdom.charts_stats_tools.exercise_selector.ExSelectorActivity;
 import com.liftdom.liftdom.R;
 import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBWeightDialog;
-import me.toptas.fancyshowcase.FancyShowCaseQueue;
-import me.toptas.fancyshowcase.FancyShowCaseView;
-import me.toptas.fancyshowcase.FocusShape;
 
 import java.util.*;
 
@@ -70,6 +64,11 @@ public class ExNameWAFrag extends android.app.Fragment
     boolean isPullW531fB;
     boolean isLegCoreW531fB;
 
+    //PPLReddit
+    public boolean isPPLReddit;
+    public boolean isFirstTimePPLR;
+    boolean isDark;
+
     // need to set up update progress callback
 
     public interface removeFragCallback{
@@ -92,6 +91,7 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public interface updateChildFragWeightsCallback{
         void updateChildFragWeights(String frag, String exName, String weight);
+        void updateChildFragWeights(String frag, String exName, String weight, String reps);
     }
 
     public interface updateWorkoutStateForResultCallback{
@@ -169,39 +169,43 @@ public class ExNameWAFrag extends android.app.Fragment
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //removeFrag.removeFrag(fragTag);
-                Intent intent = new Intent(v.getContext(), ExDeleteConfirmation.class);
-                startActivityForResult(intent, 1);
+                if(!isDark){
+                    Intent intent = new Intent(v.getContext(), ExDeleteConfirmation.class);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
         checkOffAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkOffAll.isChecked()){
-                    if(exNameSupersetFragList != null){
-                        if(!exNameSupersetFragList.isEmpty()){
-                            checkOffSS();
-                            updateWorkoutState.updateWorkoutStateWithDelay();
+                if(!isDark){
+                    if(checkOffAll.isChecked()){
+                        if(exNameSupersetFragList != null){
+                            if(!exNameSupersetFragList.isEmpty()){
+                                checkOffSS();
+                                updateWorkoutState.updateWorkoutStateWithDelay();
+                            }else{
+                                checkOffNonSS();
+                                updateWorkoutState.updateWorkoutStateWithDelay();
+                            }
                         }else{
                             checkOffNonSS();
                             updateWorkoutState.updateWorkoutStateWithDelay();
                         }
                     }else{
-                        checkOffNonSS();
-                        updateWorkoutState.updateWorkoutStateWithDelay();
-                    }
-                }else{
-                    if(exNameSupersetFragList != null){
-                        if(!exNameSupersetFragList.isEmpty()){
-                            unCheckOffSS();
-                            updateWorkoutState.updateWorkoutStateWithDelay();
+                        if(exNameSupersetFragList != null){
+                            if(!exNameSupersetFragList.isEmpty()){
+                                unCheckOffSS();
+                                updateWorkoutState.updateWorkoutStateWithDelay();
+                            }else{
+                                unCheckOffNonSS();
+                                updateWorkoutState.updateWorkoutStateWithDelay();
+                            }
                         }else{
                             unCheckOffNonSS();
                             updateWorkoutState.updateWorkoutStateWithDelay();
                         }
-                    }else{
-                        unCheckOffNonSS();
-                        updateWorkoutState.updateWorkoutStateWithDelay();
                     }
                 }
             }
@@ -214,26 +218,28 @@ public class ExNameWAFrag extends android.app.Fragment
                 //String exName = getExerciseValueFormatted();
                 //intent.putExtra("exName", exName);
                 //startActivityForResult(intent, 1);
-                if(getActivity() != null){
-                    if(getActivity().getCurrentFocus() != null){
-                        try {
-                            InputMethodManager inputMethodManager =
-                                    (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                        }catch (NullPointerException e){
+                if(!isPPLReddit){
+                    if(getActivity() != null){
+                        if(getActivity().getCurrentFocus() != null){
+                            try {
+                                InputMethodManager inputMethodManager =
+                                        (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                            }catch (NullPointerException e){
 
+                            }
                         }
                     }
-                }
 
-                if(isAssistanceW531fB){
-                    handleExNameIntentW531fB();
-                }else{
-                    Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                    int exID = exerciseNameView.getId();
-                    intent.putExtra("fragTag", fragTag);
-                    intent.putExtra("exID", exID);
-                    startActivityForResult(intent, 2);
+                    if(isAssistanceW531fB){
+                        handleExNameIntentW531fB();
+                    }else{
+                        Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
+                        int exID = exerciseNameView.getId();
+                        intent.putExtra("fragTag", fragTag);
+                        intent.putExtra("exID", exID);
+                        startActivityForResult(intent, 2);
+                    }
                 }
 
                 /**
@@ -256,29 +262,33 @@ public class ExNameWAFrag extends android.app.Fragment
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ExSelectorActivity.class);
-                int exID = exerciseNameView.getId();
+                Intent intent = new Intent(getActivity(), ExNameWAOptionDialog.class);
+                String exID = fragTag;
                 intent.putExtra("exID", exID);
+                intent.putExtra("exercise", getExerciseName());
+                intent.putExtra("isImperialPOV", isUserImperial);
                 startActivityForResult(intent, 3);
             }
         });
 
         addSchemeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                repsWeightInc++;
-                String tag = String.valueOf(repsWeightInc) + "rwSS_2";
-                android.app.FragmentManager fragmentManager = getChildFragmentManager();
-                android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
-                repsWeightFrag.isTemplateImperial = isTemplateImperial;
-                repsWeightFrag.isUserImperial = isUserImperial;
-                repsWeightFrag.repsWeightString = " @ ";
-                repsWeightFrag.fragTag1 = tag;
-                fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
-                fragmentTransaction.commitAllowingStateLoss();
-                fragmentManager.executePendingTransactions();
-                repsWeightFragList2.add(repsWeightFrag);
-                tagListWA.add(tag);
+                if(!isDark){
+                    repsWeightInc++;
+                    String tag = String.valueOf(repsWeightInc) + "rwSS_2";
+                    android.app.FragmentManager fragmentManager = getChildFragmentManager();
+                    android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    RepsWeightWAFrag repsWeightFrag = new RepsWeightWAFrag();
+                    repsWeightFrag.isTemplateImperial = isTemplateImperial;
+                    repsWeightFrag.isUserImperial = isUserImperial;
+                    repsWeightFrag.repsWeightString = " @ ";
+                    repsWeightFrag.fragTag1 = tag;
+                    fragmentTransaction.add(R.id.repsWeightContainer, repsWeightFrag, tag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                    fragmentManager.executePendingTransactions();
+                    repsWeightFragList2.add(repsWeightFrag);
+                    tagListWA.add(tag);
+                }
             }
         });
 
@@ -305,7 +315,17 @@ public class ExNameWAFrag extends android.app.Fragment
             //checkIfAllAreChecked();
         }
 
+        if(isFirstTimePPLR){
+            flashExtraOptions();
+            makeDark();
+        }
+
         return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     private void handleExNameIntentW531fB(){
@@ -420,6 +440,69 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    void makeDark(){
+        isDark = true;
+        if(!repsWeightFragList1.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                //repsWeightWAFrag.makeDark();
+                repsWeightWAFrag.isDark = true;
+            }
+        }
+        if(!repsWeightFragList2.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                //repsWeightWAFrag.makeDark();
+                repsWeightWAFrag.isDark = true;
+            }
+        }
+    }
+
+    void makeLight(){
+        isDark = false;
+        isFirstTimePPLR = false;
+        if(timer != null){
+            timer.cancel();
+        }
+        if(!repsWeightFragList1.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                repsWeightWAFrag.makeLight();
+            }
+        }
+        if(!repsWeightFragList2.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                repsWeightWAFrag.makeLight();
+            }
+        }
+    }
+
+    boolean isGrey = false;
+
+    CountDownTimer timer;
+
+    private void flashExtraOptions(){
+        if(timer != null){
+            timer.cancel();
+        }
+        if(isFirstTimePPLR){
+            timer = new CountDownTimer(15000, 250) {
+                @Override
+                public void onTick(long l) {
+                    if(isGrey){
+                        extraOptionsButton.setBackgroundColor(Color.parseColor("#a79413"));
+                        isGrey = false;
+                    }else{
+                        extraOptionsButton.setBackgroundColor(Color.parseColor("#454545"));
+                        isGrey = true;
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    extraOptionsButton.setBackgroundColor(Color.parseColor("#454545"));
+                }
+            }.start();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -434,6 +517,57 @@ public class ExNameWAFrag extends android.app.Fragment
                     }else{
                         updateChildWeights.updateChildFragWeights(fragTag1, data.getStringExtra(
                                 "exName"), data.getStringExtra("weight"));
+                    }
+                }catch (NullPointerException e){
+
+                }
+            }
+        }else if(requestCode == 3){
+            /**
+             * What do we need to do?
+             *
+             * The exName will match one key's value.
+             *
+             * We put the exName as key and then we need to put the reps and weight as value.
+             *
+             * We could do this here or we could do this in AS.
+             *
+             * Positive of doing it here is that it's clean and solid.
+             *
+             * If they don't do it here, we'd have to try to figure out what they were doing by
+             * examining the completed map. But even with examining, we'd only set that as the
+             * value if they all are, so it doesn't really matter?
+             *
+             * We could force it by making everything untouchable until you do it..
+             *
+             * Just check if it's pplr and if the set's weight is 0. Then it has a first time
+             * bool. Which shuts everything off and flashes the extra options button.
+             */
+            if(resultCode == 1){
+                try{
+                    String fragTag1 = data.getStringExtra("fragTag");
+                    if(fragTag1.equals(fragTag)){
+                        String weight = data.getStringExtra("weight");
+                        String reps = data.getStringExtra("reps");
+                        if(!weight.isEmpty()){
+                            updateChildWeights(weight, false);
+                        }
+                        if(!reps.isEmpty()){
+                            updateChildReps(reps);
+                        }
+                        makeLight();
+                        updateWorkoutStateFast();
+                    }else{
+                        String weight = data.getStringExtra("weight");
+                        String reps = data.getStringExtra("reps");
+                        if(!weight.isEmpty() && reps.isEmpty()){
+                            updateChildWeights.updateChildFragWeights(fragTag1, data.getStringExtra(
+                                    "exName"), weight);
+                        }else{
+                            updateChildWeights.updateChildFragWeights(fragTag1, data.getStringExtra(
+                                    "exName"), weight, reps);
+                        }
+                        makeLight();
                     }
                 }catch (NullPointerException e){
 
@@ -536,6 +670,19 @@ public class ExNameWAFrag extends android.app.Fragment
         if(!repsWeightFragList2.isEmpty()){
             for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
                 repsWeightWAFrag.updateWeights(weight, isBW);
+            }
+        }
+    }
+
+    public void updateChildReps(String reps){
+        if(!repsWeightFragList1.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                repsWeightWAFrag.updateReps(reps);
+            }
+        }
+        if(!repsWeightFragList2.isEmpty()){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                repsWeightWAFrag.updateReps(reps);
             }
         }
     }

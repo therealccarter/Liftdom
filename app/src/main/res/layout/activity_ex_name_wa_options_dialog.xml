@@ -6,109 +6,122 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/transparent"
-        tools:context="com.liftdom.charts_stats_tools.tools.MaxesEditExistingDialog">
+        android:background="@color/lessDarkGrey"
+        tools:context="com.liftdom.workout_assistor.ExNameWAOptionDialog">
 
     <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/exName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@color/liftrGold1"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/exercise"
             android:textColor="@color/black"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:textSize="22sp" />
+            android:text="ExName"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="10dp"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/changeWeightForAllSets"
+            android:id="@+id/weightTextView"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:id="@+id/weightLL"
             android:background="@color/lessDarkGrey"
             android:gravity="center"
             >
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/maxWeightLifted"
-                android:id="@+id/oldMax"
-                android:background="@color/lessDarkGrey"
-                android:textColor="@color/liftrGold1"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:padding="3dp"
-                />
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:id="@+id/date"
-                android:background="@color/lessDarkGrey"
-                android:textColor="@color/liftrGold1"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:padding="3dp"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/lessDarkGrey"
-            android:gravity="center"
-            >
-
-        <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                app:indicatorName="BallClipRotateMultipleIndicator"
-                app:indicatorColor="@color/liftrGold2"
-                android:id="@+id/loadingView"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                android:background="@color/lessDarkGrey"
-                />
 
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/maxEditText"
-                android:textSize="18sp"
+                android:id="@+id/weightEditText"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:maxLength="3"
                 android:foregroundTint="@color/liftrGold1"
-                android:visibility="gone"
                 />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="lbs"
                 android:id="@+id/units"
                 android:textColor="@color/grey"
-                android:visibility="gone"
                 />
 
     </LinearLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black"
+            android:layout_margin="20dp"
+            />
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/invalidExNameView"
-            android:textColor="@color/darkred"
-            android:background="@color/black"
-            android:text="@string/invalidExName"
-            android:padding="3dp"
+            android:text="@string/changeRepsForAllSets"
+            android:textSize="15sp"
             android:gravity="center"
-            android:layout_marginBottom="5dp"
-            android:visibility="gone"
+            android:textColor="@color/white"
             />
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/lessDarkGrey"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            >
+
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/repsEditText"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:maxLength="3"
+                android:foregroundTint="@color/liftrGold1"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repsWord"
+                android:textColor="@color/grey"
+                />
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leaveBlank"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -145,11 +158,5 @@
                 />
 
     </LinearLayout>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/transparent"
-            />
 
 </LinearLayout>

@@ -1,8 +1,11 @@
 package com.liftdom.workout_programs.Smolov;
 
 
+import android.text.InputFilter;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import com.liftdom.helper_classes.DigitsInputFilter;
+import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.TemplateEditorSingleton;
 import com.liftdom.workout_assistor.ExerciseMaxesModelClass;
 import io.github.dreierf.materialintroscreen.SlideFragment;
@@ -77,10 +80,12 @@ public class SmolovIntroFrag2 extends SlideFragment {
                     unitsView.setText("kgs");
                     SmolovSetupSingleton.getInstance().isImperial = false;
                     setFromMax(exerciseButton.getText().toString());
+                    maxWeightEditText.setFilters(new InputFilter[]{new DigitsInputFilter(4, 2, 500)});
                 }else{
                     unitsView.setText("lbs");
                     SmolovSetupSingleton.getInstance().isImperial = true;
                     setFromMax(exerciseButton.getText().toString());
+                    maxWeightEditText.setFilters(new InputFilter[]{new InputFilterMinMax(1, 1000)});
                 }
             }
 

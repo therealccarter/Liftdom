@@ -43,7 +43,6 @@
                     android:id="@+id/extraOptionsButton"
                     android:tint="@color/offerGrey"
                     android:layout_marginTop="3dp"
-                    android:visibility="gone"
             />
 
             <LinearLayout

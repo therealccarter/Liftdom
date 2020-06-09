@@ -24,6 +24,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.user_profile.UserModelClass;
 import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
+import com.liftdom.workout_programs.PPL_Reddit.PPLRedditClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import org.joda.time.DateTime;
@@ -717,10 +718,48 @@ public class WorkoutAssistorFrag extends Fragment{
             inflateSmolov(templateModelClass);
         }else if(templateModelClass.getWorkoutType().equals("W531fB")){
             inflateW531fB(templateModelClass);
+        }else if(templateModelClass.getWorkoutType().equals("PPLReddit")){
+            inflatePPLReddit(templateModelClass);
         }
     }
 
     //TODO consolidate these into one method with ifs for each premade
+
+    private void inflatePPLReddit(TemplateModelClass templateModelClass){
+        PPLRedditClass pplReddit = new PPLRedditClass(templateModelClass.getExtraInfo());
+        HashMap<String, List<String>> map = pplReddit.generateWorkoutMap();
+
+        if(map.get("1_key").get(1).equals("rest")){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            RestDayFrag restDayFrag = new RestDayFrag();
+            if (!getActivity().isFinishing()) {
+                try {
+                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                            .exInfoHolder);
+                    fragmentTransaction.replace(exInfoHolder.getId(), restDayFrag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }catch (NullPointerException e){
+
+                }
+            }
+        }else{
+            android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AssistorHolderFrag assistorHolderFrag = new AssistorHolderFrag();
+            assistorHolderFrag.mTemplateClass = templateModelClass;
+            if (!getActivity().isFinishing()) {
+                try {
+                    LinearLayout exInfoHolder = (LinearLayout) getView().findViewById(R.id
+                            .exInfoHolder);
+                    fragmentTransaction.replace(exInfoHolder.getId(), assistorHolderFrag);
+                    fragmentTransaction.commitAllowingStateLoss();
+                }catch (NullPointerException e){
+
+                }
+            }
+        }
+    }
 
     private void inflateW531fB(TemplateModelClass templateModelClass){
         Wendler_531_For_Beginners W531fBClass = new Wendler_531_For_Beginners(templateModelClass.getExtraInfo());

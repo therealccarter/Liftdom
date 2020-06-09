@@ -26,8 +26,11 @@
             android:networkSecurityConfig="@xml/network_security_config"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBWeightDialog"
-                android:theme="@style/AppCompatDialogNoTitleBar"/>
+        <activity android:name="com.liftdom.workout_assistor.ExNameWAOptionDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar" />
+        <activity
+                android:name="com.liftdom.workout_programs.FiveThreeOne_ForBeginners.W531fBWeightDialog"
+                android:theme="@style/AppCompatDialogNoTitleBar" />
         <activity
                 android:name="com.liftdom.template_editor.UseRunningTemplateDialog"
                 android:theme="@style/AppCompatDialogNoTitleBar" />

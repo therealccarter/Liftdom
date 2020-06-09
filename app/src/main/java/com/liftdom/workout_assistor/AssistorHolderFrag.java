@@ -35,6 +35,7 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.InputFilterMinMax;
 import com.liftdom.template_editor.TemplateModelClass;
 import com.liftdom.workout_programs.FiveThreeOne_ForBeginners.Wendler_531_For_Beginners;
+import com.liftdom.workout_programs.PPL_Reddit.PPLRedditClass;
 import com.liftdom.workout_programs.Smolov.Smolov;
 import com.wang.avi.AVLoadingIndicatorView;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
@@ -826,6 +827,25 @@ public class AssistorHolderFrag extends android.app.Fragment
                 if(exNameWAFrag.fragTag.equals(frag)){
                     if(exNameWAFrag.getExerciseName().equals(exName)){
                         exNameWAFrag.updateChildWeights(weight, false);
+                        updateWorkoutState();
+                    }
+                }
+            }
+        }
+    }
+
+    public void updateChildFragWeights(String frag, String exName, String weight, String reps){
+        getChildFragmentManager().executePendingTransactions();
+        if(frag != null){
+            for(ExNameWAFrag exNameWAFrag : exNameFragList){
+                if(exNameWAFrag.fragTag.equals(frag)){
+                    if(exNameWAFrag.getExerciseName().equals(exName)){
+                        if(!weight.isEmpty()){
+                            exNameWAFrag.updateChildWeights(weight, false);
+                        }
+                        if(!reps.isEmpty()){
+                            exNameWAFrag.updateChildReps(reps);
+                        }
                         updateWorkoutState();
                     }
                 }
@@ -1975,12 +1995,46 @@ public class AssistorHolderFrag extends android.app.Fragment
         boolean isW531fB = false;
         List<String> W531fBAssistanceList = new ArrayList<>();
 
+        boolean isPPLReddit = false;
+
         if(preMadeInfo != null){
             if(!preMadeInfo.isEmpty()){
                 if(preMadeInfo.get("type") != null){
                     if(preMadeInfo.get("type").equals("W531fB")){
                         isW531fB = true;
                         W531fBAssistanceList = getAssistanceExList();
+                        if(preMadeInfo.get("TMIncreaseWeek") != null){
+                            if(preMadeInfo.get("TMIncreaseWeek").equals("true")){
+                                extraInfoTextView.setText(R.string.W5314BIncreaseWeekAlert);
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        if(preMadeInfo.get("SpecialWeek") != null){
+                            if(preMadeInfo.get("SpecialWeek").equals("true")){
+                                extraInfoTextView.setText(R.string.W5314BSpecialWeekInstruction);
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }else if(preMadeInfo.get("type").equals("PPLReddit")){
+                        isPPLReddit = true;
+                        if(preMadeInfo.get("firstWeek") != null){
+                            if(preMadeInfo.get("firstWeek").equals("true")){
+                                extraInfoTextView.setText(R.string.PPLRedditFirstWeekInstruction);
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }else if(preMadeInfo.get("type").equals("Smolov")){
+                        if(preMadeInfo.get("oneRepMaxDay") != null){
+                            if(preMadeInfo.get("oneRepMaxDay").equals("true")){
+                                extraInfoTextView.setText(R.string.oneRepMaxDay);
+                                extraInfoTextView.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        if(preMadeInfo.get("isLastDay") != null){
+                            if(preMadeInfo.get("isLastDay").equals("true")){
+                                endView.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
                 }
             }
@@ -2018,6 +2072,10 @@ public class AssistorHolderFrag extends android.app.Fragment
                                 }
                             }
                         }
+                        if(isPPLReddit){
+                            exNameFrag.isFirstTimePPLR = isSetZeroWeightMap(exerciseMap);
+                        }
+                        exNameFrag.isPPLReddit = isPPLReddit;
                         exNameFrag.isTemplateImperial = isRunningImperial1;
                         exNameFrag.isUserImperial = isUserImperial;
                         exNameFrag.isEditInfoList = exerciseMap;
@@ -2065,171 +2123,129 @@ public class AssistorHolderFrag extends android.app.Fragment
             inflateSmolov();
         }else if(mTemplateClass.getWorkoutType().equals("W531fB")){
             inflateW531fB();
+        }else if(mTemplateClass.getWorkoutType().equals("PPLReddit")){
+            inflatePPLReddit();
         }
     }
 
-    public void setAssistanceExercise(String exName, int type){
-        preMadeInfo.put(exName, "0");
-        if(type == 1){
-            preMadeInfo.put("lastUsedPush", exName);
-        }else if(type == 2){
-            preMadeInfo.put("lastUsedPull", exName);
-        }else if(type == 3){
-            preMadeInfo.put("lastUsedLegCore", exName);
+    private void inflatePPLReddit(){
+        PPLRedditClass pplReddit = new PPLRedditClass(mTemplateClass.getExtraInfo());
+        HashMap<String, List<String>> map = pplReddit.generateWorkoutMap();
+
+        if(pplReddit.isFirstWeek()){
+            extraInfoTextView.setText(R.string.PPLRedditFirstWeekInstruction);
+            extraInfoTextView.setVisibility(View.VISIBLE);
+            preMadeInfo.put("firstWeek", "true");
+        }else{
+            preMadeInfo.put("firstWeek", "false");
         }
-    }
 
-    void setAssistanceExercise(String exName, String value){
-        preMadeInfo.put(exName, value);
-    }
+        preMadeInfo.put("type", "PPLReddit");
+        preMadeInfo.put("version", pplReddit.getVersion());
 
-    private void setSpecialWeekTMs(List<String> infoList, boolean isUserImperial,
-                                   boolean isTemplateImperial){
-        List<String> exList = new ArrayList<>();
-        exList.add("Squat (Barbell - Back)");
-        exList.add("Bench Press (Barbell - Flat)");
-        exList.add("Overhead Press (Barbell)");
-        exList.add("Deadlift (Barbell - Conventional)");
+        preMadeInfo.putAll(pplReddit.getTodayExercises());
 
-        if(exList.contains(infoList.get(0))){
-            double weight;
+        /**
+         * Let's actually think about what we need to do.
+         *
+         * We need the exname frags to know that they are PPLR.
+         *  - So that they can pulse the extra options button.
+         *
+         * How can we handle knowing which exercise pool it is when some have the same exercises
+         * in it?
+         *
+         * The real redpill is that we might not be able to have exercises change on the fly.
+         *
+         * We still need to know in AS what exercises we're working with that day, and they'll be
+         * just like the are in template. Key is shortened exName, value is real exName.
+         *
+         * Easily could do this by generating a map of those names in generateWorkout.
+         *
+         * If it's pplr show little notification on exname click that says you can change ex in
+         * editor.
+         *
+         * What do we do once in AS though?
+         *
+         */
 
-            String delims = "[_]";
-            String[] tokens = infoList.get(4).split(delims);
+        for(int i = 0; i < map.size(); i++) {
+            if (i == 0) {
+                loadingView.setVisibility(View.GONE);
+                restTimerLL.setVisibility(View.VISIBLE);
+            }
+            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+                if (!entry.getKey().equals("0_key")) {
+                    if (isOfIndex(i, entry.getKey())) {
+                        exNameInc++;
+                        String tag = String.valueOf(exNameInc) + "ex";
+                        List<String> stringList = entry.getValue();
+                        android.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                        ExNameWAFrag exNameFrag = new ExNameWAFrag();
+                        exNameFrag.isTemplateImperial = isTemplateImperial;
+                        exNameFrag.infoList = stringList;
+                        if(isSetZeroWeight(stringList)){
+                            exNameFrag.isFirstTimePPLR = true;
+                        }
+                        exNameFrag.isUserImperial = isUserImperial;
+                        exNameFrag.fragTag = tag;
+                        exNameFrag.templateName = templateName;
+                        exNameFrag.isPPLReddit = true;
+                        if (getActivity() != null) {
+                            if (!getActivity().isFinishing()) {
+                                fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
+                                fragmentTransaction.commitAllowingStateLoss();
+                                getChildFragmentManager().executePendingTransactions();
+                                exNameFragList.add(exNameFrag);
+                                fragTagList.add(tag);
+                            }
+                        }
 
-            String unConverted = tokens[tokens.length - 1];
-
-            //weight = Double.parseDouble(tokens[tokens.length - 1]);
-            //double roundedWeight = Double.parseDouble(roundNumberToNearest5(weight));
-
-            /**
-             * What we need to do:
-             * We need to replicate the normal process to get the right value, but we also need
-             * to get the opposite as well. So, one in lbs and one in kgs.
-             */
-
-            String convertedLbs;
-            String convertedKgs;
-
-            if(isUserImperial && !isTemplateImperial){
-                // user is lbs, template is kgs
-                convertedLbs = metricToImperial(unConverted);
-                convertedLbs = roundNumberToNearest5(convertedLbs);
-                convertedKgs = imperialToMetric(unConverted);
-                convertedKgs = roundNumberToNearest5(convertedKgs);
-
-            }else if(!isUserImperial && isTemplateImperial){
-                // user is kgs, template is lbs
-                convertedLbs = metricToImperial(unConverted);
-                convertedLbs = roundNumberToNearest5(convertedLbs);
-                convertedKgs = imperialToMetric(unConverted);
-                convertedKgs = roundNumberToNearest5(convertedKgs);
-            }else{
-                convertedLbs = unConverted;
-                if(isUserImperial){
-                    double doubleVersion = Double.parseDouble
-                            (roundNumberToNearest5(unConverted));
-                    int intVersion = (int) doubleVersion;
-                    convertedLbs = String.valueOf(intVersion);
-                    convertedKgs = imperialToMetric(unConverted);
-                    convertedKgs = roundNumberToNearest5(convertedKgs);
-                }else{
-                    double doubleVersion = Double.parseDouble
-                            (roundNumberToNearest5(unConverted));
-                    int intVersion = (int) doubleVersion;
-                    convertedKgs = String.valueOf(intVersion);
-                    convertedLbs = metricToImperial(unConverted);
-                    convertedLbs = roundNumberToNearest5(convertedLbs);
+                    }
                 }
             }
-
-            String first = infoList.get(0) + "Lbs";
-            String second = infoList.get(0) + "Kgs";
-
-            setAssistanceExercise(first, convertedLbs);
-            setAssistanceExercise(second, convertedKgs);
-
+            if(i == (map.size() - 1)){
+                updateWorkoutStateNoProgress();
+                serviceCardView.setVisibility(View.VISIBLE);
+            }
         }
+
     }
 
-    public boolean isPercentageShort(String string){
-        boolean isPercentage;
+    private boolean isSetZeroWeight(List<String> stringList){
+        boolean isZeroWeight;
 
-        char c = string.charAt(0);
-        String cString = String.valueOf(c);
-        if(cString.equals("p")){
-            isPercentage = true;
+        String delims = "[@]";
+        String[] tokens = stringList.get(1).split(delims);
+
+        if(tokens[tokens.length - 1].equals("0")){
+            isZeroWeight = true;
         }else{
-            isPercentage = false;
+            isZeroWeight = false;
         }
 
-        return isPercentage;
+        return isZeroWeight;
     }
 
-    private String metricToImperial(String input){
+    private boolean isSetZeroWeightMap(HashMap<String, List<String>> exerciseMap){
+        boolean isZeroWeight = true;
 
-        String weight;
-        String newString;
-
-        char c = input.charAt(0);
-        String cString = String.valueOf(c);
-        if(cString.equals("p")){
-            String delims = "[_]";
-            String[] tokens = input.split(delims);
-            weight = tokens[tokens.length - 1];
-            double lbsDouble = Double.parseDouble(weight) * 2.2046;
-            int lbsInt = (int) Math.round(lbsDouble);
-            newString =
-                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(lbsInt);
-        }else{
-            weight = input;
-            double lbsDouble = Double.parseDouble(weight) * 2.2046;
-            int lbsInt = (int) Math.round(lbsDouble);
-            newString = String.valueOf(lbsInt);
+        for(Map.Entry<String, List<String>> entry : exerciseMap.entrySet()){
+            int i = 0;
+            for(String value : entry.getValue()){
+                if(i != 0){
+                    String delims = "[@]";
+                    String[] tokens = value.split(delims);
+                    String delims2 = "[_]";
+                    String[] tokens2 = tokens[tokens.length - 1].split(delims2);
+                    if(!tokens2[0].equals("0")){
+                        isZeroWeight = false;
+                    }
+                }
+                i++;
+            }
         }
 
-
-        return newString;
-    }
-
-    private String imperialToMetric(String input){
-
-        String weight;
-        String newString;
-
-        char c = input.charAt(0);
-        String cString = String.valueOf(c);
-        if(cString.equals("p")){
-            String delims = "[_]";
-            String[] tokens = input.split(delims);
-            weight = tokens[tokens.length - 1];
-            double kgDouble = Double.parseDouble(weight) / 2.2046;
-            int kgInt = (int) Math.round(kgDouble);
-            newString =
-                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(kgInt);
-        }else{
-            weight = input;
-            double kgDouble = Double.parseDouble(weight) / 2.2046;
-            int kgInt = (int) Math.round(kgDouble);
-            newString = String.valueOf(kgInt);
-        }
-
-        return newString;
-    }
-
-    private String roundNumberToNearest5(String weightString){
-        String rounded;
-
-        double weight;
-        int weight2;
-
-        weight = Double.parseDouble(weightString);
-
-        weight2 = (int) (5 * (Math.round(weight / 5)));
-
-        rounded = String.valueOf(weight2);
-
-        return rounded;
+        return isZeroWeight;
     }
 
     private void inflateW531fB(){
@@ -2409,6 +2425,170 @@ public class AssistorHolderFrag extends android.app.Fragment
                 serviceCardView.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public void setAssistanceExercise(String exName, int type){
+        preMadeInfo.put(exName, "0");
+        if(type == 1){
+            preMadeInfo.put("lastUsedPush", exName);
+        }else if(type == 2){
+            preMadeInfo.put("lastUsedPull", exName);
+        }else if(type == 3){
+            preMadeInfo.put("lastUsedLegCore", exName);
+        }
+    }
+
+    void setAssistanceExercise(String exName, String value){
+        preMadeInfo.put(exName, value);
+    }
+
+    private void setSpecialWeekTMs(List<String> infoList, boolean isUserImperial,
+                                   boolean isTemplateImperial){
+        List<String> exList = new ArrayList<>();
+        exList.add("Squat (Barbell - Back)");
+        exList.add("Bench Press (Barbell - Flat)");
+        exList.add("Overhead Press (Barbell)");
+        exList.add("Deadlift (Barbell - Conventional)");
+
+        if(exList.contains(infoList.get(0))){
+            double weight;
+
+            String delims = "[_]";
+            String[] tokens = infoList.get(4).split(delims);
+
+            String unConverted = tokens[tokens.length - 1];
+
+            //weight = Double.parseDouble(tokens[tokens.length - 1]);
+            //double roundedWeight = Double.parseDouble(roundNumberToNearest5(weight));
+
+            /**
+             * What we need to do:
+             * We need to replicate the normal process to get the right value, but we also need
+             * to get the opposite as well. So, one in lbs and one in kgs.
+             */
+
+            String convertedLbs;
+            String convertedKgs;
+
+            if(isUserImperial && !isTemplateImperial){
+                // user is lbs, template is kgs
+                convertedLbs = metricToImperial(unConverted);
+                convertedLbs = roundNumberToNearest5(convertedLbs);
+                convertedKgs = imperialToMetric(unConverted);
+                convertedKgs = roundNumberToNearest5(convertedKgs);
+
+            }else if(!isUserImperial && isTemplateImperial){
+                // user is kgs, template is lbs
+                convertedLbs = metricToImperial(unConverted);
+                convertedLbs = roundNumberToNearest5(convertedLbs);
+                convertedKgs = imperialToMetric(unConverted);
+                convertedKgs = roundNumberToNearest5(convertedKgs);
+            }else{
+                convertedLbs = unConverted;
+                if(isUserImperial){
+                    double doubleVersion = Double.parseDouble
+                            (roundNumberToNearest5(unConverted));
+                    int intVersion = (int) doubleVersion;
+                    convertedLbs = String.valueOf(intVersion);
+                    convertedKgs = imperialToMetric(unConverted);
+                    convertedKgs = roundNumberToNearest5(convertedKgs);
+                }else{
+                    double doubleVersion = Double.parseDouble
+                            (roundNumberToNearest5(unConverted));
+                    int intVersion = (int) doubleVersion;
+                    convertedKgs = String.valueOf(intVersion);
+                    convertedLbs = metricToImperial(unConverted);
+                    convertedLbs = roundNumberToNearest5(convertedLbs);
+                }
+            }
+
+            String first = infoList.get(0) + "Lbs";
+            String second = infoList.get(0) + "Kgs";
+
+            setAssistanceExercise(first, convertedLbs);
+            setAssistanceExercise(second, convertedKgs);
+
+        }
+    }
+
+    public boolean isPercentageShort(String string){
+        boolean isPercentage;
+
+        char c = string.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            isPercentage = true;
+        }else{
+            isPercentage = false;
+        }
+
+        return isPercentage;
+    }
+
+    private String metricToImperial(String input){
+
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(lbsInt);
+        }else{
+            weight = input;
+            double lbsDouble = Double.parseDouble(weight) * 2.2046;
+            int lbsInt = (int) Math.round(lbsDouble);
+            newString = String.valueOf(lbsInt);
+        }
+
+
+        return newString;
+    }
+
+    private String imperialToMetric(String input){
+
+        String weight;
+        String newString;
+
+        char c = input.charAt(0);
+        String cString = String.valueOf(c);
+        if(cString.equals("p")){
+            String delims = "[_]";
+            String[] tokens = input.split(delims);
+            weight = tokens[tokens.length - 1];
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString =
+                    tokens[0] + "_" + tokens[1] + "_" + tokens[2] + "_" + String.valueOf(kgInt);
+        }else{
+            weight = input;
+            double kgDouble = Double.parseDouble(weight) / 2.2046;
+            int kgInt = (int) Math.round(kgDouble);
+            newString = String.valueOf(kgInt);
+        }
+
+        return newString;
+    }
+
+    private String roundNumberToNearest5(String weightString){
+        String rounded;
+
+        double weight;
+        int weight2;
+
+        weight = Double.parseDouble(weightString);
+
+        weight2 = (int) (5 * (Math.round(weight / 5)));
+
+        rounded = String.valueOf(weight2);
+
+        return rounded;
     }
 
     private boolean isBodyweight(String exName){

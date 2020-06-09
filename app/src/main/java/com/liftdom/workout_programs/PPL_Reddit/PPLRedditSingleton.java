@@ -105,8 +105,8 @@ public class PPLRedditSingleton {
         extraInfo.put("barbellRows", "Row (Barbell - Bent-over)");
         extraInfo.put("isWarmup", String.valueOf(isWarmup));
         extraInfo.put("version", version);
-        //extraInfo.put("benchPressA", "8@0");
-        //extraInfo.put("ohpA", "8@0");
+        extraInfo.put("benchPressA", "Bench Press (Accessory)");
+        extraInfo.put("ohpA", "Overhead Press (Accessory)");
 
         return extraInfo;
     }

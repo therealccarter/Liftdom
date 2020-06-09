@@ -41,7 +41,6 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     public boolean isUserImperial;
     boolean isEdit = false;
 
-
     public interface removeFragCallback{
         void removeFrag(String fragTag);
     }
@@ -69,8 +68,6 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     private void updateWorkoutStateForResult(){
         updateWorkoutStateForResult.updateWorkoutStateForResult(fragTag1);
     }
-
-
 
     // Butterknife
     @BindView(R.id.reps) EditText repsEditText;
@@ -347,47 +344,66 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         checkedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //unCheckedImage.setVisibility(View.INVISIBLE);
-                //checkedImage.setVisibility(View.GONE);
-                setUnCheckedView();
-                //setLoadingView();
-                updateWorkoutState.updateWorkoutState();
+                if(!isDark){
+                    //unCheckedImage.setVisibility(View.INVISIBLE);
+                    //checkedImage.setVisibility(View.GONE);
+                    setUnCheckedView();
+                    //setLoadingView();
+                    updateWorkoutState.updateWorkoutState();
+                }
             }
         });
 
         unCheckedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //unCheckedImage.setVisibility(View.GONE);
-                //checkedImage.setVisibility(View.INVISIBLE);
-                setCheckedView();
-                //setLoadingView();
-                updateWorkoutState.updateWorkoutState();
+                if(!isDark){
+                    //unCheckedImage.setVisibility(View.GONE);
+                    //checkedImage.setVisibility(View.INVISIBLE);
+                    setCheckedView();
+                    //setLoadingView();
+                    updateWorkoutState.updateWorkoutState();
+                }
             }
         });
 
         destroyFrag.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                removeFrag.removeFrag(fragTag1);
+                if(!isDark){
+                    removeFrag.removeFrag(fragTag1);
+                }
             }
         });
 
         extraOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
-                String weightText = weightEditText.getText().toString();
-                String repsText = repsEditText.getText().toString();
-                if(amrap.getVisibility() == View.VISIBLE){
-                    intent.putExtra("isAmrap", "true");
-                }else{
-                    intent.putExtra("isAmrap", "false");
+                if(!isDark){
+                    Intent intent = new Intent(v.getContext(), ExtraOptionsDialog.class);
+                    String weightText = weightEditText.getText().toString();
+                    String repsText = repsEditText.getText().toString();
+                    if(amrap.getVisibility() == View.VISIBLE){
+                        intent.putExtra("isAmrap", "true");
+                    }else{
+                        intent.putExtra("isAmrap", "false");
+                    }
+                    intent.putExtra("repsText", repsText);
+                    intent.putExtra("weightText", weightText);
+                    intent.putExtra("isPercentageString", "dontShow");
+                    startActivityForResult(intent, 3);
                 }
-                intent.putExtra("repsText", repsText);
-                intent.putExtra("weightText", weightText);
-                intent.putExtra("isPercentageString", "dontShow");
-                startActivityForResult(intent, 3);
             }
         });
+
+        if(isDark){
+            makeDark();
+        }
+
+        /**
+         * Where we at:
+         *
+         * Edit texts not becoming disabled. Color not changing. But repsWA extra
+         * options/checkmark are disabled? 
+         */
 
         return view;
     }
@@ -424,6 +440,7 @@ public class RepsWeightWAFrag extends android.app.Fragment {
     }
 
     boolean isCheckedBool;
+    boolean isDark;
 
     public boolean isChecked(){
         return isCheckedBool;
@@ -434,11 +451,40 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         //}
     }
 
+    void makeDark(){
+        isDark = true;
+
+        repsEditText.setEnabled(false);
+        repsEditText.setClickable(false);
+        repsEditText.setFocusable(false);
+
+        weightEditText.setEnabled(false);
+        weightEditText.setClickable(false);
+        weightEditText.setFocusable(false);
+
+        setTextColors(true);
+    }
+
+    void makeLight(){
+        isDark = false;
+
+        repsEditText.setEnabled(true);
+        repsEditText.setClickable(true);
+        repsEditText.setFocusable(true);
+
+        weightEditText.setEnabled(true);
+        weightEditText.setClickable(true);
+        weightEditText.setFocusable(true);
+
+        if(!isCheckedBool){
+            setTextColors(false);
+        }
+    }
+
     public void setCheckedView(){
         checkedImage.setVisibility(View.VISIBLE);
         unCheckedImage.setVisibility(View.GONE);
         //updateWorkoutState.updateWorkoutState();
-        holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
         isCheckedBool = true;
         setTextColors(true);
     }
@@ -447,7 +493,6 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         checkedImage.setVisibility(View.GONE);
         unCheckedImage.setVisibility(View.VISIBLE);
         //updateWorkoutState.updateWorkoutState();
-        holderView.setBackgroundColor(Color.parseColor("#454545"));
         isCheckedBool = false;
         setTextColors(false);
     }
@@ -464,14 +509,18 @@ public class RepsWeightWAFrag extends android.app.Fragment {
 
     private void setTextColors(boolean isChecked){
         if(isChecked){
+            holderView.setBackgroundColor(Color.parseColor("#1d1d1d"));
             repsEditText.setTextColor(Color.parseColor("#595959"));
             weightEditText.setTextColor(Color.parseColor("#595959"));
+            weightEditText.setHintTextColor(Color.parseColor("#595959"));
             unitView.setTextColor(Color.parseColor("#595959"));
             atView.setTextColor(Color.parseColor("#595959"));
             amrap.setTextColor(Color.parseColor("#595959"));
         }else{
+            holderView.setBackgroundColor(Color.parseColor("#454545"));
             repsEditText.setTextColor(Color.parseColor("#ededed"));
             weightEditText.setTextColor(Color.parseColor("#ededed"));
+            weightEditText.setHintTextColor(Color.parseColor("#ededed"));
             unitView.setTextColor(Color.parseColor("#ededed"));
             atView.setTextColor(Color.parseColor("#ededed"));
             amrap.setTextColor(Color.parseColor("#ededed"));
@@ -793,6 +842,10 @@ public class RepsWeightWAFrag extends android.app.Fragment {
             setNotBW(true);
             weightEditText.setText(weight);
         }
+    }
+
+    public void updateReps(String reps){
+        repsEditText.setText(reps);
     }
 
     @Override

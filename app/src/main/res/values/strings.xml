@@ -772,7 +772,6 @@
         15, or 4).
     </string>
 
-
     <string name="PPLRedditWarning">
         The first time you do each exercise, the weights will be 0. \n\n<b>You
         must enter in the initial weights that you can do, and the program will remember those
@@ -787,6 +786,17 @@
         subtract 5lbs/2.5kgs and <b>that is your starting weight (the weight you should enter in.)</b>
         \n\nThis idea will be shown and explained in the Workout Assistor as you do your first
         workouts to remind you.
+    </string>
+
+    <string name="PPLRedditFirstWeekInstruction">
+        For each exercise, do the exercise for a few reps with as little weight as possible. Then
+        add a little weight and do it again. Keep doing this until the speed of the movement
+        slows down.\n\n <b>Then take 5lbs/2.5kgs off and enter that weight for that
+        exercise.</b> \n\n <b>You do this by clicking the 3 vertical dots on the left of the
+        exercise name and entering the weight you have decided to use into the weight field.</b>
+        \n\n Also, remember that assistance exercises progress by increasing the reps you did with them.
+        The process for changing the reps for all sets of an exercise is the same, just enter the new value
+        in the reps field.
     </string>
 
     <string name="importantNotes">Important Notes:</string>
@@ -832,6 +842,14 @@
     </string>
 
     <string name="exercise">Exercise:</string>
+
+    <string name="changeWeightForAllSets">
+        Change <b>WEIGHT</b> for <b>all</b> sets of this exercise:</string>
+
+    <string name="changeRepsForAllSets">
+        Change <b>REPS</b> for <b>all</b> sets of this exercise:</string>
+
+    <string name="leaveBlank">(Leave empty the field or fields you don\'t want changed)</string>
 
     <string name="invalidSmolovFields">Please enter all values.</string>
 
