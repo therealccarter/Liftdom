@@ -23,22 +23,22 @@ import com.liftdom.liftdom.R;
 import com.liftdom.template_editor.ExtraOptionsDialog;
 import com.liftdom.template_editor.InputFilterMinMax;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class RepsWeightSSWAFrag extends android.app.Fragment {
+    /**
+     * A simple {@link Fragment} subclass.
+     */
+    public class RepsWeightSSWAFrag extends android.app.Fragment {
 
 
-    public RepsWeightSSWAFrag() {
-        // Required empty public constructor
-    }
+        public RepsWeightSSWAFrag() {
+            // Required empty public constructor
+        }
 
-    String repsWeightString = "false";
-    String tag;
-    boolean inflateBottomView = false;
-    boolean isEdit = false;
-    public boolean isTemplateImperial;
-    public boolean isUserImperial;
+        String repsWeightString = "false";
+        String tag;
+        boolean inflateBottomView = false;
+        boolean isEdit = false;
+        public boolean isTemplateImperial;
+        public boolean isUserImperial;
 
     public interface removeFragCallback{
         void removeFrag(String fragTag);
@@ -309,7 +309,43 @@ public class RepsWeightSSWAFrag extends android.app.Fragment {
             }
         });
 
+        if(isDark){
+            makeDark();
+        }
+
         return view;
+    }
+
+    boolean isDark;
+
+    void makeDark(){
+        isDark = true;
+
+        repsEditText.setEnabled(false);
+        repsEditText.setClickable(false);
+        repsEditText.setFocusable(false);
+
+        weightEditText.setEnabled(false);
+        weightEditText.setClickable(false);
+        weightEditText.setFocusable(false);
+
+        setTextColors(true);
+    }
+
+    void makeLight(){
+        isDark = false;
+
+        repsEditText.setEnabled(true);
+        repsEditText.setClickable(true);
+        repsEditText.setFocusable(true);
+
+        weightEditText.setEnabled(true);
+        weightEditText.setClickable(true);
+        weightEditText.setFocusable(true);
+
+        if(!isCheckedBool){
+            setTextColors(false);
+        }
     }
 
     private void changeRepsIMEtoFinish(){

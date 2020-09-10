@@ -596,10 +596,7 @@
         them in on the workout day.
     </string>
 
-    <string name="W5314BRealDescription">
-        In this program, 3 days a week you\'ll be doing a warm up, two main exercises (eight sets
-        each), then 50 reps each of three lighter assistance exercises. The main exercises will
-        rotate so you\'ll be getting a full body workout done each time but in different ways.\n
+    <string name="W5314BTrash">
         The first day is Squat and Bench Press, the second day is Deadlift and Overhead Press, and
         the third day is Bench Press and Squats. Plus accessory work each time. \nThe weights of
         the main lifts will be percentages based on a training max (TM) (90% of your true
@@ -614,7 +611,69 @@
         (upper body) and 10lbs/5kgs (lower body). If you think that\'s still too much, you can
         always manually edit your TM by navigating to your workouts page in Workout Programming and
         pressing the edit button. Instructions will be shown in Today\'s Workout so you are aware
+        of what to do on the relevant days
+    </string>
+
+    <string name="W5314BRealDescription">
+        The weights of
+        the main lifts will be percentages based on a training max (TM) (90% of your true
+        max). For three weeks, the percentages increase by 5% each week, and then the percentages
+        reset and the TM increases by 5lbs/2.5kgs for upper body and 10lbs/5kgs for
+        lower body. After nine weeks or three sets of these three weeks, you will perform a test
+        which will determine whether your TM increases as it would after a normal three
+        week cycle or if you should lower it.\n The test is a sequence of sets rising in weight
+        by 10% each time, until you get to a set asking for 3-5 reps at 100% of your TM. If you
+        complete (and enter into the rep field) 3 or greater reps, your TM will increase like
+        normal. If you complete/enter less than 3 reps, your TM will decrease by 5lbs/2.5kgs
+        (upper body) and 10lbs/5kgs (lower body). If you think that\'s still too much, you can
+        always manually edit your TM by navigating to your workouts page in Workout Programming and
+        pressing the edit button. Instructions will be shown in Today\'s Workout so you are aware
         of what to do on the relevant days.
+    </string>
+
+    <string name="W531fBD1">
+        In this program, 3 days a week you\'ll be doing a warm up, two main exercises (eight sets
+        each), then 50 reps each of three lighter assistance exercises. The main exercises will
+        rotate so you\'ll be getting a full body workout done each time but in different ways.
+
+    </string>
+
+    <string name="scheduleColon">Schedule: </string>
+
+    <string name="onOffW531fB">On | Off | On | Off | On | Off | Off</string>
+
+    <string name="scheduleW531fB">\n
+        <b>On Day 1</b>: Squat - Bench Press - Accessories\n
+        <b>On Day 2</b>: Deadlifts - Overhead Press - Accessories\n
+        <b>On Day 3</b>: Bench Press - Squats - Accessories\n
+    </string>
+
+    <string name="progressionW531fB">\n
+        - The main lifts will be percentages based on a training max (TM) (90% of your true
+        max)\n\n
+        - For three weeks, the percentages increase by 5% each week, and then the percentages
+        reset and the TM increases by 5lbs/2.5kgs for upper body and 10lbs/5kgs for
+        lower body\n\n
+        -After nine weeks (three sets of the three weeks), you will <b>perform a test</b>
+        which will determine whether your TM increases as it would after a normal three
+        week cycle or if you should lower it\n\n
+    </string>
+
+    <string name="willShowW531fB">
+        Instructions will be shown again on the Today\'s Workout page so you are aware
+        of what to do on the relevant days.
+    </string>
+
+    <string name="textTextW531fB">
+        - The test is a sequence of sets rising in weight
+        by 10% each time, until you get to a set asking for 3-5 reps at 100% of your TM\n\n
+        - If you complete (and enter into the rep field) 3 or greater reps, your TM will
+        increase like normal.\n\n
+        - If you complete/enter less than 3 reps, your TM will decrease by 5lbs/2.5kgs
+        (upper body) and 10lbs/5kgs (lower body)\n\n
+        - If you think that\'s still too much, you can
+        always manually edit your TM by navigating to your workouts page in Workout Programming and
+        pressing the edit button
     </string>
 
     <string name="W5314BSpecialWeekInstruction">
@@ -796,7 +855,7 @@
         exercise name and entering the weight you have decided to use into the weight field.</b>
         \n\n Also, remember that assistance exercises progress by increasing the reps you did with them.
         The process for changing the reps for all sets of an exercise is the same, just enter the new value
-        in the reps field.
+        in the reps field. This isn\'t necessary for the main lifts.
     </string>
 
     <string name="importantNotes">Important Notes:</string>

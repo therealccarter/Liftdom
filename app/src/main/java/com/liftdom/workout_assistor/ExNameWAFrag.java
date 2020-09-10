@@ -57,6 +57,7 @@ public class ExNameWAFrag extends android.app.Fragment
     boolean isComingFromReps;
     boolean isComingFromReps2;
     public String templateName;
+    public String topLevelKey;
 
     //W531fB
     public boolean isAssistanceW531fB;
@@ -100,6 +101,7 @@ public class ExNameWAFrag extends android.app.Fragment
 
     public interface sendAssistanceExerciseCallback{
         void setAssistanceExercise(String exName, int type);
+        void setAssistanceExercise(String exName, String value);
     }
 
     private sendAssistanceExerciseCallback sendAssistance;
@@ -267,6 +269,8 @@ public class ExNameWAFrag extends android.app.Fragment
                 intent.putExtra("exID", exID);
                 intent.putExtra("exercise", getExerciseName());
                 intent.putExtra("isImperialPOV", isUserImperial);
+                intent.putExtra("isPPLR", String.valueOf(isPPLReddit));
+                intent.putExtra("isMainLift", String.valueOf(isMainLiftPPLR()));
                 startActivityForResult(intent, 3);
             }
         });
@@ -440,6 +444,12 @@ public class ExNameWAFrag extends android.app.Fragment
         }
     }
 
+    /**
+     * Make sure callbacks/adding to extra info correctly.
+     * Not have this for bodyweight exercises.
+     * Have this for superset exercises.
+     */
+
     void makeDark(){
         isDark = true;
         if(!repsWeightFragList1.isEmpty()){
@@ -554,6 +564,24 @@ public class ExNameWAFrag extends android.app.Fragment
                         }
                         if(!reps.isEmpty()){
                             updateChildReps(reps);
+                        }else{
+                            if(isPPLReddit){
+
+                            }
+                            reps = getLowestChildReps();
+                        }
+                        if(isPPLReddit){
+                            if(isMainLiftPPLR()){
+                                if(!isBodyweight(getExerciseName())){
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), weight);
+                                }
+                            }else{
+                                if(isBodyweight(getExerciseName())){
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), reps + "@B.W.");
+                                }else{
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), reps + "@" + weight);
+                                }
+                            }
                         }
                         makeLight();
                         updateWorkoutStateFast();
@@ -566,6 +594,26 @@ public class ExNameWAFrag extends android.app.Fragment
                         }else{
                             updateChildWeights.updateChildFragWeights(fragTag1, data.getStringExtra(
                                     "exName"), weight, reps);
+                        }
+                        if(!reps.isEmpty()){
+                            updateChildReps(reps);
+                        }else{
+                            if(isPPLReddit){
+                                reps = getLowestChildReps();
+                            }
+                        }
+                        if(isPPLReddit){
+                            if(isMainLiftPPLR()){
+                                if(!isBodyweight(getExerciseName())){
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), weight);
+                                }
+                            }else{
+                                if(isBodyweight(getExerciseName())){
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), reps + "@B.W.");
+                                }else{
+                                    sendAssistance.setAssistanceExercise(getExerciseName(), reps + "@" + weight);
+                                }
+                            }
                         }
                         makeLight();
                     }
@@ -659,6 +707,34 @@ public class ExNameWAFrag extends android.app.Fragment
                 }
             }
         }
+    }
+
+    private boolean isMainLiftPPLR(){
+        boolean isMainLift = false;
+
+        List<String> mainList = new ArrayList<>();
+
+        mainList.add("Bench Press (Barbell - Flat)");
+        mainList.add("Overhead Press (Barbell)");
+        mainList.add("Squat (Barbell - Back)");
+        mainList.add("Deadlift (Barbell - Conventional)");
+        mainList.add("Row (Barbell - Bent-over)");
+
+        if(topLevelKey != null){
+            if(topLevelKey.equals("1_key")){
+                if(mainList.contains(getExerciseName())){
+                    isMainLift = true;
+                }
+            }
+        }
+
+        /**
+         * How do we differentiate from the normal bench/ohp and the accessory version?
+         *
+         * Could check the reps of first reps frag...but then we'd have to lock the reps.
+         */
+
+        return isMainLift;
     }
 
     public void updateChildWeights(String weight, boolean isBW){
@@ -820,6 +896,8 @@ public class ExNameWAFrag extends android.app.Fragment
                                     newSubList.add(arrayList.get(i + 1));
                                     exNameFrag.infoList.addAll(newSubList);
                                     exNameFrag.fragTag2 = tag;
+                                    exNameFrag.isPPLReddit = isPPLReddit;
+                                    exNameFrag.isFirstTimePPLR = isFirstTimePPLR;
                                     if(count + 1 == finalList.size()){
                                         exNameFrag.inflateBottomView = true;
                                     }
@@ -1002,6 +1080,37 @@ public class ExNameWAFrag extends android.app.Fragment
         return exerciseNameView.getText().toString();
     }
 
+    private String getLowestChildReps(){
+        String lowest = "0";
+
+        List<String> parentExInfoList = new ArrayList<>();
+
+        if(repsWeightFragList1.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList1){
+                parentExInfoList.add(repsWeightWAFrag.getReps());
+            }
+        }
+
+        if(repsWeightFragList2.size() != 0){
+            for(RepsWeightWAFrag repsWeightWAFrag : repsWeightFragList2){
+                parentExInfoList.add(repsWeightWAFrag.getReps());
+            }
+        }
+
+        if(!parentExInfoList.isEmpty()){
+            lowest = parentExInfoList.get(0);
+            for(String string : parentExInfoList){
+                int firstWeight = Integer.parseInt(lowest);
+                int secondWeight = Integer.parseInt(string);
+                if(secondWeight < firstWeight){
+                    lowest = String.valueOf(secondWeight);
+                }
+            }
+        }
+
+        return lowest;
+    }
+
     public String getHighestChildWeight(){
         String highestWeight = "0";
 
@@ -1018,7 +1127,6 @@ public class ExNameWAFrag extends android.app.Fragment
                 parentExInfoList.add(repsWeightWAFrag.getWeight());
             }
         }
-
 
         if(!parentExInfoList.isEmpty()){
             for(String string : parentExInfoList){

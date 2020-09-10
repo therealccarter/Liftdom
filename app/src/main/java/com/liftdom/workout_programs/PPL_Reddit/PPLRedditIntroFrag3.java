@@ -267,7 +267,7 @@ public class PPLRedditIntroFrag3 extends SlideFragment {
         }
         if(overheadTricepsExtensionsRB.isChecked()){
             PPLRedditSingleton.getInstance().overheadTricepsExtensions =
-                    tricepsPushdownsRB.getText().toString();
+                    overheadTricepsExtensionsRB.getText().toString();
         }else if(skullcrushersRB2.isChecked()){
             PPLRedditSingleton.getInstance().overheadTricepsExtensions =
                     skullcrushersRB2.getText().toString();

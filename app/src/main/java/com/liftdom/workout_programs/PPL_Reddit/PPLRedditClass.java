@@ -101,6 +101,12 @@ public class PPLRedditClass {
      *
      *
      *
+     * ok we got it to darken the reps frag.
+     * and added an options page for ex name to add change all weight/all reps for an exercise.
+     * Need to not have that for bodyweight exercises.
+     * And add that for superset exercises.
+     * And make sure callbacks are working and adding to extra info correctly.
+     *
      */
 
     //Remember rear delt flyes replacing face pulls must be supersetted with band pull aparts
@@ -297,7 +303,14 @@ public class PPLRedditClass {
         String delims = "[_]";
         String[] tokens = dayType.split(delims);
 
-        int type = Integer.parseInt(tokens[1]);
+        int type;
+
+        if(tokens.length == 1){
+            type = 0;
+        }else{
+            type = Integer.parseInt(tokens[1]);
+        }
+
 
         if(tokens[0].equals("push")){
             generateTodayExercises(1);
@@ -727,11 +740,11 @@ public class PPLRedditClass {
         }
 
         if(type == 1){
-            mainLiftList2.add("Overhead Press (Barbell)");
+            mainLiftList2.add("Overhead Press (Accessory)");
             mainLiftList2.add("3x" + mExtraInfo.get(ohpA));
             todayExercises.put("ohpA", "Overhead Press (Accessory)");
         }else if(type == 2){
-            mainLiftList2.add("Bench Press (Barbell - Flat)");
+            mainLiftList2.add("Bench Press (Accessory)");
             mainLiftList2.add("3x" + mExtraInfo.get(benchPressA));
             todayExercises.put("benchPressA", "Bench Press (Accessory)");
         }

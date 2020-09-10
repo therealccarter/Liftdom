@@ -731,6 +731,16 @@ public class RepsWeightWAFrag extends android.app.Fragment {
         return weightText;
     }
 
+    public String getReps(){
+        String repsText = repsEditText.getText().toString();
+
+        if(repsText.isEmpty()){
+            repsText = "0";
+        }
+
+        return repsText;
+    }
+
     public String getInfo(){
 
         String repsText = repsEditText.getText().toString();

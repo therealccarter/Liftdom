@@ -306,6 +306,7 @@ future constructor for premades
 Auto populate maxes for w531fb (tm's, so 90% of maxes)
 we need to check w531fb and smolov, that shit is fucked.
 Premades need future workout calendar compat
+Made W531fB intro frag look nicer
 
 ----------------------
 =========================================== RIGHT NOW =================================================================================================
@@ -318,6 +319,8 @@ Get these premades working correctly:
         - shut down AS to test
         done - program name/rest timer stuff will be on 4th
         done - week format/begin options will be on 2nd
+        - right now I need to add functionality to supersets that is already in place for normal
+            sets.
     - PPL
         - normal template
     - BW routine

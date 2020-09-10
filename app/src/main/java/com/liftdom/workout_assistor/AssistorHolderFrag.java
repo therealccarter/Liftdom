@@ -2082,6 +2082,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.fragTag = tag;
                         exNameFrag.isEdit = true;
                         exNameFrag.templateName = templateName;
+                        exNameFrag.topLevelKey = entry.getKey();
                         if(getActivity() != null){
                             if (!getActivity().isFinishing()) {
                                 fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -2166,6 +2167,10 @@ public class AssistorHolderFrag extends android.app.Fragment
          *
          * What do we do once in AS though?
          *
+         * https://www.youtube.com/watch?v=thj44G9-8SQ
+         * https://www.youtube.com/watch?v=b3oTBUkLDXo
+         * https://www.youtube.com/watch?v=xGCUnOi2Dv0
+         *
          */
 
         for(int i = 0; i < map.size(); i++) {
@@ -2190,6 +2195,7 @@ public class AssistorHolderFrag extends android.app.Fragment
                         exNameFrag.fragTag = tag;
                         exNameFrag.templateName = templateName;
                         exNameFrag.isPPLReddit = true;
+                        exNameFrag.topLevelKey = entry.getKey();
                         if (getActivity() != null) {
                             if (!getActivity().isFinishing()) {
                                 fragmentTransaction.add(R.id.exInfoHolder2, exNameFrag, tag);
@@ -2438,7 +2444,26 @@ public class AssistorHolderFrag extends android.app.Fragment
         }
     }
 
-    void setAssistanceExercise(String exName, String value){
+    public void setAssistanceExercise(String exName, String value){
+        /**
+         * You've already checked. So just check if there's an @ in it and if it's bench/ohp.
+         * If tokens.length is 1, it's a main lift, if 2 it's not. then give it the funky name.
+         */
+        if(preMadeInfo.get("type").equals("PPLReddit")){
+            String delims = "[@]";
+            String[] tokens = value.split(delims);
+            if(tokens.length == 1){
+                preMadeInfo.put(exName, value);
+            }else{
+                if(exName.equals("Bench Press (Barbell - Flat)")){
+                    preMadeInfo.put(exName, value);
+                }else if(exName.equals("Overhead Press (Barbell)")){
+                    preMadeInfo.put(exName, value);
+                }else{
+                    preMadeInfo.put(exName, value);
+                }
+            }
+        }
         preMadeInfo.put(exName, value);
     }
 
